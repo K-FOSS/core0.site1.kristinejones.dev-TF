@@ -1,7 +1,7 @@
 job "Bitwarden" {
   datacenters = ["core0site1"]
 
-  group "Vault" {
+  group "Bitwarden" {
     count = 1
 
     network {
