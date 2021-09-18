@@ -17,7 +17,7 @@ provider "nomad" {
   region  = "global"
 }
 
-resource "nomad_job" "Grafana" {
+resource "nomad_job" "Nomad" {
   jobspec = templatefile("${path.module}/Jobs/Bitwarden.hcl", {
     Database = var.Bitwarden.Database
   })

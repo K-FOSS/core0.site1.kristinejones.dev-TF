@@ -1,5 +1,5 @@
 variable "Bitwarden" {
-  value = object({
+  type = object({
     Database = object({
       Hostname = string
 
