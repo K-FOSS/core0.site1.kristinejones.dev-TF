@@ -24,10 +24,10 @@ job "Bitwarden" {
     task "vault" {
       driver = "docker"
 
-      ports = ["http"]
-
       config {
         image        = "vaultwarden/server:alpine"
+
+        ports = ["http"]
       }
 
       env {
