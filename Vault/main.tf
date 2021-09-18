@@ -1,5 +1,10 @@
 terraform {
   required_providers {
+    #
+    # Hashicorp Vault
+    #
+    # Docs: https://registry.terraform.io/providers/hashicorp/vault/latest/docs
+    #
     vault = {
       source = "hashicorp/vault"
       version = "2.22.1"
@@ -25,4 +30,8 @@ resource "vault_generic_secret" "TerraformTest" {
     testing = "HelloWorld"
     helloworld = "Testing123"
   })
+}
+
+data "vault_generic_secret" "Bitwarden" {
+  path = "keycloak/BitwardenDB"
 }

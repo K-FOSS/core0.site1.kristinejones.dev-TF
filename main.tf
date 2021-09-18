@@ -15,3 +15,18 @@ terraform {
 module "Vault" {
   source = "./Vault"
 }
+
+module "Nomad" {
+  source = "./Nomad"
+
+  Bitwarden = {
+    Database = {
+      Hostname = "master.site0core1psql.service.kjdev"
+
+      Username = module.Vault.BitwardenDB.data["username"]
+      Password = module.Vault.BitwardenDB.data["password"]
+
+      Database = "bitwarden"
+    }
+  }
+}
