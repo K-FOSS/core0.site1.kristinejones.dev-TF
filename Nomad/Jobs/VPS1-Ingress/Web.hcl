@@ -7,7 +7,7 @@ job "vps1-ingress" {
   group "ingress-group" {
 
     network {
-      mode = "bridge"
+      mode = "host"
     }
 
     service {
