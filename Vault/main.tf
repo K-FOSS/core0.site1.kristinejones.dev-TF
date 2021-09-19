@@ -32,6 +32,25 @@ resource "vault_generic_secret" "TerraformTest" {
   })
 }
 
+#
+# Cloudflare
+# 
+data "vault_generic_secret" "Cloudflare" {
+  path = "${vault_mount.Terraform.path}/Cloudflare"
+}
+
+#
+# Caddy
+#
+data "vault_generic_secret" "Caddy" {
+  path = "${vault_mount.Terraform.path}/Caddy"
+}
+
+
+#
+# Bitwarden
+#
+
 data "vault_generic_secret" "Bitwarden" {
   path = "keycloak/BitwardenDB"
 }

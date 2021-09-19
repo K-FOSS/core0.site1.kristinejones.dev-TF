@@ -10,3 +10,15 @@ variable "Bitwarden" {
     })
   })
 }
+
+variable "Ingress" {
+  type = object({
+    Consul = object({
+      Token = string
+      EncryptionKey = string
+    })
+    Cloudflare = object({
+      Token = string
+    })
+  })
+}

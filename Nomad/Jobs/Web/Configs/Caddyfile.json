@@ -1,0 +1,98 @@
+{
+  "admin": {
+    "listen": "0.0.0.0:2019"
+  },
+  "storage": {
+    "module": "consul",
+    "address": "{{ env \"CONSUL_HTTP_ADDR\" }}",
+    "prefix": "caddytls",
+    "token": "${Consul.Token}",
+    "aes_key": "${Consul.EncryptionKey}"
+  },
+  "apps": {
+    "http": {
+      "http_port": 8080,
+      "https_port": 8443,
+      "servers": {
+        "CoreWeb": {
+          "listen": [
+            ":8443"
+          ],
+          "automatic_https": {
+            "disable": false
+          },
+          "experimental_http3": false,
+          "routes": [
+            {
+              "match": [
+                {
+                  "host": [
+                    "*.kristianjones.dev"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "subroute",
+                  "routes": [
+                    {
+                      "match": [
+                        {
+                          "host": [
+                            "bitwarden.kristianjones.dev"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http"
+                          },
+                          "upstreams": [
+                            {
+                              "dial": "{{ env \"NOMAD_UPSTREAM_ADDR_bitwarden-cont\" }}"
+                            }
+                          ]
+                        }
+                      ],
+                      "terminal": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "tls": {
+      "automation": {
+        "policies": [
+          {
+            "subjects": [
+              "*.kristianjones.dev"
+            ],
+            "issuers": [
+              {
+                "module": "acme",
+                "challenges": {
+                  "dns": {
+                    "provider": {
+                      "name": "cloudflare",
+                      "api_token": "{env.CF_TOKEN}"
+                    }
+                  }
+                }
+              }
+            ],
+            "storage": {
+              "module": "consul",
+              "prefix": "caddytls"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

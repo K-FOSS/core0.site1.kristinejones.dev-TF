@@ -29,4 +29,16 @@ module "Nomad" {
       Database = "bitwarden"
     }
   }
+
+  Ingress = {
+    Cloudflare = {
+      Token = module.Vault.Cloudflare.data["Token"]
+    }
+
+    Consul = {
+      Token = module.Vault.Caddy.data["CONSUL_HTTP_TOKEN"]
+      EncryptionKey = module.Vault.Caddy.data["CADDY_CLUSTERING_CONSUL_AESKEY"]
+    }
+  }
+
 }
