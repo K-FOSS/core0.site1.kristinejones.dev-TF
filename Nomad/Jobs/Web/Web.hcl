@@ -36,6 +36,11 @@ job "ingress" {
         image        = "kristianfjones/caddy-core-docker:vps1"
       
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
+
+      }
+
+      env = {
+        CADDY_CLUSTERING_CONSUL_AESKEY = "${Consul.EncryptionKey}"
       }
 
       template {
