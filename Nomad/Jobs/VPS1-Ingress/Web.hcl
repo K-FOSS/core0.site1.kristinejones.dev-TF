@@ -1,11 +1,11 @@
 job "vps1-ingress" {
-  datacenters = ["dc1"]
+  datacenters = ["dc1", "core0site1"]
 
   # This group will have a task providing the ingress gateway automatically
   # created by Nomad. The ingress gateway is based on the Envoy proxy being
   # managed by the docker driver.
   group "ingress-group" {
-    count = 3
+    count = 7
 
     constraint {
       operator  = "distinct_hosts"
