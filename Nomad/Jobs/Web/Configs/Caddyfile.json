@@ -4,7 +4,7 @@
   },
   "storage": {
     "module": "consul",
-    "address": "{{ env "CONSUL_HTTP_ADDR" }}",
+    "address": "172.16.0.10:8500",
     "prefix": "caddytls",
     "token": "${Consul.Token}",
     "aes_key": "${Consul.EncryptionKey}"
