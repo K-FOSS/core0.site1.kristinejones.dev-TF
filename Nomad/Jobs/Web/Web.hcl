@@ -40,7 +40,7 @@ job "ingress" {
 
       template {
         data = <<EOF
-${CADDYFILE}
+${Caddyfile}
 EOF
 
         destination = "local/caddyfile.json"
