@@ -5,6 +5,12 @@ job "vps1-ingress" {
   # created by Nomad. The ingress gateway is based on the Envoy proxy being
   # managed by the docker driver.
   group "ingress-group" {
+    count = 3
+
+    constraint {
+      operator  = "distinct_hosts"
+      value     = "true"
+    }
 
     network {
       mode = "host"
