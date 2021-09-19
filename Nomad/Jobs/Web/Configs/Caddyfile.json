@@ -4,7 +4,7 @@
   },
   "storage": {
     "module": "consul",
-    "address": "{{ env \"CONSUL_HTTP_ADDR\" }}",
+    "address": "{{ env "CONSUL_HTTP_ADDR" }}",
     "prefix": "caddytls",
     "token": "${Consul.Token}",
     "aes_key": "${Consul.EncryptionKey}"
@@ -51,7 +51,7 @@
                           },
                           "upstreams": [
                             {
-                              "dial": "{{ env \"NOMAD_UPSTREAM_ADDR_bitwarden-cont\" }}"
+                              "dial": "{{ env "NOMAD_UPSTREAM_ADDR_bitwarden-cont" }}"
                             }
                           ]
                         }
