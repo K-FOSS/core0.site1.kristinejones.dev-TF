@@ -7,14 +7,14 @@ job "ingress" {
     network {
       mode = "bridge"
 
-      port "http" {
+      port "https" {
         static = 8443
       }
     }
 
     service {
       name = "ingressweb-cont"
-      port = "http"
+      port = "https"
 
       task = "web"
 
@@ -23,6 +23,8 @@ job "ingress" {
           proxy {
             upstreams {
               destination_name = "bitwarden-cont"
+
+              local_bind_port = 8085
             }
           }
         }

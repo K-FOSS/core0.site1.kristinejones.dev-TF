@@ -18,7 +18,7 @@ provider "nomad" {
 }
 
 resource "nomad_job" "Nomad" {
-  jobspec = templatefile("${path.module}/Jobs/Bitwarden.hcl", {
+  jobspec = templatefile("${path.module}/Jobs/Bitwarden/Bitwarden.hcl", {
     Database = var.Bitwarden.Database
   })
 }
