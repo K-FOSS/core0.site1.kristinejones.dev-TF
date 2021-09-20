@@ -7,6 +7,6 @@ output "Patroni" {
     Prefix = locals.Patroni.Prefix
     ServiceName = locals.Patroni.ServiceName
 
-    Token = consul_acl_token_secret_id.PatroniToken.secret_id
+    Token = data.consul_acl_token_secret_id.PatroniToken.secret_id
   }
 }
