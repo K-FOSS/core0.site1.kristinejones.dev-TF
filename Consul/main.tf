@@ -26,7 +26,7 @@ resource "random_uuid" "PatroniToken" { }
 
 
 resource "consul_acl_policy" "PatroniACL" {
-  name  = "Patroni"
+  name  = local.Patroni.ServiceName
 
   rules = templatefile("${path.module}/ACLs/Patroni.hcl", local.Patroni)
 }
