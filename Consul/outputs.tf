@@ -4,8 +4,8 @@ output "Patroni" {
     Port = 8500
 
 
-    Prefix = locals.Patroni.Prefix
-    ServiceName = locals.Patroni.ServiceName
+    Prefix = local.Patroni.Prefix
+    ServiceName = local.Patroni.ServiceName
 
     Token = data.consul_acl_token_secret_id.PatroniToken.secret_id
   }
