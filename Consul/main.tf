@@ -12,6 +12,12 @@ terraform {
   }
 }
 
+provider "consul" {
+  address    = "core0.site1.kristianjones.dev:8500"
+  datacenter = "dc1"
+}
+
+
 locals {
   Patroni = var.Patroni
 }
