@@ -4,10 +4,10 @@ job "Patroni" {
   group "postgres-database" {
     count = 3
 
-    volume "${Volume.name}" {
+    volume "patroni-vol" {
       type      = "csi"
       read_only = false
-      source    = "${Volume.name}"
+      source    = "patroni-vol"
       attachment_mode = "file-system"
       access_mode     = "multi-node-multi-writer"
     }
@@ -85,7 +85,7 @@ job "Patroni" {
       }
 
       volume_mount {
-        volume      = "${Volume.name}"
+        volume      = "patroni-vol"
         destination = "/data"
       }
 
