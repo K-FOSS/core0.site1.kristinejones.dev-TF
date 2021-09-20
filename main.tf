@@ -28,8 +28,8 @@ module "Consul" {
   source = "./Consul"
 
   Patroni = {
-    Prefix = "patroni"
-    ServiceName = "patroni"
+    Prefix = "patroninew"
+    ServiceName = "patroninew"
   }
 }
 
