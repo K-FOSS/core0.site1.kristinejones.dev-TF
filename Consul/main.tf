@@ -36,7 +36,7 @@ resource "consul_acl_token" "PatroniToken" {
 
   description = "Patroni PostgreSQL Database"
 
-  policies = ["${consul_acl_policy.CoreVaultACL.name}"]
+  policies = ["${consul_acl_policy.PatroniACL.name}"]
   local = true
 }
 
