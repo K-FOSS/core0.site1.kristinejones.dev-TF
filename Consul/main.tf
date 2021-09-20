@@ -32,7 +32,7 @@ resource "consul_acl_policy" "PatroniACL" {
 }
 
 resource "consul_acl_token" "PatroniToken" {
-  accessor_id = random_uuid.CoreVaultToken.result
+  accessor_id = random_uuid.PatroniToken.result
 
   description = "Patroni PostgreSQL Database"
 
