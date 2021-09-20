@@ -35,13 +35,6 @@ job "Patroni" {
       meta {
         id = "$${NOMAD_ALLOC_INDEX}"
       }
-
-      check {
-        type     = "tcp"
-        port     = "psql"
-        interval = "10s"
-        timeout  = "2s"
-      }
     }
 
     service {
@@ -55,17 +48,6 @@ job "Patroni" {
 
       meta {
         id = "$${NOMAD_ALLOC_INDEX}"
-      }
-
-      check {
-        type     = "http"
-        port     = "http"
-        path     = "/_healthz"
-        interval = "5s"
-        timeout  = "2s"
-        header {
-          Authorization = ["Basic ZWxhc3RpYzpjaGFuZ2VtZQ=="]
-        }
       }
     }
 
