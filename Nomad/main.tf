@@ -63,8 +63,8 @@ resource "nomad_job" "Ingress" {
 resource "nomad_volume" "Patroni" {
   type                  = "csi"
   plugin_id             = "truenas"
-  volume_id             = "patroni-vol"
-  name                  = "patroni-vol"
+  volume_id             = "patronidata-vol"
+  name                  = "patronidata-vol"
   external_id           = "test-vol"
 
   capability {
