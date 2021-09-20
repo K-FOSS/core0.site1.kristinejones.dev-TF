@@ -54,3 +54,8 @@ data "vault_generic_secret" "Caddy" {
 data "vault_generic_secret" "Bitwarden" {
   path = "keycloak/BitwardenDB"
 }
+
+#
+# PostgreSQL
+#
+

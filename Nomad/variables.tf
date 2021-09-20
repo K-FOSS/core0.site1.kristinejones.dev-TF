@@ -1,3 +1,7 @@
+#
+# Bitwarden
+# 
+
 variable "Bitwarden" {
   type = object({
     Database = object({
@@ -11,6 +15,10 @@ variable "Bitwarden" {
   })
 }
 
+#
+# Caddy Web Ingress
+#
+
 variable "Ingress" {
   type = object({
     Consul = object({
@@ -21,4 +29,42 @@ variable "Ingress" {
       Token = string
     })
   })
+}
+
+#
+# Grafana
+#
+
+variable "Grafana" {
+  type = object({
+    Database = object({
+      Hostname = string
+
+      Username = string
+      Password = string
+
+      Database = string
+    })
+  })
+}
+
+#
+# Patroni
+#
+
+variable "Patroni" {
+  type = object({
+    Consul = object({
+      Hostname = string
+      Port = number
+
+      Token = string
+    
+      Prefix = string
+      ServiceName = string
+    })
+  })
+  sensitive = true
+
+  description = "Patroni Configuration"
 }

@@ -1,0 +1,106 @@
+#
+# Docs: https://patroni.readthedocs.io/en/master/SETTINGS.html#global-universal
+#
+scope: ${Consul.ServiceName}
+namespace: ${Consul.Prefix}
+name: postgresql{{ env "NOMAD_ALLOC_INDEX" }}
+
+#
+# Docs: https://patroni.readthedocs.io/en/master/SETTINGS.html#consul
+#
+consul:
+  host: ${Consul.Hostname}
+  url: http://${Consul.Hostname}:${Consul.Port}
+  register_service: true
+  token: ${Consul.Token}
+
+#
+# Docs: https://patroni.readthedocs.io/en/master/SETTINGS.html#log
+#
+
+#
+# Docs: https://patroni.readthedocs.io/en/latest/SETTINGS.html#rest-api
+#
+restapi:
+  #
+  # Networking/Connection
+  #
+  listen: 0.0.0.0:{{ env "NOMAD_PORT_http" }}
+  connect_address: {{ env "NOMAD_ALLOC_INDEX" }}.patroni.service.kjdev:{{ env "NOMAD_PORT_http" }}
+
+#
+# Docs: https://patroni.readthedocs.io/en/master/SETTINGS.html#bootstrap-configuration
+#
+bootstrap:
+  dcs:
+    ttl: 30
+    loop_wait: 10
+    retry_timeout: 10
+    maximum_lag_on_failover: 1048576
+#    master_start_timeout: 300
+#    synchronous_mode: false
+    #standby_cluster:
+      #host: 127.0.0.1
+      #port: 1111
+      #primary_slot_name: patroni
+    postgresql:
+      use_pg_rewind: true
+#      use_slots: true
+      parameters:
+#        wal_level: hot_standby
+#        hot_standby: "on"
+#        max_connections: 100
+#        max_worker_processes: 8
+#        wal_keep_segments: 8
+#        max_wal_senders: 10
+#        max_replication_slots: 10
+#        max_prepared_transactions: 0
+#        max_locks_per_transaction: 64
+#        wal_log_hints: "on"
+#        track_commit_timestamp: "off"
+#        archive_mode: "on"
+#        archive_timeout: 1800s
+#        archive_command: mkdir -p ../wal_archive && test ! -f ../wal_archive/%f && cp %p ../wal_archive/%f
+#      recovery_conf:
+#        restore_command: cp ../wal_archive/%f %p
+
+  # some desired options for 'initdb'
+  initdb:  # Note: It needs to be a list (some options need values, others are switches)
+    - encoding: UTF8
+    - data-checksums
+  pg_hba:  # Add following lines to pg_hba.conf after running 'initdb'
+    - host replication replicator 172.16.0.0/25 md5
+    - host all all 0.0.0.0/0 md5
+
+#
+# Docs: https://patroni.readthedocs.io/en/master/SETTINGS.html#postgresql
+#
+postgresql:
+  #
+  # Networking/Connection
+  # 
+  listen: 0.0.0.0:5432
+  connect_address: {{ env "NOMAD_ALLOC_INDEX" }}.patroni-store.service.kjdev:5432
+
+  #
+  # Data Storage
+  #
+  data_dir: /data/postgresql{{ env "NOMAD_ALLOC_INDEX" }}
+
+  #
+  # Auth
+  #
+  authentication:
+    replication:
+      username: replicator
+      password: rep-pass
+    superuser:
+      username: postgres
+      password: RANDOM_PASS
+    rewind:  # Has no effect on postgres 10 and lower
+      username: rewind_user
+      password: rewind_password
+
+#
+# Docs: https://patroni.readthedocs.io/en/master/SETTINGS.html#tags
+#

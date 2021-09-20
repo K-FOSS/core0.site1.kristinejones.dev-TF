@@ -26,6 +26,12 @@ job "ingress" {
 
               local_bind_port = 8085
             }
+
+            upstreams {
+              destination_name = "grafana-cont"
+
+              local_bind_port = 8086
+            }
           }
         }
       }

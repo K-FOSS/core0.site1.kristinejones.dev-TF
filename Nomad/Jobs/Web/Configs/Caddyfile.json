@@ -57,7 +57,53 @@
                         }
                       ],
                       "terminal": true
-                    }
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
+                            "grafana.kristianjones.dev"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http"
+                          },
+                          "upstreams": [
+                            {
+                              "dial": "{{ env "NOMAD_UPSTREAM_ADDR_grafana-cont" }}"
+                            }
+                          ]
+                        }
+                      ],
+                      "terminal": true
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
+                            "vault.kristianjones.dev"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http"
+                          },
+                          "upstreams": [
+                            {
+                              "dial": "{{ env "NOMAD_UPSTREAM_ADDR_grafana-cont" }}"
+                            }
+                          ]
+                        }
+                      ],
+                      "terminal": true
+                    },
                   ]
                 }
               ]
