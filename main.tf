@@ -39,7 +39,7 @@ module "Consul" {
 #
 
 module "GrafanaDatabase" {
-  source = "./Consul"
+  source = "./Database"
 
   Credentials = module.Vault.Database
 }
