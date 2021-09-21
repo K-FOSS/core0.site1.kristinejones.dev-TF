@@ -63,7 +63,7 @@ resource "random_string" "AuthentikSecretKey" {
 
 resource "nomad_job" "Authentik" {
   jobspec = templatefile("${path.module}/Jobs/Authentik/main.hcl", {
-    Database = var.Authentik
+    Database = var.Authentik.Database
     SECRET_KEY = "${random_string.AuthentikSecretKey.result}"
   })
 }
