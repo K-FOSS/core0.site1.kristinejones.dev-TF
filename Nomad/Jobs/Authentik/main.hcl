@@ -48,7 +48,7 @@ job "authentik" {
         #
         # Database
         #
-        AUTHENTIK_POSTGRESQL__HOST = "${Database.Host}"
+        AUTHENTIK_POSTGRESQL__HOST = "${Database.Hostname}"
         AUTHENTIK_POSTGRESQL__PORT = "${Database.Port}"
 
         AUTHENTIK_POSTGRESQL__NAME = "${Database.Database}"
