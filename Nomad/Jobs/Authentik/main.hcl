@@ -64,7 +64,7 @@ job "authentik" {
 # Lines starting with a # are ignored
 
 # Empty lines are also ignored
-AUTHENTIK_REDIS__HOST="{{ env "NOMAD_IP_redis" }}"
+AUTHENTIK_REDIS__HOST="localhost"
 EOH
 
         destination = "secrets/file.env"
@@ -103,7 +103,7 @@ EOH
 # Lines starting with a # are ignored
 
 # Empty lines are also ignored
-AUTHENTIK_REDIS__HOST="{{ env "NOMAD_IP_redis" }}"
+AUTHENTIK_REDIS__HOST="localhost"
 EOH
 
         destination = "secrets/file.env"
