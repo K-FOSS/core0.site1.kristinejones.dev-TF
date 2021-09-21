@@ -29,7 +29,9 @@ job "authentik" {
       driver = "docker"
 
       config {
-        image        = "redis:alpine"
+        image = "redis:alpine"
+
+        network_mode = "bridge"
 
         ports = ["redis"]
       }
@@ -40,6 +42,8 @@ job "authentik" {
 
       config {
         image        = "ghcr.io/goauthentik/server"
+
+        network_mode = "bridge"
 
         args = ["worker"]
       }
@@ -70,6 +74,11 @@ EOH
         destination = "secrets/file.env"
         env         = true
       }
+
+      resources {
+        cpu    = 200
+        memory = 300
+      }
     }
 
     task "authentik-server" {
@@ -77,6 +86,8 @@ EOH
 
       config {
         image        = "ghcr.io/goauthentik/server"
+
+        network_mode = "bridge"
 
         args = ["server"]
 
@@ -108,6 +119,11 @@ EOH
 
         destination = "secrets/file.env"
         env         = true
+      }
+
+      resources {
+        cpu    = 200
+        memory = 300
       }
     }
   }
