@@ -32,6 +32,12 @@ job "ingress" {
 
               local_bind_port = 8086
             }
+
+            upstreams {
+              destination_name = "authentik-cont"
+
+              local_bind_port = 8087
+            }
           }
         }
       }

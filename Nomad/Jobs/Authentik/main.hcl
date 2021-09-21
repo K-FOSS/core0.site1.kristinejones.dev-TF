@@ -7,7 +7,9 @@ job "authentik" {
     network {
       mode = "bridge"
 
-      port "http" { }
+      port "http" { 
+        static = 9000
+      }
 
       port "redis" { 
         static = 6379
@@ -54,8 +56,6 @@ job "authentik" {
       config {
         image        = "ghcr.io/goauthentik/server"
 
-        network_mode = "bridge"
-
         args = ["worker"]
       }
 
@@ -97,8 +97,6 @@ EOH
 
       config {
         image        = "ghcr.io/goauthentik/server"
-
-        network_mode = "bridge"
 
         args = ["server"]
 

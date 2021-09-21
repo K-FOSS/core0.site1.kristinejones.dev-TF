@@ -85,7 +85,7 @@
                       "match": [
                         {
                           "host": [
-                            "vault.kristianjones.dev"
+                            "auth.kristianjones.dev"
                           ]
                         }
                       ],
@@ -97,7 +97,7 @@
                           },
                           "upstreams": [
                             {
-                              "dial": "{{ env "NOMAD_UPSTREAM_ADDR_grafana-cont" }}"
+                              "dial": "{{ env "NOMAD_UPSTREAM_ADDR_authentik-cont" }}"
                             }
                           ]
                         }
