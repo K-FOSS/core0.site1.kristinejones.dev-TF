@@ -5,8 +5,6 @@ job "authentik" {
     count = 1
 
     network {
-      mode = "bridge"
-
       port "http" { }
 
       port "redis" { 
