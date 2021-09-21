@@ -30,9 +30,13 @@ job "authentik" {
         image = "redis:alpine"
 
         network_mode = "bridge"
-
-        ports = ["redis"]
       }
+
+    service {
+      name = "authentik-redis-cont"
+      port = "redis"
+    }
+
     }
 
     task "authentik-worker" {
