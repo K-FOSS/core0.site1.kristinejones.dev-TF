@@ -46,6 +46,13 @@ data "vault_generic_secret" "Caddy" {
   path = "${vault_mount.Terraform.path}/Caddy"
 }
 
+#
+# Database
+#
+data "vault_generic_secret" "Database" {
+  path = "${vault_mount.Terraform.path}/Database"
+}
+
 
 #
 # Bitwarden

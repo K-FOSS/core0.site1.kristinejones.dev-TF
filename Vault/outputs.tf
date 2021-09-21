@@ -25,3 +25,17 @@ output "Cloudflare" {
 output "Caddy" {
   value = data.vault_generic_secret.Caddy
 }
+
+#
+# Database
+#
+
+output "Database" {
+  value = {
+    Hostname = "master.patroninew.service.kjdev"
+    Port = 5432
+
+    Username = data.vault_generic_secret.Database.data["USERNAME"]
+    Password = data.vault_generic_secret.Database.data["PASSWORD"]
+  }
+}

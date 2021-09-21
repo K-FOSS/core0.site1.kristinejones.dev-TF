@@ -38,6 +38,11 @@ module "Consul" {
 # Databases
 #
 
+module "GrafanaDatabase" {
+  source = "./Consul"
+
+  Credentials = module.Vault.Database
+}
 
 
 
@@ -100,5 +105,4 @@ module "Nomad" {
   Patroni = {
     Consul = module.Consul.Patroni
   }
-
 }

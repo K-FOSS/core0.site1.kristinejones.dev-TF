@@ -63,6 +63,14 @@ variable "Patroni" {
       Prefix = string
       ServiceName = string
     })
+
+    Connection = object({
+      Hostname = string
+      Port = number
+
+      Username = string
+      Password = string
+    })
   })
   sensitive = true
 
