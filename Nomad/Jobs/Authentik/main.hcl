@@ -5,6 +5,8 @@ job "authentik" {
     count = 1
 
     network {
+      mode = "bridge"
+
       port "http" { }
 
       port "redis" { 
@@ -32,11 +34,12 @@ job "authentik" {
         network_mode = "bridge"
       }
 
-    service {
-      name = "authentik-redis-cont"
-      port = "redis"
-    }
+      service {
+        name = "authentik-redis-cont"
+        port = "redis"
 
+        address_mode = "driver"
+      }
     }
 
     task "authentik-worker" {
