@@ -13,7 +13,7 @@ terraform {
 }
 
 provider "nomad" {
-  address = "https://nomad.kristianjones.dev:443"
+  address = "http://core0.site1.kristianjones.dev:4646"
   region  = "global"
 }
 
