@@ -1,13 +1,13 @@
-output "Name" {
-  value = vault_mount.Terraform
-}
+output "Database" {
+  value = {
+    Hostname = local.Hostname
+    Port = local.Port
 
-output "Username" {
-  value = vault_mount.Terraform
-}
+    Database = postgresql_database.Database.name
 
-output "Password" {
-  value = vault_mount.Terraform
+    Username = postgresql_role.User.name
+    Password = postgresql_role.User.password
+  }
 }
 
 #
