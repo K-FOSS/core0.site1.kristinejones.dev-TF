@@ -50,6 +50,24 @@ variable "Grafana" {
 }
 
 #
+# AAA
+#
+
+variable "Authentik" {
+  type = object({
+    Database = object({
+      Hostname = string
+      Port = number
+
+      Database = string
+
+      Username = string
+      Password = string
+    })
+  })
+}
+
+#
 # Patroni
 #
 

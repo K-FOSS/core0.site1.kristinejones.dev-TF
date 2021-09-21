@@ -36,6 +36,18 @@ resource "nomad_job" "Grafana" {
   })
 }
 
+#
+# AAA
+#
+
+#
+# Authentik
+#
+
+resource "nomad_job" "Authentik" {
+  jobspec = templatefile("${path.module}/Jobs/Authentik/main.hcl", var.Authentik)
+}
+
 
 #
 # Caddy Web Ingress

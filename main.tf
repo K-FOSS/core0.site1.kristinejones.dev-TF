@@ -38,7 +38,21 @@ module "Consul" {
 # Databases
 #
 
+
+#
+# Grafana Database 
+#
+
 module "GrafanaDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# Authentik Database
+#
+module "AuthentikDatabase" {
   source = "./Database"
 
   Credentials = module.Vault.Database
@@ -90,6 +104,18 @@ module "Nomad" {
 
   Grafana = {
     Database = module.GrafanaDatabase.Database
+  }
+
+  #
+  # AAA
+  #
+
+  #
+  # Authentik
+  #
+
+  Authentik = {
+    Database = module.AuthentikDatabase.Database
   }
 
   #
