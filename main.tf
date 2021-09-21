@@ -89,14 +89,7 @@ module "Nomad" {
   #
 
   Grafana = {
-    Database = {
-      Hostname = "master.site0core1psql.service.kjdev"
-
-      Username = module.Vault.BitwardenDB.data["username"]
-      Password = module.Vault.BitwardenDB.data["password"]
-
-      Database = "bitwarden"
-    }
+    Database = module.GrafanaDatabase.Database
   }
 
   #

@@ -27,6 +27,17 @@ resource "nomad_job" "Nomad" {
 }
 
 #
+# Grafana
+#
+
+resource "nomad_job" "Grafana" {
+  jobspec = templatefile("${path.module}/Jobs/Grafana/main.hcl", {
+    Config = templatefile("${path.module}/Jobs/Grafana/Configs/Grafana.ini", var.Grafana)
+  })
+}
+
+
+#
 # Caddy Web Ingress
 #
 

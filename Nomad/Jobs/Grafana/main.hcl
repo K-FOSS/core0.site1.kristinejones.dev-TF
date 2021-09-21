@@ -8,10 +8,6 @@ job "grafana" {
       mode = "bridge"
 
       port "http" { }
-
-      port "redis" {
-        static = 6379
-      }
     }
 
     service {
@@ -24,16 +20,6 @@ job "grafana" {
         sidecar_service {}
       }
     }
-    
-    task "grafana-redis" {
-      driver = "docker"
-
-      config {
-        image = "redis:6.2.5"
-
-        ports = ["redis"]
-      }
-    }
 
     task "grafana-web" {
       driver = "docker"
@@ -41,13 +27,21 @@ job "grafana" {
       config {
         image = "grafana/grafana:8.0.3"
 
+        args = ["-config/local/grafana.ini"]
+
         ports = ["http"]
       }
 
       env {
-        WEBSOCKET_ENABLED = "true"
-        ROCKET_PORT = "$${NOMAD_PORT_http}"
-        DATABASE_URL = "postgresql://${Database.Username}:${Database.Password}@${Database.Hostname}:5432/${Database.Database}"
+        GF_LOG_MODE = "console"
+      }
+
+      template {
+        data = <<EOF
+${Config}
+EOF
+
+        destination = "local/grafana.ini"
       }
     }
   }
