@@ -8,6 +8,10 @@ job "bitwarden" {
       mode = "bridge"
 
       port "http" { }
+
+      dns {
+        servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
+      }
     }
 
     service {
