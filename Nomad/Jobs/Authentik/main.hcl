@@ -55,11 +55,18 @@ job "authentik" {
 
         AUTHENTIK_POSTGRESQL__USER = "${Database.Username}"
         AUTHENTIK_POSTGRESQL__PASSWORD = "${Database.Password}"
+      }
 
-        #
-        # Cache
-        #
-        AUTHENTIK_REDIS__HOST = "$${NOMAD_ADDR_redis_redis}"
+      template {
+        data = <<EOH
+# Lines starting with a # are ignored
+
+# Empty lines are also ignored
+AUTHENTIK_REDIS__HOST="{{ env "NOMAD_ADDR_redis_redis" }}"
+EOH
+
+        destination = "secrets/file.env"
+        env         = true
       }
     }
 
@@ -83,11 +90,18 @@ job "authentik" {
 
         AUTHENTIK_POSTGRESQL__USER = "${Database.Username}"
         AUTHENTIK_POSTGRESQL__PASSWORD = "${Database.Password}"
+      }
 
-        #
-        # Cache
-        #
-        AUTHENTIK_REDIS__HOST = "$${NOMAD_ADDR_redis_redis}"
+      template {
+        data = <<EOH
+# Lines starting with a # are ignored
+
+# Empty lines are also ignored
+AUTHENTIK_REDIS__HOST="{{ env "NOMAD_ADDR_redis_redis" }}"
+EOH
+
+        destination = "secrets/file.env"
+        env         = true
       }
     }
   }
