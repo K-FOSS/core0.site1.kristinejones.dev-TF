@@ -9,6 +9,18 @@ terraform {
       source = "hashicorp/nomad"
       version = "1.4.15"
     }
+
+    #
+    # Randomness
+    #
+    # TODO: Find a way to best improve true randomness?
+    #
+    # Docs: https://registry.terraform.io/providers/hashicorp/random/latest/docs
+    #
+    random = {
+      source = "hashicorp/random"
+      version = "3.1.0"
+    }
   }
 }
 
@@ -44,8 +56,16 @@ resource "nomad_job" "Grafana" {
 # Authentik
 #
 
+resource "random_string" "AuthentikSecretKey" {
+  length           = 10
+  special          = false
+}
+
 resource "nomad_job" "Authentik" {
-  jobspec = templatefile("${path.module}/Jobs/Authentik/main.hcl", var.Authentik)
+  jobspec = templatefile("${path.module}/Jobs/Authentik/main.hcl", {
+    Database = var.Authentik
+    SECRET_KEY = "${random_string.AuthentikSecretKey.result}"
+  })
 }
 
 
