@@ -55,6 +55,8 @@ job "authentik" {
 
         AUTHENTIK_POSTGRESQL__USER = "${Database.Username}"
         AUTHENTIK_POSTGRESQL__PASSWORD = "${Database.Password}"
+
+        AUTHENTIK_SECRET_KEY = "${SECRET_KEY}"
       }
 
       template {
@@ -90,6 +92,8 @@ EOH
 
         AUTHENTIK_POSTGRESQL__USER = "${Database.Username}"
         AUTHENTIK_POSTGRESQL__PASSWORD = "${Database.Password}"
+
+        AUTHENTIK_SECRET_KEY = "${SECRET_KEY}"
       }
 
       template {
