@@ -12,6 +12,10 @@ job "authentik" {
       port "redis" { 
         static = 6379
       }
+
+      dns {
+        servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
+      }
     }
 
     service {
@@ -32,6 +36,8 @@ job "authentik" {
         image = "redis:alpine"
 
         network_mode = "bridge"
+
+        hostname = "redis"
       }
 
       service {
@@ -73,7 +79,7 @@ job "authentik" {
 # Lines starting with a # are ignored
 
 # Empty lines are also ignored
-AUTHENTIK_REDIS__HOST="{{ env "NOMAD_IP_redis" }}"
+AUTHENTIK_REDIS__HOST="authentik-redis-cont.service.kjdev"
 EOH
 
         destination = "secrets/file.env"
@@ -119,7 +125,7 @@ EOH
 # Lines starting with a # are ignored
 
 # Empty lines are also ignored
-AUTHENTIK_REDIS__HOST="{{ env "NOMAD_IP_redis" }}"
+AUTHENTIK_REDIS__HOST="authentik-redis-cont.service.kjdev"
 EOH
 
         destination = "secrets/file.env"
