@@ -59,7 +59,7 @@ job "authentik" {
         #
         # Cache
         #
-        AUTHENTIK_REDIS__HOST = "NOMAD_ADDR_redis_redis"
+        AUTHENTIK_REDIS__HOST = "$${NOMAD_ADDR_redis_redis}"
       }
     }
 
@@ -87,7 +87,7 @@ job "authentik" {
         #
         # Cache
         #
-        AUTHENTIK_REDIS__HOST = "NOMAD_ADDR_redis_redis"
+        AUTHENTIK_REDIS__HOST = "$${NOMAD_ADDR_redis_redis}"
       }
     }
   }
