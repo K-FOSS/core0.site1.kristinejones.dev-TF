@@ -62,6 +62,7 @@
                       "match": [
                         {
                           "host": [
+                            "auth.kristianjones.dev",
                             "grafana.kristianjones.dev"
                           ]
                         }
@@ -74,7 +75,7 @@
                           },
                           "upstreams": [
                             {
-                              "dial": "{{ env "NOMAD_UPSTREAM_ADDR_grafana-cont" }}"
+                              "dial": "{{ env "NOMAD_UPSTREAM_ADDR_authentik-cont" }}"
                             }
                           ]
                         }
@@ -85,7 +86,7 @@
                       "match": [
                         {
                           "host": [
-                            "auth.kristianjones.dev"
+                            "pomerium.kristianjones.dev"
                           ]
                         }
                       ],
@@ -97,7 +98,7 @@
                           },
                           "upstreams": [
                             {
-                              "dial": "{{ env "NOMAD_UPSTREAM_ADDR_authentik-cont" }}"
+                              "dial": "{{ env "NOMAD_UPSTREAM_ADDR_pomerium-cont" }}"
                             }
                           ]
                         }

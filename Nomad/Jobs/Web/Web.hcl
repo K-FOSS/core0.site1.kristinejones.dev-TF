@@ -28,15 +28,15 @@ job "ingress" {
             }
 
             upstreams {
-              destination_name = "grafana-cont"
-
-              local_bind_port = 8086
-            }
-
-            upstreams {
               destination_name = "authentik-cont"
 
               local_bind_port = 8087
+            }
+
+            upstreams {
+              destination_name = "pomerium-cont"
+
+              local_bind_port = 8088
             }
           }
         }

@@ -1,5 +1,6 @@
 # See detailed configuration settings : https://www.pomerium.com/docs/reference/
 
+address: 0.0.0.0:{{ env "NOMAD_PORT_http" }}
 
 # this is the domain the identity provider will callback after a user authenticates
 authenticate_service_url: https://pomerium.kristianjones.dev
@@ -27,11 +28,11 @@ cookie_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
 
 # https://pomerium.com/reference/#routes
 routes:
-  - from: https://
-    to: http://verify
+  - from: https://grafana.kristianjones.dev
+    to: {{ env "NOMAD_UPSTREAM_ADDR_grafana-cont" }}
     policy:
       - allow:
           or:
             - email:
-                is: user@example.com
+                is: k@kristianjones.dev
     pass_identity_headers: true

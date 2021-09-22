@@ -7,13 +7,7 @@ job "pomerium" {
     network {
       mode = "bridge"
 
-      port "http" { 
-        static = 9000
-      }
-
-      port "redis" { 
-        static = 6379
-      }
+      port "http" { }
 
       dns {
         servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
@@ -21,73 +15,42 @@ job "pomerium" {
     }
 
     service {
-      name = "authentik-cont"
+      name = "pomerium-cont"
       port = "http"
 
-      task = "authentik"
+      task = "pomerium-server"
 
       connect {
-        sidecar_service { }
+        sidecar_service { 
+          proxy {
+            upstreams {
+              destination_name = "grafana-cont"
+
+              local_bind_port = 8086
+            }
+          }
+        }
       }
     }
 
-    task "redis" {
+    task "pomerium-server" {
       driver = "docker"
 
       config {
-        image = "redis:alpine"
+        image        = "pomerium/pomerium:latest"
 
-        network_mode = "bridge"
-
-        hostname = "redis"
-      }
-
-      service {
-        name = "authentik-redis-cont"
-        port = "redis"
-
-        address_mode = "driver"
-      }
-    }
-
-    task "authentik-server" {
-      driver = "docker"
-
-      config {
-        image        = "ghcr.io/goauthentik/server"
-
-        args = ["server"]
+        args = ["-config=/local/pomerium.yaml"]
 
         ports = ["http"]
       }
 
-      env = {
-        #
-        # Database
-        #
-        AUTHENTIK_POSTGRESQL__HOST = "${Database.Hostname}"
-        AUTHENTIK_POSTGRESQL__PORT = "${Database.Port}"
-
-        AUTHENTIK_POSTGRESQL__NAME = "${Database.Database}"
-
-        AUTHENTIK_POSTGRESQL__USER = "${Database.Username}"
-        AUTHENTIK_POSTGRESQL__PASSWORD = "${Database.Password}"
-
-        AUTHENTIK_SECRET_KEY = "${SECRET_KEY}"
-      }
-
       template {
-        data = <<EOH
-# Lines starting with a # are ignored
+        data = <<EOF
+${CONFIG}
+EOF
 
-# Empty lines are also ignored
-AUTHENTIK_REDIS__HOST="authentik-redis-cont.service.kjdev"
-EOH
-
-        destination = "secrets/file.env"
-        env         = true
+        destination = "local/pomerium.yaml"
       }
-
       resources {
         cpu    = 800
         memory = 500
