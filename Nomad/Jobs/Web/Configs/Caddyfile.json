@@ -62,8 +62,7 @@
                       "match": [
                         {
                           "host": [
-                            "auth.kristianjones.dev",
-                            "grafana.kristianjones.dev"
+                            "auth.kristianjones.dev"
                           ]
                         }
                       ],
@@ -86,7 +85,8 @@
                       "match": [
                         {
                           "host": [
-                            "pomerium.kristianjones.dev"
+                            "pomerium.kristianjones.dev",
+                            "grafana.kristianjones.dev"
                           ]
                         }
                       ],
