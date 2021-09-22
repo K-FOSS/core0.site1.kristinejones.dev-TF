@@ -177,3 +177,13 @@ resource "nomad_job" "Patroni" {
 resource "nomad_job" "VPS1-Ingress" {
   jobspec = file("${path.module}/Jobs/VPS1-Ingress/Web.hcl")
 }
+
+#
+# Pomerium
+#
+
+resource "nomad_job" "Pomerium" {
+  jobspec = templatefile("${path.module}/Jobs/Pomerium/main.hcl", {
+    CONFIG =  templatefile("${path.module}/Jobs/Pomerium/Configs/Pomerium.yaml", var.Pomerium)
+  })
+}
