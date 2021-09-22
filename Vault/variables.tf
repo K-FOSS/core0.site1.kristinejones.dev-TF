@@ -1,5 +1,5 @@
 variable "Pomerium" {
-  value = object({
+  type = object({
     VaultPath = string
   })
 }
