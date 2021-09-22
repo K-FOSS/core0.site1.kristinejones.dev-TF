@@ -39,3 +39,10 @@ output "Database" {
     Password = data.vault_generic_secret.Database.data["PASSWORD"]
   }
 }
+
+output "Pomerium" {
+  value = {
+    ClientID = data.vault_generic_secret.PomeriumOID.data["ClientID"]
+    ClientSecret = data.vault_generic_secret.PomeriumOID.data["ClientSecret"]
+  }
+}

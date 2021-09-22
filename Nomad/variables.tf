@@ -87,3 +87,16 @@ variable "Patroni" {
 
   description = "Patroni Configuration"
 }
+
+#
+# Pomerium
+#
+
+variable "Pomerium" {
+  type = object({
+    OpenID = object({
+      ClientID = string
+      ClientSecret = string
+    })
+  })
+}

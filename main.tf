@@ -18,6 +18,10 @@ terraform {
 
 module "Vault" {
   source = "./Vault"
+
+  Pomerium = {
+    VaultPath = module.Consul.Pomerium.OIDVaultPath
+  }
 }
 
 #
@@ -123,5 +127,12 @@ module "Nomad" {
   #
   Patroni = {
     Consul = module.Consul.Patroni
+  }
+
+  #
+  # Pomerium
+  #
+  Pomerium = {
+    OpenID = module.Vault.Pomerium
   }
 }

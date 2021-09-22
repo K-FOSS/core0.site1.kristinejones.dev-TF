@@ -43,3 +43,14 @@ resource "consul_acl_token" "PatroniToken" {
 data "consul_acl_token_secret_id" "PatroniToken" {
   accessor_id = consul_acl_token.PatroniToken.id
 }
+
+#
+# Authentik KV
+#
+# TODO: Move all this to Consul KV trigger Terraform Sync
+#
+
+data "consul_key_prefix" "PomeriumOID" {
+  path_prefix = "authentik/apps/pomeriumproxy"
+}
+

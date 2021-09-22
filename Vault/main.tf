@@ -63,6 +63,16 @@ data "vault_generic_secret" "Bitwarden" {
 }
 
 #
+# Pomerium
+#
+# TODO: Move this to Consul KV triggered Terraform Deployment
+# 
+
+data "vault_generic_secret" "PomeriumOID" {
+  path = "${var.Pomerium.VaultPath}"
+}
+
+#
 # PostgreSQL
 #
 

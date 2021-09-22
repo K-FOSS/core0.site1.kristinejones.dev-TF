@@ -10,3 +10,9 @@ output "Patroni" {
     Token = data.consul_acl_token_secret_id.PatroniToken.secret_id
   }
 }
+
+output "Pomerium" {
+  value = {
+    OIDVaultPath = consul_key_prefix.PomeriumOID.subkeys["vault_path"]
+  }
+}
