@@ -32,9 +32,6 @@ cookie_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
 routes:
   - from: https://grafana.kristianjones.dev
     to: http://{{ env "NOMAD_UPSTREAM_ADDR_grafana-cont" }}
-    policy:
-      - allow:
-          or:
-            - email:
-                is: k@kristianjones.dev
+    allowed_domains:
+      - kristianjones.dev
     pass_identity_headers: true
