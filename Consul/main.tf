@@ -51,6 +51,6 @@ data "consul_acl_token_secret_id" "PatroniToken" {
 #
 
 data "consul_key_prefix" "PomeriumOID" {
-  path_prefix = "authentik/apps/pomeriumproxy"
+  path_prefix = "authentik/apps/pomeriumproxy/"
 }
 
