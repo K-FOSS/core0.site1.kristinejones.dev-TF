@@ -20,7 +20,7 @@ authenticate_service_url: https://pomerium.kristianjones.dev
 # The keys required in this section vary depending on your IdP. See the          #
 # appropriate docs for your IdP to configure Pomerium accordingly.               #
 ##################################################################################
-idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth
+idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth/
 idp_provider: oidc
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
