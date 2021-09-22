@@ -13,6 +13,6 @@ output "Patroni" {
 
 output "Pomerium" {
   value = {
-    OIDVaultPath = consul_key_prefix.PomeriumOID.subkeys["vault_path"]
+    OIDVaultPath = data.consul_key_prefix.PomeriumOID.subkeys["vault_path"]
   }
 }
