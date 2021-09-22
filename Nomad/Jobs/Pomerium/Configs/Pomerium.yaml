@@ -2,6 +2,8 @@
 
 address: 0.0.0.0:{{ env "NOMAD_PORT_http" }}
 
+insecure_server: true
+
 # this is the domain the identity provider will callback after a user authenticates
 authenticate_service_url: https://pomerium.kristianjones.dev
 
