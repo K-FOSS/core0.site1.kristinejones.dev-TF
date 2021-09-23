@@ -1,7 +1,12 @@
 job "ingress" {
   datacenters = ["core0site1"]
 
-  type = "system"
+  type = "service"
+
+  constraint {
+    operator  = "distinct_hosts"
+    value     = "true"
+  }
 
   group "proxies" {
     network {

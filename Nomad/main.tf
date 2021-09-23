@@ -183,15 +183,6 @@ resource "nomad_job" "Patroni" {
 #   })
 # }
 
-#
-# TODO: Move this to VPS1 Stack
-# 
-# This is temporary so I can more easily migrate services over
-#
-
-resource "nomad_job" "VPS1-Ingress" {
-  jobspec = file("${path.module}/Jobs/VPS1-Ingress/Web.hcl")
-}
 
 #
 # Pomerium
