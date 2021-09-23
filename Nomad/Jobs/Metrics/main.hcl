@@ -54,6 +54,9 @@ job "metrics" {
       meta {
         TARGET = "${TARGET.name}"
         TARGET_RPL = "${replace("${TARGET.name}", "-", "")}"
+
+        GRPC_PORT_LABEL = "${replace("${TARGET.name}", "-", "")}_grpc"
+        HTTP_PORT_LABEL = "${replace("${TARGET.name}", "-", "")}_http"
       }
 
       template {

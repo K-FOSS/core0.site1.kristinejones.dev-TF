@@ -35,13 +35,13 @@ server:
   # HTTP Server
   #
   http_listen_address: 0.0.0.0
-  http_listen_port: {{ $service_name := env "NOMAD_META_TARGET_RPL" }}{{ env "$$service_name_http" }}
+  http_listen_port: {{ $service_name := env "NOMAD_META_TARGET_RPL" }}{{ env "NOMAD_PORT_$$service_name_http" }}
 
   #
   # GRPC Server
   #
   grpc_listen_address: 0.0.0.0
-  grpc_listen_port: {{ $service_name := env "NOMAD_META_TARGET_RPL" }}{{ env "$$service_name_grpc" }}
+  grpc_listen_port: {{ $service_name := env "NOMAD_META_TARGET_RPL" }}{{ env "NOMAD_PORT_$$service_name_grpc" }}
 
   #
   # Logs
