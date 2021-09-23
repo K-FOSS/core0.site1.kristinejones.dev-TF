@@ -19,6 +19,11 @@ job "metrics" {
     task "cortex-${TARGET.name}" {
       driver = "docker"
 
+      restart {
+        attempts = 5
+        delay    = "60s"
+      }
+
       service {
         name = "cortex-${TARGET.name}-http-cont"
         port = "${replace("${TARGET.name}", "-", "")}_http"
