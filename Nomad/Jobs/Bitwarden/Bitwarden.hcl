@@ -5,7 +5,7 @@ job "bitwarden" {
     count = 1
 
     network {
-      mode = "bridge"
+      mode = "cni/nomadcore1"
 
       port "http" { }
 
@@ -19,6 +19,8 @@ job "bitwarden" {
       port = "http"
 
       task = "vault"
+
+      address_mode = "alloc"
 
       connect {
         sidecar_service {}
