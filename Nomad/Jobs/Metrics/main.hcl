@@ -46,6 +46,11 @@ job "metrics" {
         network_mode = "bridge"
       }
 
+      env {
+        TARGET = "${TARGET.name}"
+        TARGET_RPL = "${replace("${TARGET.name}", "-", "")}"
+      }
+
       meta {
         target = "${TARGET.name}"
       }
