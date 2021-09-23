@@ -206,7 +206,7 @@ resource "nomad_job" "Metrics" {
 
     CORTEX = {
       CORTEX_CONFIG = templatefile("${path.module}/Jobs/Metrics/Configs/Cortex.yaml", {
-        Consul = var.Metrics.Consul
+        Consul = var.Metrics.Cortex.Consul
         S3 = var.Metrics.Cortex.S3
       })
     }
