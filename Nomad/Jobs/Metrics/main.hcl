@@ -34,7 +34,7 @@ job "metrics" {
       }
 
       config {
-        image = "cortexproject/cortex:${Version}"
+        image = "cortexproject/cortex:v1.10.0"
 
         args = ["-config.file=/local/Cortex.yaml"]
 
