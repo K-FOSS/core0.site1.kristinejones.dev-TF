@@ -8,7 +8,7 @@ job "metrics" {
       mode = "bridge"
 
 %{ for TARGET in TARGETS ~}
-      port "${TARGET.name}_http" { }
+      port "${replace("${TARGET.name}", "-", "")}_http" { }
 
       port "${TARGET.name}_grpc" { }
 %{ endfor ~}
