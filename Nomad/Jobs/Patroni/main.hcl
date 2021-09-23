@@ -78,6 +78,11 @@ EOF
 
         destination = "local/Patroni.yaml"
       }
+
+      resources {
+        cpu    = 800
+        memory = 256
+      }
     }
   }
 }
