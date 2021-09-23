@@ -230,17 +230,17 @@ blocks_storage:
     index_cache:
       backend: memcached
       memcached:
-        addresses: dns+CortexMemcached:11211
+        addresses: dns+cortex-memcached.service.kjdev:11211
 
     chunks_cache:
       backend: memcached
       memcached:
-        addresses: dns+CortexMemcached:11211
+        addresses: dns+cortex-memcached.service.kjdev:11211
 
     metadata_cache:
       backend: memcached
       memcached:
-        addresses: dns+CortexMemcached:11211
+        addresses: dns+cortex-memcached.service.kjdev:11211
 
   s3:
     endpoint: ${S3.Connection.Endpoint}
