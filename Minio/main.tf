@@ -46,17 +46,15 @@ provider "minio" {
 resource "random_string" "Name" {
   length           = 6
 
+  special = false
   upper = false
 }
 
-resource "random_string" "BucketName" {
-  length           = 6
-
-  upper = false
+resource "random_uuid" "BucketName" {
 }
 
 resource "minio_bucket" "Bucket" {
-  name = "${random_string.BucketName.result}-${random_string.Name.result}"
+  name = "${random_uuid.BucketName.result}-${random_string.Name.result}"
 }
 
 #
