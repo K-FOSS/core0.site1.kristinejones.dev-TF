@@ -25,8 +25,6 @@ job "metrics" {
         image = "memcached:1.6"
 
         network_mode = "bridge"
-
-        hostname = "redis"
       }
 
       service {
