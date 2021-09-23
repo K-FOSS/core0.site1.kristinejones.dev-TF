@@ -21,10 +21,6 @@ job "bitwarden" {
       task = "vault"
 
       address_mode = "alloc"
-
-      connect {
-        sidecar_service {}
-      }
     }
 
     task "vault" {
