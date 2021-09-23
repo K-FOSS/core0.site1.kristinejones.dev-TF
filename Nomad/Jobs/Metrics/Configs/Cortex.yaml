@@ -3,7 +3,7 @@
 # Use '-modules' command line flag to get a list of available modules, and to
 # see which modules are included in 'all'.
 # CLI flag: -target
-target: $${meta.target}
+target: {{ env "meta.target" }}
 
 #
 # API
