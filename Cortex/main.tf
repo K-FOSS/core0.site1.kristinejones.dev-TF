@@ -26,6 +26,10 @@ locals {
       name = "querier"
       count = 3
     },
+    StoreGateway = {
+      name = "store-gateway"
+      count = 3
+    }, 
     Compactor = {
       name = "compactor"
       count = 3
