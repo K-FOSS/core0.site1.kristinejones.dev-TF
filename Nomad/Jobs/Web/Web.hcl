@@ -12,6 +12,10 @@ job "ingress" {
       }
 
       port "stun" { }
+
+      port "udp-stun" { 
+        static = 8078
+      }
     }
 
     service {
@@ -69,6 +73,8 @@ job "ingress" {
 
       config {
         image        = "kristianfjones/caddy-core-docker:vps1"
+
+        ports = ["udp-stun"]
       
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
 

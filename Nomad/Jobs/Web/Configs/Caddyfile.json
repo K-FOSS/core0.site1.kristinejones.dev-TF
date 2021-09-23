@@ -136,6 +136,29 @@
               ]
             }
           ]
+        },
+        "coturn": {
+          "listen": [
+            "tcp/0.0.0.0:8078",
+            "udp/0.0.0.0:8078"
+          ],
+          "routes": [
+            {
+              "handle": [
+                {
+                  "handler": "proxy",
+                  "proxy_protocol": "v2",
+                  "upstreams": [
+                    {
+                      "dial": [
+                        "{{ env "NOMAD_UPSTREAM_ADDR_coturn-stun-cont" }}"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       }
     },
