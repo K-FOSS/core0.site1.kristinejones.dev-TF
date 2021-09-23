@@ -12,6 +12,27 @@ job "ingress" {
 
         to = 8443
       }
+
+      #
+      # CoTurn
+      #
+
+      port "turn" { 
+        static = 3478
+        to = 3478
+      }
+
+      port "stun" { }
+
+      port "metrics" {
+        static = 9641
+      }
+
+      port "cli" { }
+
+      port "redis" {
+        static = 6379
+      }
     }
 
     service {
@@ -67,6 +88,26 @@ ${Caddyfile}
 EOF
 
         destination = "local/caddyfile.json"
+      }
+    }
+
+    task "coturn-server" {
+      driver = "docker"
+
+      config {
+        image = "coturn/coturn:edge-alpine"
+
+        args = ["-c", "/local/turnserver.conf", "--prometheus"]
+
+        ports = ["turn"]
+      }
+
+      template {
+        data = <<EOF
+${COTURNCONFIG}
+EOF
+
+        destination = "local/turnserver.conf"
       }
     }
   }

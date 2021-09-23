@@ -73,12 +73,23 @@ resource "nomad_job" "Authentik" {
 # Caddy Web Ingress
 #
 
+resource "random_password" "CoTurnPassword" {
+  length           = 20
+  special          = false
+}
+
 resource "nomad_job" "Ingress" {
   jobspec = templatefile("${path.module}/Jobs/Web/Web.hcl", {
     Consul = var.Ingress.Consul
 
     GoBetweenCONF = templatefile("${path.module}/Jobs/Web/Configs/gobetween.toml", { 
       Consul = var.Ingress.Consul
+    })
+
+    COTURNCONFIG = templatefile("${path.module}/Jobs/Web/Configs/turnserver.conf", {
+      CoTurn = var.CoTurn.CoTurn
+      Database = var.CoTurn.Database
+      CLIPassword = random_password.CoTurnPassword.result
     })
 
     Caddyfile = templatefile("${path.module}/Jobs/Web/Configs/Caddyfile.json", { 
@@ -189,24 +200,5 @@ resource "nomad_job" "VPS1-Ingress" {
 resource "nomad_job" "Pomerium" {
   jobspec = templatefile("${path.module}/Jobs/Pomerium/main.hcl", {
     CONFIG =  templatefile("${path.module}/Jobs/Pomerium/Configs/Pomerium.yaml", var.Pomerium)
-  })
-}
-
-#
-# CoTurn
-#
-
-resource "random_password" "CoTurnPassword" {
-  length           = 20
-  special          = false
-}
-
-resource "nomad_job" "CoTurn" {
-  jobspec = templatefile("${path.module}/Jobs/CoTurn/main.hcl", {
-    CONFIG =  templatefile("${path.module}/Jobs/CoTurn/Configs/turnserver.conf", {
-      CoTurn = var.CoTurn.CoTurn
-      Database = var.CoTurn.Database
-      CLIPassword = random_password.CoTurnPassword.result
-    })
   })
 }
