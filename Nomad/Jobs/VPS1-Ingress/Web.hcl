@@ -52,6 +52,14 @@ job "vps1-ingress" {
                 name = "ingressweb-cont"
               }
             }
+
+            listener {
+              port     = 3478
+              protocol = "tcp"
+              service {
+                name = "ingressweb-stuntcp-cont"
+              }
+            }
           }
         }
       }

@@ -10,6 +10,8 @@ job "ingress" {
       port "https" {
         static = 8443
       }
+
+      port "stun" { }
     }
 
     service {
@@ -37,6 +39,25 @@ job "ingress" {
               destination_name = "pomerium-cont"
 
               local_bind_port = 8088
+            }
+          }
+        }
+      }
+    }
+
+    service {
+      name = "ingressweb-stuntcp-cont"
+      port = "stun"
+
+      task = "web"
+
+      connect {
+         sidecar_service {
+          proxy {
+            upstreams {
+              destination_name = "coturn-stun-cont"
+
+              local_bind_port = 3478
             }
           }
         }

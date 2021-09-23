@@ -113,6 +113,32 @@
         }
       }
     },
+    "layer4": {
+      "servers": {
+        "example": {
+          "listen": [
+            ":{{ env "NOMAD_PORT_stun" }}"
+          ],
+          "routes": [
+            {
+              "handle": [
+                {
+                  "handler": "proxy",
+                  "proxy_protocol": "v2",
+                  "upstreams": [
+                    {
+                      "dial": [
+                        "{{ env "NOMAD_UPSTREAM_ADDR_coturn-stun-cont" }}"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
     "tls": {
       "automation": {
         "policies": [

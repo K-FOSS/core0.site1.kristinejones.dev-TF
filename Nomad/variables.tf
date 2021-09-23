@@ -100,3 +100,25 @@ variable "Pomerium" {
     })
   })
 }
+
+#
+# CoTurn
+#
+
+variable "CoTurn" {
+  type = object({
+    CoTurn = object({
+      Realm = string
+    })
+
+    Database = object({
+      Hostname = string
+      Port = number
+
+      Database = string
+
+      Username = string
+      Password = string
+    })
+  })
+}

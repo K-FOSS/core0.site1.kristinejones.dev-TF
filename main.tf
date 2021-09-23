@@ -62,6 +62,15 @@ module "AuthentikDatabase" {
   Credentials = module.Vault.Database
 }
 
+#
+# CoTurn
+#
+
+module "CoTurnDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
 
 
 #
@@ -135,4 +144,15 @@ module "Nomad" {
   Pomerium = {
     OpenID = module.Vault.Pomerium
   }
-}
+
+  #
+  # CoTurn
+  #
+  CoTurn = {
+    CoTurn = {
+      Realm = "kristianjones.dev"
+    }
+
+    Database = module.CoTurnDatabase.Database
+  }
+} 
