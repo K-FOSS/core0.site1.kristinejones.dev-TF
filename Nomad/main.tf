@@ -193,3 +193,23 @@ resource "nomad_job" "Pomerium" {
     CONFIG =  templatefile("${path.module}/Jobs/Pomerium/Configs/Pomerium.yaml", var.Pomerium)
   })
 }
+
+#
+# Metrics
+#  
+
+
+
+resource "nomad_job" "Metrics" {
+  jobspec = templatefile("${path.module}/Jobs/Metrics/main.hcl", {
+    TARGETS = var.Metrics.Cortex.Targets
+
+    CORTEX = {
+      CORTEX_CONFIG = templatefile("${path.module}/Jobs/Metrics/Configs/Cortex.yaml", {
+        Consul = var.Metrics.Consul
+        S3 = var.Metrics.Cortex.S3
+      })
+    }
+    
+  })
+}

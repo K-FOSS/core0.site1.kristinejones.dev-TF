@@ -20,7 +20,14 @@ provider "consul" {
 
 locals {
   Patroni = var.Patroni
+
+  Cortex = var.Cortex
 }
+
+#
+# Patroni Token & Service
+#
+
 
 resource "random_uuid" "PatroniToken" { }
 
@@ -42,6 +49,32 @@ resource "consul_acl_token" "PatroniToken" {
 
 data "consul_acl_token_secret_id" "PatroniToken" {
   accessor_id = consul_acl_token.PatroniToken.id
+}
+
+#
+# Grafana Cortex
+#
+
+resource "random_uuid" "CortexToken" { }
+
+
+resource "consul_acl_policy" "CortexACL" {
+  name  = "GrafanaCortexACL"
+
+  rules = templatefile("${path.module}/ACLs/Cortex.hcl", local.Cortex)
+}
+
+resource "consul_acl_token" "CortexToken" {
+  accessor_id = random_uuid.CortexToken.result
+
+  description = "Grafana Cortex Long term Time series storage automation"
+
+  policies = ["${consul_acl_policy.CortexACL.name}"]
+  local = true
+}
+
+data "consul_acl_token_secret_id" "CortexToken" {
+  accessor_id = consul_acl_token.CortexToken.id
 }
 
 #

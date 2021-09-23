@@ -76,3 +76,10 @@ data "vault_generic_secret" "PomeriumOID" {
 # PostgreSQL
 #
 
+#
+# Minio
+#
+
+data "vault_generic_secret" "Minio" {
+  path = "${vault_mount.Terraform.path}/Minio"
+}

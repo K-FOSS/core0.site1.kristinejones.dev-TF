@@ -46,3 +46,14 @@ output "Pomerium" {
     ClientSecret = data.vault_generic_secret.PomeriumOID.data["ClientSecret"]
   }
 }
+
+#
+# Minio
+#
+
+output "Minio" {
+  value = {
+    AccessKey = data.vault_generic_secret.Minio.data["AccessKey"]
+    SecretKey = data.vault_generic_secret.Minio.data["SecretKey"]
+  }
+}

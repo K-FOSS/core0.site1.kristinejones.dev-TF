@@ -35,6 +35,25 @@ module "Consul" {
     Prefix = "patroninew"
     ServiceName = "patroninew"
   }
+
+  Cortex = {
+    Prefix = "cortex"
+  }
+}
+
+#
+# Minio S3 Storage Modules
+#
+
+module "CortexBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
 }
 
 
@@ -77,9 +96,12 @@ module "CoTurnDatabase" {
 # Hashicorp Nomad
 #
 
+module "Cortex" {
+  source = "./Cortex"
+}
+
 module "Nomad" {
   source = "./Nomad"
-
 
   #
   # Bitwarden
@@ -154,5 +176,15 @@ module "Nomad" {
     }
 
     Database = module.CoTurnDatabase.Database
+  }
+
+  Metrics = {
+    Cortex = {
+      Consul = module.Consul.Cortex
+
+      Targets = module.Cortex.Targets
+
+      S3 = module.CortexBucket
+    }
   }
 } 

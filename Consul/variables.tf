@@ -11,3 +11,12 @@ variable "Patroni" {
 
   description = "Patroni Configuration"
 }
+
+variable "Cortex" {
+  type = object({
+    Prefix = string
+  })
+  sensitive = true
+
+  description = "Cortex Configuration"
+}
