@@ -52,7 +52,8 @@ job "metrics" {
       }
 
       meta {
-        target = "${TARGET.name}"
+        TARGET = "${TARGET.name}"
+        TARGET_RPL = "${replace("${TARGET.name}", "-", "")}"
       }
 
       template {
