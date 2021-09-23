@@ -47,7 +47,7 @@ job "metrics" {
 
       template {
         data = <<EOF
-${Config}
+${CORTEX_CONFIG}
 EOF
 
         destination = "local/Cortex.yaml"
