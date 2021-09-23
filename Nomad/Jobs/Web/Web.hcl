@@ -9,6 +9,8 @@ job "ingress" {
   }
 
   group "proxies" {
+    count = 4
+
     network {
       mode = "bridge"
 
