@@ -21,6 +21,10 @@ job "coturn" {
       }
 
       port "cli" { }
+
+      port "redis" {
+        static = 6379
+      }
     }
 
     service {
