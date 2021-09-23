@@ -3,7 +3,7 @@
 # Use '-modules' command line flag to get a list of available modules, and to
 # see which modules are included in 'all'.
 # CLI flag: -target
-target: {{ env "meta.target" }}
+target: {{ env "NOMAD_META_TARGET" }}
 
 #
 # API
@@ -35,13 +35,13 @@ server:
   # HTTP Server
   #
   http_listen_address: 0.0.0.0
-  http_listen_port: {{ env "NOMAD_PORT_$${meta.target}_http" }}
+  http_listen_port: {{ env "NOMAD_PORT_{{ env "TARGET_RPL" }}_http" }}
 
   #
   # GRPC Server
   #
   grpc_listen_address: 0.0.0.0
-  grpc_listen_port: {{ env "NOMAD_PORT_$${meta.target}_grpc" }}
+  grpc_listen_port: {{ env "NOMAD_PORT_{{ env "TARGET_RPL" }}_grpc" }}
 
   #
   # Logs
