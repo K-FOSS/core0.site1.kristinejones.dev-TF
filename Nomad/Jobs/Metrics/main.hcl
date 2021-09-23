@@ -10,7 +10,7 @@ job "metrics" {
 %{ for TARGET in TARGETS ~}
       port "${replace("${TARGET.name}", "-", "")}_http" { }
 
-      port "${TARGET.name}_grpc" { }
+      port "${replace("${TARGET.name}", "-", "")}_grpc" { }
 %{ endfor ~}
     }
 
@@ -21,14 +21,14 @@ job "metrics" {
 
       service {
         name = "cortex-${TARGET.name}-http-cont"
-        port = "${TARGET.name}_http"
+        port = "${replace("${TARGET.name}", "-", "")}_http"
 
         address_mode = "driver"
       }
 
       service {
         name = "cortex-${TARGET.name}-grpc-cont"
-        port = "${TARGET.name}_grpc"
+        port = "${replace("${TARGET.name}", "-", "")}_grpc"
 
         address_mode = "driver"
       }
