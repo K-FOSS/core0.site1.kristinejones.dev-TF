@@ -99,8 +99,6 @@ EOH
         image        = "ghcr.io/goauthentik/server"
 
         args = ["server"]
-
-        ports = ["http"]
       }
 
       env {

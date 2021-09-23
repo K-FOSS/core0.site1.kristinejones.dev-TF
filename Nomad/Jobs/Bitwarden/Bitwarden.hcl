@@ -30,8 +30,6 @@ job "bitwarden" {
 
       config {
         image        = "vaultwarden/server:alpine"
-
-        ports = ["http"]
       }
 
       env {
