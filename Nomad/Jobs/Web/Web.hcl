@@ -1,21 +1,16 @@
 job "ingress" {
   datacenters = ["core0site1"]
 
-  group "proxies" {
-    count = 3
+  type = "system"
 
+  group "proxies" {
     network {
       mode = "bridge"
 
       port "https" {
         static = 8443
-      }
 
-      port "stun" { }
-
-      port "udpstun" { 
-        static = 8078
-        to = 8078
+        to = 443
       }
     }
 
@@ -50,32 +45,13 @@ job "ingress" {
       }
     }
 
-    service {
-      name = "ingressweb-stuntcp-cont"
-      port = "stun"
-
-      task = "web"
-
-      connect {
-         sidecar_service {
-          proxy {
-            upstreams {
-              destination_name = "coturn-stun-cont"
-
-              local_bind_port = 3478
-            }
-          }
-        }
-      }
-    }
-
     task "web" {
       driver = "docker"
 
       config {
         image        = "kristianfjones/caddy-core-docker:vps1"
 
-        ports = ["udpstun"]
+        ports = ["https"]
       
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
 

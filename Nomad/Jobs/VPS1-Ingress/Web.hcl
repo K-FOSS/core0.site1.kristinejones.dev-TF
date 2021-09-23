@@ -46,7 +46,7 @@ job "vps1-ingress" {
             # Additional options are documented at
             # https://www.nomadproject.io/docs/job-specification/gateway#ingress-parameters
             listener {
-              port     = 8443
+              port     = 8444
               protocol = "tcp"
               service {
                 name = "ingressweb-cont"
