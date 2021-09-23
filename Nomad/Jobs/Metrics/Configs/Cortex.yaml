@@ -35,7 +35,7 @@ server:
   # HTTP Server
   #
   http_listen_address: 0.0.0.0
-  http_listen_port: {{ $service_name := (env "NOMAD_META_TARGET_RPL" | toLower) }}{{ $service_name | toLower }}
+  http_listen_port: {{ $service_name := (env "NOMAD_META_TARGET_RPL" | toLower) }}{{ "($service_name)hello" }}
 
   #
   # GRPC Server
