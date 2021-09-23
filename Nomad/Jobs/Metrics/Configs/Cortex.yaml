@@ -41,7 +41,7 @@ server:
   # GRPC Server
   #
   grpc_listen_address: 0.0.0.0
-  grpc_listen_port: {{ $service_name := env "NOMAD_META_TARGET_RPL" }}{{ env "NOMAD_PORT_$${service_name}_grpc" }}
+  grpc_listen_port: {{ $service_name := (env "NOMAD_META_TARGET_RPL" | toLower) }}{{ $envVar := printf "NOMAD_PORT_%s_grpc" $service_name }}{{ env $envVar }}
 
   #
   # Logs
