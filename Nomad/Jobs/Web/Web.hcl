@@ -10,7 +10,7 @@ job "ingress" {
       port "https" {
         static = 8443
 
-        to = 443
+        to = 8443
       }
     }
 
