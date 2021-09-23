@@ -96,7 +96,7 @@ job "coturn" {
       config {
         image = "coturn/coturn:edge-alpine"
 
-        args = ["-c=/local/turnserver.conf", "--prometheus"]
+        args = ["-c", "/local/turnserver.conf", "--prometheus"]
       }
 
       template {
