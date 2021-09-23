@@ -34,6 +34,10 @@ locals {
       name = "compactor"
       count = 3
     },
+    QueryFrontend = {
+      name = "query-frontend"
+      count = 3
+    },
     AlertManager = {
       name = "alertmanager"
       count = 3
@@ -42,6 +46,10 @@ locals {
       name = "ruler"
       count = 3
     },
+    QueryScheduler = {
+      name = "query-scheduler"
+      count = 3
+    }, 
     Purger = {
       name = "purger"
       count = 1
