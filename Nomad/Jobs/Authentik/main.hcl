@@ -59,7 +59,7 @@ job "authentik" {
         args = ["worker"]
       }
 
-      env = {
+      env {
         #
         # Database
         #
@@ -103,7 +103,7 @@ EOH
         ports = ["http"]
       }
 
-      env = {
+      env {
         #
         # Database
         #

@@ -1,0 +1,65 @@
+#
+# Logging configuration
+#
+[logging]
+level = "info"    # "debug" | "info" | "warn" | "error"
+output = "stdout" # "stdout" | "stderr" | "/path/to/gobetween.log"
+format = "text"   # (optional) "text" | "json"
+
+#
+# Pprof profiler configuration
+#
+[profiler]
+enabled = false # false | true
+bind = ":6060"  # "host:port"
+
+#
+# REST API server configuration
+#
+[api]
+enabled = true  # true | false
+bind = ":8888"  # "host:port"
+cors = false    # cross-origin resource sharing
+
+#  [api.basic_auth]   # (optional) Enable HTTP Basic Auth
+#  login = "admin"    # HTTP Auth Login
+#  password = "1111"  # HTTP Auth Password
+
+#  [api.tls]                        # (optional) Enable HTTPS
+#  cert_path = "/path/to/cert.pem"  # Path to certificate
+#  key_path = "/path/to/key.pem"    # Path to key
+
+#
+# Metrics server configuration
+#
+[metrics]
+enabled = false # false | true
+bind = ":9284"  # "host:port"
+
+#
+# Default values for server configuration, may be overridden in [servers] sections.
+# All "duration" fields (for example, postfixed with '_timeout') have the following format:
+# <int><duration> where duration can be one of 'ms', 's', 'm', 'h'.
+# Examples: "5s", "1m", "500ms", etc. "0" value means no limit
+#
+[defaults]
+max_connections = 0              # Maximum simultaneous connections to the server
+client_idle_timeout = "0"        # Client inactivity duration before forced connection drop
+backend_idle_timeout = "0"       # Backend inactivity duration before forced connection drop
+backend_connection_timeout = "0" # Backend connection timeout (ignored in udp)
+
+[servers]
+
+# ---------- tcp example ----------- #
+
+[servers.sample]
+protocol = "udp"
+bind = "0.0.0.0:3000"
+
+  [servers.sample.discovery]
+  kind = "static"
+  static_list = [
+      "localhost:8000 weight=40 priority=1",
+      "localhost:8001 weight=60 priority=1",
+      "localhost:8002 weight=100 priority=0"
+  ]

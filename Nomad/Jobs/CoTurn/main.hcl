@@ -14,7 +14,10 @@ job "coturn" {
 
       port "stun" { }
 
-      port "turn" { }
+      port "turn" { 
+        static = 3478
+        to = 3478
+      }
 
       port "metrics" {
         static = 9641

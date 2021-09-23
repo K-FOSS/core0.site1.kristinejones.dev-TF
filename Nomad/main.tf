@@ -77,6 +77,10 @@ resource "nomad_job" "Ingress" {
   jobspec = templatefile("${path.module}/Jobs/Web/Web.hcl", {
     Consul = var.Ingress.Consul
 
+    GoBetweenCONF = templatefile("${path.module}/Jobs/Web/Configs/gobetween.toml", { 
+      Consul = var.Ingress.Consul
+    })
+
     Caddyfile = templatefile("${path.module}/Jobs/Web/Configs/Caddyfile.json", { 
       Cloudflare = var.Ingress.Cloudflare
 

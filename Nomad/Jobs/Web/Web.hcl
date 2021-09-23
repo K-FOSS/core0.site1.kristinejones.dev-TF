@@ -57,7 +57,7 @@ job "ingress" {
 
       }
 
-      env = {
+      env {
         CADDY_CLUSTERING_CONSUL_AESKEY = "${Consul.EncryptionKey}"
       }
 
