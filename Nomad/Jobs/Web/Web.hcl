@@ -15,6 +15,7 @@ job "ingress" {
 
       port "udpstun" { 
         static = 8078
+        to = 8078
       }
     }
 
