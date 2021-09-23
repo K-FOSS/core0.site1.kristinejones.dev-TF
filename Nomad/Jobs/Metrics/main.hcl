@@ -7,11 +7,34 @@ job "metrics" {
     network {
       mode = "bridge"
 
+      port "memcached" { 
+        static = 11211
+      }
+
 %{ for TARGET in TARGETS ~}
       port "${replace("${TARGET.name}", "-", "")}_http" { }
 
       port "${replace("${TARGET.name}", "-", "")}_grpc" { }
 %{ endfor ~}
+    }
+
+    task "cortex-memcached" {
+      driver = "docker"
+
+      config {
+        image = "memcached:1.6"
+
+        network_mode = "bridge"
+
+        hostname = "redis"
+      }
+
+      service {
+        name = "cortex-memcached"
+        port = "memcached"
+
+        address_mode = "driver"
+      }
     }
 
 
