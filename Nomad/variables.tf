@@ -165,3 +165,18 @@ variable "Metrics" {
     })
   })
 }
+
+#
+# NAS Storage
+# 
+
+variable "Storage" {
+  type = object({
+    NAS = object({
+      Hostname = string
+
+      Password = string
+
+    })
+  })
+}

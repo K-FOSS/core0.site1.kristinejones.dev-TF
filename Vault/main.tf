@@ -83,3 +83,10 @@ data "vault_generic_secret" "PomeriumOID" {
 data "vault_generic_secret" "Minio" {
   path = "${vault_mount.Terraform.path}/Minio"
 }
+
+#
+# TrueNAS NAS
+#
+data "vault_generic_secret" "NASAuth" {
+  path = "keycloak/NASAuth"
+}

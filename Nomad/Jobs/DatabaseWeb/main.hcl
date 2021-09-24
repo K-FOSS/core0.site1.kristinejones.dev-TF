@@ -30,8 +30,6 @@ job "database-${DATABASE}-web" {
 
       config {
         image = "redis:6.2.5"
-
-        ports = ["redis"]
       }
     }
 
@@ -40,8 +38,6 @@ job "database-${DATABASE}-web" {
 
       config {
         image = "grafana/grafana:8.0.3"
-
-        ports = ["http"]
       }
 
       env {

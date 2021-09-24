@@ -30,6 +30,17 @@ provider "nomad" {
 }
 
 #
+# CSI
+#
+
+resource "nomad_job" "Storage" {
+  jobspec = templatefile("${path.module}/Jobs/Storage/main.hcl", {
+    CSI_CONFIG = templatefile("${path.module}/Jobs/Storage/Configs/CSI.yaml", var.Storage)
+  })
+}
+
+
+#
 # Bitwarden
 #
 resource "nomad_job" "Nomad" {

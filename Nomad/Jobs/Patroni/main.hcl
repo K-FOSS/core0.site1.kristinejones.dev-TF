@@ -13,7 +13,7 @@ job "Patroni" {
     }
 
     network {
-      mode = "cni/spine0"
+      mode = "cni/nomadcore1"
 
       port "psql" {
         static = 5432

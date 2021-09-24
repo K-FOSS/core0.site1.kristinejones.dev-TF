@@ -187,4 +187,12 @@ module "Nomad" {
       S3 = module.CortexBucket
     }
   }
+
+  Storage = {
+    NAS = {
+      Hostname = "172.16.51.21"
+
+      Password = module.Vault.NAS.Password
+    }
+  }
 } 

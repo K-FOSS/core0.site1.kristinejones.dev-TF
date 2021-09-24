@@ -57,3 +57,12 @@ output "Minio" {
     SecretKey = data.vault_generic_secret.Minio.data["SecretKey"]
   }
 }
+
+#
+# TrueNAS NAS
+#
+output "NAS" {
+  value = {
+    Password = data.vault_generic_secret.NASAuth.data["PASSWORD"]
+  }
+}
