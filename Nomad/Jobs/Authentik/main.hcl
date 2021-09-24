@@ -8,11 +8,11 @@ job "authentik" {
       mode = "cni/nomadcore1"
 
       port "http" { 
-        static = 9000
+        to = 9000
       }
 
       port "redis" { 
-        static = 6379
+        to = 6379
       }
 
       dns {
