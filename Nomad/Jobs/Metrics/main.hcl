@@ -107,7 +107,7 @@ EOF
       config {
         image = "prom/prometheus:v2.30.0"
 
-        args = ["--config.file=/local/prometheus.yaml", "--enable-feature=exemplar-storage]
+        args = ["--config.file=/local/prometheus.yaml", "--enable-feature=exemplar-storage"]
       }
 
       template {
