@@ -36,6 +36,10 @@ job "ingress" {
       }
 
       port "cli" { }
+
+      dns {
+        servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
+      }
     }
 
     service {
@@ -47,12 +51,6 @@ job "ingress" {
       connect {
          sidecar_service {
           proxy {
-            upstreams {
-              destination_name = "bitwarden-cont"
-
-              local_bind_port = 8085
-            }
-
             upstreams {
               destination_name = "authentik-cont"
 

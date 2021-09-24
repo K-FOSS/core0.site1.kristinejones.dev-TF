@@ -51,7 +51,7 @@
                           },
                           "upstreams": [
                             {
-                              "dial": "{{ env "NOMAD_UPSTREAM_ADDR_bitwarden-cont" }}"
+                              "lookup_srv": "bitwarden-cont.service.kjdev"
                             }
                           ]
                         }
