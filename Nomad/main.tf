@@ -221,6 +221,10 @@ resource "nomad_job" "Metrics" {
   jobspec = templatefile("${path.module}/Jobs/Metrics/main.hcl", {
     TARGETS = var.Metrics.Cortex.Targets
 
+    PROMETHEUS_CONFIG = templatefile("${path.module}/Jobs/Metrics/Configs/Prometheus.yaml", {
+
+    })
+
     CORTEX = {
       CORTEX_CONFIG = templatefile("${path.module}/Jobs/Metrics/Configs/Cortex.yaml", {
         Consul = var.Metrics.Cortex.Consul

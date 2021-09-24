@@ -96,6 +96,28 @@ EOF
     }
 %{ endfor ~}
 
+    task "prometheus" {
+      driver = "docker"
+
+      restart {
+        attempts = 5
+        delay    = "60s"
+      }
+
+      config {
+        image = "prom/prometheus:v2.30.0"
+
+        args = ["--config.file=/local/prometheus.yaml", "--enable-feature=exemplar-storage]
+      }
+
+      template {
+        data = <<EOF
+${PROMETHEUS_CONFIG}
+EOF
+
+        destination = "local/prometheus.yaml"
+      }
+    }
 
   }
 }
