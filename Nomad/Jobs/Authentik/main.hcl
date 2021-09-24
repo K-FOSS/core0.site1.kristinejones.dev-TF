@@ -43,8 +43,6 @@ job "authentik" {
 
       config {
         image = "redis:alpine"
-
-        hostname = "redis"
       }
 
 
