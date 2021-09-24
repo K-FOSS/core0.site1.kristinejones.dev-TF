@@ -34,7 +34,7 @@ job "metrics" {
 
       task = "cortex-${TARGET.name}"
 
-      address_mode = "driver"
+      address_mode = "alloc"
     }
 %{ endfor ~}
 
