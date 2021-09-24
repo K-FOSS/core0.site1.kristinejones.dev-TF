@@ -1,8 +1,8 @@
-job "storage-node" {
+job "storage-controller" {
   datacenters = ["core0site1"]
   type        = "service"
 
-  group "node" {
+  group "controller" {
     network {
       mode = "cni/nomadcore1"
     }
