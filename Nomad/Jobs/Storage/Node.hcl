@@ -1,8 +1,8 @@
-job "storage-controller" {
+job "storage-node" {
   datacenters = ["core0site1"]
-  type        = "service"
+  type        = "system"
 
-  group "controller" {
+  group "node" {
     network {
       mode = "cni/storage0"
 
@@ -13,12 +13,12 @@ job "storage-controller" {
       name = "democraticcsi-node"
       port = "grpc"
 
-      task = "controller"
+      task = "node"
 
       address_mode = "alloc"
     }
 
-    task "controller" {
+    task "node" {
       driver = "docker"
 
       config {
@@ -29,7 +29,7 @@ job "storage-controller" {
           "--csi-name=org.democratic-csi.nfs",
           "--driver-config-file=$${NOMAD_TASK_DIR}/driver-config-file.yaml",
           "--log-level=debug",
-          "--csi-mode=controller",
+          "--csi-mode=node",
           "--server-socket=/csi-data/csi.sock",
           "--server-address=0.0.0.0",
           "--server-port=$${NOMAD_PORT_grpc}",
@@ -40,7 +40,7 @@ job "storage-controller" {
 
       csi_plugin {
         id        = "truenas"
-        type      = "controller"
+        type      = "node"
         mount_dir = "/csi-data"
       }
 

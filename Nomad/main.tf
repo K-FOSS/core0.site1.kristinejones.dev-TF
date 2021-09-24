@@ -34,7 +34,13 @@ provider "nomad" {
 #
 
 resource "nomad_job" "Storage" {
-  jobspec = templatefile("${path.module}/Jobs/Storage/main.hcl", {
+  jobspec = templatefile("${path.module}/Jobs/Storage/Controller.hcl", {
+    CSI_CONFIG = templatefile("${path.module}/Jobs/Storage/Configs/CSI.yaml", var.Storage)
+  })
+}
+
+resource "nomad_job" "CSIStorage" {
+  jobspec = templatefile("${path.module}/Jobs/Storage/Node.hcl", {
     CSI_CONFIG = templatefile("${path.module}/Jobs/Storage/Configs/CSI.yaml", var.Storage)
   })
 }
