@@ -73,8 +73,7 @@ resource "minio_canned_policy" "BucketPolicy" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "arn:aws:s3:::${minio_bucket.Bucket.name}/*",
-        "arn:aws:s3:::${minio_bucket.Bucket.name}"
+        "arn:aws:s3:::${minio_bucket.Bucket.name}/*"
       ]
     }
   ]
