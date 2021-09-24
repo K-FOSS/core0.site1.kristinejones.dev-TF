@@ -5,7 +5,7 @@ job "metrics" {
     count = 1
 
     network {
-      mode = "bridge"
+      mode = "cni/nomadcore1"
 
       port "memcached" { 
         static = 11211
@@ -63,8 +63,6 @@ job "metrics" {
         image = "cortexproject/cortex:v1.10.0"
 
         args = ["-config.file=/local/Cortex.yaml"]
-
-        network_mode = "bridge"
       }
 
       env {
