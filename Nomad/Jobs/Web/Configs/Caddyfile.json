@@ -74,7 +74,7 @@
                           },
                           "upstreams": [
                             {
-                              "dial": "{{ env "NOMAD_UPSTREAM_ADDR_authentik-cont" }}"
+                              "lookup_srv": "authentik-cont.service.kjdev"
                             }
                           ]
                         }
