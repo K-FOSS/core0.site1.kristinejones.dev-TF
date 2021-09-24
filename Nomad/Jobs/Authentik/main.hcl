@@ -5,7 +5,7 @@ job "authentik" {
     count = 1
 
     network {
-      mode = "bridge"
+      mode = "cni/nomadcore1"
 
       port "http" { 
         static = 9000
@@ -26,9 +26,16 @@ job "authentik" {
 
       task = "authentik"
 
-      connect {
-        sidecar_service { }
-      }
+      address_mode = "alloc"
+    }
+
+    service {
+      name = "authentik-redis-cont"
+      port = "redis"
+
+      task = "redis"
+
+      address_mode = "alloc"
     }
 
     task "redis" {
@@ -37,17 +44,10 @@ job "authentik" {
       config {
         image = "redis:alpine"
 
-        network_mode = "bridge"
-
         hostname = "redis"
       }
 
-      service {
-        name = "authentik-redis-cont"
-        port = "redis"
 
-        address_mode = "driver"
-      }
     }
 
     task "authentik-worker" {
