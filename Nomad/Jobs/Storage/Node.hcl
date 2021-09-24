@@ -31,7 +31,6 @@ job "storage-node" {
           "--log-level=debug",
           "--csi-mode=node",
           "--server-socket=/csi-data/csi.sock",
-          "--server-address=0.0.0.0",
           "--server-port=$${NOMAD_PORT_grpc}",
         ]
 

@@ -4,7 +4,7 @@ job "storage-controller" {
 
   group "controller" {
     network {
-      mode = "cni/nomadcore1"
+      mode = "bridge"
 
       port "grpc" { }
     }
