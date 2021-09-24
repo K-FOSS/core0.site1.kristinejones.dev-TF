@@ -2,7 +2,7 @@ driver: freenas-nfs
 instance_id:
 httpConnection:
   protocol: http
-  host: ${NAS.Hostname}
+  host: ${NAS.Admin.Hostname}
   port: 80
   # use only 1 of apiKey or username/password
   # if both are present, apiKey is preferred
@@ -16,7 +16,7 @@ httpConnection:
   apiVersion: 2
 
 sshConnection:
-  host: ${NAS.Hostname}
+  host: ${NAS.Admin.Hostname}
   port: 22
   username: root
   # use either password or key

@@ -175,6 +175,10 @@ variable "Storage" {
     NAS = object({
       Hostname = string
 
+      Admin = {
+        Hostname = string
+      }
+
       Password = string
 
     })

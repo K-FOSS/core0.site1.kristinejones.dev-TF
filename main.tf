@@ -192,6 +192,10 @@ module "Nomad" {
     NAS = {
       Hostname = "172.16.51.21"
 
+      Admin = {
+        Hostname = "172.16.20.21"
+      }
+
       Password = module.Vault.NAS.Password
     }
   }
