@@ -18,21 +18,43 @@ job "metrics" {
 %{ endfor ~}
     }
 
+%{ for TARGET in TARGETS ~}
+    service {
+      name = "cortex-${TARGET.name}-http-cont"
+      port = "${replace("${TARGET.name}", "-", "")}_http"
+
+      task = "cortex-${TARGET.name}"
+
+      address_mode = "alloc"
+    }
+
+    service {
+      name = "cortex-${TARGET.name}-grpc-cont"
+      port = "${replace("${TARGET.name}", "-", "")}_grpc"
+
+      task = "cortex-${TARGET.name}"
+
+      address_mode = "driver"
+    }
+%{ endfor ~}
+
+    service {
+      name = "cortex-memcached"
+      port = "memcached"
+
+      task = "cortex-memcached"
+
+      address_mode = "alloc"
+    }
+
     task "cortex-memcached" {
       driver = "docker"
 
       config {
         image = "memcached:1.6"
-
-        network_mode = "bridge"
       }
 
-      service {
-        name = "cortex-memcached"
-        port = "memcached"
 
-        address_mode = "driver"
-      }
     }
 
 
@@ -43,20 +65,6 @@ job "metrics" {
       restart {
         attempts = 5
         delay    = "60s"
-      }
-
-      service {
-        name = "cortex-${TARGET.name}-http-cont"
-        port = "${replace("${TARGET.name}", "-", "")}_http"
-
-        address_mode = "driver"
-      }
-
-      service {
-        name = "cortex-${TARGET.name}-grpc-cont"
-        port = "${replace("${TARGET.name}", "-", "")}_grpc"
-
-        address_mode = "driver"
       }
 
       config {
