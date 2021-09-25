@@ -183,11 +183,11 @@ limits:
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#frontend_worker_config
 #
 frontend_worker:
-  frontend_address: "cortex-query-frontend-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryfrontend_grpc" }}"
+  #frontend_address: "cortex-query-frontend-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryfrontend_grpc" }}"
   match_max_concurrent: true
 
   # By setting scheduler_address, querier worker would use scheduler instead of frontend.
-  # scheduler_address: "query-scheduler:9012"
+  scheduler_address: cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
 
 
 #
@@ -195,6 +195,7 @@ frontend_worker:
 #
 frontend:
   query_stats_enabled: true
+  scheduler_address: cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#query_range_config
@@ -409,4 +410,4 @@ alertmanager_storage:
 #
 # TODO: Learn about this, and determine if useful/necessary
 #
-#query_scheduler:
+query_scheduler:
