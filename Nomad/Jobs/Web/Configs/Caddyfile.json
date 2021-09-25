@@ -282,14 +282,13 @@
               "match": [
                 {
                   "path": [
-                    "/api/prom/",
-                    "/api/v1/read",
-                    "/api/v1/metadata",
-                    "/api/v1/labels",
-                    "/api/v1/series",
-                    "/api/v1/query_range",
-                    "/api/v1/query",
-                    "/api/v1/labels/"
+                    "/prometheus/api/v1/read",
+                    "/prometheus/api/v1/metadata",
+                    "/prometheus/api/v1/labels",
+                    "/prometheus/api/v1/series",
+                    "/prometheus/api/v1/query_range",
+                    "/prometheus/api/v1/query",
+                    "/prometheus/api/v1/labels/"
                   ]
                 }
               ],
