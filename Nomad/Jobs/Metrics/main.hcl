@@ -8,7 +8,7 @@ job "metrics" {
       mode = "cni/nomadcore1"
 
       port "memcached" { 
-        static = 11211
+        to = 11211
       }
 
 %{ for Target in Cortex.Targets ~}
@@ -130,6 +130,10 @@ EOF
 
     network {
       mode = "cni/nomadcore1"
+
+      port "memcached" { 
+        to = 11211
+      }
 
 %{ for Target in Loki.Targets ~}
       port "${replace("${Target.name}", "-", "")}_http" { }
