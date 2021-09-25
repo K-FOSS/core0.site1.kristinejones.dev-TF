@@ -2,7 +2,7 @@ job "metrics" {
   datacenters = ["core0site1"]
 
   group "cortex" {
-    count = 1
+    count = 3
 
     network {
       mode = "cni/nomadcore1"
@@ -59,12 +59,6 @@ job "metrics" {
 %{ for Target in Cortex.Targets ~}
     task "cortex-${Target.name}" {
       driver = "docker"
-
-      scaling {
-        enabled = true
-        min     = ${Target.count}
-        max     = ${Target.count}
-      }
 
       restart {
         attempts = 5
