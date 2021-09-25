@@ -110,10 +110,7 @@ distributor:
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#querier_config
 #
 querier:
-  # Used when the blocks sharding is disabled.
-  store_gateway_addresses: dnssrv+cortex-store-gateway-grpc-cont.service.kjdev
-
-  query_store_for_labels_enabled: true
+  query_ingesters_within: 3h
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#ingester_client_config
@@ -200,6 +197,8 @@ frontend:
 query_range:
   split_queries_by_interval: 24h
 
+  parallelise_shardable_queries: true
+
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#table_manager_config
 #
@@ -228,17 +227,17 @@ blocks_storage:
     index_cache:
       backend: memcached
       memcached:
-        addresses: dnssrv+cortex-memcached.service.kjdev
+        addresses: dns+cortex-memcached.service.kjdev:11211
 
     chunks_cache:
       backend: memcached
       memcached:
-        addresses: dnssrv+cortex-memcached.service.kjdev
+        addresses: dns+cortex-memcached.service.kjdev:11211
 
     metadata_cache:
       backend: memcached
       memcached:
-        addresses: dnssrv+cortex-memcached.service.kjdev
+        addresses: dns+cortex-memcached.service.kjdev:11211
 
   s3:
     endpoint: ${S3.Connection.Endpoint}
