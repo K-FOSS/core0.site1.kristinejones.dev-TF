@@ -87,6 +87,13 @@ distributor:
   # TODO: What is this?
   # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#distributor_config
   #
+  # ha_tracker:
+  #   enable_ha_tracker: true
+  #   kvstore:
+  #     store: consul
+  #     consul:
+  #       host: tasks.ConsulCore:8500
+  #   replication_factor: 1
 
   # Distribute samples based on all labels, as opposed to solely by user and
   # metric name.
@@ -112,7 +119,8 @@ distributor:
 querier:
   query_ingesters_within: 3h
 
-  store_gateway_addresses: dnssrv+cortex-store-gateway-grpc-cont.service.kjdev
+  # Used when the blocks sharding is disabled.
+  store_gateway_addresses: cortex-store-gateway-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_storegateway_grpc" }}
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#ingester_client_config
@@ -171,24 +179,23 @@ limits:
   # Maximum number of label names per series.
   max_label_names_per_series: 64
 
-  # Flag to enable, for all users, handling of samples with external labels
-  # identifying replicas in an HA Prometheus setup.
-#  accept_ha_samples: true
-
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#frontend_worker_config
 #
 frontend_worker:
   #frontend_address: "cortex-query-frontend-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryfrontend_grpc" }}"
+  match_max_concurrent: true
+
   # By setting scheduler_address, querier worker would use scheduler instead of frontend.
-  scheduler_address: dnssrv+cortex-query-scheduler-grpc-cont.service.kjdev
+  scheduler_address: cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
 
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#query_frontend_config
 #
 frontend:
-  scheduler_address: dnssrv+cortex-query-scheduler-grpc-cont.service.kjdev
+  query_stats_enabled: true
+  scheduler_address: cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#query_range_config
