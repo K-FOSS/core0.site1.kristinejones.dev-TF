@@ -112,6 +112,8 @@ distributor:
 querier:
   query_ingesters_within: 3h
 
+  store_gateway_addresses: dnssrv+cortex-store-gateway-grpc-cont.service.kjdev
+
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#ingester_client_config
 #
