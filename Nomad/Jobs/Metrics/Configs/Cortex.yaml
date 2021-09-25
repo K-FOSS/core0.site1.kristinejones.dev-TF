@@ -210,7 +210,7 @@ query_range:
   results_cache:
     cache:
       memcached_client:
-        addresses: dns+{{ env "NOMAD_ALLOC_INDEX" }}.cortex-memcached.service.kjdev:11211
+        addresses: dnssrv+cortex-memcached.service.kjdev
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#table_manager_config
@@ -240,17 +240,17 @@ blocks_storage:
     index_cache:
       backend: memcached
       memcached:
-        addresses: dns+{{ env "NOMAD_ALLOC_INDEX" }}.cortex-memcached.service.kjdev:11211
+        addresses: dnssrv+cortex-memcached.service.kjdev
 
     chunks_cache:
       backend: memcached
       memcached:
-        addresses: dns+{{ env "NOMAD_ALLOC_INDEX" }}.cortex-memcached.service.kjdev:11211
+        addresses: dnssrv+cortex-memcached.service.kjdev
 
     metadata_cache:
       backend: memcached
       memcached:
-        addresses: dns+{{ env "NOMAD_ALLOC_INDEX" }}.cortex-memcached.service.kjdev:11211
+        addresses: dnssrv+cortex-memcached.service.kjdev
 
   s3:
     endpoint: ${S3.Connection.Endpoint}
