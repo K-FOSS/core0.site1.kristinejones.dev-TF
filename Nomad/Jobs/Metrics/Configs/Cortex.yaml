@@ -96,8 +96,6 @@ distributor:
         host: ${Consul.Hostname}:${Consul.Port}
         acl_token: ${Consul.Token}
 
-  replication_factor: 3
-
   # Distribute samples based on all labels, as opposed to solely by user and
   # metric name.
   shard_by_all_labels: true
