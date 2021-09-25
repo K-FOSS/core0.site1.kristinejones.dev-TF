@@ -22,6 +22,8 @@ locals {
   Patroni = var.Patroni
 
   Cortex = var.Cortex
+
+  Loki = var.Loki
 }
 
 #
@@ -52,6 +54,10 @@ data "consul_acl_token_secret_id" "PatroniToken" {
 }
 
 #
+# TODO: Make this shit a compostable module
+#
+
+#
 # Grafana Cortex
 #
 
@@ -61,7 +67,7 @@ resource "random_uuid" "CortexToken" { }
 resource "consul_acl_policy" "CortexACL" {
   name  = "GrafanaCortexACL"
 
-  rules = templatefile("${path.module}/ACLs/Cortex.hcl", local.Cortex)
+  rules = templatefile("${path.module}/ACLs/KVTemplate.hcl", local.Cortex)
 }
 
 resource "consul_acl_token" "CortexToken" {
@@ -75,6 +81,32 @@ resource "consul_acl_token" "CortexToken" {
 
 data "consul_acl_token_secret_id" "CortexToken" {
   accessor_id = consul_acl_token.CortexToken.id
+}
+
+#
+# Grafana Loki
+#
+
+resource "random_uuid" "LokiToken" { }
+
+
+resource "consul_acl_policy" "LokiACL" {
+  name  = "GrafanaLokiACL"
+
+  rules = templatefile("${path.module}/ACLs/KVTemplate.hcl", local.Loki)
+}
+
+resource "consul_acl_token" "LokiToken" {
+  accessor_id = random_uuid.LokiToken.result
+
+  description = "Grafana Loki Long term Time series storage automation"
+
+  policies = ["${consul_acl_policy.LokiACL.name}"]
+  local = true
+}
+
+data "consul_acl_token_secret_id" "LokiToken" {
+  accessor_id = consul_acl_token.LokiToken.id
 }
 
 #

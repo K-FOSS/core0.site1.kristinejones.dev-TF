@@ -39,13 +39,32 @@ module "Consul" {
   Cortex = {
     Prefix = "cortex"
   }
+
+  Loki = {
+    Prefix = "loki"
+  }
 }
 
 #
 # Minio S3 Storage Modules
 #
 
+#
+# Grafana Cortex
+#
+
 module "CortexBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+module "LokiBucket" {
   source = "./Minio"
 
   Connection = {
@@ -98,6 +117,10 @@ module "CoTurnDatabase" {
 
 module "Cortex" {
   source = "./Cortex"
+}
+
+module "Loki" {
+  source = "./Loki"
 }
 
 module "Nomad" {
@@ -185,6 +208,14 @@ module "Nomad" {
       Targets = module.Cortex.Targets
 
       S3 = module.CortexBucket
+    }
+
+    Loki = {
+      Consul = module.Consul.Loki
+
+      Targets = module.Loki.Targets
+
+      S3 = module.LokiBucket
     }
   }
 

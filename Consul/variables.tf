@@ -12,6 +12,10 @@ variable "Patroni" {
   description = "Patroni Configuration"
 }
 
+#
+# Grafana Observability
+#
+
 variable "Cortex" {
   type = object({
     Prefix = string
@@ -20,3 +24,13 @@ variable "Cortex" {
 
   description = "Cortex Configuration"
 }
+
+variable "Loki" {
+  type = object({
+    Prefix = string
+  })
+  sensitive = true
+
+  description = "Loki Configuration"
+}
+

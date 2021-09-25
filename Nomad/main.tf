@@ -219,18 +219,21 @@ resource "nomad_job" "Pomerium" {
 
 resource "nomad_job" "Metrics" {
   jobspec = templatefile("${path.module}/Jobs/Metrics/main.hcl", {
-    TARGETS = var.Metrics.Cortex.Targets
+    Prometheus = {
+      YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Prometheus.yaml", { })
 
-    PROMETHEUS_CONFIG = templatefile("${path.module}/Jobs/Metrics/Configs/Prometheus.yaml", {
+      Version = "v2.30.0"
+    }
 
-    })
+    Cortex = {
+      Targets = var.Metrics.Cortex.Targets
 
-    CORTEX = {
-      CORTEX_CONFIG = templatefile("${path.module}/Jobs/Metrics/Configs/Cortex.yaml", {
+      YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Cortex.yaml", {
         Consul = var.Metrics.Cortex.Consul
         S3 = var.Metrics.Cortex.S3
       })
+
+      Version = "v1.10.0"
     }
-    
   })
 }

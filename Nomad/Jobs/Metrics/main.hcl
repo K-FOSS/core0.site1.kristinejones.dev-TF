@@ -11,28 +11,28 @@ job "metrics" {
         static = 11211
       }
 
-%{ for TARGET in TARGETS ~}
-      port "${replace("${TARGET.name}", "-", "")}_http" { }
+%{ for Target in Cortex.Targets ~}
+      port "${replace("${Target.name}", "-", "")}_http" { }
 
-      port "${replace("${TARGET.name}", "-", "")}_grpc" { }
+      port "${replace("${Target.name}", "-", "")}_grpc" { }
 %{ endfor ~}
     }
 
-%{ for TARGET in TARGETS ~}
+%{ for Target in Cortex.Targets ~}
     service {
-      name = "cortex-${TARGET.name}-http-cont"
-      port = "${replace("${TARGET.name}", "-", "")}_http"
+      name = "cortex-${Target.name}-http-cont"
+      port = "${replace("${Target.name}", "-", "")}_http"
 
-      task = "cortex-${TARGET.name}"
+      task = "cortex-${Target.name}"
 
       address_mode = "alloc"
     }
 
     service {
-      name = "cortex-${TARGET.name}-grpc-cont"
-      port = "${replace("${TARGET.name}", "-", "")}_grpc"
+      name = "cortex-${Target.name}-grpc-cont"
+      port = "${replace("${Target.name}", "-", "")}_grpc"
 
-      task = "cortex-${TARGET.name}"
+      task = "cortex-${Target.name}"
 
       address_mode = "alloc"
     }
@@ -58,8 +58,8 @@ job "metrics" {
     }
 
 
-%{ for TARGET in TARGETS ~}
-    task "cortex-${TARGET.name}" {
+%{ for Target in Cortex.Targets ~}
+    task "cortex-${Target.name}" {
       driver = "docker"
 
       restart {
@@ -68,27 +68,27 @@ job "metrics" {
       }
 
       config {
-        image = "cortexproject/cortex:v1.10.0"
+        image = "cortexproject/cortex:${Cortex.Version}"
 
         args = ["-config.file=/local/Cortex.yaml"]
       }
 
       env {
-        TARGET = "${TARGET.name}"
-        TARGET_RPL = "${replace("${TARGET.name}", "-", "")}"
+        TARGET = "${Target.name}"
+        TARGET_RPL = "${replace("${Target.name}", "-", "")}"
       }
 
       meta {
-        TARGET = "${TARGET.name}"
-        TARGET_RPL = "${replace("${TARGET.name}", "-", "")}"
+        TARGET = "${Target.name}"
+        TARGET_RPL = "${replace("${Target.name}", "-", "")}"
 
-        GRPC_PORT_LABEL = "${replace("${TARGET.name}", "-", "")}_grpc"
-        HTTP_PORT_LABEL = "${replace("${TARGET.name}", "-", "")}_http"
+        GRPC_PORT_LABEL = "${replace("${Target.name}", "-", "")}_grpc"
+        HTTP_PORT_LABEL = "${replace("${Target.name}", "-", "")}_http"
       }
 
       template {
         data = <<EOF
-${CORTEX.CORTEX_CONFIG}
+${Cortex.YAMLConfig}
 EOF
 
         destination = "local/Cortex.yaml"
@@ -105,18 +105,27 @@ EOF
       }
 
       config {
-        image = "prom/prometheus:v2.30.0"
+        image = "prom/prometheus:${Prometheus.Version}"
 
         args = ["--config.file=/local/prometheus.yaml", "--enable-feature=exemplar-storage"]
       }
 
       template {
         data = <<EOF
-${PROMETHEUS_CONFIG}
+${Prometheus.YAMLConfig}
 EOF
 
         destination = "local/prometheus.yaml"
       }
+    }
+
+  }
+
+  group "loki" {
+    count = 1
+
+    network {
+      mode = "cni/nomadcore1"
     }
 
   }
