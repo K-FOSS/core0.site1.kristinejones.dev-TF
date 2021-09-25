@@ -199,8 +199,6 @@ frontend:
 query_range:
   split_queries_by_interval: 24h
 
-  parallelise_shardable_queries: true
-
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#table_manager_config
 #
