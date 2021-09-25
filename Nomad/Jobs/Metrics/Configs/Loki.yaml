@@ -225,8 +225,8 @@ storage_config:
   aws:
     endpoint: ${S3.Connection.Endpoint}
     bucketnames: ${S3.Bucket}
-    access_key_id: ${S3.Credentials.AccessKey}
-    secret_access_key: ${S3.Credentials.SecretKey}
+    access_key_id: '${S3.Credentials.AccessKey}'
+    secret_access_key: '${S3.Credentials.SecretKey}'
     s3forcepathstyle: true
     insecure: true
 
