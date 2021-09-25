@@ -1,6 +1,13 @@
 global:
   scrape_interval: 15s
-  evaluation_interval: 15s 
+  evaluation_interval: 15s
+
+  #
+  # Cortex Labels
+  # 
+  external_labels:
+    cluster: site1.kristianjones.dev
+    __replica__: '{{ env "NOMAD_ALLOC_NAME" }}'
 
 scrape_configs:
   - job_name: 'prometheus'

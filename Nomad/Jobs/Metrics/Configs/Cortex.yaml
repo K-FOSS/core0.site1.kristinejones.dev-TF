@@ -12,7 +12,7 @@ api:
   # Use GZIP compression for API responses. Some endpoints serve large YAML or
   # JSON blobs which can benefit from compression.
   # CLI flag: -api.response-compression-enabled
-  response_compression_enabled: false
+  response_compression_enabled: true
 
   # HTTP URL path under which the Alertmanager ui and api will be served.
   # CLI flag: -http.alertmanager-http-prefix
@@ -87,13 +87,16 @@ distributor:
   # TODO: What is this?
   # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#distributor_config
   #
-  # ha_tracker:
-  #   enable_ha_tracker: true
-  #   kvstore:
-  #     store: consul
-  #     consul:
-  #       host: tasks.ConsulCore:8500
-  #   replication_factor: 1
+  ha_tracker:
+    enable_ha_tracker: true
+    kvstore:
+      store: consul
+      prefix: ${Consul.Prefix}/ha-tracker/
+      consul:
+        host: ${Consul.Hostname}:${Consul.Port}
+        acl_token: ${Consul.Token}
+
+  replication_factor: 3
 
   # Distribute samples based on all labels, as opposed to solely by user and
   # metric name.
@@ -120,7 +123,7 @@ querier:
   query_ingesters_within: 3h
 
   # Used when the blocks sharding is disabled.
-  store_gateway_addresses: cortex-store-gateway-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_storegateway_grpc" }}
+  store_gateway_addresses: dnssrv+cortex-store-gateway-grpc-cont.service.kjdev
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#ingester_client_config
@@ -153,7 +156,7 @@ ingester:
         consul:
           host: ${Consul.Hostname}:${Consul.Port}
           acl_token: ${Consul.Token}
-      replication_factor: 1
+      replication_factor: 3
 
 
 #
@@ -179,6 +182,10 @@ limits:
   # Maximum number of label names per series.
   max_label_names_per_series: 64
 
+  # Flag to enable, for all users, handling of samples with external labels
+  # identifying replicas in an HA Prometheus setup.
+  accept_ha_samples: true
+
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#frontend_worker_config
 #
@@ -187,7 +194,7 @@ frontend_worker:
   match_max_concurrent: true
 
   # By setting scheduler_address, querier worker would use scheduler instead of frontend.
-  scheduler_address: cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
+  scheduler_address: dnssrv+cortex-query-scheduler-grpc-cont.service.kjdev
 
 
 #
@@ -195,7 +202,7 @@ frontend_worker:
 #
 frontend:
   query_stats_enabled: true
-  scheduler_address: cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
+  scheduler_address: dnssrv+cortex-query-scheduler-grpc-cont.service.kjdev
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#query_range_config
@@ -279,7 +286,7 @@ compactor:
 store_gateway:
   sharding_enabled: true
   sharding_ring:
-    replication_factor: 1
+    replication_factor: 3
     heartbeat_period: 5s
     heartbeat_timeout: 15s
     kvstore:
