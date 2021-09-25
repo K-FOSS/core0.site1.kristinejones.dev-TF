@@ -244,7 +244,7 @@ resource "nomad_job" "Metrics" {
         S3 = var.Metrics.Loki.S3
       })
 
-      Version = "2.3.0"
+      Version = "latest"
     }
   })
 }
