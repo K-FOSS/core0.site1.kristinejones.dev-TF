@@ -209,7 +209,7 @@ query_range:
   split_queries_by_interval: 24h
   results_cache:
     cache:
-      memcached:
+      memcached_client:
         addresses: dns+{{ env "NOMAD_ALLOC_INDEX" }}.cortex-memcached.service.kjdev:11211
 
 #
