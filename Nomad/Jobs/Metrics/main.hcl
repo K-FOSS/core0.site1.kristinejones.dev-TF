@@ -44,6 +44,8 @@ job "metrics" {
 
       task = "cortex-memcached"
 
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
       address_mode = "alloc"
     }
 

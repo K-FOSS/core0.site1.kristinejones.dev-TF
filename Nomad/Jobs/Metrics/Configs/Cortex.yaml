@@ -12,7 +12,7 @@ api:
   # Use GZIP compression for API responses. Some endpoints serve large YAML or
   # JSON blobs which can benefit from compression.
   # CLI flag: -api.response-compression-enabled
-  response_compression_enabled: true
+  response_compression_enabled: false
 
   # HTTP URL path under which the Alertmanager ui and api will be served.
   # CLI flag: -http.alertmanager-http-prefix
@@ -207,6 +207,10 @@ frontend:
 #
 query_range:
   split_queries_by_interval: 24h
+  results_cache:
+    cache:
+      memcached:
+        addresses: dns+{{ env "NOMAD_ALLOC_INDEX" }}.cortex-memcached.service.kjdev:11211
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#table_manager_config
@@ -236,17 +240,17 @@ blocks_storage:
     index_cache:
       backend: memcached
       memcached:
-        addresses: dns+cortex-memcached.service.kjdev:11211
+        addresses: dns+{{ env "NOMAD_ALLOC_INDEX" }}.cortex-memcached.service.kjdev:11211
 
     chunks_cache:
       backend: memcached
       memcached:
-        addresses: dns+cortex-memcached.service.kjdev:11211
+        addresses: dns+{{ env "NOMAD_ALLOC_INDEX" }}.cortex-memcached.service.kjdev:11211
 
     metadata_cache:
       backend: memcached
       memcached:
-        addresses: dns+cortex-memcached.service.kjdev:11211
+        addresses: dns+{{ env "NOMAD_ALLOC_INDEX" }}.cortex-memcached.service.kjdev:11211
 
   s3:
     endpoint: ${S3.Connection.Endpoint}
