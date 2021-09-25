@@ -113,6 +113,8 @@ querier:
   # Used when the blocks sharding is disabled.
   store_gateway_addresses: dnssrv+cortex-store-gateway-grpc-cont.service.kjdev
 
+  query_store_for_labels_enabled: true
+
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#ingester_client_config
 #
@@ -197,10 +199,6 @@ frontend:
 #
 query_range:
   split_queries_by_interval: 24h
-  results_cache:
-    cache:
-      memcached_client:
-        addresses: dnssrv+cortex-memcached.service.kjdev
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#table_manager_config

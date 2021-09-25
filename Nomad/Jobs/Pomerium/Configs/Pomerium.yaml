@@ -37,3 +37,4 @@ routes:
     allowed_domains:
       - kristianjones.dev
     pass_identity_headers: true
+    allow_websockets: true
