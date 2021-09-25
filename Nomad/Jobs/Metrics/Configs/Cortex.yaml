@@ -180,8 +180,6 @@ limits:
 #
 frontend_worker:
   #frontend_address: "cortex-query-frontend-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryfrontend_grpc" }}"
-  match_max_concurrent: true
-
   # By setting scheduler_address, querier worker would use scheduler instead of frontend.
   scheduler_address: dnssrv+cortex-query-scheduler-grpc-cont.service.kjdev
 
