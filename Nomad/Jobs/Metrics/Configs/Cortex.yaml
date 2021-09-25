@@ -188,7 +188,6 @@ frontend_worker:
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#query_frontend_config
 #
 frontend:
-  query_stats_enabled: true
   scheduler_address: dnssrv+cortex-query-scheduler-grpc-cont.service.kjdev
 
 #
