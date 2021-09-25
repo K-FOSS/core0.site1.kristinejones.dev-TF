@@ -219,7 +219,7 @@ storage_config:
 
     index_gateway_client:
       # "Hostname or IP of the Index Gateway gRPC server.
-      server_address: tasks.LokiIndexGateway:8085
+      server_address: loki-index-gateway-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_indexgateway_grpc" }}
 
 
   aws:
