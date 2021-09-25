@@ -24,6 +24,10 @@ job "ingress" {
         to = 8080
       }
 
+      port "cortex" {
+        to = 9000
+      }
+
       #
       # CoTurn
       #
@@ -80,6 +84,15 @@ job "ingress" {
       address_mode = "alloc"
     }
 
+    service {
+      name = "ingressweb-cortex-cont"
+      port = "cortex"
+
+      task = "web"
+
+      address_mode = "alloc"
+    }
+
     task "web" {
       driver = "docker"
 
@@ -89,7 +102,6 @@ job "ingress" {
         ports = ["https"]
       
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
-
       }
 
       env {

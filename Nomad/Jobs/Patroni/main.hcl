@@ -2,7 +2,7 @@ job "Patroni" {
   datacenters = ["core0site1"]
 
   group "postgres-database" {
-    count = 3
+    count = 5
 
     volume "${Volume.name}" {
       type      = "csi"

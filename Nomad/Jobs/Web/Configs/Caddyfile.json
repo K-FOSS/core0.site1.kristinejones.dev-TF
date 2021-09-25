@@ -191,6 +191,124 @@
               "terminal": true
             }
           ]
+        },
+        "Cortex": {
+          "listen": [
+            ":9000"
+          ],
+          "automatic_https": {
+            "disable": true
+          },
+          "experimental_http3": false,
+          "routes": [
+            {
+              "match": [
+                {
+                  "path": [
+                    "/prometheus/api/v1/push",
+                    "/ring",
+                    "/all_user_stats",
+                    "/api/prom/push",
+                    "/api/v1/push"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http"
+                  },
+                  "upstreams": [
+                    {
+                      "lookup_srv": "cortex-distributor-http-cont.service.kjdev"
+                    }
+                  ]
+                }
+              ],
+              "terminal": true
+            },
+            {
+              "match": [
+                {
+                  "path": [
+                    "/api/prom/alertmanager/",
+                    "/api/v1/alerts",
+                    "/multitenant_alertmanager/status"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http"
+                  },
+                  "upstreams": [
+                    {
+                      "lookup_srv": "cortex-alertmanager-http-cont.service.kjdev"
+                    }
+                  ]
+                }
+              ],
+              "terminal": true
+            },
+            {
+              "match": [
+                {
+                  "path": [
+                    "/api/v1/rules",
+                    "/ruler/ring",
+                    "/multitenant_alertmanager/status"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http"
+                  },
+                  "upstreams": [
+                    {
+                      "lookup_srv": "cortex-ruler-http-cont.service.kjdev"
+                    }
+                  ]
+                }
+              ],
+              "terminal": true
+            },
+            {
+              "match": [
+                {
+                  "path": [
+                    "/api/prom/",
+                    "/api/v1/read",
+                    "/api/v1/metadata",
+                    "/api/v1/labels",
+                    "/api/v1/series",
+                    "/api/v1/query_range",
+                    "/api/v1/query",
+                    "/api/v1/labels/"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http"
+                  },
+                  "upstreams": [
+                    {
+                      "lookup_srv": "cortex-query-frontend-http-cont.service.kjdev"
+                    }
+                  ]
+                }
+              ],
+              "terminal": true
+            }
+          ]
         }
       }
     },
