@@ -53,14 +53,18 @@ job "metrics" {
       config {
         image = "memcached:1.6"
       }
-
-
     }
 
 
 %{ for Target in Cortex.Targets ~}
     task "cortex-${Target.name}" {
       driver = "docker"
+
+      scaling {
+        enabled = true
+        min     = ${Target.count}
+        max     = ${Target.count}
+      }
 
       restart {
         attempts = 5
