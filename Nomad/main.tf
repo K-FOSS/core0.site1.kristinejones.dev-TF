@@ -235,5 +235,16 @@ resource "nomad_job" "Metrics" {
 
       Version = "v1.10.0"
     }
+
+    Loki = {
+      Targets = var.Metrics.Loki.Targets
+
+      YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Loki.yaml", {
+        Consul = var.Metrics.Loki.Consul
+        S3 = var.Metrics.Loki.S3
+      })
+
+      Version = "2.3.0"
+    }
   })
 }

@@ -121,12 +121,98 @@ EOF
 
   }
 
+  #
+  # TODO: Move template over to dedupe Cortex/Loki via mapping over Services.XYZ
+  #
+
   group "loki" {
     count = 1
 
     network {
       mode = "cni/nomadcore1"
+
+%{ for Target in Loki.Targets ~}
+      port "${replace("${Target.name}", "-", "")}_http" { }
+
+      port "${replace("${Target.name}", "-", "")}_grpc" { }
+%{ endfor ~}
     }
+
+%{ for Target in Loki.Targets ~}
+    service {
+      name = "loki-${Target.name}-http-cont"
+      port = "${replace("${Target.name}", "-", "")}_http"
+
+      task = "loki-${Target.name}"
+
+      address_mode = "alloc"
+    }
+
+    service {
+      name = "loki-${Target.name}-grpc-cont"
+      port = "${replace("${Target.name}", "-", "")}_grpc"
+
+      task = "loki-${Target.name}"
+
+      address_mode = "alloc"
+    }
+%{ endfor ~}
+
+    service {
+      name = "loki-memcached"
+      port = "memcached"
+
+      task = "loki-memcached"
+
+      address_mode = "alloc"
+    }
+
+    task "loki-memcached" {
+      driver = "docker"
+
+      config {
+        image = "memcached:1.6"
+      }
+    }
+
+
+%{ for Target in Loki.Targets ~}
+    task "loki-${Target.name}" {
+      driver = "docker"
+
+      restart {
+        attempts = 5
+        delay    = "60s"
+      }
+
+      config {
+        image = "grafana/loki:${Loki.Version}"
+
+        args = ["-config.file=/local/Loki.yaml"]
+      }
+
+      env {
+        TARGET = "${Target.name}"
+        TARGET_RPL = "${replace("${Target.name}", "-", "")}"
+      }
+
+      meta {
+        TARGET = "${Target.name}"
+        TARGET_RPL = "${replace("${Target.name}", "-", "")}"
+
+        GRPC_PORT_LABEL = "${replace("${Target.name}", "-", "")}_grpc"
+        HTTP_PORT_LABEL = "${replace("${Target.name}", "-", "")}_http"
+      }
+
+      template {
+        data = <<EOF
+${Loki.YAMLConfig}
+EOF
+
+        destination = "local/Loki.yaml"
+      }
+    }
+%{ endfor ~}
 
   }
 }
