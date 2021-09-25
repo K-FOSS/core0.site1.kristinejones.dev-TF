@@ -20,6 +20,10 @@ job "ingress" {
         to = 8443
       }
 
+      port "http" {
+        to = 8080
+      }
+
       #
       # CoTurn
       #
@@ -65,6 +69,15 @@ job "ingress" {
           }
         }
       }
+    }
+
+    service {
+      name = "ingressweb-http-cont"
+      port = "http"
+
+      task = "web"
+
+      address_mode = "alloc"
     }
 
     task "web" {
