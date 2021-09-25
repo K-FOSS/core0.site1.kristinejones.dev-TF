@@ -1,8 +1,8 @@
 job "metrics" {
   datacenters = ["core0site1"]
 
-  group "cortex" {
-    count = 3
+  group "memcached" {
+    count = 1
 
     network {
       mode = "cni/nomadcore1"
@@ -10,6 +10,31 @@ job "metrics" {
       port "memcached" { 
         to = 11211
       }
+    }
+
+    service {
+      name = "cortex-memcached"
+      port = "memcached"
+
+      task = "cortex-memcached"
+
+      address_mode = "alloc"
+    }
+
+    task "cortex-memcached" {
+      driver = "docker"
+
+      config {
+        image = "memcached:1.6"
+      }
+    }
+  }
+
+  group "cortex" {
+    count = 3
+
+    network {
+      mode = "cni/nomadcore1"
 
 %{ for Target in Cortex.Targets ~}
       port "${replace("${Target.name}", "-", "")}_http" { }
@@ -37,25 +62,6 @@ job "metrics" {
       address_mode = "alloc"
     }
 %{ endfor ~}
-
-    service {
-      name = "cortex-memcached"
-      port = "memcached"
-
-      task = "cortex-memcached"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
-
-      address_mode = "alloc"
-    }
-
-    task "cortex-memcached" {
-      driver = "docker"
-
-      config {
-        image = "memcached:1.6"
-      }
-    }
 
 
 %{ for Target in Cortex.Targets ~}
