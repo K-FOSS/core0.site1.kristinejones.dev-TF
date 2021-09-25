@@ -233,7 +233,7 @@ resource "nomad_job" "Metrics" {
         S3 = var.Metrics.Cortex.S3
       })
 
-      Version = "latest"
+      Version = "master-3291733"
     }
 
     Loki = {
