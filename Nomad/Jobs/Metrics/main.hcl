@@ -2,7 +2,7 @@ job "metrics" {
   datacenters = ["core0site1"]
 
   group "cortex" {
-    count = 3
+    count = 1
 
     network {
       mode = "cni/nomadcore1"
