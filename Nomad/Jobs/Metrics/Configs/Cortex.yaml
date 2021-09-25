@@ -410,4 +410,4 @@ alertmanager_storage:
 #
 # TODO: Learn about this, and determine if useful/necessary
 #
-query_scheduler:
+#query_scheduler:
