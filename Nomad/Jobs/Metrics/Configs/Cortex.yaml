@@ -87,14 +87,6 @@ distributor:
   # TODO: What is this?
   # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#distributor_config
   #
-  ha_tracker:
-    enable_ha_tracker: true
-    kvstore:
-      store: consul
-      prefix: ${Consul.Prefix}/ha-tracker/
-      consul:
-        host: ${Consul.Hostname}:${Consul.Port}
-        acl_token: ${Consul.Token}
 
   # Distribute samples based on all labels, as opposed to solely by user and
   # metric name.
@@ -118,8 +110,6 @@ distributor:
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#querier_config
 #
 querier:
-  query_ingesters_within: 3h
-
   # Used when the blocks sharding is disabled.
   store_gateway_addresses: dnssrv+cortex-store-gateway-grpc-cont.service.kjdev
 
@@ -182,7 +172,7 @@ limits:
 
   # Flag to enable, for all users, handling of samples with external labels
   # identifying replicas in an HA Prometheus setup.
-  accept_ha_samples: true
+#  accept_ha_samples: true
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#frontend_worker_config
