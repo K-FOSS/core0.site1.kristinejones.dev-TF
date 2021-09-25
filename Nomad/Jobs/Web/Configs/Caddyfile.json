@@ -110,6 +110,87 @@
               ]
             }
           ]
+        },
+        "Loki": {
+          "listen": [
+            ":8080"
+          ],
+          "automatic_https": {
+            "disable": true
+          },
+          "experimental_http3": false,
+          "routes": [
+            {
+              "match": [
+                {
+                  "path": [
+                    "/loki/api/v1/push",
+                    "/ring"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http"
+                  },
+                  "upstreams": [
+                    {
+                      "lookup_srv": "loki-distributor-http-cont.service.kjdev"
+                    }
+                  ]
+                }
+              ],
+              "terminal": true
+            },
+            {
+              "match": [
+                {
+                  "path": [
+                    "/loki/api/v1/tail"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http"
+                  },
+                  "upstreams": [
+                    {
+                      "lookup_srv": "loki-querier-http-cont.service.kjdev"
+                    }
+                  ]
+                }
+              ],
+              "terminal": true
+            },
+            {
+              "match": [
+                {
+                  "path": [
+                    "/loki/api/*"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http"
+                  },
+                  "upstreams": [
+                    {
+                      "lookup_srv": "loki-query-frontend-http-cont.service.kjdev"
+                    }
+                  ]
+                }
+              ],
+              "terminal": true
+            }
+          ]
         }
       }
     },
