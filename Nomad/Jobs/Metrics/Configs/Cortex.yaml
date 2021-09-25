@@ -187,7 +187,7 @@ frontend_worker:
   match_max_concurrent: true
 
   # By setting scheduler_address, querier worker would use scheduler instead of frontend.
-  scheduler_address: cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
+  scheduler_address: cortex-query-scheduler-http-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_http" }}
 
 
 #
@@ -195,7 +195,7 @@ frontend_worker:
 #
 frontend:
   query_stats_enabled: true
-  scheduler_address: cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
+  scheduler_address: cortex-query-scheduler-http-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_http" }}
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#query_range_config
