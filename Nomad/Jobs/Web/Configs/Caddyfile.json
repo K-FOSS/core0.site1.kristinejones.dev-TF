@@ -232,7 +232,7 @@
               "match": [
                 {
                   "path": [
-                    "/api/prom/alertmanager/",
+                    "/api/prom/alertmanager/*",
                     "/api/v1/alerts",
                     "/multitenant_alertmanager/status"
                   ]
@@ -288,7 +288,7 @@
                     "/prometheus/api/v1/series",
                     "/prometheus/api/v1/query_range",
                     "/prometheus/api/v1/query",
-                    "/prometheus/api/v1/labels/"
+                    "/prometheus/api/v1/labels/*"
                   ]
                 }
               ],
