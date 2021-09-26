@@ -99,7 +99,7 @@ frontend:
   # TODO: Figure this out
   # tail_proxy_url
 
-  scheduler_address: loki-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
+  scheduler_address: {{ env "NOMAD_ALLOC_INDEX" }}.loki-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
 
 
 #
@@ -293,7 +293,7 @@ frontend_worker:
   grpc_client_config:
     max_send_msg_size: 1.048576e+08
   parallelism: 6
-  scheduler_address: loki-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
+  scheduler_address: {{ env "NOMAD_ALLOC_INDEX" }}.loki-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#table_manager_config

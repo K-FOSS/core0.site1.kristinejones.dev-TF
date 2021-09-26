@@ -7,7 +7,11 @@ job "metrics" {
     network {
       mode = "cni/nomadcore1"
 
-      port "memcached" { 
+      port "cortex-memcached" { 
+        to = 11211
+      }
+
+      port "loki-memcached" { 
         to = 11211
       }
     }
@@ -22,6 +26,23 @@ job "metrics" {
     }
 
     task "cortex-memcached" {
+      driver = "docker"
+
+      config {
+        image = "memcached:1.6"
+      }
+    }
+
+    service {
+      name = "loki-memcached"
+      port = "loki-memcached"
+
+      task = "loki-memcached"
+
+      address_mode = "alloc"
+    }
+
+    task "loki-memcached" {
       driver = "docker"
 
       config {
@@ -141,10 +162,6 @@ EOF
     network {
       mode = "cni/nomadcore1"
 
-      port "memcached" { 
-        to = 11211
-      }
-
 %{ for Target in Loki.Targets ~}
       port "${replace("${Target.name}", "-", "")}_http" { }
 
@@ -159,6 +176,8 @@ EOF
 
       task = "loki-${Target.name}"
 
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
       address_mode = "alloc"
     }
 
@@ -168,26 +187,11 @@ EOF
 
       task = "loki-${Target.name}"
 
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
       address_mode = "alloc"
     }
 %{ endfor ~}
-
-    service {
-      name = "loki-memcached"
-      port = "memcached"
-
-      task = "loki-memcached"
-
-      address_mode = "alloc"
-    }
-
-    task "loki-memcached" {
-      driver = "docker"
-
-      config {
-        image = "memcached:1.6"
-      }
-    }
 
 
 %{ for Target in Loki.Targets ~}
