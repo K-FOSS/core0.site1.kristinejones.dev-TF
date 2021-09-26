@@ -72,10 +72,12 @@ distributor:
 
 querier:
   frontend_worker:
-    scheduler_address: 0.tempo-query-scheduler-grpc-cont.service.kjdev:8085,1.tempo-query-scheduler-grpc-cont.service.kjdev:8085,2.tempo-query-scheduler-grpc-cont.service.kjdev:8085
+    #scheduler_address: 0.tempo-query-scheduler-grpc-cont.service.kjdev:8085,1.tempo-query-scheduler-grpc-cont.service.kjdev:8085,2.tempo-query-scheduler-grpc-cont.service.kjdev:8085
+    frontend_address: 0.tempo-query-frontend-grpc-cont.service.kjdev:8085,1.tempo-query-frontend-grpc-cont.service.kjdev:8085,2.tempo-query-frontend-grpc-cont.service.kjdev:8085
 
 query_frontend:
-  scheduler_address: 0.tempo-query-scheduler-grpc-cont.service.kjdev:8085,1.tempo-query-scheduler-grpc-cont.service.kjdev:8085,2.tempo-query-scheduler-grpc-cont.service.kjdev:8085
+  query_shards: 2
+  #scheduler_address: 0.tempo-query-scheduler-grpc-cont.service.kjdev:8085,1.tempo-query-scheduler-grpc-cont.service.kjdev:8085,2.tempo-query-scheduler-grpc-cont.service.kjdev:8085
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#ingester_client_config
