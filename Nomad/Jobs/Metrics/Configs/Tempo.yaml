@@ -71,7 +71,6 @@ distributor:
         acl_token: ${Consul.Token}
 
 querier:
-  query_ingesters_within: 3h
   frontend_worker:
     scheduler_address: 0.tempo-query-scheduler-grpc-cont.service.kjdev:8085,1.tempo-query-scheduler-grpc-cont.service.kjdev:8085,2.tempo-query-scheduler-grpc-cont.service.kjdev:8085
 
@@ -110,12 +109,14 @@ ingester:
 
 
 storage:
-  s3:
-    endpoint: ${S3.Connection.Endpoint}
-    bucket_name: ${S3.Bucket}
-    access_key_id: ${S3.Credentials.AccessKey}
-    secret_access_key: ${S3.Credentials.SecretKey}
-    insecure: true
+  trace:
+    backend: s3
+    s3:
+      endpoint: ${S3.Connection.Endpoint}
+      bucket_name: ${S3.Bucket}
+      access_key_id: ${S3.Credentials.AccessKey}
+      secret_access_key: ${S3.Credentials.SecretKey}
+      insecure: true
 
 compactor:
   compaction_interval: 30s
