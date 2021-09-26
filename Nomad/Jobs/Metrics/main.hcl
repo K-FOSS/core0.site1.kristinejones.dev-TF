@@ -1,81 +1,56 @@
 job "metrics" {
   datacenters = ["core0site1"]
 
-  group "memcached" {
+  group "loki-memcached" {
     count = 1
 
     network {
       mode = "cni/nomadcore1"
 
-      port "cortex_memcached" { 
-        to = 11211
-      }
-
-      port "loki_memcached" { 
-        to = 11211
-      }
-
-      port "tempo_memcached" { 
+      port "memcached" { 
         to = 11211
       }
     }
-
-    #
-    # Cortex
-    #
-
-    service {
-      name = "cortex-memcached"
-      port = "cortex_memcached"
-
-      task = "cortex-memcached"
-
-      address_mode = "alloc"
-    }
-
-    task "cortex-memcached" {
-      driver = "docker"
-
-      config {
-        image = "memcached:1.6"
-      }
-    }
-
-
-    #
-    # Loki
-    #
 
     service {
       name = "loki-memcached"
-      port = "loki_memcached"
+      port = "memcached"
 
-      task = "loki-memcached"
+      task = "memcached"
 
       address_mode = "alloc"
     }
 
-    task "loki-memcached" {
+    task "memcached" {
       driver = "docker"
 
       config {
         image = "memcached:1.6"
       }
     }
+  }
 
-    #
-    # Tempo
-    #
+  group "cortex-memcached" {
+    count = 1
+
+    network {
+      mode = "cni/nomadcore1"
+
+      port "memcached" { 
+        to = 11211
+      }
+    }
+
     service {
-      name = "tempo-memcached"
-      port = "tempo_memcached"
+      name = "cortex-memcached"
+      port = "memcached"
 
-      task = "tempo-memcached"
+      task = "memcached"
 
       address_mode = "alloc"
     }
 
-    task "tempo-memcached" {
+    task "memcached" {
       driver = "docker"
 
       config {
