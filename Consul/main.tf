@@ -121,7 +121,7 @@ resource "random_uuid" "TempoToken" { }
 resource "consul_acl_policy" "TempoACL" {
   name  = "GrafanaTempoACL"
 
-  rules = templatefile("${path.module}/ACLs/KVTemplate.hcl", local.Loki)
+  rules = templatefile("${path.module}/ACLs/KVTemplate.hcl", local.Tempo)
 }
 
 resource "consul_acl_token" "TempoToken" {
