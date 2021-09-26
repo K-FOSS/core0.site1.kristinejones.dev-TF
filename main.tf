@@ -250,7 +250,7 @@ module "Nomad" {
 
       Targets = module.Tempo.Targets
 
-      S3 = module.LokiBucket
+      S3 = module.TempoBucket
     }
   }
 
