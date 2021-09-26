@@ -37,13 +37,9 @@ job "metrics" {
       mode = "cni/nomadcore1"
 
 %{ for Target in Cortex.Targets ~}
-      port "${replace("${Target.name}", "-", "")}_http" {
-        to = 8080
-       }
+      port "${replace("${Target.name}", "-", "")}_http" { }
 
-      port "${replace("${Target.name}", "-", "")}_grpc" {
-        to = 8085
-      }
+      port "${replace("${Target.name}", "-", "")}_grpc" { }
 %{ endfor ~}
     }
 

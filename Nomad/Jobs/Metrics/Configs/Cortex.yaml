@@ -120,7 +120,8 @@ querier:
   query_ingesters_within: 3h
 
   # Used when the blocks sharding is disabled.
-  store_gateway_addresses: 0.cortex-store-gateway-grpc-cont.service.kjdev:9085
+  store_gateway_addresses: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-store-gateway-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_storegateway_grpc" }}
+
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#ingester_client_config
@@ -187,7 +188,7 @@ frontend_worker:
   match_max_concurrent: true
 
   # By setting scheduler_address, querier worker would use scheduler instead of frontend.
-  scheduler_address: 0.cortex-query-scheduler-grpc-cont.service.kjdev:9085
+  scheduler_address: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_scheduler_grpc" }}
 
 
 #
@@ -195,7 +196,8 @@ frontend_worker:
 #
 frontend:
   query_stats_enabled: true
-  scheduler_address: 0.cortex-query-scheduler-grpc-cont.service.kjdev:9085
+  scheduler_address: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_scheduler_grpc" }}
+
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#query_range_config
