@@ -35,13 +35,13 @@ server:
   # HTTP Server
   #
   http_listen_address: 0.0.0.0
-  http_listen_port: {{ $service_name := (env "NOMAD_META_TARGET_RPL" | toLower) }}{{ $envVar := printf "NOMAD_PORT_%s_http" $service_name }}{{ env $envVar }}
+  http_listen_port: 8080
 
   #
   # GRPC Server
   #
   grpc_listen_address: 0.0.0.0
-  grpc_listen_port: {{ $service_name := (env "NOMAD_META_TARGET_RPL" | toLower) }}{{ $envVar := printf "NOMAD_PORT_%s_grpc" $service_name }}{{ env $envVar }}
+  grpc_listen_port: 8085
 
   #
   # Logs
@@ -120,7 +120,7 @@ querier:
   query_ingesters_within: 3h
 
   # Used when the blocks sharding is disabled.
-  store_gateway_addresses: cortex-store-gateway-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_storegateway_grpc" }}
+  store_gateway_addresses: 0.cortex-store-gateway-grpc-cont.service.kjdev:8085
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#ingester_client_config
@@ -187,7 +187,7 @@ frontend_worker:
   match_max_concurrent: true
 
   # By setting scheduler_address, querier worker would use scheduler instead of frontend.
-  scheduler_address: dnssrvnoa+cortex-query-scheduler-grpc-cont.service.kjdev
+  scheduler_address: 0.cortex-query-scheduler-grpc-cont.service.kjdev:8085
 
 
 #
@@ -195,7 +195,7 @@ frontend_worker:
 #
 frontend:
   query_stats_enabled: true
-  scheduler_address: cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
+  scheduler_address: 0.cortex-query-scheduler-grpc-cont.service.kjdev:8085
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#query_range_config

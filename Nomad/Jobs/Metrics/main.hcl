@@ -37,9 +37,13 @@ job "metrics" {
       mode = "cni/nomadcore1"
 
 %{ for Target in Cortex.Targets ~}
-      port "${replace("${Target.name}", "-", "")}_http" { }
+      port "${replace("${Target.name}", "-", "")}_http" {
+        to = 8080
+       }
 
-      port "${replace("${Target.name}", "-", "")}_grpc" { }
+      port "${replace("${Target.name}", "-", "")}_grpc" {
+        to = 8085
+      }
 %{ endfor ~}
     }
 
@@ -50,6 +54,8 @@ job "metrics" {
 
       task = "cortex-${Target.name}"
 
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
       address_mode = "alloc"
     }
 
@@ -58,6 +64,8 @@ job "metrics" {
       port = "${replace("${Target.name}", "-", "")}_grpc"
 
       task = "cortex-${Target.name}"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
 
       address_mode = "alloc"
     }
