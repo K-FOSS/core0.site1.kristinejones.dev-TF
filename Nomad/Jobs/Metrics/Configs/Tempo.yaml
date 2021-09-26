@@ -73,7 +73,7 @@ distributor:
 querier:
   frontend_worker:
     #scheduler_address: 0.tempo-query-scheduler-grpc-cont.service.kjdev:8085,1.tempo-query-scheduler-grpc-cont.service.kjdev:8085,2.tempo-query-scheduler-grpc-cont.service.kjdev:8085
-    frontend_address: 0.tempo-query-frontend-grpc-cont.service.kjdev:8085,1.tempo-query-frontend-grpc-cont.service.kjdev:8085,2.tempo-query-frontend-grpc-cont.service.kjdev:8085
+    frontend_address: tempo-query-frontend-grpc-cont.service.kjdev:8085
 
 query_frontend:
   query_shards: 2
