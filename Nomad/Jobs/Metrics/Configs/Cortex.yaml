@@ -188,7 +188,7 @@ frontend_worker:
   match_max_concurrent: true
 
   # By setting scheduler_address, querier worker would use scheduler instead of frontend.
-  scheduler_address: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_scheduler_grpc" }}
+  scheduler_address: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
 
 
 #
@@ -196,7 +196,7 @@ frontend_worker:
 #
 frontend:
   query_stats_enabled: true
-  scheduler_address: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_scheduler_grpc" }}
+  scheduler_address: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
 
 
 #
