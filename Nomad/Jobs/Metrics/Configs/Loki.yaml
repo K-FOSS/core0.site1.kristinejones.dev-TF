@@ -1,7 +1,6 @@
 # all, compactor, distributor, ingester, querier, query-frontend, table-manager.
 target: {{ env "NOMAD_META_TARGET" }}
 
-
 #
 # TODO: Figure out SSO & M2M
 #

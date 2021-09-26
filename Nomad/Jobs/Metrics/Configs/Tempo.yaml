@@ -1,0 +1,137 @@
+# Optional. Setting to true enables multitenancy and requires X-Scope-OrgID header on all requests.
+multitenancy_enabled: false
+
+target: {{ env "NOMAD_META_TARGET" }}
+
+server:
+  #
+  # HTTP Server
+  #
+  http_listen_address: 0.0.0.0
+  http_listen_port: 8080
+
+  #
+  # GRPC Server
+  #
+  grpc_listen_address: 0.0.0.0
+  grpc_listen_port: 8085
+
+  #
+  # Logs
+  #
+  # Output log messages in the given format. Valid formats: [logfmt, json]
+  # CLI flag: -log.format
+  log_format: logfmt
+
+  # Only log messages with the given severity or above. Valid levels: [debug, info, warn, error]
+  # CLI flag: -log.level
+  log_level: debug
+
+  # Optionally log the source IPs.
+  # CLI flag: -server.log-source-ips-enabled
+  log_source_ips_enabled: false
+
+  # Header field storing the source IPs. Only used if
+  # server.log-source-ips-enabled is true. If not set the default Forwarded,
+  # X-Real-IP and X-Forwarded-For headers are used
+  # CLI flag: -server.log-source-ips-header
+  log_source_ips_header: ''
+
+  # Regex for matching the source IPs. Only used if server.log-source-ips-enabled
+  # is true. If not set the default Forwarded, X-Real-IP and X-Forwarded-For
+  # headers are used
+  # CLI flag: -server.log-source-ips-regex
+  log_source_ips_regex: ''
+
+distributor:
+  receivers:
+    jaeger:                            # the receives all come from the OpenTelemetry collector.  more configuration information can
+      protocols:                       # be found there: https://github.com/open-telemetry/opentelemetry-collector/tree/main/receiver
+        thrift_http:                   #
+        grpc:                          # for a production deployment you should only enable the receivers you need!
+        thrift_binary:
+        thrift_compact:
+    zipkin:
+    otlp:
+      protocols:
+        http:
+        grpc:
+    opencensus:
+      
+  ring:
+    kvstore:
+      store: consul
+      prefix: ${Consul.Prefix}/collectors/
+
+      #
+      # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
+      #
+      consul:
+        host: ${Consul.Hostname}:${Consul.Port}
+        acl_token: ${Consul.Token}
+
+querier:
+  query_ingesters_within: 3h
+  frontend_worker:
+    scheduler_address: 0.tempo-query-scheduler-grpc-cont.service.kjdev:8085,1.tempo-query-scheduler-grpc-cont.service.kjdev:8085,2.tempo-query-scheduler-grpc-cont.service.kjdev:8085
+
+query_frontend:
+  scheduler_address: 0.tempo-query-scheduler-grpc-cont.service.kjdev:8085,1.tempo-query-scheduler-grpc-cont.service.kjdev:8085,2.tempo-query-scheduler-grpc-cont.service.kjdev:8085
+
+#
+# Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#ingester_client_config
+#
+ingester_client:
+  grpc_client_config:
+    # Configure the client to allow messages up to 100MB.
+    max_recv_msg_size: 104857600
+    max_send_msg_size: 104857600
+    grpc_compression: gzip
+
+ingester:
+  lifecycler:
+    # We want to start immediately.
+    join_after: 0
+    final_sleep: 0s
+    num_tokens: 512
+
+    ring:
+      kvstore:
+        store: consul
+        prefix: ${Consul.Prefix}/collectors/
+
+        #
+        # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
+        #
+        consul:
+          host: ${Consul.Hostname}:${Consul.Port}
+          acl_token: ${Consul.Token}
+      replication_factor: 1
+
+
+storage:
+  s3:
+    endpoint: ${S3.Connection.Endpoint}
+    bucket_name: ${S3.Bucket}
+    access_key_id: ${S3.Credentials.AccessKey}
+    secret_access_key: ${S3.Credentials.SecretKey}
+    insecure: true
+
+compactor:
+  compaction_interval: 30s
+  data_dir: /tmp/cortex-compactor
+  consistency_delay: 1m
+  sharding_enabled: true
+  cleanup_interval: 1m
+  tenant_cleanup_delay: 1m
+  ring:
+    kvstore:
+      store: consul
+      prefix: ${Consul.Prefix}/collectors/
+
+      #
+      # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
+      #
+      consul:
+        host: ${Consul.Hostname}:${Consul.Port}
+        acl_token: ${Consul.Token}

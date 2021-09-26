@@ -16,6 +16,11 @@ variable "Patroni" {
 # Grafana Observability
 #
 
+
+#
+# Cortex
+#
+
 variable "Cortex" {
   type = object({
     Prefix = string
@@ -24,6 +29,10 @@ variable "Cortex" {
 
   description = "Cortex Configuration"
 }
+
+#
+# Loki
+#
 
 variable "Loki" {
   type = object({
@@ -34,3 +43,14 @@ variable "Loki" {
   description = "Loki Configuration"
 }
 
+#
+# Tempo
+#
+variable "Tempo" {
+  type = object({
+    Prefix = string
+  })
+  sensitive = true
+
+  description = "Tempo Configuration"
+}

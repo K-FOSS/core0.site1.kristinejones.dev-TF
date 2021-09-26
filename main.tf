@@ -43,6 +43,10 @@ module "Consul" {
   Loki = {
     Prefix = "loki"
   }
+
+  Tempo = {
+    Prefix = "tempo"
+  }
 }
 
 #
@@ -64,7 +68,26 @@ module "CortexBucket" {
   Credentials = module.Vault.Minio
 }
 
+#
+# Grafana Loki
+#
+
 module "LokiBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+#
+# Grafana Tempo
+#
+
+module "TempoBucket" {
   source = "./Minio"
 
   Connection = {
@@ -121,6 +144,10 @@ module "Cortex" {
 
 module "Loki" {
   source = "./Loki"
+}
+
+module "Tempo" {
+  source = "./Tempo"
 }
 
 module "Nomad" {
@@ -214,6 +241,14 @@ module "Nomad" {
       Consul = module.Consul.Loki
 
       Targets = module.Loki.Targets
+
+      S3 = module.LokiBucket
+    }
+
+    Tempo = {
+      Consul = module.Consul.Tempo
+
+      Targets = module.Tempo.Targets
 
       S3 = module.LokiBucket
     }

@@ -246,5 +246,16 @@ resource "nomad_job" "Metrics" {
 
       Version = "latest"
     }
+
+    Tempo = {
+      Targets = var.Metrics.Tempo.Targets
+
+      YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Tempo.yaml", {
+        Consul = var.Metrics.Tempo.Consul
+        S3 = var.Metrics.Tempo.S3
+      })
+
+      Version = "latest"
+    }
   })
 }

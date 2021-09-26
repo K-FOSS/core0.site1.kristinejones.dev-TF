@@ -16,6 +16,10 @@ job "metrics" {
       }
     }
 
+    #
+    # Cortex
+    #
+
     service {
       name = "cortex-memcached"
       port = "cortex_memcached"
@@ -33,6 +37,11 @@ job "metrics" {
       }
     }
 
+
+    #
+    # Loki
+    #
+
     service {
       name = "loki-memcached"
       port = "loki_memcached"
@@ -43,6 +52,26 @@ job "metrics" {
     }
 
     task "loki-memcached" {
+      driver = "docker"
+
+      config {
+        image = "memcached:1.6"
+      }
+    }
+
+    #
+    # Tempo
+    #
+    service {
+      name = "tempo-memcached"
+      port = "tempo_memcached"
+
+      task = "tempo-memcached"
+
+      address_mode = "alloc"
+    }
+
+    task "tempo-memcached" {
       driver = "docker"
 
       config {
@@ -231,6 +260,59 @@ EOF
       }
     }
 %{ endfor ~}
-
   }
+
+%{ for Target in Tempo.Targets ~}
+  group "tempo-${Target.name}" {
+    count = ${Target.count}
+
+    network {
+      mode = "cni/nomadcore1"
+
+      port "${replace("${Target.name}", "-", "")}_http" {
+        to = 8080
+      }
+
+      port "${replace("${Target.name}", "-", "")}_grpc" { 
+        to = 8085
+      }
+    }
+
+    task "tempo-${Target.name}" {
+      driver = "docker"
+
+      restart {
+        attempts = 5
+        delay    = "60s"
+      }
+
+      config {
+        image = "grafana/tempo:${Loki.Version}"
+
+        args = ["-config.file=/local/Tempo.yaml"]
+      }
+
+      env {
+        TARGET = "${Target.name}"
+        TARGET_RPL = "${replace("${Target.name}", "-", "")}"
+      }
+
+      meta {
+        TARGET = "${Target.name}"
+        TARGET_RPL = "${replace("${Target.name}", "-", "")}"
+
+        GRPC_PORT_LABEL = "${replace("${Target.name}", "-", "")}_grpc"
+        HTTP_PORT_LABEL = "${replace("${Target.name}", "-", "")}_http"
+      }
+
+      template {
+        data = <<EOF
+${Tempo.YAMLConfig}
+EOF
+
+        destination = "local/Tempo.yaml"
+      }
+    }
+  }
+%{ endfor ~}
 }

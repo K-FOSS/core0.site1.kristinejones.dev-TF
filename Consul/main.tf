@@ -24,6 +24,8 @@ locals {
   Cortex = var.Cortex
 
   Loki = var.Loki
+
+  Tempo = var.Tempo
 }
 
 #
@@ -107,6 +109,32 @@ resource "consul_acl_token" "LokiToken" {
 
 data "consul_acl_token_secret_id" "LokiToken" {
   accessor_id = consul_acl_token.LokiToken.id
+}
+
+#
+# Grafana Tempo
+# 
+
+resource "random_uuid" "TempoToken" { }
+
+
+resource "consul_acl_policy" "TempoACL" {
+  name  = "GrafanaTempoACL"
+
+  rules = templatefile("${path.module}/ACLs/KVTemplate.hcl", local.Loki)
+}
+
+resource "consul_acl_token" "TempoToken" {
+  accessor_id = random_uuid.TempoToken.result
+
+  description = "Grafana Tempo Long term Time series storage automation"
+
+  policies = ["${consul_acl_policy.TempoACL.name}"]
+  local = true
+}
+
+data "consul_acl_token_secret_id" "TempoToken" {
+  accessor_id = consul_acl_token.TempoToken.id
 }
 
 #

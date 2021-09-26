@@ -41,6 +41,21 @@ output "Loki" {
   }
 }
 
+#
+# Grafana Tempo
+#
+output "Tempo" {
+  value = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 8500
+
+
+    Prefix = local.Tempo.Prefix
+
+    Token = data.consul_acl_token_secret_id.TempoToken.secret_id
+  }
+}
+
 
 
 output "Pomerium" {
