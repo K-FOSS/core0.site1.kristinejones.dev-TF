@@ -31,7 +31,7 @@ job "metrics" {
   }
 
   group "cortex" {
-    count = 1
+    count = 3
 
     network {
       mode = "cni/nomadcore1"
