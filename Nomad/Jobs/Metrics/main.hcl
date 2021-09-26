@@ -282,6 +282,28 @@ EOF
       }
     }
 
+    service {
+      name = "tempo-${Target.name}-http-cont"
+      port = "${replace("${Target.name}", "-", "")}_http"
+
+      task = "tempo-${Target.name}"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
+      address_mode = "alloc"
+    }
+
+    service {
+      name = "tempo-${Target.name}-grpc-cont"
+      port = "${replace("${Target.name}", "-", "")}_grpc"
+
+      task = "tempo-${Target.name}"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
+      address_mode = "alloc"
+    }
+
     task "tempo-${Target.name}" {
       driver = "docker"
 
