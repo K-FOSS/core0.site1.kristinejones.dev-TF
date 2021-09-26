@@ -14,6 +14,10 @@ job "metrics" {
       port "loki_memcached" { 
         to = 11211
       }
+
+      port "tempo_memcached" { 
+        to = 11211
+      }
     }
 
     #
