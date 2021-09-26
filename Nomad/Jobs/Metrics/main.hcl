@@ -7,18 +7,18 @@ job "metrics" {
     network {
       mode = "cni/nomadcore1"
 
-      port "cortex-memcached" { 
+      port "cortex_memcached" { 
         to = 11211
       }
 
-      port "loki-memcached" { 
+      port "loki_memcached" { 
         to = 11211
       }
     }
 
     service {
       name = "cortex-memcached"
-      port = "memcached"
+      port = "cortex_memcached"
 
       task = "cortex-memcached"
 
@@ -35,7 +35,7 @@ job "metrics" {
 
     service {
       name = "loki-memcached"
-      port = "loki-memcached"
+      port = "loki_memcached"
 
       task = "loki-memcached"
 
