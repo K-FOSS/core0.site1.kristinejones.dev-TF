@@ -114,6 +114,8 @@ job "netbox" {
     task "network-worker" {
       driver = "docker"
 
+      user = "101"
+
       config {
         image = "netboxcommunity/netbox:${Version}"
 
@@ -214,6 +216,8 @@ EOH
 
     task "netbox" {
       driver = "docker"
+
+      user = "101"
 
       config {
         image = "netboxcommunity/netbox:${Version}"
