@@ -1,0 +1,19 @@
+data_dir: /var/lib/vector
+
+api:
+  enabled: true
+  address: 0.0.0.0:[[ env "NOMAD_PORT_api" ]]
+  playground: true 
+
+sources:
+  Syslog:
+    type: syslog
+    address: 0.0.0.0:[[ env "NOMAD_PORT_syslog" ]]
+    mode: tcp
+
+sinks:
+  loki:
+    inputs:
+      - Syslog
+    type: loki
+    endpoint: http://ingressweb-http-cont.service.kjdev:8080

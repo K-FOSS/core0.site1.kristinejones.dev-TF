@@ -316,4 +316,95 @@ EOF
     }
   }
 %{ endfor ~}
+
+  group "vector" {
+    count = 1
+
+    restart {
+      attempts = 3
+      interval = "10m"
+      delay = "30s"
+      mode = "fail"
+    }
+
+    network {
+      mode = "cni/nomadcore1"
+
+      port "syslog" { }
+
+      port "api" { }
+    }
+
+    ephemeral_disk {
+      size    = 500
+      sticky  = true
+    }
+
+    service {
+      name = "vector-api"
+      port = "api"
+
+      task = "vector"
+
+      address_mode = "alloc"
+
+      check {
+        port     = "api"
+        type     = "http"
+        path     = "/health"
+        interval = "30s"
+        timeout  = "5s"
+      }
+    }
+
+    service {
+      name = "vector-syslog"
+      port = "syslog"
+
+      task = "vector"
+
+      address_mode = "alloc"
+
+      check {
+        port     = "api"
+        type     = "http"
+        path     = "/health"
+        interval = "30s"
+        timeout  = "5s"
+      }
+    }
+
+    task "vector" {
+      driver = "docker"
+
+      config {
+        image = "timberio/vector:nightly-alpine"
+      }
+
+      env {
+        VECTOR_CONFIG = "local/vector.toml"
+        VECTOR_REQUIRE_HEALTHY = "true"
+      }
+
+      resources {
+        cpu    = 500 # 500 MHz
+        memory = 256 # 256MB
+      }
+
+      template {
+        destination = "local/vector.toml"
+        change_mode   = "signal"
+        change_signal = "SIGHUP"
+        # overriding the delimiters to [[ ]] to avoid conflicts with Vector's native templating, which also uses {{ }}
+        left_delimiter = "[["
+        right_delimiter = "]]"
+      
+        data = <<EOF
+${Vector.YAMLConfig}
+EOF
+      }
+
+      kill_timeout = "30s"
+    }
+  }
 }

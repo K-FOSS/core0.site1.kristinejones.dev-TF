@@ -257,5 +257,9 @@ resource "nomad_job" "Metrics" {
 
       Version = "latest"
     }
+
+    Vector = {
+      YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Vector.yaml", {  })
+    }
   })
 }
