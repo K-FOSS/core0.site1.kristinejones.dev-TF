@@ -58,7 +58,7 @@ bind = "0.0.0.0:514"
 balance = "weight"
 
   [servers.syslog.discovery]
-  failpolicy = "keeplast"
   kind = "srv"
+  interval = "5s"
   srv_lookup_server = "172.16.0.10:53" # dns server and port
   srv_lookup_pattern = "vector-syslog.service.kjdev." # SRV service pattern 
