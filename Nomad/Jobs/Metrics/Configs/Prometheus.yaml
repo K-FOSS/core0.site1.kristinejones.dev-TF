@@ -23,7 +23,7 @@ scrape_configs:
       - names: 
           - patroni.service.kjdev
 
-  - job_name: patroni
+  - job_name: netbox
     dns_sd_configs:
       - names: 
           - netbox-http-cont
