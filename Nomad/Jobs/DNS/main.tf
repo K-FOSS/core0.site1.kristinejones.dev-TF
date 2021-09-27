@@ -47,7 +47,7 @@ terraform {
 }
 
 data "github_repository" "Repo" {
-  full_name = "netbox-community/netbox"
+  full_name = "coredns/coredns"
 }
 
 data "github_release" "Release" {
