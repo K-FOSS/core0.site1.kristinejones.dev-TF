@@ -31,8 +31,8 @@ sinks:
     labels:
       host: '{{ host }}'
       severity: '{{ severity }}'
-      ts: '{{ timestamp }}'
-      timestamp: '{{ timestamp }}'
+      # ts: '{{ timestamp }}'
+      # timestamp: '{{ timestamp }}'
     healthcheck:
       enabled: false
     batch:
