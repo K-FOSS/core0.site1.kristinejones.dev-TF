@@ -63,6 +63,22 @@ job "metrics" {
   group "cortex-${Target.name}" {
     count = ${Target.count}
 
+    update {
+      max_parallel      = 1
+      health_check      = "checks"
+      min_healthy_time  = "10s"
+      healthy_deadline  = "3m"
+      progress_deadline = "5m"
+    }
+
+    restart {
+      attempts = 3
+      interval = "5m"
+      delay    = "25s"
+      mode     = "delay"
+    }
+
+
     network {
       mode = "cni/nomadcore1"
 
@@ -84,6 +100,23 @@ job "metrics" {
       tags = ["$${NOMAD_ALLOC_INDEX}"]
 
       address_mode = "alloc"
+
+      check {
+        name     = "Cortex ${Target.name} healthcheck"
+
+        address_mode = "alloc"
+        port     = "${replace("${Target.name}", "-", "")}_http"
+        type     = "http"
+        path     = "/ready"
+        interval = "20s"
+        timeout  = "5s"
+        
+        check_restart {
+          limit           = 3
+          grace           = "60s"
+          ignore_warnings = false
+        }
+      }
     }
 
     service {
@@ -95,6 +128,23 @@ job "metrics" {
       tags = ["$${NOMAD_ALLOC_INDEX}"]
 
       address_mode = "alloc"
+
+      check {
+        name     = "Cortex ${Target.name} healthcheck"
+
+        address_mode = "alloc"
+        port     = "${replace("${Target.name}", "-", "")}_http"
+        type     = "http"
+        path     = "/ready"
+        interval = "20s"
+        timeout  = "5s"
+        
+        check_restart {
+          limit           = 3
+          grace           = "60s"
+          ignore_warnings = false
+        }
+      }
     }
 
     task "cortex-${Target.name}" {

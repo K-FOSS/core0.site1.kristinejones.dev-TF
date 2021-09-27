@@ -27,12 +27,10 @@ sinks:
     endpoint: http://ingressweb-http-cont.service.kjdev:8080
     encoding:
       codec: json
-    remove_label_fields: true
     labels:
       host: '{{ host }}'
-      severity: '{{ severity }}'
+      level: '{{ severity }}'
       # ts: '{{ timestamp }}'
-      timestamp: '{{ timestamp }}'
     healthcheck:
       enabled: false
     batch:
