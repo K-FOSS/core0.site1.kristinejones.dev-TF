@@ -165,7 +165,7 @@ EOF
   #
 
   group "loki" {
-    count = 1
+    count = 3
 
     network {
       mode = "cni/nomadcore1"

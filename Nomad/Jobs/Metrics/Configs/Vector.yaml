@@ -20,6 +20,6 @@ sinks:
     encoding:
       codec: json
     labels:
-      test: 'Hello'
+      host: 'core0'
     healthcheck:
       enabled: false
