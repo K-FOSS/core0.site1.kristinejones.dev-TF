@@ -117,6 +117,13 @@ job "ingress" {
         ports = ["https"]
       
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+          }
+        }
       }
 
       env {
@@ -162,6 +169,13 @@ EOF
         args = ["-c", "/local/gobetween.toml"]
 
         ports = ["syslog"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+          }
+        }
       }
 
       template {

@@ -387,6 +387,13 @@ EOF
 
       config {
         image = "timberio/vector:nightly-alpine"
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+          }
+        }
       }
 
       env {
