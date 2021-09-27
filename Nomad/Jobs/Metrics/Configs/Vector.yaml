@@ -28,7 +28,7 @@ sinks:
     encoding:
       codec: json
     labels:
-      host: {{ label.host }}
-      severity: {{ label.severity }}
+      host: '{{ label.host }}'
+      severity: '{{ label.severity }}'
     healthcheck:
       enabled: false
