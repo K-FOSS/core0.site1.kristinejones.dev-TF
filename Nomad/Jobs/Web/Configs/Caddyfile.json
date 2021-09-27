@@ -119,7 +119,6 @@
             "disable": true
           },
           "experimental_http3": false,
-          "logs": {},
           "routes": [
             {
               "match": [
