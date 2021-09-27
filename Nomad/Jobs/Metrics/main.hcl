@@ -382,7 +382,7 @@ EOF
       }
 
       env {
-        VECTOR_CONFIG = "local/vector.toml"
+        VECTOR_CONFIG = "local/vector.yaml"
         VECTOR_REQUIRE_HEALTHY = "true"
       }
 
@@ -392,7 +392,7 @@ EOF
       }
 
       template {
-        destination = "local/vector.toml"
+        destination = "local/vector.yaml"
         change_mode   = "signal"
         change_signal = "SIGHUP"
         # overriding the delimiters to [[ ]] to avoid conflicts with Vector's native templating, which also uses {{ }}
