@@ -23,6 +23,11 @@ scrape_configs:
       - names: 
           - patroni.service.kjdev
 
+  - job_name: patroni
+    dns_sd_configs:
+      - names: 
+          - netbox-http-cont
+
 
 remote_write:
   - url: http://cortex-distributor-http-cont.service.kjdev:{{ env "NOMAD_PORT_distributor_http" }}/api/v1/push

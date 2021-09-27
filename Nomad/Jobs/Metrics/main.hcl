@@ -59,20 +59,18 @@ job "metrics" {
     }
   }
 
-  group "cortex" {
-    count = 3
+%{ for Target in Cortex.Targets ~}
+  group "cortex-${Target.name}" {
+    count = ${Target.count}
 
     network {
       mode = "cni/nomadcore1"
 
-%{ for Target in Cortex.Targets ~}
       port "${replace("${Target.name}", "-", "")}_http" { }
 
       port "${replace("${Target.name}", "-", "")}_grpc" { }
-%{ endfor ~}
     }
 
-%{ for Target in Cortex.Targets ~}
     service {
       name = "cortex-${Target.name}-http-cont"
       port = "${replace("${Target.name}", "-", "")}_http"
@@ -94,10 +92,7 @@ job "metrics" {
 
       address_mode = "alloc"
     }
-%{ endfor ~}
 
-
-%{ for Target in Cortex.Targets ~}
     task "cortex-${Target.name}" {
       driver = "docker"
 
@@ -133,7 +128,11 @@ EOF
         destination = "local/Cortex.yaml"
       }
     }
+  }
 %{ endfor ~}
+
+  group "prometheus" {
+    count = 1
 
     task "prometheus" {
       driver = "docker"
@@ -157,27 +156,24 @@ EOF
         destination = "local/prometheus.yaml"
       }
     }
-
   }
 
   #
   # TODO: Move template over to dedupe Cortex/Loki via mapping over Services.XYZ
   #
 
-  group "loki" {
-    count = 3
+%{ for Target in Loki.Targets ~}
+  group "loki-${Target.name}" {
+    count = ${Target.count}
 
     network {
       mode = "cni/nomadcore1"
 
-%{ for Target in Loki.Targets ~}
       port "${replace("${Target.name}", "-", "")}_http" { }
 
       port "${replace("${Target.name}", "-", "")}_grpc" { }
-%{ endfor ~}
     }
 
-%{ for Target in Loki.Targets ~}
     service {
       name = "loki-${Target.name}-http-cont"
       port = "${replace("${Target.name}", "-", "")}_http"
@@ -199,10 +195,7 @@ EOF
 
       address_mode = "alloc"
     }
-%{ endfor ~}
 
-
-%{ for Target in Loki.Targets ~}
     task "loki-${Target.name}" {
       driver = "docker"
 
@@ -238,8 +231,8 @@ EOF
         destination = "local/Loki.yaml"
       }
     }
-%{ endfor ~}
   }
+%{ endfor ~}
 
 %{ for Target in Tempo.Targets ~}
   group "tempo-${Target.name}" {

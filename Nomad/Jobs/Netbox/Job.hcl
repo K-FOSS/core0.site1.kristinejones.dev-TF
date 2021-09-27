@@ -101,7 +101,7 @@ job "netbox" {
   }
 
   group "netbox-worker" {
-    count = 1
+    count = 3
 
     network {
       mode = "cni/nomadcore1"
