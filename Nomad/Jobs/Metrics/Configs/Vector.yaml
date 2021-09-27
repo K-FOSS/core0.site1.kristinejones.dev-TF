@@ -33,3 +33,5 @@ sinks:
       host: '{{ host }}'
     healthcheck:
       enabled: false
+    batch:
+      max_bytes: 50000
