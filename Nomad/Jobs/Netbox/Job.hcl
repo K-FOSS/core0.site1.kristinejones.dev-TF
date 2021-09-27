@@ -144,7 +144,7 @@ job "netbox" {
         # Redis
         #
         REDIS_DATABASE = "0"
-        REDIS_HOST = "redis"
+        REDIS_HOST = "netbox-redis.service.kjdev"
         REDIS_SSL = "false"
       }
 
@@ -241,7 +241,7 @@ EOH
         # Redis
         #
         REDIS_DATABASE = "0"
-        REDIS_HOST = "redis"
+        REDIS_HOST = "netbox-redis.service.kjdev"
         REDIS_SSL = "false"
       }
 
