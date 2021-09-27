@@ -21,3 +21,5 @@ sinks:
       codec: json
     labels:
       test: 'Hello'
+    healthcheck:
+      enabled: false
