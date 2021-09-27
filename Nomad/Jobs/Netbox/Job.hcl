@@ -38,7 +38,7 @@ job "netbox" {
 
         command = "redis-server"
 
-        args = ["redis-server", "--requirepass", "${Redis.Password}"]
+        args = ["--requirepass", "${Redis.Password}"]
 
         logging {
           type = "loki"
@@ -88,7 +88,7 @@ job "netbox" {
 
         command = "redis-server"
 
-        args = ["redis-server", "--requirepass", "${RedisCache.Password}"]
+        args = ["--requirepass", "${RedisCache.Password}"]
 
         logging {
           type = "loki"
@@ -111,6 +111,82 @@ job "netbox" {
       }
     }
 
+    task "network-worker" {
+      driver = "docker"
+
+      config {
+        image = "netboxcommunity/netbox:${Version}"
+
+        command = "/opt/netbox/venv/bin/python"
+
+        args = ["/opt/netbox/netbox/manage.py", "rqworker"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+          }
+        }
+      }
+
+      env {
+        HOUSEKEEPING_INTERVAL = "86400"
+        METRICS_ENABLED = "true"
+
+        #
+        # Redis Cache
+        #
+        REDIS_CACHE_DATABASE = "1"
+        REDIS_CACHE_HOST = "netbox-rediscache.service.kjdev"
+        REDIS_CACHE_SSL = "0"
+
+        #
+        # Redis
+        #
+        REDIS_DATABASE = "0"
+        REDIS_HOST = "redis"
+        REDIS_SSL = "false"
+      }
+
+      template {
+        data = <<EOH
+# Lines starting with a # are ignored
+
+# Empty lines are also ignored
+AUTHENTIK_REDIS__HOST="authentik-redis-cont.service.kjdev"
+
+#
+# Redis Cache
+#
+REDIS_CACHE_PASSWORD="${RedisCache.Password}"
+
+#
+# Redis
+#
+REDIS_PASSWORD="${Redis.Password}"
+
+#
+# Misc
+#
+SECRET_KEY="${Netbox.SecretKey}"
+
+#
+# PostgreSQL Databse
+#
+DB_HOST="${Database.Hostname}"
+DB_NAME="${Database.Database}"
+
+DB_USER="${Database.Username}"
+DB_PASSWORD="${Database.Password}"
+
+SUPERUSER_EMAIL="${Netbox.AdminEmail}"
+SUPERUSER_NAME="${Netbox.AdminUsername}"
+EOH
+
+        destination = "secrets/file.env"
+        env         = true
+      }
+    }
   
   }
 
