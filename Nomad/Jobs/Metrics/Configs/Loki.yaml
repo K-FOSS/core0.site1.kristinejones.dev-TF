@@ -282,8 +282,9 @@ compactor:
 # Docs: https://grafana.com/docs/loki/latest/configuration/#limits_config
 #
 limits_config:
-  # Limit max query time range to 31d
-  max_query_length: 744h
+  reject_old_samples: true
+  reject_old_samples_max_age: 168h
+  unordered_writes: true
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#frontend_worker_config

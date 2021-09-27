@@ -28,10 +28,10 @@ sinks:
     encoding:
       codec: json
     remove_label_fields: true
-    out_of_order_action: 'rewrite_timestamp'
     labels:
       host: '{{ host }}'
       severity: '{{ severity }}'
+      ts: '{{ timestamp }}'
       timestamp: '{{ timestamp }}'
     healthcheck:
       enabled: false
