@@ -86,7 +86,8 @@
                         {
                           "host": [
                             "pomerium.kristianjones.dev",
-                            "grafana.kristianjones.dev"
+                            "grafana.kristianjones.dev",
+                            "netbox.kristianjones.dev"
                           ]
                         }
                       ],

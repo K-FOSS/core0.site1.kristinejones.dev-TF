@@ -38,3 +38,10 @@ routes:
       - kristianjones.dev
     pass_identity_headers: true
     allow_websockets: true
+
+  - from: https://netbox.kristianjones.dev
+    to: http://netbox-http-cont.service.kjdev:8080
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true

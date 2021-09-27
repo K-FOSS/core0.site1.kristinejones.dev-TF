@@ -198,7 +198,9 @@ EOH
     network {
       mode = "cni/nomadcore1"
 
-      port "http" { }
+      port "http" {
+        to = 8080  
+      }
 
       dns {
         servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
