@@ -27,6 +27,8 @@ sinks:
     endpoint: http://ingressweb-http-cont.service.kjdev:8080
     encoding:
       codec: json
+    remove_label_fields: true
+    out_of_order_action: 'rewrite_timestamp'
     labels:
       host: '{{ host }}'
     healthcheck:
