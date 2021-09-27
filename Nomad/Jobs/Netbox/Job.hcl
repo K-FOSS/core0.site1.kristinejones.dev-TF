@@ -204,8 +204,8 @@ DB_NAME="${Database.Database}"
 DB_USER="${Database.Username}"
 DB_PASSWORD="${Database.Password}"
 
-SUPERUSER_EMAIL="${AdminEmail}"
-SUPERUSER_NAME="${AdminUsername}"
+SUPERUSER_EMAIL="${Netbox.AdminEmail}"
+SUPERUSER_NAME="${Netbox.AdminUsername}"
 EOH
 
         destination = "secrets/file.env"
