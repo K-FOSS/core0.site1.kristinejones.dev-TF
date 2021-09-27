@@ -1,4 +1,4 @@
-data_dir: /var/lib/vector
+data_dir: alloc/data/vector/
 
 api:
   enabled: true
@@ -30,4 +30,4 @@ sinks:
     labels:
       host: 'core0'
     healthcheck:
-      enabled: false
+      enabled: true
