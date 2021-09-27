@@ -254,8 +254,9 @@ EOH
         # Auth
         #
         REMOTE_AUTH_ENABLED = "True"
-        REMOTE_AUTH_HEADER = "X_Pomerium_Claim_email"
+        REMOTE_AUTH_HEADER = "HTTP_X_POMERIUM_CLAIM_EMAIL"
         REMOTE_AUTH_DEFAULT_PERMISSIONS = "None"
+        REMOTE_AUTH_AUTO_CREATE_USER = "True"
       }
 
       template {
