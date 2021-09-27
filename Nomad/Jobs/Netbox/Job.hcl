@@ -218,10 +218,6 @@ EOH
       config {
         image = "netboxcommunity/netbox:${Version}"
 
-        command = "redis-server"
-
-        args = ["redis-server", "--requirepass", "${RedisCache.Password}"]
-
         logging {
           type = "loki"
           config {
