@@ -32,7 +32,7 @@ sinks:
       host: '{{ host }}'
       severity: '{{ severity }}'
       # ts: '{{ timestamp }}'
-      # timestamp: '{{ timestamp }}'
+      timestamp: '{{ timestamp }}'
     healthcheck:
       enabled: false
     batch:
