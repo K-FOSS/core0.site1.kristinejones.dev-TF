@@ -61,4 +61,4 @@ balance = "weight"
   failpolicy = "keeplast"
   kind = "srv"
   srv_lookup_server = "172.16.0.10:53" # dns server and port
-  srv_lookup_pattern = "vector-syslog.service.kjdev" # SRV service pattern 
+  srv_lookup_pattern = "vector-syslog.service.kjdev." # SRV service pattern 
