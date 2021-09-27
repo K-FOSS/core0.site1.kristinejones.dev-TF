@@ -24,7 +24,7 @@ sinks:
     inputs:
       - logs
     type: loki
-    endpoint: http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push
+    endpoint: http://ingressweb-http-cont.service.kjdev:8080
     encoding:
       codec: json
     labels:
