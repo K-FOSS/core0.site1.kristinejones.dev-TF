@@ -28,6 +28,6 @@ sinks:
     encoding:
       codec: json
     labels:
-      host: 'core0'
+      host: '{{ host }}'
     healthcheck:
       enabled: false
