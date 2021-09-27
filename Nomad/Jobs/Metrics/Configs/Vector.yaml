@@ -16,7 +16,7 @@ sinks:
     inputs:
       - Syslog
     type: loki
-    endpoint: http://ingressweb-http-cont.service.kjdev:8080
+    endpoint: http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push
     encoding:
       codec: json
     labels:
