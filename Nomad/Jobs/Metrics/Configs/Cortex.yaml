@@ -120,7 +120,7 @@ querier:
   query_ingesters_within: 3h
 
   # Used when the blocks sharding is disabled.
-  store_gateway_addresses: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-store-gateway-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_storegateway_grpc" }}
+  store_gateway_addresses: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-store-gateway-grpc-cont.service.kjdev:8085
 
 
 #
@@ -188,7 +188,7 @@ frontend_worker:
   match_max_concurrent: true
 
   # By setting scheduler_address, querier worker would use scheduler instead of frontend.
-  scheduler_address: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
+  scheduler_address: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-query-scheduler-grpc-cont.service.kjdev:8085
 
 
 #
@@ -196,7 +196,7 @@ frontend_worker:
 #
 frontend:
   query_stats_enabled: true
-  scheduler_address: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-query-scheduler-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryscheduler_grpc" }}
+  scheduler_address: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-query-scheduler-grpc-cont.service.kjdev:8085
 
 
 #
@@ -332,7 +332,7 @@ ruler:
         host: ${Consul.Hostname}:${Consul.Port}
         acl_token: ${Consul.Token}
 
-  alertmanager_url: http://cortex-alertmanager-http-cont.service.kjdev:{{ env "NOMAD_PORT_alertmanager_http" }}/alertmanager
+  alertmanager_url: http://cortex-alertmanager-http-cont.service.kjdev:8080/alertmanager
   enable_alertmanager_v2: false
 
 #
@@ -363,7 +363,7 @@ alertmanager:
   # CLI flag: -experimental.alertmanager.enable-api
   enable_api: true
 
-  external_url: cortex-alertmanager-http-cont.service.kjdev:{{ env "NOMAD_PORT_alertmanager_http" }}
+  external_url: cortex-alertmanager-http-cont.service.kjdev:8080
 
   # Shard tenants across multiple alertmanager instances.
   # CLI flag: -alertmanager.sharding-enabled
