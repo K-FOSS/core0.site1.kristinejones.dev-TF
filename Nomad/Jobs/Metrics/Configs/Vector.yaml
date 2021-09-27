@@ -6,15 +6,23 @@ api:
   playground: true 
 
 sources:
-  Syslog:
+  logs:
     type: syslog
     address: 0.0.0.0:[[ env "NOMAD_PORT_syslog" ]]
     mode: tcp
 
 sinks:
+  console:
+    inputs:
+      - logs
+    type: console
+    encoding:
+      codec: json
+
+
   loki:
     inputs:
-      - Syslog
+      - logs
     type: loki
     endpoint: http://ingressweb-http-cont.service.kjdev:8080
     encoding:
