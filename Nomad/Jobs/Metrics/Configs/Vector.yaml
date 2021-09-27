@@ -31,6 +31,7 @@ sinks:
     out_of_order_action: 'rewrite_timestamp'
     labels:
       host: '{{ host }}'
+      severity: '{{ severity }}'
     healthcheck:
       enabled: false
     batch:
