@@ -249,6 +249,13 @@ EOH
         REDIS_DATABASE = "0"
         REDIS_HOST = "netbox-redis.service.kjdev"
         REDIS_SSL = "false"
+
+        #
+        # Auth
+        #
+        REMOTE_AUTH_ENABLED = "True"
+        REMOTE_AUTH_HEADER = "X_Pomerium_Claim_email"
+        REMOTE_AUTH_DEFAULT_PERMISSIONS = "None"
       }
 
       template {
