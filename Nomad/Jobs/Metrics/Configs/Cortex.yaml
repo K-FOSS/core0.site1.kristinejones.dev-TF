@@ -35,13 +35,13 @@ server:
   # HTTP Server
   #
   http_listen_address: 0.0.0.0
-  http_listen_port: {{ $service_name := (env "NOMAD_META_TARGET_RPL" | toLower) }}{{ $envVar := printf "NOMAD_PORT_%s_http" $service_name }}{{ env $envVar }}
+  http_listen_port: 8080
 
   #
   # GRPC Server
   #
   grpc_listen_address: 0.0.0.0
-  grpc_listen_port: {{ $service_name := (env "NOMAD_META_TARGET_RPL" | toLower) }}{{ $envVar := printf "NOMAD_PORT_%s_grpc" $service_name }}{{ env $envVar }}
+  grpc_listen_port: 8085
 
   #
   # Logs
