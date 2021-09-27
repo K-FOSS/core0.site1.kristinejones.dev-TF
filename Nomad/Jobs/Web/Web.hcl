@@ -158,6 +158,7 @@ EOF
       config {
         image = "yyyar/gobetween:latest"
 
+        command = "/gobetween"
         args = ["-c", "/local/gobetween.toml"]
 
         ports = ["syslog"]
