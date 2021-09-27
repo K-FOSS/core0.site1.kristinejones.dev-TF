@@ -263,3 +263,11 @@ resource "nomad_job" "Metrics" {
     }
   })
 }
+
+module "NetboxJob" {
+  source = "./Jobs/Netbox"
+
+  Database = var.Netbox.Database
+
+  Admin = var.Netbox.Admin
+}

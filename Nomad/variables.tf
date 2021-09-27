@@ -254,3 +254,25 @@ variable "Storage" {
     })
   })
 }
+
+#
+# Netbox 
+#
+variable "Netbox" {
+  type = object({
+    Database = object({
+      Hostname = string
+
+      Username = string
+      Password = string
+
+      Database = string
+    })
+
+    Admin = object({
+      Username = string
+
+      Email = string
+    })
+  })
+}

@@ -133,6 +133,14 @@ module "CoTurnDatabase" {
   Credentials = module.Vault.Database
 }
 
+#
+# Netbox
+#
+module "NetboxDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
 
 #
 # Hashicorp Nomad
@@ -263,6 +271,15 @@ module "Nomad" {
       }
 
       Password = module.Vault.NAS.Password
+    }
+  }
+
+  Netbox = {
+    Database = module.NetboxDatabase.Database
+
+    Admin = {
+      Username = "kjones"
+      Email = "k@kristianjones.dev"
     }
   }
 } 
