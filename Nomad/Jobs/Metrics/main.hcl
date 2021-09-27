@@ -333,6 +333,10 @@ EOF
       port "syslog" { }
 
       port "api" { }
+
+      dns {
+        servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
+      }
     }
 
     ephemeral_disk {
@@ -350,6 +354,8 @@ EOF
 
       check {
         port     = "api"
+        address_mode = "alloc"
+
         type     = "http"
         path     = "/health"
         interval = "30s"
@@ -367,6 +373,8 @@ EOF
 
       check {
         port     = "api"
+        address_mode = "alloc"
+
         type     = "http"
         path     = "/health"
         interval = "30s"

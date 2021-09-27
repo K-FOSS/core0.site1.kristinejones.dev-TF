@@ -52,14 +52,13 @@ backend_connection_timeout = "0" # Backend connection timeout (ignored in udp)
 
 # ---------- tcp example ----------- #
 
-[servers.sample]
-protocol = "udp"
-bind = "0.0.0.0:3000"
+[servers.syslog]
+protocol = "tcp"
+bind = "0.0.0.0:514"
+balance = "weight"
 
-  [servers.sample.discovery]
-  kind = "static"
-  static_list = [
-      "localhost:8000 weight=40 priority=1",
-      "localhost:8001 weight=60 priority=1",
-      "localhost:8002 weight=100 priority=0"
-  ]
+  [servers.syslog.discovery]
+  failpolicy = "keeplast"
+  kind = "srv"
+  srv_lookup_server = "172.16.0.1:53" # dns server and port
+  srv_lookup_pattern = "vector-api.service.kjdev" # SRV service pattern 

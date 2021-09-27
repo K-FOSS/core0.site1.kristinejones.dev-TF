@@ -20,6 +20,12 @@ job "ingress" {
         to = 8443
       }
 
+      port "syslog" {
+        static = 514
+
+        to = 514
+      }
+
       port "http" {
         to = 8080
       }
@@ -93,6 +99,15 @@ job "ingress" {
       address_mode = "alloc"
     }
 
+    service {
+      name = "ingressweb-syslog-cont"
+      port = "syslog"
+
+      task = "gobetween-server"
+
+      address_mode = "alloc"
+    }
+
     task "web" {
       driver = "docker"
 
@@ -134,6 +149,26 @@ ${COTURNCONFIG}
 EOF
 
         destination = "local/turnserver.conf"
+      }
+    }
+
+    task "gobetween-server" {
+      driver = "docker"
+
+      config {
+        image = "yyyar/gobetween:latest"
+
+        args = ["-c", "/local/gobetween.toml"]
+
+        ports = ["syslog"]
+      }
+
+      template {
+        data = <<EOF
+${GoBetweenCONF}
+EOF
+
+        destination = "local/gobetween.toml"
       }
     }
   }
