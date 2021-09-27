@@ -19,3 +19,5 @@ sinks:
     endpoint: http://ingressweb-http-cont.service.kjdev:8080
     encoding:
       codec: json
+    labels:
+      test: 'Hello'
