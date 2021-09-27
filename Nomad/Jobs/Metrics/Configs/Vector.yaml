@@ -30,4 +30,4 @@ sinks:
     labels:
       host: 'core0'
     healthcheck:
-      enabled: true
+      enabled: false

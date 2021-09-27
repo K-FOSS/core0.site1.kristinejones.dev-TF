@@ -391,7 +391,7 @@ EOF
 
       env {
         VECTOR_CONFIG = "local/vector.yaml"
-        VECTOR_REQUIRE_HEALTHY = "true"
+        VECTOR_REQUIRE_HEALTHY = "false"
       }
 
       resources {
