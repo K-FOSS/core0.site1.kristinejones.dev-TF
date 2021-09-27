@@ -62,3 +62,15 @@ balance = "weight"
   interval = "5s"
   srv_lookup_server = "172.16.0.10:53" # dns server and port
   srv_lookup_pattern = "vector-syslog.service.kjdev." # SRV service pattern 
+
+
+[servers.dns]
+protocol = "udp"
+bind = "0.0.0.0:53"
+balance = "weight"
+
+  [servers.dns.discovery]
+  kind = "srv"
+  interval = "5s"
+  srv_lookup_server = "172.16.0.10:53" # dns server and port
+  srv_lookup_pattern = "coredns-dns-cont.service.kjdev." # SRV service pattern 

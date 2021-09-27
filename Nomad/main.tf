@@ -271,3 +271,11 @@ module "NetboxJob" {
 
   Admin = var.Netbox.Admin
 }
+
+#
+# DNS
+#
+
+module "DNS" {
+  source = "./Jobs/DNS"
+}

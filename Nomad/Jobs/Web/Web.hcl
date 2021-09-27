@@ -26,6 +26,10 @@ job "ingress" {
         to = 514
       }
 
+      port "dns" {
+        to = 53
+      }
+
       port "http" {
         to = 8080
       }
