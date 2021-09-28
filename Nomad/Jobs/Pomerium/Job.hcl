@@ -92,7 +92,7 @@ job "pomerium" {
       config {
         image = "pomerium/pomerium:${Version}"
 
-        args = ["-config=/local/pomerium.yaml"]
+        args = ["-config", "/local/pomerium.yaml"]
 
         ulimit {
           nproc = "32768"

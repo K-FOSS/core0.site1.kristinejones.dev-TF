@@ -6,6 +6,7 @@
 
 address: 0.0.0.0:8080
 grpc_address: 0.0.0.0:8080
+envoy_admin_address: 0.0.0.0:9901
 
 services: {{ env "NOMAD_META_Service" }}
 
