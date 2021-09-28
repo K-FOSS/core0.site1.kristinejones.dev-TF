@@ -120,7 +120,7 @@ EOH
 #
 # Database
 #
-MM_SQLSETTINGS_DATASOURCE="postgres://${Database.Username}:${Database.Password}@${Database.Hostname}:${Database.Port}/${Database.Database}?sslmode=disable&connect_timeout=10"
+MM_SQLSETTINGS_DATASOURCE="postgres://${Database.Username}:${Database.Password}@${Database.Hostname}/${Database.Database}?sslmode=disable&connect_timeout=10"
 EOH
 
         destination = "secrets/file.env"
