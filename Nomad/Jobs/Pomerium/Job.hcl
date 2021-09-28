@@ -84,6 +84,11 @@ job "pomerium" {
     task "pomerium-${Target.name}" {
       driver = "docker"
 
+      resources {
+        cpu    = 500 # 500 MHz
+        memory = 256 # 256MB
+      }
+
       restart {
         attempts = 5
         delay    = "60s"
