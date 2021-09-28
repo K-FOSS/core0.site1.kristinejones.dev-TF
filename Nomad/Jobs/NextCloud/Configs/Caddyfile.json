@@ -1,0 +1,90 @@
+{
+  "admin": {
+    "listen": "0.0.0.0:2019"
+  },
+  "apps": {
+    "http": {
+      "http_port": 8080,
+      "https_port": 8443,
+      "servers": {
+        "CoreWeb": {
+          "listen": [
+            ":8080"
+          ],
+          "automatic_https": {
+            "disable": false
+          },
+          "experimental_http3": false,
+          "routes": [
+            {
+              "handle": [
+                {
+                  "handler": "vars",
+                  "root": "/var/www/html/public_html"
+                },
+                {
+                  "handler": "subroute",
+                  "routes": [
+                    {
+                      "handle": [
+                        {
+                          "handler": "rewrite",
+                          "uri": "{http.matchers.file.relative}{http.request.uri.query_string}"
+                        }
+                      ],
+                      "match": [
+                        {
+                          "file": {
+                            "try_files": [
+                              "{http.request.uri.path}",
+                              "index.php"
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "fastcgi",
+                            "split_path": [
+                              ".php"
+                            ]
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "netbox-fastcgi-cont.service.kjdev"
+                            }
+                          ]
+                        }
+                      ],
+                      "match": [
+                        {
+                          "path": [
+                            "*.php"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "handle": [
+                        {
+                          "handler": "file_server",
+                          "hide": [
+                            "Caddyfile"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

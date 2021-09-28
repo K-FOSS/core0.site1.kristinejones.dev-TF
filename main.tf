@@ -98,6 +98,20 @@ module "TempoBucket" {
   Credentials = module.Vault.Minio
 }
 
+#
+# NextCloud
+# 
+module "NextCloud" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
 
 #
 # Databases
@@ -141,6 +155,25 @@ module "NetboxDatabase" {
 
   Credentials = module.Vault.Database
 }
+
+#
+# DHCP Database
+#
+# module "DHCPDatabase" {
+#   source = "./Database"
+
+#   Credentials = module.Vault.Database
+# }
+
+#
+# NextCloud
+#
+module "NextCloud" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
 
 #
 # Hashicorp Nomad
