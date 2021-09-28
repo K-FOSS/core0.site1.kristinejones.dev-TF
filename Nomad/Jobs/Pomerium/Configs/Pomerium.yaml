@@ -21,7 +21,6 @@ grpc_insecure: true
 
 # this is the domain the identity provider will callback after a user authenticates
 authenticate_service_url: https://pomerium.kristianjones.dev
-authenticate_callback_path: /oauth2/callback
 
 ##################################################################################
 # Identity provider settings : https://www.pomerium.com/docs/identity-providers/ #
@@ -36,8 +35,10 @@ idp_client_secret: ${OpenID.ClientSecret}
 #
 # Secrets
 #
-cookie_secret: ${Secrets.CookieSecret}
-shared_secret: ${Secrets.SharedSecret}
+cookie_secret: '${Secrets.CookieSecret}'
+shared_secret: '${Secrets.SharedSecret}'
+
+xff_num_trusted_hops: 5
 
 #
 # Proxy Service
