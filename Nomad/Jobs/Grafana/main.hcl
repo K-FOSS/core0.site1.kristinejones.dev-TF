@@ -5,9 +5,11 @@ job "grafana" {
     count = 1
 
     network {
-      mode = "bridge"
+      mode = "cni/nomadcore1"
 
-      port "http" { }
+      port "http" { 
+        to = 8080
+      }
     }
 
     service {
@@ -16,9 +18,7 @@ job "grafana" {
 
       task = "grafana-web"
 
-      connect {
-        sidecar_service {}
-      }
+      address_mode = "alloc"
     }
 
     task "grafana-web" {

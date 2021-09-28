@@ -74,12 +74,6 @@ job "ingress" {
 
               local_bind_port = 8087
             }
-
-            upstreams {
-              destination_name = "pomerium-cont"
-
-              local_bind_port = 8088
-            }
           }
         }
       }

@@ -85,7 +85,29 @@
                       "match": [
                         {
                           "host": [
-                            "pomerium.kristianjones.dev",
+                            "pomerium.kristianjones.dev"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http"
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "pomerium-authenticate-http-cont.service.kjdev"
+                            }
+                          ]
+                        }
+                      ],
+                      "terminal": true
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
                             "grafana.kristianjones.dev",
                             "netbox.kristianjones.dev",
                             "nextcloud.kristianjones.dev",
@@ -102,7 +124,7 @@
                           },
                           "upstreams": [
                             {
-                              "dial": "{{ env "NOMAD_UPSTREAM_ADDR_pomerium-cont" }}"
+                              "lookup_srv": "pomerium-proxy-http-cont.service.kjdev"
                             }
                           ]
                         }
