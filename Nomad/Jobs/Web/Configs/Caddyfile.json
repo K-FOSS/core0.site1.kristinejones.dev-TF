@@ -88,7 +88,8 @@
                             "pomerium.kristianjones.dev",
                             "grafana.kristianjones.dev",
                             "netbox.kristianjones.dev",
-                            "nextcloud.kristianjones.dev"
+                            "nextcloud.kristianjones.dev",
+                            "mattermost.kristianjones.dev"
                           ]
                         }
                       ],
