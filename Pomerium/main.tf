@@ -38,19 +38,19 @@ locals {
   Services = tomap({
     Authenticate = {
       name = "authenticate"
-      count = 2
+      count = 1
     },
     Proxy = {
       name = "proxy"
-      count = 3
+      count = 1
     },
     Authorize = {
       name = "authorize"
-      count = 3
+      count = 1
     },
     DataBroker = {
       name = "databroker"
-      count = 3
+      count = 1
     }
   })
 

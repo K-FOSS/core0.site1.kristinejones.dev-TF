@@ -44,16 +44,12 @@ shared_secret: ${Secrets.SharedSecret}
 #
 authorize_service_urls:
   - http://0.pomerium-authorize-grpc-cont.service.kjdev:8080
-  - http://1.pomerium-authorize-grpc-cont.service.kjdev:8080
-  - http://2.pomerium-authorize-grpc-cont.service.kjdev:8080
 
 #
 # Data Broker
 #
 databroker_service_urls:
   - http://0.pomerium-databroker-grpc-cont.service.kjdev:8080
-  - http://1.pomerium-databroker-grpc-cont.service.kjdev:8080
-  - http://2.pomerium-databroker-grpc-cont.service.kjdev:8080
 
 databroker_storage_type: redis
 
