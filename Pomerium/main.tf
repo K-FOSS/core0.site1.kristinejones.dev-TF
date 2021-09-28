@@ -50,7 +50,7 @@ locals {
     },
     DataBroker = {
       name = "databroker"
-      count = 2
+      count = 3
     }
   })
 
