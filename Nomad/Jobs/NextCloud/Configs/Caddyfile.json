@@ -55,7 +55,7 @@
                           },
                           "upstreams": [
                             {
-                              "lookup_srv": "netbox-fastcgi-cont.service.kjdev"
+                              "lookup_srv": "nextcloud-fastcgi-cont.service.kjdev"
                             }
                           ]
                         }

@@ -72,7 +72,7 @@ job "nextcloud" {
 
 
     service {
-      name = "netbox-fastcgi-cont"
+      name = "nextcloud-fastcgi-cont"
       port = "fpm"
 
       task = "nextcloud-server"
@@ -81,7 +81,7 @@ job "nextcloud" {
     }
 
     service {
-      name = "netbox-web-cont"
+      name = "nextcloud-web-cont"
       port = "http"
 
       task = "web"
