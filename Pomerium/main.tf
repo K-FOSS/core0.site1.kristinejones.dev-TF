@@ -25,12 +25,12 @@ terraform {
 }
 
 resource "random_string" "CookieSecret" {
-  length           = 64
+  length           = 32
   special          = true
 }
 
 resource "random_string" "SharedSecret" {
-  length           = 64
+  length           = 32
   special          = true
 }
 
