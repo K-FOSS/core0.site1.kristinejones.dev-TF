@@ -45,6 +45,20 @@ resource "nomad_job" "CSIStorage" {
   })
 }
 
+#
+# Pomerium
+#
+
+module "Pomerium" {
+  source = "./Jobs/Pomerium"
+
+  OpenID = var.Pomerium.OpenID
+
+  Secrets = var.Pomerium.Secrets
+
+  Services = var.Pomerium.Services
+}
+
 
 #
 # Bitwarden
@@ -200,16 +214,6 @@ resource "nomad_job" "Patroni" {
 #   })
 # }
 
-
-#
-# Pomerium
-#
-
-resource "nomad_job" "Pomerium" {
-  jobspec = templatefile("${path.module}/Jobs/Pomerium/main.hcl", {
-    CONFIG =  templatefile("${path.module}/Jobs/Pomerium/Configs/Pomerium.yaml", var.Pomerium)
-  })
-}
 
 #
 # Metrics

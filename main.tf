@@ -206,17 +206,53 @@ module "Mattermost" {
 # Hashicorp Nomad
 #
 
+#
+# Networking Stacks
+#
+
+#
+# Tinkerbell
+#
+# TODO: Stuff & Things
+#
+
+#
+# Ingress Stacks
+#
+
+module "Pomerium" {
+  source = "./Pomerium"
+}
+
+#
+# Grafana Observibility Stacks
+#
+
+
+#
+# Grafana Cortex Services
+#
 module "Cortex" {
   source = "./Cortex"
 }
 
+#
+# Grafana Loki Services
+#
 module "Loki" {
   source = "./Loki"
 }
 
+#
+# Grafana Tempo Services
+#
 module "Tempo" {
   source = "./Tempo"
 }
+
+#
+# Nomad Scheduler and Tasker
+#
 
 module "Nomad" {
   source = "./Nomad"
@@ -283,6 +319,10 @@ module "Nomad" {
   #
   Pomerium = {
     OpenID = module.Vault.Pomerium
+
+    Services = module.Pomerium.Services
+
+    Secrets = module.Pomerium.Secrets
   }
 
   #

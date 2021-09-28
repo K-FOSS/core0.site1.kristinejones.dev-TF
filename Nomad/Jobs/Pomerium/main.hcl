@@ -1,13 +1,15 @@
 job "pomerium" {
   datacenters = ["core0site1"]
 
-  group "pomerium-server" {
+  group "pomerium-redis" {
     count = 1
 
     network {
-      mode = "bridge"
+      mode = "cni/nomadcore1"
 
-      port "http" { }
+      port "redis" { 
+        to = 6379
+      }
 
       dns {
         servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
@@ -15,46 +17,100 @@ job "pomerium" {
     }
 
     service {
-      name = "pomerium-cont"
-      port = "http"
+      name = "pomerium-redis"
+      port = "redis"
 
-      task = "pomerium-server"
+      task = "redis"
 
-      connect {
-        sidecar_service { 
-          proxy {
-            upstreams {
-              destination_name = "grafana-cont"
+      address_mode = "alloc"
+    }
 
-              local_bind_port = 8086
-            }
+    task "redis" {
+      driver = "docker"
+
+      config {
+        image = "redis:6-alpine"
+
+        command = "redis-server"
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
           }
         }
       }
     }
+  }
 
-    task "pomerium-server" {
+%{ for Target in Services ~}
+  group "pomerium-${Target.name}" {
+    count = ${Target.count}
+
+    network {
+      mode = "cni/nomadcore1"
+
+      port "http" {
+        to = 8080
+      }
+
+      port "grpc" {
+        to = 8085
+      }
+    }
+
+    service {
+      name = "pomerium-${Target.name}-http-cont"
+      port = "http"
+
+      task = "pomerium-${Target.name}"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
+      address_mode = "alloc"
+    }
+
+    service {
+      name = "pomerium-${Target.name}-grpc-cont"
+      port = "grpc"
+
+      task = "pomerium-${Target.name}"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
+      address_mode = "alloc"
+    }
+
+    task "pomerium-${Target.name}" {
       driver = "docker"
 
+      restart {
+        attempts = 5
+        delay    = "60s"
+      }
+
       config {
-        image        = "pomerium/pomerium:latest"
+        image = "pomerium/pomerium:${Version}"
 
         args = ["-config=/local/pomerium.yaml"]
+      }
 
-        ports = ["http"]
+      env {
+        Service = "${Target.name}"
+      }
+
+      meta {
+        Service = "${Target.name}"
       }
 
       template {
         data = <<EOF
-${CONFIG}
+${YAMLConfig}
 EOF
 
         destination = "local/pomerium.yaml"
       }
-      resources {
-        cpu    = 800
-        memory = 500
-      }
     }
   }
+%{ endfor ~}
 }

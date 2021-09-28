@@ -98,6 +98,18 @@ variable "Pomerium" {
       ClientID = string
       ClientSecret = string
     })
+
+    Services = map(object(
+      {
+        name = string
+        count = number
+      }
+    ))
+
+    Secrets = object({
+      CookieSecret = string
+      SharedSecret = string
+    })
   })
 }
 
