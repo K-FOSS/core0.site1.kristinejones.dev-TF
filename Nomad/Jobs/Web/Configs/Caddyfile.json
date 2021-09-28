@@ -89,7 +89,8 @@
                             "grafana.kristianjones.dev",
                             "netbox.kristianjones.dev",
                             "nextcloud.kristianjones.dev",
-                            "mattermost.kristianjones.dev"
+                            "mattermost.kristianjones.dev",
+                            "chat.kristianjones.dev"
                           ]
                         }
                       ],
