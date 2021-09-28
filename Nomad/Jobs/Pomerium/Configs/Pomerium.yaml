@@ -5,7 +5,7 @@
 #
 
 address: 0.0.0.0:8080
-grpc_address: 0.0.0.0:8085
+grpc_address: 0.0.0.0:8080
 
 services: {{ env "NOMAD_META_Service" }}
 
@@ -43,22 +43,22 @@ shared_secret: ${Secrets.SharedSecret}
 # Proxy Service
 #
 authorize_service_urls:
-  - http://0.pomerium-authorize-grpc-cont.service.kjdev:8085
-  - http://1.pomerium-authorize-grpc-cont.service.kjdev:8085
-  - http://2.pomerium-authorize-grpc-cont.service.kjdev:8085
+  - http://0.pomerium-authorize-grpc-cont.service.kjdev:8080
+  - http://1.pomerium-authorize-grpc-cont.service.kjdev:8080
+  - http://2.pomerium-authorize-grpc-cont.service.kjdev:8080
 
 #
 # Data Broker
 #
 databroker_service_urls:
-  - http://0.pomerium-databroker-grpc-cont.service.kjdev:8085
-  - http://1.pomerium-databroker-grpc-cont.service.kjdev:8085
-  - http://2.pomerium-databroker-grpc-cont.service.kjdev:8085
+  - http://0.pomerium-databroker-grpc-cont.service.kjdev:8080
+  - http://1.pomerium-databroker-grpc-cont.service.kjdev:8080
+  - http://2.pomerium-databroker-grpc-cont.service.kjdev:8080
 
 databroker_storage_type: redis
 
 databroker_storage_connection_string: redis://pomerium-redis.service.kjdev:6379/0
-
+databroker_storage_tls_skip_verify: true
 
 
 jwt_claims_headers: email,groups,user,preferred_username,nickname
