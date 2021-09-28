@@ -57,7 +57,7 @@ databroker_service_urls:
 
 databroker_storage_type: redis
 
-databroker_storage_connection_string: redis://pomerium-redis.service.kjdev:6379
+databroker_storage_connection_string: redis://pomerium-redis.service.kjdev:6379/0
 
 
 
