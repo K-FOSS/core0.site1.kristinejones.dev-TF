@@ -58,8 +58,6 @@ data "github_release" "Release" {
 
 resource "nomad_job" "Pomerium" {
   jobspec = templatefile("${path.module}/Job.hcl", {
-    Database = var.Database
-
     Services = var.Services
 
     YAMLConfig = templatefile("${path.module}/Configs/Pomerium.yaml", {
