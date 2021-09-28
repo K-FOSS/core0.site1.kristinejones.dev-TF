@@ -3,11 +3,6 @@
 #
 # General
 #
-
-address: 0.0.0.0:8080
-grpc_address: 0.0.0.0:8085
-envoy_admin_address: 0.0.0.0:9901
-
 services: {{ env "NOMAD_META_Service" }}
 
 #
@@ -15,6 +10,9 @@ services: {{ env "NOMAD_META_Service" }}
 #
 insecure_server: true
 grpc_insecure: true
+address: ':80'
+grpc_address: ':80'
+
 
 pomerium_debug: true
 
@@ -46,16 +44,16 @@ shared_secret: ${Secrets.SharedSecret}
 #
 # Proxy Service
 #
-authorize_service_url: http://pomerium-authorize-grpc-cont.service.kjdev:8085
+authorize_service_url: http://pomerium-authorize-grpc-cont.service.kjdev
 
 #
 # Data Broker
 #
-databroker_service_url: http://pomerium-databroker-grpc-cont.service.kjdev:8085
+databroker_service_url: http://pomerium-databroker-grpc-cont.service.kjdev
 
+override_certificate_name: '*.pomerium.kristianjones.dev'
 
-
-jwt_claims_headers: email,groups,user,preferred_username,nickname
+#jwt_claims_headers: email,groups,user,preferred_username,nickname
 
 # https://pomerium.com/reference/#routes
 routes:
