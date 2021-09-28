@@ -60,6 +60,6 @@ resource "nomad_job" "Mattermost" {
   jobspec = templatefile("${path.module}/Job.hcl", {
     Database = var.Database
 
-    Version = split("v", data.github_release.Release.release_tag)[1]
+    Version = "master"
   })
 }
