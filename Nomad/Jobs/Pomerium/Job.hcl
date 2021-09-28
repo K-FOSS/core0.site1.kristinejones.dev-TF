@@ -55,7 +55,7 @@ job "pomerium" {
       }
 
       port "grpc" {
-        to = 8080
+        to = 8085
       }
     }
 

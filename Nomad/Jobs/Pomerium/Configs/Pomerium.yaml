@@ -4,9 +4,9 @@
 # General
 #
 
-address: 0.0.0.0:8080
-grpc_address: 0.0.0.0:8080
-envoy_admin_address: 0.0.0.0:9901
+address: :8080
+grpc_address: :8085
+envoy_admin_address: :9901
 
 services: {{ env "NOMAD_META_Service" }}
 
@@ -46,12 +46,12 @@ xff_num_trusted_hops: 5
 #
 # Proxy Service
 #
-authorize_service_url: http://pomerium-authorize-grpc-cont.service.kjdev:8080
+authorize_service_url: http://pomerium-authorize-grpc-cont.service.kjdev:8085
 
 #
 # Data Broker
 #
-databroker_service_url: http://pomerium-databroker-grpc-cont.service.kjdev:8080
+databroker_service_url: http://pomerium-databroker-grpc-cont.service.kjdev:8085
 
 
 
