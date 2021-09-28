@@ -90,3 +90,23 @@ data "vault_generic_secret" "Minio" {
 data "vault_generic_secret" "NASAuth" {
   path = "keycloak/NASAuth"
 }
+
+#
+# Tinker Bell TLS
+# 
+module "TinkerbellPKI" {
+  source = "./TLS/Template"
+}
+
+# resource "vault_pki_secret_backend_cert" "OpenIDCert" {
+#   depends_on = [
+#     vault_pki_secret_backend_role.OpenIDAuthPKI
+#   ]
+
+#   backend = vault_mount.OpenIDIntPKI.path
+#   name = vault_pki_secret_backend_role.OpenIDAuthPKI.name
+
+#   common_name = "tinkerbell"
+
+#   alt_names = ["tink-grpc-cont.service.kjdev", "tink-http-cont.service.kjdev"]
+# }

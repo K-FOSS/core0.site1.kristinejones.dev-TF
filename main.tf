@@ -159,21 +159,48 @@ module "NetboxDatabase" {
 #
 # DHCP Database
 #
-# module "DHCPDatabase" {
-#   source = "./Database"
-
-#   Credentials = module.Vault.Database
-# }
-
-#
-# NextCloud
-#
-module "NextCloud" {
+module "DHCPDatabase" {
   source = "./Database"
 
   Credentials = module.Vault.Database
 }
 
+#
+# NextCloud
+#
+module "NextCloudDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# Tinkerbell
+#
+
+module "TinkerbellDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# Tinkerbell
+#
+module "Tinkerbell" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# Mattermost
+#
+module "Mattermost" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
 
 #
 # Hashicorp Nomad
@@ -314,5 +341,13 @@ module "Nomad" {
       Username = "kjones"
       Email = "k@kristianjones.dev"
     }
+  }
+
+  DHCP = {
+    Database = module.DHCPDatabase.Database
+  }
+
+  Tinkerbell = {
+    Database = module.TinkerbellDatabase.Database
   }
 } 

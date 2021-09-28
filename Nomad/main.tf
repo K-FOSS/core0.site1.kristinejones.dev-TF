@@ -279,3 +279,13 @@ module "NetboxJob" {
 module "DNS" {
   source = "./Jobs/DNS"
 }
+
+#
+# Tinkerbell
+#
+
+# module "Tinkerbell" {
+#   source = "./Jobs/Tinkerbell"
+
+#   Database = var.Tinkerbell.Database
+# }

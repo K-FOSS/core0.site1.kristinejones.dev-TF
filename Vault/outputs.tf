@@ -66,3 +66,14 @@ output "NAS" {
     Password = data.vault_generic_secret.NASAuth.data["PASSWORD"]
   }
 }
+
+#
+# Tinkerbell
+#
+# variable "Tinkerbell" {
+#   value = {
+#     CA = ""
+#     Cert = ""
+#     Key = ""
+#   }
+# }
