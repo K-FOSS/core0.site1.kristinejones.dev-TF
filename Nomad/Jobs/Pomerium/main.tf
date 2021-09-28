@@ -65,6 +65,6 @@ resource "nomad_job" "Pomerium" {
       OpenID = var.OpenID
     })
 
-    Version = "master"
+    Version = "v0.15.3"
   })
 }
