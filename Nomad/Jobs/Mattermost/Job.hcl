@@ -33,6 +33,8 @@ job "mattermost" {
       config {
         image = "mattermost/mattermost-team-edition:${Version}"
 
+        args = ["server"]
+
         logging {
           type = "loki"
           config {
@@ -96,6 +98,8 @@ EOH
 
       config {
         image = "mattermost/mattermost-team-edition:${Version}"
+
+        args = ["server"]
 
         logging {
           type = "loki"
