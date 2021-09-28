@@ -51,11 +51,11 @@ job "pomerium" {
       mode = "cni/nomadcore1"
 
       port "http" {
-        to = 8080
+        to = 80
       }
 
       port "grpc" {
-        to = 8085
+        to = 80
       }
     }
 
