@@ -38,7 +38,7 @@ locals {
   Services = tomap({
     Authenticate = {
       name = "authenticate"
-      count = 3
+      count = 2
     },
     Proxy = {
       name = "proxy"
@@ -50,7 +50,7 @@ locals {
     },
     DataBroker = {
       name = "databroker"
-      count = 3
+      count = 2
     }
   })
 
