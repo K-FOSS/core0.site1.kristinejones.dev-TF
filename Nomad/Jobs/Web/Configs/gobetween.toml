@@ -69,6 +69,10 @@ protocol = "udp"
 bind = "0.0.0.0:53"
 balance = "weight"
 
+  [servers.dns.udp]
+  max_requests  = 100
+  max_responses = 100
+
   [servers.dns.discovery]
   kind = "srv"
   interval = "5s"
