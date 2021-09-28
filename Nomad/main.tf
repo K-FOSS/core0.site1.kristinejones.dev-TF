@@ -281,6 +281,15 @@ module "DNS" {
 }
 
 #
+# Mattermsot
+#
+module "Mattermost" {
+  source = "./Jobs/Mattermost"
+
+  Database = var.Mattermost.Database
+}
+
+#
 # Tinkerbell
 #
 

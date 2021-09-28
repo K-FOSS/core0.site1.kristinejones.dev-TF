@@ -293,6 +293,19 @@ variable "DHCP" {
   })
 }
 
+variable "Mattermost" {
+  type = object({
+    Database = object({
+      Hostname = string
+
+      Username = string
+      Password = string
+
+      Database = string
+    })
+  })
+}
+
 variable "Tinkerbell" {
   type = object({
     Database = object({

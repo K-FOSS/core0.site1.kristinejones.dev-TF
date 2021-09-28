@@ -347,6 +347,10 @@ module "Nomad" {
     Database = module.DHCPDatabase.Database
   }
 
+  Mattermost = {
+    Database = module.Mattermost.Database
+  }
+
   Tinkerbell = {
     Database = module.TinkerbellDatabase.Database
   }
