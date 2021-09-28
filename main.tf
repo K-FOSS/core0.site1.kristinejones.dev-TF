@@ -196,7 +196,7 @@ module "Tinkerbell" {
 #
 # Mattermost
 #
-module "MattermostDatabase" {
+module "Mattermost" {
   source = "./Database"
 
   Credentials = module.Vault.Database
@@ -348,7 +348,7 @@ module "Nomad" {
   }
 
   Mattermost = {
-    Database = module.MattermostDatabase.Database
+    Database = module.Mattermost.Database
   }
 
   Tinkerbell = {
