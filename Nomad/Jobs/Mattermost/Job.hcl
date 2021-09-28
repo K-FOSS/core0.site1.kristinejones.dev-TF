@@ -59,72 +59,8 @@ job "mattermost" {
 # Database
 #
 MM_SQLSETTINGS_DATASOURCE="postgres://${Database.Username}:${Database.Password}@${Database.Hostname}/${Database.Database}?sslmode=disable&connect_timeout=10"
-EOH
-
-        destination = "secrets/file.env"
-        env         = true
-      }
-    }
-  }
-
-  group "mattermost-follower" {
-    count = 3
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "http" { }
-
-      dns {
-        servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
-      }
-    }
-
-    service {
-      name = "mattermost-follower-http-cont"
-      port = "http"
-
-      task = "mattermost-follower"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
-
-      address_mode = "alloc"
-    }
-
-    task "mattermost-follower" {
-      driver = "docker"
-
-      user = "101"
-
-      config {
-        image = "mattermost/mattermost-team-edition:${Version}"
-
-        args = ["mattermost", "server",  "-c", "/local/config.json"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
-      }
-    
-      env {
-        RUN_SERVER_IN_BACKGROUND = "false"
-        MM_SQLSETTINGS_DRIVERNAME = "postgres"
-        MM_CLUSTERSETTINGS_ENABLE = "true"
-        MM_NO_DOCKER = "true"
-        MM_CLUSTERSETTINGS_CLUSTERNAME = "kjdev"
-
-        APP_PORT_NUMBER = "$${NOMAD_PORT_http}"
-      }
-
-      template {
-        data = <<EOH
-#
-# Database
-#
-MM_SQLSETTINGS_DATASOURCE="postgres://${Database.Username}:${Database.Password}@${Database.Hostname}/${Database.Database}?sslmode=disable&connect_timeout=10"
+DB_HOST="${Database.Hostname}"
+DB_PORT_NUMBER="5432"
 EOH
 
         destination = "secrets/file.env"
