@@ -54,14 +54,14 @@ routes:
     allow_websockets: true
 
   - from: https://chat.kristianjones.dev
-    to: http://mattermost-leader-http-cont.service.kjdev:8086
+    to: http://mattermost-leader-http-cont.service.kjdev:8065
     allowed_domains:
       - kristianjones.dev
     pass_identity_headers: true
     allow_websockets: true
 
   - from: https://mattermost.kristianjones.dev
-    to: http://mattermost-leader-http-cont.service.kjdev:8086
+    to: http://mattermost-leader-http-cont.service.kjdev:8065
     allowed_domains:
       - kristianjones.dev
     pass_identity_headers: true
