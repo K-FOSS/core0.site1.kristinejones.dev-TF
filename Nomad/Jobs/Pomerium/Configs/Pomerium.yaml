@@ -14,7 +14,9 @@ services: {{ env "NOMAD_META_Service" }}
 # TODO: mTLS
 #
 insecure_server: true
-grpc_insecure: true
+#grpc_insecure: true
+
+pomerium_debug: true
 
 #
 # Authenticate Service
