@@ -1,15 +1,13 @@
 job "pomerium" {
   datacenters = ["core0site1"]
 
-  group "pomerium-redis" {
+  group "pomerium-server" {
     count = 1
 
     network {
-      mode = "cni/nomadcore1"
+      mode = "bridge"
 
-      port "redis" { 
-        to = 6379
-      }
+      port "http" { }
 
       dns {
         servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
@@ -17,109 +15,38 @@ job "pomerium" {
     }
 
     service {
-      name = "pomerium-redis"
-      port = "redis"
-
-      task = "redis"
-
-      address_mode = "alloc"
-    }
-
-    task "redis" {
-      driver = "docker"
-
-      config {
-        image = "redis:6-alpine"
-
-        command = "redis-server"
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
-      }
-    }
-  }
-
-%{ for Target in Services ~}
-  group "pomerium-${Target.name}" {
-    count = ${Target.count}
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "http" {
-        to = 80
-      }
-
-      port "grpc" {
-        to = 80
-      }
-    }
-
-    service {
-      name = "pomerium-${Target.name}-http-cont"
+      name = "pomerium-cont"
       port = "http"
 
-      task = "pomerium-${Target.name}"
+      task = "pomerium-server"
 
       tags = ["$${NOMAD_ALLOC_INDEX}"]
 
       address_mode = "alloc"
     }
 
-    service {
-      name = "pomerium-${Target.name}-grpc-cont"
-      port = "grpc"
-
-      task = "pomerium-${Target.name}"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
-
-      address_mode = "alloc"
-    }
-
-    task "pomerium-${Target.name}" {
+    task "pomerium-server" {
       driver = "docker"
 
-      resources {
-        cpu    = 500 # 500 MHz
-        memory = 256 # 256MB
-      }
-
-      restart {
-        attempts = 5
-        delay    = "60s"
-      }
-
       config {
-        image = "pomerium/pomerium:${Version}"
+        image        = "pomerium/pomerium:latest"
 
-        args = ["-config", "/local/pomerium.yaml"]
+        args = ["-config=/local/pomerium.yaml"]
 
-        ulimit {
-          nproc = "32768"
-        }
-      }
-
-      env {
-        Service = "${Target.name}"
-      }
-
-      meta {
-        Service = "${Target.name}"
+        ports = ["http"]
       }
 
       template {
         data = <<EOF
-${YAMLConfig}
+${CONFIG}
 EOF
 
         destination = "local/pomerium.yaml"
       }
+      resources {
+        cpu    = 800
+        memory = 500
+      }
     }
   }
-%{ endfor ~}
 }

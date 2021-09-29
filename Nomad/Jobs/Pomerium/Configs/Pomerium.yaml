@@ -1,27 +1,19 @@
 # See detailed configuration settings : https://www.pomerium.com/docs/reference/
 
-#
-# General
-#
-services: {{ env "NOMAD_META_Service" }}
+address: 0.0.0.0:{{ env "NOMAD_PORT_http" }}
 
-#
-# TODO: mTLS
-#
 insecure_server: true
-grpc_insecure: true
-address: ':80'
-grpc_address: ':80'
-
-
-pomerium_debug: true
-
-#
-# Authenticate Service
-#
 
 # this is the domain the identity provider will callback after a user authenticates
 authenticate_service_url: https://pomerium.kristianjones.dev
+
+####################################################################################
+# Certificate settings:  https://www.pomerium.com/docs/reference/certificates.html #
+# The example below assumes a certificate and key file will be mounted to a volume #
+# available to the  Docker image.                                                  #
+####################################################################################
+#certificate_file: /pomerium/cert.pem
+#certificate_key_file: /pomerium/privkey.pem
 
 ##################################################################################
 # Identity provider settings : https://www.pomerium.com/docs/identity-providers/ #
@@ -33,32 +25,15 @@ idp_provider: oidc
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
 
-#
-# Secrets
-#
-cookie_secret: H8K6mRWTqLCTGlZEtn/hqxLTubdBlHZZlIbVdpS0rs4=
-shared_secret: H8K6mRWTqLCTGlZEtn/hqxLTubdBlHZZlIbVdpS0rs4=
+# Generate 256 bit random keys  e.g. `head -c32 /dev/urandom | base64`
+cookie_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
 
-#xff_num_trusted_hops: 5
-
-#
-# Proxy Service
-#
-authorize_service_url: http://pomerium-authorize-grpc-cont.service.kjdev
-
-#
-# Data Broker
-#
-databroker_service_url: http://pomerium-databroker-grpc-cont.service.kjdev
-
-override_certificate_name: '*.pomerium.kristianjones.dev'
-
-#jwt_claims_headers: email,groups,user,preferred_username,nickname
+jwt_claims_headers: email,groups,user,preferred_username,nickname
 
 # https://pomerium.com/reference/#routes
 routes:
   - from: https://grafana.kristianjones.dev
-    to: http://grafana-cont.service.kjdev:8080
+    to: http://{{ env "NOMAD_UPSTREAM_ADDR_grafana-cont" }}
     allowed_domains:
       - kristianjones.dev
     pass_identity_headers: true
