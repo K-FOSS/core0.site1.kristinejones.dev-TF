@@ -62,7 +62,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.Cert}
+${TLS.Key}
 EOF
 
         destination = "local/cert.key"
@@ -136,7 +136,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.Cert}
+${TLS.Key}
 EOF
 
         destination = "local/cert.key"
@@ -210,7 +210,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.Cert}
+${TLS.Key}
 EOF
 
         destination = "local/cert.key"
@@ -284,7 +284,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.Cert}
+${TLS.Key}
 EOF
 
         destination = "local/cert.key"
