@@ -4,16 +4,27 @@ job "tinkerbell" {
   group "tink" {
     count = 1
 
+    update {
+      max_parallel      = 1
+      health_check      = "checks"
+      min_healthy_time  = "10s"
+      healthy_deadline  = "3m"
+      progress_deadline = "5m"
+    }
+
+    restart {
+      attempts = 3
+      interval = "5m"
+      delay    = "25s"
+      mode     = "delay"
+    }
+
     network {
       mode = "cni/nomadcore1"
 
-      port "http" {
-        to = 42114
-      }
+      port "http" { }
 
-      port "grpc" {
-        to = 42113
-      }
+      port "grpc" { }
 
       dns {
         servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
@@ -27,6 +38,16 @@ job "tinkerbell" {
       task = "tink-server"
 
       address_mode = "alloc"
+
+      check {
+        port     = "http"
+        address_mode = "alloc"
+
+        type     = "http"
+        path     = "/cert"
+        interval = "5s"
+        timeout  = "2s"
+      }
     }
 
     service {
@@ -36,6 +57,16 @@ job "tinkerbell" {
       task = "tink-server"
 
       address_mode = "alloc"
+
+      check {
+        port     = "http"
+        address_mode = "alloc"
+
+        type     = "http"
+        path     = "/cert"
+        interval = "5s"
+        timeout  = "2s"
+      }
     }
 
 
@@ -108,8 +139,8 @@ EOH
         ROLLBAR_TOKEN = "ignored"
         ROLLBAR_DISABLE = "1"
 
-        TINKERBELL_GRPC_AUTHORITY = ":42113"
-        TINKERBELL_HTTP_AUTHORITY = ":42114"
+        TINKERBELL_GRPC_AUTHORITY = ":$${NOMAD_PORT_grpc}"
+        TINKERBELL_HTTP_AUTHORITY = ":$${NOMAD_PORT_http}"
 
         TINK_AUTH_USERNAME = "${Admin.Username}"
         TINK_AUTH_PASSWORD = "${Admin.Password}"
