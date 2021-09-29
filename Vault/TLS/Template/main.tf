@@ -110,7 +110,7 @@ resource "vault_mount" "PKI" {
   # 
   #
   default_lease_ttl_seconds = local.ONE_YEAR
-  max_lease_ttl_seconds = local.THREE_YEARS
+  max_lease_ttl_seconds = local.TWO_YEARS
 }
 
 resource "vault_pki_secret_backend_intermediate_cert_request" "IntermediateCSR" {
