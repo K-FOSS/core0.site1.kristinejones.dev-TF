@@ -43,6 +43,8 @@ job "tinkerbell" {
 
       config {
         image = "quay.io/tinkerbell/tink:${Version}"
+
+        args = ["-cert-dir=/local"]
       }
 
       env {
@@ -86,7 +88,7 @@ ${TLS.CA}
 ${TLS.Cert}
 EOH
 
-        destination = "/certs/onprem/bundle.pem"
+        destination = "local/onprem/bundle.pem"
       }
 
       template {
@@ -94,7 +96,7 @@ EOH
 ${TLS.Key}
 EOH
 
-        destination = "/certs/onprem/server-key.pem"
+        destination = "local/onprem/server-key.pem"
       }
     }
   }
