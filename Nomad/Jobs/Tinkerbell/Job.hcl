@@ -270,13 +270,6 @@ PGHOST="${Database.Hostname}"
 
 PGUSER="${Database.Username}"
 PGPASSWORD="${Database.Password}"
-
-#
-# Tinkerbell
-#
-{{ range service tag1.web@east-aws }}
-server {{ .Name }} {{ .Address }}:{{ .Port }}{{ end }}
-
 EOH
 
         destination = "secrets/file.env"
