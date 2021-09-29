@@ -97,7 +97,7 @@
                           },
                           "upstreams": [
                             {
-                              "lookup_srv": "pomerium-authenticate-http-cont.service.kjdev"
+                              "lookup_srv": "pomerium-authenticate-cont.service.kjdev"
                             }
                           ]
                         }
@@ -124,7 +124,7 @@
                           },
                           "upstreams": [
                             {
-                              "lookup_srv": "pomerium-proxy-http-cont.service.kjdev"
+                              "lookup_srv": "pomerium-proxy-cont.service.kjdev"
                             }
                           ]
                         }
