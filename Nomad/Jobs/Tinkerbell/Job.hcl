@@ -42,7 +42,6 @@ job "tinkerbell" {
 #
 PGDATABASE="${Database.Database}"
 PGHOST="${Database.Hostname}"
-PGPORT="${Database.Port}"
 
 PGUSER="${Database.Username}"
 PGPASSWORD="${Database.Password}"
@@ -78,17 +77,5 @@ EOH
         destination = "secrets/tink.key"
       }
     }
-  }
-
-  group "Boots" {
-
-  }
-
-  group "hegel" {
-
-  }
-
-  group "PBnJ" {
-
   }
 }
