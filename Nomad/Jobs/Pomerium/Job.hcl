@@ -1,7 +1,7 @@
 job "pomerium" {
   datacenters = ["core0site1"]
 
-  group "pomerium-server" {
+  group "pomerium-authenticate" {
     count = 1
 
     network {
@@ -17,7 +17,7 @@ job "pomerium" {
     }
 
     service {
-      name = "pomerium-cont"
+      name = "pomerium-authenticate-http-cont"
       port = "http"
 
       task = "pomerium-server"
