@@ -1,7 +1,7 @@
 # See detailed configuration settings : https://www.pomerium.com/docs/reference/
 
-address: 0.0.0.0:8080
-grpc_address: 0.0.0.0:8080
+address: ':8080'
+grpc_address: ':8080'
 
 services: proxy
 
@@ -9,14 +9,6 @@ insecure_server: true
 
 # this is the domain the identity provider will callback after a user authenticates
 authenticate_service_url: https://pomerium.kristianjones.dev
-
-####################################################################################
-# Certificate settings:  https://www.pomerium.com/docs/reference/certificates.html #
-# The example below assumes a certificate and key file will be mounted to a volume #
-# available to the  Docker image.                                                  #
-####################################################################################
-#certificate_file: /pomerium/cert.pem
-#certificate_key_file: /pomerium/privkey.pem
 
 ##################################################################################
 # Identity provider settings : https://www.pomerium.com/docs/identity-providers/ #
@@ -33,9 +25,6 @@ cookie_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
 shared_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
 
 jwt_claims_headers: email,groups,user,preferred_username,nickname
-
-databroker_service_urls:
-  - http://0.pomerium-databroker-http-cont.service.kjdev:8080
 
 authorize_service_urls:
   - http://0.pomerium-authorize-http-cont.service.kjdev:8080
