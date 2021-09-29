@@ -79,6 +79,6 @@ resource "nomad_job" "Pomerium" {
       })
     }
 
-    Version = "v0.15.3"
+    Version = "latest"
   })
 }

@@ -14,7 +14,7 @@ idp_provider: oidc
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
 
-shared_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
+shared_secret: aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M=
 
 jwt_claims_headers: email,groups,user,preferred_username,nickname
 

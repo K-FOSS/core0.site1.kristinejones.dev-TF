@@ -21,11 +21,11 @@ idp_client_secret: ${OpenID.ClientSecret}
 
 # Generate 256 bit random keys  e.g. `head -c32 /dev/urandom | base64`
 cookie_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
-shared_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
+shared_secret: aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M=
 
 jwt_claims_headers: email,groups,user,preferred_username,nickname
 
-authorize_service_url: http://pomerium-authorize-http-cont.service.kjdev:8080
+authorize_service_url: http://pomerium-authorize-http-cont.service.kjdev:443
 
 # https://pomerium.com/reference/#routes
 routes:

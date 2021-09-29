@@ -57,7 +57,7 @@ EOF
       mode = "cni/nomadcore1"
 
       port "http" { 
-        to = 8080
+        to = 443
       }
 
       dns {
@@ -106,7 +106,7 @@ EOF
       mode = "cni/nomadcore1"
 
       port "http" { 
-        to = 8080
+        to = 443
       }
 
       dns {
