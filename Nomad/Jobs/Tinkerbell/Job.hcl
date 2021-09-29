@@ -114,7 +114,7 @@ EOH
         TINK_AUTH_USERNAME = "${Admin.Username}"
         TINK_AUTH_PASSWORD = "${Admin.Password}"
 
-        TINKERBELL_CERTS_DIR = "/local"
+        TINKERBELL_CERTS_DIR = "/local/tls"
       }
 
 
@@ -142,7 +142,7 @@ ${TLS.Cert}
 ${TLS.CA}
 EOH
 
-        destination = "local/onprem/bundle.pem"
+        destination = "local/tls/bundle.pem"
       }
 
       template {
@@ -150,7 +150,7 @@ EOH
 ${TLS.Key}
 EOH
 
-        destination = "local/onprem/server-key.pem"
+        destination = "local/tls/server-key.pem"
       }
     }
   }
