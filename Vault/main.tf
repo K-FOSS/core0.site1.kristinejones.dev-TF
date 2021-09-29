@@ -107,6 +107,15 @@ resource "vault_pki_secret_backend_cert" "TinkCert" {
   alt_names = ["tink-grpc-cont.service.kjdev", "tink-http-cont.service.kjdev"]
 }
 
+resource "vault_pki_secret_backend_cert" "HegelCert" {
+  backend = module.TinkerbellPKI.TLS.Mount.path
+  name = module.TinkerbellPKI.TLS.Role.name
+
+  common_name = "hegel"
+
+  alt_names = ["tink-hegel-grpc-cont", "tink-hegel-grpc-cont.service.kjdev"]
+}
+
 #
 # Pomerium
 #

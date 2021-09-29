@@ -73,8 +73,17 @@ output "NAS" {
 output "Tinkerbell" {
   value = {
     CA = vault_pki_secret_backend_cert.TinkCert.issuing_ca
-    Cert = vault_pki_secret_backend_cert.TinkCert.certificate
-    Key = vault_pki_secret_backend_cert.TinkCert.private_key
+
+    Tink = {
+      Cert = vault_pki_secret_backend_cert.TinkCert.certificate
+      Key = vault_pki_secret_backend_cert.TinkCert.private_key
+    }
+
+    Hegel = {
+      Cert = vault_pki_secret_backend_cert.HegelCert.certificate
+      Key = vault_pki_secret_backend_cert.HegelCert.private_key
+    }
+
   }
 }
 

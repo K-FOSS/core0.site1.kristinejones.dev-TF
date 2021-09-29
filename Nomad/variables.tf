@@ -332,8 +332,15 @@ variable "Tinkerbell" {
     TLS = object({
       CA = string
 
-      Cert = string
-      Key = string
+      Tink = object({
+        Cert = string
+        Key = string
+      })
+
+      Hegel = object({
+        Cert = string
+        Key = string
+      })
     })
   })
 }
