@@ -70,10 +70,18 @@ output "NAS" {
 #
 # Tinkerbell
 #
-# variable "Tinkerbell" {
-#   value = {
-#     CA = ""
-#     Cert = ""
-#     Key = ""
-#   }
-# }
+output "Tinkerbell" {
+  value = {
+    CA = vault_pki_secret_backend_cert.TinkCert.issuing_ca
+    Cert = vault_pki_secret_backend_cert.TinkCert.certificate
+    Key = vault_pki_secret_backend_cert.TinkCert.private_key
+  }
+}
+
+output "Pomerium" {
+  value = {
+    CA = vault_pki_secret_backend_cert.PomeriumCert.issuing_ca
+    Cert = vault_pki_secret_backend_cert.PomeriumCert.certificate
+    Key = vault_pki_secret_backend_cert.PomeriumCert.private_key
+  }
+}

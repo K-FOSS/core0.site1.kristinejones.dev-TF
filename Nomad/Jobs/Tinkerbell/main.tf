@@ -55,3 +55,13 @@ data "github_release" "Release" {
   owner       = split("/", data.github_repository.Repo.full_name)[0]
   retrieve_by = "latest"
 }
+
+resource "nomad_job" "Tinkerbell" {
+  jobspec = templatefile("${path.module}/Job.hcl", {
+    Database = var.Database
+
+    TLS = var.TLS
+
+    Version = "latest"
+  })
+}

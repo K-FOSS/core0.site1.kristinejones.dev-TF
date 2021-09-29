@@ -98,15 +98,39 @@ module "TinkerbellPKI" {
   source = "./TLS/Template"
 }
 
-# resource "vault_pki_secret_backend_cert" "OpenIDCert" {
-#   depends_on = [
-#     vault_pki_secret_backend_role.OpenIDAuthPKI
-#   ]
+resource "vault_pki_secret_backend_cert" "TinkCert" {
+  depends_on = [
+    module.TinkerbellPKI.TLS.Role
+  ]
 
-#   backend = vault_mount.OpenIDIntPKI.path
-#   name = vault_pki_secret_backend_role.OpenIDAuthPKI.name
+  backend = module.TinkerbellPKI.Mount.path
+  name = module.TinkerbellPKI.TLS.Role.name
 
-#   common_name = "tinkerbell"
+  common_name = "tinkerbell"
 
-#   alt_names = ["tink-grpc-cont.service.kjdev", "tink-http-cont.service.kjdev"]
-# }
+  alt_names = ["tink-grpc-cont.service.kjdev", "tink-http-cont.service.kjdev"]
+}
+
+#
+# Pomerium
+#
+module "Pomerium" {
+  source = "./TLS/Template"
+}
+
+resource "vault_pki_secret_backend_cert" "PomeriumCert" {
+  depends_on = [
+    module.Pomerium.TLS.Role
+  ]
+
+  backend = module.Pomerium.Mount.path
+  name = module.Pomerium.TLS.Role.name
+
+  common_name = "pomerium-proxy-cont.service.kjdev"
+
+  alt_names = [
+    "pomerium-authenticate-cont.service.kjdev", 
+    "pomerium-authorize-cont.service.kjdev", 
+    "pomerium-databroker-cont.service.kjdev", 
+    "pomerium-proxy-cont.service.kjdev"]
+}

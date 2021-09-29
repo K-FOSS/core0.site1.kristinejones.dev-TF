@@ -393,5 +393,7 @@ module "Nomad" {
 
   Tinkerbell = {
     Database = module.TinkerbellDatabase.Database
+
+    TLS = module.Vault.Tinkerbell
   }
 } 

@@ -297,8 +297,10 @@ module "Mattermost" {
 # Tinkerbell
 #
 
-# module "Tinkerbell" {
-#   source = "./Jobs/Tinkerbell"
+module "Tinkerbell" {
+  source = "./Jobs/Tinkerbell"
 
-#   Database = var.Tinkerbell.Database
-# }
+  Database = var.Tinkerbell.Database
+
+  TLS = var.Tinkerbell.TLS
+}

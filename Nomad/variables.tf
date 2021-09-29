@@ -328,5 +328,12 @@ variable "Tinkerbell" {
 
       Database = string
     })
+
+    TLS = object({
+      CA = string
+
+      Cert = string
+      Key = string
+    })
   })
 }

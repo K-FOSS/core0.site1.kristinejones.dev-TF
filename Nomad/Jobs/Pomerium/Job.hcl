@@ -17,7 +17,7 @@ job "pomerium" {
     }
 
     service {
-      name = "pomerium-authenticate-http-cont"
+      name = "pomerium-authenticate-cont"
       port = "http"
 
       task = "pomerium-server"
@@ -66,7 +66,7 @@ EOF
     }
 
     service {
-      name = "pomerium-authorize-http-cont"
+      name = "pomerium-authorize-cont"
       port = "http"
 
       task = "pomerium-server"
@@ -115,7 +115,7 @@ EOF
     }
 
     service {
-      name = "pomerium-databroker-http-cont"
+      name = "pomerium-databroker-cont"
       port = "http"
 
       task = "pomerium-server"
@@ -164,7 +164,7 @@ EOF
     }
 
     service {
-      name = "pomerium-proxy-http-cont"
+      name = "pomerium-proxy-cont"
       port = "http"
 
       task = "pomerium-server"
