@@ -1,6 +1,6 @@
 # See detailed configuration settings : https://www.pomerium.com/docs/reference/
 
-address: 0.0.0.0:8080
+address: :443
 
 services: authenticate
 
