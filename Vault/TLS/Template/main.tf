@@ -7,7 +7,7 @@ terraform {
     #
     vault = {
       source = "hashicorp/vault"
-      version = "2.24.0"
+      version = "2.22.0"
     }
   }
 }
@@ -65,7 +65,7 @@ resource "vault_pki_secret_backend_root_cert" "RootCA" {
 
   type = "internal"
 
-  common_name = "Root CA"
+  common_name = "RootCA"
   ttl = local.THREE_YEARS
 
   #
@@ -93,6 +93,14 @@ resource "vault_pki_secret_backend_root_cert" "RootCA" {
   key_bits = 384
 }
 
+resource "time_sleep" "RootPKIWait" {
+  depends_on = [vault_pki_secret_backend_root_cert.RootCA]
+
+  create_duration = "30s"
+}
+
+
+
 resource "random_string" "Mount" {
   length           = 10
 
@@ -101,6 +109,10 @@ resource "random_string" "Mount" {
 }
 
 resource "vault_mount" "PKI" {
+  depends_on = [
+    time_sleep.RootPKIWait
+  ]
+
   path        = random_string.Mount.result
 
   type        = "pki"
@@ -184,6 +196,12 @@ resource "random_string" "RoleName" {
 }
 
 resource "vault_pki_secret_backend_role" "PKIRole" {
+  depends_on = [
+    vault_mount.PKI,
+    vault_pki_secret_backend_intermediate_set_signed.intermediate
+  ]
+
+  
   backend = vault_mount.PKI.path
 
   name    = random_string.RoleName.result
