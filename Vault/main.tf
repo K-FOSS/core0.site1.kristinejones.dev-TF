@@ -98,14 +98,14 @@ module "TinkerbellPKI" {
   source = "./TLS/Template"
 }
 
-# resource "vault_pki_secret_backend_cert" "TinkCert" {
-#   backend = module.TinkerbellPKI.TLS.Mount.path
-#   name = module.TinkerbellPKI.TLS.Role.name
+resource "vault_pki_secret_backend_cert" "TinkCert" {
+  backend = module.TinkerbellPKI.TLS.Mount.path
+  name = module.TinkerbellPKI.TLS.Role.name
 
-#   common_name = "tinkerbell"
+  common_name = "tinkerbell"
 
-#   alt_names = ["tink-grpc-cont.service.kjdev", "tink-http-cont.service.kjdev"]
-# }
+  alt_names = ["tink-grpc-cont.service.kjdev", "tink-http-cont.service.kjdev"]
+}
 
 #
 # Pomerium
