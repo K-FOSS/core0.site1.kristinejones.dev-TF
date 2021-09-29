@@ -237,7 +237,7 @@ EOH
         ROLLBAR_TOKEN = "ignored"
         ROLLBAR_DISABLE = "1"
 
-        GRPC_PORT = ":$${NOMAD_PORT_grpc}"
+        GRPC_PORT = "$${NOMAD_PORT_grpc}"
 
         TINK_AUTH_USERNAME = "${Admin.Username}"
         TINK_AUTH_PASSWORD = "${Admin.Password}"
