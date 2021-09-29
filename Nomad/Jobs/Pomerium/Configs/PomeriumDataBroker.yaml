@@ -6,7 +6,6 @@ grpc_address: :443
 
 services: databroker
 
-insecure_server: true
 grpc_insecure: true
 
 idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth/
