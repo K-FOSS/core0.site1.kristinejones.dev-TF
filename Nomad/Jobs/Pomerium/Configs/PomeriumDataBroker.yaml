@@ -1,43 +1,16 @@
 # See detailed configuration settings : https://www.pomerium.com/docs/reference/
 
-address: 0.0.0.0:8080
-grpc_address: 0.0.0.0:8080
+address: ':8080'
+grpc_address: ':8080'
 
 services: databroker
 
-insecure_server: true
+grpc_insecure: true
 
-# this is the domain the identity provider will callback after a user authenticates
-authenticate_service_url: https://pomerium.kristianjones.dev
-
-####################################################################################
-# Certificate settings:  https://www.pomerium.com/docs/reference/certificates.html #
-# The example below assumes a certificate and key file will be mounted to a volume #
-# available to the  Docker image.                                                  #
-####################################################################################
-#certificate_file: /pomerium/cert.pem
-#certificate_key_file: /pomerium/privkey.pem
-
-##################################################################################
-# Identity provider settings : https://www.pomerium.com/docs/identity-providers/ #
-# The keys required in this section vary depending on your IdP. See the          #
-# appropriate docs for your IdP to configure Pomerium accordingly.               #
-##################################################################################
-idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth/
-idp_provider: oidc
-idp_client_id: ${OpenID.ClientID}
-idp_client_secret: ${OpenID.ClientSecret}
-
-# Generate 256 bit random keys  e.g. `head -c32 /dev/urandom | base64`
-cookie_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
 shared_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
 
 jwt_claims_headers: email,groups,user,preferred_username,nickname
 
-authorize_service_urls:
-  - http://0.pomerium-authorize-http-cont.service.kjdev:8080
-
-# https://pomerium.com/reference/#routes
 routes:
   - from: https://grafana.kristianjones.dev
     to: http://grafana-cont.service.kjdev:8080
