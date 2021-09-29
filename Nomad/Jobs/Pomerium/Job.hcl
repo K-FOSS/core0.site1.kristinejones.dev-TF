@@ -5,7 +5,7 @@ job "pomerium" {
     count = 1
 
     network {
-      mode = "bridge"
+      mode = "cni/nomadcore1"
 
       port "http" { 
         to = 8080
@@ -34,8 +34,6 @@ job "pomerium" {
         image        = "pomerium/pomerium:latest"
 
         args = ["-config=/local/pomerium.yaml"]
-
-        ports = ["http"]
       }
 
       template {
@@ -56,7 +54,7 @@ EOF
     count = 1
 
     network {
-      mode = "bridge"
+      mode = "cni/nomadcore1"
 
       port "http" { 
         to = 8080
@@ -85,8 +83,6 @@ EOF
         image        = "pomerium/pomerium:latest"
 
         args = ["-config=/local/pomerium.yaml"]
-
-        ports = ["http"]
       }
 
       template {
@@ -107,7 +103,7 @@ EOF
     count = 1
 
     network {
-      mode = "bridge"
+      mode = "cni/nomadcore1"
 
       port "http" { 
         to = 8080
@@ -136,8 +132,6 @@ EOF
         image        = "pomerium/pomerium:latest"
 
         args = ["-config=/local/pomerium.yaml"]
-
-        ports = ["http"]
       }
 
       template {
@@ -158,7 +152,7 @@ EOF
     count = 1
 
     network {
-      mode = "bridge"
+      mode = "cni/nomadcore1"
 
       port "http" { 
         to = 8080
@@ -187,8 +181,6 @@ EOF
         image        = "pomerium/pomerium:latest"
 
         args = ["-config=/local/pomerium.yaml"]
-
-        ports = ["http"]
       }
 
       template {
