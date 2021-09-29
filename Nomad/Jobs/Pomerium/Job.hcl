@@ -40,7 +40,7 @@ job "pomerium" {
 
       template {
         data = <<EOF
-${CONFIG}
+${YAMLConfig}
 EOF
 
         destination = "local/pomerium.yaml"
