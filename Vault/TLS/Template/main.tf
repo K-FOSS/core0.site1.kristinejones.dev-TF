@@ -97,7 +97,7 @@ resource "random_string" "Mount" {
   length           = 10
 
   special = false
-  upper = false
+  upper = true
 }
 
 resource "vault_mount" "PKI" {
@@ -180,7 +180,7 @@ resource "random_string" "RoleName" {
   length           = 10
 
   special = false
-  upper = false
+  upper = true
 }
 
 resource "vault_pki_secret_backend_role" "PKIRole" {
