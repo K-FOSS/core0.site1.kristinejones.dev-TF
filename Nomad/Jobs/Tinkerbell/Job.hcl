@@ -44,7 +44,7 @@ job "tinkerbell" {
       config {
         image = "quay.io/tinkerbell/tink:${Version}"
 
-        args = ["-cert-dir=/local"]
+        args = ["--cert-dir=/local"]
       }
 
       env {
