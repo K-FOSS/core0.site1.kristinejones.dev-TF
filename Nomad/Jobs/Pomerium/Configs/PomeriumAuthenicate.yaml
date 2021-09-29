@@ -10,7 +10,7 @@ client_ca_file: /local/CA.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
 
-override_certificate_name: '*.service.kjdev'
+override_certificate_name: 'pomerium-authenticate-cont.service.kjdev'
 
 # this is the domain the identity provider will callback after a user authenticates
 authenticate_service_url: https://pomerium.kristianjones.dev

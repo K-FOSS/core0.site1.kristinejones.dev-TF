@@ -11,7 +11,7 @@ client_ca_file: /local/CA.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
 
-override_certificate_name: '*.service.kjdev'
+override_certificate_name: 'pomerium-databroker-cont.service.kjdev'
 
 idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth/
 idp_provider: oidc
