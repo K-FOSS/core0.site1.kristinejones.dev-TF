@@ -1,7 +1,7 @@
 # See detailed configuration settings : https://www.pomerium.com/docs/reference/
 
-address: '0.0.0.0:8080'
-grpc_address: '0.0.0.0:8080'
+address: :443
+grpc_address: :443
 
 
 services: databroker
