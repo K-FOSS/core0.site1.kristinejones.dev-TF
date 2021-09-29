@@ -98,14 +98,14 @@ module "TinkerbellPKI" {
   source = "./TLS/Template"
 }
 
-resource "vault_pki_secret_backend_cert" "TinkCert" {
-  backend = module.TinkerbellPKI.TLS.Mount.path
-  name = module.TinkerbellPKI.TLS.Role.name
+# resource "vault_pki_secret_backend_cert" "TinkCert" {
+#   backend = module.TinkerbellPKI.TLS.Mount.path
+#   name = module.TinkerbellPKI.TLS.Role.name
 
-  common_name = "tinkerbell"
+#   common_name = "tinkerbell"
 
-  alt_names = ["tink-grpc-cont.service.kjdev", "tink-http-cont.service.kjdev"]
-}
+#   alt_names = ["tink-grpc-cont.service.kjdev", "tink-http-cont.service.kjdev"]
+# }
 
 #
 # Pomerium
@@ -114,15 +114,15 @@ module "Pomerium" {
   source = "./TLS/Template"
 }
 
-resource "vault_pki_secret_backend_cert" "PomeriumCert" {
-  backend = module.Pomerium.TLS.Mount.path
-  name = module.Pomerium.TLS.Role.name
+# resource "vault_pki_secret_backend_cert" "PomeriumCert" {
+#   backend = module.Pomerium.TLS.Mount.path
+#   name = module.Pomerium.TLS.Role.name
 
-  common_name = "pomerium-proxy-cont.service.kjdev"
+#   common_name = "pomerium-proxy-cont.service.kjdev"
 
-  alt_names = [
-    "pomerium-authenticate-cont.service.kjdev", 
-    "pomerium-authorize-cont.service.kjdev", 
-    "pomerium-databroker-cont.service.kjdev", 
-    "pomerium-proxy-cont.service.kjdev"]
-}
+#   alt_names = [
+#     "pomerium-authenticate-cont.service.kjdev", 
+#     "pomerium-authorize-cont.service.kjdev", 
+#     "pomerium-databroker-cont.service.kjdev", 
+#     "pomerium-proxy-cont.service.kjdev"]
+# }
