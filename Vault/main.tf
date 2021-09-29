@@ -103,7 +103,7 @@ resource "vault_pki_secret_backend_cert" "TinkCert" {
     module.TinkerbellPKI.TLS.Role
   ]
 
-  backend = module.TinkerbellPKI.Mount.path
+  backend = module.TinkerbellPKI.TLS.Mount.path
   name = module.TinkerbellPKI.TLS.Role.name
 
   common_name = "tinkerbell"
@@ -123,7 +123,7 @@ resource "vault_pki_secret_backend_cert" "PomeriumCert" {
     module.Pomerium.TLS.Role
   ]
 
-  backend = module.Pomerium.Mount.path
+  backend = module.Pomerium.TLS.Mount.path
   name = module.Pomerium.TLS.Role.name
 
   common_name = "pomerium-proxy-cont.service.kjdev"
