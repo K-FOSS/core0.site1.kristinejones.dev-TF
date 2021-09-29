@@ -7,9 +7,14 @@ terraform {
     #
     vault = {
       source = "hashicorp/vault"
-      version = "2.22.0"
+      version = "2.24.0"
     }
 
+    #
+    # Time based resources because dependenay management is fun
+    #
+    # Docs: 
+    # 
     time = {
       source = "hashicorp/time"
       version = "0.7.2"
