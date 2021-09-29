@@ -78,7 +78,7 @@ output "Tinkerbell" {
   }
 }
 
-output "Pomerium" {
+output "PomeriumTLS" {
   value = {
     CA = vault_pki_secret_backend_cert.PomeriumCert.issuing_ca
     Cert = vault_pki_secret_backend_cert.PomeriumCert.certificate
