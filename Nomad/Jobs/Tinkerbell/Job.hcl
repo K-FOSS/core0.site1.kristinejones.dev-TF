@@ -43,8 +43,6 @@ job "tinkerbell" {
 
       config {
         image = "quay.io/tinkerbell/tink:${Version}"
-
-        args = ["-conf=/local/Corefile"]
       }
 
       env {
