@@ -30,6 +30,10 @@ locals {
   SIX_MONTHS = (((60 * 60) * 24) * 31) * 6
 
   ONE_YEAR = ((60 * 60) * 24) * 365
+
+  TWO_YEARS = (((60 * 60) * 24) * 365) * 2
+
+  THREE_YEARS = (((60 * 60) * 24) * 365) * 3
 }
 
 resource "random_string" "RootMount" {
@@ -49,7 +53,7 @@ resource "vault_mount" "RootPKI" {
 
   description = "PKI for the ROOT CA"
   default_lease_ttl_seconds = local.SIX_MONTHS
-  max_lease_ttl_seconds = local.ONE_YEAR
+  max_lease_ttl_seconds = local.THREE_YEARS
 }
 
 resource "vault_pki_secret_backend_root_cert" "RootCA" {
@@ -62,7 +66,7 @@ resource "vault_pki_secret_backend_root_cert" "RootCA" {
   type = "internal"
 
   common_name = "Root CA"
-  ttl = local.ONE_YEAR
+  ttl = local.THREE_YEARS
 
   #
   # Formats
@@ -100,13 +104,13 @@ resource "vault_mount" "PKI" {
   path        = random_string.Mount.result
 
   type        = "pki"
-  description = "PKI for the ROOT CA"
+  description = "PKI for the Int CA"
 
   #
   # 
   #
-  default_lease_ttl_seconds = local.SIX_MONTHS
-  max_lease_ttl_seconds = local.ONE_YEAR
+  default_lease_ttl_seconds = local.ONE_YEAR
+  max_lease_ttl_seconds = local.TWO_YEARS
 }
 
 resource "vault_pki_secret_backend_intermediate_cert_request" "IntermediateCSR" {
@@ -163,7 +167,7 @@ resource "vault_pki_secret_backend_root_sign_intermediate" "IntermediateCSRRootS
   #
   # TTL
   #  
-  ttl = local.ONE_YEAR
+  ttl = local.TWO_YEARS
 }
 
 resource "vault_pki_secret_backend_intermediate_set_signed" "intermediate" { 
