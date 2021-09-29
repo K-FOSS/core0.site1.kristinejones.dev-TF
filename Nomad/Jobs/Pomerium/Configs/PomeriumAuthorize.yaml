@@ -11,6 +11,11 @@ grpc_insecure: true
 # this is the domain the identity provider will callback after a user authenticates
 authenticate_service_url: https://pomerium.kristianjones.dev
 
+idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth/
+idp_provider: oidc
+idp_client_id: ${OpenID.ClientID}
+idp_client_secret: ${OpenID.ClientSecret}
+
 # Generate 256 bit random keys  e.g. `head -c32 /dev/urandom | base64`
 shared_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
 
