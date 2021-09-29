@@ -7,6 +7,8 @@ services: proxy
 
 client_ca_file: /local/CA.pem
 
+insecure_server: true
+
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
 
@@ -30,6 +32,8 @@ shared_secret: aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M=
 jwt_claims_headers: email,groups,user,preferred_username,nickname
 
 authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
+
+
 
 # https://pomerium.com/reference/#routes
 routes:
