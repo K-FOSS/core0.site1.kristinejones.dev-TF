@@ -4,8 +4,10 @@ grpc_address: :443
 
 services: authorize
 
-insecure_server: true
-grpc_insecure: true
+client_ca_file: /local/CA.pem
+
+certificate: /local/cert.pem
+certificate_key: /local/cert.key
 
 # this is the domain the identity provider will callback after a user authenticates
 authenticate_service_url: https://pomerium.kristianjones.dev

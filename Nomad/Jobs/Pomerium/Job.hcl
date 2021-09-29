@@ -43,6 +43,31 @@ EOF
 
         destination = "local/pomerium.yaml"
       }
+
+      template {
+        data = <<EOF
+${TLS.CA}
+EOF
+
+        destination = "local/CA.pem"
+      }
+
+      template {
+        data = <<EOF
+${TLS.Cert}
+EOF
+
+        destination = "local/cert.pem"
+      }
+
+      template {
+        data = <<EOF
+${TLS.Cert}
+EOF
+
+        destination = "local/cert.key"
+      }
+
       resources {
         cpu    = 800
         memory = 500
@@ -92,6 +117,31 @@ EOF
 
         destination = "local/pomerium.yaml"
       }
+
+      template {
+        data = <<EOF
+${TLS.CA}
+EOF
+
+        destination = "local/CA.pem"
+      }
+
+      template {
+        data = <<EOF
+${TLS.Cert}
+EOF
+
+        destination = "local/cert.pem"
+      }
+
+      template {
+        data = <<EOF
+${TLS.Cert}
+EOF
+
+        destination = "local/cert.key"
+      }
+
       resources {
         cpu    = 800
         memory = 500
@@ -141,6 +191,31 @@ EOF
 
         destination = "local/pomerium.yaml"
       }
+
+      template {
+        data = <<EOF
+${TLS.CA}
+EOF
+
+        destination = "local/CA.pem"
+      }
+
+      template {
+        data = <<EOF
+${TLS.Cert}
+EOF
+
+        destination = "local/cert.pem"
+      }
+
+      template {
+        data = <<EOF
+${TLS.Cert}
+EOF
+
+        destination = "local/cert.key"
+      }
+
       resources {
         cpu    = 800
         memory = 500
@@ -190,6 +265,31 @@ EOF
 
         destination = "local/pomerium.yaml"
       }
+
+      template {
+        data = <<EOF
+${TLS.CA}
+EOF
+
+        destination = "local/CA.pem"
+      }
+
+      template {
+        data = <<EOF
+${TLS.Cert}
+EOF
+
+        destination = "local/cert.pem"
+      }
+
+      template {
+        data = <<EOF
+${TLS.Cert}
+EOF
+
+        destination = "local/cert.key"
+      }
+
       resources {
         cpu    = 800
         memory = 500

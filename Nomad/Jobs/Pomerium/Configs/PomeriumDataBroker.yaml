@@ -6,8 +6,10 @@ grpc_address: :443
 
 services: databroker
 
-insecure_server: true
-grpc_insecure: true
+client_ca_file: /local/CA.pem
+
+certificate: /local/cert.pem
+certificate_key: /local/cert.key
 
 idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth/
 idp_provider: oidc

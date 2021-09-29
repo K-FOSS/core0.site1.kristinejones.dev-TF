@@ -99,6 +99,12 @@ variable "Pomerium" {
       ClientSecret = string
     })
 
+    TLS = object({
+      CA = string
+      Cert = string
+      Key = string
+    })
+
     Services = map(object(
       {
         name = string

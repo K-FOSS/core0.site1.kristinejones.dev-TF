@@ -57,6 +57,8 @@ module "Pomerium" {
   Secrets = var.Pomerium.Secrets
 
   Services = var.Pomerium.Services
+
+  TLS = var.Pomerium.TLS
 }
 
 

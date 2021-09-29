@@ -60,6 +60,8 @@ resource "nomad_job" "Pomerium" {
   jobspec = templatefile("${path.module}/Job.hcl", {
     Services = var.Services
 
+    TLS = var.TLS
+
     YAMLConfigs = {
       Authenticate = templatefile("${path.module}/Configs/PomeriumAuthenicate.yaml", {
         Secrets = var.Secrets

@@ -12,6 +12,15 @@ variable "Secrets" {
   })
 }
 
+variable "TLS" {
+  type = object({
+    CA = string
+
+    Cert = string
+    Key = string
+  })
+}
+
 variable "Services" {
   type = map(object(
     {

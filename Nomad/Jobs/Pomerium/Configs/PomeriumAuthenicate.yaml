@@ -5,8 +5,10 @@ grpc_address: :443
 
 services: authenticate
 
-insecure_server: true
-grpc_insecure: true
+client_ca_file: /local/CA.pem
+
+certificate: /local/cert.pem
+certificate_key: /local/cert.key
 
 # this is the domain the identity provider will callback after a user authenticates
 authenticate_service_url: https://pomerium.kristianjones.dev
@@ -35,7 +37,7 @@ shared_secret: aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M=
 
 jwt_claims_headers: email,groups,user,preferred_username,nickname
 
-databroker_service_url: http://pomerium-databroker-cont.service.kjdev:443
+databroker_service_url: https://pomerium-databroker-cont.service.kjdev:443
 
 # https://pomerium.com/reference/#routes
 routes:
