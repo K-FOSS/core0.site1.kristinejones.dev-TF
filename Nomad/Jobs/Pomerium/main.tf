@@ -60,10 +60,24 @@ resource "nomad_job" "Pomerium" {
   jobspec = templatefile("${path.module}/Job.hcl", {
     Services = var.Services
 
-    YAMLConfig = templatefile("${path.module}/Configs/Pomerium.yaml", {
-      Secrets = var.Secrets
-      OpenID = var.OpenID
-    })
+    YAMLConfigs = {
+      Authenticate = templatefile("${path.module}/Configs/PomeriumAuthenicate.yaml", {
+        Secrets = var.Secrets
+        OpenID = var.OpenID
+      })
+      Authorize = templatefile("${path.module}/Configs/PomeriumAuthorize.yaml", {
+        Secrets = var.Secrets
+        OpenID = var.OpenID
+      })
+      DataBroker = templatefile("${path.module}/Configs/PomeriumDataBroker.yaml", {
+        Secrets = var.Secrets
+        OpenID = var.OpenID
+      })
+      Proxy = templatefile("${path.module}/Configs/PomeriumProxy.yaml", {
+        Secrets = var.Secrets
+        OpenID = var.OpenID
+      })
+    }
 
     Version = "v0.15.3"
   })

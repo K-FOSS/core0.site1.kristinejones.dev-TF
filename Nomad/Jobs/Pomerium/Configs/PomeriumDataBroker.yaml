@@ -3,6 +3,8 @@
 address: 0.0.0.0:8080
 grpc_address: 0.0.0.0:8080
 
+services: databroker
+
 insecure_server: true
 
 # this is the domain the identity provider will callback after a user authenticates
@@ -31,6 +33,9 @@ cookie_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
 shared_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
 
 jwt_claims_headers: email,groups,user,preferred_username,nickname
+
+authorize_service_urls:
+  - 0.pomerium-authorize-http-cont.service.kjdev
 
 # https://pomerium.com/reference/#routes
 routes:
