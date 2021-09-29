@@ -7,9 +7,13 @@ job "tinkerbell" {
     network {
       mode = "cni/nomadcore1"
 
-      port "http" { }
+      port "http" {
+        to = 42114
+      }
 
-      port "grpc" { }
+      port "grpc" {
+        to = 42113
+      }
 
       dns {
         servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
@@ -17,8 +21,17 @@ job "tinkerbell" {
     }
 
     service {
+      name = "tink-http-cont"
+      port = "http"
+
+      task = "tink-server"
+
+      address_mode = "alloc"
+    }
+
+    service {
       name = "tink-grpc-cont"
-      port = "health"
+      port = "grpc"
 
       task = "tink-server"
 
@@ -32,6 +45,22 @@ job "tinkerbell" {
         image = "quay.io/tinkerbell/tink:${Version}"
 
         args = ["-conf=/local/Corefile"]
+      }
+
+      env {
+        FACILITY = "onprem"
+
+        PACKET_ENV = "testing"
+
+        PACKET_VERSION = "ignored"
+        ROLLBAR_TOKEN = "ignored"
+        ROLLBAR_DISABLE = "1"
+
+        TINKERBELL_GRPC_AUTHORITY = ":42113"
+        TINKERBELL_HTTP_AUTHORITY = ":42114"
+
+        TINK_AUTH_USERNAME = "${Admin.Username}"
+        TINK_AUTH_PASSWORD = "${Admin.Password}"
       }
 
 
@@ -56,17 +85,10 @@ EOH
       template {
         data = <<EOH
 ${TLS.CA}
-EOH
-
-        destination = "secrets/ca.pem"
-      }
-
-      template {
-        data = <<EOH
 ${TLS.Cert}
 EOH
 
-        destination = "secrets/tink.pem"
+        destination = "/certs/onprem/bundle.pem"
       }
 
       template {
@@ -74,7 +96,7 @@ EOH
 ${TLS.Key}
 EOH
 
-        destination = "secrets/tink.key"
+        destination = "/certs/onprem/server-key.pem"
       }
     }
   }

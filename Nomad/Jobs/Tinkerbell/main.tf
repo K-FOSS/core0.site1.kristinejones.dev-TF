@@ -46,6 +46,11 @@ terraform {
   }
 }
 
+resource "random_password" "TinkAdminPassword" {
+  length           = 50
+  special          = true
+}
+
 resource "nomad_job" "Tinkerbell" {
   jobspec = templatefile("${path.module}/Job.hcl", {
     Database = var.Database
@@ -53,5 +58,10 @@ resource "nomad_job" "Tinkerbell" {
     TLS = var.TLS
 
     Version = "latest"
+
+    Admin = {
+      Username = "tink"
+      Password = "${random_password.TinkAdminPassword.result}"
+    }
   })
 }
