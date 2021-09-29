@@ -1,7 +1,7 @@
 # See detailed configuration settings : https://www.pomerium.com/docs/reference/
 
-address: :443
-grpc_address: :443
+address: 0.0.0.0:8080
+grpc_address: 0.0.0.0:8080
 
 services: authenticate
 
@@ -35,9 +35,9 @@ shared_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
 
 jwt_claims_headers: email,groups,user,preferred_username,nickname
 
-databroker_service_url: http://pomerium-databroker-http-cont.service.kjdev:443
+databroker_service_url: http://pomerium-databroker-http-cont.service.kjdev:8080
 
-authorize_service_url: http://pomerium-authorize-http-cont.service.kjdev:443
+authorize_service_url: http://pomerium-authorize-http-cont.service.kjdev:8080
 
 # https://pomerium.com/reference/#routes
 routes:
