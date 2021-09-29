@@ -1,6 +1,7 @@
 # See detailed configuration settings : https://www.pomerium.com/docs/reference/
 
 address: :443
+grpc_address: :443
 
 services: authenticate
 
