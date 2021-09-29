@@ -99,10 +99,6 @@ module "TinkerbellPKI" {
 }
 
 resource "vault_pki_secret_backend_cert" "TinkCert" {
-  depends_on = [
-    module.TinkerbellPKI.TLS.Role
-  ]
-
   backend = module.TinkerbellPKI.TLS.Mount.path
   name = module.TinkerbellPKI.TLS.Role.name
 
@@ -119,10 +115,6 @@ module "Pomerium" {
 }
 
 resource "vault_pki_secret_backend_cert" "PomeriumCert" {
-  depends_on = [
-    module.Pomerium.TLS.Role
-  ]
-
   backend = module.Pomerium.TLS.Mount.path
   name = module.Pomerium.TLS.Role.name
 
