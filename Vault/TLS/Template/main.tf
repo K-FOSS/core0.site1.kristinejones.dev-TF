@@ -112,7 +112,7 @@ resource "time_sleep" "RootPKIWait" {
 
 
 resource "random_string" "Mount" {
-  length           = 10
+  length           = 12
 
   special = false
   upper = true
@@ -199,7 +199,7 @@ resource "vault_pki_secret_backend_intermediate_set_signed" "intermediate" {
 }
 
 resource "random_string" "RoleName" {
-  length           = 10
+  length           = 12
 
   special = false
   upper = true
