@@ -51,7 +51,7 @@ jwt_claims_headers: email,groups,user,preferred_username,nickname
 # Data Broker Service 
 #
 
-databroker_service_url: https://pomerium-databroker-cont.service.kjdev:443
+#databroker_service_url: https://pomerium-databroker-cont.service.kjdev:443
 
 #
 # Authorize Service
@@ -62,6 +62,8 @@ authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
 #
 # Proxy Service
 #
+
+codec_type: http1
 
 # https://pomerium.com/reference/#routes
 routes:
