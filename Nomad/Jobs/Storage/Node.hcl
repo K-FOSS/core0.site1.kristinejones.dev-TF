@@ -15,15 +15,6 @@ job "storage-node" {
       progress_deadline = "5m"
     }
 
-    service {
-      name = "democraticcsi-node"
-      port = "grpc"
-
-      task = "node"
-
-      address_mode = "alloc"
-    }
-
     task "node" {
       driver = "docker"
 
