@@ -1,7 +1,6 @@
 # See detailed configuration settings : https://www.pomerium.com/docs/reference/
 
-address: :443
-grpc_address: :443
+address: 0.0.0.0:443
 
 services: proxy
 
