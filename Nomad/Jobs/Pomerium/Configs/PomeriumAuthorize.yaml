@@ -1,9 +1,15 @@
-# See detailed configuration settings : https://www.pomerium.com/docs/reference/
-
+#
+# Networking
+#
 address: 0.0.0.0:443
 grpc_address: 0.0.0.0:8443
 
+#
+# Pomerium Core
+#
 services: authorize
+
+envoy_admin_address: 0.0.0.0:9123
 
 #
 # TLS
@@ -12,13 +18,15 @@ services: authorize
 #
 # mTLS
 #
-#override_certificate_name: 'pomerium-authorize-cont.service.kjdev'
 certificate_authority_file: /local/ca.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
-#xff_num_trusted_hops: 1
+#xff_num_trusted_hops: 2
 
-# this is the domain the identity provider will callback after a user authenticates
+#
+# Authenticate Service
+#
+
 authenticate_service_url: https://auth.int.site1.kristianjones.dev:443
 
 idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth
@@ -26,7 +34,10 @@ idp_provider: oidc
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
 
-# Generate 256 bit random keys  e.g. `head -c32 /dev/urandom | base64`
+#
+# Secrets
+#
+
 cookie_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
 shared_secret: aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M=
 
@@ -42,11 +53,16 @@ databroker_storage_type: redis
 databroker_storage_connection_string: 'redis://pomerium-redis-cont.service.kjdev:6379/0'
 databroker_storage_tls_skip_verify: true
 
+#
+# Authorize Service
+#
+
 authorize_service_url: https://pomerium-authorize-cont.service.kjdev:8443
 
 #
 # Proxy Service
 #
+
 cookie_domain: int.site1.kristianjones.dev
 
 # https://pomerium.com/reference/#routes
@@ -86,5 +102,6 @@ routes:
 tracing_provider: zipkin
 tracing_sample_rate: 1
 tracing_zipkin_endpoint: http://tempo-distributor-http-cont.service.kjdev:9411
+
 pomerium_debug: true
 log_level: debug

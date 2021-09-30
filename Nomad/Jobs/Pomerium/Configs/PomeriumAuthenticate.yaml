@@ -1,9 +1,15 @@
-# See detailed configuration settings : https://www.pomerium.com/docs/reference/
-
+#
+# Networking
+#
 address: 0.0.0.0:443
 grpc_address: 0.0.0.0:8443
 
+#
+# Pomerium Core
+# 
 services: authenticate
+
+envoy_admin_address: 0.0.0.0:9123
 
 #
 # TLS
@@ -12,45 +18,51 @@ services: authenticate
 #
 # mTLS
 #
-#override_certificate_name: 'pomerium-authenticate-cont.service.kjdev'
 certificate_authority_file: /local/ca.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
-#xff_num_trusted_hops: 6
+#xff_num_trusted_hops: 2
 
-# this is the domain the identity provider will callback after a user authenticates
+#
+# Authenticate Service
+#
+
 authenticate_service_url: https://auth.int.site1.kristianjones.dev:443
 
-##################################################################################
-# Identity provider settings : https://www.pomerium.com/docs/identity-providers/ #
-# The keys required in this section vary depending on your IdP. See the          #
-# appropriate docs for your IdP to configure Pomerium accordingly.               #
-##################################################################################
 idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth
 idp_provider: oidc
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
 
-# Generate 256 bit random keys  e.g. `head -c32 /dev/urandom | base64`
+#
+# Secrets
+#
+
 cookie_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
 shared_secret: aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M=
 
 jwt_claims_headers: email,groups,user,preferred_username,nickname
 
 #
-# Databroker
+# Data Broker
+#
+# Docs: https://www.pomerium.com/reference/#data-broker-service
 #
 databroker_service_url: https://pomerium-databroker-cont.service.kjdev:8443
 databroker_storage_type: redis
 databroker_storage_connection_string: 'redis://pomerium-redis-cont.service.kjdev:6379/0'
 databroker_storage_tls_skip_verify: true
 
+#
+# Authorize Service
+#
 
 authorize_service_url: https://pomerium-authorize-cont.service.kjdev:8443
 
 #
 # Proxy Service
 #
+
 cookie_domain: int.site1.kristianjones.dev
 
 # https://pomerium.com/reference/#routes
