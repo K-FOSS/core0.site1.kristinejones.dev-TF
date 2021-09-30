@@ -33,50 +33,55 @@
               ],
               "handle": [
                 {
-                  "match": [
+                  "handler": "subroute",
+                  "routes": [
                     {
-                      "host": [
-                        "auth.int.site1.kristianjones.dev"
-                      ]
-                    }
-                  ],
-                  "handle": [
-                    {
-                      "handler": "reverse_proxy",
-                      "transport": {
-                        "protocol": "http",
-                        "tls": {
-                          "insecure_skip_verify": true
-                        }
-                      },
-                      "upstreams": [
+                      "match": [
                         {
-                          "lookup_srv": "pomerium-authenticate-cont.service.kjdev"
+                          "host": [
+                            "auth.int.site1.kristianjones.dev"
+                          ]
                         }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "match": [
-                    {
-                      "host": [
-                        "*.int.site1.kristianjones.dev"
-                      ]
-                    }
-                  ],
-                  "handle": [
-                    {
-                      "handler": "reverse_proxy",
-                      "transport": {
-                        "protocol": "http",
-                        "tls": {
-                          "insecure_skip_verify": true
-                        }
-                      },
-                      "upstreams": [
+                      ],
+                      "handle": [
                         {
-                          "lookup_srv": "pomerium-proxy-cont.service.kjdev"
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "tls": {
+                              "insecure_skip_verify": true
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "pomerium-authenticate-cont.service.kjdev"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
+                            "*.int.site1.kristianjones.dev"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "tls": {
+                              "insecure_skip_verify": true
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "pomerium-proxy-cont.service.kjdev"
+                            }
+                          ]
                         }
                       ]
                     }
