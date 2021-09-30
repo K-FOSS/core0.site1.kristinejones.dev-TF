@@ -44,7 +44,7 @@ job "pomerium" {
           type = "loki"
           config {
             loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-            loki-external-labels = "job=pomerium,pom-service=authenticate"
+            loki-external-labels = "job=pomerium,service=authenticate"
           }
         }
       }
@@ -131,7 +131,7 @@ EOF
           type = "loki"
           config {
             loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-            loki-external-labels = "job=pomerium,pom-service=authorize"
+            loki-external-labels = "job=pomerium,service=authorize"
           }
         }
       }
@@ -218,7 +218,7 @@ EOF
           type = "loki"
           config {
             loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-            loki-external-labels = "job=pomerium,pom-service=databroker"
+            loki-external-labels = "job=pomerium,service=databroker"
           }
         }
       }
@@ -305,7 +305,7 @@ EOF
           type = "loki"
           config {
             loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-            loki-external-labels = "job=pomerium,pom-service=proxy"
+            loki-external-labels = "job=pomerium,service=proxy"
           }
         }
       }
