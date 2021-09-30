@@ -63,7 +63,7 @@ resource "nomad_job" "Pomerium" {
     TLS = var.TLS
 
     YAMLConfigs = {
-      Authenticate = templatefile("${path.module}/Configs/PomeriumAuthenicate.yaml", {
+      Authenticate = templatefile("${path.module}/Configs/PomeriumAuthenticate.yaml", {
         Secrets = var.Secrets
         OpenID = var.OpenID
       })

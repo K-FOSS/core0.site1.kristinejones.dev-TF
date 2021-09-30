@@ -5,11 +5,20 @@ grpc_address: 0.0.0.0:443
 
 services: databroker
 
-certificate_authority_file: /local/CA.pem
+#
+# TLS
+#
+
+#
+# mTLS
+#
+override_certificate_name: 'pomerium-databroker-cont.service.kjdev'
+certificate_authority_file: /local/ca.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
+xff_num_trusted_hops: 1
 
-#override_certificate_name: 'pomerium-databroker-cont.service.kjdev'
+
 
 idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth/
 idp_provider: oidc
@@ -26,12 +35,10 @@ authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
 #codec_type: http1
 
 routes:
-  - from: https://grafana.kristianjones.dev
-    to: http://grafana-cont.service.kjdev:8080
-    allowed_domains:
-      - kristianjones.dev
-    pass_identity_headers: true
-    allow_websockets: true
+  - from: https://pomerium.kristianjones.dev
+    to: http://pomerium-authenticate-cont.service.kjdev:443
+    allow_public_unauthenticated_access: true
+    
 
   - from: https://netbox.kristianjones.dev
     to: http://netbox-http-cont.service.kjdev:8080

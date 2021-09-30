@@ -108,36 +108,11 @@
                       "match": [
                         {
                           "host": [
-                            "pomerium.kristianjones.dev"
-                          ]
-                        }
-                      ],
-                      "handle": [
-                        {
-                          "handler": "reverse_proxy",
-                          "transport": {
-                            "protocol": "http",
-                            "tls": {
-                              "insecure_skip_verify": true
-                            }
-                          },
-                          "upstreams": [
-                            {
-                              "lookup_srv": "pomerium-authenticate-cont.service.kjdev"
-                            }
-                          ]
-                        }
-                      ],
-                      "terminal": true
-                    },
-                    {
-                      "match": [
-                        {
-                          "host": [
                             "netbox.kristianjones.dev",
                             "nextcloud.kristianjones.dev",
                             "mattermost.kristianjones.dev",
-                            "chat.kristianjones.dev"
+                            "chat.kristianjones.dev",
+                            "pomerium.kristianjones.dev"
                           ]
                         }
                       ],

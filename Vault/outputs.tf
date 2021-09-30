@@ -90,7 +90,25 @@ output "Tinkerbell" {
 output "PomeriumTLS" {
   value = {
     CA = vault_pki_secret_backend_cert.PomeriumCert.issuing_ca
-    Cert = vault_pki_secret_backend_cert.PomeriumCert.certificate
-    Key = vault_pki_secret_backend_cert.PomeriumCert.private_key
+
+    Proxy = {
+      Cert = vault_pki_secret_backend_cert.PomeriumProxyCert.certificate
+      Key = vault_pki_secret_backend_cert.PomeriumProxyCert.private_key
+    }
+
+    DataBroker = {
+      Cert = vault_pki_secret_backend_cert.PomeriumDataBrokerCert.certificate
+      Key = vault_pki_secret_backend_cert.PomeriumDataBrokerCert.private_key
+    }
+
+    Authenticate = {
+      Cert = vault_pki_secret_backend_cert.PomeriumAuthenticateCert.certificate
+      Key = vault_pki_secret_backend_cert.PomeriumAuthenticateCert.private_key
+    }
+
+    Authorize = {
+      Cert = vault_pki_secret_backend_cert.PomeriumAuthorizeCert.certificate
+      Key = vault_pki_secret_backend_cert.PomeriumAuthorizeCert.private_key
+    }
   }
 }

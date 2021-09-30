@@ -123,15 +123,38 @@ module "Pomerium" {
   source = "./TLS/Template"
 }
 
-resource "vault_pki_secret_backend_cert" "PomeriumCert" {
+resource "vault_pki_secret_backend_cert" "PomeriumProxyCert" {
   backend = module.Pomerium.TLS.Mount.path
   name = module.Pomerium.TLS.Role.name
 
   common_name = "pomerium-proxy-cont.service.kjdev"
 
-  alt_names = [
-    "pomerium-authenticate-cont.service.kjdev", 
-    "pomerium-authorize-cont.service.kjdev", 
-    "pomerium-databroker-cont.service.kjdev", 
-    "pomerium-proxy-cont.service.kjdev"]
+  alt_names = ["*.kristianjones.dev"]
+}
+
+resource "vault_pki_secret_backend_cert" "PomeriumDataBrokerCert" {
+  backend = module.Pomerium.TLS.Mount.path
+  name = module.Pomerium.TLS.Role.name
+
+  common_name = "pomerium-databroker-cont.service.kjdev"
+
+  alt_names = []
+}
+
+resource "vault_pki_secret_backend_cert" "PomeriumAuthenticateCert" {
+  backend = module.Pomerium.TLS.Mount.path
+  name = module.Pomerium.TLS.Role.name
+
+  common_name = "pomerium-authenticate-cont.service.kjdev"
+
+  alt_names = []
+}
+
+resource "vault_pki_secret_backend_cert" "PomeriumAuthorizeCert" {
+  backend = module.Pomerium.TLS.Mount.path
+  name = module.Pomerium.TLS.Role.name
+
+  common_name = "pomerium-authorize-cont.service.kjdev"
+
+  alt_names = []
 }

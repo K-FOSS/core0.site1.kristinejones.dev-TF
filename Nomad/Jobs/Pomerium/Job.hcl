@@ -67,7 +67,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.Cert}
+${TLS.Authenticate.Cert}
 EOF
 
         destination = "local/cert.pem"
@@ -75,7 +75,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.Key}
+${TLS.Authenticate.Key}
 EOF
 
         destination = "local/cert.key"
@@ -154,7 +154,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.Cert}
+${TLS.Authorize.Cert}
 EOF
 
         destination = "local/cert.pem"
@@ -162,7 +162,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.Key}
+${TLS.Authorize.Key}
 EOF
 
         destination = "local/cert.key"
@@ -241,7 +241,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.Cert}
+${TLS.DataBroker.Cert}
 EOF
 
         destination = "local/cert.pem"
@@ -249,7 +249,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.Key}
+${TLS.DataBroker.Key}
 EOF
 
         destination = "local/cert.key"
@@ -328,7 +328,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.Cert}
+${TLS.Proxy.Cert}
 EOF
 
         destination = "local/cert.pem"
@@ -336,7 +336,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.Key}
+${TLS.Proxy.Key}
 EOF
 
         destination = "local/cert.key"
