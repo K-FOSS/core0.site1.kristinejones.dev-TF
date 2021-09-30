@@ -19,7 +19,7 @@ certificate_key_file: /local/cert.key
 xff_num_trusted_hops: 1
 
 # this is the domain the identity provider will callback after a user authenticates
-authenticate_service_url: https://pomerium.kristianjones.dev
+authenticate_service_url: https://pomerium-authenticate-cont.service.kjdev:443
 
 ##################################################################################
 # Identity provider settings : https://www.pomerium.com/docs/identity-providers/ #
@@ -43,7 +43,7 @@ authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
 # https://pomerium.com/reference/#routes
 routes:
   - from: https://pomerium.kristianjones.dev
-    to: http://pomerium-authenticate-cont.service.kjdev:443
+    to: https://pomerium-authenticate-cont.service.kjdev:443
     allow_public_unauthenticated_access: true
     
 
