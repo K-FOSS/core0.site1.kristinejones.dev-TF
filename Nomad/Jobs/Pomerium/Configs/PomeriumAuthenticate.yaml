@@ -14,6 +14,9 @@ envoy_admin_address: 0.0.0.0:9123
 #
 # TLS
 #
+autocert: false
+autocert_must_staple: false
+
 
 #
 # mTLS
