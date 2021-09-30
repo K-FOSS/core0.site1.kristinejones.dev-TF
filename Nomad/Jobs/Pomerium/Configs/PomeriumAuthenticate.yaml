@@ -60,7 +60,7 @@ databroker_storage_tls_skip_verify: true
 # Authorize Service
 #
 
-authorize_service_url: https://pomerium-authenticate-cont.service.kjdev:443
+authorize_service_url: https://pomerium-authenticate-cont.service.kjdev:8443
 
 #
 # Proxy Service
