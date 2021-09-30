@@ -30,7 +30,7 @@ shared_secret: aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M=
 jwt_claims_headers: email,groups,user,preferred_username,nickname
 
 #
-authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
+#authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
 
 #codec_type: http1
 
@@ -39,7 +39,7 @@ authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
 #
 # Docs: https://www.pomerium.com/reference/#data-broker-service
 #
-databroker_service_url: https://pomerium-databroker-cont.service.kjdev:443
+#databroker_service_url: https://pomerium-databroker-cont.service.kjdev:443
 databroker_storage_type: redis
 databroker_storage_connection_string: 'redis://pomerium-redis-cont.service.kjdev:6379/0'
 #databroker_storage_tls_skip_verify: true
