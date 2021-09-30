@@ -4,6 +4,8 @@ address: 0.0.0.0:443
 
 services: proxy
 
+envoy_admin_address: 0.0.0.0:9123
+
 
 #
 # TLS
