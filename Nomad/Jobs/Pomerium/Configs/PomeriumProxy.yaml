@@ -5,12 +5,25 @@ grpc_address: :443
 
 services: proxy
 
-client_ca_file: /local/CA.pem
 
+#
+# TLS
+#
+
+autocert: false
+
+#
+# mTLS
+#
+client_ca_file: /local/CA.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
 
 override_certificate_name: 'pomerium-proxy-cont.service.kjdev'
+
+#
+# Authenticate Service
+#
 
 # this is the domain the identity provider will callback after a user authenticates
 authenticate_service_url: https://pomerium.kristianjones.dev
@@ -25,14 +38,30 @@ idp_provider: oidc
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
 
-# Generate 256 bit random keys  e.g. `head -c32 /dev/urandom | base64`
+#
+# Secrets
+#
+
 cookie_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
 shared_secret: aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M=
 
 jwt_claims_headers: email,groups,user,preferred_username,nickname
 
+#
+# Data Broker Service 
+#
+
 databroker_service_url: https://pomerium-databroker-cont.service.kjdev:443
+
+#
+# Authorize Service
+#
+
 authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
+
+#
+# Proxy Service
+#
 
 # https://pomerium.com/reference/#routes
 routes:
