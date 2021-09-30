@@ -1,6 +1,52 @@
 job "pomerium" {
   datacenters = ["core0site1"]
 
+  group "netbox-redis" {
+    count = 1
+
+    network {
+      mode = "cni/nomadcore1"
+
+      port "redis" { 
+        to = 6379
+      }
+
+      dns {
+        servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
+      }
+    }
+
+    service {
+      name = "pomerium-redis-cont"
+      port = "redis"
+
+      task = "redis"
+
+      address_mode = "alloc"
+    }
+
+    task "redis" {
+      driver = "docker"
+
+      config {
+        image = "redis:6-alpine"
+
+        command = "redis-server"
+
+        args = []
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=pomerium,service=redis"
+          }
+        }
+      }
+    }
+  }
+
   group "pomerium-authenticate" {
     count = 1
 
@@ -62,7 +108,7 @@ EOF
 ${TLS.CA}
 EOF
 
-        destination = "local/CA.pem"
+        destination = "local/ca.pem"
       }
 
       template {
@@ -149,7 +195,7 @@ EOF
 ${TLS.CA}
 EOF
 
-        destination = "local/CA.pem"
+        destination = "local/ca.pem"
       }
 
       template {
@@ -236,7 +282,7 @@ EOF
 ${TLS.CA}
 EOF
 
-        destination = "local/CA.pem"
+        destination = "local/ca.pem"
       }
 
       template {
@@ -323,7 +369,7 @@ EOF
 ${TLS.CA}
 EOF
 
-        destination = "local/CA.pem"
+        destination = "local/ca.pem"
       }
 
       template {
