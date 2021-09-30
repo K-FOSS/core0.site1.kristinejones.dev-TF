@@ -1,18 +1,20 @@
 # See detailed configuration settings : https://www.pomerium.com/docs/reference/
 
-address: 0.0.0.0:443
-grpc_address: :8443
+address: :443
+grpc_address: :443
 
 services: proxy
 
 envoy_admin_address: 0.0.0.0:9123
 
 
+pomerium_debug: true
+
 #
 # TLS
 #
 
-autocert: false
+#autocert: false
 
 #
 # mTLS
