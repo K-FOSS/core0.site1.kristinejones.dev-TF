@@ -4,6 +4,26 @@ job "Patroni" {
   group "postgres-database" {
     count = 5
 
+    spread {
+      attribute = "${node.unique.id}"
+      weight    = 100
+    }
+
+    update {
+      max_parallel      = 1
+      health_check      = "checks"
+      min_healthy_time  = "10s"
+      healthy_deadline  = "3m"
+      progress_deadline = "5m"
+    }
+
+    restart {
+      attempts = 3
+      interval = "5m"
+      delay    = "25s"
+      mode     = "delay"
+    }
+
     volume "${Volume.name}" {
       type      = "csi"
       read_only = false
@@ -35,6 +55,10 @@ job "Patroni" {
       meta {
         id = "$${NOMAD_ALLOC_INDEX}"
       }
+
+      #
+      # TODO: PSQL Healthcheck
+      #
     }
 
     service {
@@ -49,6 +73,23 @@ job "Patroni" {
       meta {
         id = "$${NOMAD_ALLOC_INDEX}"
       }
+
+      check {
+        name     = "Patroni healthcheck"
+
+        address_mode = "alloc"
+        port     = "http"
+        type     = "http"
+        path     = "/liveness"
+        interval = "20s"
+        timeout  = "5s"
+        
+        check_restart {
+          limit           = 3
+          grace           = "60s"
+          ignore_warnings = false
+        }
+      }
     }
 
     task "patroni" {
@@ -58,8 +99,6 @@ job "Patroni" {
 
       config {
         image = "registry.opensource.zalan.do/acid/spilo-13:2.1-p1"
-
-        ports = ["psql", "http"]
 
         command = "/usr/local/bin/patroni"
 

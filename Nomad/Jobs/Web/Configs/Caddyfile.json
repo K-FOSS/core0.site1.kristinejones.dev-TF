@@ -454,7 +454,7 @@
             ],
             "storage": {
               "module": "consul",
-              "address": "172.16.0.10:8500",
+              "address": "core0.site1.kristianjones.dev:8500",
               "prefix": "caddytls",
               "token": "${Consul.Token}",
               "aes_key": "${Consul.EncryptionKey}"

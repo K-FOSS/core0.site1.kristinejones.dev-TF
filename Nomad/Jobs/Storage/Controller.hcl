@@ -3,8 +3,23 @@ job "storage-controller" {
   type        = "service"
 
   group "controller" {
+    count = 3
+
+    spread {
+      attribute = "${node.unique.id}"
+      weight    = 100
+    }
+
+    update {
+      max_parallel      = 1
+      health_check      = "task_states"
+      min_healthy_time  = "10s"
+      healthy_deadline  = "3m"
+      progress_deadline = "5m"
+    }
+
     network {
-      mode = "bridge"
+      mode = "cni/storage0"
 
       port "grpc" { }
     }

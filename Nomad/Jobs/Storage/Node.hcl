@@ -5,8 +5,14 @@ job "storage-node" {
   group "node" {
     network {
       mode = "cni/storage0"
+    }
 
-      port "grpc" { }
+    update {
+      max_parallel      = 1
+      health_check      = "task_states"
+      min_healthy_time  = "10s"
+      healthy_deadline  = "3m"
+      progress_deadline = "5m"
     }
 
     service {
