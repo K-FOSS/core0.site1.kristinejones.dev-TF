@@ -18,11 +18,11 @@ certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
 #xff_num_trusted_hops: 1
 
-authenticate_service_url: https://pomerium.kristianjones.dev:443
+authenticate_service_url: https://auth.int.site1.kristianjones.dev:443
 
 
 
-idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth
+idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth/
 idp_provider: oidc
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
@@ -47,29 +47,34 @@ databroker_storage_type: redis
 databroker_storage_connection_string: 'redis://pomerium-redis-cont.service.kjdev:6379/0'
 databroker_storage_tls_skip_verify: true
 
+#
+# Proxy Service
+#
+cookie_domain: int.site1.kristianjones.dev
+
 routes:
-  - from: https://netbox.kristianjones.dev
+  - from: https://netbox.int.site1.kristianjones.dev
     to: http://netbox-http-cont.service.kjdev:8080
     allowed_domains:
       - kristianjones.dev
     pass_identity_headers: true
     allow_websockets: true
 
-  - from: https://nextcloud.kristianjones.dev
+  - from: https://nextcloud.int.site1.kristianjones.dev
     to: http://nextcloud-web-cont.service.kjdev:8080
     allowed_domains:
       - kristianjones.dev
     pass_identity_headers: true
     allow_websockets: true
 
-  - from: https://chat.kristianjones.dev
+  - from: https://chat.int.site1.kristianjones.dev
     to: http://mattermost-leader-http-cont.service.kjdev:8065
     allowed_domains:
       - kristianjones.dev
     pass_identity_headers: true
     allow_websockets: true
 
-  - from: https://mattermost.kristianjones.dev
+  - from: https://mattermost.int.site1.kristianjones.dev
     to: http://mattermost-leader-http-cont.service.kjdev:8065
     allowed_domains:
       - kristianjones.dev

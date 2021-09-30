@@ -27,6 +27,67 @@
               "match": [
                 {
                   "host": [
+                    "*.int.site1.kristianjones.dev"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "match": [
+                    {
+                      "host": [
+                        "auth.int.site1.kristianjones.dev"
+                      ]
+                    }
+                  ],
+                  "handle": [
+                    {
+                      "handler": "reverse_proxy",
+                      "transport": {
+                        "protocol": "http",
+                        "tls": {
+                          "insecure_skip_verify": true
+                        }
+                      },
+                      "upstreams": [
+                        {
+                          "lookup_srv": "pomerium-authenticate-cont.service.kjdev"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "match": [
+                    {
+                      "host": [
+                        "*.int.site1.kristianjones.dev"
+                      ]
+                    }
+                  ],
+                  "handle": [
+                    {
+                      "handler": "reverse_proxy",
+                      "transport": {
+                        "protocol": "http",
+                        "tls": {
+                          "insecure_skip_verify": true
+                        }
+                      },
+                      "upstreams": [
+                        {
+                          "lookup_srv": "pomerium-proxy-cont.service.kjdev"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "match": [
+                {
+                  "host": [
                     "*.kristianjones.dev"
                   ]
                 }
