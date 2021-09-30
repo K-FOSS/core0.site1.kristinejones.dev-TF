@@ -27,8 +27,7 @@ job "storage-node" {
           "--driver-config-file=$${NOMAD_TASK_DIR}/driver-config-file.yaml",
           "--log-level=debug",
           "--csi-mode=node",
-          "--server-socket=/csi-data/csi.sock",
-          "--server-port=$${NOMAD_PORT_grpc}",
+          "--server-socket=/csi-data/csi.sock"
         ]
 
         privileged = true

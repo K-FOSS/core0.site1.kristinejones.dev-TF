@@ -19,7 +19,7 @@ job "storage-controller" {
     }
 
     network {
-      mode = "cni/storage0"
+      mode = "bridge"
 
       port "grpc" { }
     }
