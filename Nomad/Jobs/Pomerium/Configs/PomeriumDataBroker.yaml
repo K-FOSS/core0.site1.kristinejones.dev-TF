@@ -18,6 +18,8 @@ certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
 #xff_num_trusted_hops: 1
 
+authenticate_service_url: https://pomerium.kristianjones.dev:443
+
 
 
 idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth/
