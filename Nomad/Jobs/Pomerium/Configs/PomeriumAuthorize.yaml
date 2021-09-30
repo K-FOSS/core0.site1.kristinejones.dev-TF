@@ -26,7 +26,7 @@ shared_secret: aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M=
 jwt_claims_headers: email,groups,user,preferred_username,nickname
 
 databroker_service_url: https://pomerium-databroker-cont.service.kjdev:443
-authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
+#authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
 
 # https://pomerium.com/reference/#routes
 routes:
