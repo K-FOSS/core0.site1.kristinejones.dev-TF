@@ -446,7 +446,7 @@
                   "dns": {
                     "provider": {
                       "name": "cloudflare",
-                      "api_token": "{Cloudflare.Token}"
+                      "api_token": "${Cloudflare.Token}"
                     }
                   }
                 }
