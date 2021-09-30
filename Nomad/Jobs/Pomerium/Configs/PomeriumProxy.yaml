@@ -20,7 +20,7 @@ certificate_authority_file: /local/CA.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
 
-override_certificate_name: 'pomerium-proxy-cont.service.kjdev'
+#override_certificate_name: 'pomerium-proxy-cont.service.kjdev'
 xff_num_trusted_hops: 1
 
 
