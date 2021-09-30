@@ -5,8 +5,6 @@ grpc_address: 0.0.0.0:443
 
 services: databroker
 
-pomerium_debug: true
-
 certificate_authority_file: /local/CA.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
@@ -68,4 +66,7 @@ routes:
 # 
 
 tracing_provider: zipkin
+tracing_sample_rate: 1
 tracing_zipkin_endpoint: http://tempo-distributor-http-cont.service.kjdev:9411
+pomerium_debug: true
+log_level: debug

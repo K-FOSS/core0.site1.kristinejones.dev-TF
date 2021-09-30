@@ -7,9 +7,6 @@ services: proxy
 
 envoy_admin_address: 0.0.0.0:9123
 
-
-pomerium_debug: true
-
 #
 # TLS
 #
@@ -113,4 +110,8 @@ routes:
 # 
 
 tracing_provider: zipkin
+tracing_sample_rate: 1
 tracing_zipkin_endpoint: http://tempo-distributor-http-cont.service.kjdev:9411
+
+pomerium_debug: true
+log_level: debug

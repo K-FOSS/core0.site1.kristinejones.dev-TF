@@ -34,6 +34,18 @@ job "pomerium" {
         image        = "pomerium/pomerium:${Version}"
 
         args = ["-config=/local/pomerium.yaml"]
+
+        labels {
+          job = "pomerium"
+          service = "authenticate"
+        }
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+          }
+        }
       }
 
       template {
@@ -108,6 +120,18 @@ EOF
         image        = "pomerium/pomerium:${Version}"
 
         args = ["-config=/local/pomerium.yaml"]
+
+        labels {
+          job = "pomerium"
+          service = "authorize"
+        }
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+          }
+        }
       }
 
       template {
@@ -182,6 +206,18 @@ EOF
         image        = "pomerium/pomerium:${Version}"
 
         args = ["-config=/local/pomerium.yaml"]
+
+        labels {
+          job = "pomerium"
+          service = "databroker"
+        }
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+          }
+        }
       }
 
       template {
@@ -256,6 +292,18 @@ EOF
         image        = "pomerium/pomerium:${Version}"
 
         args = ["-config=/local/pomerium.yaml"]
+        
+        labels {
+          job = "pomerium"
+          service = "proxy"
+        }
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+          }
+        }
       }
 
       template {
