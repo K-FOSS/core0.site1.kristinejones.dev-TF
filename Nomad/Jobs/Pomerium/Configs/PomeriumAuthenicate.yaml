@@ -78,3 +78,10 @@ routes:
       - kristianjones.dev
     pass_identity_headers: true
     allow_websockets: true
+
+#
+# Tracing
+# 
+
+tracing_provider: zipkin
+tracing_zipkin_endpoint: http://tempo-distributor-http-cont.service.kjdev:9411

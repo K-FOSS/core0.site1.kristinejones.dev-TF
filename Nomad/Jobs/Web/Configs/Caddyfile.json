@@ -85,6 +85,29 @@
                       "match": [
                         {
                           "host": [
+                            "grafana.kristianjones.dev"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http"
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "grafana-cont.service.kjdev"
+                            }
+                          ]
+                        }
+                      ],
+                      "terminal": true
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
                             "pomerium.kristianjones.dev"
                           ]
                         }
@@ -111,7 +134,6 @@
                       "match": [
                         {
                           "host": [
-                            "grafana.kristianjones.dev",
                             "netbox.kristianjones.dev",
                             "nextcloud.kristianjones.dev",
                             "mattermost.kristianjones.dev",
