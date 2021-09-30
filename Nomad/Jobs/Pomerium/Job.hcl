@@ -31,7 +31,7 @@ job "pomerium" {
       driver = "docker"
 
       config {
-        image        = "pomerium/pomerium:latest"
+        image        = "pomerium/pomerium:${Version}"
 
         args = ["-config=/local/pomerium.yaml"]
       }
@@ -105,7 +105,7 @@ EOF
       driver = "docker"
 
       config {
-        image        = "pomerium/pomerium:latest"
+        image        = "pomerium/pomerium:${Version}"
 
         args = ["-config=/local/pomerium.yaml"]
       }
@@ -179,7 +179,7 @@ EOF
       driver = "docker"
 
       config {
-        image        = "pomerium/pomerium:latest"
+        image        = "pomerium/pomerium:${Version}"
 
         args = ["-config=/local/pomerium.yaml"]
       }
@@ -253,7 +253,7 @@ EOF
       driver = "docker"
 
       config {
-        image        = "pomerium/pomerium:latest"
+        image        = "pomerium/pomerium:${Version}"
 
         args = ["-config=/local/pomerium.yaml"]
       }
