@@ -5,7 +5,7 @@ job "Patroni" {
     count = 5
 
     spread {
-      attribute = "${node.unique.id}"
+      attribute = "$${node.unique.id}"
       weight    = 100
     }
 

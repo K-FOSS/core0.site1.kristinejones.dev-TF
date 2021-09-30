@@ -6,7 +6,7 @@ job "storage-controller" {
     count = 3
 
     spread {
-      attribute = "${node.unique.id}"
+      attribute = "$${node.unique.id}"
       weight    = 100
     }
 
