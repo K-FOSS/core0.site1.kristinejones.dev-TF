@@ -28,7 +28,7 @@ xff_num_trusted_hops: 1
 #
 
 # this is the domain the identity provider will callback after a user authenticates
-authenticate_service_url: https://pomerium-authenticate-cont.service.kjdev:443
+authenticate_service_url: https://pomerium.kristianjones.dev:443
 
 ##################################################################################
 # Identity provider settings : https://www.pomerium.com/docs/identity-providers/ #
@@ -53,13 +53,13 @@ jwt_claims_headers: email,groups,user,preferred_username,nickname
 # Data Broker Service 
 #
 
-#databroker_service_url: https://pomerium-databroker-cont.service.kjdev:443
+databroker_service_url: https://pomerium-databroker-cont.service.kjdev:8443
 
 #
 # Authorize Service
 #
 
-authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
+authorize_service_url: https://pomerium-authorize-cont.service.kjdev:8443
 
 #
 # Proxy Service
