@@ -17,7 +17,7 @@ envoy_admin_address: 0.0.0.0:9123
 # mTLS
 #
 override_certificate_name: 'pomerium-proxy-cont.service.kjdev'
-certificate_authority_file: /local/ca.pem
+#certificate_authority_file: /local/ca.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
 xff_num_trusted_hops: 1
