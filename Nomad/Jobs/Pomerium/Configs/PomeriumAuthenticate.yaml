@@ -2,7 +2,7 @@
 # Networking
 #
 address: 0.0.0.0:443
-grpc_address: 0.0.0.0:8443
+grpc_address: 0.0.0.0:443
 
 #
 # Pomerium Core
@@ -24,7 +24,7 @@ autocert_must_staple: false
 certificate_authority_file: /local/ca.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
-#xff_num_trusted_hops: 2
+xff_num_trusted_hops: 1
 
 #
 # Authenticate Service
