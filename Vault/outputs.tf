@@ -89,7 +89,7 @@ output "Tinkerbell" {
 
 output "PomeriumTLS" {
   value = {
-    CA = vault_pki_secret_backend_cert.PomeriumCert.issuing_ca
+    CA = vault_pki_secret_backend_cert.PomeriumProxyCert.ca_chain
 
     Proxy = {
       Cert = vault_pki_secret_backend_cert.PomeriumProxyCert.certificate
