@@ -15,14 +15,6 @@ override_certificate_name: 'pomerium-authenticate-cont.service.kjdev'
 # this is the domain the identity provider will callback after a user authenticates
 authenticate_service_url: https://pomerium.kristianjones.dev
 
-####################################################################################
-# Certificate settings:  https://www.pomerium.com/docs/reference/certificates.html #
-# The example below assumes a certificate and key file will be mounted to a volume #
-# available to the  Docker image.                                                  #
-####################################################################################
-#certificate_file: /pomerium/cert.pem
-#certificate_key_file: /pomerium/privkey.pem
-
 ##################################################################################
 # Identity provider settings : https://www.pomerium.com/docs/identity-providers/ #
 # The keys required in this section vary depending on your IdP. See the          #

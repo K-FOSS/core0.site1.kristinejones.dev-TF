@@ -3,7 +3,6 @@
 address: :443
 grpc_address: :443
 
-
 services: databroker
 
 client_ca_file: /local/CA.pem
