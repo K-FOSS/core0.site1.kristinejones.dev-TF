@@ -105,5 +105,5 @@ tracing_provider: zipkin
 tracing_sample_rate: 1
 tracing_zipkin_endpoint: http://tempo-distributor-http-cont.service.kjdev:9411
 
-pomerium_debug: true
+pomerium_debug: false
 log_level: debug
