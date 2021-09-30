@@ -1,6 +1,6 @@
 # See detailed configuration settings : https://www.pomerium.com/docs/reference/
 
-#address: 0.0.0.0:443
+address: 0.0.0.0:443
 grpc_address: 0.0.0.0:8443
 
 services: authorize
@@ -16,7 +16,7 @@ override_certificate_name: 'pomerium-authorize-cont.service.kjdev'
 certificate_authority_file: /local/ca.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
-xff_num_trusted_hops: 1
+#xff_num_trusted_hops: 1
 
 # this is the domain the identity provider will callback after a user authenticates
 authenticate_service_url: https://pomerium-authenticate-cont.service.kjdev:443
@@ -31,7 +31,16 @@ shared_secret: aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M=
 
 jwt_claims_headers: email,groups,user,preferred_username,nickname
 
+#
+# Data Broker
+#
+# Docs: https://www.pomerium.com/reference/#data-broker-service
+#
 databroker_service_url: https://pomerium-databroker-cont.service.kjdev:8443
+databroker_storage_type: redis
+databroker_storage_connection_string: 'redis://pomerium-redis-cont.service.kjdev:6379/0'
+databroker_storage_tls_skip_verify: true
+
 authorize_service_url: https://pomerium-authorize-cont.service.kjdev:8443
 
 # https://pomerium.com/reference/#routes

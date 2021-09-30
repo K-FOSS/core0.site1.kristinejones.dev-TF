@@ -16,7 +16,7 @@ override_certificate_name: 'pomerium-databroker-cont.service.kjdev'
 certificate_authority_file: /local/ca.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
-xff_num_trusted_hops: 1
+#xff_num_trusted_hops: 1
 
 
 
@@ -30,7 +30,7 @@ shared_secret: aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M=
 jwt_claims_headers: email,groups,user,preferred_username,nickname
 
 #
-#authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
+authorize_service_url: https://pomerium-authorize-cont.service.kjdev:8443
 
 #codec_type: http1
 
@@ -39,10 +39,10 @@ jwt_claims_headers: email,groups,user,preferred_username,nickname
 #
 # Docs: https://www.pomerium.com/reference/#data-broker-service
 #
-#databroker_service_url: https://pomerium-databroker-cont.service.kjdev:443
+databroker_service_url: https://pomerium-databroker-cont.service.kjdev:8443
 databroker_storage_type: redis
 databroker_storage_connection_string: 'redis://pomerium-redis-cont.service.kjdev:6379/0'
-#databroker_storage_tls_skip_verify: true
+databroker_storage_tls_skip_verify: true
 
 routes:
   - from: https://pomerium.kristianjones.dev
