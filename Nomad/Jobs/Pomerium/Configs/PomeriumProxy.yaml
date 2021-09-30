@@ -11,7 +11,6 @@ services: proxy
 #
 
 autocert: false
-insecure_server: true
 
 #
 # mTLS
