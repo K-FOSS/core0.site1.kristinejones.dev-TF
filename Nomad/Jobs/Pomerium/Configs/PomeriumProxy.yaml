@@ -1,7 +1,7 @@
 # See detailed configuration settings : https://www.pomerium.com/docs/reference/
 
-address: :443
-grpc_address: :443
+address: 0.0.0.0:443
+grpc_address: 0.0.0.0:443
 
 services: proxy
 
@@ -19,11 +19,13 @@ pomerium_debug: true
 #
 # mTLS
 #
-client_ca_file: /local/CA.pem
+certificate_authority_file: /local/CA.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
 
 override_certificate_name: 'pomerium-proxy-cont.service.kjdev'
+xff_num_trusted_hops: 1
+
 
 #
 # Authenticate Service
@@ -67,7 +69,7 @@ authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
 # Proxy Service
 #
 
-codec_type: http1
+#codec_type: http1
 
 # https://pomerium.com/reference/#routes
 routes:

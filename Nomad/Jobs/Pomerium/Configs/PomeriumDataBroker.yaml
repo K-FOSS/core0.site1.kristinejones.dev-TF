@@ -1,14 +1,13 @@
 # See detailed configuration settings : https://www.pomerium.com/docs/reference/
 
-address: :443
-grpc_address: :443
+address: 0.0.0.0:443
+grpc_address: 0.0.0.0:443
 
 services: databroker
 
 pomerium_debug: true
 
-client_ca_file: /local/CA.pem
-
+certificate_authority_file: /local/CA.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
 
@@ -26,7 +25,7 @@ jwt_claims_headers: email,groups,user,preferred_username,nickname
 databroker_service_url: https://pomerium-databroker-cont.service.kjdev:443
 authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
 
-codec_type: http1
+#codec_type: http1
 
 routes:
   - from: https://grafana.kristianjones.dev
