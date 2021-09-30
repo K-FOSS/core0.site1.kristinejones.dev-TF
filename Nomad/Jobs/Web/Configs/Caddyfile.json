@@ -431,7 +431,8 @@
         "policies": [
           {
             "subjects": [
-              "*.kristianjones.dev"
+              "*.kristianjones.dev",
+              "*.int.site1.kristianjones.dev"
             ],
             "issuers": [
               {
