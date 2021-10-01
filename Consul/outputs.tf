@@ -1,6 +1,6 @@
 output "Patroni" {
   value = {
-    Hostname = "core0.site1.kristianjones.dev"
+    Hostname = "consul.service.kjdev"
     Port = 8500
 
 
@@ -16,7 +16,7 @@ output "Patroni" {
 #
 output "Cortex" {
   value = {
-    Hostname = "core0.site1.kristianjones.dev"
+    Hostname = "consul.service.kjdev"
     Port = 8500
 
 
@@ -31,7 +31,7 @@ output "Cortex" {
 #
 output "Loki" {
   value = {
-    Hostname = "core0.site1.kristianjones.dev"
+    Hostname = "consul.service.kjdev"
     Port = 8500
 
 
@@ -46,7 +46,7 @@ output "Loki" {
 #
 output "Tempo" {
   value = {
-    Hostname = "core0.site1.kristianjones.dev"
+    Hostname = "consul.service.kjdev"
     Port = 8500
 
 

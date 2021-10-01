@@ -10,10 +10,6 @@ job "netbox" {
       port "redis" { 
         to = 6379
       }
-
-      dns {
-        servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
-      }
     }
 
     service {
@@ -60,10 +56,6 @@ job "netbox" {
       port "redis" { 
         to = 6379
       }
-
-      dns {
-        servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
-      }
     }
 
     service {
@@ -105,10 +97,6 @@ job "netbox" {
 
     network {
       mode = "cni/nomadcore1"
-
-      dns {
-        servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
-      }
     }
 
     task "network-worker" {
@@ -200,10 +188,6 @@ EOH
 
       port "http" {
         to = 8080  
-      }
-
-      dns {
-        servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
       }
     }
 

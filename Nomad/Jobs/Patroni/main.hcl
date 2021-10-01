@@ -2,7 +2,7 @@ job "Patroni" {
   datacenters = ["core0site1"]
 
   group "postgres-database" {
-    count = 5
+    count = 4
 
     spread {
       attribute = "$${node.unique.id}"

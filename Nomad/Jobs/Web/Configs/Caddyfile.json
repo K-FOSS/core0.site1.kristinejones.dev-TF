@@ -4,7 +4,7 @@
   },
   "storage": {
     "module": "consul",
-    "address": "core0.site1.kristianjones.dev:8500",
+    "address": "consul.service.kjdev:8500",
     "prefix": "caddytls",
     "token": "${Consul.Token}",
     "aes_key": "${Consul.EncryptionKey}"
@@ -464,7 +464,7 @@
             ],
             "storage": {
               "module": "consul",
-              "address": "core0.site1.kristianjones.dev:8500",
+              "address": "consul.service.kjdev:8500",
               "prefix": "caddytls",
               "token": "${Consul.Token}",
               "aes_key": "${Consul.EncryptionKey}"

@@ -7,7 +7,7 @@ job "ingress" {
     count = 4
 
     network {
-      mode = "bridge"
+      mode = "cni/nomadcore1"
 
       port "https" {
         static = 443
@@ -46,10 +46,6 @@ job "ingress" {
       }
 
       port "cli" { }
-
-      dns {
-        servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
-      }
     }
 
     service {
