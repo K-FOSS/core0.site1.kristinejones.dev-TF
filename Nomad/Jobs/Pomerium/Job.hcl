@@ -44,7 +44,7 @@ job "pomerium" {
   }
 
   group "pomerium-authenticate" {
-    count = 1
+    count = 3
 
     network {
       mode = "cni/nomadcore1"
@@ -131,7 +131,7 @@ EOF
   }
 
   group "pomerium-authorize" {
-    count = 1
+    count = 3
 
     network {
       mode = "cni/nomadcore1"

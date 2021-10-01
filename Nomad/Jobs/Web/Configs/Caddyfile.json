@@ -39,36 +39,6 @@
                       "match": [
                         {
                           "host": [
-                            "auth.int.site1.kristianjones.dev"
-                          ]
-                        }
-                      ],
-                      "handle": [
-                        {
-                          "handler": "reverse_proxy",
-                          "transport": {
-                            "protocol": "http",
-                            "tls": {
-                              "insecure_skip_verify": true
-                            },
-                            "versions": [
-                              "2",
-                              "h2c"
-                            ]
-                          },
-                          "upstreams": [
-                            {
-                              "lookup_srv": "pomerium-authenticate-cont.service.kjdev"
-                            }
-                          ]
-                        }
-                      ],
-                      "terminal": true
-                    },
-                    {
-                      "match": [
-                        {
-                          "host": [
                             "*.int.site1.kristianjones.dev"
                           ]
                         }
