@@ -28,6 +28,8 @@ certificate_key_file: /local/cert.key
 #insecure_server: true
 #xff_num_trusted_hops: 5
 
+default_upstream_timeout: 5m
+
 #
 # Authenticate Service
 #
