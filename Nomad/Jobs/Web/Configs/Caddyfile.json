@@ -22,7 +22,6 @@
             "disable": false
           },
           "experimental_http3": false,
-          "logs": {},
           "routes": [
             {
               "match": [
@@ -110,6 +109,12 @@
                         }
                       ],
                       "handle": [
+                        {
+                          "handler": "trace",
+                          "disabled": false,
+                          "tag": "auth",
+                          "response_debug_enabled": true
+                        },
                         {
                           "handler": "reverse_proxy",
                           "transport": {
