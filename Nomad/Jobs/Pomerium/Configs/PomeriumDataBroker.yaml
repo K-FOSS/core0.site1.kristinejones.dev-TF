@@ -1,15 +1,12 @@
 #
 # Networking
 #
-address: 0.0.0.0:443
-grpc_address: 0.0.0.0:443
+grpc_address: ':443'
 
 #
 # Pomerium Core
 # 
 services: databroker
-
-envoy_admin_address: 0.0.0.0:9123
 
 #
 # TLS
@@ -23,7 +20,6 @@ autocert_must_staple: false
 certificate_authority_file: /local/ca.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
-#xff_num_trusted_hops: 1
 
 #
 # Authenticate Service
@@ -31,17 +27,12 @@ certificate_key_file: /local/cert.key
 
 authenticate_service_url: https://auth.int.site1.kristianjones.dev:443
 
-idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth
-idp_provider: oidc
-idp_client_id: ${OpenID.ClientID}
-idp_client_secret: ${OpenID.ClientSecret}
-
 #
 # Secrets
 #
 
-cookie_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
-shared_secret: aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M=
+cookie_secret: 'V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI='
+shared_secret: 'aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M='
 
 jwt_claims_headers: email,groups,user,preferred_username,nickname
 
@@ -84,11 +75,6 @@ routes:
 
 #
 # Tracing
-# 
-
-tracing_provider: zipkin
-tracing_sample_rate: 1
-tracing_zipkin_endpoint: http://tempo-distributor-http-cont.service.kjdev:9411
-
+#
 pomerium_debug: false
 log_level: debug

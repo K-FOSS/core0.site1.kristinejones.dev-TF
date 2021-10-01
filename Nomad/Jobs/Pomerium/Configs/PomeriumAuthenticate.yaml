@@ -1,15 +1,12 @@
 #
 # Networking
 #
-address: 0.0.0.0:443
-grpc_address: 0.0.0.0:443
+address: ':443'
 
 #
 # Pomerium Core
 # 
 services: authenticate
-
-#envoy_admin_address: 0.0.0.0:9123
 
 #
 # TLS
@@ -25,19 +22,17 @@ certificate_authority_file: /local/ca.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
 
-#insecure_server: true
-#xff_num_trusted_hops: 5
-
-default_upstream_timeout: 5m
 
 #
 # Authenticate Service
 #
 
-authenticate_service_url: https://auth.int.site1.kristianjones.dev:443
+authenticate_service_url: https://auth.int.site1.kristianjones.dev/
 
-idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth
 idp_provider: oidc
+idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth
+idp_scopes: oidc,profile,email
+idp_refresh_directory_interval: 2m
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
 
@@ -45,8 +40,8 @@ idp_client_secret: ${OpenID.ClientSecret}
 # Secrets
 #
 
-cookie_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
-shared_secret: aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M=
+cookie_secret: 'V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI='
+shared_secret: 'aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M='
 
 jwt_claims_headers: email,groups,user,preferred_username,nickname
 
@@ -56,9 +51,6 @@ jwt_claims_headers: email,groups,user,preferred_username,nickname
 # Docs: https://www.pomerium.com/reference/#data-broker-service
 #
 databroker_service_url: https://pomerium-databroker-cont.service.kjdev:443
-databroker_storage_type: redis
-databroker_storage_connection_string: 'redis://pomerium-redis-cont.service.kjdev:6379/0'
-databroker_storage_tls_skip_verify: true
 
 #
 # Authorize Service
@@ -71,8 +63,7 @@ authorize_service_url: https://pomerium-authenticate-cont.service.kjdev:443
 #
 
 cookie_domain: int.site1.kristianjones.dev
-
-#codec_type: http2
+default_upstream_timeout: 5m
 
 # https://pomerium.com/reference/#routes
 routes:
@@ -93,11 +84,6 @@ routes:
 
 #
 # Tracing
-# 
-
-tracing_provider: zipkin
-tracing_sample_rate: 1
-tracing_zipkin_endpoint: http://tempo-distributor-http-cont.service.kjdev:9411
-
+#
 pomerium_debug: false
 log_level: debug
