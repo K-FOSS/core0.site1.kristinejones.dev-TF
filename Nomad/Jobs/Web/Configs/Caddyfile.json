@@ -21,7 +21,7 @@
           "automatic_https": {
             "disable": false
           },
-          "experimental_http3": false,
+          "experimental_http3": true,
           "routes": [
             {
               "match": [
@@ -50,7 +50,11 @@
                             "protocol": "http",
                             "tls": {
                               "insecure_skip_verify": true
-                            }
+                            },
+                            "versions": [
+                              "2",
+                              "h2c"
+                            ]
                           },
                           "upstreams": [
                             {
@@ -58,7 +62,8 @@
                             }
                           ]
                         }
-                      ]
+                      ],
+                      "terminal": true
                     },
                     {
                       "match": [
@@ -75,7 +80,11 @@
                             "protocol": "http",
                             "tls": {
                               "insecure_skip_verify": true
-                            }
+                            },
+                            "versions": [
+                              "2",
+                              "h2c"
+                            ]
                           },
                           "upstreams": [
                             {
@@ -87,7 +96,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "terminal": true
             },
             {
               "match": [
