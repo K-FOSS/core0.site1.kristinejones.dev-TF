@@ -22,6 +22,7 @@
             "disable": false
           },
           "experimental_http3": true,
+          "logs": {},
           "routes": [
             {
               "match": [
@@ -50,11 +51,7 @@
                             "protocol": "http",
                             "tls": {
                               "insecure_skip_verify": true
-                            },
-                            "versions": [
-                              "2",
-                              "h2c"
-                            ]
+                            }
                           },
                           "upstreams": [
                             {
