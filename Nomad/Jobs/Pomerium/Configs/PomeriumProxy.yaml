@@ -2,7 +2,7 @@
 # Networking
 #
 address: 0.0.0.0:443
-grpc_address: 0.0.0.0:8443
+grpc_address: 0.0.0.0:443
 
 #
 # Pomerium Core
@@ -67,7 +67,7 @@ authorize_service_url: https://pomerium-authorize-cont.service.kjdev:8443
 
 cookie_domain: int.site1.kristianjones.dev
 
-codec_type: http2
+#codec_type: http2
 
 # https://pomerium.com/reference/#routes
 routes:
