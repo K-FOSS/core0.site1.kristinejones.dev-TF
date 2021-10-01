@@ -86,4 +86,4 @@ routes:
 # Tracing
 #
 pomerium_debug: false
-log_level: debug
+log_level: info
