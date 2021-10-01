@@ -33,15 +33,14 @@ job "ingress" {
       # CoTurn
       #
 
-      port "turn" { 
-        static = 3478
+      port "turn" {
         to = 3478
       }
 
       port "stun" { }
 
       port "metrics" {
-        static = 9641
+        to = 9641
       }
 
       port "cli" { }
