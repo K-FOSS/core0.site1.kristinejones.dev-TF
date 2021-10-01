@@ -3,11 +3,6 @@ job "ingress" {
 
   type = "service"
 
-  constraint {
-    operator  = "distinct_hosts"
-    value     = "true"
-  }
-
   group "proxies" {
     count = 4
 
