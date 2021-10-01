@@ -21,7 +21,7 @@
           "automatic_https": {
             "disable": false
           },
-          "experimental_http3": true,
+          "experimental_http3": false,
           "logs": {},
           "routes": [
             {

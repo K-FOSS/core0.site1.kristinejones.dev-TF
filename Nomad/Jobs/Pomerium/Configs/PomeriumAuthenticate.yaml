@@ -76,6 +76,11 @@ cookie_domain: int.site1.kristianjones.dev
 
 # https://pomerium.com/reference/#routes
 routes:
+  - from: https://auth.int.site1.kristianjones.dev
+    to: https://pomerium-authenticate-cont.service.kjdev:443
+    preserve_host_header: true
+    allow_public_unauthenticated_access: true
+
   - from: https://netbox.int.site1.kristianjones.dev
     to: http://netbox-http-cont.service.kjdev:8080
     allowed_domains:
