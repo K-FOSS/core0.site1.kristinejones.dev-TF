@@ -67,6 +67,8 @@ authorize_service_url: https://pomerium-authorize-cont.service.kjdev:8443
 
 cookie_domain: int.site1.kristianjones.dev
 
+codec_type: http2
+
 # https://pomerium.com/reference/#routes
 routes:
   - from: https://netbox.int.site1.kristianjones.dev
