@@ -25,7 +25,7 @@ certificate_authority_file: /local/ca.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
 
-insecure_server: true
+#insecure_server: true
 xff_num_trusted_hops: 1
 
 #
