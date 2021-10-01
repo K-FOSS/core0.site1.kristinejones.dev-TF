@@ -7,9 +7,11 @@ job "ingress" {
     count = 4
 
     network {
-      mode = "cni/nomadcore1"
+      mode = "bridge"
 
       port "https" {
+        static = 443
+
         to = 443
       }
 
