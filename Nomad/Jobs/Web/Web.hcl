@@ -12,17 +12,13 @@ job "ingress" {
     count = 4
 
     network {
-      mode = "bridge"
+      mode = "cni/nomadcore1"
 
       port "https" {
-        static = 8443
-
-        to = 8443
+        to = 443
       }
 
       port "syslog" {
-        static = 514
-
         to = 514
       }
 
@@ -66,17 +62,7 @@ job "ingress" {
 
       task = "web"
 
-      connect {
-         sidecar_service {
-          proxy {
-            upstreams {
-              destination_name = "authentik-cont"
-
-              local_bind_port = 8087
-            }
-          }
-        }
-      }
+      address_mode = "alloc"
     }
 
     service {

@@ -12,11 +12,11 @@
   "apps": {
     "http": {
       "http_port": 8080,
-      "https_port": 8443,
+      "https_port": 443,
       "servers": {
         "CoreWeb": {
           "listen": [
-            ":8443"
+            ":443"
           ],
           "automatic_https": {
             "disable": false
