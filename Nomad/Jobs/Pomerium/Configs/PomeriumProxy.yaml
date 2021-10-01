@@ -27,7 +27,12 @@ certificate_key_file: /local/cert.key
 
 authenticate_service_url: https://auth.int.site1.kristianjones.dev/
 
-default_upstream_timeout: 5m
+idp_provider: oidc
+idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth
+idp_scopes: oidc,profile,email
+idp_refresh_directory_interval: 2m
+idp_client_id: ${OpenID.ClientID}
+idp_client_secret: ${OpenID.ClientSecret}
 
 #
 # Secrets
@@ -56,8 +61,7 @@ authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
 #
 
 cookie_domain: int.site1.kristianjones.dev
-
-#codec_type: http2
+default_upstream_timeout: 5m
 
 # https://pomerium.com/reference/#routes
 routes:
