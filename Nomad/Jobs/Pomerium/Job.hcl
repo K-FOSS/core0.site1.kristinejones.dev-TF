@@ -43,6 +43,89 @@ job "pomerium" {
     }
   }
 
+  group "pomerium-authenticate" {
+    count = 1
+
+    network {
+      mode = "cni/nomadcore1"
+
+      port "http" { 
+        to = 443
+      }
+    }
+
+    service {
+      name = "pomerium-authenticate-cont"
+      port = "http"
+
+      task = "pomerium-server"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
+      address_mode = "alloc"
+    }
+
+    task "pomerium-authenticate-server" {
+      driver = "docker"
+
+      config {
+        image = "pomerium/pomerium:${Version}"
+
+        args = ["-config=/local/pomerium.yaml"]
+
+        labels {
+          job = "pomerium"
+          service = "authenticate"
+        }
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+            loki-external-labels = "job=pomerium,service=authenticate"
+          }
+        }
+      }
+
+      template {
+        data = <<EOF
+${YAMLConfigs.Authenticate}
+EOF
+
+        destination = "local/pomerium.yaml"
+      }
+
+      template {
+        data = <<EOF
+${TLS.CA}
+EOF
+
+        destination = "local/ca.pem"
+      }
+
+      template {
+        data = <<EOF
+${TLS.Authenticate.Cert}
+EOF
+
+        destination = "local/cert.pem"
+      }
+
+      template {
+        data = <<EOF
+${TLS.Authenticate.Key}
+EOF
+
+        destination = "local/cert.key"
+      }
+
+      resources {
+        cpu    = 800
+        memory = 500
+      }
+    }
+  }
+
   group "pomerium-authorize" {
     count = 1
 
