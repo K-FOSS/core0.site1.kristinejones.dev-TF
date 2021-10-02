@@ -24,12 +24,12 @@ certificate_key_file: /local/cert.key
 #
 # Authenticate Service
 #
+authenticate_service_url: https://auth.int.site1.kristianjones.dev
 
-authenticate_service_url: https://pomerium-authenticate-cont.service.kjdev/
 idp_provider: oidc
-idp_provider_url: http://authentik-cont.service.kjdev:9000/application/o/pomeriumproxy-auth
+idp_provider_url: http://authentik-cont.service.kjdev:9000/application/o/pomeriumproxy-auth/
 idp_scopes: oidc,profile,email
-idp_refresh_directory_interval: 2m
+idp_refresh_directory_interval: 30s
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
 
@@ -37,8 +37,8 @@ idp_client_secret: ${OpenID.ClientSecret}
 # Secrets
 #
 
-cookie_secret: 'V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI='
-shared_secret: 'aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M='
+cookie_secret: ${Secrets.CookieSecret}
+shared_secret: ${Secrets.SharedSecret}
 
 jwt_claims_headers: email,groups,user,preferred_username,nickname
 
