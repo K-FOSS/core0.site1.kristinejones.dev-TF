@@ -31,7 +31,7 @@ insecure_server: true
 authenticate_service_url: https://auth.int.site1.kristianjones.dev
 
 idp_provider: oidc
-idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth/
+idp_provider_url: http://authentik-cont.service.kjdev:9000/application/o/pomeriumproxy-auth/
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
 
@@ -59,7 +59,7 @@ signing_key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSU1tM2JCOXZKZi9
 # Proxy Service
 #
 
-cookie_domain: int.site1.kristianjones.dev
+#cookie_domain: int.site1.kristianjones.dev
 default_upstream_timeout: 5m
 
 # https://pomerium.com/reference/#routes
