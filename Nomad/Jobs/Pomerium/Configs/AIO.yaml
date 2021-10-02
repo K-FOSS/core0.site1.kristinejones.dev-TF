@@ -1,45 +1,48 @@
 #
 # Networking
 #
-address: ':443'
+address: 0.0.0.0:443
+
+
 
 #
 # Pomerium Core
 #
 services: all
 
+insecure_server: true
+
 #
 # TLS
 #
-autocert: false
-autocert_must_staple: false
+# autocert: false
+# autocert_must_staple: false
 
-#
-# mTLS
-#
-certificate_authority_file: /local/ca.pem
-certificate_file: /local/cert.pem
-certificate_key_file: /local/cert.key
+# #
+# # mTLS
+# #
+# certificate_authority_file: /local/ca.pem
+# certificate_file: /local/cert.pem
+# certificate_key_file: /local/cert.key
 
 #
 # Authenticate Service
 #
 authenticate_service_url: https://auth.int.site1.kristianjones.dev
+
 idp_provider: oidc
-idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth
-idp_scopes: oidc,profile,email
-idp_refresh_directory_interval: 2m
+idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth/
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
+
+cookie_secret: V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI=
+
 
 #
 # Secrets
 #
 
-cookie_secret: 'V2JBZk0zWGtsL29UcFUvWjVDWWQ2UHExNXJ0b2VhcDI='
-shared_secret: 'aDducXQzK2tPY3R4TmdqTGhaYS80eGYxcTUvWWJDb2M='
-
-jwt_claims_headers: email,groups,user,preferred_username,nickname
+jwt_claims_headers: email,groups,user,nickname
 
 #
 # Data Broker
@@ -50,7 +53,7 @@ jwt_claims_headers: email,groups,user,preferred_username,nickname
 #
 # Authorize Service
 #
-signing_key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSU1tM2JCOXZKZi94V25vQzlVTFBTTlFhZUlHcW9LYzNsaEFBU0VPZzFFRkFvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFMWs5bG5wYmdUMXBSZERjK3JYWmRYQU9TSzE5di9xYUdxRmIwSmxNb2t0S0YwblBLWFVYWAo2QjZKY3JmY09vc2RvTEZkZ2ROQW9NNGRzUmVmenVTaVlRPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
+#signing_key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSU1tM2JCOXZKZi94V25vQzlVTFBTTlFhZUlHcW9LYzNsaEFBU0VPZzFFRkFvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFMWs5bG5wYmdUMXBSZERjK3JYWmRYQU9TSzE5di9xYUdxRmIwSmxNb2t0S0YwblBLWFVYWAo2QjZKY3JmY09vc2RvTEZkZ2ROQW9NNGRzUmVmenVTaVlRPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
 
 #
 # Proxy Service
