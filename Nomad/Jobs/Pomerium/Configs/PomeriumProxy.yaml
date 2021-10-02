@@ -59,8 +59,7 @@ signing_key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSU1tM2JCOXZKZi9
 #
 # Proxy Service
 #
-
-#cookie_domain: int.site1.kristianjones.dev
+cookie_domain: int.site1.kristianjones.dev
 default_upstream_timeout: 5m
 xff_num_trusted_hops: 3
 
