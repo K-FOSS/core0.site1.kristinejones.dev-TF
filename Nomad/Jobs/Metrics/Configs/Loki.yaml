@@ -98,7 +98,7 @@ frontend:
   # TODO: Figure this out
   # tail_proxy_url
 
-  scheduler_address: 0.loki-query-scheduler-grpc-cont.service.kjdev:8085,1.loki-query-scheduler-grpc-cont.service.kjdev:8085,2.loki-query-scheduler-grpc-cont.service.kjdev:8085
+  scheduler_address: loki-query-scheduler-grpc-cont.service.kjdev:8085
 
 
 #
@@ -218,8 +218,7 @@ storage_config:
 
     index_gateway_client:
       # "Hostname or IP of the Index Gateway gRPC server.
-      server_address: 0.loki-index-gateway-grpc-cont.service.kjdev:8085,1.loki-index-gateway-grpc-cont.service.kjdev:8085,2.loki-index-gateway-grpc-cont.service.kjdev:8085
-
+      server_address: loki-index-gateway-grpc-cont.service.kjdev:8085
 
   aws:
     endpoint: ${S3.Connection.Endpoint}
@@ -293,7 +292,7 @@ frontend_worker:
   grpc_client_config:
     max_send_msg_size: 1.048576e+08
   parallelism: 6
-  scheduler_address: 0.loki-query-scheduler-grpc-cont.service.kjdev:8085,1.loki-query-scheduler-grpc-cont.service.kjdev:8085,2.loki-query-scheduler-grpc-cont.service.kjdev:8085
+  scheduler_address: loki-query-scheduler-grpc-cont.service.kjdev:8085
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#table_manager_config
