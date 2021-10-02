@@ -82,3 +82,26 @@ resource "nomad_volume" "Nextcloud" {
     share              = "/mnt/Site1.NAS1.Pool1/CSI/vols/nextcloud-vol"
   }
 }
+
+resource "random_password" "RedisPassword" {
+  length           = 16
+  special          = true
+}
+
+resource "nomad_job" "NextCloud" {
+  jobspec = templatefile("${path.module}/Job.hcl", {
+    Volume = nomad_volume.Nextcloud
+
+    Database = var.Database
+
+    S3 = var.S3
+
+    Redis = {
+      Password = random_password.RedisPassword.result
+    }
+
+    CADDYFILE = templatefile("${path.module}/Configs/Caddyfile.json", {
+
+    })
+  })
+}

@@ -49,6 +49,14 @@ job "nextcloud" {
   group "nextcloud-server" {
     count = 1
 
+    volume "${Volume.name}" {
+      type      = "csi"
+      read_only = false
+      source    = "${Volume.name}"
+      attachment_mode = "file-system"
+      access_mode     = "multi-node-multi-writer"
+    }
+
     network {
       mode = "cni/nomadcore1"
 
@@ -88,6 +96,11 @@ job "nextcloud" {
     task "web" {
       driver = "docker"
 
+      volume_mount {
+        volume      = "${Volume.name}"
+        destination = "/var/www/html"
+      }
+
       config {
         image        = "kristianfjones/caddy-core-docker:vps1"
 
@@ -114,6 +127,11 @@ EOF
 
     task "nextcloud-server" {
       driver = "docker"
+
+      volume_mount {
+        volume      = "${Volume.name}"
+        destination = "/var/www/html"
+      }
 
       config {
         image = "nextcloud:${Version}"
@@ -146,7 +164,7 @@ EOF
 #
 # Redis Cache
 #
-REDIS_HOST_PASSWORD="${RedisCache.Password}"
+REDIS_HOST_PASSWORD="${Redis.Password}"
 
 #
 # PostgreSQL Databse
