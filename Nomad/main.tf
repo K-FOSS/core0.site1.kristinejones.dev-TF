@@ -316,5 +316,5 @@ module "NextCloud" {
 
   Database = var.NextCloud.Database
 
-  S3 = var.NextCloud.TLS
+  S3 = var.NextCloud.S3
 }
