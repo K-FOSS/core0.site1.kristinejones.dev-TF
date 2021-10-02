@@ -20,7 +20,7 @@
               "handle": [
                 {
                   "handler": "vars",
-                  "root": "/var/www/html/public_html"
+                  "root": "/var/www/html"
                 },
                 {
                   "handler": "subroute",
