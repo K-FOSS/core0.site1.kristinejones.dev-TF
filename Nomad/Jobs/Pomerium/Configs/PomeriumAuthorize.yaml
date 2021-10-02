@@ -25,7 +25,7 @@ certificate_key_file: /local/cert.key
 # Authenticate Service
 #
 
-authenticate_service_url: https://pomerium-authenticate-cont.service.kjdev
+authenticate_service_url: https://pomerium-authenticate-cont.service.kjdev/
 idp_provider: oidc
 idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth
 idp_scopes: oidc,profile,email
