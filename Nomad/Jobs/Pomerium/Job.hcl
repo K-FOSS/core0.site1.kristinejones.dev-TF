@@ -1,8 +1,13 @@
 job "pomerium" {
   datacenters = ["core0site1"]
 
-  group "netbox-redis" {
+  group "pomerium-redis" {
     count = 1
+
+    lifecycle {
+      hook = "prestart"
+      sidecar = true
+    }
 
     network {
       mode = "cni/nomadcore1"
@@ -44,7 +49,7 @@ job "pomerium" {
   }
 
   group "pomerium-authenticate" {
-    count = 3
+    count = 1
 
     network {
       mode = "cni/nomadcore1"
@@ -65,11 +70,11 @@ job "pomerium" {
       address_mode = "alloc"
     }
 
-    task "pomerium-server" {
+    task "pomerium-authenticate-server" {
       driver = "docker"
 
       config {
-        image        = "pomerium/pomerium:${Version}"
+        image = "pomerium/pomerium:${Version}"
 
         args = ["-config=/local/pomerium.yaml"]
 
@@ -127,7 +132,13 @@ EOF
   }
 
   group "pomerium-authorize" {
-    count = 3
+    count = 1
+
+    lifecycle {
+      hook = "prestart"
+      sidecar = true
+    }
+
 
     network {
       mode = "cni/nomadcore1"
@@ -148,11 +159,11 @@ EOF
       address_mode = "alloc"
     }
 
-    task "pomerium-server" {
+    task "pomerium-authorize-server" {
       driver = "docker"
 
       config {
-        image        = "pomerium/pomerium:${Version}"
+        image = "pomerium/pomerium:${Version}"
 
         args = ["-config=/local/pomerium.yaml"]
 
@@ -210,7 +221,12 @@ EOF
   }
 
   group "pomerium-databroker" {
-    count = 1
+    count = 3
+
+    lifecycle {
+      hook = "prestart"
+      sidecar = true
+    }
 
     network {
       mode = "cni/nomadcore1"
@@ -231,11 +247,11 @@ EOF
       address_mode = "alloc"
     }
 
-    task "pomerium-server" {
+    task "pomerium-databroker-server" {
       driver = "docker"
 
       config {
-        image        = "pomerium/pomerium:${Version}"
+        image = "pomerium/pomerium:${Version}"
 
         args = ["-config=/local/pomerium.yaml"]
 
@@ -314,11 +330,11 @@ EOF
       address_mode = "alloc"
     }
 
-    task "pomerium-server" {
+    task "pomerium-proxy-server" {
       driver = "docker"
 
       config {
-        image        = "pomerium/pomerium:${Version}"
+        image = "pomerium/pomerium:${Version}"
 
         args = ["-config=/local/pomerium.yaml"]
         

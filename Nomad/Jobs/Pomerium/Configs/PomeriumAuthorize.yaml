@@ -25,7 +25,13 @@ certificate_key_file: /local/cert.key
 # Authenticate Service
 #
 
-authenticate_service_url: https://auth.int.site1.kristianjones.dev:443/
+authenticate_service_url: https://auth.int.site1.kristianjones.dev/
+idp_provider: oidc
+idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth
+idp_scopes: oidc,profile,email
+idp_refresh_directory_interval: 2m
+idp_client_id: ${OpenID.ClientID}
+idp_client_secret: ${OpenID.ClientSecret}
 
 #
 # Secrets
@@ -50,13 +56,7 @@ databroker_storage_tls_skip_verify: true
 # Authorize Service
 #
 authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
-
-idp_provider: oidc
-idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth
-idp_scopes: oidc,profile,email
-idp_refresh_directory_interval: 2m
-idp_client_id: ${OpenID.ClientID}
-idp_client_secret: ${OpenID.ClientSecret}
+signing_key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSU1tM2JCOXZKZi94V25vQzlVTFBTTlFhZUlHcW9LYzNsaEFBU0VPZzFFRkFvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFMWs5bG5wYmdUMXBSZERjK3JYWmRYQU9TSzE5di9xYUdxRmIwSmxNb2t0S0YwblBLWFVYWAo2QjZKY3JmY09vc2RvTEZkZ2ROQW9NNGRzUmVmenVTaVlRPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
 
 #
 # Proxy Service

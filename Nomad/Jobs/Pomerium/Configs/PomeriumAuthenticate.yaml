@@ -28,7 +28,6 @@ certificate_key_file: /local/cert.key
 #
 
 authenticate_service_url: https://auth.int.site1.kristianjones.dev/
-
 idp_provider: oidc
 idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth
 idp_scopes: oidc,profile,email
@@ -56,14 +55,15 @@ databroker_service_url: https://pomerium-databroker-cont.service.kjdev:443
 # Authorize Service
 #
 
-authorize_service_url: https://pomerium-authenticate-cont.service.kjdev:443
+authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
+signing_key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSU1tM2JCOXZKZi94V25vQzlVTFBTTlFhZUlHcW9LYzNsaEFBU0VPZzFFRkFvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFMWs5bG5wYmdUMXBSZERjK3JYWmRYQU9TSzE5di9xYUdxRmIwSmxNb2t0S0YwblBLWFVYWAo2QjZKY3JmY09vc2RvTEZkZ2ROQW9NNGRzUmVmenVTaVlRPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
 
 #
 # Proxy Service
 #
-
 cookie_domain: int.site1.kristianjones.dev
 default_upstream_timeout: 5m
+xff_num_trusted_hops: 2
 
 # https://pomerium.com/reference/#routes
 routes:
