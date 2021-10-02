@@ -63,7 +63,7 @@ signing_key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSU1tM2JCOXZKZi9
 # Proxy Service
 #
 
-cookie_domain: int.site1.kristianjones.dev
+#cookie_domain: int.site1.kristianjones.dev
 
 #codec_type: http2
 
