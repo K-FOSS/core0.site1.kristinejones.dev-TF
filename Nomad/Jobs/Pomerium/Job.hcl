@@ -4,11 +4,6 @@ job "pomerium" {
   group "pomerium-redis" {
     count = 1
 
-    lifecycle {
-      hook = "prestart"
-      sidecar = true
-    }
-
     network {
       mode = "cni/nomadcore1"
 
@@ -134,12 +129,6 @@ EOF
   group "pomerium-authorize" {
     count = 1
 
-    lifecycle {
-      hook = "prestart"
-      sidecar = true
-    }
-
-
     network {
       mode = "cni/nomadcore1"
 
@@ -222,11 +211,6 @@ EOF
 
   group "pomerium-databroker" {
     count = 3
-
-    lifecycle {
-      hook = "prestart"
-      sidecar = true
-    }
 
     network {
       mode = "cni/nomadcore1"
