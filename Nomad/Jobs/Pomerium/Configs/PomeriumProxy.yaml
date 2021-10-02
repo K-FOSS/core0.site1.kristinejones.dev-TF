@@ -71,7 +71,6 @@ routes:
     to: https://pomerium-authenticate-cont.service.kjdev:443
     preserve_host_header: true
     allow_public_unauthenticated_access: true
-    time: 5m
 
 
   - from: https://netbox.int.site1.kristianjones.dev
