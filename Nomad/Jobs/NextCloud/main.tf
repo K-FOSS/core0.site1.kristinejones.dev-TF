@@ -100,7 +100,7 @@ resource "nomad_job" "NextCloud" {
       Password = random_password.RedisPassword.result
     }
 
-    CADDYFILE = templatefile("${path.module}/Configs/Caddyfile.json", {
+    Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", {
 
     })
   })
