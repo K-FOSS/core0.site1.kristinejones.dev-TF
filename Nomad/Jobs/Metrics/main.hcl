@@ -334,10 +334,6 @@ EOF
       port "syslog" { }
 
       port "api" { }
-
-      dns {
-        servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
-      }
     }
 
     ephemeral_disk {

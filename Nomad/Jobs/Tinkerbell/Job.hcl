@@ -29,10 +29,6 @@ job "tinkerbell" {
       port "grpc" {
         to = 42113
       }
-
-      dns {
-        servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
-      }
     }
 
     service {
@@ -206,10 +202,6 @@ EOH
       port "http" { }
 
       port "grpc" { }
-
-      dns {
-        servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
-      }
     }
 
     service {
