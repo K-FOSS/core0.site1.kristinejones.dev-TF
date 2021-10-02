@@ -10,20 +10,20 @@ address: 0.0.0.0:443
 #
 services: all
 
-insecure_server: true
+#insecure_server: true
 
 #
 # TLS
 #
-# autocert: false
-# autocert_must_staple: false
+autocert: false
+autocert_must_staple: false
 
-# #
-# # mTLS
-# #
-# certificate_authority_file: /local/ca.pem
-# certificate_file: /local/cert.pem
-# certificate_key_file: /local/cert.key
+#
+# mTLS
+#
+certificate_authority_file: /local/ca.pem
+certificate_file: /local/cert.pem
+certificate_key_file: /local/cert.key
 
 #
 # Authenticate Service

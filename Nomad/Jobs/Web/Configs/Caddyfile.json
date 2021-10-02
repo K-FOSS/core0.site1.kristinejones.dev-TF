@@ -47,7 +47,10 @@
                         {
                           "handler": "reverse_proxy",
                           "transport": {
-                            "protocol": "http"
+                            "protocol": "http",
+                            "tls": {
+                              "insecure_skip_verify": true
+                            }
                           },
                           "upstreams": [
                             {
