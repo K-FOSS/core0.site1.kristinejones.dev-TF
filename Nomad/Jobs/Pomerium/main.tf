@@ -75,7 +75,7 @@ resource "nomad_job" "Pomerium" {
         Secrets = var.Secrets
         OpenID = var.OpenID
       })
-      Proxy = templatefile("${path.module}/Configs/PomeriumProxy.yaml", {
+      Proxy = templatefile("${path.module}/Configs/AIO.yaml", {
         Secrets = var.Secrets
         OpenID = var.OpenID
       })
