@@ -70,6 +70,13 @@ routes:
       - kristianjones.dev
     pass_identity_headers: true
 
+  - from: https://nextcloud.int.site1.kristianjones.dev
+    to: http://nextcloud-web-cont.service.kjdev:8080
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true
+
 #
 # Tracing
 #

@@ -1,12 +1,16 @@
 #
 # Networking
 #
-address: ':443'
+address: 0.0.0.0:443
+
+
 
 #
 # Pomerium Core
 #
 services: proxy
+
+#insecure_server: true
 
 #
 # TLS
@@ -28,19 +32,17 @@ authenticate_service_url: https://auth.int.site1.kristianjones.dev
 
 idp_provider: oidc
 idp_provider_url: http://authentik-cont.service.kjdev:9000/application/o/pomeriumproxy-auth/
-idp_scopes: oidc,profile,email
-idp_refresh_directory_interval: 30s
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
+
 
 #
 # Secrets
 #
-
 cookie_secret: ${Secrets.CookieSecret}
 shared_secret: ${Secrets.SharedSecret}
 
-jwt_claims_headers: email,groups,user,preferred_username,nickname
+jwt_claims_headers: email,groups,user,nickname
 
 #
 # Data Broker
@@ -48,20 +50,23 @@ jwt_claims_headers: email,groups,user,preferred_username,nickname
 # Docs: https://www.pomerium.com/reference/#data-broker-service
 #
 databroker_service_url: https://pomerium-databroker-cont.service.kjdev:443
+databroker_storage_type: redis
+databroker_storage_connection_string: 'redis://pomerium-redis-cont.service.kjdev:6379/0'
+databroker_storage_tls_skip_verify: true
+
 
 #
 # Authorize Service
 #
-
 authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
 signing_key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSU1tM2JCOXZKZi94V25vQzlVTFBTTlFhZUlHcW9LYzNsaEFBU0VPZzFFRkFvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFMWs5bG5wYmdUMXBSZERjK3JYWmRYQU9TSzE5di9xYUdxRmIwSmxNb2t0S0YwblBLWFVYWAo2QjZKY3JmY09vc2RvTEZkZ2ROQW9NNGRzUmVmenVTaVlRPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
 
 #
 # Proxy Service
 #
-cookie_domain: int.site1.kristianjones.dev
+
+#cookie_domain: int.site1.kristianjones.dev
 default_upstream_timeout: 5m
-xff_num_trusted_hops: 3
 
 # https://pomerium.com/reference/#routes
 routes:
@@ -70,6 +75,13 @@ routes:
     allowed_domains:
       - kristianjones.dev
     pass_identity_headers: true
+
+  - from: https://nextcloud.int.site1.kristianjones.dev
+    to: http://nextcloud-web-cont.service.kjdev:8080
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true
 
 #
 # Tracing
