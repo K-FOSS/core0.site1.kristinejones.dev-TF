@@ -101,7 +101,7 @@ module "TempoBucket" {
 #
 # NextCloud
 # 
-module "NextCloudDataBucket" {
+module "NextCloud" {
   source = "./Minio"
 
   Connection = {
@@ -409,6 +409,6 @@ module "Nomad" {
   NextCloud = {
     Database = module.NextCloudDatabase.Database
 
-    S3 = module.NextCloudDataBucket
+    S3 = module.NextCloud
   }
 } 
