@@ -55,7 +55,7 @@ databroker_service_url: https://pomerium-databroker-cont.service.kjdev:443
 # Authorize Service
 #
 
-#authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
+authorize_service_url: https://pomerium-authorize-cont.service.kjdev:443
 signing_key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSU1tM2JCOXZKZi94V25vQzlVTFBTTlFhZUlHcW9LYzNsaEFBU0VPZzFFRkFvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFMWs5bG5wYmdUMXBSZERjK3JYWmRYQU9TSzE5di9xYUdxRmIwSmxNb2t0S0YwblBLWFVYWAo2QjZKY3JmY09vc2RvTEZkZ2ROQW9NNGRzUmVmenVTaVlRPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
 
 #
@@ -67,10 +67,10 @@ xff_num_trusted_hops: 3
 
 # https://pomerium.com/reference/#routes
 routes:
-  - from: https://auth.int.site1.kristianjones.dev
-    to: https://pomerium-authenticate-cont.service.kjdev:443
-    preserve_host_header: true
-    allow_public_unauthenticated_access: true
+  # - from: https://auth.int.site1.kristianjones.dev
+  #   to: https://pomerium-authenticate-cont.service.kjdev:443
+  #   preserve_host_header: true
+  #   allow_public_unauthenticated_access: true
 
   - from: https://netbox.int.site1.kristianjones.dev
     to: http://netbox-http-cont.service.kjdev:8080
