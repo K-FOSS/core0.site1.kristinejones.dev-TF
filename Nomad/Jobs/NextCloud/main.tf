@@ -61,7 +61,7 @@ resource "nomad_volume" "Nextcloud" {
   plugin_id             = "truenas"
   volume_id             = "nextcloud-vol"
   name                  = "nextcloud-vol"
-  external_id           = "netxcloud-vol"
+  external_id           = "nextcloud-vol"
 
   capability {
     access_mode     = "multi-node-multi-writer"
