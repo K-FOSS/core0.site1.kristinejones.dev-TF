@@ -72,7 +72,7 @@ resource "nomad_volume" "Nextcloud" {
 
   mount_options {
     fs_type = "nfs"
-    mount_flags = ["nfsvers=4"]
+    mount_flags = ["nolock", "nfsvers=4"]
   }
 
   context = {
