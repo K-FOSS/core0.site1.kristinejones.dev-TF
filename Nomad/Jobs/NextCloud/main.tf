@@ -83,27 +83,27 @@ resource "nomad_volume" "Nextcloud" {
   }
 }
 
-resource "random_password" "RedisPassword" {
-  length           = 16
-  special          = true
-}
+# resource "random_password" "RedisPassword" {
+#   length           = 16
+#   special          = true
+# }
 
-resource "nomad_job" "NextCloud" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
-    Volume = nomad_volume.Nextcloud
+# resource "nomad_job" "NextCloud" {
+#   jobspec = templatefile("${path.module}/Job.hcl", {
+#     Volume = nomad_volume.Nextcloud
 
-    Database = var.Database
+#     Database = var.Database
 
-    S3 = var.S3
+#     S3 = var.S3
 
-    Redis = {
-      Password = random_password.RedisPassword.result
-    }
+#     Redis = {
+#       Password = random_password.RedisPassword.result
+#     }
 
-    Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", {
+#     Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", {
 
-    })
+#     })
 
-    Version = "fpm-alpine"
-  })
-}
+#     Version = "fpm-alpine"
+#   })
+# }
