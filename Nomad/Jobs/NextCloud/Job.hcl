@@ -139,6 +139,11 @@ EOF
           }
         }
       }
+
+      resources {
+        cpu    = 1200
+        memory = 600
+      }
     
       env {
         HOUSEKEEPING_INTERVAL = "86400"
