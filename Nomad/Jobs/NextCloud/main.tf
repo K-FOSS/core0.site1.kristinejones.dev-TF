@@ -103,5 +103,7 @@ resource "nomad_job" "NextCloud" {
     Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", {
 
     })
+
+    Version = "fpm-alpine"
   })
 }
