@@ -10,10 +10,6 @@ job "nextcloud" {
       port "redis" { 
         to = 6379
       }
-
-      dns {
-        servers = ["172.16.0.1", "172.16.0.2", "172.16.0.126"]
-      }
     }
 
     service {

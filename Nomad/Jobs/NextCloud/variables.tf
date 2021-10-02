@@ -23,7 +23,6 @@ variable "S3" {
       SecretKey = string
     })
 
-
     Bucket = string
   })
 }

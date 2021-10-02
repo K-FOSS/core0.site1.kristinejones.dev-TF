@@ -306,3 +306,15 @@ module "Tinkerbell" {
 
   TLS = var.Tinkerbell.TLS
 }
+
+#
+# NextCloud
+#
+
+module "NextCloud" {
+  source = "./Jobs/NextCloud"
+
+  Database = var.NextCloud.Database
+
+  S3 = var.NextCloud.TLS
+}

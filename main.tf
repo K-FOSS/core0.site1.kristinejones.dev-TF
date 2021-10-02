@@ -101,7 +101,7 @@ module "TempoBucket" {
 #
 # NextCloud
 # 
-module "NextCloud" {
+module "NextCloudDataBucket" {
   source = "./Minio"
 
   Connection = {
@@ -397,5 +397,18 @@ module "Nomad" {
     Database = module.TinkerbellDatabase.Database
 
     TLS = module.Vault.Tinkerbell
+  }
+
+  #
+  # Business Apps
+  #
+
+  #
+  # NextCloud
+  #
+  NextCloud = {
+    Database = module.NextCloudDatabase.Database
+
+    S3 = module.NextCloudDataBucket
   }
 } 

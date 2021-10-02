@@ -368,3 +368,36 @@ variable "Tinkerbell" {
     })
   })
 }
+
+#
+# NextCloud
+#
+variable "NextCloud" {
+  type = object({
+    Database = object({
+      Hostname = string
+
+      Username = string
+      Password = string
+
+      Database = string
+    })
+
+    S3 = object({
+      Connection = object({
+        Hostname = string
+        Port = number
+
+        Endpoint = string
+      })
+
+      Credentials = object({
+        AccessKey = string
+        SecretKey = string
+      })
+
+
+      Bucket = string
+    })
+  })
+}

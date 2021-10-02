@@ -46,13 +46,13 @@ terraform {
   }
 }
 
-data "github_repository" "Netbox" {
-  full_name = "netbox-community/netbox"
+data "github_repository" "Repo" {
+  full_name = "nextcloud/server"
 }
 
-data "github_release" "Netbox" {
-  repository  = data.github_repository.Netbox.name
-  owner       = split("/", data.github_repository.Netbox.full_name)[0]
+data "github_release" "Release" {
+  repository  = data.github_repository.Repo.name
+  owner       = split("/", data.github_repository.Repo.full_name)[0]
   retrieve_by = "latest"
 }
 
@@ -72,7 +72,7 @@ resource "nomad_volume" "Nextcloud" {
 
   mount_options {
     fs_type = "nfs"
-    mount_flags = ["nolock"]
+    mount_flags = ["nfsvers=4"]
   }
 
   context = {
