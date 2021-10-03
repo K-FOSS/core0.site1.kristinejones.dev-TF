@@ -28,63 +28,18 @@
                     {
                       "handle": [
                         {
-                          "handler": "rewrite",
-                          "uri": "/index.php$request_uri"
-                        }
-                      ],
-                      "match": [
-                        {
-                          "path_regexp": {
-                            "pattern": "^\\/(?:index|remote|public|cron|core\\/ajax\\/update|status|ocs\\/v[12]|updater\\/.+|oc[ms]-provider\\/.+|.+\\/richdocumentscode\\/proxy)\\.php(?:$|\\/)"
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "handle": [
-                        {
+                          "body": "/remote.php/dav/",
+                          "close": true,
                           "handler": "static_response",
-                          "headers": {
-                            "Location": [
-                              "{http.request.uri.path}/"
-                            ]
-                          },
-                          "status_code": 308
+                          "status_code": 301
                         }
                       ],
                       "match": [
                         {
-                          "file": {
-                            "try_files": [
-                              "{http.request.uri.path}/index.php"
-                            ]
-                          },
-                          "not": [
-                            {
-                              "path": [
-                                "*/"
-                              ]
-                            }
+                          "path": [
+                            "/.well-known/caldav",
+                            "/.well-known/carddav"
                           ]
-                        }
-                      ]
-                    },
-                    {
-                      "handle": [
-                        {
-                          "handler": "rewrite",
-                          "uri": "{http.matchers.file.relative}"
-                        }
-                      ],
-                      "match": [
-                        {
-                          "file": {
-                            "try_files": [
-                              "{http.request.uri.path}",
-                              "{http.request.uri.path}/index.php",
-                              "index.php"
-                            ]
-                          }
                         }
                       ]
                     },
@@ -94,9 +49,9 @@
                           "handler": "reverse_proxy",
                           "transport": {
                             "protocol": "fastcgi",
-                            "split_path": [
-                              ".php"
-                            ]
+                            "env": {
+                              "front_controller_active": "true"
+                            }
                           },
                           "upstreams": [
                             {
