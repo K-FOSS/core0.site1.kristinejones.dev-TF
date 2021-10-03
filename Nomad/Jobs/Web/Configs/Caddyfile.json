@@ -129,6 +129,29 @@
                       "match": [
                         {
                           "host": [
+                            "nextcloud.kristianjones.dev"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http"
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "nextcloud-web-cont.service.kjdev"
+                            }
+                          ]
+                        }
+                      ],
+                      "terminal": true
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
                             "auth.kristianjones.dev"
                           ]
                         }
