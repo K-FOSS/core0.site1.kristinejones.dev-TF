@@ -44,38 +44,85 @@
                       ]
                     },
                     {
-                      "handle": [
-                        {
-                          "handler": "reverse_proxy",
-                          "transport": {
-                            "protocol": "fastcgi",
-                            "env": {
-                              "front_controller_active": "true"
-                            }
-                          },
-                          "upstreams": [
-                            {
-                              "lookup_srv": "nextcloud-fastcgi-cont.service.kjdev"
-                            }
-                          ]
-                        }
-                      ],
-                      "match": [
+                      "handler": "static_response",
+                      "headers": {
+                        "Location": [
+                          "{http.request.uri.path}/"
+                        ]
+                      },
+                      "status_code": 308
+                    }
+                  ],
+                  "match": [
+                    {
+                      "file": {
+                        "try_files": [
+                          "{http.request.uri.path}/index.php"
+                        ]
+                      },
+                      "not": [
                         {
                           "path": [
-                            "*.php"
+                            "*/"
                           ]
                         }
                       ]
-                    },
+                    }
+                  ]
+                },
+                {
+                  "handle": [
                     {
-                      "handle": [
+                      "handler": "rewrite",
+                      "uri": "{http.matchers.file.relative}"
+                    }
+                  ],
+                  "match": [
+                    {
+                      "file": {
+                        "try_files": [
+                          "{http.request.uri.path}",
+                          "{http.request.uri.path}/index.php",
+                          "index.php"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "handle": [
+                    {
+                      "handler": "reverse_proxy",
+                      "transport": {
+                        "protocol": "fastcgi",
+                        "env": {
+                          "front_controller_active": "true"
+                        },
+                        "split_path": [
+                          ".php"
+                        ]
+                      },
+                      "upstreams": [
                         {
-                          "handler": "file_server",
-                          "hide": [
-                            "Caddyfile"
-                          ]
+                          "lookup_srv": "nextcloud-fastcgi-cont.service.kjdev"
                         }
+                      ]
+                    }
+                  ],
+                  "match": [
+                    {
+                      "path": [
+                        "*.php"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "handle": [
+                    {
+                      "handler": "file_server",
+                      "hide": [
+                        "Caddyfile"
                       ]
                     }
                   ]
@@ -84,7 +131,9 @@
             }
           ]
         }
-      }
+      ]
     }
   }
+}
+}
 }
