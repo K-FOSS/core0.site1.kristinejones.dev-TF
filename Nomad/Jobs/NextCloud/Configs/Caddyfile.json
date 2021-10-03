@@ -142,13 +142,6 @@
                       ]
                     },
                     {
-                      "match": [
-                        {
-                          "path": [
-                            "*.php"
-                          ]
-                        }
-                      ],
                       "handle": [
                         {
                           "handler": "reverse_proxy",
