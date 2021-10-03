@@ -84,6 +84,15 @@ job "ingress" {
       address_mode = "alloc"
     }
 
+    service {
+      name = "coturn-turn-cont"
+      port = "turn"
+
+      task = "coturn-server"
+
+      address_mode = "alloc"
+    }
+
     task "web" {
       driver = "docker"
 
@@ -124,6 +133,13 @@ EOF
         args = ["-c", "/local/turnserver.conf", "--prometheus"]
 
         ports = ["turn"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+          }
+        }
       }
 
       template {

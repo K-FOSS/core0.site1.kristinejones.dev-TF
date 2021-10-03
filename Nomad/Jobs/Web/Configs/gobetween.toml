@@ -60,7 +60,7 @@ balance = "weight"
   [servers.syslog.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "172.16.0.1:53" # dns server and port
+  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:53" # dns server and port
   srv_lookup_pattern = "vector-syslog.service.kjdev." # SRV service pattern 
 
 
@@ -76,5 +76,5 @@ balance = "weight"
   [servers.dns.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "172.16.0.1:53" # dns server and port
+  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:53" # dns server and port
   srv_lookup_pattern = "coredns-dns-cont.service.kjdev." # SRV service pattern 

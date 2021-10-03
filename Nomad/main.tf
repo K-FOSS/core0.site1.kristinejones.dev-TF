@@ -308,6 +308,14 @@ module "Tinkerbell" {
 }
 
 #
+# TrueCommand
+#
+
+module "TrueCommand" {
+  source = "./Jobs/TrueCommand"
+}
+
+#
 # NextCloud
 #
 
