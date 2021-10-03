@@ -21,11 +21,6 @@ job "nextcloud" {
       address_mode = "alloc"
     }
 
-    ephemeral_disk {
-      size    = 500
-      sticky  = true
-    }
-
     task "redis" {
       driver = "docker"
 
@@ -61,64 +56,17 @@ job "nextcloud" {
       mode = "cni/nomadcore1"
 
       port "http" {
-        to = 8080  
+        to = 80
       }
-
-      port "fpm" {
-        to = 9000  
-      }
-    }
-
-
-
-    service {
-      name = "nextcloud-fastcgi-cont"
-      port = "fpm"
-
-      task = "nextcloud-server"
-
-      address_mode = "alloc"
     }
 
     service {
       name = "nextcloud-web-cont"
       port = "http"
 
-      task = "web"
+      task = "nextcloud-server"
 
       address_mode = "alloc"
-    }
-
-    task "web" {
-      driver = "docker"
-
-      volume_mount {
-        volume      = "${Volume.name}"
-        destination = "/var/www/html"
-      }
-
-      config {
-        image        = "kristianfjones/caddy-core-docker:vps1"
-
-        ports = ["https"]
-      
-        args = ["caddy", "run", "--config", "/local/caddyfile.json"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
-      }
-
-      template {
-        data = <<EOF
-${Caddyfile}
-EOF
-
-        destination = "local/caddyfile.json"
-      }
     }
 
     task "nextcloud-server" {
