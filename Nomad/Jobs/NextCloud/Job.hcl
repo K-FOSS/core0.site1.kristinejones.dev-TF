@@ -158,6 +158,12 @@ EOF
         # S3
         #
         OBJECTSTORE_S3_USEPATH_STYLE = "true"
+
+        #
+        # Reverse Proxy
+        #
+        NEXTCLOUD_TRUSTED_DOMAINS = "nextcloud.kristianjones.dev"
+        OVERWRITEPROTOCOL = "https"
       }
 
       template {
