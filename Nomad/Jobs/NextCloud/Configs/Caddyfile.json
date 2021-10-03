@@ -29,7 +29,51 @@
                       "handle": [
                         {
                           "handler": "rewrite",
-                          "uri": "{http.matchers.file.relative}{http.request.uri.query_string}"
+                          "uri": "/index.php$request_uri"
+                        }
+                      ],
+                      "match": [
+                        {
+                          "path_regexp": {
+                            "pattern": "^/(?!index|remote|public|cron|core\\/ajax\\/update|status|ocs\\/v[12]|updater\\/.+|oc[ms]-provider\\/.+|.+\\/richdocumentscode\\/proxy)"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "handle": [
+                        {
+                          "handler": "static_response",
+                          "headers": {
+                            "Location": [
+                              "{http.request.uri.path}/"
+                            ]
+                          },
+                          "status_code": 308
+                        }
+                      ],
+                      "match": [
+                        {
+                          "file": {
+                            "try_files": [
+                              "{http.request.uri.path}/index.php"
+                            ]
+                          },
+                          "not": [
+                            {
+                              "path": [
+                                "*/"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "handle": [
+                        {
+                          "handler": "rewrite",
+                          "uri": "{http.matchers.file.relative}"
                         }
                       ],
                       "match": [
@@ -37,6 +81,7 @@
                           "file": {
                             "try_files": [
                               "{http.request.uri.path}",
+                              "{http.request.uri.path}/index.php",
                               "index.php"
                             ]
                           }
@@ -48,7 +93,10 @@
                         {
                           "handler": "reverse_proxy",
                           "transport": {
-                            "protocol": "fastcgi"
+                            "protocol": "fastcgi",
+                            "split_path": [
+                              ".php"
+                            ]
                           },
                           "upstreams": [
                             {
