@@ -104,6 +104,6 @@ resource "nomad_job" "NextCloud" {
 
     })
 
-    Version = "fpm-alpine"
+    Version = "22.2"
   })
 }
