@@ -26,35 +26,71 @@
                   "handler": "subroute",
                   "routes": [
                     {
-                      "handle": [
-                        {
-                          "body": "/remote.php/dav/",
-                          "close": true,
-                          "handler": "static_response",
-                          "status_code": 301
-                        }
-                      ],
                       "match": [
                         {
                           "path": [
-                            "/.well-known/caldav",
                             "/.well-known/carddav"
                           ]
                         }
-                      ]
-                    },
-                    {
+                      ],
                       "handle": [
                         {
                           "handler": "static_response",
                           "headers": {
                             "Location": [
-                              "{http.request.uri.path}/"
+                              "/remote.php/dav"
                             ]
                           },
-                          "status_code": 308
+                          "status_code": 301
+                        }
+                      ]
+                    },
+                    {
+                      "match": [
+                        {
+                          "path": [
+                            "/.well-known/caldav"
+                          ]
                         }
                       ],
+                      "handle": [
+                        {
+                          "handler": "static_response",
+                          "headers": {
+                            "Location": [
+                              "/remote.php/dav"
+                            ]
+                          },
+                          "status_code": 301
+                        }
+                      ]
+                    },
+                    {
+                      "match": [
+                        {
+                          "path": [
+                            "/.htaccess",
+                            "/data/*",
+                            "/config/*",
+                            "/db_structure",
+                            "/.xml",
+                            "/README",
+                            "/3rdparty/*",
+                            "/lib/*",
+                            "/templates/*",
+                            "/occ",
+                            "/console.php"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "static_response",
+                          "status_code": 404
+                        }
+                      ]
+                    },
+                    {
                       "match": [
                         {
                           "file": {
@@ -70,15 +106,20 @@
                             }
                           ]
                         }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "static_response",
+                          "headers": {
+                            "Location": [
+                              "{http.request.uri.path}/"
+                            ]
+                          },
+                          "status_code": 308
+                        }
                       ]
                     },
                     {
-                      "handle": [
-                        {
-                          "handler": "rewrite",
-                          "uri": "{http.matchers.file.relative}"
-                        }
-                      ],
                       "match": [
                         {
                           "file": {
@@ -86,20 +127,33 @@
                               "{http.request.uri.path}",
                               "{http.request.uri.path}/index.php",
                               "index.php"
+                            ],
+                            "split_path": [
+                              ".php"
                             ]
                           }
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "rewrite",
+                          "uri": "{http.matchers.file.relative}"
                         }
                       ]
                     },
                     {
+                      "match": [
+                        {
+                          "path": [
+                            "*.php"
+                          ]
+                        }
+                      ],
                       "handle": [
                         {
                           "handler": "reverse_proxy",
                           "transport": {
                             "protocol": "fastcgi",
-                            "env": {
-                              "front_controller_active": "true"
-                            },
                             "split_path": [
                               ".php"
                             ]
@@ -108,13 +162,6 @@
                             {
                               "lookup_srv": "nextcloud-fastcgi-cont.service.kjdev"
                             }
-                          ]
-                        }
-                      ],
-                      "match": [
-                        {
-                          "path": [
-                            "*.php"
                           ]
                         }
                       ]
