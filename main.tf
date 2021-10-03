@@ -174,6 +174,13 @@ module "NextCloudDatabase" {
   Credentials = module.Vault.Database
 }
 
+
+module "NextCloudNewDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
 #
 # Tinkerbell
 #
@@ -407,7 +414,7 @@ module "Nomad" {
   # NextCloud
   #
   NextCloud = {
-    Database = module.NextCloudDatabase.Database
+    Database = module.NextCloudNewDatabase.Database
 
     S3 = module.NextCloud
   }
