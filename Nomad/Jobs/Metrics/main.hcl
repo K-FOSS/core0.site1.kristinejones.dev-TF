@@ -105,6 +105,11 @@ job "metrics" {
         delay    = "60s"
       }
 
+      resources {
+        cpu    = 500
+        memory = 800
+      }
+
       config {
         image = "cortexproject/cortex:${Cortex.Version}"
 
