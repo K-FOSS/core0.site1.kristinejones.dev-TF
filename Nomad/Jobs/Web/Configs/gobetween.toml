@@ -78,3 +78,18 @@ balance = "weight"
   interval = "5s"
   srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:53" # dns server and port
   srv_lookup_pattern = "coredns-dns-cont.service.kjdev." # SRV service pattern 
+
+[servers.dhcp]
+protocol = "udp"
+bind = "0.0.0.0:67"
+balance = "weight"
+
+  [servers.dns.dhcp]
+  max_requests  = 100
+  max_responses = 100
+
+  [servers.dhcp.discovery]
+  kind = "srv"
+  interval = "5s"
+  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:53" # dns server and port
+  srv_lookup_pattern = "dhcp.service.kjdev." # SRV service pattern 

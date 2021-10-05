@@ -6,6 +6,11 @@ job "ingress" {
   group "proxies" {
     count = 4
 
+    spread {
+      attribute = "$${node.unique.id}"
+      weight    = 100
+    }
+
     network {
       mode = "cni/nomadcore1"
 
@@ -21,6 +26,15 @@ job "ingress" {
 
       port "dns" {
         to = 53
+      }
+
+      #
+      # DHCP
+      #
+      port "dhcp" {
+        static = 67
+
+        to = 67
       }
 
       port "http" {
@@ -160,7 +174,7 @@ EOF
         command = "/gobetween"
         args = ["-c", "/local/gobetween.toml"]
 
-        ports = ["syslog"]
+        ports = ["syslog", "dhcp"]
 
         logging {
           type = "loki"
