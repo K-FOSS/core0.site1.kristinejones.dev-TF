@@ -84,7 +84,7 @@ protocol = "udp"
 bind = "0.0.0.0:67"
 balance = "weight"
 
-  [servers.dns.dhcp]
+  [servers.dhcp.dhcp]
   max_requests  = 100
   max_responses = 100
 
