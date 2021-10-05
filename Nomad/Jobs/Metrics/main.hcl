@@ -163,6 +163,10 @@ ${Prometheus.YAMLConfig}
 EOF
 
         destination = "local/prometheus.yaml"
+        
+        # Config Replacement
+        change_mode = "signal"
+        change_signal = "SIGHUP"
       }
     }
   }

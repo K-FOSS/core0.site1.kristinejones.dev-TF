@@ -10,11 +10,22 @@ job "dhcp" {
       port "dhcp" {
         to = 67
       }
+
+      port "metrics" { }
     }
 
     service {
       name = "dhcp"
       port = "dhcp"
+
+      task = "kea-dhcp-server"
+
+      address_mode = "alloc"
+    }
+
+    service {
+      name = "dhcp-metrics"
+      port = "metrics"
 
       task = "kea-dhcp-server"
 
