@@ -279,6 +279,16 @@ module "NetboxJob" {
 }
 
 #
+# DHCP
+#
+
+module "DHCP" {
+  source = "./Jobs/DHCP"
+
+  Database = var.DHCP.Database
+}
+
+#
 # DNS
 #
 
