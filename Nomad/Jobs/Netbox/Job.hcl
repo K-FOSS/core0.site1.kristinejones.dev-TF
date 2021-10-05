@@ -131,6 +131,12 @@ job "netbox" {
         REDIS_CACHE_SSL = "0"
 
         #
+        # Misc
+        #
+        ALLOWED_HOSTS = "netbox.int.site1.kristianjones.dev"
+        TIME_ZONE = "America/Winnipeg"
+
+        #
         # Redis
         #
         REDIS_DATABASE = "0"
@@ -233,6 +239,12 @@ EOH
         REDIS_DATABASE = "0"
         REDIS_HOST = "netbox-redis.service.kjdev"
         REDIS_SSL = "false"
+
+        #
+        # Misc
+        #
+        ALLOWED_HOSTS = "netbox.int.site1.kristianjones.dev"
+        TIME_ZONE = "America/Winnipeg"
 
         #
         # Auth
