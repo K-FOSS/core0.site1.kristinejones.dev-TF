@@ -21,11 +21,6 @@ job "netbox" {
       address_mode = "alloc"
     }
 
-    ephemeral_disk {
-      size    = 500
-      sticky  = true
-    }
-
     task "redis" {
       driver = "docker"
 
@@ -65,11 +60,6 @@ job "netbox" {
       task = "redis"
 
       address_mode = "alloc"
-    }
-
-    ephemeral_disk {
-      size    = 500
-      sticky  = true
     }
 
     task "redis" {
@@ -133,7 +123,7 @@ job "netbox" {
         #
         # Misc
         #
-        ALLOWED_HOSTS = "netbox.int.site1.kristianjones.dev"
+        ALLOWED_HOSTS = "netbox.int.site1.kristianjones.dev netbox-http-cont.service.kjdev"
         TIME_ZONE = "America/Winnipeg"
 
         #
@@ -146,11 +136,6 @@ job "netbox" {
 
       template {
         data = <<EOH
-# Lines starting with a # are ignored
-
-# Empty lines are also ignored
-AUTHENTIK_REDIS__HOST="authentik-redis-cont.service.kjdev"
-
 #
 # Redis Cache
 #
@@ -243,7 +228,7 @@ EOH
         #
         # Misc
         #
-        ALLOWED_HOSTS = "netbox.int.site1.kristianjones.dev"
+        ALLOWED_HOSTS = "netbox.int.site1.kristianjones.dev netbox-http-cont.service.kjdev"
         TIME_ZONE = "America/Winnipeg"
 
         #
@@ -257,11 +242,6 @@ EOH
 
       template {
         data = <<EOH
-# Lines starting with a # are ignored
-
-# Empty lines are also ignored
-AUTHENTIK_REDIS__HOST="authentik-redis-cont.service.kjdev"
-
 #
 # Redis Cache
 #
