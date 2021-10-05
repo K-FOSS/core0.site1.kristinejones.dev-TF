@@ -50,14 +50,8 @@ data "github_repository" "Repo" {
   full_name = "isc-projects/kea"
 }
 
-data "github_release" "Release" {
-  repository  = data.github_repository.Repo.name
-  owner       = split("/", data.github_repository.Repo.full_name)[0]
-  retrieve_by = "latest"
-}
-
 data "http" "PSQLFile" {
-  url = "https://raw.githubusercontent.com/isc-projects/kea/${data.github_release.Release.release_tag}/src/share/database/scripts/pgsql/dhcpdb_create.pgsql"
+  url = "https://raw.githubusercontent.com/isc-projects/kea/Kea-1.9.9/src/share/database/scripts/pgsql/dhcpdb_create.pgsql"
 }
 
 resource "nomad_job" "JobFile" {
