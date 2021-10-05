@@ -126,7 +126,7 @@
         // It would be better to skip the relay scope altogether, but
         // it was left here for demonstration purposes.
         "relay": {
-          "ip-address": "206.188.106.236"
+          "ip-address": "172.16.100.25"
         },
         // Timer values can be overridden here.
         "renew-timer": 1800,
@@ -152,7 +152,7 @@
             "id": 1,
             "match-client-id": false,
             "next-server": "0.0.0.0",
-            "server-hostname": "vps1-raw.kristinajones.dev",
+            "server-hostname": "dhcp.service.kjdev",
             "option-data": [
               {
                 "name": "domain-name-servers",
@@ -168,7 +168,7 @@
               },
               {
                 "name": "tftp-server-name",
-                "data": "vps1-raw.kristianjones.dev"
+                "data": "tftp.service.kjdev"
               },
               {
                 "name": "pcode",
@@ -177,10 +177,6 @@
               {
                 "name": "tcode",
                 "data": "America/Winnipeg"
-              },
-              {
-                "name": "dhcp-server-identifier",
-                "data": "159.203.23.230"
               }
             ],
             "pools": [
