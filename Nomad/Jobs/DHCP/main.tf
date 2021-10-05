@@ -76,6 +76,6 @@ resource "nomad_job" "JobFile" {
       AgentConfig = templatefile("${path.module}/Configs/kea-ctrl-agent.jsonc", {})
     }
 
-    EntryScript = templatefile("${path.module}/Configs/kea-ctrl-agent.jsonc", {})
+    EntryScript = templatefile("${path.module}/Configs/entry.sh", {})
   })
 }
