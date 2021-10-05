@@ -34,7 +34,7 @@ job "dhcp" {
 
         command = "/usr/local/bin/psql"
 
-        args = ["--file=/local/dhcp.psql"]
+        args = ["--file=/local/dhcp.psql", "--host=${Database.Hostname}", "--username=${Database.Username}", "${Database.Database}"]
       }
 
       env {
@@ -53,6 +53,8 @@ EOH
         data = <<EOH
 ${Database.Hostname}:5432:${Database.Database}:${Database.Username}:${Database.Password}
 EOH
+
+        perms = "600"
 
         destination = "secrets/.pgpass"
       }
@@ -126,6 +128,8 @@ ${EntryScript}
 EOF
 
         destination = "local/entry.sh"
+
+        perms = "777"
       }
     }
   }
