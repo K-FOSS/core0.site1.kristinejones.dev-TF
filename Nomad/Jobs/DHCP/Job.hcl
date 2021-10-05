@@ -117,7 +117,7 @@ EOF
 ${KeaCTRL.AgentConfig}
 EOF
 
-        destination = "local/kea-ctrl-agent.json"
+        destination = "local/kea-ctrl-agent.jsonc"
       }
 
 
