@@ -25,18 +25,7 @@ job "nextcloud" {
       driver = "docker"
 
       config {
-        image = "redis:6-alpine"
-
-        command = "redis-server"
-
-        args = ["--requirepass", "${Redis.Password}"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
+        image = "redis:latest"
       }
     }
   }
@@ -101,6 +90,7 @@ job "nextcloud" {
         # Redis
         #
         REDIS_HOST = "nextcloud-redis.service.kjdev"
+        REDIS_HOST_PORT = "6379"
 
         #
         # S3
@@ -111,16 +101,12 @@ job "nextcloud" {
         # Reverse Proxy
         #
         NEXTCLOUD_TRUSTED_DOMAINS = "nextcloud.kristianjones.dev"
+        TRUSTED_PROXIES = "0.0.0.0/0"
         OVERWRITEPROTOCOL = "https"
       }
 
       template {
         data = <<EOH
-#
-# Redis Cache
-#
-REDIS_HOST_PASSWORD="${Redis.Password}"
-
 #
 # PostgreSQL Databse
 #
