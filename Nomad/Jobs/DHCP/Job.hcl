@@ -11,7 +11,9 @@ job "dhcp" {
         to = 67
       }
 
-      port "metrics" { }
+      port "metrics" {
+        to = 9547
+      }
     }
 
     service {
