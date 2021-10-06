@@ -3,6 +3,8 @@ variable "Netbox" {
     Hostname = string
     Port = number
 
-    Token = sensitive(string)
+    Token = string
   })
+  
+  sensitive = true
 }
