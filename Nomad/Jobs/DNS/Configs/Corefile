@@ -1,16 +1,28 @@
 .:{{ env "NOMAD_PORT_dns" }} {
   health 0.0.0.0:{{ env "NOMAD_PORT_health" }}
 
-  forward . 127.0.0.1:5301 127.0.0.1:5302
-}
-
-.:5301 {
-  forward kjdev {{ env "NOMAD_IP_dns" }}:53
+  forward . 127.0.0.1:5310 127.0.0.1:5380 127.0.0.1:5320 
 }
 
 .:5310 {
   forward . tls://1.1.1.1 tls://1.0.0.1 {
     tls_servername cloudflare-dns.com
     health_check 5s
+
+    except kjdev
   }
 }
+
+.:5380 {
+  forward . tls://8.8.8.8 tls://8.8.4.4 {
+    tls_servername dns.google
+    health_check 5s
+
+    except kjdev
+  }
+}
+
+.:5320 {
+  forward kjdev {{ env "NOMAD_IP_dns" }}:53
+}
+
