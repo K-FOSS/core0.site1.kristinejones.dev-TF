@@ -68,7 +68,7 @@ job "dns" {
       driver = "docker"
 
       config {
-        image = "coredns/coredns:${Version}"
+        image = "kristianfjones/coredns-docker:core0"
 
         args = ["-conf=/local/Corefile"]
       }

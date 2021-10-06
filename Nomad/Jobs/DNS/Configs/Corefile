@@ -2,12 +2,6 @@
   health 0.0.0.0:{{ env "NOMAD_PORT_health" }}
 
   forward . 127.0.0.1:5320 127.0.0.1:5310 127.0.0.1:5380
-
-  netbox {
-    token ${Netbox.Token}
-    url http://${Netbox.Hostname}:${Netbox.Port}
-    localCacheDuration 5m
-  }
 }
 
 .:5310 {
@@ -29,6 +23,10 @@
 }
 
 .:5320 {
-  forward kjdev {{ env "NOMAD_IP_dns" }}:53
+  netbox {
+    token ${Netbox.Token}
+    url http://${Netbox.Hostname}:${Netbox.Port}
+    localCacheDuration 5m
+  }
 }
 
