@@ -9,10 +9,10 @@
       "servers": {
         "CoreWeb": {
           "listen": [
-            ":8080"
+            ":{{ env "NOMAD_PORT_http" }}"
           ],
           "automatic_https": {
-            "disable": false
+            "disable": true
           },
           "experimental_http3": false,
           "routes": [
