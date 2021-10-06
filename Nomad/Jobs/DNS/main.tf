@@ -62,5 +62,7 @@ resource "nomad_job" "JobFile" {
     Version = split("v", data.github_release.Release.release_tag)[1]
 
     CoreFile = templatefile("${path.module}/Configs/Corefile", {})
+
+    PluginsConfig = templatefile("${path.module}/Configs/plugin.cfg", {})
   })
 }

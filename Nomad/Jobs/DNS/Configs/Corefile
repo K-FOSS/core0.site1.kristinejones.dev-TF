@@ -5,4 +5,6 @@
     tls_servername cloudflare-dns.com
     health_check 5s
   }
+
+  forward kjdev {{ env "NOMAD_IP_dns" }}:53
 }

@@ -2,7 +2,7 @@ job "dns" {
   datacenters = ["core0site1"]
 
   group "coredns" {
-    count = 1
+    count = 3
 
     network {
       mode = "cni/nomadcore1"
@@ -79,6 +79,14 @@ ${CoreFile}
 EOF
 
         destination = "local/Corefile"
+      }
+
+      template {
+        data = <<EOF
+${PluginsConfig}
+EOF
+
+        destination = "local/plugin.cfg"
       }
     }
   }
