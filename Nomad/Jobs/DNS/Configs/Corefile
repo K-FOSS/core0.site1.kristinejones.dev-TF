@@ -9,7 +9,7 @@
     tls_servername cloudflare-dns.com
     health_check 5s
 
-    except kjdev service.kjdev addr.kjdev dc1.kjdev *.kjdev *.net
+    except kjdev service.kjdev addr.kjdev dc1.kjdev *.kjdev net.kjdev *.net.kjdev
   }  
 }
 
@@ -18,13 +18,13 @@
     tls_servername dns.google
     health_check 5s
 
-    except kjdev service.kjdev addr.kjdev dc1.kjdev *.kjdev *.net
+    except kjdev service.kjdev addr.kjdev dc1.kjdev *.kjdev net.kjdev *.net.kjdev
   }
 }
 
 .:5320 {
   forward kjdev {{ env "NOMAD_IP_dns" }}:53 {
-    except kjdev service.kjdev addr.kjdev dc1.kjdev *.kjdev *.net
+    except kjdev service.kjdev addr.kjdev dc1.kjdev *.kjdev net.kjdev *.net.kjdev
   }
 }
 
