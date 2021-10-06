@@ -191,6 +191,42 @@ EOH
       address_mode = "alloc"
     }
 
+    task "netbox-devicesync" {
+      driver = "docker"
+
+      lifecycle {
+        hook = "poststart"
+        sidecar = false
+      }
+
+      config {
+        image = "haxorof/netbox-devicetype-importer:latest"
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+          }
+        }
+      }
+
+      env {
+        NETBOX_URL = "http://netbox-http-cont.service.kjdev:8080"
+
+        VENDORS = "arista cisco dell generic mikrotik"
+      }
+
+      template {
+        data = <<EOH
+NETBOX_TOKEN="${Token}"
+EOH
+
+        destination = "secrets/file.env"
+        env         = true
+      }
+
+    }
+
     task "netbox" {
       driver = "docker"
 

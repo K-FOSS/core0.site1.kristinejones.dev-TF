@@ -59,6 +59,15 @@ output "Minio" {
 }
 
 #
+# Netbox
+#
+output "Netbox" {
+  value = {
+    Token = data.vault_generic_secret.Netbox.data["TOKEN"]
+  }
+}
+
+#
 # TrueNAS NAS
 #
 output "NAS" {

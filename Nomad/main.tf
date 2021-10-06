@@ -276,6 +276,8 @@ module "NetboxJob" {
   Database = var.Netbox.Database
 
   Admin = var.Netbox.Admin
+
+  Token = var.Netbox.Token
 }
 
 #
@@ -336,3 +338,14 @@ module "NextCloud" {
 
   S3 = var.NextCloud.S3
 }
+
+#
+# OpenProject
+#
+# module "OpenProject" {
+#   source = "./Jobs/OpenProject"
+
+#   Database = var.NextCloud.Database
+
+#   S3 = var.NextCloud.S3
+# }

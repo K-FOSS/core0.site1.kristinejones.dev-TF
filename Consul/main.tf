@@ -17,7 +17,6 @@ provider "consul" {
   datacenter = "dc1"
 }
 
-
 locals {
   Patroni = var.Patroni
 

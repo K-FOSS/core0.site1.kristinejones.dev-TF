@@ -33,6 +33,28 @@ scrape_configs:
       - names: 
           - dhcp-metrics.service.kjdev
 
+  - job_name: loki
+    dns_sd_configs:
+      - names: 
+          - loki-compactor-http-cont.service.kjdev
+          - loki-distributor-http-cont.service.kjdev
+          - loki-index-gateway-http-cont.service.kjdev
+          - loki-ingester-http-cont.service.kjdev
+          - loki-querier-http-cont.service.kjdev
+          - loki-query-frontend-http-cont.service.kjdev
+          - loki-query-scheduler-http-cont.service.kjdev
+
+  - job_name: cortex
+    dns_sd_configs:
+      - names: 
+          - cortex-purger-http-cont.service.kjdev
+          - cortex-alertmanager-http-cont.service.kjdev
+          - cortex-store-gateway-http-cont.service.kjdev
+          - cortex-distributor-http-cont.service.kjdev
+          - cortex-ingester-http-cont.service.kjdev
+          - cortex-query-frontend-http-cont.service.kjdev
+          - cortex-query-scheduler-http-cont.service.kjdev
+          - cortex-ruler-http-cont.service.kjdev
 
 remote_write:
   - url: http://cortex-distributor-http-cont.service.kjdev:8080/api/v1/push

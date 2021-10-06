@@ -390,6 +390,8 @@ module "Nomad" {
       Username = "kjones"
       Email = "k@kristianjones.dev"
     }
+
+    Token = module.Vault.Netbox.Token
   }
 
   DHCP = {

@@ -85,6 +85,13 @@ data "vault_generic_secret" "Minio" {
 }
 
 #
+# Netbox
+#
+data "vault_generic_secret" "Netbox" {
+  path = "${vault_mount.Terraform.path}/Netbox"
+}
+
+#
 # TrueNAS NAS
 #
 data "vault_generic_secret" "NASAuth" {

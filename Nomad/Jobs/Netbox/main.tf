@@ -94,6 +94,8 @@ resource "nomad_job" "Netbox" {
 
     Database = var.Database
 
+    Token = var.Token
+
     Version = data.github_release.Netbox.release_tag
   })
 }

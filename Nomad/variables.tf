@@ -310,6 +310,8 @@ variable "Netbox" {
 
       Email = string
     })
+
+    Token = string
   })
 }
 
