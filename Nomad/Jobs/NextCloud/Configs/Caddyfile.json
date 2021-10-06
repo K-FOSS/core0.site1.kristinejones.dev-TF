@@ -127,6 +127,9 @@
                               "{http.request.uri.path}",
                               "{http.request.uri.path}/index.php",
                               "index.php"
+                            ],
+                            "split_path": [
+                              ".php"
                             ]
                           }
                         }
