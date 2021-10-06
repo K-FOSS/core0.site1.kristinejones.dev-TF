@@ -1,13 +1,7 @@
 .:{{ env "NOMAD_PORT_dns" }} {
   health 0.0.0.0:{{ env "NOMAD_PORT_health" }}
 
-  netbox {
-    token ${Netbox.Token}
-    url http://${Netbox.Hostname}:${Netbox.Port}/api/ipam/ip-addresses
-    localCacheDuration 5m
-  }
-
-  forward . 127.0.0.1:5320 127.0.0.1:5310 127.0.0.1:5380
+  forward . 127.0.0.1:5320 127.0.0.1:5330 127.0.0.1:5310 127.0.0.1:5380
 }
 
 .:5310 {
@@ -15,7 +9,7 @@
     tls_servername cloudflare-dns.com
     health_check 5s
 
-    except kjdev service.kjdev addr.kjdev dc1.kjdev *.kjdev
+    except kjdev service.kjdev addr.kjdev dc1.kjdev *.kjdev *.net
   }  
 }
 
@@ -24,11 +18,21 @@
     tls_servername dns.google
     health_check 5s
 
-    except kjdev service.kjdev addr.kjdev dc1.kjdev *.kjdev
+    except kjdev service.kjdev addr.kjdev dc1.kjdev *.kjdev *.net
   }
 }
 
 .:5320 {
-  forward kjdev {{ env "NOMAD_IP_dns" }}:53
+  forward kjdev {{ env "NOMAD_IP_dns" }}:53 {
+    except kjdev service.kjdev addr.kjdev dc1.kjdev *.kjdev *.net
+  }
+}
+
+.:5330 {
+  netbox {
+    token ${Netbox.Token}
+    url http://${Netbox.Hostname}:${Netbox.Port}/api/ipam/ip-addresses
+    localCacheDuration 5m
+  }
 }
 
