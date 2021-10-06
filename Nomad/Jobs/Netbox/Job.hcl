@@ -172,7 +172,7 @@ EOH
   }
 
   group "netbox-server" {
-    count = 3
+    count = 1
 
     network {
       mode = "cni/nomadcore1"
