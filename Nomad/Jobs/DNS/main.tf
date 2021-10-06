@@ -61,7 +61,9 @@ resource "nomad_job" "JobFile" {
   jobspec = templatefile("${path.module}/Job.hcl", {
     Version = split("v", data.github_release.Release.release_tag)[1]
 
-    CoreFile = templatefile("${path.module}/Configs/Corefile", {})
+    CoreFile = templatefile("${path.module}/Configs/Corefile", {
+      Netbox = var.Netbox
+    })
 
     PluginsConfig = templatefile("${path.module}/Configs/plugin.cfg", {})
   })

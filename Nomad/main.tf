@@ -296,6 +296,13 @@ module "DHCP" {
 
 module "DNS" {
   source = "./Jobs/DNS"
+
+  Netbox = {
+    Hostname = "netbox-http-cont.service.kjdev"
+    Port = 8080
+
+    Token = var.Netbox.Token
+  }
 }
 
 #
