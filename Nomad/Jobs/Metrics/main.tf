@@ -47,9 +47,9 @@ terraform {
 }
 
 resource "nomad_job" "Metrics" {
-  jobspec = templatefile("${path.module}/Jobs/Metrics/Job.hcl", {
+  jobspec = templatefile("${path.module}/Job.hcl", {
     Prometheus = {
-      YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Prometheus.yaml", {
+      YAMLConfig = templatefile("${path.module}/Configs/Prometheus.yaml", {
         
       })
 
@@ -59,7 +59,7 @@ resource "nomad_job" "Metrics" {
     Cortex = {
       Targets = var.Cortex.Targets
 
-      YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Cortex.yaml", var.Cortex)
+      YAMLConfig = templatefile("${path.module}/Configs/Cortex.yaml", var.Cortex)
 
       Version = "master-3291733"
     }
@@ -67,7 +67,7 @@ resource "nomad_job" "Metrics" {
     Loki = {
       Targets = var.Loki.Targets
 
-      YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Loki.yaml", var.Loki)
+      YAMLConfig = templatefile("${path.module}/Configs/Loki.yaml", var.Loki)
 
       Version = "latest"
     }
@@ -75,13 +75,13 @@ resource "nomad_job" "Metrics" {
     Tempo = {
       Targets = var.Tempo.Targets
 
-      YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Tempo.yaml", var.Tempo)
+      YAMLConfig = templatefile("${path.module}/Configs/Tempo.yaml", var.Tempo)
 
       Version = "latest"
     }
 
     Vector = {
-      YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Vector.yaml", {  })
+      YAMLConfig = templatefile("${path.module}/Configs/Vector.yaml", {  })
     }
   })
 }
