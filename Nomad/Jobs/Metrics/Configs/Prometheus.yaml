@@ -28,6 +28,11 @@ scrape_configs:
       - names: 
           - netbox-http-cont.service.kjdev
 
+  - job_name: nextcloud
+    dns_sd_configs:
+      - names:
+          - nextcloud-prom-cont.service.kjdev
+
   - job_name: kea
     dns_sd_configs:
       - names: 
