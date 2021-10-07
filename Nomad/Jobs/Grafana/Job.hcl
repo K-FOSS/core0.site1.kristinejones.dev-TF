@@ -10,6 +10,10 @@ job "grafana" {
       port "http" { 
         to = 8080
       }
+
+      port "redis" { 
+        to = 6379
+      }
     }
 
     service {
@@ -28,6 +32,41 @@ job "grafana" {
         path     = "/api/health"
         interval = "30s"
         timeout  = "5s"
+      }
+    }
+
+    service {
+      name = "grafana-cache"
+      port = "redis"
+
+      task = "grafana-cache"
+
+      address_mode = "alloc"
+
+      check {
+        name     = "tcp_validate"
+
+        type     = "tcp"
+
+        port     = "http"
+        address_mode = "alloc"
+
+        port     = 6379
+        interval = "10s"
+        timeout  = "2s"
+      }
+    }
+
+    task "grafana-cache" {
+      driver = "docker"
+
+      lifecycle {
+        hook = "prestart"
+        sidecar = true
+      }
+
+      config {
+        image = "redis:latest"
       }
     }
 
