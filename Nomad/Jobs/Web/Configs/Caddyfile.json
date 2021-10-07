@@ -172,15 +172,15 @@
                       ],
                       "handle": [
                         {
+                          "handler": "encode",
+                          "encodings": {
+                            "gzip": {}
+                          }
+                        },
+                        {
                           "handler": "reverse_proxy",
                           "transport": {
-                            "protocol": "http",
-                            "compression": true,
-                            "versions": [
-                              "h2c",
-                              "2",
-                              "1.1"
-                            ]
+                            "protocol": "http"
                           },
                           "upstreams": [
                             {

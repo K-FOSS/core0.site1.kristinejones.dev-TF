@@ -11,111 +11,85 @@
           "listen": [
             ":8080"
           ],
-          "idle_timeout": 65,
           "automatic_https": {
             "disable": true
           },
           "experimental_http3": false,
-          "allow_h2c": true,
           "routes": [
             {
               "handle": [
                 {
-                  "handler": "headers",
-                  "response": {
-                    "deferred": true,
-                    "set": {
-                      "Cache-Control": [
-                        "max-age=15552000"
-                      ]
-                    }
-                  }
-                }
-              ],
-              "match": [
-                {
-                  "path_regexp": {
-                    "pattern": "\\.(?:css|js|svg|gif)$"
-                  }
-                }
-              ]
-            },
-            {
-              "handle": [
-                {
-                  "handler": "headers",
-                  "response": {
-                    "set": {
-                      "Strict-Transport-Security": [
-                        "max-age=15552000"
-                      ],
-                      "Referrer-Policy": [],
-                      "X-Content-Type-Options": [],
-                      "X-Download-Options": [],
-                      "X-Frame-Options": [
-                        "SAMEORIGIN"
-                      ]
-                    }
-                  }
-                },
-                {
                   "handler": "vars",
                   "root": "/var/www/html"
-                }
-              ]
-            },
-            {
-              "match": [
-                {
-                  "path": [
-                    "/.well-known/carddav",
-                    "/.well-known/caldav"
-                  ]
-                }
-              ],
-              "handle": [
-                {
-                  "handler": "static_response",
-                  "headers": {
-                    "Location": [
-                      "/remote.php/dav"
-                    ]
-                  },
-                  "status_code": 301
-                }
-              ]
-            },
-            {
-              "match": [
-                {
-                  "path": [
-                    "/.htaccess",
-                    "/data/*",
-                    "/config/*",
-                    "/db_structure",
-                    "/.xml",
-                    "/README",
-                    "/3rdparty/*",
-                    "/lib/*",
-                    "/templates/*",
-                    "/occ",
-                    "/console.php"
-                  ]
-                }
-              ],
-              "handle": [
-                {
-                  "handler": "static_response",
-                  "status_code": 404
-                }
-              ],
-              "terminal": true
-            },
-            {
-              "handle": [
+                },
                 {
                   "handler": "subroute",
                   "routes": [
+                    {
+                      "match": [
+                        {
+                          "path": [
+                            "/.well-known/carddav"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "static_response",
+                          "headers": {
+                            "Location": [
+                              "/remote.php/dav"
+                            ]
+                          },
+                          "status_code": 301
+                        }
+                      ]
+                    },
+                    {
+                      "match": [
+                        {
+                          "path": [
+                            "/.well-known/caldav"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "static_response",
+                          "headers": {
+                            "Location": [
+                              "/remote.php/dav"
+                            ]
+                          },
+                          "status_code": 301
+                        }
+                      ]
+                    },
+                    {
+                      "match": [
+                        {
+                          "path": [
+                            "/.htaccess",
+                            "/data/*",
+                            "/config/*",
+                            "/db_structure",
+                            "/.xml",
+                            "/README",
+                            "/3rdparty/*",
+                            "/lib/*",
+                            "/templates/*",
+                            "/occ",
+                            "/console.php"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "static_response",
+                          "status_code": 404
+                        }
+                      ]
+                    },
                     {
                       "match": [
                         {
@@ -191,28 +165,24 @@
                           ]
                         }
                       ]
+                    },
+                    {
+                      "handle": [
+                        {
+                          "handler": "encode",
+                          "encodings": {
+                            "gzip": {}
+                          }
+                        },
+                        {
+                          "handler": "file_server",
+                          "hide": [
+                            "Caddyfile"
+                          ]
+                        }
+                      ]
                     }
                   ]
-                }
-              ]
-            },
-            {
-              "handle": [
-                {
-                  "handler": "encode",
-                  "encodings": {
-                    "gzip": {}
-                  }
-                },
-                {
-                  "handler": "file_server",
-                  "hide": [
-                    "Caddyfile"
-                  ],
-                  "root": "/var/www/html",
-                  "precompressed": {
-                    "gzip": {}
-                  }
                 }
               ]
             }
