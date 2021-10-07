@@ -141,7 +141,9 @@
                             "protocol": "http",
                             "compression": true,
                             "versions": [
-                              "h2c"
+                              "h2c",
+                              "2",
+                              "1.1"
                             ]
                           },
                           "upstreams": [
