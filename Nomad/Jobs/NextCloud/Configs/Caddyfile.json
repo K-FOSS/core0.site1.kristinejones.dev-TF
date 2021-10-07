@@ -41,7 +41,6 @@
               ]
             },
             {
-              "match": [],
               "handle": [
                 {
                   "handler": "headers",
@@ -58,6 +57,10 @@
                       ]
                     }
                   }
+                },
+                {
+                  "handler": "vars",
+                  "root": "/var/www/html"
                 }
               ]
             },
@@ -121,72 +124,76 @@
                   "handler": "subroute",
                   "routes": [
                     {
-                      "handler": "static_response",
-                      "headers": {
-                        "Location": [
-                          "{http.request.uri.path}/"
-                        ]
-                      },
-                      "status_code": 308
-                    }
-                  ],
-                  "match": [
-                    {
-                      "file": {
-                        "try_files": [
-                          "{http.request.uri.path}/index.php"
-                        ]
-                      },
-                      "not": [
+                      "handle": [
                         {
-                          "path": [
-                            "*/"
+                          "handler": "static_response",
+                          "headers": {
+                            "Location": [
+                              "{http.request.uri.path}/"
+                            ]
+                          },
+                          "status_code": 308
+                        }
+                      ],
+                      "match": [
+                        {
+                          "file": {
+                            "try_files": [
+                              "{http.request.uri.path}/index.php"
+                            ]
+                          },
+                          "not": [
+                            {
+                              "path": [
+                                "*/"
+                              ]
+                            }
                           ]
                         }
                       ]
-                    }
-                  ]
-                },
-                {
-                  "handle": [
+                    },
                     {
-                      "handler": "rewrite",
-                      "uri": "{http.matchers.file.relative}"
-                    }
-                  ],
-                  "match": [
-                    {
-                      "file": {
-                        "try_files": [
-                          "{http.request.uri.path}",
-                          "{http.request.uri.path}/index.php",
-                          "index.php"
-                        ]
-                      }
-                    }
-                  ]
-                },
-                {
-                  "handle": [
-                    {
-                      "handler": "reverse_proxy",
-                      "transport": {
-                        "protocol": "fastcgi",
-                        "split_path": [
-                          ".php"
-                        ]
-                      },
-                      "upstreams": [
+                      "handle": [
                         {
-                          "dial": "tcp/php-handler"
+                          "handler": "rewrite",
+                          "uri": "{http.matchers.file.relative}"
+                        }
+                      ],
+                      "match": [
+                        {
+                          "file": {
+                            "try_files": [
+                              "{http.request.uri.path}",
+                              "{http.request.uri.path}/index.php",
+                              "index.php"
+                            ]
+                          }
                         }
                       ]
-                    }
-                  ],
-                  "match": [
+                    },
                     {
-                      "path": [
-                        "*.php"
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "fastcgi",
+                            "split_path": [
+                              ".php"
+                            ]
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "nextcloud-fastcgi-cont.service.kjdev"
+                            }
+                          ]
+                        }
+                      ],
+                      "match": [
+                        {
+                          "path": [
+                            "*.php"
+                          ]
+                        }
                       ]
                     }
                   ]
@@ -198,21 +205,17 @@
               "match": [],
               "handle": [
                 {
-                  "handle": [
-                    {
-                      "handler": "file_server",
-                      "hide": [
-                        "Caddyfile"
-                      ],
-                      "root": "/var/www/html"
-                    },
-                    {
-                      "handler": "encode",
-                      "encodings": {
-                        "gzip": {}
-                      }
-                    }
-                  ]
+                  "handler": "file_server",
+                  "hide": [
+                    "Caddyfile"
+                  ],
+                  "root": "/var/www/html"
+                },
+                {
+                  "handler": "encode",
+                  "encodings": {
+                    "gzip": {}
+                  }
                 }
               ]
             }
