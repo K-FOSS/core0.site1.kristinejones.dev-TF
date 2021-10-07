@@ -8,6 +8,10 @@ job "bitwarden" {
       mode = "cni/nomadcore1"
 
       port "http" { }
+
+      port "ws" {
+        to = 3012
+      }
     }
 
     service {
@@ -19,11 +23,20 @@ job "bitwarden" {
       address_mode = "alloc"
     }
 
+    service {
+      name = "bitwarden-ws-cont"
+      port = "ws"
+
+      task = "vault"
+
+      address_mode = "alloc"
+    }
+
     task "vault" {
       driver = "docker"
 
       config {
-        image        = "vaultwarden/server:alpine"
+        image = "vaultwarden/server:alpine"
       }
 
       env {

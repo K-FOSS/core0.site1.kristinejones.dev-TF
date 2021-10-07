@@ -112,14 +112,50 @@
                       ],
                       "handle": [
                         {
-                          "handler": "reverse_proxy",
-                          "transport": {
-                            "protocol": "http",
-                            "compression": true
-                          },
-                          "upstreams": [
+                          "handler": "encode",
+                          "encodings": {
+                            "gzip": {}
+                          }
+                        },
+                        {
+                          "handler": "subroute",
+                          "routes": [
                             {
-                              "lookup_srv": "bitwarden-cont.service.kjdev"
+                              "match": [
+                                {
+                                  "path": [
+                                    "/notifications/hub"
+                                  ]
+                                }
+                              ],
+                              "handle": [
+                                {
+                                  "handler": "reverse_proxy",
+                                  "transport": {
+                                    "protocol": "http"
+                                  },
+                                  "upstreams": [
+                                    {
+                                      "lookup_srv": "bitwarden-ws-cont.service.kjdev"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "handle": [
+                                {
+                                  "handler": "reverse_proxy",
+                                  "transport": {
+                                    "protocol": "http"
+                                  },
+                                  "upstreams": [
+                                    {
+                                      "lookup_srv": "bitwarden-cont.service.kjdev"
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }
