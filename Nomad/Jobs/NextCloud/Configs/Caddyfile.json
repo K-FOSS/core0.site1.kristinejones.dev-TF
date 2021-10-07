@@ -199,18 +199,18 @@
             {
               "handle": [
                 {
+                  "handler": "encode",
+                  "encodings": {
+                    "gzip": {}
+                  }
+                },
+                {
                   "handler": "file_server",
                   "hide": [
                     "Caddyfile"
                   ],
                   "root": "/var/www/html",
                   "precompressed": {
-                    "gzip": {}
-                  }
-                },
-                {
-                  "handler": "encode",
-                  "encodings": {
                     "gzip": {}
                   }
                 }
