@@ -57,7 +57,7 @@ resource "nomad_job" "Metrics" {
     }
 
     Cortex = {
-      Targets = var.Metrics.Cortex.Targets
+      Targets = var.Cortex.Targets
 
       YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Cortex.yaml", var.Cortex)
 
@@ -65,7 +65,7 @@ resource "nomad_job" "Metrics" {
     }
 
     Loki = {
-      Targets = var.Metrics.Loki.Targets
+      Targets = var.Loki.Targets
 
       YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Loki.yaml", var.Loki)
 
@@ -73,7 +73,7 @@ resource "nomad_job" "Metrics" {
     }
 
     Tempo = {
-      Targets = var.Metrics.Tempo.Targets
+      Targets = var.Tempo.Targets
 
       YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Tempo.yaml", var.Tempo)
 
