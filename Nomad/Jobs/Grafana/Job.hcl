@@ -2,7 +2,7 @@ job "grafana" {
   datacenters = ["core0site1"]
 
   group "grafana" {
-    count = 1
+    count = 3
 
     network {
       mode = "cni/nomadcore1"
@@ -19,6 +19,16 @@ job "grafana" {
       task = "grafana-web"
 
       address_mode = "alloc"
+
+      check {
+        port     = "http"
+        address_mode = "alloc"
+
+        type     = "http"
+        path     = "/api/health"
+        interval = "30s"
+        timeout  = "5s"
+      }
     }
 
     task "grafana-web" {
