@@ -1,5 +1,19 @@
 {
   "files.associations": {
     "*.tf": "terraform"
+  },
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "*caddy*.json"
+      ],
+      "url": "./caddy_schema.json"
+    }
+  ],
+  "yaml.schemas": {
+    ".vscode/caddy_schema.json": [
+      "*caddy*.yaml",
+      "*caddy*.yml"
+    ]
   }
 }

@@ -21,7 +21,7 @@
           "automatic_https": {
             "disable": false
           },
-          "experimental_http3": false,
+          "experimental_http3": true,
           "routes": [
             {
               "match": [
@@ -114,7 +114,8 @@
                         {
                           "handler": "reverse_proxy",
                           "transport": {
-                            "protocol": "http"
+                            "protocol": "http",
+                            "compression": true
                           },
                           "upstreams": [
                             {
@@ -137,7 +138,11 @@
                         {
                           "handler": "reverse_proxy",
                           "transport": {
-                            "protocol": "http"
+                            "protocol": "http",
+                            "compression": true,
+                            "versions": [
+                              "h2c"
+                            ]
                           },
                           "upstreams": [
                             {
@@ -157,12 +162,6 @@
                         }
                       ],
                       "handle": [
-                        {
-                          "handler": "trace",
-                          "disabled": false,
-                          "tag": "auth",
-                          "response_debug_enabled": true
-                        },
                         {
                           "handler": "reverse_proxy",
                           "transport": {
@@ -199,61 +198,6 @@
                         }
                       ],
                       "terminal": true
-                    },
-                    {
-                      "match": [
-                        {
-                          "host": [
-                            "pomerium.kristianjones.dev"
-                          ]
-                        }
-                      ],
-                      "handle": [
-                        {
-                          "handler": "reverse_proxy",
-                          "transport": {
-                            "protocol": "http",
-                            "tls": {
-                              "insecure_skip_verify": true
-                            }
-                          },
-                          "upstreams": [
-                            {
-                              "lookup_srv": "pomerium-authenticate-cont.service.kjdev"
-                            }
-                          ]
-                        }
-                      ],
-                      "terminal": true
-                    },
-                    {
-                      "match": [
-                        {
-                          "host": [
-                            "netbox.kristianjones.dev",
-                            "nextcloud.kristianjones.dev",
-                            "mattermost.kristianjones.dev",
-                            "chat.kristianjones.dev"
-                          ]
-                        }
-                      ],
-                      "handle": [
-                        {
-                          "handler": "reverse_proxy",
-                          "transport": {
-                            "protocol": "http",
-                            "tls": {
-                              "insecure_skip_verify": true
-                            }
-                          },
-                          "upstreams": [
-                            {
-                              "lookup_srv": "pomerium-proxy-cont.service.kjdev"
-                            }
-                          ]
-                        }
-                      ],
-                      "terminal": true
                     }
                   ]
                 }
@@ -283,7 +227,8 @@
                 {
                   "handler": "reverse_proxy",
                   "transport": {
-                    "protocol": "http"
+                    "protocol": "http",
+                    "compression": true
                   },
                   "upstreams": [
                     {
@@ -306,7 +251,8 @@
                 {
                   "handler": "reverse_proxy",
                   "transport": {
-                    "protocol": "http"
+                    "protocol": "http",
+                    "compression": true
                   },
                   "upstreams": [
                     {
@@ -329,7 +275,8 @@
                 {
                   "handler": "reverse_proxy",
                   "transport": {
-                    "protocol": "http"
+                    "protocol": "http",
+                    "compression": true
                   },
                   "upstreams": [
                     {
@@ -367,7 +314,8 @@
                 {
                   "handler": "reverse_proxy",
                   "transport": {
-                    "protocol": "http"
+                    "protocol": "http",
+                    "compression": true
                   },
                   "upstreams": [
                     {
@@ -392,7 +340,8 @@
                 {
                   "handler": "reverse_proxy",
                   "transport": {
-                    "protocol": "http"
+                    "protocol": "http",
+                    "compression": true
                   },
                   "upstreams": [
                     {
@@ -417,7 +366,8 @@
                 {
                   "handler": "reverse_proxy",
                   "transport": {
-                    "protocol": "http"
+                    "protocol": "http",
+                    "compression": true
                   },
                   "upstreams": [
                     {
@@ -446,7 +396,8 @@
                 {
                   "handler": "reverse_proxy",
                   "transport": {
-                    "protocol": "http"
+                    "protocol": "http",
+                    "compression": true
                   },
                   "upstreams": [
                     {

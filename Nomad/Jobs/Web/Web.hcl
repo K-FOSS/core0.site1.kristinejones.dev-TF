@@ -111,9 +111,7 @@ job "ingress" {
       driver = "docker"
 
       config {
-        image        = "kristianfjones/caddy-core-docker:vps1"
-
-        ports = ["https"]
+        image = "kristianfjones/caddy-core-docker:vps1"
       
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
 

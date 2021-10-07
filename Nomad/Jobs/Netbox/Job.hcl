@@ -224,7 +224,6 @@ EOH
         destination = "secrets/file.env"
         env         = true
       }
-
     }
 
     task "netbox" {

@@ -44,7 +44,9 @@ job "nextcloud" {
     network {
       mode = "cni/nomadcore1"
 
-      port "http" { }
+      port "http" {
+        to = 8080
+      }
 
       port "fpm" {
         to = 9000  

@@ -106,7 +106,7 @@ resource "nomad_job" "NextCloud" {
 
     NCExporter = {
       YAMLConfig = templatefile("${path.module}/Configs/NCExporter.yaml", {
-        Hostname = "nextcloud-web-cont"
+        Hostname = "nextcloud-web-cont.service.kjdev"
 
         Scheme = "http://"
 
