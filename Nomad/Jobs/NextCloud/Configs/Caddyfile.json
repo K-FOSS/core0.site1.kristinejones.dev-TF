@@ -112,13 +112,6 @@
               "terminal": true
             },
             {
-              "match": [
-                {
-                  "path_regexp": {
-                    "pattern": "\\.php(?:$|/)"
-                  }
-                }
-              ],
               "handle": [
                 {
                   "handler": "subroute",
@@ -205,7 +198,6 @@
               "terminal": true
             },
             {
-              "match": [],
               "handle": [
                 {
                   "handler": "file_server",
