@@ -207,6 +207,12 @@
                   "precompressed": {
                     "gzip": {}
                   }
+                },
+                {
+                  "handler": "encode",
+                  "encodings": {
+                    "gzip": {}
+                  }
                 }
               ]
             }
