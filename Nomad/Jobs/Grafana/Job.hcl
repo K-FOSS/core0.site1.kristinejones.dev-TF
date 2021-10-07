@@ -25,7 +25,7 @@ job "grafana" {
       driver = "docker"
 
       config {
-        image = "grafana/grafana:8.0.3"
+        image = "grafana/grafana:${Version}"
 
         args = ["-config=/local/grafana.ini"]
       }

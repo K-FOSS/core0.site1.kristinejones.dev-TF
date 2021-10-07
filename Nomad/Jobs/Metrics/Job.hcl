@@ -66,18 +66,18 @@ job "metrics" {
     network {
       mode = "cni/nomadcore1"
 
-      port "${replace("${Target.name}", "-", "")}_http" {
+      port "http" {
         to = 8080
       }
 
-      port "${replace("${Target.name}", "-", "")}_grpc" {
+      port "grpc" {
         to = 8085
       }
     }
 
     service {
       name = "cortex-${Target.name}-http-cont"
-      port = "${replace("${Target.name}", "-", "")}_http"
+      port = "http"
 
       task = "cortex-${Target.name}"
 
@@ -88,7 +88,7 @@ job "metrics" {
 
     service {
       name = "cortex-${Target.name}-grpc-cont"
-      port = "${replace("${Target.name}", "-", "")}_grpc"
+      port = "grpc"
 
       task = "cortex-${Target.name}"
 
@@ -106,8 +106,8 @@ job "metrics" {
       }
 
       resources {
-        cpu    = 500
-        memory = 800
+        cpu    = ${Target.resources.cpu}
+        memory = ${Target.resources.memory}
       }
 
       config {
@@ -116,17 +116,8 @@ job "metrics" {
         args = ["-config.file=/local/Cortex.yaml"]
       }
 
-      env {
-        TARGET = "${Target.name}"
-        TARGET_RPL = "${replace("${Target.name}", "-", "")}"
-      }
-
       meta {
         TARGET = "${Target.name}"
-        TARGET_RPL = "${replace("${Target.name}", "-", "")}"
-
-        GRPC_PORT_LABEL = "${replace("${Target.name}", "-", "")}_grpc"
-        HTTP_PORT_LABEL = "${replace("${Target.name}", "-", "")}_http"
       }
 
       template {
@@ -142,6 +133,10 @@ EOF
 
   group "prometheus" {
     count = 1
+
+    network {
+      mode = "cni/nomadcore1"
+    }
 
     task "prometheus" {
       driver = "docker"
@@ -182,18 +177,18 @@ EOF
     network {
       mode = "cni/nomadcore1"
 
-      port "${replace("${Target.name}", "-", "")}_http" {
+      port "http" {
         to = 8080
       }
 
-      port "${replace("${Target.name}", "-", "")}_grpc" { 
+      port "grpc" { 
         to = 8085
       }
     }
 
     service {
       name = "loki-${Target.name}-http-cont"
-      port = "${replace("${Target.name}", "-", "")}_http"
+      port = "http"
 
       task = "loki-${Target.name}"
 
@@ -204,7 +199,7 @@ EOF
 
     service {
       name = "loki-${Target.name}-grpc-cont"
-      port = "${replace("${Target.name}", "-", "")}_grpc"
+      port = "grpc"
 
       task = "loki-${Target.name}"
 
@@ -227,17 +222,8 @@ EOF
         args = ["-config.file=/local/Loki.yaml"]
       }
 
-      env {
-        TARGET = "${Target.name}"
-        TARGET_RPL = "${replace("${Target.name}", "-", "")}"
-      }
-
       meta {
         TARGET = "${Target.name}"
-        TARGET_RPL = "${replace("${Target.name}", "-", "")}"
-
-        GRPC_PORT_LABEL = "${replace("${Target.name}", "-", "")}_grpc"
-        HTTP_PORT_LABEL = "${replace("${Target.name}", "-", "")}_http"
       }
 
       template {
@@ -258,18 +244,18 @@ EOF
     network {
       mode = "cni/nomadcore1"
 
-      port "${replace("${Target.name}", "-", "")}_http" {
+      port "http" {
         to = 8080
       }
 
-      port "${replace("${Target.name}", "-", "")}_grpc" { 
+      port "grpc" { 
         to = 8085
       }
     }
 
     service {
       name = "tempo-${Target.name}-http-cont"
-      port = "${replace("${Target.name}", "-", "")}_http"
+      port = "http"
 
       task = "tempo-${Target.name}"
 
@@ -280,7 +266,7 @@ EOF
 
     service {
       name = "tempo-${Target.name}-grpc-cont"
-      port = "${replace("${Target.name}", "-", "")}_grpc"
+      port = "grpc"
 
       task = "tempo-${Target.name}"
 
@@ -298,22 +284,13 @@ EOF
       }
 
       config {
-        image = "grafana/tempo:${Loki.Version}"
+        image = "grafana/tempo:${Tempo.Version}"
 
         args = ["-config.file=/local/Tempo.yaml"]
       }
 
-      env {
-        TARGET = "${Target.name}"
-        TARGET_RPL = "${replace("${Target.name}", "-", "")}"
-      }
-
       meta {
         TARGET = "${Target.name}"
-        TARGET_RPL = "${replace("${Target.name}", "-", "")}"
-
-        GRPC_PORT_LABEL = "${replace("${Target.name}", "-", "")}_grpc"
-        HTTP_PORT_LABEL = "${replace("${Target.name}", "-", "")}_http"
       }
 
       template {

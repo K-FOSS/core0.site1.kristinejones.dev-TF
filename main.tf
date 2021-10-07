@@ -419,5 +419,7 @@ module "Nomad" {
     Database = module.NextCloudNewDatabase.Database
 
     S3 = module.NextCloud
+
+    Credentials = module.Vault.NextCloud
   }
 } 

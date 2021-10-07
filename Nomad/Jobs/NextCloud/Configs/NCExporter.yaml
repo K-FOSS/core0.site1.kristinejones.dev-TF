@@ -1,0 +1,8 @@
+# required
+server: "${Scheme}${Hostname}:{{ env "NOMAD_PORT_http" }}"
+username: "${Credentials.Username}"
+password: "${Credentials.Token}"
+# optional
+listenAddress: ":{{ env "NOMAD_PORT_metrics" }}"
+timeout: "5s"
+tlsSkipVerify: false

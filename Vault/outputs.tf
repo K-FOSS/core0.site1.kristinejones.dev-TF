@@ -68,6 +68,16 @@ output "Netbox" {
 }
 
 #
+# NextCloud
+#
+output "NextCloud" {
+  value = {
+    Username = data.vault_generic_secret.NextCloud.data["USERNAME"]
+    Token = data.vault_generic_secret.NextCloud.data["TOKEN"]
+  }
+}
+
+#
 # TrueNAS NAS
 #
 output "NAS" {

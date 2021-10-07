@@ -75,10 +75,10 @@ resource "nomad_job" "Nomad" {
 # Grafana
 #
 
-resource "nomad_job" "Grafana" {
-  jobspec = templatefile("${path.module}/Jobs/Grafana/main.hcl", {
-    Config = templatefile("${path.module}/Jobs/Grafana/Configs/Grafana.ini", var.Grafana)
-  })
+module "Grafana" {
+  source = "./Jobs/Grafana"
+
+  Database = var.Grafana.Database
 }
 
 #
@@ -221,54 +221,17 @@ resource "nomad_job" "Patroni" {
 # Metrics
 #  
 
+module "Metrics" {
+  source = "./Jobs/Metrics"
 
+  Loki = var.Metrics.Loki
 
-resource "nomad_job" "Metrics" {
-  jobspec = templatefile("${path.module}/Jobs/Metrics/main.hcl", {
-    Prometheus = {
-      YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Prometheus.yaml", { })
+  Cortex = var.Metrics.Cortex
 
-      Version = "v2.30.0"
-    }
-
-    Cortex = {
-      Targets = var.Metrics.Cortex.Targets
-
-      YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Cortex.yaml", {
-        Consul = var.Metrics.Cortex.Consul
-        S3 = var.Metrics.Cortex.S3
-      })
-
-      Version = "master-3291733"
-    }
-
-    Loki = {
-      Targets = var.Metrics.Loki.Targets
-
-      YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Loki.yaml", {
-        Consul = var.Metrics.Loki.Consul
-        S3 = var.Metrics.Loki.S3
-      })
-
-      Version = "latest"
-    }
-
-    Tempo = {
-      Targets = var.Metrics.Tempo.Targets
-
-      YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Tempo.yaml", {
-        Consul = var.Metrics.Tempo.Consul
-        S3 = var.Metrics.Tempo.S3
-      })
-
-      Version = "latest"
-    }
-
-    Vector = {
-      YAMLConfig = templatefile("${path.module}/Jobs/Metrics/Configs/Vector.yaml", {  })
-    }
-  })
+  Tempo = var.Metrics.Tempo
 }
+
+
 
 module "NetboxJob" {
   source = "./Jobs/Netbox"
@@ -344,6 +307,8 @@ module "NextCloud" {
   Database = var.NextCloud.Database
 
   S3 = var.NextCloud.S3
+
+  Credentials = var.NextCloud.Credentials
 }
 
 #

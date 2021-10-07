@@ -179,6 +179,11 @@ variable "Metrics" {
         {
           name = string
           count = number
+
+          resources = object({
+            cpu = number
+            memory = number
+          })
         }
       ))
 
@@ -383,6 +388,12 @@ variable "NextCloud" {
       Password = string
 
       Database = string
+    })
+
+    Credentials = object({
+      Username = string
+
+      Token = string
     })
 
     S3 = object({

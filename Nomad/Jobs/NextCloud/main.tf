@@ -104,6 +104,16 @@ resource "nomad_job" "NextCloud" {
 
     })
 
+    NCExporter = {
+      YAMLConfig = templatefile("${path.module}/Configs/NCExporter.yaml", {
+        Hostname = "nextcloud-web-cont"
+
+        Scheme = "http://"
+
+        Credentials = var.Credentials
+      })
+    }
+
     Version = "22.2-fpm-alpine"
   })
 }

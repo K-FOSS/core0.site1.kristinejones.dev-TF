@@ -92,6 +92,13 @@ data "vault_generic_secret" "Netbox" {
 }
 
 #
+# NextCloud
+#
+data "vault_generic_secret" "NextCloud" {
+  path = "${vault_mount.Terraform.path}/Nextcloud"
+}
+
+#
 # TrueNAS NAS
 #
 data "vault_generic_secret" "NASAuth" {

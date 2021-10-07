@@ -26,3 +26,11 @@ variable "S3" {
     Bucket = string
   })
 }
+
+variable "Credentials" {
+  type = object({
+    Username = string
+
+    Token = string
+  })
+}
