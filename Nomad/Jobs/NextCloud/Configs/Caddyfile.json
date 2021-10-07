@@ -169,12 +169,6 @@
                     {
                       "handle": [
                         {
-                          "handler": "encode",
-                          "encodings": {
-                            "gzip": {}
-                          }
-                        },
-                        {
                           "handler": "file_server",
                           "hide": [
                             "Caddyfile"

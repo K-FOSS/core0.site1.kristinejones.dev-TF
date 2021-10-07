@@ -253,47 +253,8 @@ EOH
       }
     }
 
-    service {
-      name = "nextcloud-prom-cont"
-      port = "metrics"
-
-      task = "nextcloud-exporter"
-
-      address_mode = "alloc"
-    }
-
     #
     # NextCloud Prometheus Exporter
     #
-    task "nextcloud-exporter" {
-      driver = "docker"
-
-      restart {
-        attempts = 5
-        delay    = "60s"
-      }
-
-      config {
-
-        #
-        # 
-        #
-        image = "xperimental/nextcloud-exporter:latest"
-
-        args = ["--config-file", "/local/ncexporter.yaml"]
-      }
-
-      template {
-        data = <<EOF
-${NCExporter.YAMLConfig}
-EOF
-
-        destination = "local/ncexporter.yaml"
-        
-        # Config Replacement
-        change_mode = "signal"
-        change_signal = "SIGHUP"
-      }
-    }
   }
 }
