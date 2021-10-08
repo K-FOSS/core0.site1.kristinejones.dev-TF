@@ -84,6 +84,7 @@ job "grafana" {
 
       env {
         GF_LOG_MODE = "console"
+        GF_PATHS_PROVISIONING =	"/local/provisioning"
       }
 
       template {
@@ -96,17 +97,20 @@ EOF
 
       template {
         data = <<EOF
-- name: 'Tempo'
-  type: tempo
-  access: proxy
-  orgId: 1
-  url: http://tempo-query-frontend-http-cont.service.kjdev:8080
-  basicAuth: false
-  isDefault: false
-  version: 1
-  editable: false
-  apiVersion: 1
-  uid: tempo-query
+apiVersion: 1
+
+datasources:
+  - name: 'Tempo'
+    type: tempo
+    access: proxy
+    orgId: 1
+    url: http://tempo-query-frontend-http-cont.service.kjdev:8080
+    basicAuth: false
+    isDefault: false
+    version: 1
+    editable: false
+    apiVersion: 1
+    uid: tempo-query
 EOF
 
         destination = "local/provisioning/datasources/datasources.yaml"
