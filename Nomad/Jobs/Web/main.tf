@@ -59,16 +59,10 @@ resource "nomad_job" "JobFile" {
       Consul = var.Consul
     })
 
-    COTURNCONFIG = templatefile("${path.module}/Configs/turnserver.conf", {
-      CoTurn = var.CoTurn.CoTurn
-      Database = var.CoTurn.Database
-      CLIPassword = random_password.CoTurnPassword.result
-    })
-
     Caddyfile = templatefile("${path.module}/Caddyfile.json", { 
-      Cloudflare = var.Ingress.Cloudflare
+      Cloudflare = var.Cloudflare
 
-      Consul = var.Ingress.Consul
+      Consul = var.Consul
     }),
   })
 }
