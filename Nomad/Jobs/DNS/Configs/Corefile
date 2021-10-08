@@ -3,7 +3,7 @@
 
   metadata .
 
-  trace zipkin tempo-distributor-http-cont.service.kjdev:9411
+  trace zipkin http://tempo-distributor-http-cont.service.kjdev:9411
 
   forward . 127.0.0.1:5320 127.0.0.1:5330 127.0.0.1:5310 127.0.0.1:5380
 }
@@ -27,8 +27,8 @@
 }
 
 .:5320 {
-  forward kjdev {{ env "NOMAD_IP_dns" }}:53 {
-    except kjdev net.kjdev *.net.kjdev
+  forward . {{ env "NOMAD_IP_dns" }}:53 {
+    except net.kjdev *.net.kjdev
   }
 }
 
