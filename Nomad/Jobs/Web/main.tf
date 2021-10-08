@@ -59,7 +59,7 @@ resource "nomad_job" "JobFile" {
       Consul = var.Consul
     })
 
-    Caddyfile = templatefile("${path.module}/Caddyfile.json", { 
+    Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", { 
       Cloudflare = var.CloudFlare
 
       Consul = var.Consul
