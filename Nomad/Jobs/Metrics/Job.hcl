@@ -286,7 +286,7 @@ EOF
       config {
         image = "grafana/tempo:${Tempo.Version}"
 
-        args = ["-config.file=/local/Tempo.yaml"]
+        args = ["-search.enabled=true", "-config.file=/local/Tempo.yaml"]
       }
 
       meta {

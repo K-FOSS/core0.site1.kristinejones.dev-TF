@@ -62,6 +62,9 @@ resource "nomad_job" "Grafana" {
       Database = var.Database
     })
 
-    Version = split("v", data.github_release.Release.release_tag)[1]
+    #
+    # TODO: Change back to split("v", data.github_release.Release.release_tag)[1] once https://github.com/grafana/grafana/pull/37765 is released on prod
+    #
+    Version = "main"
   })
 }
