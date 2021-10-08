@@ -93,6 +93,24 @@ EOF
 
         destination = "local/grafana.ini"
       }
+
+      template {
+        data = <<EOF
+- name: 'Tempo'
+  type: tempo
+  access: proxy
+  orgId: 1
+  url: http://tempo-query-frontend-http-cont.service.kjdev:8080
+  basicAuth: false
+  isDefault: false
+  version: 1
+  editable: false
+  apiVersion: 1
+  uid: tempo-query
+EOF
+
+        destination = "local/provisioning/datasources/datasources.yaml"
+      }
     }
   }
 }
