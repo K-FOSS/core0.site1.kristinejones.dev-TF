@@ -44,22 +44,6 @@ job "ingress" {
       port "cortex" {
         to = 9000
       }
-
-      #
-      # CoTurn
-      #
-
-      port "turn" {
-        to = 3478
-      }
-
-      port "stun" { }
-
-      port "metrics" {
-        to = 9641
-      }
-
-      port "cli" { }
     }
 
     service {
@@ -98,14 +82,6 @@ job "ingress" {
       address_mode = "alloc"
     }
 
-    service {
-      name = "coturn-turn-cont"
-      port = "turn"
-
-      task = "coturn-server"
-
-      address_mode = "alloc"
-    }
 
     task "web" {
       driver = "docker"
@@ -133,33 +109,6 @@ ${Caddyfile}
 EOF
 
         destination = "local/caddyfile.json"
-      }
-    }
-
-    task "coturn-server" {
-      driver = "docker"
-
-      config {
-        image = "coturn/coturn:edge-alpine"
-
-        args = ["-c", "/local/turnserver.conf", "--prometheus"]
-
-        ports = ["turn"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
-      }
-
-      template {
-        data = <<EOF
-${COTURNCONFIG}
-EOF
-
-        destination = "local/turnserver.conf"
       }
     }
 

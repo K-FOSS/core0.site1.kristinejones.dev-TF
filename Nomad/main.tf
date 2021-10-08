@@ -106,31 +106,20 @@ resource "nomad_job" "Authentik" {
 # Caddy Web Ingress
 #
 
-resource "random_password" "CoTurnPassword" {
-  length           = 20
-  special          = false
+module "Web" {
+  source = "./Jobs/Web"
+
+  Consul = var.Ingress.Consul
+
+  CloudFlare = var.Ingress.Cloudflare
 }
 
-resource "nomad_job" "Ingress" {
-  jobspec = templatefile("${path.module}/Jobs/Web/Web.hcl", {
-    Consul = var.Ingress.Consul
+module "CoTurn" {
+  source = "./Jobs/CoTurn"
 
-    GoBetweenCONF = templatefile("${path.module}/Jobs/Web/Configs/gobetween.toml", { 
-      Consul = var.Ingress.Consul
-    })
+  Realm = "kristianjones.dev"
 
-    COTURNCONFIG = templatefile("${path.module}/Jobs/Web/Configs/turnserver.conf", {
-      CoTurn = var.CoTurn.CoTurn
-      Database = var.CoTurn.Database
-      CLIPassword = random_password.CoTurnPassword.result
-    })
-
-    Caddyfile = templatefile("${path.module}/Jobs/Web/Configs/Caddyfile.json", { 
-      Cloudflare = var.Ingress.Cloudflare
-
-      Consul = var.Ingress.Consul
-    }),
-  })
+  Database = var.CoTurn.Database
 }
 
 #

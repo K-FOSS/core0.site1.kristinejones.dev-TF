@@ -39,7 +39,6 @@ job "netbox" {
         }
       }
     }
-
   }
 
   group "netbox-cache" {
