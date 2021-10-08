@@ -17,6 +17,11 @@ server:
   grpc_listen_port: 8085
 
   #
+  # Metrics
+  #
+  register_instrumentation: true
+
+  #
   # Logs
   #
   # Output log messages in the given format. Valid formats: [logfmt, json]
@@ -35,13 +40,13 @@ server:
   # server.log-source-ips-enabled is true. If not set the default Forwarded,
   # X-Real-IP and X-Forwarded-For headers are used
   # CLI flag: -server.log-source-ips-header
-  log_source_ips_header: ''
+  #log_source_ips_header: ''
 
   # Regex for matching the source IPs. Only used if server.log-source-ips-enabled
   # is true. If not set the default Forwarded, X-Real-IP and X-Forwarded-For
   # headers are used
   # CLI flag: -server.log-source-ips-regex
-  log_source_ips_regex: ''
+  #log_source_ips_regex: ''
 
 distributor:
   search_tags_deny_list:
@@ -74,12 +79,13 @@ distributor:
         acl_token: ${Consul.Token}
 
 querier:
+  max_concurrent_queries: 500
   frontend_worker:
     #scheduler_address: 0.tempo-query-scheduler-grpc-cont.service.kjdev:8085,1.tempo-query-scheduler-grpc-cont.service.kjdev:8085,2.tempo-query-scheduler-grpc-cont.service.kjdev:8085
     frontend_address: tempo-query-frontend-grpc-cont.service.kjdev:8085
 
 query_frontend:
-  query_shards: 2
+  query_shards: 20
   #scheduler_address: 0.tempo-query-scheduler-grpc-cont.service.kjdev:8085,1.tempo-query-scheduler-grpc-cont.service.kjdev:8085,2.tempo-query-scheduler-grpc-cont.service.kjdev:8085
 
 #
@@ -125,8 +131,16 @@ storage:
       access_key: ${S3.Credentials.AccessKey}
       secret_key: ${S3.Credentials.SecretKey}
       insecure: true
+    pool:
+      max_workers: 100                 # worker pool determines the number of parallel requests to the object store backend
+      queue_depth: 10000
 
 compactor:
+  compaction:
+    compaction_window: 1h              # blocks in this time window will be compacted together
+    max_block_bytes: 100_000_000       # maximum size of compacted blocks
+    block_retention: 1h
+    compacted_block_retention: 10m
   ring:
     kvstore:
       store: consul
@@ -142,6 +156,7 @@ compactor:
 memberlist:
   abort_if_cluster_join_fails: false
   bind_port: 7946
+  node_name: {{ env "NOMAD_ALLOC_NAME" }}
 
 overrides:
   per_tenant_override_config: /local/overrides.yaml

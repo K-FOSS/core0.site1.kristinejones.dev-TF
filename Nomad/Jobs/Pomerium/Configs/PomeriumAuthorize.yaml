@@ -89,7 +89,7 @@ routes:
 # Tracing
 #
 tracing_provider: zipkin
-tracing_sample_rate: 1
+tracing_sample_rate: 0.20
 tracing_zipkin_endpoint: http://tempo-distributor-http-cont.service.kjdev:9411
 
 pomerium_debug: false

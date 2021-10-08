@@ -3,7 +3,7 @@
 
   metadata .
 
-  trace zipkin tempo-distributor-http-cont.service.kjdev:9411 {
+  trace zipkin http://tempo-distributor-http-cont.service.kjdev:9411 {
     client_server
   }
 

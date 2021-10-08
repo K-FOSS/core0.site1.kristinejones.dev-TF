@@ -77,7 +77,7 @@ resource "nomad_job" "Metrics" {
 
       YAMLConfig = templatefile("${path.module}/Configs/Tempo.yaml", var.Tempo)
 
-      Version = "latest"
+      Version = "main-2af905a"
     }
 
     Vector = {
