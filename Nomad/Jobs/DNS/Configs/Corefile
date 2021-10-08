@@ -3,7 +3,9 @@
 
   metadata .
 
-  trace zipkin http://tempo-distributor-http-cont.service.kjdev:9411
+  trace zipkin tempo-distributor-http-cont.service.kjdev:9411 {
+    client_server
+  }
 
   forward . 127.0.0.1:5320 127.0.0.1:5330 127.0.0.1:5310 127.0.0.1:5380
 }
