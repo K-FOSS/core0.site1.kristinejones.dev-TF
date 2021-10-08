@@ -44,6 +44,9 @@ server:
   log_source_ips_regex: ''
 
 distributor:
+  search_tags_deny_list:
+    - "instance"
+    - "version"
   receivers:
     jaeger:                            # the receives all come from the OpenTelemetry collector.  more configuration information can
       protocols:                       # be found there: https://github.com/open-telemetry/opentelemetry-collector/tree/main/receiver
@@ -90,6 +93,9 @@ ingester_client:
     grpc_compression: gzip
 
 ingester:
+  trace_idle_period: 10s
+  max_block_bytes: 1_000_000
+  max_block_duration: 5m 
   lifecycler:
     # We want to start immediately.
     join_after: 0
@@ -136,3 +142,6 @@ compactor:
 memberlist:
   abort_if_cluster_join_fails: false
   bind_port: 7946
+
+overrides:
+  per_tenant_override_config: /local/overrides.yaml
