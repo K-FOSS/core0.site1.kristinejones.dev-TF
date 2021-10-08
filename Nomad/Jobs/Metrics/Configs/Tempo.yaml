@@ -21,11 +21,11 @@ server:
   #
   # Output log messages in the given format. Valid formats: [logfmt, json]
   # CLI flag: -log.format
-  log_format: logfmt
+  log_format: json
 
   # Only log messages with the given severity or above. Valid levels: [debug, info, warn, error]
   # CLI flag: -log.level
-  log_level: debug
+  log_level: warn
 
   # Optionally log the source IPs.
   # CLI flag: -server.log-source-ips-enabled
@@ -107,7 +107,7 @@ ingester:
         consul:
           host: ${Consul.Hostname}:${Consul.Port}
           acl_token: ${Consul.Token}
-      replication_factor: 1
+      replication_factor: 2
 
 
 storage:

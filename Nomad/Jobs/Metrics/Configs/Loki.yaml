@@ -42,7 +42,7 @@ server:
   # Log only messages with the given severity or above. Supported values [debug,
   # info, warn, error]
   # CLI flag: -log.level
-  log_level: debug
+  log_level: warn
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#distributor_config
