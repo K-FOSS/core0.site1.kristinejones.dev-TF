@@ -83,7 +83,7 @@ EOF
 
 %{ for Service in Services ~}
   group "pomerium-${Service.Name}" {
-    count = ${Service.count}
+    count = ${Service.Count}
 
     network {
       mode = "cni/nomadcore1"
