@@ -47,6 +47,13 @@ terraform {
 }
 
 #
+# Database
+#
+data "http" "PSQLFile" {
+  url = "https://raw.githubusercontent.com/processone/ejabberd/21.07/sql/pg.new.sql"
+}
+
+#
 # Secrets
 #
 
@@ -57,7 +64,11 @@ resource "random_password" "RedisPassword" {
 
 resource "nomad_job" "JobFile" {
   jobspec = templatefile("${path.module}/Job.hcl", {
+    PSQL_INIT = data.http.PSQLFile.body
+
     eJabberD = {
+      Database = var.Database
+
       Config = templatefile("${path.module}/Configs/eJabberD.yaml", {
         Database = var.Database
 

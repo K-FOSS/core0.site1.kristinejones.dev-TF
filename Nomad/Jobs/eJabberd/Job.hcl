@@ -97,6 +97,45 @@ EOF
       address_mode = "alloc"
     }
 
+    task "ejabberd-db" {
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
+
+      driver = "docker"
+
+      config {
+        image = "postgres:alpine3.14"
+
+        command = "/usr/local/bin/psql"
+
+        args = ["--file=/local/init.psql", "--host=${Database.Hostname}", "--username=${Database.Username}", "${Database.Database}"]
+      }
+
+      env {
+        PGPASSFILE = "/secrets/.pgpass"
+      }
+
+      template {
+        data = <<EOH
+${PSQL_INIT}
+EOH
+
+        destination = "local/init.psql"
+      }
+
+      template {
+        data = <<EOH
+${Database.Hostname}:5432:${Database.Database}:${Database.Username}:${Database.Password}
+EOH
+
+        perms = "600"
+
+        destination = "secrets/.pgpass"
+      }
+    }
+
     task "ejabberd" {
       driver = "docker"
 
