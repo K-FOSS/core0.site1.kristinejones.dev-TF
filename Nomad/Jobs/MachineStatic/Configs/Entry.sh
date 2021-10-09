@@ -4,11 +4,11 @@ echo "Starting Server"
 
 FINISH_FILE="/data/.done"
 
-if [ -f "${FINISH_FILE}" ]; then
+if [ -f "$${FINISH_FILE}" ]; then
 
 echo "${HookFile}" | tar zxf -C /data -
 
-touch ${FINISH_FILE}
+touch $${FINISH_FILE}
 
 exit 0
 
