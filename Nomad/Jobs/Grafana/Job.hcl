@@ -123,7 +123,7 @@ EOF
 
         destination = "local/TLS/CA.pem"
 
-        change_mode = "none"
+        change_mode = "noop"
       }
 
       template {
@@ -133,7 +133,7 @@ EOF
 
         destination = "local/TLS/cert.pem"
 
-        change_mode = "none"
+        change_mode = "noop"
       }
 
       template {
@@ -143,7 +143,7 @@ EOF
 
         destination = "local/TLS/cert.key"
 
-        change_mode = "none"
+        change_mode = "noop"
       }
     }
   }

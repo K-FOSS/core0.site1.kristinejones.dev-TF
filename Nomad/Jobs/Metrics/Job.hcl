@@ -171,7 +171,7 @@ EOF
 
         destination = "local/GrafanaCA.pem"
 
-        change_mode = "none"
+        change_mode = "noop"
       }
     }
   }
