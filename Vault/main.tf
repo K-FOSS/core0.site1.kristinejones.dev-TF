@@ -32,6 +32,17 @@ resource "vault_generic_secret" "TerraformTest" {
   })
 }
 
+
+#
+# Tinkerbell
+#
+
+resource "vault_generic_secret" "Tinkerbell" {
+  path = "${vault_mount.Terraform.path}/Tinkerbell"
+
+  data_json = jsonencode(var.Tinkerbell.Admin)
+}
+
 #
 # Cloudflare
 # 

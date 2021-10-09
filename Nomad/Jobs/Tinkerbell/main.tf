@@ -51,6 +51,13 @@ resource "random_password" "TinkAdminPassword" {
   special          = true
 }
 
+locals {
+  TinkAdmin = {
+    Username = "tink"
+    Password = random_password.TinkAdminPassword.result
+  }
+}
+
 resource "nomad_job" "Tinkerbell" {
   jobspec = templatefile("${path.module}/Job.hcl", {
     Database = var.Database
@@ -59,9 +66,6 @@ resource "nomad_job" "Tinkerbell" {
 
     Version = "latest"
 
-    Admin = {
-      Username = "tink"
-      Password = "${random_password.TinkAdminPassword.result}"
-    }
+    Admin = local.TinkAdmin
   })
 }

@@ -19,3 +19,16 @@ variable "eJabberD" {
     OIDVaultPath = string
   })
 }
+
+#
+# Tinkerbell
+#
+
+variable "Tinkerbell" {
+  type = object({
+    Admin = object({
+      Username = string
+      Password = string
+    })
+  })
+}

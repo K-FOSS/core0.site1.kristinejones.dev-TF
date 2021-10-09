@@ -24,6 +24,10 @@ module "Vault" {
   }
 
   eJabberD = module.Consul.eJabberD
+
+  Tinkerbell = {
+    Admin = module.Nomad.Tinkerbell.Admin
+  }
 }
 
 #
