@@ -1,14 +1,72 @@
 hosts:
   - mq.kristianjones.dev
 
-host_config:
-  mq.kristianjones.dev:
-    sql_type: pgsql
-    sql_server: ${Database.Hostname}
-    sql_database: ${Database.Database}
-    sql_username: ${Database.Username}
-    sql_password: ${Database.Password}
-    auth_method: [sql]
+sql_type: pgsql
+sql_server: ${Database.Hostname}
+sql_database: ${Database.Database}
+sql_username: ${Database.Username}
+sql_password: ${Database.Password}
+auth_method:
+  - sql
+
+acl:
+  local:
+    user_regexp: ""
+  loopback:
+    ip:
+      - 127.0.0.0/8
+      - ::1/128
+      - ::FFFF:127.0.0.1/128
+  admin:
+    user:
+      - "admin@localhost"
+
+access_rules:
+  local:
+    allow: local
+  c2s:
+    deny: blocked
+    allow: all
+  announce:
+    allow: admin
+  configure:
+    allow: admin
+  muc_create:
+    allow: local
+  pubsub_createnode:
+    allow: local
+  trusted_network:
+    allow: loopback
+
+api_permissions:
+  "console commands":
+    from:
+      - ejabberd_ctl
+    who: all
+    what: "*"
+  "admin access":
+    who:
+      access:
+        allow:
+          acl: loopback
+          acl: admin
+      oauth:
+        scope: "ejabberd:admin"
+        access:
+          allow:
+            acl: loopback
+            acl: admin
+    what:
+      - "*"
+      - "!stop"
+      - "!start"
+  "public commands":
+    who:
+      ip: 127.0.0.1/8
+    what:
+      - status
+      - connected_users_number
+
 
 listen:
   - port: 1883
