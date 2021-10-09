@@ -48,6 +48,10 @@ scrape_configs:
     #
     # TODO: mTLS
     #
+    scheme: https
+    tls_config:
+      ca_file: /local/GrafanaCA.pem
+      server_name: grafana-cont.service.kjdev
     dns_sd_configs:
       - names: 
           - grafana-cont.service.kjdev

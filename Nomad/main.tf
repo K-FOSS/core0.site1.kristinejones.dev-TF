@@ -79,6 +79,8 @@ module "Grafana" {
   source = "./Jobs/Grafana"
 
   Database = var.Grafana.Database
+
+  TLS = var.Grafana.TLS
 }
 
 #
@@ -222,6 +224,8 @@ module "Metrics" {
   Cortex = var.Metrics.Cortex
 
   Tempo = var.Metrics.Tempo
+
+  Prometheus = var.Metrics.Prometheus
 }
 
 
