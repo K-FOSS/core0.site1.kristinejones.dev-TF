@@ -103,7 +103,7 @@ EOF
       config {
         image = "ejabberd/ecs:${Version}"
 
-        args = ["foreground", "--config", "/local/eJabberD.yaml"]
+        args = ["--config", "/local/eJabberD.yaml", "foreground"]
 
         logging {
           type = "loki"
