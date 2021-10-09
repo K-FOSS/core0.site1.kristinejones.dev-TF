@@ -27,12 +27,10 @@ certfiles:
 language: "en"
 
 sm_db_type: redis
-redis_start_mode: 0
 redis_pool_size: 5
 redis_server: ${Redis.Hostname}
 redis_port: ${Redis.Port}
 redis_password: "${Redis.Password}"
-redis_tab: "0,1,2,3,5,7,10"
 
 modules:
   mod_mqtt:

@@ -66,7 +66,10 @@ job "grafana" {
         port     = "http"
         address_mode = "alloc"
 
-        type     = "http"
+        type     = "https"
+        protocol = "https"
+        tls_skip_verify = true
+
         path     = "/api/health"
         interval = "30s"
         timeout  = "5s"
