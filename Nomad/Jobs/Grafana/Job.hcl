@@ -66,7 +66,6 @@ job "grafana" {
         port     = "http"
         address_mode = "alloc"
 
-        type     = "https"
         protocol = "https"
         tls_skip_verify = true
 
