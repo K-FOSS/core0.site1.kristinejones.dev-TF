@@ -82,7 +82,7 @@ EOF
   }
 
 %{ for Service in Services ~}
-  group "pomerium-${Service.name}" {
+  group "pomerium-${Service.Name}" {
     count = ${Service.count}
 
     network {
@@ -98,10 +98,10 @@ EOF
     }
 
     service {
-      name = "pomerium-${Service.name}-https-cont"
+      name = "pomerium-${Service.Name}-https-cont"
       port = "https"
 
-      task = "pomerium-${Service.name}"
+      task = "pomerium-${Service.Name}"
 
       tags = ["$${NOMAD_ALLOC_INDEX}"]
 
@@ -109,17 +109,17 @@ EOF
     }
 
     service {
-      name = "pomerium-${Service.name}-grpc-cont"
+      name = "pomerium-${Service.Name}-grpc-cont"
       port = "grpc"
 
-      task = "pomerium-${Service.name}"
+      task = "pomerium-${Service.Name}"
 
       tags = ["$${NOMAD_ALLOC_INDEX}"]
 
       address_mode = "alloc"
     }
 
-    task "pomerium-${Service.name}" {
+    task "pomerium-${Service.Name}" {
       driver = "docker"
 
       restart {
@@ -134,7 +134,7 @@ EOF
 
         labels {
           job = "pomerium"
-          service = "${Service.name}"
+          service = "${Service.Name}"
         }
 
         logging {
@@ -147,7 +147,7 @@ EOF
       }
 
       meta {
-        SERVICE = "${Service.name}"
+        SERVICE = "${Service.Name}"
       }
 
       template {
