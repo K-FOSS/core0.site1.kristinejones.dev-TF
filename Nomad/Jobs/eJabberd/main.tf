@@ -69,6 +69,8 @@ resource "nomad_job" "JobFile" {
   jobspec = templatefile("${path.module}/Job.hcl", {
     eJabberD = {
       Config = templatefile("${path.module}/Configs/eJabberD.yaml", {
+        Database = var.Database
+
         Redis = {
           Host = "ejabberd-redis.service.kjdev"
           Port = "6379"
