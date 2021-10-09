@@ -8,6 +8,7 @@ sql_username: ${Database.Username}
 sql_password: ${Database.Password}
 auth_method:
   - sql
+new_sql_schema: true
 
 acl:
   local:
