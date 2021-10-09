@@ -25,7 +25,7 @@ job "pomerium" {
       driver = "docker"
 
       config {
-        image = "redis:6-alpine"
+        image = "redis:6-alpine3.14"
 
         command = "redis-server"
 
@@ -39,6 +39,44 @@ job "pomerium" {
             loki-external-labels = "job=pomerium,service=redis"
           }
         }
+      }
+
+      template {
+        data = <<EOF
+port 0
+tls-port 6379
+
+tls-cert-file /local/cert.pem
+tls-key-file /local/cert.key
+
+tls-ca-cert-file /local/ca.pem
+EOF
+
+        destination = "local/redis.conf"
+      }
+
+      template {
+        data = <<EOF
+${TLS.CA}
+EOF
+
+        destination = "local/ca.pem"
+      }
+
+      template {
+        data = <<EOF
+${TLS.Redis.Cert}
+EOF
+
+        destination = "local/cert.pem"
+      }
+
+      template {
+        data = <<EOF
+${TLS.Redis.Key}
+EOF
+
+        destination = "local/cert.key"
       }
     }
   }

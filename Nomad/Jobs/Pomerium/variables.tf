@@ -15,6 +15,12 @@ variable "Secrets" {
 variable "TLS" {
   type = object({
     CA = string
+
+    Redis = object({
+      Cert = string
+
+      Key = string
+    })
   })
 }
 

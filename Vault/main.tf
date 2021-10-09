@@ -172,3 +172,12 @@ resource "vault_pki_secret_backend_cert" "PomeriumAuthorizeCert" {
 
   alt_names = []
 }
+
+resource "vault_pki_secret_backend_cert" "PomeriumRedisCert" {
+  backend = module.Pomerium.TLS.Mount.path
+  name = module.Pomerium.TLS.Role.name
+
+  common_name = "pomerium-redis-cont.service.kjdev"
+
+  alt_names = []
+}

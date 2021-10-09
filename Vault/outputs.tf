@@ -129,5 +129,10 @@ output "PomeriumTLS" {
       Cert = vault_pki_secret_backend_cert.PomeriumAuthorizeCert.certificate
       Key = vault_pki_secret_backend_cert.PomeriumAuthorizeCert.private_key
     }
+
+    Redis = {
+      Cert = vault_pki_secret_backend_cert.PomeriumRedisCert.certificate
+      Key = vault_pki_secret_backend_cert.PomeriumRedisCert.private_key
+    }
   }
 }

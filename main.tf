@@ -343,6 +343,8 @@ module "Nomad" {
 
     TLS = {
       CA = module.Vault.PomeriumTLS.CA
+
+      Redis = module.Vault.PomeriumTLS.Redis
     }
   }
 

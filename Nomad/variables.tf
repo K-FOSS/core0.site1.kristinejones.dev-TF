@@ -101,6 +101,12 @@ variable "Pomerium" {
 
     TLS = object({
       CA = string
+
+      Redis = object({
+        Cert = string
+
+        Key = string
+      })
     })
 
     Services = map(object(
