@@ -56,10 +56,6 @@ data "github_release" "Release" {
   retrieve_by = "latest"
 }
 
-data "http" "Hook" {
-  url = "https://github.com/tinkerbell/hook/releases/download/${data.github_release.Release.release_tag}/hook_x86_64.tar.gz"
-}
-
 resource "nomad_volume" "Volume" {
   type                  = "csi"
   plugin_id             = "truenas"
@@ -92,7 +88,7 @@ resource "nomad_job" "JobFile" {
     Volume = nomad_volume.Volume
 
     EntryScript = templatefile("${path.module}/Configs/Entry.sh", {
-      HookFile = data.http.Hook.body
+      HOOK_URL = "https://github.com/tinkerbell/hook/releases/download/${data.github_release.Release.release_tag}/hook_x86_64.tar.gz"
     })
   })
 }
