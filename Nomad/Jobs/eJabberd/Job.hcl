@@ -105,6 +105,8 @@ EOF
       config {
         image = "ejabberd/ecs:${Version}"
 
+        args = ["--config", "/local/eJabberD.yaml"]
+
         logging {
           type = "loki"
           config {
