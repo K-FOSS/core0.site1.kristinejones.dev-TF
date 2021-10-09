@@ -37,20 +37,28 @@ resource "random_string" "SharedSecret" {
 locals {
   Services = tomap({
     Authenticate = {
-      name = "authenticate"
-      count = 1
+      Name = "authenticate"
+      Count = 3
+
+      TLS = var.TLS.Authenticate
     },
     Proxy = {
-      name = "proxy"
-      count = 1
+      Name = "proxy"
+      Count = 3
+
+      TLS = var.TLS.Proxy
     },
     Authorize = {
-      name = "authorize"
-      count = 1
+      Name = "authorize"
+      Count = 3
+
+      TLS = var.TLS.Authorize
     },
     DataBroker = {
-      name = "databroker"
-      count = 1
+      Name = "databroker"
+      Count = 3
+
+      TLS = var.TLS.DataBroker
     }
   })
 

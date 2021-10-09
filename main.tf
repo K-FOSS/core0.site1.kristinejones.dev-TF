@@ -229,6 +229,16 @@ module "Mattermost" {
 
 module "Pomerium" {
   source = "./Pomerium"
+
+  TLS = {
+    Proxy = module.Vault.PomeriumTLS.Proxy
+
+    DataBroker = module.Vault.PomeriumTLS.DataBroker
+
+    Authenticate = module.Vault.PomeriumTLS.Authenticate
+
+    Authorize = module.Vault.PomeriumTLS.Authorize
+  }
 }
 
 #
@@ -330,8 +340,6 @@ module "Nomad" {
     Services = module.Pomerium.Services
 
     Secrets = module.Pomerium.Secrets
-
-    TLS = module.Vault.PomeriumTLS
   }
 
   #

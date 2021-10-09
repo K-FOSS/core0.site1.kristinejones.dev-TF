@@ -43,30 +43,51 @@ job "pomerium" {
     }
   }
 
-  group "pomerium-authenticate" {
-    count = 1
+%{ for Service in Services ~}
+  group "pomerium-${Service.name}" {
+    count = ${Service.count}
 
     network {
       mode = "cni/nomadcore1"
 
-      port "http" { 
+      port "https" {
+        to = 443
+      }
+
+      port "grpc" { 
         to = 443
       }
     }
 
     service {
-      name = "pomerium-authenticate-cont"
-      port = "http"
+      name = "pomerium-${Service.name}-https-cont"
+      port = "https"
 
-      task = "pomerium-server"
+      task = "pomerium-${Service.name}"
 
       tags = ["$${NOMAD_ALLOC_INDEX}"]
 
       address_mode = "alloc"
     }
 
-    task "pomerium-authenticate-server" {
+    service {
+      name = "pomerium-${Service.name}-grpc-cont"
+      port = "grpc"
+
+      task = "pomerium-${Service.name}"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
+      address_mode = "alloc"
+    }
+
+    task "pomerium-${Service.name}" {
       driver = "docker"
+
+      restart {
+        attempts = 5
+        delay    = "60s"
+      }
 
       config {
         image = "pomerium/pomerium:${Version}"
@@ -75,7 +96,7 @@ job "pomerium" {
 
         labels {
           job = "pomerium"
-          service = "authenticate"
+          service = "${Service.name}"
         }
 
         logging {
@@ -87,95 +108,16 @@ job "pomerium" {
         }
       }
 
-      template {
-        data = <<EOF
-${YAMLConfigs.Authenticate}
-EOF
-
-        destination = "local/pomerium.yaml"
+      meta {
+        SERVICE = "${Service.name}"
       }
 
       template {
         data = <<EOF
-${TLS.CA}
+${YAMLConfig}
 EOF
 
-        destination = "local/ca.pem"
-      }
-
-      template {
-        data = <<EOF
-${TLS.Authenticate.Cert}
-EOF
-
-        destination = "local/cert.pem"
-      }
-
-      template {
-        data = <<EOF
-${TLS.Authenticate.Key}
-EOF
-
-        destination = "local/cert.key"
-      }
-
-      resources {
-        cpu    = 800
-        memory = 500
-      }
-    }
-  }
-
-  group "pomerium-authorize" {
-    count = 1
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "http" { 
-        to = 443
-      }
-    }
-
-    service {
-      name = "pomerium-authorize-cont"
-      port = "http"
-
-      task = "pomerium-server"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
-
-      address_mode = "alloc"
-    }
-
-    task "pomerium-authorize-server" {
-      driver = "docker"
-
-      config {
-        image = "pomerium/pomerium:${Version}"
-
-        args = ["-config=/local/pomerium.yaml"]
-
-        labels {
-          job = "pomerium"
-          service = "authorize"
-        }
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-            loki-external-labels = "job=pomerium,service=authorize"
-          }
-        }
-      }
-
-      template {
-        data = <<EOF
-${YAMLConfigs.Authorize}
-EOF
-
-        destination = "local/pomerium.yaml"
+        destination = "local/Pomerium.yaml"
       }
 
       template {
@@ -188,7 +130,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.Authorize.Cert}
+${Service.TLS.Cert}
 EOF
 
         destination = "local/cert.pem"
@@ -196,7 +138,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.Authorize.Key}
+${Service.TLS.Key}
 EOF
 
         destination = "local/cert.key"
@@ -208,170 +150,5 @@ EOF
       }
     }
   }
-
-  group "pomerium-databroker" {
-    count = 3
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "http" { 
-        to = 443
-      }
-    }
-
-    service {
-      name = "pomerium-databroker-cont"
-      port = "http"
-
-      task = "pomerium-server"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
-
-      address_mode = "alloc"
-    }
-
-    task "pomerium-databroker-server" {
-      driver = "docker"
-
-      config {
-        image = "pomerium/pomerium:${Version}"
-
-        args = ["-config=/local/pomerium.yaml"]
-
-        labels {
-          job = "pomerium"
-          service = "databroker"
-        }
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-            loki-external-labels = "job=pomerium,service=databroker"
-          }
-        }
-      }
-
-      template {
-        data = <<EOF
-${YAMLConfigs.DataBroker}
-EOF
-
-        destination = "local/pomerium.yaml"
-      }
-
-      template {
-        data = <<EOF
-${TLS.CA}
-EOF
-
-        destination = "local/ca.pem"
-      }
-
-      template {
-        data = <<EOF
-${TLS.DataBroker.Cert}
-EOF
-
-        destination = "local/cert.pem"
-      }
-
-      template {
-        data = <<EOF
-${TLS.DataBroker.Key}
-EOF
-
-        destination = "local/cert.key"
-      }
-
-      resources {
-        cpu    = 800
-        memory = 500
-      }
-    }
-  }
-
-  group "pomerium-proxy" {
-    count = 1
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "http" { 
-        to = 443
-      }
-    }
-
-    service {
-      name = "pomerium-proxy-cont"
-      port = "http"
-
-      task = "pomerium-server"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
-
-      address_mode = "alloc"
-    }
-
-    task "pomerium-proxy-server" {
-      driver = "docker"
-
-      config {
-        image = "pomerium/pomerium:${Version}"
-
-        args = ["-config=/local/pomerium.yaml"]
-        
-        labels {
-          job = "pomerium"
-          service = "proxy"
-        }
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-            loki-external-labels = "job=pomerium,service=proxy"
-          }
-        }
-      }
-
-      template {
-        data = <<EOF
-${YAMLConfigs.Proxy}
-EOF
-
-        destination = "local/pomerium.yaml"
-      }
-
-      template {
-        data = <<EOF
-${TLS.CA}
-EOF
-
-        destination = "local/ca.pem"
-      }
-
-      template {
-        data = <<EOF
-${TLS.Proxy.Cert}
-EOF
-
-        destination = "local/cert.pem"
-      }
-
-      template {
-        data = <<EOF
-${TLS.Proxy.Key}
-EOF
-
-        destination = "local/cert.key"
-      }
-
-      resources {
-        cpu    = 800
-        memory = 500
-      }
-    }
-  }
+%{ endfor ~}
 }

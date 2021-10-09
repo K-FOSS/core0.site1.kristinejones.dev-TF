@@ -41,8 +41,14 @@ variable "TLS" {
 variable "Services" {
   type = map(object(
     {
-      name = string
-      count = number
+      Name = string
+      Count = number
+
+      TLS = object({
+        Cert = string
+
+        Key = string
+      })
     }
   ))
 }

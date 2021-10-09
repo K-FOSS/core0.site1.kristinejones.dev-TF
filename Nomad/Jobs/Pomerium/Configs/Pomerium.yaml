@@ -1,22 +1,27 @@
 #
 # Networking
 #
+
+address: 0.0.0.0:443
 grpc_address: 0.0.0.0:443
 
 #
 # Pomerium Core
-# 
-services: databroker
+#
+
+services: proxy
 
 #
 # TLS
 #
+
 autocert: false
 autocert_must_staple: false
 
 #
 # mTLS
 #
+
 certificate_authority_file: /local/ca.pem
 certificate_file: /local/cert.pem
 certificate_key_file: /local/cert.key
@@ -32,6 +37,7 @@ idp_provider_url: http://authentik-cont.service.kjdev:9000/application/o/pomeriu
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
 
+
 #
 # Secrets
 #
@@ -39,17 +45,19 @@ idp_client_secret: ${OpenID.ClientSecret}
 cookie_secret: ${Secrets.CookieSecret}
 shared_secret: ${Secrets.SharedSecret}
 
-jwt_claims_headers: email,groups,user,preferred_username,nickname
+jwt_claims_headers: email,groups,user,nickname
 
 #
 # Data Broker
 #
 # Docs: https://www.pomerium.com/reference/#data-broker-service
 #
+
 databroker_service_url: https://pomerium-databroker-cont.service.kjdev:443
 databroker_storage_type: redis
 databroker_storage_connection_string: 'redis://pomerium-redis-cont.service.kjdev:6379/0'
 databroker_storage_tls_skip_verify: true
+
 
 #
 # Authorize Service
@@ -63,8 +71,7 @@ signing_key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSU1tM2JCOXZKZi9
 #
 
 #cookie_domain: int.site1.kristianjones.dev
-
-#codec_type: http2
+default_upstream_timeout: 5m
 
 # https://pomerium.com/reference/#routes
 routes:
@@ -87,7 +94,6 @@ routes:
       - kristianjones.dev
     pass_identity_headers: true
     allow_websockets: true
-
 
 #
 # Tracing

@@ -99,34 +99,16 @@ variable "Pomerium" {
       ClientSecret = string
     })
 
-    TLS = object({
-      CA = string
-      
-      Proxy = object({
-        Cert = string
-        Key = string
-      })
-
-      DataBroker = object({
-        Cert = string
-        Key = string
-      })
-
-      Authenticate = object({
-        Cert = string
-        Key = string
-      })
-
-      Authorize = object({
-        Cert = string
-        Key = string
-      })
-    })
-
     Services = map(object(
       {
-        name = string
-        count = number
+        Name = string
+        Count = number
+
+        TLS = object({
+          Cert = string
+
+          Key = string
+        })
       }
     ))
 

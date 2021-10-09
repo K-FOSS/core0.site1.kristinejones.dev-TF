@@ -62,24 +62,10 @@ resource "nomad_job" "Pomerium" {
 
     TLS = var.TLS
 
-    YAMLConfigs = {
-      Authenticate = templatefile("${path.module}/Configs/PomeriumAuthenticate.yaml", {
-        Secrets = var.Secrets
-        OpenID = var.OpenID
-      })
-      Authorize = templatefile("${path.module}/Configs/PomeriumAuthorize.yaml", {
-        Secrets = var.Secrets
-        OpenID = var.OpenID
-      })
-      DataBroker = templatefile("${path.module}/Configs/PomeriumDataBroker.yaml", {
-        Secrets = var.Secrets
-        OpenID = var.OpenID
-      })
-      Proxy = templatefile("${path.module}/Configs/PomeriumProxy.yaml", {
-        Secrets = var.Secrets
-        OpenID = var.OpenID
-      })
-    }
+    Config = templatefile("${path.module}/Configs/Pomerium.yaml", {
+      Secrets = var.Secrets
+      OpenID = var.OpenID
+    })
 
     Version = "v0.15.3"
   })
