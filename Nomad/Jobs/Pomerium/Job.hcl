@@ -130,7 +130,7 @@ EOF
       config {
         image = "pomerium/pomerium:${Version}"
 
-        args = ["-config=/local/pomerium.yaml"]
+        args = ["-config=/local/Pomerium.yaml"]
 
         labels {
           job = "pomerium"
