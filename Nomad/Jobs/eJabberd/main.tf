@@ -46,16 +46,6 @@ terraform {
   }
 }
 
-data "github_repository" "Repo" {
-  full_name = "processone/ejabberd"
-}
-
-data "github_release" "Release" {
-  repository  = data.github_repository.Repo.name
-  owner       = split("/", data.github_repository.Repo.full_name)[0]
-  retrieve_by = "latest"
-}
-
 #
 # Secrets
 #
@@ -72,7 +62,7 @@ resource "nomad_job" "JobFile" {
         Database = var.Database
 
         Redis = {
-          Hostname = "ejabberd-redis.service.kjdev"
+          Host = "ejabberd-redis.service.kjdev"
           Port = "6379"
 
           Password = random_password.RedisPassword.result
@@ -87,6 +77,6 @@ resource "nomad_job" "JobFile" {
     }
 
 
-    Version = data.github_release.Release.release_tag
+    Version = "21.07"
   })
 }
