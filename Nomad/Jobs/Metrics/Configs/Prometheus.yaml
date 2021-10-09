@@ -44,6 +44,14 @@ scrape_configs:
       - names: 
           - dhcp-metrics.service.kjdev
 
+  - job_name: grafana
+    #
+    # TODO: mTLS
+    #
+    dns_sd_configs:
+      - names: 
+          - grafana-cont.service.kjdev
+
   - job_name: loki
     dns_sd_configs:
       - names: 

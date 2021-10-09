@@ -167,6 +167,21 @@ EOF
         destination = "local/cert.key"
       }
 
+      #
+      # TLS & mTLS to end services
+      #
+
+      #
+      # TODO: Get Grafana checking Pomerium client Certs
+      #
+      template {
+        data = <<EOF
+${TLS.Grafana.CA}
+EOF
+
+        destination = "local/TLS/GrafanaCA.pem"
+      }
+
       resources {
         cpu    = 800
         memory = 500

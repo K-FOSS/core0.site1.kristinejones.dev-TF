@@ -21,6 +21,10 @@ variable "TLS" {
 
       Key = string
     })
+
+    Grafana = object({
+      CA = string
+    })
   })
 }
 

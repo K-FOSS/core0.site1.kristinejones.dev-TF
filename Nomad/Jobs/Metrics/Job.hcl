@@ -163,6 +163,16 @@ EOF
         change_mode = "signal"
         change_signal = "SIGHUP"
       }
+
+      template {
+        data = <<EOF
+${Prometheus.Grafana.CA}
+EOF
+
+        destination = "local/GrafanaCA.pem"
+
+        change_mode = "none"
+      }
     }
   }
 

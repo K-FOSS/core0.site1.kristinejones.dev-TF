@@ -321,6 +321,8 @@ module "Nomad" {
 
   Grafana = {
     Database = module.GrafanaDatabase.Database
+
+    TLS = module.Vault.Grafana.TLS
   }
 
   #
@@ -356,6 +358,10 @@ module "Nomad" {
       CA = module.Vault.PomeriumTLS.CA
 
       Redis = module.Vault.PomeriumTLS.Redis
+
+      Grafana = {
+        CA = module.Vault.Grafana.TLS.CA
+      }
     }
   }
 
@@ -393,6 +399,12 @@ module "Nomad" {
       Targets = module.Tempo.Targets
 
       S3 = module.TempoBucket
+    }
+
+    Prometheus = {
+      Grafana = {
+        CA = module.Vault.Grafana.TLS.CA
+      }
     }
   }
 

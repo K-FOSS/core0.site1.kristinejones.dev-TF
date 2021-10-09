@@ -115,8 +115,10 @@ variable "Tempo" {
   })
 }
 
-# variable "Prometheus" {
-#   type = object({
-
-#   })
-# }
+variable "Prometheus" {
+  type = object({
+    Grafana = object({
+      CA = string
+    })
+  })
+}

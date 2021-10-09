@@ -224,3 +224,20 @@ resource "vault_pki_secret_backend_cert" "eJabberDRedisCert" {
 
   alt_names = []
 }
+
+#
+# Grafana
+#
+
+module "Grafana" {
+  source = "./TLS/Template"
+}
+
+resource "vault_pki_secret_backend_cert" "GrafanaCert" {
+  backend = module.Grafana.TLS.Mount.path
+  name = module.Grafana.TLS.Role.name
+
+  common_name = "grafana-cont.service.kjdev"
+
+  alt_names = ["grafana.int.site1.kristianjones.dev"]
+}

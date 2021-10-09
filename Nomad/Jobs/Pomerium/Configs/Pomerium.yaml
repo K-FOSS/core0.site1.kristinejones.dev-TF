@@ -91,7 +91,8 @@ routes:
     allow_websockets: true
 
   - from: https://grafana.int.site1.kristianjones.dev
-    to: http://grafana-cont.service.kjdev:8080
+    to: https://grafana-cont.service.kjdev:8080
+    tls_custom_ca_file: /local/TLS/GrafanaCA.pem
     allowed_domains:
       - kristianjones.dev
     pass_identity_headers: true

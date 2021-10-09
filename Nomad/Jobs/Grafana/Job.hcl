@@ -115,6 +115,36 @@ EOF
 
         destination = "local/provisioning/datasources/datasources.yaml"
       }
+
+      template {
+        data = <<EOF
+${TLS.CA}
+EOF
+
+        destination = "local/TLS/CA.pem"
+
+        change_mode = "none"
+      }
+
+      template {
+        data = <<EOF
+${TLS.Cert}
+EOF
+
+        destination = "local/TLS/cert.pem"
+
+        change_mode = "none"
+      }
+
+      template {
+        data = <<EOF
+${TLS.Key}
+EOF
+
+        destination = "local/TLS/cert.key"
+
+        change_mode = "none"
+      }
     }
   }
 }

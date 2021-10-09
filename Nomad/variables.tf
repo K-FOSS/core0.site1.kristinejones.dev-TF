@@ -46,6 +46,13 @@ variable "Grafana" {
       Username = string
       Password = string
     })
+
+    TLS = object({
+      CA = string
+
+      Cert = string
+      Key = string
+    })
   })
 }
 
@@ -106,6 +113,10 @@ variable "Pomerium" {
         Cert = string
 
         Key = string
+      })
+
+      Grafana = object({
+        CA = string
       })
     })
 
@@ -264,6 +275,12 @@ variable "Metrics" {
 
 
         Bucket = string
+      })
+    })
+
+    Prometheus = object({
+      Grafana = object({
+        CA = string
       })
     })
   })

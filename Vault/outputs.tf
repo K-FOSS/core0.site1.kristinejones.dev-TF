@@ -169,3 +169,18 @@ output "eJabberD" {
     }
   }
 }
+
+#
+# Grafana
+#
+
+output "Grafana" {
+  value = {
+    TLS = {
+      CA = vault_pki_secret_backend_cert.GrafanaCert.ca_chain
+  
+      Cert = vault_pki_secret_backend_cert.GrafanaCert.certificate
+      Key = vault_pki_secret_backend_cert.GrafanaCert.private_key
+    }
+  } 
+}

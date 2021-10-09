@@ -53,6 +53,8 @@ resource "nomad_job" "Metrics" {
         
       })
 
+      Grafana = var.Prometheus.Grafana
+
       Version = "v2.30.0"
     }
 
