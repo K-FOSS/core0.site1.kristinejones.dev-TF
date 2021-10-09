@@ -10,3 +10,9 @@ variable "CloudFlare" {
     Token = string
   })
 }
+
+variable "Pomerium" {
+  type = object({
+    CA = string
+  })
+}

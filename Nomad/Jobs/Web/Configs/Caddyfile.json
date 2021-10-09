@@ -49,7 +49,10 @@
                           "transport": {
                             "protocol": "http",
                             "tls": {
-                              "insecure_skip_verify": true
+                              "server_name": "pomerium-authenticate-cont.service.kjdev",
+                              "root_ca_pem_files": [
+                                "/local/PomeriumCA.pem"
+                              ]
                             }
                           },
                           "upstreams": [
@@ -74,7 +77,9 @@
                           "transport": {
                             "protocol": "http",
                             "tls": {
-                              "insecure_skip_verify": true
+                              "root_ca_pem_files": [
+                                "/local/PomeriumCA.pem"
+                              ]
                             }
                           },
                           "upstreams": [
@@ -208,29 +213,6 @@
                           "upstreams": [
                             {
                               "lookup_srv": "authentik-cont.service.kjdev"
-                            }
-                          ]
-                        }
-                      ],
-                      "terminal": true
-                    },
-                    {
-                      "match": [
-                        {
-                          "host": [
-                            "grafana.kristianjones.dev"
-                          ]
-                        }
-                      ],
-                      "handle": [
-                        {
-                          "handler": "reverse_proxy",
-                          "transport": {
-                            "protocol": "http"
-                          },
-                          "upstreams": [
-                            {
-                              "lookup_srv": "grafana-cont.service.kjdev"
                             }
                           ]
                         }

@@ -59,6 +59,10 @@ resource "nomad_job" "JobFile" {
       Consul = var.Consul
     })
 
+    Pomerium = {
+      CA = var.Pomerium.CA
+    }
+
     Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", { 
       Cloudflare = var.CloudFlare
 

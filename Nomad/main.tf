@@ -112,6 +112,10 @@ module "Web" {
   Consul = var.Ingress.Consul
 
   CloudFlare = var.Ingress.Cloudflare
+
+  Pomerium = {
+    CA = var.Pomerium.TLS.CA
+  }
 }
 
 module "CoTurn" {

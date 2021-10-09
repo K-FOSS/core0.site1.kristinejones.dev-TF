@@ -2,9 +2,9 @@
 # Logging configuration
 #
 [logging]
-level = "info"    # "debug" | "info" | "warn" | "error"
+level = "warn"    # "debug" | "info" | "warn" | "error"
 output = "stdout" # "stdout" | "stderr" | "/path/to/gobetween.log"
-format = "text"   # (optional) "text" | "json"
+format = "json"   # (optional) "text" | "json"
 
 #
 # Pprof profiler configuration
@@ -55,7 +55,7 @@ backend_connection_timeout = "0" # Backend connection timeout (ignored in udp)
 [servers.syslog]
 protocol = "tcp"
 bind = "0.0.0.0:514"
-balance = "weight"
+balance = "iphash1"
 
   [servers.syslog.discovery]
   kind = "srv"
@@ -67,11 +67,11 @@ balance = "weight"
 [servers.dns]
 protocol = "udp"
 bind = "0.0.0.0:53"
-balance = "weight"
+balance = "iphash1"
 
   [servers.dns.udp]
-  max_requests  = 100
-  max_responses = 100
+  max_requests  = 500
+  max_responses = 500
 
   [servers.dns.discovery]
   kind = "srv"
@@ -82,7 +82,7 @@ balance = "weight"
 [servers.dhcp]
 protocol = "udp"
 bind = "0.0.0.0:67"
-balance = "weight"
+balance = "roundrobin"
 
   [servers.dhcp.udp]
   max_requests  = 300
@@ -97,7 +97,7 @@ balance = "weight"
 [servers.stun]
 protocol = "tcp"
 bind = "0.0.0.0:3478"
-balance = "weight"
+balance = "iphash1"
 
   [servers.stun.discovery]
   kind = "srv"

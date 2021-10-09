@@ -110,6 +110,14 @@ EOF
 
         destination = "local/caddyfile.json"
       }
+
+      template {
+        data = <<EOF
+${Pomerium.CA}
+EOF
+
+        destination = "local/PomeriumCA.pem"
+      }
     }
 
     task "gobetween-server" {
