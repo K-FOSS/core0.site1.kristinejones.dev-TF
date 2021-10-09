@@ -24,3 +24,20 @@ variable "TLS" {
     })
   })
 }
+
+# variable "Terraform" {
+#   type = object({
+#     Vault = object({
+#       Address = string
+
+#       Token = string
+#     })
+
+#     Consul = object({
+#       Address = string
+
+#       Token = string
+      
+#     })
+#   })
+# }

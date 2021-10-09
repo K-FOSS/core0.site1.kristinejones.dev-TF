@@ -287,6 +287,13 @@ module "Tinkerbell" {
 }
 
 #
+# Machine Static
+#
+module "MachineStatic" {
+  source = "./Jobs/MachineStatic"
+}
+
+#
 # TrueCommand
 #
 
