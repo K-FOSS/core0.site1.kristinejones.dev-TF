@@ -135,7 +135,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.eJabberD.Cert}
+${TLS.MQTT.Cert}
 EOF
 
         destination = "local/cert.pem"
@@ -143,7 +143,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.eJabberD.Key}
+${TLS.MQTT.Key}
 EOF
 
         destination = "local/cert.key"
