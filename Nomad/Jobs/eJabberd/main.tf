@@ -72,7 +72,7 @@ resource "nomad_job" "JobFile" {
         Database = var.Database
 
         Redis = {
-          Host = "ejabberd-redis.service.kjdev"
+          Hostname = "ejabberd-redis.service.kjdev"
           Port = "6379"
 
           Password = random_password.RedisPassword.result
