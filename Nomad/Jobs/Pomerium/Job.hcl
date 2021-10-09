@@ -152,7 +152,7 @@ EOF
 
       template {
         data = <<EOF
-${YAMLConfig}
+${Config}
 EOF
 
         destination = "local/Pomerium.yaml"
