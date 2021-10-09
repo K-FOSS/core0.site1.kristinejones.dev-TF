@@ -71,7 +71,7 @@ EOF
       config {
         image = "kristianfoss/programs-tftpd:tftpd-stable-scratch"
 
-        args = ["-E", "0.0.0.0", "8069", "tftpd", "-u", "user", "-c", "/data", "-vvv"]
+        args = ["-E", "0.0.0.0", "8069", "tftpd", "-u", "user", "-c", "/data"]
       }
     }
   }
