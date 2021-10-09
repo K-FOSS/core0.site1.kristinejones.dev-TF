@@ -37,6 +37,15 @@ job "ingress" {
         to = 67
       }
 
+      #
+      # TFTP
+      #
+      port "tftp" {
+        static = 69
+
+        to = 69
+      }
+
       port "http" {
         to = 8080
       }
@@ -46,6 +55,9 @@ job "ingress" {
       }
     }
 
+    #
+    # Caddy Reverse Proxy (TCP, TLS, mTLS)
+    #
     service {
       name = "ingressweb-cont"
       port = "https"
@@ -73,9 +85,22 @@ job "ingress" {
       address_mode = "alloc"
     }
 
+    #
+    # GoBetween Load Balancer
+    #
+
     service {
       name = "ingressweb-syslog-cont"
       port = "syslog"
+
+      task = "gobetween-server"
+
+      address_mode = "alloc"
+    }
+
+    service {
+      name = "gobetween-tftp-cont"
+      port = "tftp"
 
       task = "gobetween-server"
 
@@ -129,7 +154,7 @@ EOF
         command = "/gobetween"
         args = ["-c", "/local/gobetween.toml"]
 
-        ports = ["syslog", "dhcp"]
+        ports = ["syslog", "dhcp", "tftp"]
 
         logging {
           type = "loki"

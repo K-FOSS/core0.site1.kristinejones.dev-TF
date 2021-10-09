@@ -2,7 +2,7 @@ job "machine-static" {
   datacenters = ["core0site1"]
 
   group "tftp" {
-    count = 1
+    count = 3
 
     network {
       mode = "cni/nomadcore1"
