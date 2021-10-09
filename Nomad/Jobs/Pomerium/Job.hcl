@@ -29,7 +29,7 @@ job "pomerium" {
 
         command = "redis-server"
 
-        args = []
+        args = ["/local/redis.conf"]
 
         logging {
           type = "loki"
