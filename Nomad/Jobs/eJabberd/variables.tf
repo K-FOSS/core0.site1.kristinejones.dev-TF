@@ -7,7 +7,7 @@ variable "TLS" {
       Key = string
     })
 
-    MQTTT = object({
+    MQTT = object({
       Cert = string
       Key = string
     })
