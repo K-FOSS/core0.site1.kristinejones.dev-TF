@@ -100,8 +100,6 @@ EOF
     task "ejabberd" {
       driver = "docker"
 
-      user = "101"
-
       config {
         image = "ejabberd/ecs:${Version}"
 
@@ -113,10 +111,6 @@ EOF
             loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
           }
         }
-      }
-    
-      env {
-
       }
 
       template {

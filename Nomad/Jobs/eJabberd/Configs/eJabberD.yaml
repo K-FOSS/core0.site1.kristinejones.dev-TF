@@ -36,3 +36,4 @@ redis_tab: "0,1,2,3,5,7,10"
 
 modules:
   mod_mqtt:
+    use_cache: true
