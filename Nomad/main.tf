@@ -320,7 +320,7 @@ module "NextCloud" {
 # eJabberD
 #
 module "eJabberD" {
-  source = "./Jobs/eJabberD"
+  source = "./Jobs/eJabberd"
 
   Database = var.eJabberD.Database
 
