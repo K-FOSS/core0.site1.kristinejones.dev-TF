@@ -29,6 +29,37 @@ job "machine-static" {
       address_mode = "alloc"
     }
 
+    task "volume-prepare" {
+      driver = "docker"
+
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
+
+      volume_mount {
+        volume      = "tftp-data"
+        destination = "/data"
+      }
+
+      config {
+        image = "alpine:3.14.2"
+
+        command = "/local/entry.sh"
+      }
+
+      # Entrypoint Script
+      template {
+        data = <<EOF
+${EntryScript}
+EOF
+
+        destination = "local/entry.sh"
+
+        perms = "777"
+      }
+    }
+
     task "tftp-server" {
       driver = "docker"
 
