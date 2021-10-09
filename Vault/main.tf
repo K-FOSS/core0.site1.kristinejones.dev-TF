@@ -211,9 +211,9 @@ resource "vault_pki_secret_backend_cert" "eJabberDMQTTServerCert" {
   backend = module.eJabberD.TLS.Mount.path
   name = module.eJabberD.TLS.Role.name
 
-  common_name = "pomerium-proxy-cont.service.kjdev"
+  common_name = "ejabberd-mqtt-cont.service.kjdev"
 
-  alt_names = []
+  alt_names = ["mq.kristianjones.dev"]
 }
 
 resource "vault_pki_secret_backend_cert" "eJabberDRedisCert" {
