@@ -12,14 +12,6 @@ sources:
     mode: tcp
 
 sinks:
-  console:
-    inputs:
-      - logs
-    type: console
-    encoding:
-      codec: json
-
-
   loki:
     inputs:
       - logs
