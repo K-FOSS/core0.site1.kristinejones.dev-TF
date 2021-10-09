@@ -19,7 +19,7 @@ acl:
       - ::FFFF:127.0.0.1/128
   admin:
     user:
-      - "admin@localhost"
+      - "admin@mq.kristianjones.dev"
 
 access_rules:
   local:
