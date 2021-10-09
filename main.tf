@@ -340,6 +340,10 @@ module "Nomad" {
     Services = module.Pomerium.Services
 
     Secrets = module.Pomerium.Secrets
+
+    TLS = {
+      CA = module.Vault.PomeriumTLS.CA
+    }
   }
 
   #
