@@ -314,3 +314,17 @@ module "NextCloud" {
 
 #   S3 = var.NextCloud.S3
 # }
+
+
+#
+# eJabberD
+#
+module "eJabberD" {
+  source = "./Jobs/eJabberD"
+
+  Database = var.eJabberD.Database
+
+  OpenID = var.eJabberD.OpenID
+
+  TLS = var.eJabberD.TLS
+}

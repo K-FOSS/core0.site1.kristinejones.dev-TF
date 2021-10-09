@@ -22,6 +22,8 @@ module "Vault" {
   Pomerium = {
     VaultPath = module.Consul.Pomerium.OIDVaultPath
   }
+
+  eJabberD = module.Consul.eJabberD
 }
 
 #
@@ -204,6 +206,15 @@ module "Tinkerbell" {
 # Mattermost
 #
 module "Mattermost" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# eJabberD
+#
+module "eJabberDDatabase" {
   source = "./Database"
 
   Credentials = module.Vault.Database
@@ -435,5 +446,23 @@ module "Nomad" {
     S3 = module.NextCloud
 
     Credentials = module.Vault.NextCloud
+  }
+
+  #
+  # Automation
+  #
+
+  #
+  # Machine to Machine (M2M)
+  #
+  eJabberD = {
+    #
+    # TODO: OpenID OAuth/Users/LDAP to Authentik
+    #
+    OpenID = module.Vault.eJabberD.OpenID
+
+    Database = module.eJabberDDatabase.Database
+
+    TLS = module.Vault.eJabberD.TLS
   }
 } 

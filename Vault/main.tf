@@ -73,6 +73,14 @@ data "vault_generic_secret" "PomeriumOID" {
 }
 
 #
+# eJabberD
+#
+
+data "vault_generic_secret" "eJabberDOID" {
+  path = "${var.eJabberD.OIDVaultPath}"
+}
+
+#
 # PostgreSQL
 #
 
@@ -178,6 +186,41 @@ resource "vault_pki_secret_backend_cert" "PomeriumRedisCert" {
   name = module.Pomerium.TLS.Role.name
 
   common_name = "pomerium-redis-cont.service.kjdev"
+
+  alt_names = []
+}
+
+#
+# eJabberd
+#
+
+module "eJabberD" {
+  source = "./TLS/Template"
+}
+
+resource "vault_pki_secret_backend_cert" "eJabberDServerCert" {
+  backend = module.eJabberD.TLS.Mount.path
+  name = module.eJabberD.TLS.Role.name
+
+  common_name = "pomerium-proxy-cont.service.kjdev"
+
+  alt_names = []
+}
+
+resource "vault_pki_secret_backend_cert" "eJabberDMQTTServerCert" {
+  backend = module.eJabberD.TLS.Mount.path
+  name = module.eJabberD.TLS.Role.name
+
+  common_name = "pomerium-proxy-cont.service.kjdev"
+
+  alt_names = []
+}
+
+resource "vault_pki_secret_backend_cert" "eJabberDRedisCert" {
+  backend = module.eJabberD.TLS.Mount.path
+  name = module.eJabberD.TLS.Role.name
+
+  common_name = "ejabberd-redis.service.kjdev"
 
   alt_names = []
 }

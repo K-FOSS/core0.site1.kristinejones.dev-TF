@@ -136,3 +136,36 @@ output "PomeriumTLS" {
     }
   }
 }
+
+#
+# eJabberD
+#
+output "eJabberD" {
+  value = {
+
+
+    TLS = {
+      CA = vault_pki_secret_backend_cert.eJabberDServerCert.ca_chain
+
+      Server = {
+        Cert = vault_pki_secret_backend_cert.eJabberDMQTTServerCert.certificate
+        Key = vault_pki_secret_backend_cert.eJabberDMQTTServerCert.private_key
+      }
+
+      MQTT = {
+        Cert = vault_pki_secret_backend_cert.eJabberDMQTTServerCert.certificate
+        Key = vault_pki_secret_backend_cert.eJabberDMQTTServerCert.private_key
+      }
+
+      Redis = {
+        Cert = vault_pki_secret_backend_cert.eJabberDRedisCert.certificate
+        Key = vault_pki_secret_backend_cert.eJabberDRedisCert.private_key
+      }
+    }
+
+    OpenID = {
+      ClientID = data.vault_generic_secret.eJabberDOID.data["ClientID"]
+      ClientSecret = data.vault_generic_secret.eJabberDOID.data["ClientSecret"]
+    }
+  }
+}

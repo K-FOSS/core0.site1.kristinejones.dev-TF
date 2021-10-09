@@ -406,3 +406,47 @@ variable "NextCloud" {
     })
   })
 }
+
+#
+# eJabberD
+#
+
+variable "eJabberD" {
+  type = object({
+    OpenID = object({
+      ClientID = string
+      ClientSecret = string
+    })
+
+    Database = object({
+      Hostname = string
+
+      Username = string
+      Password = string
+
+      Database = string
+    })
+
+    TLS = object({
+      CA = string
+
+      MQTT = object({
+        Cert = string
+
+        Key = string
+      })
+
+      Server = object({
+        Cert = string
+
+        Key = string
+      })
+
+      Redis = object({
+        Cert = string
+
+        Key = string
+      })
+    })
+  })
+}

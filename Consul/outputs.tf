@@ -56,10 +56,21 @@ output "Tempo" {
   }
 }
 
-
+#
+# Pomerium Ingress
+#
 
 output "Pomerium" {
   value = {
     OIDVaultPath = data.consul_key_prefix.PomeriumOID.subkeys["vault_path"]
+  }
+}
+
+#
+# eJabberD
+#
+output "eJabberD" {
+  value = {
+    OIDVaultPath = data.consul_key_prefix.eJabberDOID.subkeys["vault_path"]
   }
 }

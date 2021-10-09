@@ -146,6 +146,10 @@ data "consul_key_prefix" "PomeriumOID" {
   path_prefix = "authentik/apps/pomeriumproxy/"
 }
 
+data "consul_key_prefix" "eJabberDOID" {
+  path_prefix = "authentik/apps/pomeriumproxy/"
+}
+
 #
 # Ingress
 #

@@ -1,0 +1,38 @@
+hosts:
+  - mq.kristianjones.dev
+
+host_config:
+  mq.kristianjones.dev:
+    sql_type: pgsql
+    sql_server: ${Database.Hostname}
+    sql_database: ${Database.Database}
+    sql_username: ${Database.Username}
+    sql_password: ${Database.Password}
+    auth_method: [sql]
+
+listen:
+  - port: 1883
+    ip: '::'
+    module: mod_mqtt
+    backlog: 1000
+    tls: true
+
+ca_file: /local/ca.pem
+
+certfiles:
+  - /local/cert.pem
+  - /local/cert.key
+
+
+language: "en"
+
+sm_db_type: redis
+redis_start_mode: 0
+redis_pool_size: 5
+redis_server: ${Redis.Hostname}
+redis_port: ${Redis.Port}
+redis_password: "${Redis.Password}"
+redis_tab: "0,1,2,3,5,7,10"
+
+modules:
+  mod_mqtt:
