@@ -91,26 +91,11 @@ EOF
       port "https" {
         to = 443
       }
-
-      port "grpc" { 
-        to = 443
-      }
     }
 
     service {
-      name = "pomerium-${Service.Name}-https-cont"
+      name = "pomerium-${Service.Name}-cont"
       port = "https"
-
-      task = "pomerium-${Service.Name}"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
-
-      address_mode = "alloc"
-    }
-
-    service {
-      name = "pomerium-${Service.Name}-grpc-cont"
-      port = "grpc"
 
       task = "pomerium-${Service.Name}"
 
