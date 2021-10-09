@@ -9,7 +9,7 @@ grpc_address: 0.0.0.0:443
 # Pomerium Core
 #
 
-services: proxy
+services: {{ env "NOMAD_META_SERVICE" }}
 
 #
 # TLS
