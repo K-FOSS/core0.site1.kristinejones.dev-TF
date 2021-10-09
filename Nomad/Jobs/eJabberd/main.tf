@@ -66,9 +66,9 @@ resource "nomad_job" "JobFile" {
   jobspec = templatefile("${path.module}/Job.hcl", {
     PSQL_INIT = data.http.PSQLFile.body
 
-    eJabberD = {
-      Database = var.Database
+    Database = var.Database
 
+    eJabberD = {
       Config = templatefile("${path.module}/Configs/eJabberD.yaml", {
         Database = var.Database
 
