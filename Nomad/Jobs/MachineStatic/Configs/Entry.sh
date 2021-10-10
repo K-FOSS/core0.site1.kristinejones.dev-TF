@@ -6,7 +6,7 @@ FINISH_FILE="/data/.done"
 
 if [ ! -f "$${FINISH_FILE}" ]; then
 
-wget -O - ${HOOK_URL} | tar zxf -C /data -
+wget -O - ${HOOK_URL} | tar -C /data zxf - -C /data
 
 touch $${FINISH_FILE}
 
