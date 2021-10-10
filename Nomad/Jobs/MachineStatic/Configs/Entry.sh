@@ -8,7 +8,7 @@ rm -rf $${FINISH_FILE}
 
 if [ ! -f "$${FINISH_FILE}" ]; then
 
-wget -O - ${HOOK_URL} | tar -C /data zxf - -C /data
+wget -O - ${HOOK_URL} | tar zxf - -C /data
 
 touch $${FINISH_FILE}
 
