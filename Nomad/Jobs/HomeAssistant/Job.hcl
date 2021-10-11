@@ -58,6 +58,14 @@ EOF
 
         perms = "777"
       }
+
+      template {
+        data = <<EOH
+${SecretsYAML}
+EOH
+
+        destination = "local/secrets.yaml"
+      }
     }
 
     task "homeassistant-server" {
