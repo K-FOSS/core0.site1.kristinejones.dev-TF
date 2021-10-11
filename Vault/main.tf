@@ -252,3 +252,24 @@ resource "vault_pki_secret_backend_cert" "GrafanaCert" {
 
   alt_names = ["grafana.int.site1.kristianjones.dev"]
 }
+
+#
+# Home Assistant
+# 
+
+module "HomeAssistant" {
+  source = "./TLS/Template"
+}
+
+data "vault_generic_secret" "HomeAssistant" {
+  path = "${vault_mount.Terraform.path}/HomeAssistant"
+}
+
+resource "vault_pki_secret_backend_cert" "HomeAssistantHTTPSCert" {
+  backend = module.HomeAssistant.TLS.Mount.path
+  name = module.HomeAssistant.TLS.Role.name
+
+  common_name = "homeassistant-https-cont.service.kjdev"
+
+  alt_names = ["hass.home1.kristianjones.dev"]
+}

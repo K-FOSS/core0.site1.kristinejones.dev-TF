@@ -467,3 +467,54 @@ variable "eJabberD" {
     })
   })
 }
+
+#
+# HomeAssistant
+#
+variable "HomeAssistant" {
+  type = object({
+    OpenID = object({
+      ClientID = string
+      ClientSecret = string
+    })
+
+    Database = object({
+      Hostname = string
+
+      Username = string
+      Password = string
+
+      Database = string
+    })
+
+    MQTT = object({
+      Connection = object({
+        Hostname = string
+        Port = number
+
+        CA = string
+      })
+
+      Credentials = object({
+        Username = string
+        Password = string
+      })
+    })
+
+    Secrets = object({
+      HomeLocation = object({
+        HomeLatitude = string
+        HomeLongitude = string
+      })
+    })
+
+    TLS = object({
+      CA = string
+
+      Server = object({
+        Cert = string
+        Key = string
+      })
+    })
+  })
+}

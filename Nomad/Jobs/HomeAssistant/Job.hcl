@@ -1,39 +1,10 @@
 job "homeassistant" {
   datacenters = ["core0site1"]
 
-  group "homeassistant-redis" {
+  group "homeassistant-server" {
     count = 1
 
-    network {
-      mode = "cni/nomadcore1"
-
-      port "redis" { 
-        to = 6379
-      }
-    }
-
-    service {
-      name = "nextcloud-redis"
-      port = "redis"
-
-      task = "redis"
-
-      address_mode = "alloc"
-    }
-
-    task "redis" {
-      driver = "docker"
-
-      config {
-        image = "redis:latest"
-      }
-    }
-  }
-
-  group "nextcloud-server" {
-    count = 1
-
-    volume "${Volume.name}" {
+    volume "hassio-data" {
       type      = "csi"
       read_only = false
       source    = "${Volume.name}"
@@ -58,16 +29,49 @@ job "homeassistant" {
       address_mode = "alloc"
     }
 
-    task "nextcloud-server" {
+    task "volume-prepare" {
       driver = "docker"
 
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
+
       volume_mount {
-        volume      = "${Volume.name}"
+        volume      = "hassio-data"
         destination = "/config"
       }
 
       config {
-        image = "homeassistant/home-assistant:${Version}"
+        image = "alpine:3.14.2"
+
+        command = "/local/entry.sh"
+      }
+
+      # Entrypoint Script
+      template {
+        data = <<EOF
+${PrepareScript}
+EOF
+
+        destination = "local/entry.sh"
+
+        perms = "777"
+      }
+    }
+
+    task "homeassistant-server" {
+      driver = "docker"
+
+      volume_mount {
+        volume      = "hassio-data"
+        destination = "/config"
+      }
+
+      config {
+        image = "ghcr.io/home-assistant/home-assistant:${Version}"
+
+        privileged = true
 
         logging {
           type = "loki"
@@ -88,9 +92,19 @@ job "homeassistant" {
 
       template {
         data = <<EOH
+${SecretsYAML}
 EOH
 
-        destination = "local/HomeAssistant.yaml"
+        destination = "local/secrets.yaml"
+        env         = true
+      }
+
+      template {
+        data = <<EOH
+${MQTT.Connection.CA}
+EOH
+
+        destination = "secrets/MQTTCA.pem"
         env         = true
       }
     }

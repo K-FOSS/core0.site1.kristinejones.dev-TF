@@ -339,3 +339,20 @@ module "eJabberD" {
 
   TLS = var.eJabberD.TLS
 }
+
+#
+# HomeAssistant
+#
+module "HomeAssistant" {
+  source = "./Jobs/HomeAssistant"
+
+  Database = var.HomeAssistant.Database
+
+  OpenID = var.HomeAssistant.OpenID
+
+  TLS = var.HomeAssistant.TLS
+
+  MQTT = var.HomeAssistant.MQTT
+
+  Secrets = var.HomeAssistant.Secrets
+}

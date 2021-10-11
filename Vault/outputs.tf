@@ -171,6 +171,49 @@ output "eJabberD" {
 }
 
 #
+# HomeAssistant
+#
+output "HomeAssistant" {
+  value = {
+    MQTT = {
+      Connection = {
+        Hostname = "ejabberd-mqtt-cont.service.kjdev"
+        Port = 1883
+
+        CA = vault_pki_secret_backend_cert.eJabberDServerCert.ca_chain
+      }
+
+      Credentials = {
+        Username = data.vault_generic_secret.HomeAssistant.data["MQTTUsername"]
+        Password = data.vault_generic_secret.HomeAssistant.data["MQTTPassword"]
+      }
+    }
+
+    Secrets = {
+      HomeLocation = {
+        HomeLatitude = data.vault_generic_secret.HomeAssistant.data["HomeLatitude"]
+        HomeLongitude = data.vault_generic_secret.HomeAssistant.data["HomeLongitude"]
+      }
+    }
+
+
+    TLS = {
+      CA = vault_pki_secret_backend_cert.HomeAssistantHTTPSCert.ca_chain
+
+      Server = {
+        Cert = vault_pki_secret_backend_cert.HomeAssistantHTTPSCert.certificate
+        Key = vault_pki_secret_backend_cert.HomeAssistantHTTPSCert.private_key
+      }
+    }
+
+    OpenID = {
+      ClientID = data.vault_generic_secret.eJabberDOID.data["ClientID"]
+      ClientSecret = data.vault_generic_secret.eJabberDOID.data["ClientSecret"]
+    }
+  }
+}
+
+#
 # Grafana
 #
 

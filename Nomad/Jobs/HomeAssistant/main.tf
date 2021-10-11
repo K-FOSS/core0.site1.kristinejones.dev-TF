@@ -87,6 +87,20 @@ resource "nomad_job" "HomeAssistant" {
   jobspec = templatefile("${path.module}/Job.hcl", {
     Volume = nomad_volume.Volume
 
+    MQTT = var.MQTT
+
+    TLS = var.TLS
+
+    PrepareScript = templatefile("${path.module}/Configs/Install.sh", {})
+
+    SecretsYAML = templatefile("${path.module}/Configs/HASS/secrets.template.yaml", {
+      Database = var.Database
+
+      MQTT = var.MQTT
+
+      Secrets = var.Secrets
+    })
+
     Database = var.Database
 
     Version = data.github_release.Release.release_tag

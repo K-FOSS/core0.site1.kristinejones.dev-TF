@@ -225,6 +225,15 @@ module "eJabberDDatabase" {
 }
 
 #
+# HomeAssistant
+#
+module "HomeAssistantDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
 # Hashicorp Nomad
 #
 
@@ -480,5 +489,20 @@ module "Nomad" {
     Database = module.eJabberDDatabase.Database
 
     TLS = module.Vault.eJabberD.TLS
+  }
+
+  #
+  # HomeAssistant Home Automation
+  #
+  HomeAssistant = {
+    OpenID = module.Vault.HomeAssistant.OpenID
+
+    Database = module.HomeAssistantDatabase.Database
+
+    MQTT = module.Vault.HomeAssistant.MQTT
+
+    TLS = module.Vault.HomeAssistant.TLS
+
+    Secrets = module.Vault.HomeAssistant.Secrets
   }
 } 
