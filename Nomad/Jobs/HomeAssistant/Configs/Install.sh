@@ -1,6 +1,6 @@
 #!/bin/sh
 
-apk add --no-cache git
+apk add --no-cache git rsync
 
 echo "Starting Server"
 
@@ -21,6 +21,8 @@ touch $${FINISH_FILE}
 exit 0
 
 else
+
+rsync -av /tmp/hass-config/Config /config/
 
 echo "Already done"
 
