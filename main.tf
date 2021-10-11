@@ -305,6 +305,7 @@ module "Nomad" {
   Bitwarden = {
     Database = {
       Hostname = "master.patroninew.service.kjdev"
+      Port = 5432
 
       Username = module.Vault.BitwardenDB.data["username"]
       Password = module.Vault.BitwardenDB.data["password"]
