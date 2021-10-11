@@ -135,13 +135,7 @@ EOH
       # 
       # TODO: Get mTLS operation
       #
-//       template {
-//         data = <<EOH
-// ${TLS.Server.Key}
-// EOH
 
-//         destination = "secrets/TLS/Server/Key.pem"
-//       }
     }
   }
 }
