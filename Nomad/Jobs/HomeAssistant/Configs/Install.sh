@@ -6,7 +6,7 @@ echo "Starting Server"
 
 FINISH_FILE="/config/.done"
 
-rm -rf $${FINISH_FILE}
+rm -rf /config/*
 
 if [ ! -f "$${FINISH_FILE}" ]; then
 
