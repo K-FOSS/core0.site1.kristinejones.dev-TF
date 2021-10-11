@@ -1,5 +1,7 @@
 #!/bin/sh
 
+apk add --no-cache git
+
 echo "Starting Server"
 
 FINISH_FILE="/config/.done"
