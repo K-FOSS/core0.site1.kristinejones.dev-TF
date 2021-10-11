@@ -1,6 +1,7 @@
 {
   "files.associations": {
-    "*.tf": "terraform"
+    "*.tf": "terraform",
+    "*.hcl": "hcl"
   },
   "json.schemas": [
     {

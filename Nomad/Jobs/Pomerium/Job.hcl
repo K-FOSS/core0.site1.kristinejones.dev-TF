@@ -179,7 +179,20 @@ EOF
 ${TLS.Grafana.CA}
 EOF
 
-        destination = "local/TLS/GrafanaCA.pem"
+        destination = "secrets/TLS/GrafanaCA.pem"
+      }
+
+      #
+      # HomeAssistant
+      #
+      # TODO: Proper mTLS
+      #
+      template {
+        data = <<EOF
+${TLS.HomeAssistant.CA}
+EOF
+
+        destination = "secrets/TLS/HomeAssistantCA.pem"
       }
 
       resources {

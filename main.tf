@@ -375,6 +375,10 @@ module "Nomad" {
       Grafana = {
         CA = module.Vault.Grafana.TLS.CA
       }
+
+      HomeAssistant = {
+        CA = module.Vault.HomeAssistant.TLS.CA
+      }
     }
   }
 

@@ -6,11 +6,12 @@ variable "Bitwarden" {
   type = object({
     Database = object({
       Hostname = string
+      Port = number
+
+      Database = string
 
       Username = string
       Password = string
-
-      Database = string
     })
   })
 }
@@ -116,6 +117,10 @@ variable "Pomerium" {
       })
 
       Grafana = object({
+        CA = string
+      })
+
+      HomeAssistant = object({
         CA = string
       })
     })
@@ -312,11 +317,12 @@ variable "Netbox" {
   type = object({
     Database = object({
       Hostname = string
+      Port = number
+
+      Database = string
 
       Username = string
       Password = string
-
-      Database = string
     })
 
     Admin = object({
@@ -336,11 +342,12 @@ variable "DHCP" {
   type = object({
     Database = object({
       Hostname = string
+      Port = number
+
+      Database = string
 
       Username = string
       Password = string
-
-      Database = string
     })
   })
 }
@@ -349,11 +356,12 @@ variable "Mattermost" {
   type = object({
     Database = object({
       Hostname = string
+      Port = number
+
+      Database = string
 
       Username = string
       Password = string
-
-      Database = string
     })
   })
 }
@@ -362,11 +370,12 @@ variable "Tinkerbell" {
   type = object({
     Database = object({
       Hostname = string
+      Port = number
+
+      Database = string
 
       Username = string
       Password = string
-
-      Database = string
     })
 
     TLS = object({
@@ -392,11 +401,12 @@ variable "NextCloud" {
   type = object({
     Database = object({
       Hostname = string
+      Port = number
+
+      Database = string
 
       Username = string
       Password = string
-
-      Database = string
     })
 
     Credentials = object({
@@ -437,11 +447,12 @@ variable "eJabberD" {
 
     Database = object({
       Hostname = string
+      Port = number
+
+      Database = string
 
       Username = string
       Password = string
-
-      Database = string
     })
 
     TLS = object({
@@ -480,11 +491,12 @@ variable "HomeAssistant" {
 
     Database = object({
       Hostname = string
+      Port = number
+
+      Database = string
 
       Username = string
       Password = string
-
-      Database = string
     })
 
     MQTT = object({

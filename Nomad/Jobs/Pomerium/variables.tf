@@ -25,6 +25,10 @@ variable "TLS" {
     Grafana = object({
       CA = string
     })
+
+    HomeAssistant = object({
+      CA = string
+    })
   })
 }
 

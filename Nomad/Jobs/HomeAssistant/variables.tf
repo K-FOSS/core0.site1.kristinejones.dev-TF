@@ -25,6 +25,13 @@ variable "TLS" {
       Cert = string
       Key = string
     })
+    
+    #
+    # Pomerium Proxy CA
+    #
+    # Proxy = object({
+    #   CA = string
+    # })
   })
 }
 

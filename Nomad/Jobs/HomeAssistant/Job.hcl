@@ -96,7 +96,6 @@ ${SecretsYAML}
 EOH
 
         destination = "local/secrets.yaml"
-        env         = true
       }
 
       template {
@@ -104,9 +103,45 @@ EOH
 ${MQTT.Connection.CA}
 EOH
 
-        destination = "secrets/MQTTCA.pem"
-        env         = true
+        destination = "secrets/TLS/MQTT/CA.pem"
       }
+
+      template {
+        data = <<EOH
+${TLS.CA}
+EOH
+
+        destination = "secrets/TLS/Server/CA.pem"
+      }
+
+      template {
+        data = <<EOH
+${TLS.Server.Cert}
+EOH
+
+        destination = "secrets/TLS/Server/Cert.pem"
+      }
+
+      template {
+        data = <<EOH
+${TLS.Server.Key}
+EOH
+
+        destination = "secrets/TLS/Server/Key.pem"
+      }
+
+      #
+      # Pomerium Proxy CA
+      # 
+      # TODO: Get mTLS operation
+      #
+//       template {
+//         data = <<EOH
+// ${TLS.Server.Key}
+// EOH
+
+//         destination = "secrets/TLS/Server/Key.pem"
+//       }
     }
   }
 }
