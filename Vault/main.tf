@@ -271,5 +271,5 @@ resource "vault_pki_secret_backend_cert" "HomeAssistantHTTPSCert" {
 
   common_name = "homeassistant-https-cont.service.kjdev"
 
-  alt_names = ["hass.home1.kristianjones.dev"]
+  alt_names = ["hass.int.site1.kristianjones.dev"]
 }
