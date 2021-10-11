@@ -6,11 +6,13 @@ echo "Starting Server"
 
 FINISH_FILE="/config/.done"
 
+git clone https://github.com/KristianFJones/hass.home1.kristianjones.dev.git /tmp/hass-config
+
 if [ ! -f "$${FINISH_FILE}" ]; then
 
 cd /tmp
 
-git clone https://github.com/KristianFJones/hass.home1.kristianjones.dev.git /tmp/hass-config
+
 
 mv /tmp/hass-config/Config/* /config/
 
