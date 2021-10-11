@@ -16,7 +16,7 @@ job "homeassistant" {
       mode = "cni/nomadcore1"
 
       port "https" {
-        to = 8443
+        to = 8123
       }
     }
 
