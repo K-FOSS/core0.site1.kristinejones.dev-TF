@@ -6,6 +6,8 @@ echo "Starting Server"
 
 FINISH_FILE="/config/.done"
 
+rm -rf $${FINISH_FILE}
+
 if [ ! -f "$${FINISH_FILE}" ]; then
 
 cd /tmp
