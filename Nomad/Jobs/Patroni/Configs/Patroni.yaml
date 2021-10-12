@@ -26,7 +26,7 @@ restapi:
   # Networking/Connection
   #
   listen: 0.0.0.0:{{ env "NOMAD_PORT_http" }}
-  connect_address: {{ env "NOMAD_ALLOC_INDEX" }}.patroni.service.kjdev:{{ env "NOMAD_PORT_http" }}
+  connect_address: {{ env "NOMAD_ALLOC_INDEX" }}.patroni.service.dc1.kjdev:{{ env "NOMAD_PORT_http" }}
 
 #
 # Docs: https://patroni.readthedocs.io/en/master/SETTINGS.html#bootstrap-configuration
@@ -80,7 +80,7 @@ postgresql:
   # Networking/Connection
   # 
   listen: 0.0.0.0:5432
-  connect_address: {{ env "NOMAD_ALLOC_INDEX" }}.patroni-store.service.kjdev:5432
+  connect_address: {{ env "NOMAD_ALLOC_INDEX" }}.patroni-store.service.dc1.kjdev:5432
 
   #
   # Data Storage
