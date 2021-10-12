@@ -10,6 +10,10 @@ job "machine-static" {
       port "tftp" { 
         to = 8069
       }
+
+      port "http" { 
+        to = 8080
+      }
     }
 
     volume "tftp-data" {
@@ -72,6 +76,21 @@ EOF
         image = "kristianfoss/programs-tftpd:tftpd-stable-scratch"
 
         args = ["-E", "0.0.0.0", "8069", "tftpd", "-u", "user", "-c", "/data"]
+      }
+    }
+
+    task "http-server" {
+      driver = "docker"
+
+      volume_mount {
+        volume      = "tftp-data"
+        destination = "/data"
+      }
+
+      config {
+        image = "kristianfjones/caddy-core-docker:vps1"
+
+        args = ["caddy", "file-server", "-root=/data", "-listen=:8080"]
       }
     }
   }
