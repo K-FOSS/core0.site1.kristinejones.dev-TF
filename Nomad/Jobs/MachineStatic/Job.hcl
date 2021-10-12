@@ -33,6 +33,15 @@ job "machine-static" {
       address_mode = "alloc"
     }
 
+    service {
+      name = "http-cont"
+      port = "http"
+
+      task = "http-server"
+
+      address_mode = "alloc"
+    }
+
     task "volume-prepare" {
       driver = "docker"
 
