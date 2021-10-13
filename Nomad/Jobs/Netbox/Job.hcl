@@ -198,11 +198,6 @@ EOH
         sidecar = false
       }
 
-      reschedule {
-        attempts  = 0
-        unlimited = false
-      }
-
       config {
         image = "haxorof/netbox-devicetype-importer:latest"
 
