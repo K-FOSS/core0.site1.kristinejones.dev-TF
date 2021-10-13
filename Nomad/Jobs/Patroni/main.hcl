@@ -2,7 +2,7 @@ job "Patroni" {
   datacenters = ["core0site1"]
 
   group "postgres-database" {
-    count = 4
+    count = 5
 
     spread {
       attribute = "$${node.unique.id}"
@@ -24,7 +24,7 @@ job "Patroni" {
       mode     = "delay"
     }
 
-    volume "${Volume.name}" {
+    volume "database-data" {
       type      = "csi"
       read_only = false
       source    = "${Volume.name}"
@@ -106,7 +106,7 @@ job "Patroni" {
       }
 
       volume_mount {
-        volume      = "${Volume.name}"
+        volume      = "database-data"
         destination = "/data"
       }
 

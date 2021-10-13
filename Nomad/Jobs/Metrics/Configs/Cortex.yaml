@@ -189,6 +189,11 @@ frontend_worker:
 
   # By setting scheduler_address, querier worker would use scheduler instead of frontend.
   scheduler_address: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-query-scheduler-grpc-cont.service.kjdev:8085
+  
+  # Querier ID, sent to frontend service to identify requests from the same
+  # querier. Defaults to hostname.
+  id: {{ env "NOMAD_ALLOC_NAME" }}
+  
 
 
 #
@@ -406,7 +411,11 @@ alertmanager_storage:
 #
 # TODO: Determine if this along with a for each with Terraform for hostnames based on repliacs is worth it
 #
-# memberlist
+memberlist:
+  node_name: {{ env "NOMAD_ALLOC_NAME" }}
+  compression_enabled: true
+  advertise_addr: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-{{ env "NOMAD_META_TARGET" }}-http-cont.service.dc1.kjdev
+
 
 
 #

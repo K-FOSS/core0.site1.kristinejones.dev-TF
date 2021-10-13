@@ -34,7 +34,7 @@ job "netbox" {
         logging {
           type = "loki"
           config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+            loki-url = "http://ingressweb-http-cont.service.dc1.kjdev:8080/loki/api/v1/push"
           }
         }
       }
@@ -74,7 +74,7 @@ job "netbox" {
         logging {
           type = "loki"
           config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+            loki-url = "http://ingressweb-http-cont.service.dc1.kjdev:8080/loki/api/v1/push"
           }
         }
       }
@@ -198,6 +198,11 @@ EOH
         sidecar = false
       }
 
+      reschedule {
+        attempts  = 0
+        unlimited = false
+      }
+
       config {
         image = "haxorof/netbox-devicetype-importer:latest"
 
@@ -236,7 +241,7 @@ EOH
         logging {
           type = "loki"
           config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+            loki-url = "http://ingressweb-http-cont.service.dc1.kjdev:8080/loki/api/v1/push"
           }
         }
       }
@@ -262,7 +267,7 @@ EOH
         #
         # Misc
         #
-        ALLOWED_HOSTS = "netbox.int.site1.kristianjones.dev netbox-http-cont.service.kjdev"
+        ALLOWED_HOSTS = "netbox.int.site1.kristianjones.dev netbox-http-cont.service.kjdev netbox-http-cont.service.dc1.kjdev"
         TIME_ZONE = "America/Winnipeg"
 
         #
@@ -306,6 +311,11 @@ EOH
 
         destination = "secrets/file.env"
         env         = true
+      }
+
+      resources {
+        cpu    = 800
+        memory = 256
       }
     }
   }

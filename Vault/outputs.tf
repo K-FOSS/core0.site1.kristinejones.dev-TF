@@ -32,7 +32,7 @@ output "Caddy" {
 
 output "Database" {
   value = {
-    Hostname = "master.patroninew.service.kjdev"
+    Hostname = "master.patroninew.service.dc1.kjdev"
     Port = 5432
 
     Username = data.vault_generic_secret.Database.data["USERNAME"]

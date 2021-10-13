@@ -1,28 +1,15 @@
 job "authentik" {
   datacenters = ["core0site1"]
 
-  group "auth-server" {
+  group "authentik-cache" {
     count = 1
 
     network {
       mode = "cni/nomadcore1"
 
-      port "http" { 
-        to = 9000
-      }
-
       port "redis" { 
         to = 6379
       }
-    }
-
-    service {
-      name = "authentik-cont"
-      port = "http"
-
-      task = "authentik"
-
-      address_mode = "alloc"
     }
 
     service {
@@ -40,15 +27,35 @@ job "authentik" {
       config {
         image = "redis:alpine"
       }
+    }
 
+  }
 
+  group "auth-server" {
+    count = 1
+
+    network {
+      mode = "cni/nomadcore1"
+
+      port "http" { 
+        to = 9000
+      }
+    }
+
+    service {
+      name = "authentik-cont"
+      port = "http"
+
+      task = "authentik"
+
+      address_mode = "alloc"
     }
 
     task "authentik-worker" {
       driver = "docker"
 
       config {
-        image        = "ghcr.io/goauthentik/server"
+        image = "ghcr.io/goauthentik/server"
 
         args = ["worker"]
       }
@@ -73,7 +80,7 @@ job "authentik" {
 # Lines starting with a # are ignored
 
 # Empty lines are also ignored
-AUTHENTIK_REDIS__HOST="authentik-redis-cont.service.kjdev"
+AUTHENTIK_REDIS__HOST="authentik-redis-cont.service.dc1.kjdev"
 EOH
 
         destination = "secrets/file.env"
@@ -115,7 +122,7 @@ EOH
 # Lines starting with a # are ignored
 
 # Empty lines are also ignored
-AUTHENTIK_REDIS__HOST="authentik-redis-cont.service.kjdev"
+AUTHENTIK_REDIS__HOST="authentik-redis-cont.service.dc1.kjdev"
 EOH
 
         destination = "secrets/file.env"
