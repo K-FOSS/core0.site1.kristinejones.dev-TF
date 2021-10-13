@@ -79,6 +79,50 @@ scrape_configs:
           - cortex-query-scheduler-http-cont.service.kjdev
           - cortex-ruler-http-cont.service.kjdev
 
+  #
+  # Hashicorp
+  #
+
+  #
+  # Vault
+  #
+  
+  #
+  # CoreVault
+  #
+  - job_name: corevault.core0.site1.kristianjones.dev
+    metrics_path: /v1/sys/metrics
+    params:
+      format: ['prometheus']
+
+    #
+    # TODO: Vault mTLS
+    #
+    # scheme: https
+    # tls_config:
+    #   ca_file: your_ca_here.pem
+    
+    bearer_token: "${CoreVault.Token}"
+    dns_sd_configs:
+      - names: 
+          - CoreVault.service.dc1.kjdev
+
+
+  #
+  # Vault
+  #
+  # - job_name: vault.core0site1
+  #   metrics_path: "/v1/sys/metrics"
+  #   params:
+  #     format: ['prometheus']
+  #   scheme: https
+  #   tls_config:
+  #     ca_file: your_ca_here.pem
+  #   bearer_token: "your_vault_token_here"
+  #   dns_sd_configs:
+  #     - names: 
+  #         - CoreVault.service.dc1.kjdev
+
 remote_write:
   - url: http://cortex-distributor-http-cont.service.kjdev:8080/api/v1/push
     send_exemplars: true

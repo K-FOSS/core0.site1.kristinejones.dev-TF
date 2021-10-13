@@ -273,3 +273,15 @@ resource "vault_pki_secret_backend_cert" "HomeAssistantHTTPSCert" {
 
   alt_names = ["hass.int.site1.kristianjones.dev"]
 }
+
+#
+# Tokens
+#
+
+#
+# CoreVault
+#
+
+data "vault_generic_secret" "CoreVault" {
+  path = "${vault_mount.Terraform.path}/CoreVault"
+}

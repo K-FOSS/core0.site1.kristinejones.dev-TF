@@ -50,7 +50,8 @@ resource "nomad_job" "Metrics" {
   jobspec = templatefile("${path.module}/Job.hcl", {
     Prometheus = {
       YAMLConfig = templatefile("${path.module}/Configs/Prometheus.yaml", {
-        
+        CoreVault = var.Prometheus.CoreVault
+        Vault = var.Prometheus.Vault
       })
 
       Grafana = var.Prometheus.Grafana

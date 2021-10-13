@@ -120,5 +120,13 @@ variable "Prometheus" {
     Grafana = object({
       CA = string
     })
+
+    CoreVault = object({
+      Token = string
+    })
+
+    Vault = object({
+      Token = string
+    })
   })
 }

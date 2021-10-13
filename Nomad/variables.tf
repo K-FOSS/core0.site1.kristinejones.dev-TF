@@ -287,6 +287,14 @@ variable "Metrics" {
       Grafana = object({
         CA = string
       })
+
+      CoreVault = object({
+        Token = string
+      })
+
+      Vault = object({
+        Token = string
+      })
     })
   })
 }
@@ -352,6 +360,10 @@ variable "DHCP" {
   })
 }
 
+#
+# Mattermost
+#
+
 variable "Mattermost" {
   type = object({
     Database = object({
@@ -365,6 +377,10 @@ variable "Mattermost" {
     })
   })
 }
+
+#
+# Tinkerbell
+#
 
 variable "Tinkerbell" {
   type = object({
@@ -478,6 +494,42 @@ variable "eJabberD" {
     })
   })
 }
+
+#
+# OpenProject
+#
+
+# variable "OpenProject" {
+#   type = object({
+#     Database = object({
+#       Hostname = string
+#       Port = number
+
+#       Database = string
+
+#       Username = string
+#       Password = string
+#     })
+
+#     S3 = object({
+#       Connection = object({
+#         Hostname = string
+#         Port = number
+
+#         Endpoint = string
+#       })
+
+#       Credentials = object({
+#         AccessKey = string
+#         SecretKey = string
+#       })
+
+
+#       Bucket = string
+#     })
+#   })
+# }
+
 
 #
 # HomeAssistant

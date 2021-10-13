@@ -118,6 +118,21 @@ module "NextCloud" {
   Credentials = module.Vault.Minio
 }
 
+#
+# OpenProject
+#
+
+module "OpenProjectBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
 
 #
 # Databases
@@ -182,6 +197,15 @@ module "NextCloudDatabase" {
 
 
 module "NextCloudNewDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# OpenProject
+#
+module "OpenProjectDatabase" {
   source = "./Database"
 
   Credentials = module.Vault.Database
@@ -423,6 +447,14 @@ module "Nomad" {
       Grafana = {
         CA = module.Vault.Grafana.TLS.CA
       }
+
+      CoreVault = {
+        Token = module.Vault.CoreVault.Token
+      }
+
+      Vault = {
+        Token = module.Vault.Vault.Token
+      }
     }
   }
 
@@ -477,6 +509,15 @@ module "Nomad" {
 
     Credentials = module.Vault.NextCloud
   }
+
+  #
+  # OpenProject
+  #
+  # OpenProject = {
+  #   Database = module.OpenProjectDatabase.Database
+
+  #   S3 = module.OpenProjectBucket
+  # }
 
   #
   # Automation

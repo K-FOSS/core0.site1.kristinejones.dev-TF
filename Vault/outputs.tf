@@ -227,3 +227,26 @@ output "Grafana" {
     }
   } 
 }
+
+#
+# Hashicorp Vault 
+#
+
+#
+# CoreVault
+#
+output "CoreVault" {
+  value = {
+    Prometheus = {
+      Token = data.vault_generic_secret.CoreVault.data["Token"]
+    }
+  } 
+}
+
+output "Vault" {
+  value = {
+    Prometheus = {
+      Token = data.vault_generic_secret.CoreVault.data["Token"]
+    }
+  } 
+}
