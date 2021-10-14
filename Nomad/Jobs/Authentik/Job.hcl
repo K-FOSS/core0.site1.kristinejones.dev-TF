@@ -55,7 +55,7 @@ job "authentik" {
       driver = "docker"
 
       config {
-        image = "ghcr.io/goauthentik/server"
+        image = "ghcr.io/goauthentik/server:${Version}"
 
         args = ["worker"]
       }
@@ -66,21 +66,28 @@ job "authentik" {
         #
         AUTHENTIK_POSTGRESQL__HOST = "${Database.Hostname}"
         AUTHENTIK_POSTGRESQL__PORT = "${Database.Port}"
-
-        AUTHENTIK_POSTGRESQL__NAME = "${Database.Database}"
-
-        AUTHENTIK_POSTGRESQL__USER = "${Database.Username}"
-        AUTHENTIK_POSTGRESQL__PASSWORD = "${Database.Password}"
-
-        AUTHENTIK_SECRET_KEY = "${SECRET_KEY}"
       }
 
       template {
         data = <<EOH
-# Lines starting with a # are ignored
-
-# Empty lines are also ignored
+#
+# Cache
+#
 AUTHENTIK_REDIS__HOST="authentik-redis-cont.service.dc1.kjdev"
+
+#
+# Database
+#
+AUTHENTIK_POSTGRESQL__NAME="${Database.Database}"
+
+# Database Credentials
+AUTHENTIK_POSTGRESQL__USER="${Database.Username}"
+AUTHENTIK_POSTGRESQL__PASSWORD="${Database.Password}"
+
+#
+# Secrets
+#
+AUTHENTIK_SECRET_KEY="${Authentik.SecretKey}"
 EOH
 
         destination = "secrets/file.env"
@@ -97,7 +104,7 @@ EOH
       driver = "docker"
 
       config {
-        image        = "ghcr.io/goauthentik/server"
+        image        = "ghcr.io/goauthentik/server:${Version}"
 
         args = ["server"]
       }
@@ -108,21 +115,28 @@ EOH
         #
         AUTHENTIK_POSTGRESQL__HOST = "${Database.Hostname}"
         AUTHENTIK_POSTGRESQL__PORT = "${Database.Port}"
-
-        AUTHENTIK_POSTGRESQL__NAME = "${Database.Database}"
-
-        AUTHENTIK_POSTGRESQL__USER = "${Database.Username}"
-        AUTHENTIK_POSTGRESQL__PASSWORD = "${Database.Password}"
-
-        AUTHENTIK_SECRET_KEY = "${SECRET_KEY}"
       }
 
       template {
         data = <<EOH
-# Lines starting with a # are ignored
-
-# Empty lines are also ignored
+#
+# Cache
+#
 AUTHENTIK_REDIS__HOST="authentik-redis-cont.service.dc1.kjdev"
+
+#
+# Database
+#
+AUTHENTIK_POSTGRESQL__NAME="${Database.Database}"
+
+# Database Credentials
+AUTHENTIK_POSTGRESQL__USER="${Database.Username}"
+AUTHENTIK_POSTGRESQL__PASSWORD="${Database.Password}"
+
+#
+# Secrets
+#
+AUTHENTIK_SECRET_KEY="${Authentik.SecretKey}"
 EOH
 
         destination = "secrets/file.env"
