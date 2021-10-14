@@ -10,11 +10,11 @@ job "Patroni" {
     }
 
     update {
-      max_parallel      = 1
-      health_check      = "checks"
-      min_healthy_time  = "10s"
-      healthy_deadline  = "3m"
-      progress_deadline = "5m"
+      max_parallel = 1
+      health_check = "task_states"
+      min_healthy_time = "10s"
+      healthy_deadline = "3m"
+      progress_deadline = "60m"
     }
 
     restart {
@@ -72,24 +72,6 @@ job "Patroni" {
 
       meta {
         id = "$${NOMAD_ALLOC_INDEX}"
-      }
-
-      check {
-        name     = "Patroni healthcheck"
-
-        address_mode = "alloc"
-        port     = "http"
-
-        type     = "http"
-        path     = "/liveness"
-        interval = "20s"
-        timeout  = "5s"
-        
-        check_restart {
-          limit           = 3
-          grace           = "60s"
-          ignore_warnings = false
-        }
       }
     }
 
