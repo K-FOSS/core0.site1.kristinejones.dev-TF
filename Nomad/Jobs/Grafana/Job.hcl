@@ -25,12 +25,19 @@ job "grafana" {
 
         type     = "tcp"
 
-        port     = "http"
+        port     = "redis"
         address_mode = "alloc"
 
-        port     = 6379
-        interval = "10s"
-        timeout  = "2s"
+        initial_status = "passing"
+
+        interval = "30s"
+        timeout  = "10s"
+
+        check_restart {
+          limit = 6
+          grace = "120s"
+          ignore_warnings = true
+        }
       }
     }
 
