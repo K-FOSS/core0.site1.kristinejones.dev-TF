@@ -51,7 +51,16 @@ job "grafana" {
   }
 
   group "grafana" {
-    count = 3
+    count = 4
+
+    update {
+      max_parallel = 1
+      health_check = "checks"
+      min_healthy_time = "30s"
+      healthy_deadline = "5m"
+      progress_deadline = "10m"
+      auto_revert = true
+    }
 
     network {
       mode = "cni/nomadcore1"
@@ -78,8 +87,13 @@ job "grafana" {
         tls_skip_verify = true
 
         path     = "/api/health"
-        interval = "30s"
-        timeout  = "5s"
+        interval = "15s"
+        timeout  = "30s"
+
+        check_restart {
+          limit = 10
+          grace = "60s"
+        }
       }
     }
 
@@ -103,27 +117,6 @@ ${Config}
 EOF
 
         destination = "local/grafana.ini"
-      }
-
-      template {
-        data = <<EOF
-apiVersion: 1
-
-datasources:
-  - name: 'Tempo'
-    type: tempo
-    access: proxy
-    orgId: 1
-    url: http://tempo-query-frontend-http-cont.service.kjdev:8080
-    basicAuth: false
-    isDefault: false
-    version: 1
-    editable: false
-    apiVersion: 1
-    uid: tempo-query
-EOF
-
-        destination = "local/provisioning/datasources/datasources.yaml"
       }
 
       template {
