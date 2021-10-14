@@ -46,9 +46,27 @@ job "authentik" {
       name = "authentik-cont"
       port = "http"
 
-      task = "authentik"
+      task = "authentik-server"
 
       address_mode = "alloc"
+
+      check {
+        name     = "HTTP Check"
+        type     = "http"
+
+        address_mode = "alloc"
+        port     = "http"
+
+        path     = "/-/health/live/"
+        interval = "10s"
+        timeout  = "1s"
+
+        check_restart {
+          limit = 3
+          grace = "50s"
+          ignore_warnings = false
+        }
+      }
     }
 
     task "authentik-worker" {
@@ -104,7 +122,7 @@ EOH
       driver = "docker"
 
       config {
-        image        = "ghcr.io/goauthentik/server:${Version}"
+        image = "ghcr.io/goauthentik/server:${Version}"
 
         args = ["server"]
       }

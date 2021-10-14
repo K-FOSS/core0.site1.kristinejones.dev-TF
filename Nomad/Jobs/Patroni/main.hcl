@@ -79,6 +79,7 @@ job "Patroni" {
 
         address_mode = "alloc"
         port     = "http"
+
         type     = "http"
         path     = "/liveness"
         interval = "20s"

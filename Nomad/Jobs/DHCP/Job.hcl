@@ -25,7 +25,7 @@ job "dhcp" {
       address_mode = "alloc"
 
       check {
-        name     = "Kea Control Health healthcheck"
+        name = "Kea Control Health healthcheck"
 
         address_mode = "alloc"
         port     = 8000

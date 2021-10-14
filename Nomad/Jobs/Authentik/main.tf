@@ -56,7 +56,7 @@ data "github_release" "Release" {
   retrieve_by = "latest"
 }
 
-resource "nomad_job" "Netbox" {
+resource "nomad_job" "JobFile" {
   jobspec = templatefile("${path.module}/Job.hcl", {
     Authentik = {
       SecretKey = var.Secrets.SecretKey

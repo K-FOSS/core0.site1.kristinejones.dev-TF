@@ -25,8 +25,10 @@ job "dns" {
 
         address_mode = "alloc"
         port     = "health"
+
         type     = "http"
         path     = "/health"
+
         interval = "20s"
         timeout  = "5s"
         
