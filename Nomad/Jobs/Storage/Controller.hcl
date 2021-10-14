@@ -1,27 +1,29 @@
 job "storage-controller" {
   datacenters = ["core0site1"]
-  type        = "service"
+  type = "service"
 
   group "controller" {
     count = 4
 
-    spread {
-      attribute = "$${node.unique.id}"
-      weight    = 100
+    constraint {
+      operator  = "distinct_hosts"
+      value     = "true"
     }
 
     update {
-      max_parallel      = 1
-      health_check      = "task_states"
-      min_healthy_time  = "10s"
-      healthy_deadline  = "3m"
-      progress_deadline = "5m"
+      max_parallel = 1
+      health_check = "task_states"
+
+      healthy_deadline = "1m"
+      progress_deadline = "30m"
     }
 
     network {
       mode = "bridge"
 
-      port "grpc" { }
+      port "grpc" {
+        to = 9000
+      }
     }
 
     service {
@@ -37,7 +39,7 @@ job "storage-controller" {
       driver = "docker"
 
       config {
-        image = "democraticcsi/democratic-csi:latest"
+        image = "democraticcsi/democratic-csi:v1.4.2"
 
         args = [
           "--csi-version=1.5.0",
@@ -47,15 +49,15 @@ job "storage-controller" {
           "--csi-mode=controller",
           "--server-socket=/csi-data/csi.sock",
           "--server-address=0.0.0.0",
-          "--server-port=$${NOMAD_PORT_grpc}",
+          "--server-port=9000",
         ]
 
         privileged = true
       }
 
       csi_plugin {
-        id        = "truenas"
-        type      = "controller"
+        id = "truenas"
+        type = "controller"
         mount_dir = "/csi-data"
       }
 
@@ -68,8 +70,8 @@ EOH
       }
 
       resources {
-        cpu    = 100
-        memory = 200
+        cpu    = 50
+        memory = 100
       }
     }
   }

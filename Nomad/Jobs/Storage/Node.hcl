@@ -8,18 +8,18 @@ job "storage-node" {
     }
 
     update {
-      max_parallel      = 1
-      health_check      = "task_states"
-      min_healthy_time  = "10s"
-      healthy_deadline  = "3m"
-      progress_deadline = "5m"
+      max_parallel = 1
+      health_check = "task_states"
+
+      healthy_deadline = "1m"
+      progress_deadline = "30m"
     }
 
     task "node" {
       driver = "docker"
 
       config {
-        image = "democraticcsi/democratic-csi:latest"
+        image = "democraticcsi/democratic-csi:v1.4.2"
 
         args = [
           "--csi-version=1.5.0",
@@ -34,8 +34,8 @@ job "storage-node" {
       }
 
       csi_plugin {
-        id        = "truenas"
-        type      = "node"
+        id = "truenas"
+        type = "node"
         mount_dir = "/csi-data"
       }
 
@@ -49,7 +49,7 @@ EOH
 
       resources {
         cpu    = 100
-        memory = 200
+        memory = 100
       }
     }
   }
