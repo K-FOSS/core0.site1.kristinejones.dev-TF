@@ -58,13 +58,13 @@ job "authentik" {
         port     = "http"
 
         path     = "/-/health/live/"
-        interval = "30s"
+        interval = "10s"
         timeout  = "3s"
 
         check_restart {
           limit = 6
-          grace = "120s"
-          ignore_warnings = false
+          grace = "60s"
+          ignore_warnings = true
         }
       }
     }
