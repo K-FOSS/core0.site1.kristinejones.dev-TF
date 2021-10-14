@@ -21,6 +21,12 @@
                 {
                   "handler": "vars",
                   "root": "/var/www/html"
+                },
+                {
+                  "handler": "encode",
+                  "encodings": {
+                    "gzip": {}
+                  }
                 }
               ]
             },

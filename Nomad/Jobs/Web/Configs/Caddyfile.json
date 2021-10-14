@@ -33,6 +33,12 @@
               ],
               "handle": [
                 {
+                  "handler": "encode",
+                  "encodings": {
+                    "gzip": {}
+                  }
+                },
+                {
                   "handler": "subroute",
                   "routes": [
                     {
@@ -93,8 +99,7 @@
                     }
                   ]
                 }
-              ],
-              "terminal": true
+              ]
             },
             {
               "match": [
@@ -178,15 +183,10 @@
                       ],
                       "handle": [
                         {
-                          "handler": "encode",
-                          "encodings": {
-                            "gzip": {}
-                          }
-                        },
-                        {
                           "handler": "reverse_proxy",
                           "transport": {
-                            "protocol": "http"
+                            "protocol": "http",
+                            "compression": true
                           },
                           "upstreams": [
                             {
