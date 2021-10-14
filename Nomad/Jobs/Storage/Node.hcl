@@ -2,6 +2,8 @@ job "storage-node" {
   datacenters = ["core0site1"]
   type        = "system"
 
+  priority = 90
+
   group "node" {
     network {
       mode = "cni/storage0"

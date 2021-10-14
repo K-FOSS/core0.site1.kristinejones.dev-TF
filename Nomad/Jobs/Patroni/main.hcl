@@ -86,6 +86,13 @@ job "Patroni" {
         command = "/usr/local/bin/patroni"
 
         args = ["/local/Patroni.yaml"]
+
+        devices = [
+          {
+            host_path = "/dev/watchdog"
+            container_path = "/dev/watchdog"
+          }
+        ]
       }
 
       volume_mount {

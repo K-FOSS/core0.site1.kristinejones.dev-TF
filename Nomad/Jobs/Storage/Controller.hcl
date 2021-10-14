@@ -2,6 +2,8 @@ job "storage-controller" {
   datacenters = ["core0site1"]
   type = "service"
 
+  priority = 100
+
   group "controller" {
     count = 4
 
