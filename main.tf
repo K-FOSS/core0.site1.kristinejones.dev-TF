@@ -449,11 +449,11 @@ module "Nomad" {
       }
 
       CoreVault = {
-        Token = module.Vault.CoreVault.Token
+        Token = module.Vault.CoreVault.Prometheus.Token
       }
 
       Vault = {
-        Token = module.Vault.Vault.Token
+        Token = module.Vault.Vault.Prometheus.Token
       }
     }
   }
