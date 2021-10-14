@@ -54,6 +54,7 @@ variable "Cortex" {
         resources = object({
           cpu = number
           memory = number
+          memory_max = number
         })
       }
     ))

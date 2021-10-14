@@ -106,8 +106,9 @@ job "metrics" {
       }
 
       resources {
-        cpu    = ${Target.resources.cpu}
+        cpu = ${Target.resources.cpu}
         memory = ${Target.resources.memory}
+        memory_max = ${Target.resources.memory_max}
       }
 
       config {

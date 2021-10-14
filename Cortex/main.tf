@@ -16,11 +16,12 @@ locals {
   CORTEX_TARGETS = tomap({
     Distributor = {
       name = "distributor"
-      count = 3
+      count = 2
 
       resources = {
         cpu = 100
-        memory = 200
+        memory = 512
+        memory_max = 1000
       }
     },
     Ingester = {
@@ -29,25 +30,28 @@ locals {
 
       resources = {
         cpu = 100
-        memory = 200
+        memory = 512
+        memory_max = 1000
       }
     }, 
     Querier = {
       name = "querier"
-      count = 3
+      count = 2
 
       resources = {
-        cpu = 100
-        memory = 200
+        cpu = 50
+        memory = 128
+        memory_max = 1000
       }
     },
     StoreGateway = {
       name = "store-gateway"
-      count = 3
+      count = 1
 
       resources = {
         cpu = 100
-        memory = 200
+        memory = 512
+        memory_max = 1000
       }
     }, 
     Compactor = {
@@ -56,34 +60,38 @@ locals {
 
       resources = {
         cpu = 100
-        memory = 200
+        memory = 512
+        memory_max = 1000
       }
     },
     QueryFrontend = {
       name = "query-frontend"
-      count = 3
+      count = 2
 
       resources = {
-        cpu = 100
-        memory = 200
+        cpu = 10
+        memory = 32
+        memory_max = 256
       }
     },
     AlertManager = {
       name = "alertmanager"
-      count = 3
+      count = 1
 
       resources = {
-        cpu = 100
-        memory = 200
+        cpu = 10
+        memory = 32
+        memory_max = 256
       }
     },
     Ruler = {
       name = "ruler"
-      count = 3
+      count = 1
 
       resources = {
-        cpu = 100
-        memory = 200
+        cpu = 10
+        memory = 32
+        memory_max = 256
       }
     },
     QueryScheduler = {
@@ -91,8 +99,9 @@ locals {
       count = 3
   
       resources = {
-        cpu = 100
-        memory = 200
+        cpu = 64
+        memory = 96
+        memory_max = 512
       }
     }, 
     Purger = {
@@ -100,8 +109,9 @@ locals {
       count = 1
 
       resources = {
-        cpu = 100
-        memory = 200
+        cpu = 10
+        memory = 32
+        memory_max = 128
       }
     }
   })

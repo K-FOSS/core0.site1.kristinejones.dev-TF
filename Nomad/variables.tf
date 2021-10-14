@@ -191,6 +191,7 @@ variable "Metrics" {
           resources = object({
             cpu = number
             memory = number
+            memory_max = number
           })
         }
       ))
