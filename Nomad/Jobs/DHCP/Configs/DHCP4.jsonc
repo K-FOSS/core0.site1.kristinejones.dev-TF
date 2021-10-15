@@ -631,11 +631,11 @@
     // List of IPv4 subnets which don't belong to any shared network.
     "subnet4": [],
     // Global valid (default) lifetime value.
-    "valid-lifetime": 6000,
+    "valid-lifetime": 1800,
     // Global min valid lifetime value.
-    "min-valid-lifetime": 4000,
+    "min-valid-lifetime": 900,
     // Global max valid lifetime value.
-    "max-valid-lifetime": 8000,
+    "max-valid-lifetime": 43200,
     // Reservations (examples are in other files).
     "reservations": [],
     // Server tag.
