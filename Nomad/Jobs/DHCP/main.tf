@@ -65,15 +65,28 @@ resource "nomad_job" "JobFile" {
       })
     }
 
+    DDNS = {
+      Config = templatefile("${path.module}/Configs/DDNS.jsonc", {
+        Database = var.Database
+      })
+    }
+
     DHCP6 = {
       Config = templatefile("${path.module}/Configs/DHCP6.jsonc", {
         Database = var.Database
       })
     }
 
+    KeaControlAgent = {
+      Config = templatefile("${path.module}/Configs/KeaCA.jsonc", {})
+    }
+
+    NetConf = {
+      Config = templatefile("${path.module}/Configs/NetConf.jsonc", {})
+    }
+
     KeaCTRL = {
       Config = templatefile("${path.module}/Configs/keactrl.conf", {})
-      AgentConfig = templatefile("${path.module}/Configs/kea-ctrl-agent.jsonc", {})
     }
 
     EntryScript = templatefile("${path.module}/Configs/entry.sh", {})

@@ -10,6 +10,12 @@ job "dns" {
       port "dns" { }
 
       port "health" { }
+
+      port "netdns" {
+        to = 5330
+      }
+
+      port "netdnshealth" { }
     }
 
     service {
@@ -17,24 +23,25 @@ job "dns" {
       port = "health"
 
       task = "coredns-server"
-
       address_mode = "alloc"
 
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
       check {
-        name     = "CoreDNS Health healthcheck"
+        name = "CoreDNS Health healthcheck"
 
         address_mode = "alloc"
-        port     = "health"
+        port = "health"
 
-        type     = "http"
-        path     = "/health"
+        type = "http"
+        path = "/health"
 
         interval = "20s"
         timeout  = "5s"
         
         check_restart {
-          limit           = 3
-          grace           = "60s"
+          limit = 3
+          grace = "60s"
           ignore_warnings = false
         }
       }
@@ -45,22 +52,50 @@ job "dns" {
       port = "dns"
 
       task = "coredns-server"
-
       address_mode = "alloc"
 
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
       check {
-        name     = "CoreDNS DNS healthcheck"
+        name = "CoreDNS DNS healthcheck"
 
         address_mode = "alloc"
-        port     = "health"
-        type     = "http"
-        path     = "/health"
+        port = "health"
+        type = "http"
+        path = "/health"
         interval = "20s"
         timeout  = "5s"
         
         check_restart {
-          limit           = 3
-          grace           = "60s"
+          limit = 3
+          grace = "60s"
+          ignore_warnings = false
+        }
+      }
+    }
+
+    service {
+      name = "coredns-netdns-cont"
+      port = "netdns"
+
+      task = "coredns-server"
+      address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
+      check {
+        name = "CoreDNS DNS healthcheck"
+
+        address_mode = "alloc"
+        port = "netdnshealth"
+        type = "http"
+        path = "/health"
+        interval = "20s"
+        timeout  = "5s"
+        
+        check_restart {
+          limit = 3
+          grace = "60s"
           ignore_warnings = false
         }
       }

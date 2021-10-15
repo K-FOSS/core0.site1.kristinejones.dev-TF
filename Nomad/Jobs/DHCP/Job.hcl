@@ -14,6 +14,14 @@ job "dhcp" {
       port "metrics" {
         to = 9547
       }
+
+      port "dns" {
+        to = 53
+      }
+
+      port "controlagent" {
+        to = 8000
+      }
     }
 
     service {
@@ -129,6 +137,24 @@ EOF
         destination = "local/DHCP6.jsonc"
       }
 
+      # DDNS
+      template {
+        data = <<EOF
+${DDNS.Config}
+EOF
+
+        destination = "local/DDNS.jsonc"
+      }
+
+      # NetConf
+      template {
+        data = <<EOF
+${NetConf.Config}
+EOF
+
+        destination = "local/NetConf.jsonc"
+      }
+
       #
       # Kea CTRL
       #
@@ -145,10 +171,10 @@ EOF
       # Kea CTRL Agent Config
       template {
         data = <<EOF
-${KeaCTRL.AgentConfig}
+${KeaControlAgent.Config}
 EOF
 
-        destination = "local/kea-ctrl-agent.jsonc"
+        destination = "local/KeaCA.jsonc"
       }
 
 

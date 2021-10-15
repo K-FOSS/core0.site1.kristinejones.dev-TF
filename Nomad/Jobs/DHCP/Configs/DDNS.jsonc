@@ -1,0 +1,111 @@
+// WARNING: This example configuration is not meant for production use.
+// The Kea Kea's DHCP-DDNS server can refuse this configuration because
+// it may contain mutually exclusive configuration parameters.
+//
+// The primary purpose of the example file is to provide a comprehensive
+// list of parameters supported by Kea DHCP-DDNS server along with the
+// brief description of each parameter.
+//
+// This stable version is used for YANG as we do not want to update code
+// and models each time a keyword is added to the syntax.
+{
+  // Kea DHCP-DDNS server configuration begins here.
+  "DhcpDdns": {
+    // Global Parameters
+    // IP address D2 will listen for update requests at.
+    // Default is 127.0.0.1
+    "ip-address": "0.0.0.0",
+    // Port D2 will listen for update requests on.
+    // Default is 53001.
+    "port": 53001,
+    // Maximum time to we will wait for a DNS server to respond to us.
+    // Unit is the millisecond, default is 100ms.
+    "dns-server-timeout": 100,
+    // Protocol to use for Name Change Requests from a Kea DHCP server.
+    // Currently only 'UDP' is supported.
+    "ncr-protocol": "UDP",
+    // Format to use for Name Change Requests from a Kea DHCP server.
+    // Currently only 'JSON' is supported.
+    "ncr-format": "JSON",
+    // Command control socket configuration parameters for Kea DHCP-DDNS server.
+    "control-socket": {
+      // Location of the unix domain socket file the DHCP-DDNS server uses
+      // to receive control commands from the Kea Control Agent or the
+      // local server administrator.
+      "socket-name": "/tmp/kea-ddns-ctrl-socket",
+      // Control socket type used by the Kea DHCP-DDNS server.
+      // The 'unix' socket is currently the only supported type.
+      "socket-type": "unix"
+    },
+    // List of hooks libraries and their specific configuration parameters
+    // to be loaded by Kea DHCP-DDNS server.
+    "hooks-libraries": [],
+    // Forward DDNS (Dynamic DNS).
+    "forward-ddns": {
+      // List of DDNS domains.
+      "ddns-domains": [
+        {
+          // Name of the zone (required).
+          "name": "kristianjones.dev.",
+          // List of DNS servers where to send DNS updates.
+          "dns-servers": [
+            {
+              // DNS server IP address (required).
+              "hostname": "0.coredns-netdns-cont.service.dc1.kjdev",
+              // DNS server UDP port. Default is 53 (DNS service).
+              "port": 5330
+            },
+            {
+              // DNS server IP address (required).
+              "hostname": "1.coredns-netdns-cont.service.dc1.kjdev",
+              // DNS server UDP port. Default is 53 (DNS service).
+              "port": 5330
+            },
+            {
+              // DNS server IP address (required).
+              "hostname": "2.coredns-netdns-cont.service.dc1.kjdev",
+              // DNS server UDP port. Default is 53 (DNS service).
+              "port": 5330
+            }
+          ]
+        }
+      ]
+    },
+    // Reverse DDNS (Dynamic DNS).
+    "reverse-ddns": {
+      // List of DDNS domains.
+      "ddns-domains": []
+    },
+    // List of TSIG keys used to protect DNS updates.
+    "tsig-keys": [],
+    // List of loggers used by the servers using this configuration file.
+    "loggers": [
+      {
+        // Debug level, a value between 0..99. The greater the value
+        // the more detailed debug log.
+        "debuglevel": 99,
+        // Name of the logger.
+        "name": "kea-dhcp-ddns",
+        // Configures how the log should be output.
+        "output_options": [
+          {
+            // Determines whether the log should flushed to a file.
+            "flush": true,
+            // Specifies maximum filesize before the file is being rotated.
+            "maxsize": 10240000,
+            // Specifies the maximum number of rotated files being kept.
+            "maxver": 1,
+            // Specifies logging destination.
+            "output": "stdout",
+            // Specifies log entry content
+            "pattern": "%D{%Y-%m-%d %H:%M:%S.%q} %-5p [%c/%i] %m\n"
+          }
+        ],
+        // Specifies logging severity, i.e. "ERROR", "WARN", "INFO", "DEBUG".
+        "severity": "INFO"
+      }
+    ],
+    // Look at sample1 example for the use of user-contexts.
+    "user-context": {}
+  }
+}

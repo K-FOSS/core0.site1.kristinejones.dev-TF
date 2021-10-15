@@ -35,10 +35,16 @@
 }
 
 .:5330 {
+  health 0.0.0.0:{{ env "NOMAD_PORT_netdnshealth" }}
+
   netbox {
     token ${Netbox.Token}
     url http://${Netbox.Hostname}:${Netbox.Port}/api/ipam/ip-addresses
     localCacheDuration 5m
+  }
+
+  secondary {
+    transfer from *
   }
 }
 

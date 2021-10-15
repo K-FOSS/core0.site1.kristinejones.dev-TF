@@ -8,60 +8,8 @@
 {
   "Dhcp4": {
     "authoritative": false,
-    // As with any other configuration, you need to tell Kea the interface
-    // names, so it would listen to incoming traffic.
-    "interfaces-config": {
-      "interfaces": [
-        "*"
-      ],
-      "dhcp-socket-type": "udp",
-      "outbound-interface": "use-routing",
-      "re-detect": false
-    },
-    "hooks-libraries": [
-      {
-        "library": "/usr/lib/kea/hooks/libdhcp_lease_cmds.so",
-        "parameters": {}
-      },
-      {
-        "library": "/usr/lib/kea/hooks/libdhcp_stat_cmds.so",
-        "parameters": {}
-      }
-    ],
-    "control-socket": {
-      "socket-type": "unix",
-      "socket-name": "/tmp/kea4-ctrl-socket"
-    },
-    "lease-database": {
-      "type": "postgresql",
-      "name": "${Database.Database}",
-      "host": "${Database.Hostname}",
-      "user": "${Database.Username}",
-      "password": "${Database.Password}",
-      "reconnect-wait-time": 3000, // expressed in ms
-      "max-reconnect-tries": 3,
-      "on-fail": "stop-retry-exit",
-      "connect-timeout": 3
-    },
-    "expired-leases-processing": {
-      "reclaim-timer-wait-time": 10,
-      "flush-reclaimed-timer-wait-time": 25,
-      "hold-reclaimed-time": 3600,
-      "max-reclaim-leases": 100,
-      "max-reclaim-time": 250,
-      "unwarned-reclaim-cycles": 5
-    },
-    "option-def": [
-      {
-        // We define a short name, so the option can be referenced by name.
-        // The option has code 2 and resides within vendor space 25167.
-        // Its data is a plain string.
-        "name": "unifi-address",
-        "code": 1,
-        "space": "ubnt",
-        "type": "ipv4-address"
-      }
-    ],
+    // Global bootfile name to be set in the 'file' field.
+    "boot-file-name": "/dev/null",
     "client-classes": [
       {
         "name": "ubnt",
@@ -78,7 +26,7 @@
           {
             "name": "unifi-address",
             "space": "ubnt",
-            "data": "159.203.39.63"
+            "data": "unifi.service.dc1.kjdev"
           },
           {
             "name": "vendor-encapsulated-options"
@@ -91,6 +39,268 @@
         "option-data": []
       }
     ],
+    "control-socket": {
+      // Location of the unix domain socket file the DHCPv4 server uses
+      // to receive control commands from the Kea Control Agent or the
+      // local server administrator.
+      "socket-name": "/tmp/kea4-ctrl-socket",
+      // Control socket type used by the Kea DHCPv4 server. The 'unix'
+      // socket is currently the only supported type.
+      "socket-type": "unix"
+    },
+    // Specifies a prefix to be prepended to the generated Client FQDN.
+    // It may be specified at the global, shared-network and subnet levels.
+    "ddns-generated-prefix": "net",
+    // Boolean flag indicating that server should ignore DHCP client
+    // wishes to update DNS on its own. With that flag set to true
+    // the server will send DNS updates for both forward and
+    // reverse DNS data. The default value is false, which indicates
+    // that the server will delegate DNS update to the client when
+    // requested. It may be specified at the global, shared-network
+    // and subnet levels.
+    "ddns-override-client-update": false,
+    // Boolean flag indicating that the server should override DHCP
+    // client's wish to not update the DNS. With this parameter
+    // set to true the server will send DNS update even when
+    // the client requested no update.  It may be specified at the
+    // global, shared-network and subnet levels.
+    "ddns-override-no-update": false,
+    // Suffix appended to the partial name sent to the DNS. The
+    // default value is an empty string which indicates that no
+    // suffix is appended.  It may be specified at the global,
+    // shared-network and subnet levels.
+    "ddns-qualifying-suffix": "",
+    // Enumeration specifying whether the server should honor
+    // hostname or Client FQDN sent by the client or replace
+    // this name. The acceptable values are: "never" (use the
+    // name the client sent), "always" (replace the name the
+    // client sent), "when-present" (replace the name the client
+    // sent, but do not generate one when the client didn't sent
+    // the name), "when-not-present" (generate the name when
+    // client didn't send one, otherwise leave the name the
+    // client sent). The default value is "never".  It may be
+    // specified at the global, shared-network and subnet levels.
+    "ddns-replace-client-name": "never",
+    // Boolean flag which enables or disables the DDNS updating. It
+    // defaults to true.  It may be specified at the global, shared-
+    // network and subnet levels. It works in conjunction with
+    // dhcp-ddns:enable-updates which must be true to enable connectivity
+    // to kea-dhcp-ddns.
+    "ddns-send-updates": true,
+    // Boolean flag, which when true instructs the server to always
+    // update DNS when leases are renewed, even if the DNS information
+    // has not changed.  The server's default behavior (i.e. flag is false)
+    // is to only update DNS if the DNS information has changed.  It
+    // may be specified at the global, shared-network and subnet levels.
+    "ddns-update-on-renew": true,
+    // Boolean flag, which is passed to kea-dhcp-ddns with each DDNS
+    // update request to indicate whether or not DNS update conflict
+    // resolution as described in RFC 4703 should be employed for the
+    // given update request.  The default value for this flag is true.
+    // It may be specified at the global, shared-network and subnet levels.
+    "ddns-use-conflict-resolution": true,
+    // Time in seconds specifying how long a declined lease should be
+    // excluded from DHCP assignments. The default value is 24 hours.
+    "decline-probation-period": 86400,
+    // Name Change Requests forwarding configuration for Kea DHCPv4 server.
+    // NCRs are sent to Kea D2 module to update DNS upon allocation of the
+    // DHCP leases.
+    "dhcp-ddns": {
+      // Boolean flag indicating if Kea DHCPv4 server should connect to
+      // kea-dhcp-ddns.  This must be true for NCRs to be created and
+      // sent to kea-dhcp-ddns. By default NCRs are not generated.
+      "enable-updates": true,
+      // Specifies maximum number of NCRs to queue waiting to be sent
+      // to Kea D2 server.
+      "max-queue-size": 1024,
+      // Packet format to use when sending NCRs to Kea D2 server.
+      // Currently, only JSON format is supported.
+      "ncr-format": "JSON",
+      // Socket protocol to use when sending NCRs to D2. Currently,
+      // only UDP is supported.
+      "ncr-protocol": "UDP",
+      // IP address that Kea DHCPv4 server should use to send
+      // NCRs to D2. Default value of zero indicates that Kea
+      // should pick suitable address.
+      "sender-ip": "0.0.0.0",
+      // Port number that Kea DHCPv4 server should use to send
+      // NCRs to D2. Default value of zero indicates that Kea
+      // should pick suitable port.
+      "sender-port": 0,
+      // IP address on which D2 listens for NCRs.
+      "server-ip": "127.0.0.1",
+      // Port number on which D2 listens for NCRs.
+      "server-port": 53001
+    },
+    // Specifies the first of the two consecutive ports of the UDP
+    // sockets used for communication between DHCPv6 and DHCPv4
+    // servers. See RFC 7341.
+    "dhcp4o6-port": 6767,
+    // Boolean flag indicating whether or not the Kea DHCPv4 server
+    // should send back Client Identifier option in its responses.
+    // The default value is true which indicates that the option
+    // must be sent back if the client included it. The false
+    // value instructs the server to not send this option for
+    // backward compatibility with older DHCP specifications which
+    // stated that Client Identifier must not be sent back.
+    "echo-client-id": true,
+    // Collection of Kea DHCPv4 server parameters configuring how
+    // the server should process expired DHCP leases.
+    "expired-leases-processing": {
+      // Specifies the number of seconds since last removal of
+      // the expired leases when next removal should occur.
+      "flush-reclaimed-timer-wait-time": 25,
+      // Specifies the time period in seconds to keep expired
+      // leases in the lease database (lease affinity).
+      "hold-reclaimed-time": 3600,
+      // Specifies the maximum number of expired leases that can be
+      // processed in a single attempt to clean up the lease
+      // database from the expired leases. If there are more
+      // expired leases, they will be processed during the next
+      // cleanup attempt.
+      "max-reclaim-leases": 100,
+      // Specifies the maximum time in milliseconds that the single
+      // attempt to cleanup the lease database from the expired
+      // leases may take.
+      "max-reclaim-time": 250,
+      // Specifies the time period in seconds since last attempt
+      // to process expired leases to initiate the next attempt.
+      "reclaim-timer-wait-time": 10,
+      // Specifies the maximum number of expired leases processing
+      // cycles which didn't result in full cleanup of the lease
+      // database from the expired leases, after which a
+      // warning message is issued.
+      "unwarned-reclaim-cycles": 5
+    },
+    "hooks-libraries": [
+      {
+        "library": "/usr/lib/kea/hooks/libdhcp_lease_cmds.so",
+        "parameters": {}
+      },
+      {
+        "library": "/usr/lib/kea/hooks/libdhcp_stat_cmds.so",
+        "parameters": {}
+      }
+    ],
+    // List of access credentials to external sources of IPv4 reservations,
+    "hosts-databases": [],
+    // List of host reservation identifier types to be used by the
+    // Kea DHCPv4 server to fetch static reservations for the
+    // DHCP clients. All identifiers are used by default, which
+    // means that the server will issue multiple queries to the
+    // database to find if there is a reservation for the particular
+    // client. If the particular deployment uses only subset, e.g.
+    // one, identifier type, this identifier should be only listed
+    // here to prevent unnecessary queries to the database.
+    "host-reservation-identifiers": [
+      "hw-address",
+      "duid",
+      "circuit-id",
+      "client-id",
+      "flex-id"
+    ],
+    // As with any other configuration, you need to tell Kea the interface
+    // names, so it would listen to incoming traffic.
+    "interfaces-config": {
+      "interfaces": [
+        "*"
+      ],
+      "dhcp-socket-type": "udp",
+      "outbound-interface": "use-routing",
+      "re-detect": false
+    },
+    // Boolean parameter which controls DHCP server's behavior with respect
+    // to creating host reservations for the same IP address. By default
+    // this flag is set to true in which case the server prevents creation
+    // of multiple host reservations for the same IP address. When this
+    // parameter is set to false, the server allows for creating multiple
+    // reservations for the same IP address within a subnet. This setting
+    // is useful in deployments in which a given host may be communicating
+    // with a DHCP server over multiple interfaces and depending on the
+    // chosen interface different MAC address (or other identifier) will
+    // be used to identify the host. Note that some host backends do not
+    // support the mode in which multiple reservations for the same IP
+    // address are used. If these backends are in use and this setting
+    // is attempted a configuration error will occur. The MySQL and
+    // PostgreSQL backends do support this mode.
+    "ip-reservations-unique": true,
+    "lease-database": {
+      "type": "postgresql",
+      "name": "${Database.Database}",
+      "host": "${Database.Hostname}",
+      "user": "${Database.Username}",
+      "password": "${Database.Password}",
+      "reconnect-wait-time": 3000, // expressed in ms
+      "max-reconnect-tries": 3,
+      "on-fail": "stop-retry-exit",
+      "connect-timeout": 3
+    },
+    // Global value which limits the number of client packets (e.g.
+    // DHCPREQUESTs) that may be parked while waiting for hook library
+    // work to complete, prior to a response (e.g. DHCPACK) being sent
+    // back to the client.  A typical example is when kea-dhcp4 parks a
+    // DHCPREQUEST while it sends the lease update(s) to its HA peer(s).
+    // The packet is unparked once the update(s) have been acknowledged.
+    // This value limits the number of packets that can be held pending
+    // the updates. In times of heavy client traffic, this value can keep
+    // kea-dhcp4 from building an insurmountable backlog of updates.
+    "parked-packet-limit": 128,
+    "option-def": [
+      {
+        // We define a short name, so the option can be referenced by name.
+        // The option has code 2 and resides within vendor space 25167.
+        // Its data is a plain string.
+        "name": "unifi-address",
+        "code": 1,
+        "space": "ubnt",
+        "type": "ipv4-address"
+      }
+    ],
+    // Global value for the rebind timer, i.e. the time after which the
+    // DHCP client enters rebind state if it fails to renew the lease.
+    "rebind-timer": 40,
+    // Global value for the renew timer, i.e. the timer after which the
+    // DHCP client renews the lease.
+    "renew-timer": 30,
+    // Global value to store extended information (e.g. relay agent
+    // information) with each lease.
+    "store-extended-info": true,
+    // Statistics keep some samples per observation point.
+    // There are two default values: maximum count and maximum age.
+    // Set the maximum count to zero disables it.
+    "statistic-default-sample-count": 0,
+    // When the maximum count is 0 the maximum age (in seconds) applies.
+    "statistic-default-sample-age": 60,
+    // Multi-threading parameters.
+    "multi-threading": {
+      // By default Kea processes packets on a single thread (default
+      // 'false' value for this option). To enable multi-threading, this
+      // option can be set ('true' value).
+      "enable-multi-threading": true,
+      // When multi-threading is enabled, Kea will process packets on a
+      // number of multiple threads configurable through this option. The
+      // value must be a positive integer (0 means auto detect).
+      "thread-pool-size": 0,
+      // When multi-threading is enabled, Kea will read packets from the
+      // interface and append a working item to the thread pool. This
+      // option configures the maximum number of items that can be queued.
+      // The value must be a positive integer (0 means unlimited).
+      "packet-queue-size": 0
+    },
+    // Governs how the Kea DHCPv4 server should deal with the invalid
+    // data received from the client.
+    "sanity-checks": {
+      // Specifies how the Kea DHCPv4 server should behave when invalid
+      // data is read for a lease from the lease file. The following
+      // values are supported "none" (don't attempt to correct the
+      // lease information), "warn" (print a warning for subnet-id
+      // related inconsistencies), "fix" (correct the subnet id by
+      // trying to find the suitable subnet), "fix-del" (similar
+      // to "fix" but delete the lease if no suitable subnet found),
+      // "del" (delete the lease if the lease has invalid subnet
+      // identifier value).
+      "lease-checks": "warn"
+    },
     // The shared networks definition starts here. shared-networks can
     // contain a list of shared networks. There are many parameters
     // that can be specified here, so this example may be overwhelming
@@ -150,6 +360,22 @@
         "subnet4": [
           {
             "id": 241,
+            // Subnet level value. See description at the global level.
+            "ddns-generated-prefix": "myhost",
+            // Subnet level value. See description at the global level.
+            "ddns-override-client-update": false,
+            // Subnet level value. See description at the global level.
+            "ddns-override-no-update": false,
+            // Subnet level value. See description at the global level.
+            "ddns-qualifying-suffix": "",
+            // Subnet level value. See description at the global level.
+            "ddns-replace-client-name": "never",
+            // Subnet level value. See description at the global level.
+            "ddns-send-updates": true,
+            // Subnet level value. See description at the global level.
+            "ddns-update-on-renew": true,
+            // Subnet level value. See description at the global level.
+            "ddns-use-conflict-resolution": true,
             "match-client-id": false,
             "next-server": "0.0.0.0",
             "server-hostname": "dhcp.service.kjdev",
@@ -412,6 +638,27 @@
       }
     ], // end of shared-networks
     "server-hostname": "core0.site1.kristianjones.dev",
+    // List of IPv4 subnets which don't belong to any shared network.
+    "subnet4": [],
+    // Global valid (default) lifetime value.
+    "valid-lifetime": 6000,
+    // Global min valid lifetime value.
+    "min-valid-lifetime": 4000,
+    // Global max valid lifetime value.
+    "max-valid-lifetime": 8000,
+    // Reservations (examples are in other files).
+    "reservations": [],
+    // Server tag.
+    "server-tag": "{{ env "NOMAD_ALLOC_NAME" }}",
+    // DHCP queue control parameters.
+    "dhcp-queue-control": {
+      // Enable queue is mandatory.
+      "enable-queue": true,
+      // Queue type was mandatory.
+      "queue-type": "kea-ring4",
+      // Capacity is optional.
+      "capacity": 64
+    },
     // The following configures logging. It assumes that messages with at
     // least informational level (info, warn, error and fatal) should be
     // logged to stdout.
@@ -425,6 +672,8 @@
         ],
         "severity": "warn"
       }
-    ]
+    ],
+    // Look at advanced example for the use of user-contexts.
+    "user-context": {}
   } // end of Dhcp4
 }
