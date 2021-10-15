@@ -44,7 +44,7 @@
   }
 
   secondary {
-    transfer from *
+    transfer from dhcp.service.dc1.kjdev
   }
 }
 
