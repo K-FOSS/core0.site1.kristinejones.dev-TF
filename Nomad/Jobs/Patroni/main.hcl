@@ -20,16 +20,16 @@ job "Patroni" {
     restart {
       attempts = 3
       interval = "5m"
-      delay    = "25s"
-      mode     = "delay"
+      delay = "25s"
+      mode = "delay"
     }
 
     volume "database-data" {
-      type      = "csi"
+      type = "csi"
       read_only = false
-      source    = "${Volume.name}"
+      source = "${Volume.name}"
       attachment_mode = "file-system"
-      access_mode     = "multi-node-multi-writer"
+      access_mode = "multi-node-multi-writer"
     }
 
     network {
@@ -98,7 +98,7 @@ job "Patroni" {
       }
 
       volume_mount {
-        volume      = "database-data"
+        volume = "database-data"
         destination = "/data"
       }
 
@@ -111,8 +111,10 @@ EOF
       }
 
       resources {
-        cpu    = 1024
+        cpu = 1024
         memory = 1024
+
+        memory_max = 2048
       }
     }
   }
