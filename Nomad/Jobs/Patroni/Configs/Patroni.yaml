@@ -85,7 +85,7 @@ postgresql:
   #
   # Data Storage
   #
-  data_dir: /data/postgresql{{ env "NOMAD_ALLOC_INDEX" }}
+  data_dir: /data/patroni{{ env "NOMAD_ALLOC_INDEX" }}
 
   #
   # Auth

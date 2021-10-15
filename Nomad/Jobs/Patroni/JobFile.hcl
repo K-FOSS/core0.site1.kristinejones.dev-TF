@@ -104,7 +104,7 @@ job "Patroni" {
 
       template {
         data = <<EOF
-${CONFIG}
+${Patroni.YAMLConfig}
 EOF
 
         destination = "local/Patroni.yaml"
@@ -113,7 +113,7 @@ EOF
       # Entrypoint Script
       template {
         data = <<EOF
-${EntryScript}
+${Patroni.Entryscript}
 EOF
 
         destination = "local/entry.sh"

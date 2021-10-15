@@ -178,13 +178,10 @@ resource "nomad_volume" "Patroni" {
   }
 }
 
-resource "nomad_job" "Patroni" {
-  jobspec = templatefile("${path.module}/Jobs/Patroni/main.hcl", {
-    Volume = nomad_volume.Patroni
-    CONFIG =  templatefile("${path.module}/Jobs/Patroni/Configs/Patroni.yaml", var.Patroni)
+module "Patroni" {
+  source = "./Jobs/Patroni"
 
-    EntryScript = templatefile("${path.module}/Jobs/Patroni/Configs/entry.sh", {})
-  })
+  Consul = var.Patroni.Consul
 }
 
 #
