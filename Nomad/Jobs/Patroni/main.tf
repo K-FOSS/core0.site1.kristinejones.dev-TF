@@ -62,7 +62,7 @@ resource "nomad_volume" "PatroniData" {
 
   mount_options {
     fs_type = "nfs"
-    mount_flags = ["nolock", "noatime", "nfsvers=4"]
+    mount_flags = ["nfsvers=4", "nolock", "noatime", "nodiratime"]
   }
 
   context = {
