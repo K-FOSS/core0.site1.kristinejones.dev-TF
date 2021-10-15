@@ -83,11 +83,11 @@ job "Patroni" {
       kill_timeout = 300
 
       config {
-        image = "registry.opensource.zalan.do/acid/spilo-13:2.1-p1"
+        image = "registry.opensource.zalan.do/acid/spilo-14:2.1-p2"
 
-        command = "/usr/local/bin/patroni"
+        command = "/local/entry.sh"
 
-        args = ["/local/Patroni.yaml"]
+        args = []
 
         devices = [
           {
@@ -108,6 +108,17 @@ ${CONFIG}
 EOF
 
         destination = "local/Patroni.yaml"
+      }
+
+      # Entrypoint Script
+      template {
+        data = <<EOF
+${EntryScript}
+EOF
+
+        destination = "local/entry.sh"
+
+        perms = "777"
       }
 
       resources {
