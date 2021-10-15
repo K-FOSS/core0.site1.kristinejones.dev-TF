@@ -15,8 +15,6 @@ job "ingress" {
       mode = "cni/nomadcore1"
 
       port "https" {
-        static = 443
-
         to = 443
       }
 

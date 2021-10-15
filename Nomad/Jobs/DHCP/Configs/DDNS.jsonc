@@ -50,23 +50,21 @@
           // List of DNS servers where to send DNS updates.
           "dns-servers": [
             {
-              // DNS server IP address (required).
-              "hostname": "0.coredns-netdns-cont.service.dc1.kjdev",
-              // DNS server UDP port. Default is 53 (DNS service).
+              "ip-address": "172.16.0.10",
               "port": 5330
             },
             {
-              // DNS server IP address (required).
-              "hostname": "1.coredns-netdns-cont.service.dc1.kjdev",
-              // DNS server UDP port. Default is 53 (DNS service).
+              "ip-address": "172.16.0.11",
               "port": 5330
             },
             {
-              // DNS server IP address (required).
-              "hostname": "2.coredns-netdns-cont.service.dc1.kjdev",
-              // DNS server UDP port. Default is 53 (DNS service).
+              "ip-address": "172.16.0.12",
               "port": 5330
-            }
+            },
+            {
+              "ip-address": "172.16.0.13",
+              "port": 5330
+            },
           ]
         }
       ]

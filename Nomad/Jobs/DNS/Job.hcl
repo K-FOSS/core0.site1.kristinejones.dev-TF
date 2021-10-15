@@ -12,6 +12,8 @@ job "dns" {
       port "health" { }
 
       port "netdns" {
+        static = 5330
+
         to = 5330
       }
 
