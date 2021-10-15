@@ -44,7 +44,7 @@
   }
 
   secondary {
-    transfer from dhcp.service.dc1.kjdev
+    transfer from 172.16.0.15
   }
 }
 
