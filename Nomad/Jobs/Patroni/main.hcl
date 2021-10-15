@@ -80,6 +80,8 @@ job "Patroni" {
 
       user = "101"
 
+      kill_timeout = 300
+
       config {
         image = "registry.opensource.zalan.do/acid/spilo-13:2.1-p1"
 
