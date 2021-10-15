@@ -26,7 +26,7 @@
           {
             "name": "unifi-address",
             "space": "ubnt",
-            "data": "unifi.service.dc1.kjdev"
+            "data": "172.16.0.10"
           },
           {
             "name": "vendor-encapsulated-options"
