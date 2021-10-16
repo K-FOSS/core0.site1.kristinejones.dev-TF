@@ -83,7 +83,7 @@ job "Patroni" {
       kill_timeout = 300
 
       config {
-        image = "registry.opensource.zalan.do/acid/spilo-14:2.1-p2"
+        image = "registry.opensource.zalan.do/acid/spilo-13:2.1-p1"
 
         command = "/local/entry.sh"
 
