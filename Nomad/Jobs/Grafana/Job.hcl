@@ -60,7 +60,6 @@ job "grafana" {
       healthy_deadline = "5m"
       progress_deadline = "10m"
       auto_revert = true
-      auto_promote = true
     }
 
     network {

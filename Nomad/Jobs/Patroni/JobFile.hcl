@@ -15,8 +15,6 @@ job "Patroni" {
       min_healthy_time = "10s"
       healthy_deadline = "3m"
       progress_deadline = "6h"
-
-      auto_promote = true
     }
 
     restart {
