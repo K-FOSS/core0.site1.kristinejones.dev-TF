@@ -78,7 +78,7 @@ job "Patroni" {
     task "patroni" {
       driver = "docker"
 
-      user = "101"
+      user = "0"
 
       kill_timeout = 300
 
@@ -86,6 +86,9 @@ job "Patroni" {
         image = "registry.opensource.zalan.do/acid/spilo-14:2.1-p2"
 
         command = "/local/entry.sh"
+
+        tty = true
+        privileged = true
 
         args = []
 

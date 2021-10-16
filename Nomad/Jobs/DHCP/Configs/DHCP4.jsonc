@@ -266,12 +266,12 @@
       // When multi-threading is enabled, Kea will process packets on a
       // number of multiple threads configurable through this option. The
       // value must be a positive integer (0 means auto detect).
-      "thread-pool-size": 0,
+      "thread-pool-size": 8,
       // When multi-threading is enabled, Kea will read packets from the
       // interface and append a working item to the thread pool. This
       // option configures the maximum number of items that can be queued.
       // The value must be a positive integer (0 means unlimited).
-      "packet-queue-size": 0
+      "packet-queue-size": 88
     },
     // Governs how the Kea DHCPv4 server should deal with the invalid
     // data received from the client.
@@ -548,11 +548,6 @@
                 "hw-address": "3a:05:90:29:77:5d",
                 "ip-address": "172.16.100.251"
               },
-              // Amazon Device Fire TV?
-              {
-                "hw-address": "a0:d0:dc:5e:1a:8a",
-                "ip-address": "172.16.100.91"
-              },
               // TBD?
               {
                 "hw-address": "d0:03:df:89:da:c2",
@@ -561,21 +556,6 @@
               {
                 "hw-address": "00:04:4b:f0:c7:ec",
                 "ip-address": "172.16.100.92"
-              },
-              // Shield?
-              {
-                "hw-address": "00:04:4b:f1:b2:4c",
-                "ip-address": "172.16.100.93"
-              },
-              // Bedroom Mini
-              {
-                "hw-address": "d4:f5:47:93:4f:13",
-                "ip-address": "172.16.100.81"
-              },
-              // kitchen1-display.office1.kristianjones.dev
-              {
-                "hw-address": "1c:f2:9a:2e:b2:f9",
-                "ip-address": "172.16.100.82"
               },
               {
                 "hw-address": "f8:0f:f9:60:05:15",
@@ -605,8 +585,21 @@
               // printer1.office1.kristianjones.dev
               {
                 "hw-address": "e4:e7:49:b6:cb:50",
-                "ip-address": "172.16.100.253"
+                "ip-address": "172.16.100.253",
+                "user-context": {
+                  "type": "printer",
+                  "room": "office"
+                }
               },
+              // ap1.core1.home1.kristianjones.dev
+              {
+                "hw-address": "3c5cf117dac0",
+                "ip-address": "172.16.100.90",
+                "user-context": {
+                  "type": "wifi-ap"
+                }
+              },
+              // TODO
               {
                 "hw-address": "b8:ae:ed:79:5e:1d",
                 "ip-address": "172.16.100.250",

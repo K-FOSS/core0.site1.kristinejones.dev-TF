@@ -2,6 +2,4 @@
 
 chown postgres /dev/watchdog
 
-su postgres
-
-exec /usr/local/bin/patroni /local/Patroni.yaml
+exec su postgres --command /usr/local/bin/patroni /local/Patroni.yaml
