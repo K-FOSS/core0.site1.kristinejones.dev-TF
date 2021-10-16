@@ -21,11 +21,11 @@ job "grafana" {
       address_mode = "alloc"
 
       check {
-        name     = "tcp_validate"
+        name = "tcp_validate"
 
-        type     = "tcp"
+        type = "tcp"
 
-        port     = "redis"
+        port = "redis"
         address_mode = "alloc"
 
         initial_status = "passing"
@@ -60,6 +60,7 @@ job "grafana" {
       healthy_deadline = "5m"
       progress_deadline = "10m"
       auto_revert = true
+      auto_promote = true
     }
 
     network {
@@ -75,18 +76,20 @@ job "grafana" {
       port = "http"
 
       task = "grafana-web"
-
       address_mode = "alloc"
 
+      #
+      # Liveness check
+      #
       check {
-        port     = "http"
+        port = "http"
         address_mode = "alloc"
 
-        type     = "http"
+        type = "http"
         protocol = "https"
         tls_skip_verify = true
 
-        path     = "/api/health"
+        path = "/api/health"
         interval = "15s"
         timeout  = "30s"
 
@@ -94,6 +97,22 @@ job "grafana" {
           limit = 10
           grace = "60s"
         }
+      }
+
+      #
+      # Readyness
+      #
+      check {
+        port = "http"
+        address_mode = "alloc"
+
+        type = "http"
+        protocol = "https"
+        tls_skip_verify = true
+
+        path = "/api/health"
+        interval = "10s"
+        timeout  = "1s"
       }
     }
 

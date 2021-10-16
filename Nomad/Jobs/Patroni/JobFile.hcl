@@ -14,7 +14,9 @@ job "Patroni" {
       health_check = "task_states"
       min_healthy_time = "10s"
       healthy_deadline = "3m"
-      progress_deadline = "60m"
+      progress_deadline = "6h"
+
+      auto_promote = true
     }
 
     restart {
@@ -40,15 +42,16 @@ job "Patroni" {
       }
 
       port "http" {
+        to = 8080
       }
     }
 
     service {
       name = "patroni-store"
       port = "psql"
-      address_mode = "alloc"
 
-      task = "patroni"
+      task = "patroni"  
+      address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}"]
 
@@ -64,9 +67,9 @@ job "Patroni" {
     service {
       name = "patroni"
       port = "http"
-      address_mode = "alloc"
 
       task = "patroni"
+      address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}"]
 

@@ -1,6 +1,6 @@
 job "storage-node" {
   datacenters = ["core0site1"]
-  type        = "system"
+  type = "system"
 
   priority = 90
 
@@ -50,8 +50,8 @@ EOH
       }
 
       resources {
-        cpu    = 100
-        memory = 100
+        cpu    = 256
+        memory = 256
       }
     }
   }
