@@ -263,6 +263,12 @@ variable "Metrics" {
         {
           name = string
           count = number
+
+          resources = object({
+            cpu = number
+            memory = number
+            memory_max = number
+          })
         }
       ))
 

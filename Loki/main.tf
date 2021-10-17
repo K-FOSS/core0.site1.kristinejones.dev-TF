@@ -17,30 +17,72 @@ locals {
     Distributor = {
       name = "distributor"
       count = 3
+
+      resources = {
+        cpu = 10
+        memory = 32
+        memory_max = 128
+      }
     },
     Ingester = {
       name = "ingester"
       count = 3
+    
+      resources = {
+        cpu = 10
+        memory = 32
+        memory_max = 128
+      }
     }, 
     Querier = {
       name = "querier"
       count = 3
+
+      resources = {
+        cpu = 10
+        memory = 32
+        memory_max = 128
+      }
     },
     IndexGateway = {
       name = "index-gateway"
       count = 3
+
+      resources = {
+        cpu = 10
+        memory = 32
+        memory_max = 128
+      }
     }, 
     Compactor = {
       name = "compactor"
       count = 3
+
+      resources = {
+        cpu = 10
+        memory = 32
+        memory_max = 128
+      }
     },
     QueryFrontend = {
       name = "query-frontend"
       count = 3
+
+      resources = {
+        cpu = 10
+        memory = 32
+        memory_max = 128
+      }
     },
     QueryScheduler = {
       name = "query-scheduler"
       count = 3
+
+      resources = {
+        cpu = 10
+        memory = 32
+        memory_max = 128
+      }
     }
   })
 }

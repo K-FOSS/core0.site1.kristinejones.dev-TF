@@ -6,7 +6,7 @@ job "storage-node" {
 
   group "node" {
     network {
-      mode = "cni/storage0"
+      mode = "cni/nomadcore1"
     }
 
     update {

@@ -63,6 +63,11 @@ job "metrics" {
   group "cortex-${Target.name}" {
     count = ${Target.count}
 
+    spread {
+      attribute = "$${node.unique.id}"
+      weight    = 100
+    }
+
     network {
       mode = "cni/nomadcore1"
 
@@ -184,6 +189,11 @@ EOF
 %{ for Target in Loki.Targets ~}
   group "loki-${Target.name}" {
     count = ${Target.count}
+
+    spread {
+      attribute = "$${node.unique.id}"
+      weight    = 100
+    }
 
     network {
       mode = "cni/nomadcore1"
