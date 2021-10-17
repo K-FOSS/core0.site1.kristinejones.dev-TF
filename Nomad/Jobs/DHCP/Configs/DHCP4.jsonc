@@ -606,6 +606,15 @@
                 "client-classes": [
                   "vmhost-class1"
                 ]
+              },
+              // Hue Bridge 
+              {
+                "hw-address": "EC:B5:FA:32:8F:7A",
+                "ip-address": "172.16.100.91",
+                "user-context": {
+                  "type": "smarthome-bridge",
+                  "room": "office"
+                }
               }
             ],
             "renew-timer": 1800,
