@@ -32,7 +32,7 @@ job "authentik" {
   }
 
   group "auth-server" {
-    count = 1
+    count = 3
 
     network {
       mode = "cni/nomadcore1"
