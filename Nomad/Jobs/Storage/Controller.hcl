@@ -5,7 +5,7 @@ job "storage-controller" {
   priority = 100
 
   group "controller" {
-    count = 4
+    count = 1
 
     constraint {
       operator = "distinct_hosts"
