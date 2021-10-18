@@ -51,7 +51,7 @@ data "github_repository" "Repo" {
 }
 
 data "http" "PSQLFile" {
-  url = "https://raw.githubusercontent.com/isc-projects/kea/Kea-1.9.9/src/share/database/scripts/pgsql/dhcpdb_create.pgsql"
+  url = "https://raw.githubusercontent.com/isc-projects/kea/Kea-2.0.0/src/share/database/scripts/pgsql/dhcpdb_create.pgsql"
 }
 
 resource "nomad_job" "JobFile" {
