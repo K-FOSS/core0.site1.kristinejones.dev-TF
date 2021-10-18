@@ -48,9 +48,6 @@
       // socket is currently the only supported type.
       "socket-type": "unix"
     },
-    // Specifies a prefix to be prepended to the generated Client FQDN.
-    // It may be specified at the global, shared-network and subnet levels.
-    "ddns-generated-prefix": "net",
     // Boolean flag indicating that server should ignore DHCP client
     // wishes to update DNS on its own. With that flag set to true
     // the server will send DNS updates for both forward and
@@ -58,18 +55,18 @@
     // that the server will delegate DNS update to the client when
     // requested. It may be specified at the global, shared-network
     // and subnet levels.
-    "ddns-override-client-update": false,
+    "ddns-override-client-update": true,
     // Boolean flag indicating that the server should override DHCP
     // client's wish to not update the DNS. With this parameter
     // set to true the server will send DNS update even when
     // the client requested no update.  It may be specified at the
     // global, shared-network and subnet levels.
-    "ddns-override-no-update": false,
+    "ddns-override-no-update": true,
     // Suffix appended to the partial name sent to the DNS. The
     // default value is an empty string which indicates that no
     // suffix is appended.  It may be specified at the global,
     // shared-network and subnet levels.
-    "ddns-qualifying-suffix": "",
+    "ddns-qualifying-suffix": "kristianjones.dev",
     // Enumeration specifying whether the server should honor
     // hostname or Client FQDN sent by the client or replace
     // this name. The acceptable values are: "never" (use the

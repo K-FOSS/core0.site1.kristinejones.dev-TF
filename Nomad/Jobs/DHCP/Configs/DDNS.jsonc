@@ -75,7 +75,7 @@
       "ddns-domains": [
         {
           // Name of the zone (required).
-          "name": ".",
+          "name": "100.16.172.in-addr.arpa.",
           // List of DNS servers where to send DNS updates.
           "dns-servers": [
             {
