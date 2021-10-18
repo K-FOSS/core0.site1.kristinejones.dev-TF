@@ -29,8 +29,8 @@
 }
 
 .:5320 {
-  consul_catalog coredns.enabled {
-    address ${Consul.Hostname}:${Consul.Port}
+  consul_catalog 0 1 2 3 coredns.enabled {
+    endpoint ${Consul.Hostname}:${Consul.Port}
     token ${Consul.Token}
 
     ttl 10m
