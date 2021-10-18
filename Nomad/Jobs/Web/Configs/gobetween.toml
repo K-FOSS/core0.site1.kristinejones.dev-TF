@@ -119,3 +119,18 @@ balance = "iphash1"
   interval = "5s"
   srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:53" # dns server and port
   srv_lookup_pattern = "coturn-stun-cont.service.kjdev." # SRV service pattern 
+
+[servers.powerdns]
+protocol = "udp"
+bind = "0.0.0.0:8153"
+balance = "iphash1"
+
+  [servers.powerdns.udp]
+  max_requests  = 500
+  max_responses = 500
+
+  [servers.powerdns.discovery]
+  kind = "srv"
+  interval = "5s"
+  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:53" # dns server and port
+  srv_lookup_pattern = "powerdns.service.dc1.kjdev." # SRV service pattern 

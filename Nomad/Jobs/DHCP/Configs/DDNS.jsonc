@@ -51,19 +51,19 @@
           "dns-servers": [
             {
               "ip-address": "172.16.0.10",
-              "port": 5330
+              "port": 8153
             },
             {
               "ip-address": "172.16.0.11",
-              "port": 5330
+              "port": 8153
             },
             {
               "ip-address": "172.16.0.12",
-              "port": 5330
+              "port": 8153
             },
             {
               "ip-address": "172.16.0.13",
-              "port": 5330
+              "port": 8153
             }
           ]
         }

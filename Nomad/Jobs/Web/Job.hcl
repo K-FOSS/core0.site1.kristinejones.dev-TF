@@ -26,6 +26,12 @@ job "ingress" {
         to = 53
       }
 
+      port "powerdns" {
+        static = 8153
+
+        to = 8153
+      }
+
       #
       # DHCP
       #

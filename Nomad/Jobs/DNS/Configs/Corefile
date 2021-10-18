@@ -29,13 +29,6 @@
 }
 
 .:5320 {
-  consul_catalog 0 1 2 3 coredns.enabled {
-    endpoint ${Consul.Hostname}:${Consul.Port}
-    token ${Consul.Token}
-
-    ttl 10m
-  }
-
   forward . {{ env "NOMAD_IP_dns" }}:53 {
     except net.kjdev *.net.kjdev
   }

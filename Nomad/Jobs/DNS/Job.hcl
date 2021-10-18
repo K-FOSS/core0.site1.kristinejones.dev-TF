@@ -131,12 +131,14 @@ EOF
   }
 
   group "powerdns" {
-    count = 3
+    count = 1
 
     network {
       mode = "cni/nomadcore1"
 
-      port "dns" { }
+      port "dns" {
+        to = 53
+      }
     }
 
     service {

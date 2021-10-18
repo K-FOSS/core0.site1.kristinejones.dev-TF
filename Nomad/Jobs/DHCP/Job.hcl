@@ -15,10 +15,6 @@ job "dhcp" {
         to = 9547
       }
 
-      port "dns" {
-        to = 53
-      }
-
       port "controlagent" {
         to = 8000
       }
