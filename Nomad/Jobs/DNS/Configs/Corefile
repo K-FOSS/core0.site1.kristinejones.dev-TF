@@ -35,6 +35,10 @@
 
     ttl 10m
   }
+
+  forward . {{ env "NOMAD_IP_dns" }}:53 {
+    except net.kjdev *.net.kjdev
+  }
 }
 
 .:5330 {
