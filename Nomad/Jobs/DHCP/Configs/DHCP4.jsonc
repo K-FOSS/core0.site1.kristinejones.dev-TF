@@ -642,8 +642,8 @@
             "output": "stdout"
           }
         ],
-        "severity": "DEBUG",
-        "debuglevel": 99
+        "severity": "INFO",
+        "debuglevel": 10
       }
     ]
   } // end of Dhcp4
