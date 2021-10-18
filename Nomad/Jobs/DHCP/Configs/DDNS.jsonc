@@ -46,7 +46,7 @@
       "ddns-domains": [
         {
           // Name of the zone (required).
-          "name": ".",
+          "name": "kristianjones.dev.",
           // List of DNS servers where to send DNS updates.
           "dns-servers": [
             {

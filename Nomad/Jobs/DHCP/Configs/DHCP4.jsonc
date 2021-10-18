@@ -322,7 +322,9 @@
         // It would be better to skip the relay scope altogether, but
         // it was left here for demonstration purposes.
         "relay": {
-          "ip-address": "172.16.100.25"
+          "ip-addresses": [
+            "172.16.100.25"
+          ]
         },
         // Timer values can be overridden here.
         "renew-timer": 1800,
@@ -422,7 +424,9 @@
         // It would be better to skip the relay scope altogether, but
         // it was left here for demonstration purposes.
         "relay": {
-          "ip-address": "172.16.100.25"
+          "ip-addresses": [
+            "172.16.100.25"
+          ]
         },
         // Timer values can be overridden here.
         "renew-timer": 1800,
