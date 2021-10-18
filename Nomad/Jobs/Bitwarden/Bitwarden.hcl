@@ -19,7 +19,6 @@ job "bitwarden" {
       port = "http"
 
       task = "vault"
-
       address_mode = "alloc"
     }
 

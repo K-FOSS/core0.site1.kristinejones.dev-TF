@@ -102,7 +102,6 @@ output "Tinkerbell" {
       Cert = vault_pki_secret_backend_cert.HegelCert.certificate
       Key = vault_pki_secret_backend_cert.HegelCert.private_key
     }
-
   }
 }
 

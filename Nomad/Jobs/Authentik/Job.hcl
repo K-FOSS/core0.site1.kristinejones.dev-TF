@@ -31,8 +31,13 @@ job "authentik" {
 
   }
 
-  group "auth-server" {
-    count = 5
+  group "auth-workers" {
+    count = 3
+
+    spread {
+      attribute = "$${node.unique.id}"
+      weight    = 100
+    }
 
     network {
       mode = "cni/nomadcore1"
@@ -40,24 +45,63 @@ job "authentik" {
       port "http" { 
         to = 9000
       }
+
+      port "metrics" { 
+        to = 9300
+      }
     }
 
     service {
-      name = "authentik-cont"
+      name = "authentik-worker"
       port = "http"
 
-      task = "authentik-server"
-
+      task = "authentik-worker"
       address_mode = "alloc"
 
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
+      #
+      # Liveness check
+      #
       check {
-        name     = "HTTP Check"
-        type     = "http"
+        name = "HTTP Check"
+        type = "http"
 
         address_mode = "alloc"
-        port     = "http"
+        port = "http"
 
-        path     = "/-/health/live/"
+        path = "/-/health/live/"
+        interval = "10s"
+        timeout  = "3s"
+
+        check_restart {
+          limit = 6
+          grace = "60s"
+          ignore_warnings = true
+        }
+      }
+    }
+
+    service {
+      name = "authentik-worker"
+      port = "metrics"
+
+      task = "authentik-worker"
+      address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
+      #
+      # Liveness check
+      #
+      check {
+        name = "HTTP Check"
+        type = "http"
+
+        address_mode = "alloc"
+        port = "http"
+
+        path = "/-/health/live/"
         interval = "10s"
         timeout  = "3s"
 
@@ -117,6 +161,113 @@ EOH
         memory = 500
       }
     }
+  }
+
+  group "auth-server" {
+    count = 3
+
+    spread {
+      attribute = "$${node.unique.id}"
+      weight = 100
+    }
+
+    network {
+      mode = "cni/nomadcore1"
+
+      port "http" { 
+        to = 9000
+      }
+
+      port "metrics" { 
+        to = 9300
+      }
+    }
+
+    service {
+      name = "authentik-cont"
+      port = "metrics"
+
+      task = "authentik-server"
+      address_mode = "alloc"
+
+      #
+      # Liveness check
+      #
+      check {
+        name = "HTTP Check"
+        type = "http"
+
+        address_mode = "alloc"
+        port = "http"
+
+        path     = "/-/health/live/"
+        interval = "10s"
+        timeout  = "3s"
+
+        check_restart {
+          limit = 6
+          grace = "60s"
+          ignore_warnings = true
+        }
+      }
+    }
+
+    service {
+      name = "authentik-cont"
+      port = "http"
+
+      task = "authentik-server"
+      address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
+
+      #
+      # Liveness check
+      #
+      check {
+        name = "HTTP Check"
+        type = "http"
+
+        address_mode = "alloc"
+        port = "http"
+
+        path = "/-/health/live/"
+        interval = "10s"
+        timeout  = "3s"
+
+        check_restart {
+          limit = 6
+          grace = "60s"
+          ignore_warnings = true
+        }
+      }
+
+      #
+      # Readyness
+      #
+      check {
+        name = "HTTP Check"
+        type = "http"
+
+        address_mode = "alloc"
+        port = "http"
+
+        path = "/-/health/ready/"
+        interval = "10s"
+        timeout = "3s"
+
+        #
+        # Failures
+        #
+        failures_before_critical = 6
+
+        check_restart {
+          limit = 6
+          grace = "60s"
+          ignore_warnings = true
+        }
+      }
+    }
 
     task "authentik-server" {
       driver = "docker"
@@ -162,7 +313,7 @@ EOH
       }
 
       resources {
-        cpu    = 800
+        cpu = 800
         memory = 500
       }
     }

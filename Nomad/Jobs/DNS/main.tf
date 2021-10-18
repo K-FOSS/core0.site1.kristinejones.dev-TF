@@ -63,6 +63,8 @@ resource "nomad_job" "JobFile" {
 
     CoreFile = templatefile("${path.module}/Configs/Corefile", {
       Netbox = var.Netbox
+
+      Consul = var.Consul
     })
 
     PluginsConfig = templatefile("${path.module}/Configs/plugin.cfg", {})

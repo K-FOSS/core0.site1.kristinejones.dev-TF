@@ -285,3 +285,37 @@ resource "vault_pki_secret_backend_cert" "HomeAssistantHTTPSCert" {
 data "vault_generic_secret" "CoreVault" {
   path = "${vault_mount.Terraform.path}/CoreVault"
 }
+
+#
+# Kea DHCP
+#
+
+module "DHCP" {
+  source = "./TLS/Template"
+}
+
+resource "vault_pki_secret_backend_cert" "DHCPServerCert" {
+  backend = module.DHCP.TLS.Mount.path
+  name = module.DHCP.TLS.Role.name
+
+  common_name = "dhcp.service.kjdev"
+
+  alt_names = ["dhcp.service.dc1.kjdev", "0.dhcp.service.dc1.kjdev", "1.dhcp.service.dc1.kjdev", "2.dhcp.service.dc1.kjdev", "3.dhcp.service.dc1.kjdev", "4.dhcp.service.dc1.kjdev"]
+}
+
+#
+# Bitwarden
+#
+
+module "Bitwarden" {
+  source = "./TLS/Template"
+}
+
+resource "vault_pki_secret_backend_cert" "BitwardenServerCert" {
+  backend = module.Bitwarden.TLS.Mount.path
+  name = module.Bitwarden.TLS.Role.name
+
+  common_name = "bitwarden-cont.service.kjdev"
+
+  alt_names = ["bitwarden.kristianjones.dev"]
+}

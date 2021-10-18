@@ -57,6 +57,19 @@ output "Tempo" {
 }
 
 #
+# CoreDNS
+#
+output "DNS" {
+  value = {
+    Hostname = "consul.service.kjdev"
+    Port = 8500
+
+    Token = data.consul_acl_token_secret_id.DNSToken.secret_id
+  }
+}
+
+
+#
 # Pomerium Ingress
 #
 

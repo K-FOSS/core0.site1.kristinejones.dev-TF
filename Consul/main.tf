@@ -20,10 +20,19 @@ provider "consul" {
 locals {
   Patroni = var.Patroni
 
+  #
+  # Grafana Cortex
+  #
   Cortex = var.Cortex
 
+  #
+  # Grafana Loki
+  #
   Loki = var.Loki
 
+  #
+  # Grafana Tempo
+  #
   Tempo = var.Tempo
 }
 
@@ -134,6 +143,34 @@ resource "consul_acl_token" "TempoToken" {
 
 data "consul_acl_token_secret_id" "TempoToken" {
   accessor_id = consul_acl_token.TempoToken.id
+}
+
+#
+# DNS
+#
+# CoreDNS Consul consul_catalog plugin
+#
+
+resource "random_uuid" "DNSToken" { }
+
+
+resource "consul_acl_policy" "DNSACL" {
+  name  = "DNSACL"
+
+  rules = templatefile("${path.module}/ACLs/CoreDNS.hcl", {})
+}
+
+resource "consul_acl_token" "DNSToken" {
+  accessor_id = random_uuid.DNSToken.result
+
+  description = "CoreDNS Consul Catalog Plugin"
+
+  policies = ["${consul_acl_policy.DNSACL.name}"]
+  local = true
+}
+
+data "consul_acl_token_secret_id" "DNSToken" {
+  accessor_id = consul_acl_token.DNSToken.id
 }
 
 #

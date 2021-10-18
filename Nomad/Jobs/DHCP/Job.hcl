@@ -1,5 +1,5 @@
 job "dhcp" {
-  datacenters = ["core0site1", "home1"]
+  datacenters = ["core0site1"]
 
   group "dhcp" {
     count = 4

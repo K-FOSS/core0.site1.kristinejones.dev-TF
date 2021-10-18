@@ -29,8 +29,11 @@
 }
 
 .:5320 {
-  forward . {{ env "NOMAD_IP_dns" }}:53 {
-    except net.kjdev *.net.kjdev
+  consul_catalog coredns.enabled {
+    address ${Consul.Hostname}:${Consul.Port}
+    token ${Consul.Token}
+
+    ttl 10m
   }
 }
 
@@ -44,7 +47,7 @@
   }
 
   secondary {
-    transfer from 172.16.0.15
+    transfer from 172.16.0.10 172.16.0.11 172.16.0.12 172.16.0.12
   }
 }
 

@@ -262,6 +262,11 @@ EOF
   group "tempo-${Target.name}" {
     count = ${Target.count}
 
+    spread {
+      attribute = "$${node.unique.id}"
+      weight    = 100
+    }
+
     network {
       mode = "cni/nomadcore1"
 

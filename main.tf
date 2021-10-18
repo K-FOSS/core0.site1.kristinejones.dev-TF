@@ -481,14 +481,33 @@ module "Nomad" {
     Token = module.Vault.Netbox.Token
   }
 
+
+  #
+  # ISC Kea DHCP
+  #
+
   DHCP = {
     Database = module.DHCPDatabase.Database
   }
 
+  #
+  # CoreDNS DNS
+  #
+  DNS = {
+    Consul = module.Consul.DNS
+  }
+
+
+  #
+  # Mattermost
+  #
   Mattermost = {
     Database = module.Mattermost.Database
   }
-
+  
+  #
+  # Tinkerbell
+  #
   Tinkerbell = {
     Database = module.TinkerbellDatabase.Database
 

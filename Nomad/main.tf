@@ -267,6 +267,8 @@ module "DNS" {
 
     Token = var.Netbox.Token
   }
+
+  Consul = var.DNS.Consul
 }
 
 #
