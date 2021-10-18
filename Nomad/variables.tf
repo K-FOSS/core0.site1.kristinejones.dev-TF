@@ -378,6 +378,18 @@ variable "DNS" {
   
       Token = string
     })
+
+    PowerDNS = object({
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
+      })
+    })
   })
 }
 

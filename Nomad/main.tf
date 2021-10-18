@@ -269,6 +269,8 @@ module "DNS" {
   }
 
   Consul = var.DNS.Consul
+
+  PowerDNS = var.DNS.PowerDNS
 }
 
 #

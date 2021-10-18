@@ -258,6 +258,16 @@ module "HomeAssistantDatabase" {
 }
 
 #
+# PowerDNS Authoritative DNS Server
+#
+module "PowerDNSDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+
+#
 # Hashicorp Nomad
 #
 
@@ -495,6 +505,10 @@ module "Nomad" {
   #
   DNS = {
     Consul = module.Consul.DNS
+
+    PowerDNS = {
+      Database = module.PowerDNSDatabase.Database
+    }
   }
 
 

@@ -56,6 +56,10 @@ data "github_release" "Release" {
   retrieve_by = "latest"
 }
 
+data "http" "PSQLFile" {
+  url = "https://raw.githubusercontent.com/PowerDNS/pdns/rel/auth-4.5.x/modules/gpgsqlbackend/schema.pgsql.sql"
+}
+
 
 resource "nomad_job" "JobFile" {
   jobspec = templatefile("${path.module}/Job.hcl", {
@@ -66,6 +70,15 @@ resource "nomad_job" "JobFile" {
 
       Consul = var.Consul
     })
+
+    PowerDNS = {
+      PSQL = data.http.PSQLFile.body
+      Database = var.PowerDNS.Database
+
+      Config = templatefile("${path.module}/Configs/pdns.conf", {
+        Database = var.PowerDNS.Database
+      })
+    }
 
     PluginsConfig = templatefile("${path.module}/Configs/plugin.cfg", {})
   })
