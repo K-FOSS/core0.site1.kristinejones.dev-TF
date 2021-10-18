@@ -69,7 +69,7 @@
     // default value is an empty string which indicates that no
     // suffix is appended.  It may be specified at the global,
     // shared-network and subnet levels.
-    "ddns-qualifying-suffix": "kristianjones.dev",
+    "ddns-qualifying-suffix": "",
     // Enumeration specifying whether the server should honor
     // hostname or Client FQDN sent by the client or replace
     // this name. The acceptable values are: "never" (use the
@@ -80,7 +80,7 @@
     // client didn't send one, otherwise leave the name the
     // client sent). The default value is "never".  It may be
     // specified at the global, shared-network and subnet levels.
-    "ddns-replace-client-name": "never",
+    "ddns-replace-client-name": "when-not-present",
     // Boolean flag which enables or disables the DDNS updating. It
     // defaults to true.  It may be specified at the global, shared-
     // network and subnet levels. It works in conjunction with
@@ -346,20 +346,6 @@
         "subnet4": [
           {
             "id": 241,
-            // Subnet level value. See description at the global level.
-            "ddns-override-client-update": false,
-            // Subnet level value. See description at the global level.
-            "ddns-override-no-update": false,
-            // Subnet level value. See description at the global level.
-            "ddns-qualifying-suffix": "pi1.home1.kristianjones.dev",
-            // Subnet level value. See description at the global level.
-            "ddns-replace-client-name": "never",
-            // Subnet level value. See description at the global level.
-            "ddns-send-updates": true,
-            // Subnet level value. See description at the global level.
-            "ddns-update-on-renew": true,
-            // Subnet level value. See description at the global level.
-            "ddns-use-conflict-resolution": true,
             "match-client-id": false,
             "next-server": "0.0.0.0",
             "server-hostname": "dhcp.service.kjdev",
@@ -460,16 +446,6 @@
         "subnet4": [
           {
             "id": 1,
-            // Subnet level value. See description at the global level.
-            "ddns-qualifying-suffix": "kristianjones.dev",
-            // Subnet level value. See description at the global level.
-            "ddns-replace-client-name": "never",
-            // Subnet level value. See description at the global level.
-            "ddns-send-updates": true,
-            // Subnet level value. See description at the global level.
-            "ddns-update-on-renew": true,
-            // Subnet level value. See description at the global level.
-            "ddns-use-conflict-resolution": true,
             "match-client-id": false,
             "next-server": "0.0.0.0",
             "server-hostname": "dhcp.service.kjdev",
@@ -514,10 +490,6 @@
             ],
             "rebind-timer": 10800,
             "reservations": [
-              {
-                "hw-address": "dc:a6:32:2e:bd:79",
-                "ip-address": "172.16.100.31"
-              },
               // Randoms
               {
                 "hw-address": "3c:8d:20:3d:a1:9b",
@@ -666,10 +638,9 @@
             "output": "stdout"
           }
         ],
-        "severity": "warn"
+        "severity": "DEBUG",
+        "debuglevel": 99
       }
-    ],
-    // Look at advanced example for the use of user-contexts.
-    "user-context": {}
+    ]
   } // end of Dhcp4
 }

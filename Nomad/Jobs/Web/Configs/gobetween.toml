@@ -134,3 +134,13 @@ balance = "iphash1"
   interval = "5s"
   srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:53" # dns server and port
   srv_lookup_pattern = "powerdns.service.dc1.kjdev." # SRV service pattern 
+
+[servers.powerdnstcp]
+protocol = "tcp"
+bind = "0.0.0.0:8153"
+balance = "iphash1"
+  [servers.powerdnstcp.discovery]
+  kind = "srv"
+  interval = "5s"
+  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:53" # dns server and port
+  srv_lookup_pattern = "powerdns.service.dc1.kjdev." # SRV service pattern 

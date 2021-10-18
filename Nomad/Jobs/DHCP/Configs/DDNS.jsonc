@@ -14,7 +14,7 @@
     // Global Parameters
     // IP address D2 will listen for update requests at.
     // Default is 127.0.0.1
-    "ip-address": "0.0.0.0",
+    "ip-address": "127.0.0.1",
     // Port D2 will listen for update requests on.
     // Default is 53001.
     "port": 53001,
@@ -46,7 +46,7 @@
       "ddns-domains": [
         {
           // Name of the zone (required).
-          "name": "kristianjones.dev.",
+          "name": ".",
           // List of DNS servers where to send DNS updates.
           "dns-servers": [
             {
@@ -72,35 +72,50 @@
     // Reverse DDNS (Dynamic DNS).
     "reverse-ddns": {
       // List of DDNS domains.
-      "ddns-domains": []
+      "ddns-domains": [
+        {
+          // Name of the zone (required).
+          "name": ".",
+          // List of DNS servers where to send DNS updates.
+          "dns-servers": [
+            {
+              "ip-address": "172.16.0.10",
+              "port": 8153
+            },
+            {
+              "ip-address": "172.16.0.11",
+              "port": 8153
+            },
+            {
+              "ip-address": "172.16.0.12",
+              "port": 8153
+            },
+            {
+              "ip-address": "172.16.0.13",
+              "port": 8153
+            }
+          ]
+        }
+      ]
     },
     // List of TSIG keys used to protect DNS updates.
     "tsig-keys": [],
     // List of loggers used by the servers using this configuration file.
     "loggers": [
       {
-        // Debug level, a value between 0..99. The greater the value
-        // the more detailed debug log.
-        "debuglevel": 99,
         // Name of the logger.
         "name": "kea-dhcp-ddns",
         // Configures how the log should be output.
         "output_options": [
           {
-            // Determines whether the log should flushed to a file.
-            "flush": false,
-            // Specifies maximum filesize before the file is being rotated.
-            "maxsize": 10240000,
-            // Specifies the maximum number of rotated files being kept.
-            "maxver": 1,
             // Specifies logging destination.
             "output": "stdout",
             // Specifies log entry content
             "pattern": "%D{%Y-%m-%d %H:%M:%S.%q} %-5p [%c/%i] %m\n"
           }
         ],
-        // Specifies logging severity, i.e. "ERROR", "WARN", "INFO", "DEBUG".
-        "severity": "INFO"
+        "severity": "DEBUG",
+        "debuglevel": 99
       }
     ]
   }
