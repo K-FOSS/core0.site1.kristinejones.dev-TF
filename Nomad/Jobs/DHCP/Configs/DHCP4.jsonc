@@ -69,7 +69,7 @@
     // default value is an empty string which indicates that no
     // suffix is appended.  It may be specified at the global,
     // shared-network and subnet levels.
-    "ddns-qualifying-suffix": "",
+    "ddns-qualifying-suffix": "kristianjones.dev",
     // Enumeration specifying whether the server should honor
     // hostname or Client FQDN sent by the client or replace
     // this name. The acceptable values are: "never" (use the
@@ -347,13 +347,11 @@
           {
             "id": 241,
             // Subnet level value. See description at the global level.
-            "ddns-generated-prefix": "myhost",
-            // Subnet level value. See description at the global level.
             "ddns-override-client-update": false,
             // Subnet level value. See description at the global level.
             "ddns-override-no-update": false,
             // Subnet level value. See description at the global level.
-            "ddns-qualifying-suffix": "",
+            "ddns-qualifying-suffix": "pi1.home1.kristianjones.dev",
             // Subnet level value. See description at the global level.
             "ddns-replace-client-name": "never",
             // Subnet level value. See description at the global level.
@@ -462,6 +460,16 @@
         "subnet4": [
           {
             "id": 1,
+            // Subnet level value. See description at the global level.
+            "ddns-qualifying-suffix": "kristianjones.dev",
+            // Subnet level value. See description at the global level.
+            "ddns-replace-client-name": "never",
+            // Subnet level value. See description at the global level.
+            "ddns-send-updates": true,
+            // Subnet level value. See description at the global level.
+            "ddns-update-on-renew": true,
+            // Subnet level value. See description at the global level.
+            "ddns-use-conflict-resolution": true,
             "match-client-id": false,
             "next-server": "0.0.0.0",
             "server-hostname": "dhcp.service.kjdev",

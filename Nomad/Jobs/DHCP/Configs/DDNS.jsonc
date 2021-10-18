@@ -88,7 +88,7 @@
         "output_options": [
           {
             // Determines whether the log should flushed to a file.
-            "flush": true,
+            "flush": false,
             // Specifies maximum filesize before the file is being rotated.
             "maxsize": 10240000,
             // Specifies the maximum number of rotated files being kept.
@@ -102,8 +102,6 @@
         // Specifies logging severity, i.e. "ERROR", "WARN", "INFO", "DEBUG".
         "severity": "INFO"
       }
-    ],
-    // Look at sample1 example for the use of user-contexts.
-    "user-context": {}
+    ]
   }
 }
