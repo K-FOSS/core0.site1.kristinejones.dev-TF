@@ -59,58 +59,16 @@ job "authentik" {
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}"]
-
-      #
-      # Liveness check
-      #
-      check {
-        name = "HTTP Check"
-        type = "http"
-
-        address_mode = "alloc"
-        port = "http"
-
-        path = "/-/health/live/"
-        interval = "10s"
-        timeout  = "3s"
-
-        check_restart {
-          limit = 6
-          grace = "60s"
-          ignore_warnings = true
-        }
-      }
     }
 
     service {
-      name = "authentik-worker"
+      name = "authentik-worker-metrics"
       port = "metrics"
 
       task = "authentik-worker"
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}"]
-
-      #
-      # Liveness check
-      #
-      check {
-        name = "HTTP Check"
-        type = "http"
-
-        address_mode = "alloc"
-        port = "http"
-
-        path = "/-/health/live/"
-        interval = "10s"
-        timeout  = "3s"
-
-        check_restart {
-          limit = 6
-          grace = "60s"
-          ignore_warnings = true
-        }
-      }
     }
 
     task "authentik-worker" {
