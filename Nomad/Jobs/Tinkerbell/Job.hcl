@@ -331,13 +331,24 @@ EOH
 
     service {
       name = "boots"
-      port = "grpc"
+      port = "dhcp"
 
-      task = "hegel-server"
+      task = "boots-server"
       address_mode = "alloc"
 
-
+      tags = ["dhcp"]
     }
+
+    service {
+      name = "boots"
+      port = "tftp"
+
+      task = "boots-server"
+      address_mode = "alloc"
+
+      tags = ["tftp"]
+    }
+
 
     task "boots-server" {
       driver = "docker"
@@ -345,7 +356,9 @@ EOH
       config {
         image = "quay.io/tinkerbell/boots:${Version}"
 
-        ports = [""]
+        command = "/usr/bin/boots"
+
+        args = ["--dhcp-addr", "0.0.0.0:67", "--http-addr", "0.0.0.0:80", "--tftp-addr", "0.0.0.0:69"]
       }
 
       env {
@@ -365,9 +378,41 @@ EOH
         #
         # Misc
         #
-        PUBLIC_FQDN = ""
-      }
+        DATA_MODEL_VERSION = "1"
+        API_CONSUMER_TOKEN = "ignored"
+        API_AUTH_TOKEN = "ignored"
 
+        FACILITY = "onprem"
+        PACKET_ENV = "testing"
+        PACKET_VERSION = ""
+
+
+        #
+        # Container Registry Mirror
+        #
+        DOCKER_REGISTRY = "docker.io"
+        REGISTRY_USERNAME = "${Boots.DockerHub.Username}"
+        REGISTRY_PASSWORD = "${Boots.DockerHub.Token}"
+
+
+        PUBLIC_FQDN = "boots.service.dc1.kjdev"
+
+        #
+        # DNS
+        #
+        DNS_SERVERS = "172.16.0.1"
+
+        #
+        # Mirror
+        #
+        MIRROR_HOST = "http-cont.service.kjdev:8080"
+
+        #
+        # Tinkerbell
+        #  
+        TINKERBELL_GRPC_AUTHORITY = "tink-grpc-cont.service.dc1.kjdev:42113"
+        TINKERBELL_CERT_URL = "http://tink-http-cont.service.dc1.kjdev:42114/cert"
+      }
     }
   }
 }
