@@ -40,7 +40,7 @@
     ttl 1m
   }
 
-  forward . consul.service.dc1.kjdev:8600 {
+  forward . {{ env "NOMAD_IP_dns" }}:8600 {
     except net.kjdev *.net.kjdev
   }
 }
