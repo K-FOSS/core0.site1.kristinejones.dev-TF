@@ -64,8 +64,9 @@ job "coturn" {
       port = "turn"
 
       task = "coturn-server"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     service {
@@ -73,8 +74,9 @@ job "coturn" {
       port = "stun"
 
       task = "coturn-server"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     task "coturn-server" {

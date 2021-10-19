@@ -526,6 +526,10 @@ module "Nomad" {
     Database = module.TinkerbellDatabase.Database
 
     TLS = module.Vault.Tinkerbell
+
+    Boots = {
+      DockerHub = module.Vault.DockerHub
+    }
   }
 
   #

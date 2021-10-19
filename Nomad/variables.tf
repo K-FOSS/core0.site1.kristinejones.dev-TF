@@ -440,6 +440,13 @@ variable "Tinkerbell" {
         Key = string
       })
     })
+
+    Boots = object({
+      DockerHub = object({
+        Username = string
+        Token = string
+      })
+    })
   })
 }
 

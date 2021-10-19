@@ -17,8 +17,9 @@ job "grafana" {
       port = "redis"
 
       task = "grafana-cache"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
 
       check {
         name = "tcp_validate"
@@ -76,6 +77,8 @@ job "grafana" {
 
       task = "grafana-web"
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
 
       #
       # Liveness check

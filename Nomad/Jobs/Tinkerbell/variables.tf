@@ -26,6 +26,15 @@ variable "TLS" {
   })
 }
 
+variable "Boots" {
+  type = object({
+    DockerHub = object({
+      Username = string
+      Token = string
+    })
+  })
+}
+
 # variable "Terraform" {
 #   type = object({
 #     Vault = object({

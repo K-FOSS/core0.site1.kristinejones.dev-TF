@@ -60,8 +60,9 @@ job "nextcloud" {
       port = "fpm"
 
       task = "nextcloud-server"
-
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
     }
 
     service {
@@ -69,8 +70,9 @@ job "nextcloud" {
       port = "http"
 
       task = "web"
-
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
     }
 
     task "web" {

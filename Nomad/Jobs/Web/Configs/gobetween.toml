@@ -33,7 +33,7 @@ cors = false    # cross-origin resource sharing
 # Metrics server configuration
 #
 [metrics]
-enabled = false # false | true
+enabled = true # false | true
 bind = ":9284"  # "host:port"
 
 #
@@ -60,7 +60,7 @@ balance = "iphash1"
   [servers.syslog.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:53" # dns server and port
+  srv_lookup_server = "172.16.0.13:8600" # dns server and port
   srv_lookup_pattern = "vector-syslog.service.kjdev." # SRV service pattern 
 
 
@@ -76,7 +76,7 @@ balance = "iphash1"
   [servers.dns.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:53" # dns server and port
+  srv_lookup_server = "172.16.0.13:8600" # dns server and port
   srv_lookup_pattern = "coredns-dns-cont.service.kjdev." # SRV service pattern 
 
 [servers.dhcp]
@@ -91,7 +91,7 @@ balance = "roundrobin"
   [servers.dhcp.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:53" # dns server and port
+  srv_lookup_server = "172.16.0.13:8600" # dns server and port
   srv_lookup_pattern = "dhcp.service.kjdev." # SRV service pattern 
 
 [servers.tftp]
@@ -106,7 +106,7 @@ balance = "roundrobin"
   [servers.tftp.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:53" # dns server and port
+  srv_lookup_server = "172.16.0.13:8600" # dns server and port
   srv_lookup_pattern = "tftp-cont.service.kjdev." # SRV service pattern 
 
 [servers.stun]
@@ -117,7 +117,7 @@ balance = "iphash1"
   [servers.stun.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:53" # dns server and port
+  srv_lookup_server = "172.16.0.13:8600" # dns server and port
   srv_lookup_pattern = "coturn-stun-cont.service.kjdev." # SRV service pattern 
 
 [servers.powerdns]
@@ -132,7 +132,7 @@ balance = "iphash1"
   [servers.powerdns.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:53" # dns server and port
+  srv_lookup_server = "172.16.0.13:8600" # dns server and port
   srv_lookup_pattern = "powerdns.service.dc1.kjdev." # SRV service pattern 
 
 [servers.powerdnstcp]
@@ -142,5 +142,5 @@ balance = "iphash1"
   [servers.powerdnstcp.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:53" # dns server and port
+  srv_lookup_server = "172.16.0.13:8600" # dns server and port
   srv_lookup_pattern = "powerdns.service.dc1.kjdev." # SRV service pattern 

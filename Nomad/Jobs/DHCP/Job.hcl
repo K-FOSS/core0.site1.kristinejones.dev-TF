@@ -25,8 +25,9 @@ job "dhcp" {
       port = "dhcp"
 
       task = "kea-dhcp-server"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
 
       check {
         name = "Kea Control Health healthcheck"
@@ -50,8 +51,9 @@ job "dhcp" {
       port = "metrics"
 
       task = "kea-dhcp-server"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     task "dhcp-db" {

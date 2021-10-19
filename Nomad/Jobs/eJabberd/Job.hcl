@@ -17,8 +17,9 @@ job "ejabberd" {
       port = "redis"
 
       task = "redis"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     task "redis" {
@@ -93,8 +94,9 @@ EOF
       port = "mqtt"
 
       task = "ejabberd"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     task "ejabberd-db" {

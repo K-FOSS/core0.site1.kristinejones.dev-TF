@@ -49,13 +49,13 @@ bootstrap:
       parameters:
 #        wal_level: hot_standby
 #        hot_standby: "on"
-#        max_connections: 100
-#        max_worker_processes: 8
+        max_connections: 512
+        max_worker_processes: 8
 #        wal_keep_segments: 8
 #        max_wal_senders: 10
-#        max_replication_slots: 10
+        max_replication_slots: 128
 #        max_prepared_transactions: 0
-#        max_locks_per_transaction: 64
+        max_locks_per_transaction: 128
 #        wal_log_hints: "on"
 #        track_commit_timestamp: "off"
 #        archive_mode: "on"
@@ -93,7 +93,11 @@ postgresql:
   #
   data_dir: /data/patroni{{ env "NOMAD_ALLOC_INDEX" }}
 
-
+  parameters:
+    maintenance_work_mem: 256MB
+    max_connections: '512'
+    max_replication_slots: 128
+    max_locks_per_transaction: 128
   use_pg_rewind: true
 
   #

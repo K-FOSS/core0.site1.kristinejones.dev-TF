@@ -58,7 +58,11 @@ job "authentik" {
       task = "authentik-worker"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+
+      meta {
+        meta = "for your service"
+      }
     }
 
     service {
@@ -68,7 +72,7 @@ job "authentik" {
       task = "authentik-worker"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
     }
 
     task "authentik-worker" {
@@ -142,11 +146,13 @@ EOH
     }
 
     service {
-      name = "authentik-cont"
+      name = "authentik"
       port = "metrics"
 
       task = "authentik-server"
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "metrics"]
 
       #
       # Liveness check
@@ -171,13 +177,13 @@ EOH
     }
 
     service {
-      name = "authentik-cont"
+      name = "authentik"
       port = "http"
 
       task = "authentik-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
 
       #
       # Liveness check

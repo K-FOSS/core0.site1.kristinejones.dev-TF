@@ -17,8 +17,9 @@ job "pomerium" {
       port = "redis"
 
       task = "redis"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     task "redis" {
@@ -98,10 +99,9 @@ EOF
       port = "https"
 
       task = "pomerium-${Service.Name}"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
-
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
     }
 
     task "pomerium-${Service.Name}" {

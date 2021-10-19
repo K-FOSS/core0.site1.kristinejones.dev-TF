@@ -64,6 +64,14 @@ data "vault_generic_secret" "Database" {
   path = "${vault_mount.Terraform.path}/Database"
 }
 
+#
+# Docker Hub
+#
+data "vault_generic_secret" "DockerHub" {
+  path = "${vault_mount.Terraform.path}/Docker"
+}
+
+
 
 #
 # Bitwarden

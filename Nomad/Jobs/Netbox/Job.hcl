@@ -17,8 +17,9 @@ job "netbox" {
       port = "redis"
 
       task = "redis"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     task "redis" {
@@ -57,8 +58,9 @@ job "netbox" {
       port = "redis"
 
       task = "redis"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     task "redis" {
@@ -186,8 +188,9 @@ EOH
       port = "http"
 
       task = "netbox"
-
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
     }
 
     task "netbox-devicesync" {

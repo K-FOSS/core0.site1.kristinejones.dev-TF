@@ -8,7 +8,7 @@ job "ingress" {
 
     spread {
       attribute = "$${node.unique.id}"
-      weight    = 100
+      weight = 100
     }
 
     network {
@@ -23,6 +23,8 @@ job "ingress" {
       }
 
       port "dns" {
+        static = 53
+
         to = 53
       }
 
@@ -158,7 +160,7 @@ EOF
         command = "/gobetween"
         args = ["-c", "/local/gobetween.toml"]
 
-        ports = ["syslog", "dhcp", "tftp"]
+        ports = ["syslog", "dhcp", "tftp", "dns"]
 
         logging {
           type = "loki"

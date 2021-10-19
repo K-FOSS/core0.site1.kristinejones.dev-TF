@@ -17,8 +17,9 @@ job "metrics" {
       port = "memcached"
 
       task = "memcached"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     task "memcached" {
@@ -46,8 +47,9 @@ job "metrics" {
       port = "memcached"
 
       task = "memcached"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     task "memcached" {
@@ -89,10 +91,9 @@ job "metrics" {
       port = "http"
 
       task = "cortex-${Target.name}"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
-
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
 
       #
       # Liveness check
@@ -119,22 +120,20 @@ job "metrics" {
       port = "grpc"
 
       task = "cortex-${Target.name}"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
-
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
     }
 
     service {
       name = "cortex-${Target.name}-gossip-cont"
       
-      address_mode = "alloc"
       port = "gossip"
-
+      address_mode = "alloc"
 
       task = "cortex-${Target.name}"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
     }
 
     task "cortex-${Target.name}" {
@@ -251,10 +250,9 @@ EOF
       port = "http"
 
       task = "loki-${Target.name}"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
-
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
     }
 
     service {
@@ -262,10 +260,9 @@ EOF
       port = "grpc"
 
       task = "loki-${Target.name}"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
-
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
     }
 
     task "loki-${Target.name}" {
@@ -329,10 +326,9 @@ EOF
       port = "http"
 
       task = "tempo-${Target.name}"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
-
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
     }
 
     service {
@@ -340,10 +336,9 @@ EOF
       port = "grpc"
 
       task = "tempo-${Target.name}"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
-
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
     }
 
     task "tempo-${Target.name}" {
@@ -422,8 +417,9 @@ EOF
       port = "api"
 
       task = "vector"
-
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
 
       check {
         port     = "api"
@@ -441,8 +437,9 @@ EOF
       port = "syslog"
 
       task = "vector"
-
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
 
       check {
         port     = "api"

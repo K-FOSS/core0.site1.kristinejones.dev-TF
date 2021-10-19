@@ -17,8 +17,9 @@ job "mattermost" {
       port = "http"
 
       task = "mattermost-server"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     task "mattermost-server" {

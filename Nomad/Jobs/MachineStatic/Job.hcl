@@ -29,8 +29,9 @@ job "machine-static" {
       port = "tftp"
 
       task = "tftp-server"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     service {
@@ -38,8 +39,9 @@ job "machine-static" {
       port = "http"
 
       task = "http-server"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     task "volume-prepare" {

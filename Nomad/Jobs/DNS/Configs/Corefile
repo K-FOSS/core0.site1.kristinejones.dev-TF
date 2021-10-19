@@ -33,7 +33,7 @@
 }
 
 .:5320 {
-  forward . {{ env "NOMAD_IP_dns" }}:53 {
+  forward . 172.16.0.13:8600 {
     except net.kjdev *.net.kjdev
   }
 }

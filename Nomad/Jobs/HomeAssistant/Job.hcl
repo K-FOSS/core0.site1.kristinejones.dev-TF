@@ -25,8 +25,9 @@ job "homeassistant" {
       port = "https"
 
       task = "nextcloud-server"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     task "volume-prepare" {

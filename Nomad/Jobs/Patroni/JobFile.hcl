@@ -6,7 +6,7 @@ job "Patroni" {
 
     spread {
       attribute = "$${node.unique.id}"
-      weight    = 100
+      weight = 100
     }
 
     update {
@@ -51,7 +51,7 @@ job "Patroni" {
       task = "patroni"  
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
 
       meta {
         id = "$${NOMAD_ALLOC_INDEX}"
@@ -69,7 +69,7 @@ job "Patroni" {
       task = "patroni"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
 
       meta {
         id = "$${NOMAD_ALLOC_INDEX}"
@@ -112,6 +112,9 @@ ${Patroni.YAMLConfig}
 EOF
 
         destination = "local/Patroni.yaml"
+
+        change_mode = "signal"
+        change_signal = "SIGHUP"
       }
 
       # Entrypoint Script
@@ -123,6 +126,9 @@ EOF
         destination = "local/entry.sh"
 
         perms = "777"
+
+        change_mode = "signal"
+        change_signal = "SIGHUP"
       }
 
       resources {

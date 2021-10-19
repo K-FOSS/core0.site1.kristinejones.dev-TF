@@ -292,6 +292,8 @@ module "Tinkerbell" {
   Database = var.Tinkerbell.Database
 
   TLS = var.Tinkerbell.TLS
+
+  Boots = var.Tinkerbell.Boots
 }
 
 #

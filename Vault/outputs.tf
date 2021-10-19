@@ -249,3 +249,13 @@ output "Vault" {
     }
   } 
 }
+
+#
+# Docker Hub
+#
+output "DockerHub" {
+  value = {
+    Username = data.vault_generic_secret.DockerHub.data["USERNAME"]
+    Token = data.vault_generic_secret.DockerHub.data["TOKEN"]
+  } 
+}

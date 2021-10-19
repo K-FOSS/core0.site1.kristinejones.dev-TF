@@ -20,6 +20,8 @@ job "bitwarden" {
 
       task = "vault"
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     service {
@@ -27,8 +29,9 @@ job "bitwarden" {
       port = "ws"
 
       task = "vault"
-
       address_mode = "alloc"
+
+      tags = ["coredns.enabled"]
     }
 
     task "vault" {
