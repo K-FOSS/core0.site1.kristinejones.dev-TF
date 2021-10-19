@@ -67,5 +67,7 @@ resource "nomad_job" "Tinkerbell" {
     Version = "latest"
 
     Admin = local.TinkAdmin
+
+    Boots = var.Boots
   })
 }
