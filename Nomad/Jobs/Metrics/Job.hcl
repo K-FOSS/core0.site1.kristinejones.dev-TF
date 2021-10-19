@@ -86,6 +86,11 @@ job "metrics" {
       }
     }
 
+    ephemeral_disk {
+      size    = 500
+      sticky  = true
+    }
+
     service {
       name = "cortex-${Target.name}-http-cont"
       port = "http"
@@ -243,6 +248,11 @@ EOF
       port "gossip" { 
         to = 8090
       }
+    }
+
+    ephemeral_disk {
+      size    = 500
+      sticky  = true
     }
 
     service {
