@@ -87,7 +87,7 @@ job "metrics" {
     }
 
     ephemeral_disk {
-      size = 64
+      size = 500
       sticky = false
     }
 
@@ -170,6 +170,9 @@ job "metrics" {
 ${Cortex.YAMLConfig}
 EOF
 
+        change_mode   = "signal"
+        change_signal = "SIGHUP"
+
         destination = "local/Cortex.yaml"
       }
     }
@@ -251,7 +254,7 @@ EOF
     }
 
     ephemeral_disk {
-      size = 64
+      size = 500
       sticky = false
     }
 
