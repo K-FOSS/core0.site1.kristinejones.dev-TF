@@ -11,30 +11,32 @@
     transfer from 172.16.0.10:8153 172.16.0.11:8153 172.16.0.12:8153 172.16.0.12:8153
   }
 
-  forward . 127.0.0.1:5320 127.0.0.1:5330 127.0.0.1:5310 127.0.0.1:5380
+  fanout . 127.0.0.1:5320 127.0.0.1:5330 127.0.0.1:5310 127.0.0.1:5380 {
+    worker-count 4
+  }
 }
 
 .:5310 {
-  forward . tls://1.1.1.1 tls://1.0.0.1 {
+  fanout . tls://1.1.1.1 tls://1.0.0.1 {
     tls_servername cloudflare-dns.com
-    health_check 5s
 
     except kjdev service.kjdev addr.kjdev dc1.kjdev *.kjdev net.kjdev *.net.kjdev
   }  
 }
 
 .:5380 {
-  forward . tls://8.8.8.8 tls://8.8.4.4 {
+  fanout . tls://8.8.8.8 tls://8.8.4.4 {
     tls_servername dns.google
-    health_check 5s
 
     except kjdev service.kjdev addr.kjdev dc1.kjdev *.kjdev net.kjdev *.net.kjdev
   }
 }
 
 .:5320 {
-  forward . {{ env "NOMAD_IP_dns" }}:8600 {
+  forward . 172.16.0.10:8600 172.16.0.11:8600 172.16.0.12:8600 172.16.0.13:8600 {
     except net.kjdev *.net.kjdev
+
+    worker-count 8
   }
 }
 
