@@ -50,10 +50,10 @@ server:
 # Docs: https://grafana.com/docs/loki/latest/configuration/#distributor_config
 #
 distributor:
-  # The heartbeat timeout after which ingesters are skipped for
-  # reading and writing.
-  heartbeat_timeout: 1m
   ring:
+    # The heartbeat timeout after which ingesters are skipped for
+    # reading and writing.
+    heartbeat_timeout: 1m
     kvstore:
       store: consul
       prefix: ${Consul.Prefix}/collectors/
