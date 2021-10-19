@@ -87,8 +87,8 @@ job "metrics" {
     }
 
     ephemeral_disk {
-      size    = 500
-      sticky  = true
+      size = 64
+      sticky = false
     }
 
     service {
@@ -110,12 +110,12 @@ job "metrics" {
         type = "http"
 
         path = "/ready"
-        interval = "10s"
+        interval = "15s"
         timeout  = "3s"
 
         check_restart {
           limit = 10
-          grace = "60s"
+          grace = "10m"
         }
       }
     }
@@ -251,8 +251,8 @@ EOF
     }
 
     ephemeral_disk {
-      size    = 500
-      sticky  = true
+      size = 64
+      sticky = false
     }
 
     service {
@@ -286,7 +286,7 @@ EOF
 
       restart {
         attempts = 5
-        delay    = "60s"
+        delay = "60s"
       }
 
       config {
@@ -482,7 +482,7 @@ EOF
       }
 
       resources {
-        cpu    = 500 # 500 MHz
+        cpu = 500 # 500 MHz
         memory = 256 # 256MB
       }
 
