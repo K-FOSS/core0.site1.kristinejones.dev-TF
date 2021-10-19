@@ -78,6 +78,10 @@ job "metrics" {
       port "grpc" {
         to = 8085
       }
+
+      port "gossip" {
+        to = 8090
+      }
     }
 
     service {
@@ -89,6 +93,25 @@ job "metrics" {
       tags = ["$${NOMAD_ALLOC_INDEX}"]
 
       address_mode = "alloc"
+
+      #
+      # Liveness check
+      #
+      check {
+        port = "http"
+        address_mode = "alloc"
+
+        type = "http"
+
+        path = "/ready"
+        interval = "10s"
+        timeout  = "3s"
+
+        check_restart {
+          limit = 10
+          grace = "60s"
+        }
+      }
     }
 
     service {
@@ -100,6 +123,18 @@ job "metrics" {
       tags = ["$${NOMAD_ALLOC_INDEX}"]
 
       address_mode = "alloc"
+    }
+
+    service {
+      name = "cortex-${Target.name}-gossip-cont"
+      
+      address_mode = "alloc"
+      port = "gossip"
+
+
+      task = "cortex-${Target.name}"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}"]
     }
 
     task "cortex-${Target.name}" {
@@ -205,6 +240,10 @@ EOF
       port "grpc" { 
         to = 8085
       }
+
+      port "gossip" { 
+        to = 8090
+      }
     }
 
     service {
@@ -231,6 +270,12 @@ EOF
 
     task "loki-${Target.name}" {
       driver = "docker"
+
+      resources {
+        cpu = ${Target.resources.cpu}
+        memory = ${Target.resources.memory}
+        memory_max = ${Target.resources.memory_max}
+      }
 
       restart {
         attempts = 5

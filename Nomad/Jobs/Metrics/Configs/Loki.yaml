@@ -23,11 +23,8 @@ server:
   grpc_listen_port: 8085
 
   #
-  # Cleanly Shutdown
-  # 
-  graceful_shutdown_timeout: 5s
-
-
+  # GRPC Options
+  #
   grpc_server_max_concurrent_streams: 1000
   grpc_server_max_recv_msg_size: 1.048576e+08
   grpc_server_max_send_msg_size: 1.048576e+08
@@ -37,7 +34,12 @@ server:
 
   #
   # Misc
+  #
+
+  #
+  # Cleanly Shutdown
   # 
+  graceful_shutdown_timeout: 60s
 
   # Log only messages with the given severity or above. Supported values [debug,
   # info, warn, error]
@@ -48,6 +50,9 @@ server:
 # Docs: https://grafana.com/docs/loki/latest/configuration/#distributor_config
 #
 distributor:
+  # The heartbeat timeout after which ingesters are skipped for
+  # reading and writing.
+  heartbeat_timeout: 1m
   ring:
     kvstore:
       store: consul
@@ -71,7 +76,7 @@ querier:
   # Configuration options for the LogQL engine.
   engine:
     # Timeout for query execution
-    timeout: 5m
+    timeout: 3m
 
     # The maximum amount of time to look back for log lines. Only
     # applicable for instant log queries.
@@ -141,7 +146,16 @@ query_range:
 # TODO: Learn
 #
 # ruler:
-
+#   storage:
+#     type: local
+#     local:
+#       directory: /tmp/rules
+#   rule_path: /tmp/scratch
+#   alertmanager_url: http://localhost
+#   ring:
+#     kvstore:
+#       store: inmemory
+#   enable_api: true
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#ingester_client_config
@@ -187,7 +201,7 @@ ingester:
     num_tokens: 512
 
     ring:
-      replication_factor: 1
+      replication_factor: 3
       kvstore:
         store: consul
         prefix: ${Consul.Prefix}/collectors/
@@ -207,14 +221,14 @@ storage_config:
   boltdb_shipper:
     # Directory where ingesters would write boltdb files which would then be
     # uploaded by shipper to configured storage
-    active_index_directory: /tmp/loki/index
+    active_index_directory: /alloc/index
 
     # Shared store for keeping boltdb files. Supported types: gcs, s3, azure,
     # filesystem
     shared_store: s3
 
     # Cache location for restoring boltDB files for queries
-    cache_location: /tmp/loki/boltdb-cache
+    cache_location: /alloc/boltdb-cache
 
     index_gateway_client:
       # "Hostname or IP of the Index Gateway gRPC server.
@@ -272,9 +286,11 @@ schema_config:
 # Docs: https://grafana.com/docs/loki/latest/configuration/#compactor_config
 # 
 compactor:
-  compaction_interval: 1m
-  working_directory: /tmp/loki-compactor
+  compaction_interval: 10m
+  working_directory: /alloc/retention
   retention_enabled: true
+  retention_delete_delay: 2h
+  retention_delete_worker_count: 150
   shared_store: s3
 
 #
@@ -299,11 +315,6 @@ frontend_worker:
 #
 # TODO: Learn about this
 #
-table_manager:
-  creation_grace_period: 3h
-  poll_interval: 10m
-  retention_deletes_enabled: false
-  retention_period: 0
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#runtime-configuration-file

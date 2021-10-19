@@ -94,6 +94,7 @@ routes:
     to: https://grafana-cont.service.kjdev:8080
     tls_custom_ca_file: /secrets/TLS/GrafanaCA.pem
     tls_server_name: grafana.int.site1.kristianjones.dev
+    timeout: 30s
     allowed_domains:
       - kristianjones.dev
     pass_identity_headers: true

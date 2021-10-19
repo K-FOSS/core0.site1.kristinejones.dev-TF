@@ -1,9 +1,14 @@
 data_dir: alloc/data/vector/
 
+timezone: America/Winnipeg
+
 api:
   enabled: true
   address: 0.0.0.0:[[ env "NOMAD_PORT_api" ]]
   playground: true 
+
+log_schema:
+  host_key: [[ env "NOMAD_ALLOC_NAME" ]]
 
 sources:
   logs:

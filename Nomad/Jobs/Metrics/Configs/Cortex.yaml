@@ -120,7 +120,7 @@ querier:
   query_ingesters_within: 3h
 
   # Used when the blocks sharding is disabled.
-  store_gateway_addresses: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-store-gateway-grpc-cont.service.kjdev:8085
+  store_gateway_addresses: dnssrv+cortex-store-gateway-grpc-cont.service.kjdev
 
 
 #
@@ -412,9 +412,21 @@ alertmanager_storage:
 # TODO: Determine if this along with a for each with Terraform for hostnames based on repliacs is worth it
 #
 memberlist:
+  bind_addr:
+    - 0.0.0.0
   node_name: {{ env "NOMAD_ALLOC_NAME" }}
+  bind_port: 8090
+  randomize_node_name: false
+  
   compression_enabled: true
   advertise_addr: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-{{ env "NOMAD_META_TARGET" }}-http-cont.service.dc1.kjdev
+  join_members:
+    - dnssrv+cortex-distributor-gossip-cont.service.dc1.kjdev
+    - dnssrv+cortex-ingester-gossip-cont.service.dc1.kjdev
+    - dnssrv+cortex-querier-gossip-cont.service.dc1.kjdev
+    - dnssrv+cortex-store-gateway-gossip-cont.service.dc1.kjdev
+    - dnssrv+cortex-compactor-gossip-cont.service.dc1.kjdev
+    - dnssrv+cortex-query-frontend-gossip-cont.service.dc1.kjdev
 
 
 
