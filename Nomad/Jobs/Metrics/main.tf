@@ -72,7 +72,7 @@ resource "nomad_job" "Metrics" {
 
       YAMLConfig = templatefile("${path.module}/Configs/Loki.yaml", var.Loki)
 
-      Version = "latest"
+      Version = "master"
     }
 
     Tempo = {
