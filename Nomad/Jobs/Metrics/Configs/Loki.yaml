@@ -201,7 +201,7 @@ ingester:
     num_tokens: 512
 
     ring:
-      replication_factor: 3
+      replication_factor: 1
       kvstore:
         store: consul
         prefix: ${Consul.Prefix}/collectors/
@@ -221,14 +221,14 @@ storage_config:
   boltdb_shipper:
     # Directory where ingesters would write boltdb files which would then be
     # uploaded by shipper to configured storage
-    active_index_directory: /alloc/index
+    active_index_directory: /tmp/loki/index
 
     # Shared store for keeping boltdb files. Supported types: gcs, s3, azure,
     # filesystem
     shared_store: s3
 
     # Cache location for restoring boltDB files for queries
-    cache_location: /alloc/boltdb-cache
+    cache_location: /tmp/loki/boltdb-cache
 
     index_gateway_client:
       # "Hostname or IP of the Index Gateway gRPC server.
@@ -287,7 +287,7 @@ schema_config:
 # 
 compactor:
   compaction_interval: 10m
-  working_directory: /alloc/retention
+  working_directory: /tmp/loki-compactor
   retention_enabled: true
   retention_delete_delay: 2h
   retention_delete_worker_count: 150
