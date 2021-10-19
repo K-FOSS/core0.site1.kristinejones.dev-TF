@@ -395,7 +395,7 @@ EOF
 %{ endfor ~}
 
   group "vector" {
-    count = 1
+    count = 3
 
     restart {
       attempts = 3
