@@ -2,7 +2,7 @@ job "dns" {
   datacenters = ["core0site1"]
 
   group "coredns" {
-    count = 3
+    count = 6
 
     network {
       mode = "cni/nomadcore1"
@@ -12,8 +12,6 @@ job "dns" {
       port "health" { }
 
       port "netdns" {
-        static = 5330
-
         to = 5330
       }
 
@@ -131,7 +129,7 @@ EOF
   }
 
   group "powerdns" {
-    count = 1
+    count = 3
 
     network {
       mode = "cni/nomadcore1"

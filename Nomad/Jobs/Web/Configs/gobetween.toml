@@ -55,19 +55,19 @@ backend_connection_timeout = "0" # Backend connection timeout (ignored in udp)
 [servers.syslog]
 protocol = "tcp"
 bind = "0.0.0.0:514"
-balance = "iphash1"
+balance = "roundrobin"
 
   [servers.syslog.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "172.16.0.13:8600" # dns server and port
+  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:8600" # dns server and port
   srv_lookup_pattern = "vector-syslog.service.kjdev." # SRV service pattern 
 
 
 [servers.dns]
 protocol = "udp"
 bind = "0.0.0.0:53"
-balance = "iphash1"
+balance = "roundrobin"
 
   [servers.dns.udp]
   max_requests  = 500
@@ -76,7 +76,7 @@ balance = "iphash1"
   [servers.dns.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "172.16.0.13:8600" # dns server and port
+  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:8600" # dns server and port
   srv_lookup_pattern = "coredns-dns-cont.service.kjdev." # SRV service pattern 
 
 [servers.dhcp]
@@ -91,7 +91,7 @@ balance = "roundrobin"
   [servers.dhcp.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "172.16.0.13:8600" # dns server and port
+  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:8600" # dns server and port
   srv_lookup_pattern = "dhcp.service.kjdev." # SRV service pattern 
 
 [servers.tftp]
@@ -106,7 +106,7 @@ balance = "roundrobin"
   [servers.tftp.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "172.16.0.13:8600" # dns server and port
+  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:8600" # dns server and port
   srv_lookup_pattern = "tftp-cont.service.kjdev." # SRV service pattern 
 
 [servers.stun]
@@ -117,13 +117,13 @@ balance = "iphash1"
   [servers.stun.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "172.16.0.13:8600" # dns server and port
+  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:8600" # dns server and port
   srv_lookup_pattern = "coturn-stun-cont.service.kjdev." # SRV service pattern 
 
 [servers.powerdns]
 protocol = "udp"
 bind = "0.0.0.0:8153"
-balance = "iphash1"
+balance = "roundrobin"
 
   [servers.powerdns.udp]
   max_requests  = 500
@@ -132,15 +132,15 @@ balance = "iphash1"
   [servers.powerdns.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "172.16.0.13:8600" # dns server and port
+  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:8600" # dns server and port
   srv_lookup_pattern = "powerdns.service.dc1.kjdev." # SRV service pattern 
 
 [servers.powerdnstcp]
 protocol = "tcp"
 bind = "0.0.0.0:8153"
-balance = "iphash1"
+balance = "roundrobin"
   [servers.powerdnstcp.discovery]
   kind = "srv"
   interval = "5s"
-  srv_lookup_server = "172.16.0.13:8600" # dns server and port
+  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:8600" # dns server and port
   srv_lookup_pattern = "powerdns.service.dc1.kjdev." # SRV service pattern 

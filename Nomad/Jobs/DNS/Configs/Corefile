@@ -33,7 +33,14 @@
 }
 
 .:5320 {
-  forward . 172.16.0.13:8600 {
+  consul_catalog coredns.enabled {
+    endpoint ${Consul.Hostname}:${Consul.Port}
+    token ${Consul.Token}
+
+    ttl 1m
+  }
+
+  forward . consul.service.dc1.kjdev:8600 {
     except net.kjdev *.net.kjdev
   }
 }
@@ -46,7 +53,5 @@
     url http://${Netbox.Hostname}:${Netbox.Port}/api/ipam/ip-addresses
     localCacheDuration 5m
   }
-
-
 }
 
