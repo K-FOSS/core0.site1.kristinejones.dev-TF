@@ -67,7 +67,7 @@ job "metrics" {
 
     spread {
       attribute = "$${node.unique.id}"
-      weight    = 100
+      weight = 100
     }
 
     network {

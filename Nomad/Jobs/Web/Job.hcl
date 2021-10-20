@@ -6,9 +6,9 @@ job "ingress" {
   group "proxies" {
     count = 4
 
-    spread {
-      attribute = "$${node.unique.id}"
-      weight = 100
+    constraint {
+      operator  = "distinct_hosts"
+      value     = "true"
     }
 
     network {
@@ -121,13 +121,6 @@ job "ingress" {
         image = "kristianfjones/caddy-core-docker:vps1"
       
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
 
       env {
@@ -149,6 +142,13 @@ EOF
 
         destination = "local/PomeriumCA.pem"
       }
+
+      resources {
+        cpu = 300
+
+        memory = 100
+        memory_max = 256
+      }
     }
 
     task "gobetween-server" {
@@ -161,13 +161,6 @@ EOF
         args = ["-c", "/local/gobetween.toml"]
 
         ports = ["syslog", "dhcp", "tftp", "dns"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
 
       template {
@@ -176,6 +169,13 @@ ${GoBetweenCONF}
 EOF
 
         destination = "local/gobetween.toml"
+      }
+
+      resources {
+        cpu = 300
+
+        memory = 256
+        memory_max = 512 
       }
     }
   }

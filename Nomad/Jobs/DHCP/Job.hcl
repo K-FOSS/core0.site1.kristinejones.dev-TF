@@ -33,14 +33,14 @@ job "dhcp" {
         name = "Kea Control Health healthcheck"
 
         address_mode = "alloc"
-        port     = 8000
-        type     = "tcp"
+        port = 8000
+        type = "tcp"
         interval = "20s"
         timeout  = "5s"
         
         check_restart {
-          limit           = 3
-          grace           = "60s"
+          limit = 3
+          grace = "60s"
           ignore_warnings = false
         }
       }

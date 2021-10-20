@@ -119,8 +119,10 @@ EOH
       }
 
       resources {
-        cpu    = 800
-        memory = 500
+        cpu = 200
+
+        memory = 400
+        memory_max = 600
       }
     }
   }
@@ -168,11 +170,10 @@ EOH
         interval = "10s"
         timeout  = "3s"
 
-        check_restart {
-          limit = 6
-          grace = "60s"
-          ignore_warnings = true
-        }
+        #
+        # Failures
+        #
+        failures_before_critical = 6
       }
     }
 
@@ -199,11 +200,10 @@ EOH
         interval = "10s"
         timeout  = "3s"
 
-        check_restart {
-          limit = 6
-          grace = "60s"
-          ignore_warnings = true
-        }
+        #
+        # Failures
+        #
+        failures_before_critical = 6
       }
 
       #
@@ -224,12 +224,6 @@ EOH
         # Failures
         #
         failures_before_critical = 6
-
-        check_restart {
-          limit = 6
-          grace = "60s"
-          ignore_warnings = true
-        }
       }
     }
 
@@ -277,8 +271,10 @@ EOH
       }
 
       resources {
-        cpu = 800
-        memory = 500
+        cpu = 100
+
+        memory = 300
+        memory_max = 600
       }
     }
   }

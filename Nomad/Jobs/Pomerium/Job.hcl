@@ -31,15 +31,6 @@ job "pomerium" {
         command = "redis-server"
 
         args = ["/local/redis.conf"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.dc1.kjdev:8080/loki/api/v1/push"
-
-            loki-external-labels = "job=pomerium,service=redis"
-          }
-        }
       }
 
       template {
@@ -196,7 +187,7 @@ EOF
       }
 
       resources {
-        cpu    = 800
+        cpu = 800
         memory = 500
       }
     }

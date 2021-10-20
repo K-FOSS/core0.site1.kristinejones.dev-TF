@@ -127,7 +127,7 @@ EOF
       }
 
       resources {
-        cpu    = 1200
+        cpu = 1200
         memory = 600
       }
     
@@ -200,7 +200,7 @@ EOH
       }
 
       resources {
-        cpu    = 1200
+        cpu = 1200
         memory = 600
       }
     
