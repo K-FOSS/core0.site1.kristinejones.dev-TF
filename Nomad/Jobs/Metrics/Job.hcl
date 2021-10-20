@@ -86,11 +86,6 @@ job "metrics" {
       }
     }
 
-    ephemeral_disk {
-      size = 500
-      sticky = false
-    }
-
     service {
       name = "cortex-${Target.name}-http-cont"
       port = "http"
@@ -152,13 +147,14 @@ job "metrics" {
       resources {
         cpu = ${Target.resources.cpu}
         memory = ${Target.resources.memory}
-        memory_max = ${Target.resources.memory_max}
       }
 
       config {
         image = "cortexproject/cortex:${Cortex.Version}"
 
         args = ["-config.file=/local/Cortex.yaml"]
+
+        memory_hard_limit = ${Target.resources.memory_max}
       }
 
       meta {
@@ -253,11 +249,6 @@ EOF
       }
     }
 
-    ephemeral_disk {
-      size = 500
-      sticky = false
-    }
-
     service {
       name = "loki-${Target.name}-http-cont"
       port = "http"
@@ -284,7 +275,6 @@ EOF
       resources {
         cpu = ${Target.resources.cpu}
         memory = ${Target.resources.memory}
-        memory_max = ${Target.resources.memory_max}
       }
 
       restart {
@@ -296,6 +286,8 @@ EOF
         image = "grafana/loki:${Loki.Version}"
 
         args = ["-config.file=/local/Loki.yaml"]
+
+        memory_hard_limit = ${Target.resources.memory_max}
       }
 
       meta {
@@ -418,11 +410,6 @@ EOF
       port "syslog" { }
 
       port "api" { }
-    }
-
-    ephemeral_disk {
-      size    = 500
-      sticky  = true
     }
 
     service {

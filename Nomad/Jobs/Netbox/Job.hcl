@@ -79,20 +79,9 @@ job "netbox" {
 
     network {
       mode = "cni/nomadcore1"
-
-      dns {
-        servers = [
-          "172.16.0.10", 
-          "172.16.0.11", 
-          "172.16.0.12", 
-          "172.16.0.13", 
-          "172.16.0.1", 
-          "172.16.0.2"
-        ]
-      }
     }
 
-    task "network-worker" {
+    task "netbox-worker" {
       driver = "docker"
 
       user = "1000"
@@ -170,9 +159,9 @@ EOH
       }
 
       resources {
-        cpu = 100
+        cpu = 256
 
-        memory = 128
+        memory = 256
         memory_max = 256
       }
     }
@@ -192,17 +181,6 @@ EOH
 
       port "http" {
         to = 8080  
-      }
-
-      dns {
-        servers = [
-          "172.16.0.10", 
-          "172.16.0.11", 
-          "172.16.0.12", 
-          "172.16.0.13", 
-          "172.16.0.1", 
-          "172.16.0.2"
-        ]
       }
     }
 
@@ -320,7 +298,7 @@ EOH
 
       resources {
         cpu = 200
-        memory = 256
+        memory = 512
       }
     }
   }

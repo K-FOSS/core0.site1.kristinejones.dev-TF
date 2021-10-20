@@ -80,7 +80,7 @@ locals {
 
       resources = {
         cpu = 10
-        memory = 32
+        memory = 64
         memory_max = 128
       }
     }

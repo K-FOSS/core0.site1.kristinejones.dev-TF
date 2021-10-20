@@ -225,14 +225,14 @@ blocks_storage:
   backend: s3
 
   tsdb:
-    dir: /tmp/cortex-tsdb-ingester
+    dir: /alloc/cortex-tsdb-ingester
     ship_interval: 1m
     block_ranges_period: [2h]
     retention_period: 3h
     max_exemplars: 5000
 
   bucket_store:
-    sync_dir: /tmp/cortex-tsdb-querier
+    sync_dir: /alloc/cortex-tsdb-querier
     consistency_delay: 5s
 
     index_cache:
@@ -262,7 +262,7 @@ blocks_storage:
 #
 compactor:
   compaction_interval: 30s
-  data_dir: /tmp/cortex-compactor
+  data_dir: /alloc/cortex-compactor
   consistency_delay: 1m
   sharding_enabled: true
   cleanup_interval: 1m
