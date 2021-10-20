@@ -31,13 +31,6 @@ job "netbox" {
         command = "redis-server"
 
         args = ["--requirepass", "${Redis.Password}"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.dc1.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
     }
   }
@@ -72,13 +65,6 @@ job "netbox" {
         command = "redis-server"
 
         args = ["--requirepass", "${RedisCache.Password}"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.dc1.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
     }
   }
@@ -86,14 +72,30 @@ job "netbox" {
   group "netbox-worker" {
     count = 3
 
+    spread {
+      attribute = "$${node.unique.id}"
+      weight = 100
+    }
+
     network {
       mode = "cni/nomadcore1"
+
+      dns {
+        servers = [
+          "172.16.0.10", 
+          "172.16.0.11", 
+          "172.16.0.12", 
+          "172.16.0.13", 
+          "172.16.0.1", 
+          "172.16.0.2"
+        ]
+      }
     }
 
     task "network-worker" {
       driver = "docker"
 
-      user = "101"
+      user = "1000"
 
       config {
         image = "netboxcommunity/netbox:${Version}"
@@ -101,16 +103,14 @@ job "netbox" {
         command = "/opt/netbox/venv/bin/python"
 
         args = ["/opt/netbox/netbox/manage.py", "rqworker"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
 
       env {
+        #
+        # Misc
+        #
+        SKIP_STARTUP_SCRIPTS = "True"
+
         HOUSEKEEPING_INTERVAL = "86400"
         METRICS_ENABLED = "true"
 
@@ -168,6 +168,13 @@ EOH
         destination = "secrets/file.env"
         env         = true
       }
+
+      resources {
+        cpu = 100
+
+        memory = 128
+        memory_max = 256
+      }
     }
   
   }
@@ -175,11 +182,27 @@ EOH
   group "netbox-server" {
     count = 3
 
+    spread {
+      attribute = "$${node.unique.id}"
+      weight = 100
+    }
+
     network {
       mode = "cni/nomadcore1"
 
       port "http" {
         to = 8080  
+      }
+
+      dns {
+        servers = [
+          "172.16.0.10", 
+          "172.16.0.11", 
+          "172.16.0.12", 
+          "172.16.0.13", 
+          "172.16.0.1", 
+          "172.16.0.2"
+        ]
       }
     }
 
@@ -203,19 +226,10 @@ EOH
 
       config {
         image = "haxorof/netbox-devicetype-importer:latest"
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
 
       env {
         NETBOX_URL = "http://netbox-http-cont.service.kjdev:8080"
-
-        VENDORS = "arista cisco dell generic mikrotik"
       }
 
       template {
@@ -231,17 +245,10 @@ EOH
     task "netbox" {
       driver = "docker"
 
-      user = "101"
+      user = "1000"
 
       config {
         image = "netboxcommunity/netbox:${Version}"
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.dc1.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
     
       env {
@@ -312,7 +319,7 @@ EOH
       }
 
       resources {
-        cpu    = 800
+        cpu = 200
         memory = 256
       }
     }
