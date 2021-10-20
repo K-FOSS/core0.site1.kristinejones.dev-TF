@@ -101,6 +101,8 @@ distributor:
 
 
   ring:
+    instance_id: {{ env "NOMAD_ALLOC_NAME" }}
+    instance_addr: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-{{ env "NOMAD_META_TARGET" }}-http-cont.service.dc1.kjdev
     kvstore:
       store: consul
       prefix: ${Consul.Prefix}/collectors/
@@ -338,7 +340,7 @@ ruler:
         acl_token: ${Consul.Token}
 
   alertmanager_url: http://cortex-alertmanager-http-cont.service.kjdev:8080/alertmanager
-  enable_alertmanager_v2: false
+  enable_alertmanager_v2: true
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#ruler_storage_config
