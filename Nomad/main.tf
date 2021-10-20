@@ -232,6 +232,10 @@ module "Metrics" {
   Prometheus = var.Metrics.Prometheus
 }
 
+module "Logs" {
+  source = "./Jobs/Logs"
+}
+
 
 
 module "NetboxJob" {
