@@ -100,9 +100,6 @@ EOH
 
       config {
         image = "kristianfjones/kea:vps1-core"
-
-        tty = true
-
         command = "/local/entry.sh"
 
         logging {

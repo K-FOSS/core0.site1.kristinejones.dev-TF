@@ -5,4 +5,4 @@ echo "HelloWorld"
 
 echo "Starking Stork Agent"
 
-exec watch -n 5 /usr/sbin/keactrl -c /local/keactrl.conf status
+exec tail -f /dev/null
