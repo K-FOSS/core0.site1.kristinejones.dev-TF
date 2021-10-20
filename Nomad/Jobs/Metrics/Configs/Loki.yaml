@@ -308,6 +308,7 @@ frontend_worker:
   parallelism: 6
   scheduler_address: loki-query-scheduler-grpc-cont.service.kjdev:8085
 
+
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#table_manager_config
 #
@@ -321,9 +322,30 @@ frontend_worker:
 #
 
 #
+# Loki Member List
+#
+memberlist:
+  bind_addr:
+    - 0.0.0.0
+  node_name: {{ env "NOMAD_ALLOC_NAME" }}
+  bind_port: 8090
+  randomize_node_name: false
+  
+  advertise_addr: {{ env "NOMAD_ALLOC_INDEX" }}.loki-{{ env "NOMAD_META_TARGET" }}-gossip-cont.service.dc1.kjdev
+  join_members:
+    - dnssrv+loki-index-gateway-gossip-cont.service.dc1.kjdev
+    - dnssrv+loki-compactor-gossip-cont.service.dc1.kjdev
+    - dnssrv+loki-distributor-gossip-cont.service.dc1.kjdev
+    - dnssrv+loki-ingester-gossip-cont.service.dc1.kjdev
+    - dnssrv+loki-querier-gossip-cont.service.dc1.kjdev
+    - dnssrv+loki-query-frontend-gossip-cont.service.dc1.kjdev
+    - dnssrv+loki-query-scheduler-gossip-cont.service.dc1.kjdev
+
+#
 # Docs: https://grafana.com/docs/loki/latest/configuration/#tracing_config
 # ENV VARS: https://www.jaegertracing.io/docs/1.16/client-features/
 # 
 # TODO: Setup Tempo
 #
 # tracing:
+

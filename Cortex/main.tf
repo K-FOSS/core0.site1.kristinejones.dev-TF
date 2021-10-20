@@ -46,7 +46,7 @@ locals {
     },
     StoreGateway = {
       name = "store-gateway"
-      count = 1
+      count = 2
 
       resources = {
         cpu = 100

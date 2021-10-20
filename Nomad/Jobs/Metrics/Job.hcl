@@ -257,6 +257,25 @@ EOF
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+
+      #
+      # Liveness check
+      #
+      check {
+        port = "http"
+        address_mode = "alloc"
+
+        type = "http"
+
+        path = "/ready"
+        interval = "15s"
+        timeout  = "3s"
+
+        check_restart {
+          limit = 10
+          grace = "10m"
+        }
+      }
     }
 
     service {
@@ -265,6 +284,17 @@ EOF
 
       task = "loki-${Target.name}"
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+    }
+
+    service {
+      name = "loki-${Target.name}-gossip-cont"
+      
+      port = "gossip"
+      address_mode = "alloc"
+
+      task = "loki-${Target.name}"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
     }
@@ -393,103 +423,4 @@ EOF
     }
   }
 %{ endfor ~}
-
-  group "vector" {
-    count = 3
-
-    restart {
-      attempts = 3
-      interval = "10m"
-      delay = "30s"
-      mode = "fail"
-    }
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "syslog" { }
-
-      port "api" { }
-    }
-
-    service {
-      name = "vector-api"
-      port = "api"
-
-      task = "vector"
-      address_mode = "alloc"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
-
-      check {
-        port     = "api"
-        address_mode = "alloc"
-
-        type     = "http"
-        path     = "/health"
-        interval = "30s"
-        timeout  = "5s"
-      }
-    }
-
-    service {
-      name = "vector-syslog"
-      port = "syslog"
-
-      task = "vector"
-      address_mode = "alloc"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
-
-      check {
-        port     = "api"
-        address_mode = "alloc"
-
-        type     = "http"
-        path     = "/health"
-        interval = "30s"
-        timeout  = "5s"
-      }
-    }
-
-    task "vector" {
-      driver = "docker"
-
-      config {
-        image = "timberio/vector:nightly-alpine"
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
-      }
-
-      env {
-        VECTOR_CONFIG = "local/vector.yaml"
-        VECTOR_REQUIRE_HEALTHY = "false"
-      }
-
-      resources {
-        cpu = 500 # 500 MHz
-        memory = 256 # 256MB
-      }
-
-      template {
-        destination = "local/vector.yaml"
-        change_mode   = "signal"
-        change_signal = "SIGHUP"
-        # overriding the delimiters to [[ ]] to avoid conflicts with Vector's native templating, which also uses {{ }}
-        left_delimiter = "[["
-        right_delimiter = "]]"
-      
-        data = <<EOF
-${Vector.YAMLConfig}
-EOF
-      }
-
-      kill_timeout = "30s"
-    }
-  }
 }

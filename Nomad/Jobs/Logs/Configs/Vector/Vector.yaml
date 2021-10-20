@@ -4,7 +4,7 @@ timezone: America/Winnipeg
 
 api:
   enabled: true
-  address: 0.0.0.0:[[ env "NOMAD_PORT_api" ]]
+  address: 0.0.0.0:8080
   playground: true 
 
 log_schema:
@@ -13,7 +13,7 @@ log_schema:
 sources:
   logs:
     type: syslog
-    address: 0.0.0.0:[[ env "NOMAD_PORT_syslog" ]]
+    address: 0.0.0.0:514
     mode: tcp
 
 sinks:
@@ -21,14 +21,12 @@ sinks:
     inputs:
       - logs
     type: loki
-    endpoint: http://ingressweb-http-cont.service.kjdev:8080
+    endpoint: http://loki-distributor-http-cont.service.dc1.kjdev:8080
     encoding:
       codec: json
     labels:
       host: '{{ host }}'
       level: '{{ severity }}'
       # ts: '{{ timestamp }}'
-    healthcheck:
-      enabled: false
     batch:
       max_bytes: 50000
