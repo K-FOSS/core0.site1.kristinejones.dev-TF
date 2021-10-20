@@ -194,32 +194,6 @@ EOH
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
     }
 
-    task "netbox-devicesync" {
-      driver = "docker"
-
-      lifecycle {
-        hook = "poststart"
-        sidecar = false
-      }
-
-      config {
-        image = "haxorof/netbox-devicetype-importer:latest"
-      }
-
-      env {
-        NETBOX_URL = "http://netbox-http-cont.service.kjdev:8080"
-      }
-
-      template {
-        data = <<EOH
-NETBOX_TOKEN="${Token}"
-EOH
-
-        destination = "secrets/file.env"
-        env         = true
-      }
-    }
-
     task "netbox" {
       driver = "docker"
 

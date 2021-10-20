@@ -121,8 +121,7 @@ EOH
       resources {
         cpu = 200
 
-        memory = 400
-        memory_max = 600
+        memory = 800
       }
     }
   }
@@ -185,46 +184,6 @@ EOH
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
-
-      #
-      # Liveness check
-      #
-      check {
-        name = "HTTP Check"
-        type = "http"
-
-        address_mode = "alloc"
-        port = "http"
-
-        path = "/-/health/live/"
-        interval = "10s"
-        timeout  = "3s"
-
-        #
-        # Failures
-        #
-        failures_before_critical = 6
-      }
-
-      #
-      # Readyness
-      #
-      check {
-        name = "HTTP Check"
-        type = "http"
-
-        address_mode = "alloc"
-        port = "http"
-
-        path = "/-/health/ready/"
-        interval = "10s"
-        timeout = "3s"
-
-        #
-        # Failures
-        #
-        failures_before_critical = 6
-      }
     }
 
     task "authentik-server" {
@@ -273,8 +232,7 @@ EOH
       resources {
         cpu = 100
 
-        memory = 300
-        memory_max = 600
+        memory = 800
       }
     }
   }
