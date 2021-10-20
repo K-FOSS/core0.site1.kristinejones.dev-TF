@@ -4,6 +4,11 @@ job "dns" {
   group "coredns" {
     count = 6
 
+    spread {
+      attribute = "$${node.unique.id}"
+      weight = 100
+    }
+
     network {
       mode = "cni/nomadcore1"
 
@@ -130,6 +135,11 @@ EOF
 
   group "powerdns" {
     count = 3
+
+    spread {
+      attribute = "$${node.unique.id}"
+      weight = 100
+    }
 
     network {
       mode = "cni/nomadcore1"
