@@ -39,9 +39,9 @@ locals {
       count = 3
 
       resources = {
-        cpu = 10
-        memory = 32
-        memory_max = 128
+        cpu = 128
+        memory = 256
+        memory_max = 256
       }
     },
     IndexGateway = {
@@ -49,9 +49,9 @@ locals {
       count = 3
 
       resources = {
-        cpu = 10
-        memory = 32
-        memory_max = 128
+        cpu = 128
+        memory = 256
+        memory_max = 512
       }
     }, 
     Compactor = {
@@ -69,7 +69,7 @@ locals {
       count = 3
 
       resources = {
-        cpu = 10
+        cpu = 128
         memory = 32
         memory_max = 128
       }
@@ -79,7 +79,7 @@ locals {
       count = 3
 
       resources = {
-        cpu = 10
+        cpu = 128
         memory = 64
         memory_max = 128
       }

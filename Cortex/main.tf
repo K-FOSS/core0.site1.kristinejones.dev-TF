@@ -56,11 +56,11 @@ locals {
     }, 
     Compactor = {
       name = "compactor"
-      count = 1
+      count = 3
 
       resources = {
         cpu = 100
-        memory = 512
+        memory = 800
         memory_max = 1000
       }
     },
