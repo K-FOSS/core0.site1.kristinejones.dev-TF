@@ -82,9 +82,5 @@ resource "nomad_job" "Metrics" {
 
       Version = "main-2af905a"
     }
-
-    Vector = {
-      YAMLConfig = templatefile("${path.module}/Configs/Vector.yaml", {  })
-    }
   })
 }
