@@ -57,7 +57,7 @@ data "github_release" "VectorRelease" {
 }
 
 resource "nomad_job" "LogsJobFile" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
+  jobspec = templatefile("${path.module}/JobFile.hcl", {
     Vector = {
       Config = templatefile("${path.module}/Configs/Vector/Vector.yaml", {
 
