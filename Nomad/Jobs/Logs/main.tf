@@ -56,19 +56,8 @@ data "github_release" "VectorRelease" {
   retrieve_by = "latest"
 }
 
-resource "random_password" "Secret" {
-  length           = 50
-  special          = true
-}
-
 resource "nomad_job" "LogsJobFile" {
   jobspec = templatefile("${path.module}/Job.hcl", {
-    Config = templatefile("${path.module}/Configs/Grafana.ini", {
-      Database = var.Database
-
-      SecretKey = random_password.Secret.result
-    })
-
     Vector = {
       Config = templatefile("${path.module}/Configs/Vector/Vector.yaml", {
 
@@ -76,12 +65,5 @@ resource "nomad_job" "LogsJobFile" {
 
       Version = split("v", data.github_release.VectorRelease.release_tag)[1]
     }
-
-    TLS = var.TLS
-
-    #
-    # TODO: Change back to split("v", data.github_release.Release.release_tag)[1] once https://github.com/grafana/grafana/pull/37765 is released on prod
-    #
-    Version = "main"
   })
 }
