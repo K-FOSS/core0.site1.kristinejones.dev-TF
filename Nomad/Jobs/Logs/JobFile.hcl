@@ -1,4 +1,4 @@
-job "metrics" {
+job "logs" {
   datacenters = ["core0site1"]
 
 
