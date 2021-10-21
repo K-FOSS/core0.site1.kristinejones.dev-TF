@@ -144,6 +144,8 @@ job "metrics" {
         delay    = "60s"
       }
 
+      kill_timeout = "120s"
+
       resources {
         cpu = ${Target.resources.cpu}
         memory = ${Target.resources.memory}

@@ -169,10 +169,11 @@ EOH
         interval = "10s"
         timeout  = "3s"
 
-        #
-        # Failures
-        #
-        failures_before_critical = 6
+        check_restart {
+          limit = 12
+          grace = "60s"
+          ignore_warnings = false
+        }
       }
     }
 
@@ -184,6 +185,27 @@ EOH
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
+
+      #
+      # Liveness check
+      #
+      check {
+        name = "HTTP Check"
+        type = "http"
+
+        address_mode = "alloc"
+        port = "http"
+
+        path     = "/-/health/live/"
+        interval = "10s"
+        timeout  = "3s"
+
+        check_restart {
+          limit = 12
+          grace = "60s"
+          ignore_warnings = false
+        }
+      }
     }
 
     task "authentik-server" {
@@ -230,7 +252,7 @@ EOH
       }
 
       resources {
-        cpu = 100
+        cpu = 256
 
         memory = 800
       }
