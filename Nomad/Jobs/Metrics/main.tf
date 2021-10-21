@@ -64,7 +64,7 @@ resource "nomad_job" "Metrics" {
 
       YAMLConfig = templatefile("${path.module}/Configs/Cortex.yaml", var.Cortex)
 
-      Version = "master-464c424"
+      Version = "master-85c3781"
     }
 
     Loki = {
