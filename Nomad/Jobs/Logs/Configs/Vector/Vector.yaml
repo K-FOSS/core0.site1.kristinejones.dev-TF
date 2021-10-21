@@ -7,8 +7,8 @@ api:
   address: 0.0.0.0:8080
   playground: true 
 
-log_schema:
-  host_key: [[ env "NOMAD_ALLOC_NAME" ]]
+# log_schema:
+#   host_key: [[ env "NOMAD_ALLOC_NAME" ]]
 
 sources:
   logs:
