@@ -56,12 +56,12 @@ locals {
     }, 
     Compactor = {
       name = "compactor"
-      count = 3
+      count = 1
 
       resources = {
         cpu = 100
-        memory = 800
-        memory_max = 1000
+        memory = 64
+        memory_max = 256
       }
     },
     QueryFrontend = {

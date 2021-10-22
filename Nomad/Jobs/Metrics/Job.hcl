@@ -141,7 +141,8 @@ job "metrics" {
 
       restart {
         attempts = 5
-        delay    = "60s"
+        delay = "120s"
+        mode = "delay"
       }
 
       kill_timeout = "120s"
@@ -149,6 +150,7 @@ job "metrics" {
       resources {
         cpu = ${Target.resources.cpu}
         memory = ${Target.resources.memory}
+        memory_max = ${Target.resources.memory_max}
       }
 
       config {
