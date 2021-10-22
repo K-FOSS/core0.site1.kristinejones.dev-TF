@@ -5,11 +5,11 @@ job "homeassistant" {
     count = 1
 
     volume "hassio-data" {
-      type      = "csi"
+      type = "csi"
       read_only = false
       source    = "${Volume.name}"
       attachment_mode = "file-system"
-      access_mode     = "multi-node-multi-writer"
+      access_mode = "multi-node-multi-writer"
     }
 
     network {
@@ -91,8 +91,8 @@ EOH
       }
 
       resources {
-        cpu    = 1200
-        memory = 600
+        cpu = 800
+        memory = 512
       }
     
       env {

@@ -296,6 +296,12 @@ EOH
 
         destination = "local/tls/key.pem"
       }
+
+      resources {
+        cpu = 64
+        memory = 32
+        memory_max = 64
+      }
     }
   }
 
@@ -412,6 +418,12 @@ EOH
         #  
         TINKERBELL_GRPC_AUTHORITY = "tink-grpc-cont.service.dc1.kjdev:42113"
         TINKERBELL_CERT_URL = "http://tink-http-cont.service.dc1.kjdev:42114/cert"
+      }
+
+      resources {
+        cpu = 64
+        memory = 32
+        memory_max = 64
       }
     }
   }

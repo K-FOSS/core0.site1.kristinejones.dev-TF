@@ -127,8 +127,8 @@ EOF
       }
 
       resources {
-        cpu = 1200
-        memory = 600
+        cpu = 128
+        memory = 32
       }
     
       env {
@@ -200,8 +200,8 @@ EOH
       }
 
       resources {
-        cpu = 1200
-        memory = 600
+        cpu = 800
+        memory = 256
       }
     
       env {

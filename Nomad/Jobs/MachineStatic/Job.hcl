@@ -88,6 +88,11 @@ EOF
 
         args = ["-E", "0.0.0.0", "8069", "tftpd", "-u", "user", "-c", "/data"]
       }
+
+      resources {
+        cpu = 64
+        memory = 32
+      }
     }
 
     task "http-server" {
@@ -102,6 +107,11 @@ EOF
         image = "kristianfjones/caddy-core-docker:vps1"
 
         args = ["caddy", "file-server", "-root=/data", "-listen=:8080"]
+      }
+
+      resources {
+        cpu = 64
+        memory = 32
       }
     }
   }

@@ -79,9 +79,9 @@ locals {
       count = 1
 
       resources = {
-        cpu = 10
-        memory = 32
-        memory_max = 256
+        cpu = 32
+        memory = 64
+        memory_max = 64
       }
     },
     Ruler = {

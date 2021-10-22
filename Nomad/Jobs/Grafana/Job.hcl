@@ -169,6 +169,12 @@ EOF
 
         change_mode = "noop"
       }
+
+      resources {
+        cpu = 128
+        memory = 64
+        memory_max = 64
+      }
     }
   }
 }

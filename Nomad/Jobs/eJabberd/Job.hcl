@@ -185,6 +185,11 @@ EOF
 
         destination = "local/cert.key"
       }
+
+      resources {
+        cpu = 128
+        memory = 128
+      }
     }
   }
 }

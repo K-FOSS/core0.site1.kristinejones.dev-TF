@@ -183,6 +183,12 @@ EOF
 
         perms = "777"
       }
+
+      resources {
+        cpu = 32
+        memory = 32
+        memory_max = 64
+      }
     }
   }
 }

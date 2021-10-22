@@ -130,6 +130,12 @@ EOF
 
         destination = "local/plugin.cfg"
       }
+
+      resources {
+        cpu = 64
+        memory = 64
+        memory_max = 128
+      }
     }
   }
 

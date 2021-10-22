@@ -46,6 +46,12 @@ job "bitwarden" {
         ROCKET_PORT = "$${NOMAD_PORT_http}"
         DATABASE_URL = "postgresql://${Database.Username}:${Database.Password}@${Database.Hostname}:5432/${Database.Database}"
       }
+
+      resources {
+        cpu = 128
+        memory = 64
+        memory_max = 128
+      }
     }
   }
 }
