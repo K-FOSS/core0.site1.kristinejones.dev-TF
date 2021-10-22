@@ -35,7 +35,7 @@
       },
       {
         "name": "vmhost-class1",
-        "next-server": "172.31.241.2",
+        "next-server": "172.16.0.151",
         "option-data": []
       }
     ],
