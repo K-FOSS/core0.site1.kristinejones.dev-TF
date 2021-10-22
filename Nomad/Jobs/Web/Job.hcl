@@ -161,6 +161,8 @@ EOF
         args = ["-c", "/local/gobetween.toml"]
 
         ports = ["syslog", "dhcp", "tftp", "dns"]
+
+        memory_hard_limit = 512
       }
 
       template {
@@ -174,8 +176,8 @@ EOF
       resources {
         cpu = 300
 
-        memory = 256
-        memory_max = 512 
+        memory = 64
+        memory_max = 512
       }
     }
   }

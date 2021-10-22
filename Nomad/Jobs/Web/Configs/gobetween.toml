@@ -70,8 +70,8 @@ bind = "0.0.0.0:53"
 balance = "roundrobin"
 
   [servers.dns.udp]
-  max_requests  = 500
-  max_responses = 500
+  max_requests = 64
+  max_responses = 128
 
   [servers.dns.discovery]
   kind = "srv"
@@ -85,8 +85,8 @@ bind = "0.0.0.0:67"
 balance = "roundrobin"
 
   [servers.dhcp.udp]
-  max_requests  = 300
-  max_responses = 300
+  max_requests = 64
+  max_responses = 128
 
   [servers.dhcp.discovery]
   kind = "srv"
@@ -100,8 +100,8 @@ bind = "0.0.0.0:69"
 balance = "roundrobin"
 
   [servers.tftp.udp]
-  max_requests  = 300
-  max_responses = 300
+  max_requests = 32
+  max_responses = 64
 
   [servers.tftp.discovery]
   kind = "srv"
@@ -126,8 +126,8 @@ bind = "0.0.0.0:8153"
 balance = "roundrobin"
 
   [servers.powerdns.udp]
-  max_requests  = 500
-  max_responses = 500
+  max_requests = 64
+  max_responses = 128
 
   [servers.powerdns.discovery]
   kind = "srv"
