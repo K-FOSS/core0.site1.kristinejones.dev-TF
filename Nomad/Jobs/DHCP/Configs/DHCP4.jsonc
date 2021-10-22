@@ -344,7 +344,7 @@
         "store-extended-info": true,
         "subnet4": [
           {
-            "id": 241,
+            "id": 240,
             "match-client-id": false,
             "next-server": "0.0.0.0",
             "server-hostname": "dhcp.service.kjdev",
@@ -447,7 +447,7 @@
         "store-extended-info": true,
         "subnet4": [
           {
-            "id": 241,
+            "id": 31,
             "match-client-id": false,
             "next-server": "0.0.0.0",
             "server-hostname": "dhcp.service.kjdev",
@@ -582,7 +582,7 @@
         "store-extended-info": true,
         "subnet4": [
           {
-            "id": 1,
+            "id": 100,
             "match-client-id": false,
             "next-server": "0.0.0.0",
             "server-hostname": "dhcp.service.kjdev",
