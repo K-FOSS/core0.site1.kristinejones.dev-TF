@@ -145,7 +145,7 @@ resource "vault_pki_secret_backend_cert" "TinkCert" {
 
   common_name = "tinkerbell"
 
-  alt_names = ["tink-grpc-cont.service.kjdev", "tink-http-cont.service.kjdev"]
+  alt_names = ["tink-grpc-cont.service.kjdev", "tink-http-cont.service.kjdev", "tink-grpc-cont.service.dc1.kjdev"]
 }
 
 resource "vault_pki_secret_backend_cert" "HegelCert" {
