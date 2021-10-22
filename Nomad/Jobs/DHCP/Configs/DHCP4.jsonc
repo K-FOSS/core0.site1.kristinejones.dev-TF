@@ -36,6 +36,7 @@
       {
         "name": "vmhost-class1",
         "next-server": "172.16.0.151",
+        "boot-file-name": "ipxe.efi",
         "option-data": []
       }
     ],
