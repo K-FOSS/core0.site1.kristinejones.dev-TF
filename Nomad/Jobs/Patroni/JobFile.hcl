@@ -88,7 +88,6 @@ job "Patroni" {
 
         command = "/local/entry.sh"
 
-        tty = true
         privileged = true
 
         args = []
