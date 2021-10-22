@@ -247,7 +247,7 @@ EOH
         TINK_AUTH_PASSWORD = "${Admin.Password}"
 
         HEGEL_FACILITY = "onprem"
-        HEGEL_USE_TLS = "1"
+        HEGEL_USE_TLS = "0"
 
         TINKERBELL_GRPC_AUTHORITY = "tink-grpc-cont.service.dc1.kjdev:42113"
         TINKERBELL_CERT_URL = "http://tink-http-cont.service.dc1.kjdev:42114/cert"
@@ -364,7 +364,7 @@ EOH
 
         command = "/usr/bin/boots"
 
-        args = ["--dhcp-addr", "0.0.0.0:67", "--http-addr", "0.0.0.0:80", "--tftp-addr", "0.0.0.0:69"]
+        args = ["-dhcp-addr", "0.0.0.0:67", "-http-addr", "0.0.0.0:80", "-tftp-addr", "0.0.0.0:69", "-log-level", "DEBUG"]
       }
 
       env {
@@ -402,11 +402,6 @@ EOH
 
 
         PUBLIC_FQDN = "boots.service.dc1.kjdev"
-
-        #
-        # DNS
-        #
-        DNS_SERVERS = "172.16.0.1"
 
         #
         # Mirror
