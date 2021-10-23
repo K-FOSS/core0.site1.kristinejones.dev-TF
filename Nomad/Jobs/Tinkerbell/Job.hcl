@@ -211,7 +211,7 @@ EOH
     restart {
       attempts = 3
       interval = "5m"
-      delay = "25s"
+      delay = "60s"
       mode = "delay"
     }
 
@@ -241,6 +241,15 @@ EOH
 
       config {
         image = "quay.io/tinkerbell/hegel:${Version}"
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=tinkerbell,service=hegel"
+          }
+        }
       }
 
       env {
