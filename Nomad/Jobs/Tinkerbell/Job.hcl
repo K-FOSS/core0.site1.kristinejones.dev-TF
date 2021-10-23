@@ -407,6 +407,7 @@ EOH
         # Mirror
         #
         MIRROR_HOST = "http-cont.service.kjdev:8080"
+        PUBLIC_IP = "172.16.0.151"
 
         #
         # Tinkerbell
