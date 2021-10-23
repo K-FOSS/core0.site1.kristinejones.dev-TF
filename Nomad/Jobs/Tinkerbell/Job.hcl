@@ -130,6 +130,15 @@ EOH
 
       config {
         image = "quay.io/tinkerbell/tink:${Version}"
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=tinkerbell,service=tink"
+          }
+        }
       }
 
       env {
@@ -197,12 +206,7 @@ EOH
   # Docs: https://docs.tinkerbell.org/services/hegel/
   # 
   group "hegel" {
-    count = 3
-
-    lifecycle {
-      hook = "poststart"
-      sidecar = true
-    }
+    count = 1
 
     restart {
       attempts = 3
@@ -316,10 +320,7 @@ EOH
   group "boots" {
     count = 1
 
-    lifecycle {
-      hook = "poststart"
-      sidecar = true
-    }
+
 
     restart {
       attempts = 3
