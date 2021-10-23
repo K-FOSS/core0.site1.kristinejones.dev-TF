@@ -56,7 +56,7 @@ locals {
     }, 
     Compactor = {
       name = "compactor"
-      count = 3
+      count = 1
 
       resources = {
         cpu = 10

@@ -104,8 +104,21 @@ distributor:
     instance_id: {{ env "NOMAD_ALLOC_NAME" }}
     instance_addr: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-{{ env "NOMAD_META_TARGET" }}-http-cont.service.dc1.kjdev
     kvstore:
-      store: consul
+      store: multi
       prefix: ${Consul.Prefix}/collectors/
+
+      #
+      # 
+      #
+      multi:
+        #
+        # Primary backend storage used by multi-client.
+        #
+        primary: memberlist
+
+        # Secondary backend storage used by multi-client.
+        secondary: consul
+
 
       #
       # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
@@ -142,13 +155,24 @@ ingester:
   lifecycler:
     # We want to start immediately.
     join_after: 0
-    final_sleep: 0s
     num_tokens: 512
 
     ring:
       kvstore:
-        store: consul
+        store: multi
         prefix: ${Consul.Prefix}/collectors/
+        
+        #
+        # 
+        #
+        multi:
+          #
+          # Primary backend storage used by multi-client.
+          # 
+          primary: memberlist
+
+          # Secondary backend storage used by multi-client.
+          secondary: consul
 
         #
         # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
@@ -263,17 +287,29 @@ blocks_storage:
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#compactor_config
 #
 compactor:
-  compaction_interval: 30s
+  compaction_interval: 30m
   data_dir: /alloc/cortex-compactor
   consistency_delay: 1m
   sharding_enabled: true
-  cleanup_interval: 1m
-  tenant_cleanup_delay: 1m
+  cleanup_interval: 10m
+  tenant_cleanup_delay: 10m
   sharding_ring:
     kvstore:
-      store: consul
+      store: multi
       prefix: ${Consul.Prefix}/collectors/
 
+      #
+      # 
+      #
+      multi:
+        #
+        # Primary backend storage used by multi-client.
+        # 
+        primary: memberlist
+
+        # Secondary backend storage used by multi-client.
+        secondary: consul
+      
       #
       # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
       #
@@ -292,8 +328,20 @@ store_gateway:
     heartbeat_period: 5s
     heartbeat_timeout: 15s
     kvstore:
-      store: consul
+      store: multi
       prefix: ${Consul.Prefix}/collectors/
+
+      #
+      # 
+      #
+      multi:
+        #
+        # Primary backend storage used by multi-client.
+        # 
+        primary: memberlist
+
+        # Secondary backend storage used by multi-client.
+        secondary: consul
 
       #
       # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
@@ -329,8 +377,20 @@ ruler:
     heartbeat_period: 5s
     heartbeat_timeout: 15s
     kvstore:
-      store: consul
+      store: multi
       prefix: ${Consul.Prefix}/rulers/
+
+      #
+      # 
+      #
+      multi:
+        #
+        # Primary backend storage used by multi-client.
+        # 
+        primary: memberlist
+
+        # Secondary backend storage used by multi-client.
+        secondary: consul
 
       #
       # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
@@ -380,8 +440,20 @@ alertmanager:
     heartbeat_period: 5s
     heartbeat_timeout: 15s
     kvstore:
-      store: consul
+      store: multi
       prefix: ${Consul.Prefix}/alertmanagers/
+
+      #
+      # 
+      #
+      multi:
+        #
+        # Primary backend storage used by multi-client.
+        # 
+        primary: memberlist
+
+        # Secondary backend storage used by multi-client.
+        secondary: consul
 
       #
       # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config

@@ -163,6 +163,8 @@ job "metrics" {
 
       meta {
         TARGET = "${Target.name}"
+
+        REPLICAS = "${Target.count}"
       }
 
       template {
@@ -309,6 +311,7 @@ EOF
       resources {
         cpu = ${Target.resources.cpu}
         memory = ${Target.resources.memory}
+        memory_max = ${Target.resources.memory_max}
       }
 
       restart {
@@ -326,6 +329,8 @@ EOF
 
       meta {
         TARGET = "${Target.name}"
+
+        REPLICAS = "${Target.count}"
       }
 
       template {
