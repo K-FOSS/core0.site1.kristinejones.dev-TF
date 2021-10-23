@@ -2,7 +2,12 @@ job "tinkerbell" {
   datacenters = ["core0site1"]
 
   group "tink" {
-    count = 1
+    count = 3
+
+    spread {
+      attribute = "$${node.unique.id}"
+      weight    = 100
+    }
 
     update {
       max_parallel = 1
@@ -195,6 +200,63 @@ EOH
         destination = "local/tls/server-key.pem"
       }
     }
+  }
+
+  #
+  # Tinkerbell Hegel
+  #
+  # Hegel is Tinkerbell's metadata store, supporting storage and retrieval of metadata over gRPC and HTTP. 
+  # It also provides a compatible layer with the AWS EC2 metadata format.
+  #
+  # Docs: https://docs.tinkerbell.org/services/hegel/
+  #
+  #
+  # Tinkerbell Hegel
+  #
+  # Hegel is Tinkerbell's metadata store, supporting storage and retrieval of metadata over gRPC and HTTP. 
+  # It also provides a compatible layer with the AWS EC2 metadata format.
+  #
+  # Docs: https://docs.tinkerbell.org/services/hegel/
+  # 
+  group "hegel" {
+    count = 3
+
+    spread {
+      attribute = "$${node.unique.id}"
+      weight    = 100
+    }
+
+    restart {
+      attempts = 3
+      interval = "5m"
+      delay = "60s"
+      mode = "delay"
+    }
+
+    network {
+      mode = "cni/nomadcore1"
+
+      port "http" {
+        to = 8080
+      }
+
+      port "grpc" {
+        to = 8085
+      }
+    }
+
+  task "wait-for-tink" {
+    lifecycle {
+      hook = "prestart"
+      sidecar = false
+    }
+
+    driver = "exec"
+    config {
+      command = "sh"
+      args = ["-c", "while ! nc -z tink-http-cont.service.dc1.kjdev 42114; do sleep 1; done"]
+    }
+  }
 
     service {
       name = "tink-hegel-grpc-cont"
@@ -207,11 +269,6 @@ EOH
 
     task "hegel-server" {
       driver = "docker"
-
-      lifecycle {
-        hook = "poststart"
-        sidecar = false
-      }
 
       config {
         image = "quay.io/tinkerbell/hegel:${Version}"
@@ -299,15 +356,6 @@ EOH
       }
     }
   }
-
-  #
-  # Tinkerbell Hegel
-  #
-  # Hegel is Tinkerbell's metadata store, supporting storage and retrieval of metadata over gRPC and HTTP. 
-  # It also provides a compatible layer with the AWS EC2 metadata format.
-  #
-  # Docs: https://docs.tinkerbell.org/services/hegel/
-  # 
 
 
   group "boots" {
