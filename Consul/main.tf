@@ -174,6 +174,33 @@ data "consul_acl_token_secret_id" "DNSToken" {
 }
 
 #
+# Consul Backups
+#
+
+resource "random_uuid" "BackupsToken" { }
+
+
+resource "consul_acl_policy" "BackupsACL" {
+  name  = "BackupsACL"
+
+  rules = templatefile("${path.module}/ACLs/Backups.hcl", {})
+}
+
+resource "consul_acl_token" "BackupsToken" {
+  accessor_id = random_uuid.BackupsToken.result
+
+  description = "Consul Backups ACL"
+
+  policies = ["${consul_acl_policy.BackupsACL.name}"]
+  local = true
+}
+
+data "consul_acl_token_secret_id" "BackupsToken" {
+  accessor_id = consul_acl_token.BackupsToken.id
+}
+
+
+#
 # Authentik KV
 #
 # TODO: Move all this to Consul KV trigger Terraform Sync

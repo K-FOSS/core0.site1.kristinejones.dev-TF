@@ -133,6 +133,20 @@ module "OpenProjectBucket" {
   Credentials = module.Vault.Minio
 }
 
+#
+# Consul Backups
+#
+
+module "ConsulBackupsBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
 
 #
 # Databases
@@ -587,5 +601,14 @@ module "Nomad" {
     TLS = module.Vault.HomeAssistant.TLS
 
     Secrets = module.Vault.HomeAssistant.Secrets
+  }
+
+  #
+  # Consul Backups
+  #
+  ConsulBackups = {
+    Consul = module.Consul.Backups
+
+    S3 = module.ConsulBackupsBucket
   }
 } 

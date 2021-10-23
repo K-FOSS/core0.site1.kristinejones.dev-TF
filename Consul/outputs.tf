@@ -68,6 +68,18 @@ output "DNS" {
   }
 }
 
+#
+# Consul Backups
+#
+output "Backups" {
+  value = {
+    Hostname = "consul.service.kjdev"
+    Port = 8500
+
+    Token = data.consul_acl_token_secret_id.BackupsToken.secret_id
+  }
+}
+
 
 #
 # Pomerium Ingress

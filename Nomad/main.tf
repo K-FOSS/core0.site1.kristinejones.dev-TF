@@ -370,3 +370,14 @@ module "HomeAssistant" {
 
   Secrets = var.HomeAssistant.Secrets
 }
+
+#
+# Backups
+# 
+module "ConsulBackups" {
+  source = "./Jobs/ConsulBackups"
+
+  Consul = var.ConsulBackups.Consul
+
+  S3 = var.ConsulBackups.S3
+}
