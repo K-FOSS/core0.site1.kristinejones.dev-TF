@@ -88,6 +88,9 @@ job "tinkerbell" {
 
         PACKET_ENV = "testing"
 
+        #
+        # Packet
+        #
         PACKET_VERSION = "ignored"
         ROLLBAR_TOKEN = "ignored"
         ROLLBAR_DISABLE = "1"
@@ -306,7 +309,7 @@ EOH
   }
 
   group "boots" {
-    count = 2
+    count = 1
 
     restart {
       attempts = 3
@@ -319,7 +322,7 @@ EOH
       mode = "cni/nomadcore1"
 
       port "http" {
-        to = 8080
+        to = 80
       }
 
       port "syslog" {
@@ -365,6 +368,15 @@ EOH
         command = "/usr/bin/boots"
 
         args = ["-dhcp-addr", "0.0.0.0:67", "-http-addr", "0.0.0.0:80", "-tftp-addr", "0.0.0.0:69", "-log-level", "DEBUG"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=tinkerbell,service=boots"
+          }
+        }
       }
 
       env {
@@ -379,7 +391,7 @@ EOH
         #
         # DNS
         #
-        DNS_SERVERS = "172.16.0.10,172.16.0.11,172.16.0.12,172.16.0.13"
+        DNS_SERVERS = "172.16.100.25,172.16.0.10,172.16.0.11,172.16.0.12,172.16.0.13"
 
         #
         # Misc
@@ -389,8 +401,16 @@ EOH
         API_AUTH_TOKEN = "ignored"
 
         FACILITY = "onprem"
+        FACILITY_CODE = "onprem"
+
+        #
+        # Packet
+        #
         PACKET_ENV = "testing"
-        PACKET_VERSION = ""
+        PACKET_VERSION = "ignored"
+        ROLLBAR_TOKEN = "ignored"
+        ROLLBAR_DISABLE = "1"
+        
 
 
         #

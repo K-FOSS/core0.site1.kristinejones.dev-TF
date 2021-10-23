@@ -87,11 +87,23 @@ EOF
         image = "kristianfoss/programs-tftpd:tftpd-stable-scratch"
 
         args = ["-E", "0.0.0.0", "8069", "tftpd", "-u", "user", "-c", "/data"]
+
+        memory_hard_limit = 500
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=machine-static,service=tftp"
+          }
+        }
       }
 
       resources {
-        cpu = 64
-        memory = 32
+        cpu = 128
+        memory = 128
+        memory_max = 500
       }
     }
 
@@ -107,11 +119,20 @@ EOF
         image = "kristianfjones/caddy-core-docker:vps1"
 
         args = ["caddy", "file-server", "-root=/data", "-listen=:8080"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=machine-static,service=http"
+          }
+        }
       }
 
       resources {
-        cpu = 64
-        memory = 32
+        cpu = 128
+        memory = 128
       }
     }
   }
