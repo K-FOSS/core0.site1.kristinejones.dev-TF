@@ -359,12 +359,7 @@ EOH
 
 
   group "boots" {
-    count = 3
-
-    spread {
-      attribute = "$${node.unique.id}"
-      weight    = 100
-    }
+    count = 1
 
     restart {
       attempts = 3
@@ -436,15 +431,6 @@ EOH
         command = "/usr/bin/boots"
 
         args = ["-dhcp-addr", "0.0.0.0:67", "-http-addr", "0.0.0.0:80", "-tftp-addr", "0.0.0.0:69", "-log-level", "DEBUG"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-
-            loki-external-labels = "job=tinkerbell,service=boots"
-          }
-        }
       }
 
       env {
@@ -459,7 +445,7 @@ EOH
         #
         # DNS
         #
-        DNS_SERVERS = "172.16.100.25,172.16.0.10,172.16.0.11,172.16.0.12,172.16.0.13"
+        DNS_SERVERS = "172.16.0.10,172.16.0.11,172.16.0.12,172.16.0.13"
 
         #
         # Misc
@@ -476,8 +462,8 @@ EOH
         #
         PACKET_ENV = "testing"
         PACKET_VERSION = "ignored"
-        ROLLBAR_TOKEN = "ignored"
-        ROLLBAR_DISABLE = "1"
+        #ROLLBAR_TOKEN = "ignored"
+        #ROLLBAR_DISABLE = "1"
         
 
 
@@ -495,7 +481,7 @@ EOH
         # Mirror
         #
         MIRROR_HOST = "http-cont.service.kjdev:8080"
-        PUBLIC_IP = "172.16.0.151"
+        #PUBLIC_IP = "172.16.0.151"
 
         #
         # Tinkerbell
@@ -505,9 +491,9 @@ EOH
       }
 
       resources {
-        cpu = 64
-        memory = 32
-        memory_max = 64
+        cpu = 256
+        memory = 256
+        memory_max = 256
       }
     }
   }
