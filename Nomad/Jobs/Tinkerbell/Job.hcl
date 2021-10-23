@@ -199,6 +199,11 @@ EOH
   group "hegel" {
     count = 3
 
+    lifecycle {
+      hook = "poststart"
+      sidecar = true
+    }
+
     restart {
       attempts = 3
       interval = "5m"
@@ -310,6 +315,11 @@ EOH
 
   group "boots" {
     count = 1
+
+    lifecycle {
+      hook = "poststart"
+      sidecar = true
+    }
 
     restart {
       attempts = 3
