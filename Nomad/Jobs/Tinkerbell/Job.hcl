@@ -245,18 +245,18 @@ EOH
       }
     }
 
-  task "wait-for-tink" {
-    lifecycle {
-      hook = "prestart"
-      sidecar = false
-    }
+    task "wait-for-tink" {
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
 
-    driver = "exec"
-    config {
-      command = "sh"
-      args = ["-c", "while ! nc -z tink-http-cont.service.dc1.kjdev 42114; do sleep 1; done"]
+      driver = "exec"
+      config {
+        command = "sh"
+        args = ["-c", "while ! nc -z tink-http-cont.service.dc1.kjdev 42114; do sleep 1; done"]
+      }
     }
-  }
 
     service {
       name = "tink-hegel-grpc-cont"
@@ -359,7 +359,12 @@ EOH
 
 
   group "boots" {
-    count = 1
+    count = 3
+
+    spread {
+      attribute = "$${node.unique.id}"
+      weight    = 100
+    }
 
     restart {
       attempts = 3
@@ -385,6 +390,19 @@ EOH
 
       port "tftp" {
         to = 69
+      }
+    }
+
+    task "wait-for-tink" {
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
+
+      driver = "exec"
+      config {
+        command = "sh"
+        args = ["-c", "while ! nc -z tink-http-cont.service.dc1.kjdev 42114; do sleep 1; done"]
       }
     }
 
@@ -441,7 +459,7 @@ EOH
         #
         # DNS
         #
-        DNS_SERVERS = "172.16.0.10,172.16.0.11,172.16.0.12,172.16.0.13"
+        DNS_SERVERS = "172.16.100.25,172.16.0.10,172.16.0.11,172.16.0.12,172.16.0.13"
 
         #
         # Misc
