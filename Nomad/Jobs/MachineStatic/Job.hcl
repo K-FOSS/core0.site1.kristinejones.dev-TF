@@ -113,12 +113,13 @@ EOF
       volume_mount {
         volume      = "tftp-data"
         destination = "/data"
+        read_only = true
       }
 
       config {
         image = "kristianfjones/caddy-core-docker:vps1"
 
-        args = ["caddy", "file-server", "-root=/data", "-listen=:8080"]
+        args = ["caddy", "run", "--config", "/local/caddyfile.json"]
 
         logging {
           type = "loki"
@@ -128,6 +129,14 @@ EOF
             loki-external-labels = "job=machine-static,service=http"
           }
         }
+      }
+
+      template {
+        data = <<EOF
+${Caddy.Config}
+EOF
+
+        destination = "local/caddyfile.json"
       }
 
       resources {

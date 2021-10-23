@@ -1,0 +1,37 @@
+{
+  "admin": {
+    "listen": "0.0.0.0:2019"
+  },
+  "apps": {
+    "http": {
+      "http_port": 8080,
+      "https_port": 8443,
+      "servers": {
+        "CoreWeb": {
+          "listen": [
+            ":8080"
+          ],
+          "automatic_https": {
+            "disable": true
+          },
+          "experimental_http3": false,
+          "routes": [
+            {
+              "handle": [
+                {
+                  "handler": "trace",
+                  "disabled": false,
+                  "tag": "tink"
+                },
+                {
+                  "handler": "file_server",
+                  "root": "/data"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

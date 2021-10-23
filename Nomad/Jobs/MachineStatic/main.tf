@@ -87,6 +87,11 @@ resource "nomad_job" "JobFile" {
   jobspec = templatefile("${path.module}/Job.hcl", {
     Volume = nomad_volume.Volume
 
+    Caddy = {
+      Config = templatefile("${path.module}/Configs/Caddyfile.json", {
+      })
+    }
+
     EntryScript = templatefile("${path.module}/Configs/Entry.sh", {
       HOOK_URL = "https://github.com/tinkerbell/hook/releases/download/${data.github_release.Release.release_tag}/hook_x86_64.tar.gz"
     })
