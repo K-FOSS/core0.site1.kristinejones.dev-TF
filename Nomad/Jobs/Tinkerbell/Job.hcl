@@ -372,7 +372,7 @@ EOH
         # Addresses/Networking
         #
         BOOTP_BIND = "0.0.0.0:67"
-        HTTP_BIND = "0.0.0.0:8080"
+        HTTP_BIND = "0.0.0.0:80"
         SYSLOG_BIND = "0.0.0.0:514"
         TFTP_BIND = "0.0.0.0:69"
 
