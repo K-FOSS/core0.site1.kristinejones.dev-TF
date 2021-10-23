@@ -195,37 +195,6 @@ EOH
         destination = "local/tls/server-key.pem"
       }
     }
-  }
-
-  #
-  # Tinkerbell Hegel
-  #
-  # Hegel is Tinkerbell's metadata store, supporting storage and retrieval of metadata over gRPC and HTTP. 
-  # It also provides a compatible layer with the AWS EC2 metadata format.
-  #
-  # Docs: https://docs.tinkerbell.org/services/hegel/
-  # 
-  group "hegel" {
-    count = 1
-
-    restart {
-      attempts = 3
-      interval = "5m"
-      delay = "60s"
-      mode = "delay"
-    }
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "http" {
-        to = 8080
-      }
-
-      port "grpc" {
-        to = 8085
-      }
-    }
 
     service {
       name = "tink-hegel-grpc-cont"
@@ -238,6 +207,11 @@ EOH
 
     task "hegel-server" {
       driver = "docker"
+
+      lifecycle {
+        hook = "poststart"
+        sidecar = false
+      }
 
       config {
         image = "quay.io/tinkerbell/hegel:${Version}"
@@ -326,10 +300,18 @@ EOH
     }
   }
 
+  #
+  # Tinkerbell Hegel
+  #
+  # Hegel is Tinkerbell's metadata store, supporting storage and retrieval of metadata over gRPC and HTTP. 
+  # It also provides a compatible layer with the AWS EC2 metadata format.
+  #
+  # Docs: https://docs.tinkerbell.org/services/hegel/
+  # 
+
+
   group "boots" {
     count = 1
-
-
 
     restart {
       attempts = 3
