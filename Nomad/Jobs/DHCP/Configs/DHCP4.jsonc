@@ -43,14 +43,6 @@
       {
         "name": "onie",
         "test": "substring(option[60].hex,0,11) == 'onie_vendor'",
-        "option-def": [
-          {
-            "code": 42623,
-            "encapsulate": "onie",
-            "name": "vivso-onie",
-            "type": "empty"
-          }
-        ],
         "option-data": [
           {
             // In "option-data" list we have to configure option 125 with data parameter equal
@@ -271,8 +263,8 @@
         // Its data is a plain string.
         "name": "installer_url",
         "code": 1,
-        "space": "onie",
-        "type": "ipv4-address"
+        "space": "vendor-42623",
+        "type": "string"
       },
       {
         // We define a short name, so the option can be referenced by name.
@@ -280,8 +272,8 @@
         // Its data is a plain string.
         "name": "updater_url",
         "code": 2,
-        "space": "onie",
-        "type": "ipv4-address"
+        "space": "vendor-42623",
+        "type": "string"
       },
       {
         // We define a short name, so the option can be referenced by name.
@@ -289,8 +281,8 @@
         // Its data is a plain string.
         "name": "machine",
         "code": 3,
-        "space": "onie",
-        "type": "ipv4-address"
+        "space": "vendor-42623",
+        "type": "string"
       },
       {
         // We define a short name, so the option can be referenced by name.
@@ -298,8 +290,8 @@
         // Its data is a plain string.
         "name": "arch",
         "code": 4,
-        "space": "onie",
-        "type": "ipv4-address"
+        "space": "vendor-42623",
+        "type": "string"
       },
       {
         // We define a short name, so the option can be referenced by name.
@@ -307,9 +299,9 @@
         // Its data is a plain string.
         "name": "machine_rev",
         "code": 5,
-        "space": "onie",
-        "type": "ipv4-address"
-      },
+        "space": "vendor-42623",
+        "type": "string"
+      }
     ],
     // Global value for the rebind timer, i.e. the time after which the
     // DHCP client enters rebind state if it fails to renew the lease.
