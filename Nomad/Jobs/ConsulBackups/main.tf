@@ -51,5 +51,9 @@ resource "nomad_job" "JobFile" {
     Consul = var.Consul
 
     S3 = var.S3
+
+    EntryScript =  templatefile("${path.module}/Configs/entry.sh", {
+      S3 = var.S3
+    })
   })
 }

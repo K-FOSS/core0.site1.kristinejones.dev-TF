@@ -22,10 +22,7 @@ job "backups" {
       config {
         image = "myena/consul-backinator"
 
-        command = "/bin/sh"
-        args = [
-          "-c \"echo \"consul-backinator backup -file s3://${S3.Bucket}/backup-$(date +%m%d%Y.%s).bak?endpoint=${S3.Connection.Hostname}:${S3.Connection.Port}&secure=false\"\""
-        ]
+        command = "/local/entry.sh"
       }
 
       env {
@@ -50,6 +47,17 @@ EOH
 
         destination = "secrets/file.env"
         env = true
+      }
+
+      # Entrypoint Script
+      template {
+        data = <<EOF
+${EntryScript}
+EOF
+
+        destination = "local/entry.sh"
+
+        perms = "777"
       }
 
       resources {
