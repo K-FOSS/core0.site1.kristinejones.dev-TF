@@ -24,8 +24,7 @@ job "backups" {
 
         command = "/bin/sh"
         args = [
-          "-c",
-          "consul-backinator backup -file s3://${S3.Bucket}/backup-$(date +%m%d%Y.%s).bak?endpoint=${S3.Connection.Hostname}:${S3.Connection.Port}&secure=false"
+          "-c \"echo \"consul-backinator backup -file s3://${S3.Bucket}/backup-$(date +%m%d%Y.%s).bak?endpoint=${S3.Connection.Hostname}:${S3.Connection.Port}&secure=false\"\""
         ]
       }
 
