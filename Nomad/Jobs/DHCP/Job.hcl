@@ -101,6 +101,13 @@ EOH
       config {
         image = "kristianfjones/kea:vps1-core"
         command = "/local/entry.sh"
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+          }
+        }
       }
 
       #
