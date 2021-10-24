@@ -74,13 +74,6 @@ job "logs" {
 
       config {
         image = "timberio/vector:${Vector.Version}-alpine"
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
 
       env {

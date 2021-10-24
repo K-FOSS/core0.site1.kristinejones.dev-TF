@@ -2,7 +2,7 @@ job "machine-static" {
   datacenters = ["core0site1"]
 
   group "tftp" {
-    count = 1
+    count = 3
 
     network {
       mode = "cni/nomadcore1"
@@ -89,15 +89,6 @@ EOF
         args = ["-E", "0.0.0.0", "8069", "tftpd", "-u", "user", "-c", "/data"]
 
         memory_hard_limit = 500
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-
-            loki-external-labels = "job=machine-static,service=tftp"
-          }
-        }
       }
 
       resources {
@@ -120,15 +111,6 @@ EOF
         image = "kristianfjones/caddy-core-docker:vps1"
 
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-
-            loki-external-labels = "job=machine-static,service=http"
-          }
-        }
       }
 
       template {

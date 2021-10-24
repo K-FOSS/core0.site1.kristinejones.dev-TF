@@ -82,12 +82,6 @@ EOH
 
         privileged = true
 
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
 
       resources {

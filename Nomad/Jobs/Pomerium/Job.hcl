@@ -112,14 +112,6 @@ EOF
           job = "pomerium"
           service = "${Service.Name}"
         }
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.dc1.kjdev:8080/loki/api/v1/push"
-            loki-external-labels = "job=pomerium,service=authenticate"
-          }
-        }
       }
 
       meta {

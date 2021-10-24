@@ -31,15 +31,6 @@ job "ejabberd" {
         command = "redis-server"
 
         args = ["/local/redis.conf"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-
-            loki-external-labels = "job=ejabberd,service=redis"
-          }
-        }
       }
 
       template {
@@ -145,13 +136,6 @@ EOH
         image = "ejabberd/ecs:${Version}"
 
         args = ["--config", "/local/eJabberD.yaml", "foreground"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
 
       template {

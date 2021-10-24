@@ -87,13 +87,6 @@ job "nextcloud" {
         image        = "kristianfjones/caddy-core-docker:vps1"
 
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
 
       template {
@@ -117,13 +110,6 @@ EOF
         image = "nextcloud:${Version}"
 
         command = "/cron.sh"
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
 
       resources {
@@ -190,13 +176,6 @@ EOH
 
       config {
         image = "nextcloud:${Version}"
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
 
       resources {

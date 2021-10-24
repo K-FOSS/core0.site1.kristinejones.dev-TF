@@ -28,13 +28,6 @@ job "coturn" {
 
       config {
         image = "redis:alpine"
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.dc1.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
     }
   }
@@ -88,13 +81,6 @@ job "coturn" {
         args = ["-c", "/local/turnserver.conf", "--prometheus"]
 
         ports = ["turn"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.dc1.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
 
       template {
