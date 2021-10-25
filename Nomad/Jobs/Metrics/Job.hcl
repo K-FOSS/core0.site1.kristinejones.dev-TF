@@ -84,6 +84,14 @@ job "metrics" {
       port "gossip" {
         to = 8090
       }
+
+      dns {
+        servers = [
+          "172.16.0.10",
+          "172.16.0.11",
+          "172.16.0.12"
+        ]
+      }
     }
 
     service {
