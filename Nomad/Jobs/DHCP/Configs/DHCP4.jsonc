@@ -959,6 +959,11 @@
                 "client-classes": [
                   "vmhost-class1"
                 ]
+              },
+              // sw1.office1.home1.kristianjones.dev
+              {
+                "hw-address": "2C:60:0C:94:97:3C",
+                "ip-address": "172.31.241.39"
               }
             ],
             "renew-timer": 1800,
