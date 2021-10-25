@@ -16,9 +16,9 @@ terraform {
 # Generic Secrets
 #
 resource "vault_mount" "Terraform" {
-  path        = "CORE0_SITE1"
+  path = "CORE0_SITE1"
 
-  type        = "kv-v2"
+  type = "kv-v2"
 
   description = "Terraform Consul Sync Core Secrets"
 }
@@ -123,6 +123,13 @@ data "vault_generic_secret" "Netbox" {
 #
 data "vault_generic_secret" "NextCloud" {
   path = "${vault_mount.Terraform.path}/Nextcloud"
+}
+
+#
+# GitHub
+#
+data "vault_generic_secret" "GitHub" {
+  path = "${vault_mount.Terraform.path}/GITHUB"
 }
 
 #

@@ -24,9 +24,21 @@ terraform {
   }
 }
 
+#
+# Nomad Provider
+#
+ 
 provider "nomad" {
   address = "http://core0.site1.kristianjones.dev:4646"
   region  = "global"
+}
+
+#
+# GitHub
+#
+
+provider "github" {
+  token = var.GitHub.Token
 }
 
 #

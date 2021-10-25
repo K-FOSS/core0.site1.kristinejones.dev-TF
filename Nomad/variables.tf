@@ -1,4 +1,13 @@
 #
+# GitHub
+#
+variable "GitHub" {
+  type = object({
+    Token = string
+  })
+}
+
+#
 # Bitwarden
 # 
 

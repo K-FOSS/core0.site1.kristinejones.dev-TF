@@ -78,6 +78,16 @@ output "NextCloud" {
 }
 
 #
+# GitHub
+#
+output "GitHub" {
+  value = {
+    Token = data.vault_generic_secret.GitHub.data["Token"]
+  }
+}
+
+
+#
 # TrueNAS NAS
 #
 output "NAS" {

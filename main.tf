@@ -347,6 +347,13 @@ module "Nomad" {
   source = "./Nomad"
 
   #
+  # GitHub Token
+  #
+  GitHub = {
+    Token = module.Vault.GitHub.Token
+  }
+
+  #
   # Bitwarden
   #
 
