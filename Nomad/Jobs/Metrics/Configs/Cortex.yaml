@@ -493,8 +493,6 @@ memberlist:
   randomize_node_name: false
   
   compression_enabled: true
-  advertise_addr: dnssrv+{{ env "NOMAD_ALLOC_INDEX" }}.cortex-{{ env "NOMAD_META_TARGET" }}-gossip-cont.service.dc1.kjdev
-  advertise_port: 8090
   join_members:
     - dnssrv+cortex-alertmanager-gossip-cont.service.dc1.kjdev
     - dnssrv+cortex-purger-gossip-cont.service.dc1.kjdev
