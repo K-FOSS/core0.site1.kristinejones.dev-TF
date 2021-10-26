@@ -95,6 +95,52 @@
               "port": 8153
             }
           ]
+        },
+        {
+          // Name of the zone (required).
+          "name": "100.16.172.in-addr.arpa.",
+          // List of DNS servers where to send DNS updates.
+          "dns-servers": [
+            {
+              "ip-address": "172.16.0.10",
+              "port": 8153
+            },
+            {
+              "ip-address": "172.16.0.11",
+              "port": 8153
+            },
+            {
+              "ip-address": "172.16.0.12",
+              "port": 8153
+            },
+            {
+              "ip-address": "172.16.0.13",
+              "port": 8153
+            }
+          ]
+        },
+        {
+          // Name of the zone (required).
+          "name": "172.in-addr.arpa.",
+          // List of DNS servers where to send DNS updates.
+          "dns-servers": [
+            {
+              "ip-address": "172.16.0.10",
+              "port": 8153
+            },
+            {
+              "ip-address": "172.16.0.11",
+              "port": 8153
+            },
+            {
+              "ip-address": "172.16.0.12",
+              "port": 8153
+            },
+            {
+              "ip-address": "172.16.0.13",
+              "port": 8153
+            }
+          ]
         }
       ]
     },
