@@ -59,8 +59,8 @@ locals {
       count = 1
 
       resources = {
-        cpu = 100
-        memory = 64
+        cpu = 256
+        memory = 256
         memory_max = 256
       }
     },
