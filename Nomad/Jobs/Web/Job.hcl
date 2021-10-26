@@ -43,6 +43,10 @@ job "ingress" {
         to = 67
       }
 
+      port "stun" {
+        to = 3478
+      }
+
       #
       # TFTP
       #
@@ -113,6 +117,15 @@ job "ingress" {
       address_mode = "alloc"
     }
 
+    service {
+      name = "gobetween-stun-cont"
+      port = "stun"
+
+      task = "gobetween-server"
+
+      address_mode = "alloc"
+    }
+
 
     task "web" {
       driver = "docker"
@@ -162,7 +175,7 @@ EOF
 
         ports = ["syslog", "dhcp", "tftp", "dns"]
 
-        memory_hard_limit = 512
+        memory_hard_limit = 1024
       }
 
       template {
@@ -174,10 +187,10 @@ EOF
       }
 
       resources {
-        cpu = 300
+        cpu = 512
 
-        memory = 64
-        memory_max = 512
+        memory = 512
+        memory_max = 1024
       }
     }
   }

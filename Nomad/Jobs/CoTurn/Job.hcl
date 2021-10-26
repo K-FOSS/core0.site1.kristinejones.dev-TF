@@ -80,7 +80,7 @@ job "coturn" {
 
         args = ["-c", "/local/turnserver.conf", "--prometheus"]
 
-        ports = ["turn"]
+        memory_hard_limit = 256
       }
 
       template {
@@ -93,8 +93,8 @@ EOF
 
       resources {
         cpu = 128
-        memory = 64
-        memory_max = 64
+        memory = 256
+        memory_max = 256
       }
     }
   }
