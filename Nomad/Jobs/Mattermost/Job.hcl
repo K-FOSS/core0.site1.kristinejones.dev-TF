@@ -31,13 +31,6 @@ job "mattermost" {
         image = "mattermost/mattermost-team-edition:${Version}"
 
         args = ["mattermost", "server", "-c", "/local/config.json"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
-          }
-        }
       }
     
       env {

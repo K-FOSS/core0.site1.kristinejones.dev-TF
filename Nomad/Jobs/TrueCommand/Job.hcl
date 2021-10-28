@@ -7,8 +7,8 @@ job "truecommand" {
     restart {
       attempts = 3
       interval = "5m"
-      delay    = "25s"
-      mode     = "delay"
+      delay = "25s"
+      mode = "delay"
     }
 
     network {
@@ -20,9 +20,9 @@ job "truecommand" {
     }
 
     volume "truecommand-data" {
-      type      = "csi"
+      type = "csi"
       read_only = false
-      source    = "${Volume.name}"
+      source = "${Volume.name}"
       attachment_mode = "file-system"
       access_mode = "multi-node-multi-writer"
     }
@@ -40,7 +40,7 @@ job "truecommand" {
       driver = "docker"
 
       volume_mount {
-        volume      = "truecommand-data"
+        volume = "truecommand-data"
         destination = "/data"
       }
 

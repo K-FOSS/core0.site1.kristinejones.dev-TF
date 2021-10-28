@@ -52,7 +52,7 @@ job "grafana" {
   }
 
   group "grafana" {
-    count = 4
+    count = 1
 
     update {
       max_parallel = 1

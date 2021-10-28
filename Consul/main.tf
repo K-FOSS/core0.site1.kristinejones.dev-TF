@@ -13,7 +13,7 @@ terraform {
 }
 
 provider "consul" {
-  address    = "consul.service.dc1.kjdev:8500"
+  address = "consul.service.dc1.kjdev:8500"
   datacenter = "dc1"
 }
 

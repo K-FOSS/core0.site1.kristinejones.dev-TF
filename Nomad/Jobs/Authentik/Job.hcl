@@ -137,7 +137,6 @@ EOH
     update {
       max_parallel = 1
 
-
       health_check = "checks"
       
       min_healthy_time = "30s"
