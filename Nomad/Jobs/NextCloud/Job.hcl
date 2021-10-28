@@ -34,11 +34,11 @@ job "nextcloud" {
     count = 1
 
     volume "${Volume.name}" {
-      type      = "csi"
+      type = "csi"
       read_only = false
-      source    = "${Volume.name}"
+      source = "${Volume.name}"
       attachment_mode = "file-system"
-      access_mode     = "multi-node-multi-writer"
+      access_mode = "multi-node-multi-writer"
     }
 
     network {
@@ -79,12 +79,12 @@ job "nextcloud" {
       driver = "docker"
 
       volume_mount {
-        volume      = "${Volume.name}"
+        volume = "${Volume.name}"
         destination = "/var/www/html"
       }
 
       config {
-        image        = "kristianfjones/caddy-core-docker:vps1"
+        image = "kristianfjones/caddy-core-docker:vps1"
 
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
       }
@@ -102,7 +102,7 @@ EOF
       driver = "docker"
 
       volume_mount {
-        volume      = "${Volume.name}"
+        volume = "${Volume.name}"
         destination = "/var/www/html"
       }
 

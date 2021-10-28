@@ -22,7 +22,7 @@ job "backups" {
       config {
         image = "myena/consul-backinator"
 
-        command = "/local/entry.sh"
+        entrypoint = ["/local/entry.sh"]
       }
 
       env {

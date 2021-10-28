@@ -44,7 +44,7 @@ job "storage-controller" {
         image = "democraticcsi/democratic-csi:v1.4.2"
 
         args = [
-          "--csi-version=1.5.0",
+          "--csi-version=1.2.0",
           "--csi-name=org.democratic-csi.nfs",
           "--driver-config-file=$${NOMAD_TASK_DIR}/driver-config-file.yaml",
           "--log-level=warn",

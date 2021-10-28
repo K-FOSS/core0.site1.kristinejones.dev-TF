@@ -267,7 +267,7 @@ SUPERUSER_NAME="${Netbox.AdminUsername}"
 EOH
 
         destination = "secrets/file.env"
-        env         = true
+        env = true
       }
 
       resources {
