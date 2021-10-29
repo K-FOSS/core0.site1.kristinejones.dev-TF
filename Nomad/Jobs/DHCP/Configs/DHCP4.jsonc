@@ -36,8 +36,6 @@
       {
         "name": "vmhost-class1",
         "next-server": "172.16.0.151",
-        "boot-file-name": "ipxe.efi",
-        "server-hostname": "boots.service.dc1.kjdev",
         "option-data": []
       },
       {
