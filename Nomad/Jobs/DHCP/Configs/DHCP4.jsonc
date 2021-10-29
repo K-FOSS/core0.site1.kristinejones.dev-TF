@@ -501,7 +501,6 @@
               // test1.core0.site1.kristianjones.dev
               {
                 "hw-address": "00:50:56:BE:C4:1C",
-                "ip-address": "172.16.0.71",
                 "client-classes": [
                   "vmhost-class1"
                 ]
@@ -509,7 +508,6 @@
               // test2.core0.site1.kristianjones.dev
               {
                 "hw-address": "00:50:56:BE:19:73",
-                "ip-address": "172.16.0.72",
                 "client-classes": [
                   "vmhost-class1"
                 ]
@@ -517,7 +515,6 @@
               // test3.core0.site1.kristianjones.dev
               {
                 "hw-address": "00:50:56:BE:EA:05",
-                "ip-address": "172.16.0.73",
                 "client-classes": [
                   "vmhost-class1"
                 ]
@@ -642,7 +639,6 @@
               },
               {
                 "hw-address": "00:50:56:BE:0F:1D",
-                "ip-address": "172.16.20.131",
                 "client-classes": [
                   "vmhost-class1"
                 ]
@@ -955,7 +951,6 @@
               // TODO: Tinkerbell Server Lab
               {
                 "hw-address": "B8:AE:ED:79:5E:1D",
-                "ip-address": "172.31.241.37",
                 "client-classes": [
                   "vmhost-class1"
                 ]
