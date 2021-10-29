@@ -46,15 +46,15 @@ terraform {
   }
 }
 
-data "github_repository" "Repo" {
-  full_name = "pomerium/pomerium"
-}
+# data "github_repository" "Repo" {
+#   full_name = "pomerium/pomerium"
+# }
 
-data "github_release" "Release" {
-  repository  = data.github_repository.Repo.name
-  owner       = split("/", data.github_repository.Repo.full_name)[0]
-  retrieve_by = "latest"
-}
+# data "github_release" "Release" {
+#   repository  = data.github_repository.Repo.name
+#   owner       = split("/", data.github_repository.Repo.full_name)[0]
+#   retrieve_by = "latest"
+# }
 
 resource "nomad_job" "Pomerium" {
   jobspec = templatefile("${path.module}/Job.hcl", {
