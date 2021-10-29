@@ -123,6 +123,20 @@ scrape_configs:
   #     - names: 
   #         - CoreVault.service.dc1.kjdev
 
+  
+  #
+  # Caches
+  #
+
+  #
+  # GitHub Cache
+  #
+  - job_name: githubcache
+    dns_sd_configs:
+      - names: 
+          - dhcp-metrics.service.kjdev
+
+
 remote_write:
   - url: http://cortex-distributor-http-cont.service.kjdev:8080/api/v1/push
     send_exemplars: true

@@ -9,6 +9,18 @@ terraform {
       source = "hashicorp/consul"
       version = "2.13.0"
     }
+
+    #
+    # GitHub Provider
+    #
+    # Used to fetch the latest PSQL file
+    #
+    # Docs: https://registry.terraform.io/providers/integrations/github/latest
+    #
+    github = {
+      source = "integrations/github"
+      version = "4.17.0"
+    }
   }
 }
 

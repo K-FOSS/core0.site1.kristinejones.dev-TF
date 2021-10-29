@@ -21,6 +21,18 @@ terraform {
       source = "hashicorp/random"
       version = "3.1.0"
     }
+
+    #
+    # GitHub Provider
+    #
+    # Used to fetch the latest PSQL file
+    #
+    # Docs: https://registry.terraform.io/providers/integrations/github/latest
+    #
+    github = {
+      source = "integrations/github"
+      version = "4.17.0"
+    }
   }
 }
 
@@ -400,4 +412,12 @@ module "ConsulBackups" {
   Consul = var.ConsulBackups.Consul
 
   S3 = var.ConsulBackups.S3
+}
+
+#
+# Caches 
+#
+
+module "Cache" {
+  source = "./Jobs/Cache"
 }
