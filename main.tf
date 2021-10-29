@@ -527,6 +527,13 @@ module "Nomad" {
   DNS = {
     Consul = module.Consul.DNS
 
+
+  }
+
+  #
+  # Configuration for Authoritative NS Servers
+  #
+  NS = {
     PowerDNS = {
       Database = module.PowerDNSDatabase.Database
     }

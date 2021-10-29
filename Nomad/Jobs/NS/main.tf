@@ -46,31 +46,19 @@ terraform {
   }
 }
 
-# data "github_repository" "Repo" {
-#   full_name = "coredns/coredns"
-# }
-
-# data "github_release" "Release" {
-#   repository  = data.github_repository.Repo.name
-#   owner       = split("/", data.github_repository.Repo.full_name)[0]
-#   retrieve_by = "latest"
-# }
-
 data "http" "PSQLFile" {
   url = "https://raw.githubusercontent.com/PowerDNS/pdns/rel/auth-4.5.x/modules/gpgsqlbackend/schema.pgsql.sql"
 }
 
+resource "nomad_job" "NSJobFile" {
+  jobspec = templatefile("${path.module}/JobFile.hcl", {
+    PowerDNS = {
+      PSQL = data.http.PSQLFile.body
+      Database = var.PowerDNS.Database
 
-resource "nomad_job" "JobFile" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
-    #Version = split("v", data.github_release.Release.release_tag)[1]
-
-    CoreFile = templatefile("${path.module}/Configs/Corefile", {
-      Netbox = var.Netbox
-
-      Consul = var.Consul
-    })
-
-    PluginsConfig = templatefile("${path.module}/Configs/plugin.cfg", {})
+      Config = templatefile("${path.module}/Configs/PowerDNS/pdns.conf", {
+        Database = var.PowerDNS.Database
+      })
+    }
   })
 }

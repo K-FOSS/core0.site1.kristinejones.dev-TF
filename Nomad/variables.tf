@@ -378,6 +378,8 @@ variable "DHCP" {
 
 #
 # DNS
+# 
+# Recursive and Dynamic DNS Servers
 #
 variable "DNS" {
   type = object({
@@ -387,7 +389,14 @@ variable "DNS" {
   
       Token = string
     })
+  })
+}
 
+#
+# NS
+#
+variable "NS" {
+  type = object({
     PowerDNS = object({
       Database = object({
         Hostname = string
@@ -400,6 +409,8 @@ variable "DNS" {
       })
     })
   })
+
+  description = "Configuration for Authoritative NS Servers"
 }
 
 #

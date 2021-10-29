@@ -285,8 +285,16 @@ module "DNS" {
   }
 
   Consul = var.DNS.Consul
+}
 
-  PowerDNS = var.DNS.PowerDNS
+#
+# NS
+#
+
+module "NS" {
+  source = "./Jobs/NS"
+
+  PowerDNS = var.NS.PowerDNS
 }
 
 #
