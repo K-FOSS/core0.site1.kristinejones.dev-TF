@@ -150,8 +150,8 @@ EOH
         FACILITY = "onprem"
 
         PACKET_ENV = "testing"
-
         PACKET_VERSION = "ignored"
+
         ROLLBAR_TOKEN = "ignored"
         ROLLBAR_DISABLE = "1"
 
@@ -285,7 +285,6 @@ EOH
 
       env {
         FACILITY = "onprem"
-
         PACKET_ENV = "testing"
 
         PACKET_VERSION = "ignored"
@@ -299,7 +298,7 @@ EOH
         TINK_AUTH_PASSWORD = "${Admin.Password}"
 
         HEGEL_FACILITY = "onprem"
-        HEGEL_USE_TLS = "0"
+        HEGEL_USE_TLS = "1"
 
         TINKERBELL_GRPC_AUTHORITY = "tink-grpc-cont.service.dc1.kjdev:42113"
         TINKERBELL_CERT_URL = "http://tink-http-cont.service.dc1.kjdev:42114/cert"
@@ -471,8 +470,9 @@ EOH
         #
         PACKET_ENV = "testing"
         PACKET_VERSION = "ignored"
-        #ROLLBAR_TOKEN = "ignored"
-        #ROLLBAR_DISABLE = "1"
+
+        ROLLBAR_TOKEN = "ignored"
+        ROLLBAR_DISABLE = "1"
         
 
 
