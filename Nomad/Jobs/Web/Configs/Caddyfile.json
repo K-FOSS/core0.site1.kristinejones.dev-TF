@@ -252,7 +252,7 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "loki-distributor-http-cont.service.kjdev"
+                      "lookup_srv": "http.loki-distributor.service.kjdev"
                     }
                   ]
                 }
@@ -276,7 +276,7 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "loki-querier-http-cont.service.kjdev"
+                      "lookup_srv": "http.loki-querier.service.kjdev"
                     }
                   ]
                 }
@@ -300,7 +300,7 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "loki-query-frontend-http-cont.service.kjdev"
+                      "lookup_srv": "http.loki-query-frontend.service.kjdev"
                     }
                   ]
                 }
