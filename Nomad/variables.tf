@@ -192,6 +192,16 @@ variable "Metrics" {
         Prefix = string
       })
 
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
+      })
+
       Targets = map(object(
         {
           name = string
@@ -252,6 +262,16 @@ variable "Logs" {
         Token = string
     
         Prefix = string
+      })
+
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
       })
 
       Targets = map(object(
