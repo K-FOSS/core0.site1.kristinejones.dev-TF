@@ -23,6 +23,11 @@ variable "TLS" {
       Cert = string
       Key = string
     })
+
+    Registry = object({
+      Cert = string
+      Key = string
+    })
   })
 }
 

@@ -112,6 +112,11 @@ output "Tinkerbell" {
       Cert = vault_pki_secret_backend_cert.HegelCert.certificate
       Key = vault_pki_secret_backend_cert.HegelCert.private_key
     }
+
+    Registry = {
+      Cert = vault_pki_secret_backend_cert.TinkRegistryCert.certificate
+      Key = vault_pki_secret_backend_cert.TinkRegistryCert.private_key
+    }
   }
 }
 

@@ -482,7 +482,7 @@ EOF
         #
         REGISTRY_HTTP_TLS_CERTIFICATE = "/local/tls/bundle.pem"
         REGISTRY_HTTP_TLS_KEY = "/local/tls/key.pem"
-        REGISTRY_HTTP_ADDR = "tink-registry.service.dc1.kjdev:443"
+        REGISTRY_HTTP_ADDR = "0.0.0.0:443"
       }
 
 
@@ -496,7 +496,7 @@ EOH
 
       template {
         data = <<EOH
-${TLS.Hegel.Cert}
+${TLS.Registry.Cert}
 ${TLS.CA}
 EOH
 
@@ -505,7 +505,7 @@ EOH
 
       template {
         data = <<EOH
-${TLS.Hegel.Key}
+${TLS.Registry.Key}
 EOH
 
         destination = "local/tls/key.pem"
