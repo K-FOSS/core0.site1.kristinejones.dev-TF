@@ -449,7 +449,7 @@ EOF
 
     service {
       name = "tink-registry"
-      port = "grpc"
+      port = "https"
 
       task = "registry-server"
 
