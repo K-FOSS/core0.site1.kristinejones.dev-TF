@@ -51,8 +51,8 @@ job "cache" {
     }
   }
 
-  group "github-cache-server" {
-    count = 1
+  group "cache-web" {
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"
@@ -94,12 +94,30 @@ EOF
         destination = "local/caddyfile.json"
       }
     }
+  }
+
+
+  group "github-cache-server" {
+    count = 2
+
+    spread {
+      attribute = "$${node.unique.id}"
+      weight = 100
+    }
+
+    network {
+      mode = "cni/nomadcore1"
+
+      port "http" {
+        to = 8080
+      }
+    }
 
     service {
       name = "github-cache-server"
       port = "http"
 
-      task = "powerdns-server"
+      task = "github-cache-server"
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}"]
