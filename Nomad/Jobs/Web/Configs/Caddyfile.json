@@ -386,7 +386,8 @@
                     "/multitenant_alertmanager/status",
                     "/prometheus/api/v1/rules",
                     "/prometheus/api/v1/alerts",
-                    "/ruler/delete_tenant_config"
+                    "/ruler/delete_tenant_config",
+                    "/prometheus/rules"
                   ]
                 }
               ],
