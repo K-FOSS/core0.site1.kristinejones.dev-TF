@@ -5,4 +5,3 @@ quay.io/tinkerbell-actions/image2disk:v1.0.0 image2disk:v1.0.0
 quay.io/tinkerbell-actions/cexec:v1.0.0 cexec:v1.0.0
 quay.io/tinkerbell-actions/writefile:v1.0.0 writefile:v1.0.0
 docker.io/library/alpine:latest alpine:latest
-docker.io/library/hello-world:latest printer-hello:latest
