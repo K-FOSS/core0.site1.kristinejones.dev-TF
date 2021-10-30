@@ -981,12 +981,12 @@ EOF
     }
 
     service {
-      name = "cortex-ruler"
+      name = "cortex-configs"
       
       port = "gossip"
       address_mode = "alloc"
 
-      task = "cortex-ruler"
+      task = "cortex-configs"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "gossip", "$${NOMAD_ALLOC_INDEX}.gossip"]
     }
