@@ -68,6 +68,34 @@ job "cache" {
     }
 
     service {
+      name = "github-cache-web-cont"
+      port = "http"
+
+      task = "web"
+      address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+    }
+
+    task "web" {
+      driver = "docker"
+
+      config {
+        image = "kristianfjones/caddy-core-docker:vps1"
+
+        args = ["caddy", "run", "--config", "/local/caddyfile.json"]
+      }
+
+      template {
+        data = <<EOF
+${Caddyfile}
+EOF
+
+        destination = "local/caddyfile.json"
+      }
+    }
+
+    service {
       name = "github-cache-server"
       port = "http"
 

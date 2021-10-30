@@ -26,6 +26,8 @@ terraform {
 
 resource "nomad_job" "CacheJobFile" {
   jobspec = templatefile("${path.module}/JobFile.hcl", {
+    Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", {
 
+    })
   })
 }

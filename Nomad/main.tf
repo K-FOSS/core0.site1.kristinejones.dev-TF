@@ -50,9 +50,9 @@ provider "nomad" {
 #
 
 provider "github" {
-  #token = var.GitHub.Token
+  token = var.GitHub.Token
 
-  base_url = "http://github-cache-server.service.kjdev:8080/"
+  #base_url = "http://github-cache-server.service.kjdev:8080/"
 }
 
 #
