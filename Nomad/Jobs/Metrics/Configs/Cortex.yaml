@@ -479,7 +479,7 @@ alertmanager:
 alertmanager_storage:
   backend: configdb
   configdb:
-    configs_api_url: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-configs-grpc-cont.service.kjdev:8085
+    configs_api_url: http://{{ env "NOMAD_ALLOC_INDEX" }}.cortex-configs-grpc-cont.service.kjdev:8085
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#supported-contents-and-default-values-of-the-config-file
