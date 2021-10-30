@@ -411,9 +411,9 @@ ruler:
         host: ${Consul.Hostname}:${Consul.Port}
         acl_token: ${Consul.Token}
 
-  alertmanager_url: cortex-alertmanager-http-cont.service.kjdev
+  alertmanager_url: http://cortex-alertmanager-http-cont.service.kjdev:8080
   enable_alertmanager_v2: true
-  enable_alertmanager_discovery: true
+  enable_alertmanager_discovery: false
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#ruler_storage_config
