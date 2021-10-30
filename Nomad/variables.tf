@@ -223,41 +223,27 @@ variable "Metrics" {
       })
     })
 
-    Tempo = object({
-      Consul = object({
-        Hostname = string
-        Port = number
-
-        Token = string
-    
-        Prefix = string
+    Prometheus = object({
+      Grafana = object({
+        CA = string
       })
 
-      Targets = map(object(
-        {
-          name = string
-          count = number
-        }
-      ))
+      CoreVault = object({
+        Token = string
+      })
 
-      S3 = object({
-        Connection = object({
-          Hostname = string
-          Port = number
-
-          Endpoint = string
-        })
-
-        Credentials = object({
-          AccessKey = string
-          SecretKey = string
-        })
-
-
-        Bucket = string
+      Vault = object({
+        Token = string
       })
     })
+  })
+}
 
+#
+# Logs Stack
+#
+variable "Logs" {
+  type = object({
     Loki = object({
       Consul = object({
         Hostname = string
@@ -298,20 +284,49 @@ variable "Metrics" {
         Bucket = string
       })
     })
+  })
+}
+ 
+#
+# Tracing Stack
+#
+variable "Tracing" {
+  type = object({
+    Tempo = object({
+      Consul = object({
+        Hostname = string
+        Port = number
 
-    Prometheus = object({
-      Grafana = object({
-        CA = string
+        Token = string
+    
+        Prefix = string
       })
 
-      CoreVault = object({
-        Token = string
-      })
+      Targets = map(object(
+        {
+          name = string
+          count = number
+        }
+      ))
 
-      Vault = object({
-        Token = string
+      S3 = object({
+        Connection = object({
+          Hostname = string
+          Port = number
+
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
+
+
+        Bucket = string
       })
     })
+
   })
 }
 

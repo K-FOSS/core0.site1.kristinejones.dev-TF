@@ -56,14 +56,26 @@ data "github_release" "VectorRelease" {
   retrieve_by = "latest"
 }
 
-resource "nomad_job" "LogsJobFile" {
-  jobspec = templatefile("${path.module}/JobFile.hcl", {
+resource "nomad_job" "SyslogJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/Syslog.hcl", {
     Vector = {
       Config = templatefile("${path.module}/Configs/Vector/Vector.yaml", {
 
       })
 
       Version = split("v", data.github_release.VectorRelease.release_tag)[1]
+    }
+  })
+}
+
+resource "nomad_job" "LokiJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/Loki.hcl", {
+    Loki = {
+      Targets = var.Loki.Targets
+
+      YAMLConfig = templatefile("${path.module}/Configs/Loki/Loki.yaml", var.Loki)
+
+      Version = "master"
     }
   })
 }

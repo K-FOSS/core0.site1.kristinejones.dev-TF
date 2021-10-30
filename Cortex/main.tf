@@ -113,6 +113,16 @@ locals {
         memory = 32
         memory_max = 128
       }
+    },
+    Configs = {
+      name = "configs"
+      count = 1
+
+      resources = {
+        cpu = 128
+        memory = 64
+        memory_max = 64
+      }
     }
   })
 }

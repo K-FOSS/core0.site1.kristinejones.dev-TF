@@ -174,13 +174,17 @@ ingester:
           # Secondary backend storage used by multi-client.
           secondary: consul
 
+          # Mirror writes to secondary store.
+          mirror_enabled: true
+
         #
         # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
         #
         consul:
           host: ${Consul.Hostname}:${Consul.Port}
           acl_token: ${Consul.Token}
-      replication_factor: 1
+
+      replication_factor: 3
 
 
 #
@@ -373,6 +377,14 @@ tenant_federation:
 ruler:
   enable_api: true
   enable_sharding: true
+
+  #  
+  # Report the wall time for ruler queries to complete as a per user metric and as
+  # an info level log message.
+  #
+  query_stats_enabled: true
+
+
   ring:
     heartbeat_period: 5s
     heartbeat_timeout: 15s
@@ -401,26 +413,25 @@ ruler:
 
   alertmanager_url: http://cortex-alertmanager-http-cont.service.kjdev:8080/alertmanager
   enable_alertmanager_v2: true
+  enable_alertmanager_discovery: true
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#ruler_storage_config
 #
 ruler_storage:
-  backend: s3
-  s3:
-    bucket_name: ${S3.Bucket}
-    endpoint: ${S3.Connection.Endpoint}
-    access_key_id: ${S3.Credentials.AccessKey}
-    secret_access_key: ${S3.Credentials.SecretKey}
-    insecure: true
+  backend: configdb
+  configdb:
+    configs_api_url: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-configs-grpc-cont.service.kjdev:8085
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#configs_config
 #
 # TODO: Learn about this
 #
-#configs:
-
+configs:
+  database:
+    uri: postgres://${Database.Username}@${Database.Hostname}:${Database.Port}/${Database.Database}?sslmode=disable
+    password_file: /secrets/DB_PASS
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#alertmanager_config
@@ -466,13 +477,9 @@ alertmanager:
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#alertmanager_storage_config
 #
 alertmanager_storage:
-  backend: s3
-  s3:
-    bucket_name: ${S3.Bucket}
-    endpoint: ${S3.Connection.Endpoint}
-    access_key_id: ${S3.Credentials.AccessKey}
-    secret_access_key: ${S3.Credentials.SecretKey}
-    insecure: true
+  backend: configdb
+  configdb:
+    configs_api_url: {{ env "NOMAD_ALLOC_INDEX" }}.cortex-configs-grpc-cont.service.kjdev:8085
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#supported-contents-and-default-values-of-the-config-file

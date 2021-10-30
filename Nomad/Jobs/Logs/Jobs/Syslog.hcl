@@ -1,7 +1,6 @@
 job "logs" {
   datacenters = ["core0site1"]
 
-
   group "vector" {
     count = 3
 

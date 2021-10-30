@@ -247,19 +247,37 @@ module "Patroni" {
 module "Metrics" {
   source = "./Jobs/Metrics"
 
-  Loki = var.Metrics.Loki
-
   Cortex = var.Metrics.Cortex
-
-  Tempo = var.Metrics.Tempo
 
   Prometheus = var.Metrics.Prometheus
 }
 
+#
+# Logs
+# 
+# Syslog, HTTP, Docker
+#
+# Vector/Syslog Stack
+# Loki Stack
+#
+
 module "Logs" {
   source = "./Jobs/Logs"
+
+  Loki = var.Logs.Loki
 }
 
+#
+# Tracing
+#
+# Grafana Tempo
+#
+
+module "Tracing" {
+  source = "./Jobs/Tracing"
+
+  Tempo = var.Tracing.Tempo
+}
 
 
 module "NetboxJob" {

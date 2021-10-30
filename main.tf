@@ -292,6 +292,29 @@ module "PowerDNSDatabase" {
   Credentials = module.Vault.Database
 }
 
+#
+# Observability Stacks
+#
+
+#
+# Grafana Cortex Config Database
+#
+
+module "CortexConfigDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# Grafana Loki Database
+#
+
+module "GrafanaLokiConfigDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
 
 #
 # Hashicorp Nomad
@@ -465,25 +488,11 @@ module "Nomad" {
     Cortex = {
       Consul = module.Consul.Cortex
 
+      Database = module.CortexConfigDatabase.Database
+
       Targets = module.Cortex.Targets
 
       S3 = module.CortexBucket
-    }
-
-    Loki = {
-      Consul = module.Consul.Loki
-
-      Targets = module.Loki.Targets
-
-      S3 = module.LokiBucket
-    }
-
-    Tempo = {
-      Consul = module.Consul.Tempo
-
-      Targets = module.Tempo.Targets
-
-      S3 = module.TempoBucket
     }
 
     Prometheus = {
@@ -501,6 +510,41 @@ module "Nomad" {
     }
   }
 
+  #
+  # Syslogs
+  #
+  # Loki, Vector
+  #
+  Logs = {
+    Loki = {
+      Consul = module.Consul.Loki
+
+      Database = module.GrafanaLokiConfigDatabase.Database
+
+      Targets = module.Loki.Targets
+
+      S3 = module.LokiBucket
+    }
+  }
+
+  #
+  # Tracing
+  #
+  # Grafana Tempo, etc
+  #
+  Tracing = {
+    Tempo = {
+      Consul = module.Consul.Tempo
+
+      Targets = module.Tempo.Targets
+
+      S3 = module.TempoBucket
+    }
+  }
+
+  #
+  # CSI NFS/iSCSI Storage
+  #
   Storage = {
     NAS = {
       Hostname = "172.16.51.21"
@@ -513,6 +557,9 @@ module "Nomad" {
     }
   }
 
+  #
+  # Netbox DCIM
+  #
   Netbox = {
     Database = module.NetboxDatabase.Database
 

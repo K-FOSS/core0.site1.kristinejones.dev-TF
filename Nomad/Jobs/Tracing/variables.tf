@@ -1,8 +1,4 @@
-#
-# Grafana Loki
-#
-
-variable "Loki" {
+variable "Tempo" {
   type = object({
     Consul = object({
       Hostname = string
@@ -13,26 +9,10 @@ variable "Loki" {
       Prefix = string
     })
 
-    Database = object({
-      Hostname = string
-      Port = number
-
-      Database = string
-
-      Username = string
-      Password = string
-    })
-
     Targets = map(object(
       {
         name = string
         count = number
-
-        resources = object({
-          cpu = number
-          memory = number
-          memory_max = number
-        })
       }
     ))
 

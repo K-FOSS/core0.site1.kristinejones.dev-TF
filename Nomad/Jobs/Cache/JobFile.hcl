@@ -52,7 +52,7 @@ job "cache" {
   }
 
   group "github-cache-server" {
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"

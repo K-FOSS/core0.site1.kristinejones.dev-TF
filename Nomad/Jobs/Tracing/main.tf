@@ -46,25 +46,14 @@ terraform {
   }
 }
 
-resource "nomad_job" "Metrics" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
-    Prometheus = {
-      YAMLConfig = templatefile("${path.module}/Configs/Prometheus.yaml", {
-        CoreVault = var.Prometheus.CoreVault
-        Vault = var.Prometheus.Vault
-      })
+resource "nomad_job" "TempoJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/Tempo.hcl", {
+    Tempo = {
+      Targets = var.Tempo.Targets
 
-      Grafana = var.Prometheus.Grafana
+      YAMLConfig = templatefile("${path.module}/Configs/Tempo/Tempo.yaml", var.Tempo)
 
-      Version = "v2.30.0"
-    }
-
-    Cortex = {
-      Targets = var.Cortex.Targets
-
-      YAMLConfig = templatefile("${path.module}/Configs/Cortex.yaml", var.Cortex)
-
-      Version = "master-85c3781"
+      Version = "main-2af905a"
     }
   })
 }
