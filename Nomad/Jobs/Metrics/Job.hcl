@@ -785,6 +785,19 @@ EOF
       }
     }
 
+    task "wait-for-configs" {
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
+
+      driver = "exec"
+      config {
+        command = "sh"
+        args = ["-c", "while ! nc -z http.cortex-configs.service.dc1.kjdev 8080; do sleep 1; done"]
+      }
+    }
+
     service {
       name = "cortex-ruler"
       port = "http"
@@ -1066,6 +1079,19 @@ EOF
           "172.16.0.12",
           "172.16.0.13"
         ]
+      }
+    }
+
+    task "wait-for-configs" {
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
+
+      driver = "exec"
+      config {
+        command = "sh"
+        args = ["-c", "while ! nc -z http.cortex-configs.service.dc1.kjdev 8080; do sleep 1; done"]
       }
     }
 
