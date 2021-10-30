@@ -356,6 +356,168 @@ EOH
     }
   }
 
+  #
+  # Docker Registry
+  #
+  group "tink-registry" {
+    count = 1
+
+    spread {
+      attribute = "$${node.unique.id}"
+      weight = 100
+    }
+
+    restart {
+      attempts = 3
+      interval = "5m"
+      delay = "60s"
+      mode = "delay"
+    }
+
+    network {
+      mode = "cni/nomadcore1"
+
+      port "https" {
+        to = 443
+      }
+    }
+
+    task "wait-for-tink" {
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
+
+      driver = "exec"
+      config {
+        command = "sh"
+        args = ["-c", "while ! nc -z tink-http-cont.service.dc1.kjdev 42114; do sleep 1; done"]
+      }
+    }
+
+    #
+    # Task to Provision the database
+    #
+    task "pull-images" {
+      lifecycle {
+        hook = "poststart"
+        sidecar = false
+      }
+
+      driver = "docker"
+
+      config {
+        image = "quay.io/containers/skopeo:latest"
+
+        entrypoint = ["/local/entry.sh"]
+
+        args = ["testuser", "testpassword", "tink-registry.service.dc1.kjdev", "/local/images.txt"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=tinkerbell,service=registry"
+          }
+        }
+      }
+
+      # Entrypoint Script
+      template {
+        data = <<EOF
+${UploadScript}
+EOF
+
+        destination = "local/entry.sh"
+
+        perms = "777"
+      }
+
+      # Entrypoint Script
+      template {
+        data = <<EOF
+${Images}
+EOF
+
+        destination = "local/images.txt"
+
+        perms = "777"
+      }
+    }
+
+
+    service {
+      name = "tink-registry.service.dc1.kjdev"
+      port = "grpc"
+
+      task = "hegel-server"
+
+      address_mode = "alloc"
+    }
+
+    task "hegel-server" {
+      driver = "docker"
+
+      config {
+        image = "registry:2.7.1"
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=tinkerbell,service=registry"
+          }
+        }
+      }
+
+      env {
+        REGISTRY_AUTH = "htpasswd"
+        REGISTRY_AUTH_HTPASSWD_REALM = "Registry Realm"
+        REGISTRY_AUTH_HTPASSWD_PATH = "/secrets/.htpasswd"
+
+        #
+        # TLS
+        #
+        REGISTRY_HTTP_TLS_CERTIFICATE = "/local/tls/bundle.pem"
+        REGISTRY_HTTP_TLS_KEY = "/local/tls/key.pem"
+        REGISTRY_HTTP_ADDR = "tink-registry.service.dc1.kjdev:443"
+      }
+
+
+      template {
+        data = <<EOH
+testuser:$2y$05$hkwKjBDuR744ZWpNk4lTVu0wHC.qnGcMyo0ThpeZNdReG3COhHz6a
+EOH
+
+        destination = "secrets/.htpasswd"
+      }
+
+      template {
+        data = <<EOH
+${TLS.Hegel.Cert}
+${TLS.CA}
+EOH
+
+        destination = "local/tls/bundle.pem"
+      }
+
+      template {
+        data = <<EOH
+${TLS.Hegel.Key}
+EOH
+
+        destination = "local/tls/key.pem"
+      }
+
+      resources {
+        cpu = 64
+        memory = 32
+        memory_max = 64
+      }
+    }
+  }
 
   group "boots" {
     count = 1
@@ -479,9 +641,9 @@ EOH
         #
         # Container Registry Mirror
         #
-        DOCKER_REGISTRY = "docker.io"
-        REGISTRY_USERNAME = "${Boots.DockerHub.Username}"
-        REGISTRY_PASSWORD = "${Boots.DockerHub.Token}"
+        DOCKER_REGISTRY = "tink-registry.service.dc1.kjdev:443"
+        REGISTRY_USERNAME = "testuser"
+        REGISTRY_PASSWORD = "testpassword"
 
 
         PUBLIC_FQDN = "boots.service.dc1.kjdev"

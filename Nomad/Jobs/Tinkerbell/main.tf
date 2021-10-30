@@ -69,5 +69,13 @@ resource "nomad_job" "Tinkerbell" {
     Admin = local.TinkAdmin
 
     Boots = var.Boots
+
+    UploadScript =  templatefile("${path.module}/Configs/Upload.sh", {
+
+    })
+
+    Images =  templatefile("${path.module}/Configs/Images.txt", {
+
+    })
   })
 }
