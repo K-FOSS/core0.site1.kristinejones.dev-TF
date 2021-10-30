@@ -74,7 +74,7 @@ job "metrics" {
       task = "cortex-distributor"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
 
       #
       # Liveness check
@@ -217,7 +217,7 @@ EOF
       task = "cortex-querier"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
 
       #
       # Liveness check
@@ -360,7 +360,7 @@ EOF
       task = "cortex-ingester"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
 
       #
       # Liveness check
@@ -506,7 +506,7 @@ EOF
       task = "cortex-query-frontend"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
 
       #
       # Liveness check
@@ -649,7 +649,7 @@ EOF
       task = "cortex-store-gateway"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
 
       #
       # Liveness check
@@ -805,7 +805,7 @@ EOF
       task = "cortex-ruler"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
 
       #
       # Liveness check
@@ -1102,7 +1102,7 @@ EOF
       task = "cortex-alertmanager"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
 
       #
       # Liveness check
@@ -1243,7 +1243,7 @@ EOF
       task = "cortex-query-scheduler"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
 
       #
       # Liveness check
