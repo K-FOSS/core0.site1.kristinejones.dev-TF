@@ -111,6 +111,15 @@ EOF
         image = "kristianfjones/caddy-core-docker:vps1"
 
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=tinkerbell,service=static-http"
+          }
+        }
       }
 
       template {
