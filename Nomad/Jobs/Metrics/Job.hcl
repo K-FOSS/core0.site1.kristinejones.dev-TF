@@ -948,7 +948,7 @@ EOF
       task = "cortex-configs"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
 
       #
       # Liveness check
