@@ -55,7 +55,7 @@ distributor:
     # reading and writing.
     heartbeat_timeout: 1m
     kvstore:
-      store: consul
+      store: memberlist
       prefix: ${Consul.Prefix}/collectors/
 
       #
@@ -103,7 +103,7 @@ frontend:
   # TODO: Figure this out
   # tail_proxy_url
 
-  scheduler_address: loki-query-scheduler-grpc-cont.service.kjdev:8085
+  scheduler_address: grpc.loki-query-scheduler.service.kjdev:8085
 
 
 #
@@ -255,7 +255,7 @@ storage_config:
 
     index_gateway_client:
       # "Hostname or IP of the Index Gateway gRPC server.
-      server_address: loki-index-gateway-grpc-cont.service.kjdev:8085
+      server_address: grpc.loki-index-gateway.service.kjdev:8085
 
   #
   # Docs: https://grafana.com/docs/loki/latest/configuration/#cache_config
@@ -322,7 +322,7 @@ frontend_worker:
   grpc_client_config:
     max_send_msg_size: 1.048576e+08
   parallelism: 6
-  scheduler_address: loki-query-scheduler-grpc-cont.service.kjdev:8085
+  scheduler_address: grpc.loki-query-scheduler.service.kjdev:8085
 
 
 #
@@ -347,15 +347,40 @@ memberlist:
   bind_port: 8090
   randomize_node_name: false
   
-  advertise_addr: {{ env "NOMAD_ALLOC_INDEX" }}.loki-{{ env "NOMAD_META_TARGET" }}-gossip-cont.service.dc1.kjdev
+  advertise_addr: {{ env "NOMAD_ALLOC_INDEX" }}.gossip.loki-{{ env "NOMAD_META_TARGET" }}.service.dc1.kjdev
   join_members:
-    - dnssrv+loki-index-gateway-gossip-cont.service.dc1.kjdev
-    - dnssrv+loki-compactor-gossip-cont.service.dc1.kjdev
-    - dnssrv+loki-distributor-gossip-cont.service.dc1.kjdev
-    - dnssrv+loki-ingester-gossip-cont.service.dc1.kjdev
-    - dnssrv+loki-querier-gossip-cont.service.dc1.kjdev
-    - dnssrv+loki-query-frontend-gossip-cont.service.dc1.kjdev
-    - dnssrv+loki-query-scheduler-gossip-cont.service.dc1.kjdev
+    # Distributor
+    - dnssrv+gossip.loki-distributor.service.dc1.kjdev
+
+    # Querier
+    - dnssrv+gossip.loki-querier.service.dc1.kjdev
+    
+    # Query Scheduler
+    - dnssrv+gossip.loki-query-scheduler.service.dc1.kjdev
+
+    # Query Frontend
+    - dnssrv+gossip.loki-query-frontend.service.dc1.kjdev
+
+    # Ruler
+    - dnssrv+gossip.loki-ruler.service.dc1.kjdev
+
+    # Ingesters
+    - dnssrv+gossip.loki-ingester.service.dc1.kjdev
+
+    # Ingester Querier
+    # - dnssrv+gossip.loki-ingester-querier.service.dc1.kjdev
+
+    # Compactor
+    - dnssrv+gossip.loki-compactor.service.dc1.kjdev
+
+    # Index Gateway
+    - dnssrv+gossip.loki-index-gateway.service.dc1.kjdev
+
+    # Table Manager
+
+
+
+
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#tracing_config
