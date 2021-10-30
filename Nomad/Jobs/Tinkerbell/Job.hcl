@@ -448,15 +448,15 @@ EOF
 
 
     service {
-      name = "tink-registry.service.dc1.kjdev"
+      name = "tink-registry"
       port = "grpc"
 
-      task = "hegel-server"
+      task = "registry-server"
 
       address_mode = "alloc"
     }
 
-    task "hegel-server" {
+    task "registry-server" {
       driver = "docker"
 
       config {
