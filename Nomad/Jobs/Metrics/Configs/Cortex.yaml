@@ -411,7 +411,7 @@ ruler:
         host: ${Consul.Hostname}:${Consul.Port}
         acl_token: ${Consul.Token}
 
-  alertmanager_url: http://cortex-alertmanager-http-cont.service.kjdev:8080/alertmanager
+  alertmanager_url: cortex-alertmanager-http-cont.service.kjdev
   enable_alertmanager_v2: true
   enable_alertmanager_discovery: true
 
@@ -421,7 +421,7 @@ ruler:
 ruler_storage:
   backend: configdb
   configdb:
-    configs_api_url: http://{{ env "NOMAD_ALLOC_INDEX" }}.cortex-configs-grpc-cont.service.kjdev:8085
+    configs_api_url: http://{{ env "NOMAD_ALLOC_INDEX" }}.cortex-configs-http-cont.service.kjdev:8080
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#configs_config
@@ -479,7 +479,7 @@ alertmanager:
 alertmanager_storage:
   backend: configdb
   configdb:
-    configs_api_url: http://{{ env "NOMAD_ALLOC_INDEX" }}.cortex-configs-grpc-cont.service.kjdev:8085
+    configs_api_url: http://{{ env "NOMAD_ALLOC_INDEX" }}.cortex-configs-http-cont.service.kjdev:8080
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#supported-contents-and-default-values-of-the-config-file
