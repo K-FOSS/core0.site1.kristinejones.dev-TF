@@ -17,6 +17,32 @@
           "experimental_http3": false,
           "routes": [
             {
+              "match": [
+                {
+                  "path": [
+                    "/workflow/ca.pem"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "rewrite",
+                  "uri": "/cert"
+                },
+                {
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http"
+                  },
+                  "upstreams": [
+                    {
+                      "lookup_srv": "tink-http-cont.service.dc1.kjdev"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
               "handle": [
                 {
                   "handler": "trace",
