@@ -4,7 +4,7 @@
   },
   "storage": {
     "module": "consul",
-    "address": "consul.service.kjdev:8500",
+    "address": "consul.service.dc1.kjdev:8500",
     "prefix": "caddytls",
     "token": "${Consul.Token}",
     "aes_key": "${Consul.EncryptionKey}"
@@ -352,7 +352,10 @@
                   "path": [
                     "/api/prom/alertmanager/*",
                     "/api/v1/alerts",
-                    "/multitenant_alertmanager/status"
+                    "/multitenant_alertmanager/status",
+                    "/multitenant_alertmanager/delete_tenant_config",
+                    "/alertmanager/*",
+                    "/alertmanager"
                   ]
                 }
               ],
@@ -377,8 +380,13 @@
                 {
                   "path": [
                     "/api/v1/rules",
+                    "/api/v1/rules/*",
                     "/ruler/ring",
-                    "/multitenant_alertmanager/status"
+                    "/ruler/rule_groups",
+                    "/multitenant_alertmanager/status",
+                    "/prometheus/api/v1/rules",
+                    "/prometheus/api/v1/alerts",
+                    "/ruler/delete_tenant_config"
                   ]
                 }
               ],

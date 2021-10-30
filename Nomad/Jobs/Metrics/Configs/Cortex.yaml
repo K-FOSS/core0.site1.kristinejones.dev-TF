@@ -421,7 +421,7 @@ ruler:
 ruler_storage:
   backend: configdb
   configdb:
-    configs_api_url: http://{{ env "NOMAD_ALLOC_INDEX" }}.cortex-configs-http-cont.service.kjdev:8080
+    configs_api_url: http://cortex-configs-http-cont.service.dc1.kjdev:8080
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#configs_config
@@ -479,7 +479,7 @@ alertmanager:
 alertmanager_storage:
   backend: configdb
   configdb:
-    configs_api_url: http://{{ env "NOMAD_ALLOC_INDEX" }}.cortex-configs-http-cont.service.kjdev:8080
+    configs_api_url: http://cortex-configs-http-cont.service.dc1.kjdev:8080
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#supported-contents-and-default-values-of-the-config-file
