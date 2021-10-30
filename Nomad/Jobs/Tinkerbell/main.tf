@@ -70,12 +70,8 @@ resource "nomad_job" "Tinkerbell" {
 
     Boots = var.Boots
 
-    UploadScript =  templatefile("${path.module}/Configs/Upload.sh", {
+    UploadScript =  file("${path.module}/Configs/Upload.sh")
 
-    })
-
-    Images =  templatefile("${path.module}/Configs/Images.txt", {
-
-    })
+    Images =  file("${path.module}/Configs/Images.txt")
   })
 }
