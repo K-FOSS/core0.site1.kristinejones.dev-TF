@@ -62,6 +62,8 @@ resource "nomad_job" "Metrics" {
     Cortex = {
       Targets = var.Cortex.Targets
 
+      Database = var.Cortex.Database
+
       YAMLConfig = templatefile("${path.module}/Configs/Cortex.yaml", var.Cortex)
 
       Version = "master-85c3781"
