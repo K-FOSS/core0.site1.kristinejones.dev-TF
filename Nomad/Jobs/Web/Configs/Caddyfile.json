@@ -339,7 +339,7 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "cortex-distributor-http-cont.service.kjdev"
+                      "lookup_srv": "http.cortex-distributor.service.kjdev"
                     }
                   ]
                 }
@@ -368,7 +368,7 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "cortex-alertmanager-http-cont.service.kjdev"
+                      "lookup_srv": "http.cortex-alertmanager.service.kjdev"
                     }
                   ]
                 }
@@ -400,7 +400,7 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "cortex-ruler-http-cont.service.kjdev"
+                      "lookup_srv": "http.cortex-ruler.service.kjdev"
                     }
                   ]
                 }
@@ -430,7 +430,7 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "cortex-query-frontend-http-cont.service.kjdev"
+                      "lookup_srv": "http.cortex-query-frontend.service.kjdev"
                     }
                   ]
                 }
