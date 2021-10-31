@@ -72,7 +72,7 @@ data "github_release" "DrawIORelease" {
   retrieve_by = "latest"
 }
 
-resource "nomad_job" "ExcalidrawJobFile" {
+resource "nomad_job" "DrawIOJobFile" {
   jobspec = templatefile("${path.module}/Jobs/DrawIO.hcl", {
     Version = split("v", data.github_release.DrawIORelease.release_tag)[1]
   })
