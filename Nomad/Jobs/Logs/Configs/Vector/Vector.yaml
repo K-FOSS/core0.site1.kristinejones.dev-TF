@@ -21,7 +21,7 @@ sinks:
     inputs:
       - logs
     type: loki
-    endpoint: http://loki-distributor-http-cont.service.dc1.kjdev:8080
+    endpoint: http://http.loki-distributor.service.dc1.kjdev:8080
     encoding:
       codec: json
     labels:
