@@ -109,7 +109,7 @@ resource "nomad_job" "GitLabJob" {
     }
 
     Workhorse = {
-      Config = templatefile("${path.module}/Configs/Workhorse/WorkhorseConfig.toml", {
+      Config = templatefile("${path.module}/Configs/WorkHorse/WorkhorseConfig.toml", {
       })
     }
     
