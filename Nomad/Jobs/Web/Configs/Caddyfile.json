@@ -542,6 +542,7 @@
                     "/ruler/delete_tenant_config",
                     "/prometheus/rules",
                     "/api/prom/rules",
+                    "/api/prom/rules/*",
                     "/api/prom/api/v1/alerts",
                     "/api/prom/api/v1/rules"
                   ]
