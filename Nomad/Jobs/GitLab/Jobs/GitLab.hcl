@@ -156,7 +156,7 @@ EOF
       }
 
       reschedule {
-        attempts  = 0
+        attempts = 0
         unlimited = false
       }
 
@@ -167,9 +167,9 @@ EOF
       }
 
       resources {
-        cpu = 
-        memory = 512
-        memory_max = 512
+        cpu = 128
+        memory = 256
+        memory_max = 256
       }
 
       template {
