@@ -10,16 +10,16 @@ variable "Database" {
   })
 }
 
-variable "TLS" {
-  type = object({
-    WebService = {
-      CA = string
+# variable "TLS" {
+#   type = object({
+#     WebService = {
+#       CA = string
 
-      Cert = string
-      Key = string
-    }
-  })
-}
+#       Cert = string
+#       Key = string
+#     }
+#   })
+# }
 
 #
 # Object Storage for GitLab
