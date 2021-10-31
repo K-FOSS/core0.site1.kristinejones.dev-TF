@@ -138,7 +138,7 @@ job "ingress" {
         logging {
           type = "loki"
           config {
-            loki-url = "http://http.loki-distributor.service.kjdev.service.dc1.kjdev:8080/loki/api/v1/push"
+            loki-url = "http://http.loki-distributor.service.dc1.kjdev:8080/loki/api/v1/push"
 
             loki-external-labels = "job=web,service=caddy"
           }
