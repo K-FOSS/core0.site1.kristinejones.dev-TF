@@ -1,4 +1,4 @@
-job "dns" {
+job "ns" {
   datacenters = ["core0site1"]
 
   group "powerdns" {
