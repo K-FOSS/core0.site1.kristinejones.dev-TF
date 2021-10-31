@@ -1,6 +1,6 @@
 production:
   # Redis (single instance)
-  url: redis://:redis-meercat@redis.gitlab.service.dc1.kjdev:6379
+  url: redis://redis.gitlab.service.dc1.kjdev:6379
   ##
   # Redis + Sentinel (for HA)
   #

@@ -52,8 +52,6 @@ resource "nomad_job" "GitLabJob" {
       Repo = "registry.gitlab.com/gitlab-org/build/cng"
 
       Tag = "master"
-
-
     }
 
     Gitaly = {

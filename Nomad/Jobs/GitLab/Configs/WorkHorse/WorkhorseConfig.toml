@@ -1,6 +1,5 @@
 [redis]
-URL = "tcp://redis:6379"
-Password = "redis-meercat"
+URL = "tcp://redis.gitlab.service.dc1.kjdev:6379"
 
 [image_resizer]
   max_scaler_procs = 100

@@ -1,4 +1,4 @@
 production:
   adapter: redis
-  url: redis://:redis-meercat@redis:6379
+  url: redis://redis.gitlab.service.dc1.kjdev:6379
   

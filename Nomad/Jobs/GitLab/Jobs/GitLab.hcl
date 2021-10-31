@@ -54,52 +54,12 @@ job "gitlab" {
   #
   # HTTP/HTTPS/TLS/TCP/UDP/HTTP3 Load Balacner/Comrpession
   #
-  group "gitlab-ingress" {
-    count = 3
-
-    spread {
-      attribute = "$${node.unique.id}"
-      weight = 100
-    }
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "http" { 
-        to = 8080
-      }
-    }
-
-    service {
-      name = "gitlab"
-      port = "http"
-
-      task = "gitlab-ingress-server"
-      address_mode = "alloc"
-
-      tags = ["coredns.enabled", "http.ingress"]
-    }
-
-    task "gitlab-ingress-server" {
-      driver = "docker"
-
-      config {
-        image = "jgraph/drawio:${Version}"
-      }
-
-      resources {
-        cpu = 64
-        memory = 64
-        memory_max = 128
-      }
-    }
-  }
 
   #
   # GitLab Gitaly
   #
   group "gitlab-gitaly" {
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
@@ -136,9 +96,9 @@ job "gitlab" {
       }
 
       resources {
-        cpu = 64
-        memory = 64
-        memory_max = 128
+        cpu = 256
+        memory = 512
+        memory_max = 512
       }
 
       template {
@@ -163,7 +123,7 @@ EOF
   # GitLab Pages
   #
   group "gitlab-pages" {
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
@@ -196,9 +156,9 @@ EOF
       }
 
       resources {
-        cpu = 64
-        memory = 64
-        memory_max = 128
+        cpu = 256
+        memory = 512
+        memory_max = 512
       }
 
       env {
@@ -223,7 +183,7 @@ EOF
   # GitLab Shell
   #
   group "gitlab-shell" {
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
@@ -256,9 +216,9 @@ EOF
       }
 
       resources {
-        cpu = 64
-        memory = 64
-        memory_max = 128
+        cpu = 256
+        memory = 512
+        memory_max = 512
       }
 
       env {
@@ -296,13 +256,13 @@ EOF
       driver = "docker"
 
       config {
-        image = "${Image.Repo}/gitlab-pages:${Image.Tag}"
+        image = "${Image.Repo}/gitlab-rails-ee:${Image.Tag}"
       }
 
       resources {
-        cpu = 64
-        memory = 64
-        memory_max = 128
+        cpu = 256
+        memory = 512
+        memory_max = 512
       }
 
       template {
@@ -321,7 +281,7 @@ EOF
   # GitLab Sidekiq
   #
   group "gitlab-sidekiq" {
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
@@ -354,9 +314,9 @@ EOF
       }
 
       resources {
-        cpu = 64
-        memory = 64
-        memory_max = 128
+        cpu = 256
+        memory = 512
+        memory_max = 512
       }
 
       env {
@@ -407,7 +367,7 @@ EOF
   # GitLab Web Service
   #
   group "gitlab-webservice" {
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
@@ -453,9 +413,9 @@ EOF
       }
 
       resources {
-        cpu = 64
-        memory = 64
-        memory_max = 128
+        cpu = 256
+        memory = 512
+        memory_max = 512
       }
 
       env {
@@ -463,6 +423,8 @@ EOF
         # 
         #
         GITLAB_WEBSERVER = "PUMA"
+
+        INTERNAL_PORT = "8080"
 
 
         #
@@ -518,7 +480,7 @@ EOF
   # GitLab WorkHorse
   #
   group "gitlab-workhorse" {
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
@@ -530,6 +492,32 @@ EOF
 
       port "http" { 
         to = 8080
+      }
+    }
+
+    task "wait-for-gitlab-redis" {
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
+
+      driver = "exec"
+      config {
+        command = "sh"
+        args = ["-c", "while ! nc -z redis.gitlab.service.dc1.kjdev 6379; do sleep 1; done"]
+      }
+    }
+
+    task "wait-for-gitlab-webservice" {
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
+
+      driver = "exec"
+      config {
+        command = "sh"
+        args = ["-c", "while ! nc -z http.webservice.gitlab.service.dc1.kjdev 6379; do sleep 1; done"]
       }
     }
 
@@ -548,18 +536,22 @@ EOF
 
       config {
         image = "${Image.Repo}/gitlab-workhorse-ee:${Image.Tag}"
+
+        command = "/scripts/start-workhorse"
       }
 
       resources {
-        cpu = 64
-        memory = 64
-        memory_max = 128
+        cpu = 256
+        memory = 512
+        memory_max = 512
       }
 
       env {
         CONFIG_TEMPLATE_DIRECTORY = "/local/workhorse/templates"
 
         CONFIG_DIRECTORY = "/local/workhorse/config"
+
+        GITLAB_WORKHORSE_LISTEN_PORT = "8080"
       }
 
       template {
