@@ -441,3 +441,10 @@ module "ConsulBackups" {
 module "Cache" {
   source = "./Jobs/Cache"
 }
+
+#
+# Draw
+#
+module "Draw" {
+  source = "./Jobs/Draw"
+}

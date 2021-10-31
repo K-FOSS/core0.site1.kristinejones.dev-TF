@@ -62,18 +62,18 @@ resource "nomad_job" "ExcalidrawJobFile" {
   })
 }
 
-# data "github_repository" "DrawIORepo" {
-#   full_name = "grafana/grafana"
-# }
+data "github_repository" "DrawIORepo" {
+  full_name = "jgraph/drawio"
+}
 
-# data "github_release" "DrawIORelease" {
-#   repository  = data.github_repository.DrawIORepo.name
-#   owner       = split("/", data.github_repository.DrawIORepo.full_name)[0]
-#   retrieve_by = "latest"
-# }
+data "github_release" "DrawIORelease" {
+  repository  = data.github_repository.DrawIORepo.name
+  owner       = split("/", data.github_repository.DrawIORepo.full_name)[0]
+  retrieve_by = "latest"
+}
 
-# resource "nomad_job" "ExcalidrawJobFile" {
-#   jobspec = templatefile("${path.module}/Jobs/DrawIO.hcl", {
-#     Version = "main"
-#   })
-# }
+resource "nomad_job" "ExcalidrawJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/DrawIO.hcl", {
+    Version = split("v", data.github_release.DrawIORelease.release_tag)[1]
+  })
+}

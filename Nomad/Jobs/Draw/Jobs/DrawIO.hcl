@@ -31,7 +31,7 @@ job "draw-io" {
       driver = "docker"
 
       config {
-        image = "jgraph/drawio"
+        image = "jgraph/drawio:${Version}"
       }
 
       resources {

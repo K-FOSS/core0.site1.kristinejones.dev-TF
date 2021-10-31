@@ -90,6 +90,16 @@ routes:
     pass_identity_headers: true
     allow_websockets: true
 
+  #
+  # Draw 
+  #
+  - from: https://drawio.int.site1.kristianjones.dev
+    to: http://http.drawio.service.dc1.kjdev:8080
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true
+
   - from: https://grafana.int.site1.kristianjones.dev
     to: https://grafana-cont.service.kjdev:443
     tls_custom_ca_file: /secrets/TLS/GrafanaCA.pem
