@@ -24,7 +24,7 @@ exit 0
 
 else
 
-rsync -av /tmp/hass-config/Config /config
+rsync -av /tmp/hass-config/Config/ /config/
 
 echo "Already done"
 
