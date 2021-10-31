@@ -155,11 +155,6 @@ EOF
         sidecar = false
       }
 
-      reschedule {
-        attempts = 0
-        unlimited = false
-      }
-
       config {
         image = "${Image.Repo}/gitlab-rails-ce:${Image.Tag}"
 
