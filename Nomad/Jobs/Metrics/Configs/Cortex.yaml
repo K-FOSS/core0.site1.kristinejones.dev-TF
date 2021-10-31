@@ -384,6 +384,7 @@ ruler:
   #
   query_stats_enabled: true
 
+  external_url: http://http.cortex-ruler.service.kjdev:8080
 
   ring:
     heartbeat_period: 5s
