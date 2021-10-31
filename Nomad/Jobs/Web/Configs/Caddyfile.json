@@ -319,7 +319,8 @@
               "match": [
                 {
                   "path": [
-                    "/loki/api/v1/tail"
+                    "/loki/api/v1/tail",
+                    "/api/prom/tail"
                   ]
                 }
               ],
@@ -354,11 +355,11 @@
                     "/loki/api/v1/query",
                     "/loki/api/v1/query_range",
                     "/loki/api/v1/labels",
+                    "/loki/api/v1/label",
                     "/loki/api/v1/label/*",
-                    "/loki/api/v1/tail",
-                    "/api/prom/tail",
                     "/api/prom/query",
                     "/api/prom/label",
+                    "/api/prom/label*",
                     "/api/prom/label/*",
                     "/loki/api/v1/series",
                     "/api/prom/series"
@@ -396,7 +397,6 @@
                     "/ruler/ring",
                     "/loki/api/v1/rules",
                     "/loki/api/v1/rules/*",
-                    "/loki/api/v1/label/*",
                     "/api/prom/rules",
                     "/api/prom/rules/*",
                     "/prometheus/api/v1/rules",
