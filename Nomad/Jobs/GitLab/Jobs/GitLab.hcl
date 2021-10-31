@@ -265,15 +265,6 @@ EOF
         memory_max = 512
       }
 
-      template {
-        data = <<EOF
-${TLS.Key}
-EOF
-
-        destination = "local/TLS/cert.key"
-
-        change_mode = "noop"
-      }
     }
   }
 
