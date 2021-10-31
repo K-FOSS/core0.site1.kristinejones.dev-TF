@@ -351,7 +351,17 @@
               "match": [
                 {
                   "path": [
-                    "/loki/api/*"
+                    "/loki/api/v1/query",
+                    "/loki/api/v1/query_range",
+                    "/loki/api/v1/labels",
+                    "/loki/api/v1/label/*",
+                    "/loki/api/v1/tail",
+                    "/api/prom/tail",
+                    "/api/prom/query",
+                    "/api/prom/label",
+                    "/api/prom/label/*",
+                    "/loki/api/v1/series",
+                    "/api/prom/series"
                   ]
                 }
               ],
@@ -373,6 +383,45 @@
                   "upstreams": [
                     {
                       "lookup_srv": "http.loki-query-frontend.service.kjdev"
+                    }
+                  ]
+                }
+              ],
+              "terminal": true
+            },
+            {
+              "match": [
+                {
+                  "path": [
+                    "/ruler/ring",
+                    "/loki/api/v1/rules",
+                    "/loki/api/v1/rules/*",
+                    "/loki/api/v1/label/*",
+                    "/api/prom/rules",
+                    "/api/prom/rules/*",
+                    "/prometheus/api/v1/rules",
+                    "/prometheus/api/v1/alerts"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http",
+                    "compression": true,
+                    "resolver": {
+                      "addresses": [
+                        "172.16.0.10:8600",
+                        "172.16.0.11:8600",
+                        "172.16.0.12:8600",
+                        "172.16.0.13:8600"
+                      ]
+                    }
+                  },
+                  "upstreams": [
+                    {
+                      "lookup_srv": "http.loki-ruler.service.kjdev"
                     }
                   ]
                 }
