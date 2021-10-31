@@ -35,9 +35,9 @@ job "draw-io" {
       }
 
       resources {
-        cpu = 64
-        memory = 64
-        memory_max = 128
+        cpu = 256
+        memory = 256
+        memory_max = 256
       }
     }
   }
