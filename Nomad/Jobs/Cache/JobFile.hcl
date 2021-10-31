@@ -120,9 +120,8 @@ EOF
       task = "github-cache-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "http"]
     }
-
 
     task "github-cache-server" {
       driver = "docker"
