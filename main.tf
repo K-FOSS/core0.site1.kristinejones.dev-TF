@@ -722,6 +722,8 @@ module "Nomad" {
   GitLab = {
     Database = module.GitLabDatabase.Database
 
-    S3 = module.GitLabRepoBucket
+    S3 = {
+      RepoBucket = module.GitLabRepoBucket
+    }
   }
 } 
