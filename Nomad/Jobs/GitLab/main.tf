@@ -113,9 +113,6 @@ resource "nomad_job" "GitLabJob" {
       })
     }
     
-
-    TLS = var.TLS
-
     #
     # TODO: Change back to split("v", data.github_release.Release.release_tag)[1] once https://github.com/grafana/grafana/pull/37765 is released on prod
     #
