@@ -1,0 +1,13 @@
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: ${Database.Database}
+  pool: 10
+  username: ${Database.Username}
+  password: ${Database.Password}
+  host: ${Database.Hostname}
+  port: ${Database.Port}
+  # load_balancing:
+  #   hosts:
+  #     - host1.example.com
+  #     - host2.example.com

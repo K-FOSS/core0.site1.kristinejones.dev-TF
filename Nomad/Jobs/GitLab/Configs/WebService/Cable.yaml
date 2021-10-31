@@ -1,0 +1,4 @@
+production:
+  adapter: redis
+  url: redis://:redis-meercat@redis:6379
+  

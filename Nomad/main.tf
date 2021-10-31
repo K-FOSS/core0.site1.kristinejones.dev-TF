@@ -448,3 +448,15 @@ module "Cache" {
 module "Draw" {
   source = "./Jobs/Draw"
 }
+
+#
+# Development
+#
+
+module "GitLab" {
+  source = "./Jobs/GitLab"
+  
+  Database = var.GitLab.Database
+
+  S3 = var.GitLab.S3
+}

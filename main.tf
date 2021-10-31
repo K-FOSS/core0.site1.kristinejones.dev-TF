@@ -161,6 +161,26 @@ module "ConsulBackupsBucket" {
 }
 
 #
+# Development
+#
+
+#
+# GitLab
+#
+
+module "GitLabRepoBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+
+#
 # Databases
 #
 
@@ -316,6 +336,16 @@ module "GrafanaLokiConfigDatabase" {
   Credentials = module.Vault.Database
 }
 
+#
+# GitLab
+#
+
+module "GitLabDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+ 
 #
 # Hashicorp Nomad
 #
@@ -683,5 +713,15 @@ module "Nomad" {
     Consul = module.Consul.Backups
 
     S3 = module.ConsulBackupsBucket
+  }
+
+  #
+  # Development
+  #
+
+  GitLab = {
+    Database = module.GitLabDatabase.Database
+
+    S3 = module.GitLabRepoBucket
   }
 } 

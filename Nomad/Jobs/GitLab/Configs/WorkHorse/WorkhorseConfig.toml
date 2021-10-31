@@ -1,0 +1,7 @@
+[redis]
+URL = "tcp://redis:6379"
+Password = "redis-meercat"
+
+[image_resizer]
+  max_scaler_procs = 100
+  max_filesize = 250000
