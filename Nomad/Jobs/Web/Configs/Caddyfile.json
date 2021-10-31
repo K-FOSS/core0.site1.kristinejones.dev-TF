@@ -9,14 +9,6 @@
     "token": "${Consul.Token}",
     "aes_key": "${Consul.EncryptionKey}"
   },
-  "logging": {
-    "sink": {
-      "writer": {
-        "output": "net",
-        "address": "tcp/vector-syslog.service.dc1.kjdev:514"
-      }
-    }
-  },
   "apps": {
     "http": {
       "http_port": 8080,
