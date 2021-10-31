@@ -420,9 +420,13 @@ ruler:
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#ruler_storage_config
 #
 ruler_storage:
-  backend: configdb
-  configdb:
-    configs_api_url: http://http.cortex-configs.service.dc1.kjdev:8080
+  backend: s3
+  s3:
+    bucket_name: ${S3.Bucket}
+    endpoint: ${S3.Connection.Endpoint}
+    access_key_id: ${S3.Credentials.AccessKey}
+    secret_access_key: ${S3.Credentials.SecretKey}
+    insecure: true
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#configs_config
@@ -484,10 +488,13 @@ alertmanager:
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#alertmanager_storage_config
 #
 alertmanager_storage:
-  backend: configdb
-  configdb:
-    configs_api_url: http://http.cortex-configs.service.dc1.kjdev:8080
-
+  backend: s3
+  s3:
+    bucket_name: ${S3.Bucket}
+    endpoint: ${S3.Connection.Endpoint}
+    access_key_id: ${S3.Credentials.AccessKey}
+    secret_access_key: ${S3.Credentials.SecretKey}
+    insecure: true
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#supported-contents-and-default-values-of-the-config-file
 #
