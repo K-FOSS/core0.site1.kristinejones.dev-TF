@@ -32,8 +32,8 @@ output "Caddy" {
 
 output "Database" {
   value = {
-    Hostname = "master.patroninew.service.dc1.kjdev"
-    Port = 5432
+    Hostname = "172.31.241.2"
+    Port = 36009
 
     Username = data.vault_generic_secret.Database.data["USERNAME"]
     Password = data.vault_generic_secret.Database.data["PASSWORD"]
@@ -273,4 +273,16 @@ output "DockerHub" {
     Username = data.vault_generic_secret.DockerHub.data["USERNAME"]
     Token = data.vault_generic_secret.DockerHub.data["TOKEN"]
   } 
+}
+
+#
+# Development
+#
+
+output "GitLab" {
+  value = {
+    WebServices = {
+      
+    }
+  }
 }

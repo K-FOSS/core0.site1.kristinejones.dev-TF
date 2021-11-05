@@ -59,17 +59,17 @@ provider "github" {
 # CSI
 #
 
-resource "nomad_job" "Storage" {
-  jobspec = templatefile("${path.module}/Jobs/Storage/Controller.hcl", {
-    CSI_CONFIG = templatefile("${path.module}/Jobs/Storage/Configs/CSI.yaml", var.Storage)
-  })
-}
+# resource "nomad_job" "Storage" {
+#   jobspec = templatefile("${path.module}/Jobs/Storage/Controller.hcl", {
+#     CSI_CONFIG = templatefile("${path.module}/Jobs/Storage/Configs/CSI.yaml", var.Storage)
+#   })
+# }
 
-resource "nomad_job" "CSIStorage" {
-  jobspec = templatefile("${path.module}/Jobs/Storage/Node.hcl", {
-    CSI_CONFIG = templatefile("${path.module}/Jobs/Storage/Configs/CSI.yaml", var.Storage)
-  })
-}
+# resource "nomad_job" "CSIStorage" {
+#   jobspec = templatefile("${path.module}/Jobs/Storage/Node.hcl", {
+#     CSI_CONFIG = templatefile("${path.module}/Jobs/Storage/Configs/CSI.yaml", var.Storage)
+#   })
+# }
 
 #
 # Pomerium
@@ -177,32 +177,32 @@ module "CoTurn" {
 # Patroni
 #
 
-resource "nomad_volume" "Patroni" {
-  type                  = "csi"
-  plugin_id             = "truenas"
-  volume_id             = "patronidata-vol"
-  name                  = "patronidata-vol"
-  external_id           = "test-vol"
+# resource "nomad_volume" "Patroni" {
+#   type                  = "csi"
+#   plugin_id             = "truenas"
+#   volume_id             = "patronidata-vol"
+#   name                  = "patronidata-vol"
+#   external_id           = "test-vol"
 
-  capability {
-    access_mode     = "multi-node-multi-writer"
-    attachment_mode = "file-system"
-  }
+#   capability {
+#     access_mode     = "multi-node-multi-writer"
+#     attachment_mode = "file-system"
+#   }
 
-  deregister_on_destroy = true
+#   deregister_on_destroy = true
 
-  mount_options {
-    fs_type = "nfs"
-    mount_flags = ["nolock"]
-  }
+#   mount_options {
+#     fs_type = "nfs"
+#     mount_flags = ["nolock"]
+#   }
 
-  context = {
-    node_attach_driver = "nfs"
-    provisioner_driver = "freenas-nfs"
-    server             = "172.16.51.21"
-    share              = "/mnt/Site1.NAS1.Pool1/CSI/vols/test-vol"
-  }
-}
+#   context = {
+#     node_attach_driver = "nfs"
+#     provisioner_driver = "freenas-nfs"
+#     server             = "172.16.51.21"
+#     share              = "/mnt/Site1.NAS1.Pool1/CSI/vols/test-vol"
+#   }
+# }
 
 module "Patroni" {
   source = "./Jobs/Patroni"

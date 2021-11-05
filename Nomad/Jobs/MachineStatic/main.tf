@@ -56,44 +56,44 @@ data "github_release" "Release" {
   retrieve_by = "latest"
 }
 
-resource "nomad_volume" "Volume" {
-  type                  = "csi"
-  plugin_id             = "truenas"
-  volume_id             = "machine-staticfiles"
-  name                  = "machine-staticfiles"
-  external_id           = "machine-staticfiles"
+# resource "nomad_volume" "Volume" {
+#   type                  = "csi"
+#   plugin_id             = "truenas"
+#   volume_id             = "machine-staticfiles"
+#   name                  = "machine-staticfiles"
+#   external_id           = "machine-staticfiles"
 
-  capability {
-    access_mode     = "multi-node-multi-writer"
-    attachment_mode = "file-system"
-  }
+#   capability {
+#     access_mode     = "multi-node-multi-writer"
+#     attachment_mode = "file-system"
+#   }
 
-  deregister_on_destroy = true
+#   deregister_on_destroy = true
 
-  mount_options {
-    fs_type = "nfs"
-    mount_flags = ["nolock", "nfsvers=4"]
-  }
+#   mount_options {
+#     fs_type = "nfs"
+#     mount_flags = ["nolock", "nfsvers=4"]
+#   }
 
-  context = {
-    node_attach_driver = "nfs"
-    provisioner_driver = "freenas-nfs"
-    server             = "172.16.51.21"
-    share              = "/mnt/Site1.NAS1.Pool1/CSI/vols/machine-staticfiles"
-  }
-}
+#   context = {
+#     node_attach_driver = "nfs"
+#     provisioner_driver = "freenas-nfs"
+#     server             = "172.16.51.21"
+#     share              = "/mnt/Site1.NAS1.Pool1/CSI/vols/machine-staticfiles"
+#   }
+# }
 
-resource "nomad_job" "JobFile" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
-    Volume = nomad_volume.Volume
+# resource "nomad_job" "JobFile" {
+#   jobspec = templatefile("${path.module}/Job.hcl", {
+#     Volume = nomad_volume.Volume
 
-    Caddy = {
-      Config = templatefile("${path.module}/Configs/Caddyfile.json", {
-      })
-    }
+#     Caddy = {
+#       Config = templatefile("${path.module}/Configs/Caddyfile.json", {
+#       })
+#     }
 
-    EntryScript = templatefile("${path.module}/Configs/Entry.sh", {
-      HOOK_URL = "https://github.com/tinkerbell/hook/releases/download/${data.github_release.Release.release_tag}/hook_x86_64.tar.gz"
-    })
-  })
-}
+#     EntryScript = templatefile("${path.module}/Configs/Entry.sh", {
+#       HOOK_URL = "https://github.com/tinkerbell/hook/releases/download/${data.github_release.Release.release_tag}/hook_x86_64.tar.gz"
+#     })
+#   })
+# }

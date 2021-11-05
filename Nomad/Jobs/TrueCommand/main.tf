@@ -46,37 +46,37 @@ terraform {
   }
 }
 
-resource "nomad_volume" "TrueCommandData" {
-  type                  = "csi"
-  plugin_id             = "truenas"
-  volume_id             = "truecommand-data"
-  name                  = "truecommand-data"
-  external_id           = "truecommand-data"
+# resource "nomad_volume" "TrueCommandData" {
+#   type                  = "csi"
+#   plugin_id             = "truenas"
+#   volume_id             = "truecommand-data"
+#   name                  = "truecommand-data"
+#   external_id           = "truecommand-data"
 
-  capability {
-    access_mode     = "multi-node-multi-writer"
-    attachment_mode = "file-system"
-  }
+#   capability {
+#     access_mode     = "multi-node-multi-writer"
+#     attachment_mode = "file-system"
+#   }
 
-  deregister_on_destroy = true
+#   deregister_on_destroy = true
 
-  mount_options {
-    fs_type = "nfs"
-    mount_flags = ["nolock", "nfsvers=4"]
-  }
+#   mount_options {
+#     fs_type = "nfs"
+#     mount_flags = ["nolock", "nfsvers=4"]
+#   }
 
-  context = {
-    node_attach_driver = "nfs"
-    provisioner_driver = "freenas-nfs"
-    server             = "172.16.51.21"
-    share              = "/mnt/Site1.NAS1.Pool1/CSI/vols/truecommand-data"
-  }
-}
+#   context = {
+#     node_attach_driver = "nfs"
+#     provisioner_driver = "freenas-nfs"
+#     server             = "172.16.51.21"
+#     share              = "/mnt/Site1.NAS1.Pool1/CSI/vols/truecommand-data"
+#   }
+# }
 
-resource "nomad_job" "TrueCommand" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
-    Volume = nomad_volume.TrueCommandData
+# resource "nomad_job" "TrueCommand" {
+#   jobspec = templatefile("${path.module}/Job.hcl", {
+#     Volume = nomad_volume.TrueCommandData
 
-    Version = "nightly"
-  })
-}
+#     Version = "nightly"
+#   })
+# }

@@ -59,7 +59,7 @@ locals {
 }
 
 resource "nomad_job" "Tinkerbell" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
+  jobspec = templatefile("${path.module}/Jobs/Tink.hcl", {
     Database = var.Database
 
     TLS = var.TLS
@@ -67,6 +67,22 @@ resource "nomad_job" "Tinkerbell" {
     Version = "latest"
 
     Admin = local.TinkAdmin
+
+    Boots = var.Boots
+
+    UploadScript =  file("${path.module}/Configs/Upload.sh")
+
+    Images =  file("${path.module}/Configs/Images.txt")
+  })
+}
+
+resource "nomad_job" "Tinkerbell" {
+  jobspec = templatefile("${path.module}/Jobs/Boots.hcl", {
+    Database = var.Database
+
+    TLS = var.TLS
+
+    Version = "latest"
 
     Boots = var.Boots
 

@@ -56,53 +56,53 @@ data "github_release" "Release" {
   retrieve_by = "latest"
 }
 
-resource "nomad_volume" "Volume" {
-  type                  = "csi"
-  plugin_id             = "truenas"
-  volume_id             = "homeassistant-data"
-  name                  = "homeassistant-data"
-  external_id           = "homeassistant-data"
+# resource "nomad_volume" "Volume" {
+#   type                  = "csi"
+#   plugin_id             = "truenas"
+#   volume_id             = "homeassistant-data"
+#   name                  = "homeassistant-data"
+#   external_id           = "homeassistant-data"
 
-  capability {
-    access_mode     = "multi-node-multi-writer"
-    attachment_mode = "file-system"
-  }
+#   capability {
+#     access_mode     = "multi-node-multi-writer"
+#     attachment_mode = "file-system"
+#   }
 
-  deregister_on_destroy = true
+#   deregister_on_destroy = true
 
-  mount_options {
-    fs_type = "nfs"
-    mount_flags = ["nolock", "nfsvers=4"]
-  }
+#   mount_options {
+#     fs_type = "nfs"
+#     mount_flags = ["nolock", "nfsvers=4"]
+#   }
 
-  context = {
-    node_attach_driver = "nfs"
-    provisioner_driver = "freenas-nfs"
-    server             = "172.16.51.21"
-    share              = "/mnt/Site1.NAS1.Pool1/CSI/vols/homeassistant-data"
-  }
-}
+#   context = {
+#     node_attach_driver = "nfs"
+#     provisioner_driver = "freenas-nfs"
+#     server             = "172.16.51.21"
+#     share              = "/mnt/Site1.NAS1.Pool1/CSI/vols/homeassistant-data"
+#   }
+# }
 
-resource "nomad_job" "HomeAssistant" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
-    Volume = nomad_volume.Volume
+# resource "nomad_job" "HomeAssistant" {
+#   jobspec = templatefile("${path.module}/Job.hcl", {
+#     Volume = nomad_volume.Volume
 
-    MQTT = var.MQTT
+#     MQTT = var.MQTT
 
-    TLS = var.TLS
+#     TLS = var.TLS
 
-    PrepareScript = templatefile("${path.module}/Configs/Install.sh", {})
+#     PrepareScript = templatefile("${path.module}/Configs/Install.sh", {})
 
-    SecretsYAML = templatefile("${path.module}/Configs/HASS/secrets.template.yaml", {
-      Database = var.Database
+#     SecretsYAML = templatefile("${path.module}/Configs/HASS/secrets.template.yaml", {
+#       Database = var.Database
 
-      MQTT = var.MQTT
+#       MQTT = var.MQTT
 
-      Secrets = var.Secrets
-    })
+#       Secrets = var.Secrets
+#     })
 
-    Database = var.Database
+#     Database = var.Database
 
-    Version = data.github_release.Release.release_tag
-  })
-}
+#     Version = data.github_release.Release.release_tag
+#   })
+# }

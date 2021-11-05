@@ -79,7 +79,7 @@ module "CortexBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "core0.site1.kristianjones.dev"
+    Hostname = "172.31.241.2"
     Port = 9000
   }
 
@@ -94,7 +94,7 @@ module "LokiBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "core0.site1.kristianjones.dev"
+    Hostname = "172.31.241.2"
     Port = 9000
   }
 
@@ -109,7 +109,7 @@ module "TempoBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "core0.site1.kristianjones.dev"
+    Hostname = "172.31.241.2"
     Port = 9000
   }
 
@@ -123,7 +123,7 @@ module "NextCloud" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "core0.site1.kristianjones.dev"
+    Hostname = "172.31.241.2"
     Port = 9000
   }
 
@@ -138,7 +138,7 @@ module "OpenProjectBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "core0.site1.kristianjones.dev"
+    Hostname = "172.31.241.2"
     Port = 9000
   }
 
@@ -153,7 +153,7 @@ module "ConsulBackupsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "core0.site1.kristianjones.dev"
+    Hostname = "172.31.241.2"
     Port = 9000
   }
 
@@ -172,7 +172,7 @@ module "GitLabRepoBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "core0.site1.kristianjones.dev"
+    Hostname = "172.31.241.2"
     Port = 9000
   }
 
@@ -424,8 +424,8 @@ module "Nomad" {
 
   Bitwarden = {
     Database = {
-      Hostname = "master.patroninew.service.kjdev"
-      Port = 5432
+      Hostname = "172.31.241.2"
+      Port = 36009
 
       Username = module.Vault.BitwardenDB.data["username"]
       Password = module.Vault.BitwardenDB.data["password"]

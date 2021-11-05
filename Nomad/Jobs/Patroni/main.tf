@@ -46,45 +46,45 @@ terraform {
   }
 }
 
-resource "nomad_volume" "PatroniData" {
-  type                  = "csi"
-  plugin_id             = "truenas"
-  volume_id             = "patroni-data"
-  name                  = "patroni-data"
-  external_id           = "patroni-data"
+# resource "nomad_volume" "PatroniData" {
+#   type                  = "csi"
+#   plugin_id             = "truenas"
+#   volume_id             = "patroni-data"
+#   name                  = "patroni-data"
+#   external_id           = "patroni-data"
 
-  capability {
-    access_mode     = "multi-node-multi-writer"
-    attachment_mode = "file-system"
-  }
+#   capability {
+#     access_mode     = "multi-node-multi-writer"
+#     attachment_mode = "file-system"
+#   }
 
-  deregister_on_destroy = true
+#   deregister_on_destroy = true
 
-  mount_options {
-    fs_type = "nfs"
-    mount_flags = ["nfsvers=4", "nolock", "noatime", "nodiratime"]
-  }
+#   mount_options {
+#     fs_type = "nfs"
+#     mount_flags = ["nfsvers=4", "nolock", "noatime", "nodiratime"]
+#   }
 
-  context = {
-    node_attach_driver = "nfs"
-    provisioner_driver = "freenas-nfs"
-    server             = "172.16.51.21"
-    share              = "/mnt/Site1.NAS1.Pool1/CSI/vols/patroni-data"
-  }
-}
+#   context = {
+#     node_attach_driver = "nfs"
+#     provisioner_driver = "freenas-nfs"
+#     server             = "172.16.51.21"
+#     share              = "/mnt/Site1.NAS1.Pool1/CSI/vols/patroni-data"
+#   }
+# }
 
-resource "nomad_job" "PatroniJob" {
-  jobspec = templatefile("${path.module}/JobFile.hcl", {
-    Volume = nomad_volume.PatroniData
+# resource "nomad_job" "PatroniJob" {
+#   jobspec = templatefile("${path.module}/JobFile.hcl", {
+#     Volume = nomad_volume.PatroniData
 
-    Patroni = {
-      YAMLConfig = templatefile("${path.module}/Configs/Patroni.yaml", {
-        Consul = var.Consul
-      })
+#     Patroni = {
+#       YAMLConfig = templatefile("${path.module}/Configs/Patroni.yaml", {
+#         Consul = var.Consul
+#       })
 
-      Entryscript = templatefile("${path.module}/Configs/entry.sh", {
+#       Entryscript = templatefile("${path.module}/Configs/entry.sh", {
 
-      })
-    }
-  })
-}
+#       })
+#     }
+#   })
+# }
