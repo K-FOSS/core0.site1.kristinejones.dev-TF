@@ -76,7 +76,7 @@ resource "nomad_job" "Tinkerbell" {
   })
 }
 
-resource "nomad_job" "Tinkerbell" {
+resource "nomad_job" "BootsJob" {
   jobspec = templatefile("${path.module}/Jobs/Boots.hcl", {
     Database = var.Database
 
