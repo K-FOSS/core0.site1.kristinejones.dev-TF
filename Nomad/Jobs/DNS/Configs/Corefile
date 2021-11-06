@@ -1,4 +1,4 @@
-.:{{ env "NOMAD_PORT_dns" }} {
+.:8053 {
   health 0.0.0.0:{{ env "NOMAD_PORT_health" }}
 
   metadata .

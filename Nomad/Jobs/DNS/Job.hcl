@@ -12,7 +12,9 @@ job "dns" {
     network {
       mode = "cni/nomadcore1"
 
-      port "dns" { }
+      port "dns" {
+        to = 8053
+      }
 
       port "health" { }
 
