@@ -40,7 +40,7 @@ job "ns" {
 
         command = "/usr/local/bin/psql"
 
-        args = ["--file=/local/dns.psql", "--host=${PowerDNS.Database.Hostname}", "--username=${PowerDNS.Database.Username}", "${PowerDNS.Database.Database}"]
+        args = ["--file=/local/dns.psql", "--host=${PowerDNS.Database.Hostname}", "--username=${PowerDNS.Database.Username}", "--port=${PowerDNS.Database.Port}", "${PowerDNS.Database.Database}"]
       }
 
       env {
@@ -57,7 +57,7 @@ EOH
 
       template {
         data = <<EOH
-${PowerDNS.Database.Hostname}:5432:${PowerDNS.Database.Database}:${PowerDNS.Database.Username}:${PowerDNS.Database.Password}
+${PowerDNS.Database.Hostname}:${PowerDNS.Database.Port}:${PowerDNS.Database.Database}:${PowerDNS.Database.Username}:${PowerDNS.Database.Password}
 EOH
 
         perms = "600"
