@@ -146,6 +146,7 @@ SECRET_KEY="${Netbox.SecretKey}"
 #
 DB_HOST="${Database.Hostname}"
 DB_NAME="${Database.Database}"
+DB_PORT="${Database.Port}"
 
 DB_USER="${Database.Username}"
 DB_PASSWORD="${Database.Password}"
@@ -258,6 +259,7 @@ SECRET_KEY="${Netbox.SecretKey}"
 #
 DB_HOST="${Database.Hostname}"
 DB_NAME="${Database.Database}"
+DB_PORT="${Database.Port}"
 
 DB_USER="${Database.Username}"
 DB_PASSWORD="${Database.Password}"

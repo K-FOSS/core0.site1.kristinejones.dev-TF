@@ -38,6 +38,7 @@
       "type": "postgresql",
       "name": "${Database.Database}",
       "host": "${Database.Hostname}",
+      "port": 36009,
       "user": "${Database.Username}",
       "password": "${Database.Password}",
       "reconnect-wait-time": 3000, // expressed in ms
