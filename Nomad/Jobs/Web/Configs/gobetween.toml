@@ -94,32 +94,6 @@ balance = "roundrobin"
   srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:8600" # dns server and port
   srv_lookup_pattern = "dhcp.service.kjdev." # SRV service pattern 
 
-[servers.tftp]
-protocol = "udp"
-bind = "0.0.0.0:69"
-balance = "roundrobin"
-
-  [servers.tftp.udp]
-  max_requests = 32
-  max_responses = 64
-
-  [servers.tftp.discovery]
-  kind = "srv"
-  interval = "5s"
-  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:8600" # dns server and port
-  srv_lookup_pattern = "tftp-cont.service.kjdev." # SRV service pattern 
-
-[servers.stun]
-protocol = "tcp"
-bind = "0.0.0.0:3478"
-balance = "iphash1"
-
-  [servers.stun.discovery]
-  kind = "srv"
-  interval = "5s"
-  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:8600" # dns server and port
-  srv_lookup_pattern = "coturn-stun-cont.service.kjdev." # SRV service pattern 
-
 [servers.powerdns]
 protocol = "udp"
 bind = "0.0.0.0:8153"
