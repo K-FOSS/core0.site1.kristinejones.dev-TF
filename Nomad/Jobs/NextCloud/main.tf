@@ -56,64 +56,64 @@ terraform {
 #   retrieve_by = "latest"
 # }
 
-resource "nomad_volume" "Nextcloud" {
-  type                  = "csi"
-  plugin_id             = "truenas"
-  volume_id             = "nextcloud-vol"
-  name                  = "nextcloud-vol"
-  external_id           = "nextcloud-vol"
+# resource "nomad_volume" "Nextcloud" {
+#   type                  = "csi"
+#   plugin_id             = "truenas"
+#   volume_id             = "nextcloud-vol"
+#   name                  = "nextcloud-vol"
+#   external_id           = "nextcloud-vol"
 
-  capability {
-    access_mode     = "multi-node-multi-writer"
-    attachment_mode = "file-system"
-  }
+#   capability {
+#     access_mode     = "multi-node-multi-writer"
+#     attachment_mode = "file-system"
+#   }
 
-  deregister_on_destroy = true
+#   deregister_on_destroy = true
 
-  mount_options {
-    fs_type = "nfs"
-    mount_flags = ["nolock", "nfsvers=4"]
-  }
+#   mount_options {
+#     fs_type = "nfs"
+#     mount_flags = ["nolock", "nfsvers=4"]
+#   }
 
-  context = {
-    node_attach_driver = "nfs"
-    provisioner_driver = "freenas-nfs"
-    server             = "172.16.51.21"
-    share              = "/mnt/Site1.NAS1.Pool1/CSI/vols/nextcloud-vol"
-  }
-}
+#   context = {
+#     node_attach_driver = "nfs"
+#     provisioner_driver = "freenas-nfs"
+#     server             = "172.16.51.21"
+#     share              = "/mnt/Site1.NAS1.Pool1/CSI/vols/nextcloud-vol"
+#   }
+# }
 
-resource "random_password" "RedisPassword" {
-  length           = 16
-  special          = true
-}
+# resource "random_password" "RedisPassword" {
+#   length           = 16
+#   special          = true
+# }
 
-resource "nomad_job" "NextCloud" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
-    Volume = nomad_volume.Nextcloud
+# resource "nomad_job" "NextCloud" {
+#   jobspec = templatefile("${path.module}/Job.hcl", {
+#     Volume = nomad_volume.Nextcloud
 
-    Database = var.Database
+#     Database = var.Database
 
-    S3 = var.S3
+#     S3 = var.S3
 
-    Redis = {
-      Password = random_password.RedisPassword.result
-    }
+#     Redis = {
+#       Password = random_password.RedisPassword.result
+#     }
 
-    Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", {
+#     Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", {
 
-    })
+#     })
 
-    NCExporter = {
-      YAMLConfig = templatefile("${path.module}/Configs/NCExporter.yaml", {
-        Hostname = "nextcloud-web-cont.service.kjdev"
+#     NCExporter = {
+#       YAMLConfig = templatefile("${path.module}/Configs/NCExporter.yaml", {
+#         Hostname = "nextcloud-web-cont.service.kjdev"
 
-        Scheme = "http://"
+#         Scheme = "http://"
 
-        Credentials = var.Credentials
-      })
-    }
+#         Credentials = var.Credentials
+#       })
+#     }
 
-    Version = "22.2-fpm-alpine"
-  })
-}
+#     Version = "22.2-fpm-alpine"
+#   })
+# }
