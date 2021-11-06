@@ -16,7 +16,7 @@ output "Patroni" {
 #
 output "Cortex" {
   value = {
-    Hostname = "consul.service.kjdev"
+    Hostname = "172.16.51.10"
     Port = 8500
 
 
