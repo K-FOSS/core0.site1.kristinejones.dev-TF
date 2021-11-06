@@ -69,7 +69,7 @@ job "dhcp" {
 
         command = "/usr/local/bin/psql"
 
-        args = ["--file=/local/dhcp.psql", "--host=${Database.Hostname}", "--username=${Database.Username}", "${Database.Database}"]
+        args = ["--file=/local/dhcp.psql", "--host=${Database.Hostname}", "--username=${Database.Username}", "--port=${Database.Port}", "${Database.Database}"]
       }
 
       env {
@@ -86,7 +86,7 @@ EOH
 
       template {
         data = <<EOH
-${Database.Hostname}:5432:${Database.Database}:${Database.Username}:${Database.Password}
+${Database.Hostname}:${Database.Port}:${Database.Database}:${Database.Username}:${Database.Password}
 EOH
 
         perms = "600"
