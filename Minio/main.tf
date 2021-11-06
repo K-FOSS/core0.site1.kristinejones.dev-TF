@@ -44,7 +44,7 @@ provider "minio" {
 }
 
 resource "random_string" "Name" {
-  length           = 6
+  length = 6
 
   special = false
   upper = false
@@ -87,8 +87,8 @@ EOT
 #
 
 resource "random_password" "UserPassword" {
-  length           = 16
-  special          = true
+  length = 16
+  special = true
 }
 
 resource "minio_user" "BucketUser" {

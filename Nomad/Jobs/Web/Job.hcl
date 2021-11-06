@@ -4,11 +4,11 @@ job "ingress" {
   type = "service"
 
   group "proxies" {
-    count = 4
+    count = 6
 
-    constraint {
-      operator  = "distinct_hosts"
-      value     = "true"
+    spread {
+      attribute = "$${node.unique.id}"
+      weight = 100
     }
 
     network {
@@ -23,14 +23,10 @@ job "ingress" {
       }
 
       port "dns" {
-        static = 53
-
         to = 53
       }
 
       port "powerdns" {
-        static = 8153
-
         to = 8153
       }
 
@@ -38,23 +34,9 @@ job "ingress" {
       # DHCP
       #
       port "dhcp" {
-        static = 67
-
         to = 67
       }
 
-      port "stun" {
-        to = 3478
-      }
-
-      #
-      # TFTP
-      #
-      port "tftp" {
-        static = 69
-
-        to = 69
-      }
 
       port "http" {
         to = 8080
@@ -69,21 +51,25 @@ job "ingress" {
     # Caddy Reverse Proxy (TCP, TLS, mTLS)
     #
     service {
-      name = "ingressweb-cont"
+      name = "ingress-webproxy"
       port = "https"
 
       task = "web"
 
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https"]
     }
 
     service {
-      name = "ingressweb-http-cont"
+      name = "ingress-webproxy"
       port = "http"
 
       task = "web"
 
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
     }
 
     service {
@@ -100,32 +86,15 @@ job "ingress" {
     #
 
     service {
-      name = "ingressweb-syslog-cont"
+      name = "ingress-l4proxy"
       port = "syslog"
 
       task = "gobetween-server"
 
       address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "syslog"]
     }
-
-    service {
-      name = "gobetween-tftp-cont"
-      port = "tftp"
-
-      task = "gobetween-server"
-
-      address_mode = "alloc"
-    }
-
-    service {
-      name = "gobetween-stun-cont"
-      port = "stun"
-
-      task = "gobetween-server"
-
-      address_mode = "alloc"
-    }
-
 
     task "web" {
       driver = "docker"
@@ -134,15 +103,6 @@ job "ingress" {
         image = "kristianfjones/caddy-core-docker:vps1"
       
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
-
-        logging {
-          type = "loki"
-          config {
-            loki-url = "http://http.loki-distributor.service.dc1.kjdev:8080/loki/api/v1/push"
-
-            loki-external-labels = "job=web,service=caddy"
-          }
-        }
       }
 
       env {
@@ -182,9 +142,7 @@ EOF
         command = "/gobetween"
         args = ["-c", "/local/gobetween.toml"]
 
-        ports = ["syslog", "dhcp", "tftp", "dns"]
-
-        memory_hard_limit = 1024
+        memory_hard_limit = 512
       }
 
       template {
@@ -199,7 +157,7 @@ EOF
         cpu = 512
 
         memory = 512
-        memory_max = 1024
+        memory_max = 512
       }
     }
   }

@@ -52,18 +52,6 @@ backend_connection_timeout = "0" # Backend connection timeout (ignored in udp)
 
 # ---------- tcp example ----------- #
 
-[servers.syslog]
-protocol = "tcp"
-bind = "0.0.0.0:514"
-balance = "roundrobin"
-
-  [servers.syslog.discovery]
-  kind = "srv"
-  interval = "5s"
-  srv_lookup_server = "{{ env "NOMAD_IP_dns" }}:8600" # dns server and port
-  srv_lookup_pattern = "vector-syslog.service.kjdev." # SRV service pattern 
-
-
 [servers.dns]
 protocol = "udp"
 bind = "0.0.0.0:53"
