@@ -56,16 +56,6 @@ job "metrics" {
       port "gossip" {
         to = 8090
       }
-
-      dns {
-        servers = [
-          "172.16.0.153",
-          "172.16.0.10:8600",
-          "172.16.0.11:8600",
-          "172.16.0.12:8600",
-          "172.16.0.13:8600"
-        ]
-      }
     }
 
     service {
@@ -199,29 +189,6 @@ EOF
 
       port "gossip" {
         to = 8090
-      }
-
-      dns {
-        servers = [
-          "172.16.0.153",
-          "172.16.0.10:8600",
-          "172.16.0.11:8600",
-          "172.16.0.12:8600",
-          "172.16.0.13:8600"
-        ]
-      }
-    }
-
-    task "wait-for-tink" {
-      lifecycle {
-        hook = "prestart"
-        sidecar = false
-      }
-
-      driver = "exec"
-      config {
-        command = "sh"
-        args = ["-c", "while ! nc -z cortex-memcached.service.dc1.kjdev 11211; do sleep 1; done"]
       }
     }
 
@@ -645,11 +612,6 @@ EOF
         to = 8090
       }
 
-      dns {
-        servers = [
-          "172.16.0.153"
-        ]
-      }
     }
 
     service {
@@ -785,11 +747,6 @@ EOF
         to = 8090
       }
 
-      dns {
-        servers = [
-          "172.16.0.153"
-        ]
-      }
     }
 
     task "wait-for-configs" {
@@ -937,12 +894,6 @@ EOF
       port "gossip" {
         to = 8090
       }
-
-      dns {
-        servers = [
-          "172.16.0.153"
-        ]
-      }
     }
 
     service {
@@ -1074,12 +1025,6 @@ EOF
 
       port "gossip" {
         to = 8090
-      }
-
-      dns {
-        servers = [
-          "172.16.0.153"
-        ]
       }
     }
 
@@ -1225,15 +1170,6 @@ EOF
 
       port "gossip" {
         to = 8090
-      }
-
-      dns {
-        servers = [
-          "172.16.0.10",
-          "172.16.0.11",
-          "172.16.0.12",
-          "172.16.0.13"
-        ]
       }
     }
 
