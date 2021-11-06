@@ -44,7 +44,7 @@ job "bitwarden" {
       env {
         WEBSOCKET_ENABLED = "true"
         ROCKET_PORT = "$${NOMAD_PORT_http}"
-        DATABASE_URL = "postgresql://${Database.Username}:${Database.Password}@${Database.Hostname}:5432/${Database.Database}"
+        DATABASE_URL = "postgresql://${Database.Username}:${Database.Password}@${Database.Hostname}:${Database.Port}/${Database.Database}"
       }
 
       resources {
