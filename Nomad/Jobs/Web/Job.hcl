@@ -18,26 +18,6 @@ job "ingress" {
         to = 443
       }
 
-      port "syslog" {
-        to = 514
-      }
-
-      port "dns" {
-        to = 53
-      }
-
-      port "powerdns" {
-        to = 8153
-      }
-
-      #
-      # DHCP
-      #
-      port "dhcp" {
-        to = 67
-      }
-
-
       port "http" {
         to = 8080
       }
@@ -79,21 +59,6 @@ job "ingress" {
       task = "web"
 
       address_mode = "alloc"
-    }
-
-    #
-    # GoBetween Load Balancer
-    #
-
-    service {
-      name = "ingress-l4proxy"
-      port = "syslog"
-
-      task = "gobetween-server"
-
-      address_mode = "alloc"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "syslog"]
     }
 
     task "web" {
