@@ -24,10 +24,17 @@ terraform {
   }
 }
 
-resource "nomad_job" "CacheJobFile" {
-  jobspec = templatefile("${path.module}/JobFile.hcl", {
+
+resource "nomad_job" "CacheWebJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/CacheWeb.hcl", {
     Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", {
 
     })
+  })
+}
+
+resource "nomad_job" "GitHubCacheJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/GitHubCache.hcl", {
+
   })
 }
