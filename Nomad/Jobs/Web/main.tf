@@ -55,10 +55,6 @@ resource "nomad_job" "JobFile" {
   jobspec = templatefile("${path.module}/Jobs/Caddy.hcl", {
     Consul = var.Consul
 
-    GoBetweenCONF = templatefile("${path.module}/Configs/gobetween.toml", { 
-      Consul = var.Consul
-    })
-
     Pomerium = {
       CA = var.Pomerium.CA
     }
