@@ -1,7 +1,7 @@
-job "prometheus" {
+job "starlink" {
   datacenters = ["core0site1"]
 
-  group "prometheus-server" {
+  group "starlink-exporter-server" {
     count = 1
 
     network {
