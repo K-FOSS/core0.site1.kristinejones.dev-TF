@@ -34,6 +34,11 @@ scrape_configs:
       - names: 
           - netbox-http-cont.service.kjdev
 
+  - job_name: starlink
+    dns_sd_configs:
+      - names: 
+          - metrics.starlink.service.dc1.kjdev
+
   - job_name: nextcloud
     dns_sd_configs:
       - names:

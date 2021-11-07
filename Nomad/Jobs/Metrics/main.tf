@@ -46,8 +46,22 @@ terraform {
   }
 }
 
-resource "nomad_job" "Metrics" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
+resource "nomad_job" "CortexJob" {
+  jobspec = templatefile("${path.module}/Jobs/Cortex.hcl", {
+    Cortex = {
+      Targets = var.Cortex.Targets
+
+      Database = var.Cortex.Database
+
+      YAMLConfig = templatefile("${path.module}/Configs/Cortex.yaml", var.Cortex)
+
+      Version = "master-85c3781"
+    }
+  })
+}
+
+resource "nomad_job" "PrometheusJob" {
+  jobspec = templatefile("${path.module}/Jobs/Prometheus.hcl", {
     Prometheus = {
       YAMLConfig = templatefile("${path.module}/Configs/Prometheus.yaml", {
         CoreVault = var.Prometheus.CoreVault
@@ -58,15 +72,17 @@ resource "nomad_job" "Metrics" {
 
       Version = "v2.30.0"
     }
+  })
+}
 
-    Cortex = {
-      Targets = var.Cortex.Targets
+resource "nomad_job" "StarLinkJob" {
+  jobspec = templatefile("${path.module}/Jobs/StarLink.hcl", {
+    StarLink = {
+      IPAddress = "192.168.100.1"
 
-      Database = var.Cortex.Database
+      Port = "9200"
 
-      YAMLConfig = templatefile("${path.module}/Configs/Cortex.yaml", var.Cortex)
-
-      Version = "master-85c3781"
+      Version = "latest"
     }
   })
 }
