@@ -47,12 +47,12 @@ terraform {
 }
 
 resource "random_password" "CoTurnPassword" {
-  length           = 20
-  special          = false
+  length = 20
+  special = false
 }
 
 resource "nomad_job" "JobFile" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
+  jobspec = templatefile("${path.module}/Jobs/Caddy.hcl", {
     Consul = var.Consul
 
     GoBetweenCONF = templatefile("${path.module}/Configs/gobetween.toml", { 
@@ -67,6 +67,6 @@ resource "nomad_job" "JobFile" {
       Cloudflare = var.CloudFlare
 
       Consul = var.Consul
-    }),
+    })
   })
 }
