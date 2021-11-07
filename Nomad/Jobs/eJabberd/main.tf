@@ -58,8 +58,8 @@ data "http" "PSQLFile" {
 #
 
 resource "random_password" "RedisPassword" {
-  length           = 32
-  special          = true
+  length = 32
+  special = true
 }
 
 resource "nomad_job" "eJabberDMQTTJobFile" {
@@ -86,7 +86,6 @@ resource "nomad_job" "eJabberDMQTTJobFile" {
     Redis = {
       Password = random_password.RedisPassword.result
     }
-
 
     Version = "21.07"
   })
