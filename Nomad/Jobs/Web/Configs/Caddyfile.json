@@ -63,7 +63,7 @@
                               ]
                             },
                             "tls": {
-                              "server_name": "pomerium-authenticate-cont.service.kjdev",
+                              "server_name": "https.authenticate.pomerium.service.kjdev",
                               "root_ca_pem_files": [
                                 "/local/PomeriumCA.pem"
                               ]
@@ -71,7 +71,7 @@
                           },
                           "upstreams": [
                             {
-                              "lookup_srv": "pomerium-authenticate-cont.service.kjdev"
+                              "lookup_srv": "https.authenticate.pomerium.service.dc1.kjdev"
                             }
                           ]
                         }
@@ -99,7 +99,7 @@
                               ]
                             },
                             "tls": {
-                              "server_name": "pomerium-proxy-cont.service.kjdev",
+                              "server_name": "https.proxy.pomerium.service.kjdev",
                               "root_ca_pem_files": [
                                 "/local/PomeriumCA.pem"
                               ]
@@ -107,7 +107,7 @@
                           },
                           "upstreams": [
                             {
-                              "lookup_srv": "pomerium-proxy-cont.service.kjdev"
+                              "lookup_srv": "https.proxy.pomerium.service.dc1.kjdev"
                             }
                           ]
                         }
