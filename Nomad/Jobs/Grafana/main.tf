@@ -62,7 +62,7 @@ resource "random_password" "Secret" {
 }
 
 resource "nomad_job" "Grafana" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
+  jobspec = templatefile("${path.module}/Jobs/Grafana.hcl", {
     Config = templatefile("${path.module}/Configs/Grafana.ini", {
       Database = var.Database
 

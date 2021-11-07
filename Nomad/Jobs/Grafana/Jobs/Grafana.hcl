@@ -142,6 +142,23 @@ EOF
 
       template {
         data = <<EOF
+apiVersion: 1
+
+apps:
+  # <string> the type of app, plugin identifier. Required
+  - type: ae3e-plotly-panel
+    # <int> Org ID. Default to 1, unless org_name is specified
+    org_id: 1
+    # <bool> disable the app. Default to false.
+    disabled: false
+    # <map> fields that will be converted to json and stored in jsonData. Custom per app.
+EOF
+
+        destination = "local/provisioning/plugins/plottly.yaml"
+      }
+
+      template {
+        data = <<EOF
 ${TLS.CA}
 EOF
 
