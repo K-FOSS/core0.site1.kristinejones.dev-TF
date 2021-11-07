@@ -103,6 +103,15 @@ job "ingress" {
         image = "kristianfjones/caddy-core-docker:vps1"
       
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=tinkerbell,service=hegel"
+          }
+        }
       }
 
       env {
@@ -130,34 +139,6 @@ EOF
 
         memory = 100
         memory_max = 256
-      }
-    }
-
-    task "gobetween-server" {
-      driver = "docker"
-
-      config {
-        image = "yyyar/gobetween:latest"
-
-        command = "/gobetween"
-        args = ["-c", "/local/gobetween.toml"]
-
-        memory_hard_limit = 512
-      }
-
-      template {
-        data = <<EOF
-${GoBetweenCONF}
-EOF
-
-        destination = "local/gobetween.toml"
-      }
-
-      resources {
-        cpu = 512
-
-        memory = 512
-        memory_max = 512
       }
     }
   }

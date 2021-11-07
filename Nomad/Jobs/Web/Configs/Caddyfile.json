@@ -488,8 +488,7 @@
                     }
                   ]
                 }
-              ],
-              "terminal": true
+              ]
             },
             {
               "match": [
@@ -525,8 +524,7 @@
                     }
                   ]
                 }
-              ],
-              "terminal": true
+              ]
             },
             {
               "match": [
@@ -569,8 +567,7 @@
                     }
                   ]
                 }
-              ],
-              "terminal": true
+              ]
             },
             {
               "match": [
@@ -611,12 +608,11 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "http.cortex-query-frontend.service.kjdev"
+                      "lookup_srv": "http.cortex-query-frontend.service.dc1.kjdev"
                     }
                   ]
                 }
-              ],
-              "terminal": true
+              ]
             }
           ]
         }
