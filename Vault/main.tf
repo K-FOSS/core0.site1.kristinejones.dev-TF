@@ -274,7 +274,7 @@ resource "vault_pki_secret_backend_cert" "GrafanaCert" {
 
   common_name = "grafana-cont.service.kjdev"
 
-  alt_names = ["grafana.int.site1.kristianjones.dev"]
+  alt_names = ["grafana.int.site1.kristianjones.dev", "grafana-cont.service.dc1.kjdev"]
 }
 
 #
