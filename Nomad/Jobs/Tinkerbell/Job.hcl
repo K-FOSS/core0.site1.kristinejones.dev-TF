@@ -139,7 +139,7 @@ EOH
         logging {
           type = "loki"
           config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
 
             loki-external-labels = "job=tinkerbell,service=tink"
           }
@@ -276,7 +276,7 @@ EOH
         logging {
           type = "loki"
           config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
 
             loki-external-labels = "job=tinkerbell,service=hegel"
           }
@@ -416,7 +416,7 @@ EOH
         logging {
           type = "loki"
           config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
 
             loki-external-labels = "job=tinkerbell,service=registry"
           }
@@ -465,7 +465,7 @@ EOF
         logging {
           type = "loki"
           config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
 
             loki-external-labels = "job=tinkerbell,service=registry"
           }
@@ -596,7 +596,7 @@ EOH
         logging {
           type = "loki"
           config {
-            loki-url = "http://ingressweb-http-cont.service.kjdev:8080/loki/api/v1/push"
+            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
 
             loki-external-labels = "job=tinkerbell,service=boots"
           }
@@ -615,7 +615,7 @@ EOH
         #
         # DNS
         #
-        DNS_SERVERS = "172.16.0.10,172.16.0.11,172.16.0.12,172.16.0.13"
+        DNS_SERVERS = "172.16.100.25"
 
         #
         # Misc
