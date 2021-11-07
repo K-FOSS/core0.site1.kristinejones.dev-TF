@@ -3,6 +3,7 @@ hosts:
 
 sql_type: pgsql
 sql_server: ${Database.Hostname}
+sql_port: ${Database.Port}
 sql_database: ${Database.Database}
 sql_username: ${Database.Username}
 sql_password: ${Database.Password}

@@ -1,4 +1,4 @@
-job "ejabberd" {
+job "ejabberd-mqtt" {
   datacenters = ["core0site1"]
 
   group "ejabberd-redis" {
@@ -69,7 +69,7 @@ EOF
     }
   }
 
-  group "ejabberd-server" {
+  group "ejabberd-mqtt-server" {
     count = 1
 
     network {

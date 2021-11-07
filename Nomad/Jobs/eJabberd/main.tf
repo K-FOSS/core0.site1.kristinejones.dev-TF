@@ -62,8 +62,8 @@ resource "random_password" "RedisPassword" {
   special          = true
 }
 
-resource "nomad_job" "JobFile" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
+resource "nomad_job" "eJabberDMQTTJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/MQTT.hcl", {
     PSQL_INIT = data.http.PSQLFile.body
 
     Database = var.Database
