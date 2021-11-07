@@ -29,10 +29,10 @@ scrape_configs:
       - names: 
           - patroni.service.kjdev
 
-  - job_name: netbox
-    dns_sd_configs:
-      - names: 
-          - netbox-http-cont.service.kjdev
+  # - job_name: netbox
+  #   dns_sd_configs:
+  #     - names: 
+  #         - netbox-http-cont.service.kjdev
 
   - job_name: starlink
     dns_sd_configs:
@@ -43,11 +43,6 @@ scrape_configs:
     dns_sd_configs:
       - names:
           - nextcloud-prom-cont.service.kjdev
-
-  - job_name: kea
-    dns_sd_configs:
-      - names: 
-          - dhcp-metrics.service.kjdev
 
   - job_name: grafana
     #
@@ -64,25 +59,25 @@ scrape_configs:
   - job_name: loki
     dns_sd_configs:
       - names: 
-          - loki-compactor-http-cont.service.kjdev
-          - loki-distributor-http-cont.service.kjdev
-          - loki-index-gateway-http-cont.service.kjdev
-          - loki-ingester-http-cont.service.kjdev
-          - loki-querier-http-cont.service.kjdev
-          - loki-query-frontend-http-cont.service.kjdev
-          - loki-query-scheduler-http-cont.service.kjdev
+          - http.loki-compactor.service.kjdev
+          - http.loki-distributor.service.kjdev
+          - http.loki-index-gateway.service.kjdev
+          - http.loki-ingester.service.kjdev
+          - http.loki-querier.service.kjdev
+          - http.loki-query-frontend.service.kjdev
+          - http.loki-query-scheduler.service.kjdev
 
   - job_name: cortex
     dns_sd_configs:
       - names: 
-          - cortex-purger-http-cont.service.kjdev
-          - cortex-alertmanager-http-cont.service.kjdev
-          - cortex-store-gateway-http-cont.service.kjdev
-          - cortex-distributor-http-cont.service.kjdev
-          - cortex-ingester-http-cont.service.kjdev
-          - cortex-query-frontend-http-cont.service.kjdev
-          - cortex-query-scheduler-http-cont.service.kjdev
-          - cortex-ruler-http-cont.service.kjdev
+          - http.cortex-purger.service.kjdev
+          - http.cortex-alertmanager.service.kjdev
+          - httpcortex-store-gateway.service.kjdev
+          - http.cortex-distributor.service.kjdev
+          - http.cortex-ingester.service.kjdev
+          - http.cortex-query-frontend.service.kjdev
+          - http.cortex-query-scheduler.service.kjdev
+          - http.cortex-ruler.service.kjdev
 
   #
   # Hashicorp
@@ -139,7 +134,7 @@ scrape_configs:
   - job_name: githubcache
     dns_sd_configs:
       - names: 
-          - dhcp-metrics.service.kjdev
+          - http.github-cache-server.service.dc1.kjdev
 
 
 remote_write:

@@ -6,6 +6,16 @@ job "prometheus" {
 
     network {
       mode = "cni/nomadcore1"
+
+      dns {
+        servers = [
+          "172.16.0.153:53",
+          "172.16.0.10:8600",
+          "172.16.0.11:8600",
+          "172.16.0.12:8600",
+          "172.16.0.13:8600"
+        ]
+      }
     }
 
     task "prometheus" {
