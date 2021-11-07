@@ -56,6 +56,13 @@ job "cortex" {
       port "gossip" {
         to = 8090
       }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "172.16.0.1"
+        ]
+      }
     }
 
     service {
@@ -190,6 +197,13 @@ EOF
       port "gossip" {
         to = 8090
       }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "172.16.0.1"
+        ]
+      }
     }
 
     service {
@@ -323,6 +337,13 @@ EOF
 
       port "gossip" {
         to = 8090
+      }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "172.16.0.1"
+        ]
       }
     }
 
@@ -461,6 +482,13 @@ EOF
       port "gossip" {
         to = 8090
       }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "172.16.0.1"
+        ]
+      }
     }
 
     service {
@@ -596,6 +624,12 @@ EOF
         to = 8090
       }
 
+      dns {
+        servers = [
+          "10.1.1.53",
+          "172.16.0.1"
+        ]
+      }
     }
 
     service {
@@ -731,6 +765,12 @@ EOF
         to = 8090
       }
 
+      dns {
+        servers = [
+          "10.1.1.53",
+          "172.16.0.1"
+        ]
+      }
     }
 
     task "wait-for-configs" {
@@ -878,6 +918,13 @@ EOF
       port "gossip" {
         to = 8090
       }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "172.16.0.1"
+        ]
+      }
     }
 
     service {
@@ -1009,6 +1056,13 @@ EOF
 
       port "gossip" {
         to = 8090
+      }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "172.16.0.1"
+        ]
       }
     }
 
@@ -1154,6 +1208,13 @@ EOF
 
       port "gossip" {
         to = 8090
+      }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "172.16.0.1"
+        ]
       }
     }
 

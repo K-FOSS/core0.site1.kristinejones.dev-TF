@@ -54,8 +54,8 @@ data "http" "PSQLFile" {
   url = "https://raw.githubusercontent.com/isc-projects/kea/Kea-2.0.0/src/share/database/scripts/pgsql/dhcpdb_create.pgsql"
 }
 
-resource "nomad_job" "JobFile" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
+resource "nomad_job" "KeaDHCPJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/KeaDHCP.hcl", {
     PSQL_INIT = data.http.PSQLFile.body
     Database = var.Database
 

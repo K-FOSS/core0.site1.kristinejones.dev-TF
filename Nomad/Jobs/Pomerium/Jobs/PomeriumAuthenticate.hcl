@@ -1,81 +1,8 @@
-job "pomerium" {
+job "pomerium-authenticate" {
   datacenters = ["core0site1"]
 
-  group "pomerium-redis" {
-    count = 1
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "redis" { 
-        to = 6379
-      }
-    }
-
-    service {
-      name = "pomerium-redis-cont"
-      port = "redis"
-
-      task = "redis"
-      address_mode = "alloc"
-
-      tags = ["coredns.enabled"]
-    }
-
-    task "redis" {
-      driver = "docker"
-
-      config {
-        image = "redis:6-alpine3.14"
-
-        command = "redis-server"
-
-        args = ["/local/redis.conf"]
-      }
-
-      template {
-        data = <<EOF
-port 0
-tls-port 6379
-
-tls-cert-file /local/cert.pem
-tls-key-file /local/cert.key
-
-tls-ca-cert-file /local/ca.pem
-EOF
-
-        destination = "local/redis.conf"
-      }
-
-      template {
-        data = <<EOF
-${TLS.CA}
-EOF
-
-        destination = "local/ca.pem"
-      }
-
-      template {
-        data = <<EOF
-${TLS.Redis.Cert}
-EOF
-
-        destination = "local/cert.pem"
-      }
-
-      template {
-        data = <<EOF
-${TLS.Redis.Key}
-EOF
-
-        destination = "local/cert.key"
-      }
-    }
-  }
-
-%{ for Service in Services ~}
-  group "pomerium-${Service.Name}" {
-    count = ${Service.Count}
+  group "pomerium-authenticate" {
+    count = 3
 
     network {
       mode = "cni/nomadcore1"
@@ -86,21 +13,21 @@ EOF
     }
 
     service {
-      name = "pomerium-${Service.Name}-cont"
+      name = "pomerium"
       port = "https"
 
-      task = "pomerium-${Service.Name}"
+      task = "pomerium-authenticate-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.authenticate"]
     }
 
-    task "pomerium-${Service.Name}" {
+    task "pomerium-authenticate-server" {
       driver = "docker"
 
       restart {
         attempts = 5
-        delay    = "60s"
+        delay = "60s"
       }
 
       config {
@@ -110,12 +37,12 @@ EOF
 
         labels {
           job = "pomerium"
-          service = "${Service.Name}"
+          service = "authenticate"
         }
       }
 
       meta {
-        SERVICE = "${Service.Name}"
+        SERVICE = "authenticate"
       }
 
       template {
@@ -184,5 +111,4 @@ EOF
       }
     }
   }
-%{ endfor ~}
 }

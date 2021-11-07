@@ -80,11 +80,17 @@ module "Pomerium" {
 
   OpenID = var.Pomerium.OpenID
 
-  Secrets = var.Pomerium.Secrets
-
-  Services = var.Pomerium.Services
-
   TLS = var.Pomerium.TLS
+
+  Authenticate = var.Pomerium.Authenticate
+
+  Authorize = var.Pomerium.Authorize
+
+  DataBroker = var.Pomerium.DataBroker
+
+  Proxy = var.Pomerium.Proxy
+
+  Secrets = var.Pomerium.Secrets
 }
 
 

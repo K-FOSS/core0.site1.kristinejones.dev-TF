@@ -1,0 +1,129 @@
+#
+# Networking
+#
+
+address: 0.0.0.0:443
+grpc_address: 0.0.0.0:443
+
+#
+# Pomerium Core
+#
+
+services: databroker
+
+#
+# TLS
+#
+
+autocert: false
+autocert_must_staple: false
+
+#
+# mTLS
+#
+
+certificate_authority_file: /local/ca.pem
+certificate_file: /local/cert.pem
+certificate_key_file: /local/cert.key
+
+#
+# Authenticate Service
+#
+
+authenticate_service_url: https://auth.int.site1.kristianjones.dev
+
+idp_provider: oidc
+idp_provider_url: http://http.authentik.service.kjdev:9000/application/o/pomeriumproxy-auth/
+idp_client_id: ${OpenID.ClientID}
+idp_client_secret: ${OpenID.ClientSecret}
+
+
+#
+# Secrets
+#
+
+cookie_secret: ${Secrets.CookieSecret}
+shared_secret: ${Secrets.SharedSecret}
+
+jwt_claims_headers: email,groups,user,nickname
+
+#
+# Data Broker
+#
+# Docs: https://www.pomerium.com/reference/#data-broker-service
+#
+
+databroker_service_url: https://https.databroker.pomerium.service.dc1.kjdev:443
+databroker_storage_type: redis
+databroker_storage_connection_string: 'rediss://pomerium-redis-cont.service.kjdev:6379/0'
+databroker_storage_ca_file: /local/ca.pem
+databroker_storage_cert_file: /local/cert.pem
+databroker_storage_key_file: /local/cert.key
+
+
+#
+# Authorize Service
+#
+authorize_service_url: https://https.authorize.pomerium.service.dc1.kjdev:443
+signing_key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSU1tM2JCOXZKZi94V25vQzlVTFBTTlFhZUlHcW9LYzNsaEFBU0VPZzFFRkFvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFMWs5bG5wYmdUMXBSZERjK3JYWmRYQU9TSzE5di9xYUdxRmIwSmxNb2t0S0YwblBLWFVYWAo2QjZKY3JmY09vc2RvTEZkZ2ROQW9NNGRzUmVmenVTaVlRPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
+
+#
+# Proxy Service
+#
+
+#cookie_domain: int.site1.kristianjones.dev
+default_upstream_timeout: 5m
+
+# https://pomerium.com/reference/#routes
+routes:
+  - from: https://netbox.int.site1.kristianjones.dev
+    to: http://netbox-http-cont.service.kjdev:8080
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+
+  - from: https://nextcloud.int.site1.kristianjones.dev
+    to: http://nextcloud-web-cont.service.kjdev:8080
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true
+
+  #
+  # Draw 
+  #
+  - from: https://drawio.int.site1.kristianjones.dev
+    to: http://http.drawio.service.dc1.kjdev:8080
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true
+
+  - from: https://grafana.int.site1.kristianjones.dev
+    to: https://grafana-cont.service.kjdev:443
+    tls_custom_ca_file: /secrets/TLS/GrafanaCA.pem
+    tls_server_name: grafana.int.site1.kristianjones.dev
+    timeout: 30s
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true
+
+  - from: https://hass.int.site1.kristianjones.dev
+    to: https://homeassistant-https-cont.service.kjdev:8123
+    tls_custom_ca_file: /secrets/TLS/HomeAssistantCA.pem
+    tls_server_name: hass.int.site1.kristianjones.dev
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true
+
+#
+# Tracing
+#
+tracing_provider: zipkin
+tracing_sample_rate: 0.20
+tracing_zipkin_endpoint: http://tempo-distributor-http-cont.service.kjdev:9411
+
+pomerium_debug: false
+log_level: info

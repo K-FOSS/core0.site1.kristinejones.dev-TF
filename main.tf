@@ -484,9 +484,23 @@ module "Nomad" {
   Pomerium = {
     OpenID = module.Vault.Pomerium
 
-    Services = module.Pomerium.Services
-
     Secrets = module.Pomerium.Secrets
+
+    Authenticate = {
+      TLS = module.Vault.PomeriumTLS.Authenticate
+    }
+
+    Authorize = {
+      TLS = module.Vault.PomeriumTLS.Authorize
+    }
+
+    DataBroker = {
+      TLS = module.Vault.PomeriumTLS.DataBroker
+    }
+
+    Proxy = {
+      TLS = module.Vault.PomeriumTLS.Proxy
+    }
 
     TLS = {
       CA = module.Vault.PomeriumTLS.CA

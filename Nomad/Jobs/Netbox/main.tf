@@ -76,7 +76,7 @@ resource "random_password" "NetboxRedisCachePassword" {
 }
 
 resource "nomad_job" "Netbox" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
+  jobspec = templatefile("${path.module}/Jobs/NetboxServer.hcl", {
     Redis = {
       Password = random_password.NetboxRedisPassword.result
     }

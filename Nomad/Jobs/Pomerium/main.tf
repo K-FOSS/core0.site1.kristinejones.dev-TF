@@ -56,13 +56,75 @@ terraform {
 #   retrieve_by = "latest"
 # }
 
-resource "nomad_job" "Pomerium" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
-    Services = var.Services
+#
+# Authenticate
+#
 
+resource "nomad_job" "PomeriumAuthenticateJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/PomeriumAuthenticate.hcl", {
     TLS = var.TLS
 
-    Config = templatefile("${path.module}/Configs/Pomerium.yaml", {
+    Service = var.Authenticate
+
+    Config = templatefile("${path.module}/Configs/Pomerium/PomeriumAuthenticate.yaml", {
+      Secrets = var.Secrets
+      OpenID = var.OpenID
+    })
+
+    Version = "v0.15.3"
+  })
+}
+
+#
+# Authorize
+#
+
+resource "nomad_job" "PomeriumAuthorizeJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/PomeriumAuthorize.hcl", {
+    TLS = var.TLS
+
+    Service = var.Authorize
+
+    Config = templatefile("${path.module}/Configs/Pomerium/PomeriumAuthorize.yaml", {
+      Secrets = var.Secrets
+      OpenID = var.OpenID
+    })
+
+    Version = "v0.15.3"
+  })
+}
+
+#
+# Data Broker
+#
+
+resource "nomad_job" "PomeriumDataBrokerJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/PomeriumDataBroker.hcl", {
+    TLS = var.TLS
+
+    Service = var.DataBroker
+
+    Config = templatefile("${path.module}/Configs/Pomerium/PomeriumDataBroker.yaml", {
+      Secrets = var.Secrets
+      OpenID = var.OpenID
+    })
+
+    Version = "v0.15.3"
+  })
+}
+
+
+#
+# Proxy
+#
+
+resource "nomad_job" "PomeriumProxyJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/PomeriumProxy.hcl", {
+    TLS = var.TLS
+
+    Service = var.Proxy
+
+    Config = templatefile("${path.module}/Configs/Pomerium/PomeriumProxy.yaml", {
       Secrets = var.Secrets
       OpenID = var.OpenID
     })

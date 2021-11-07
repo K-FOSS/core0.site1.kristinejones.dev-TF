@@ -56,8 +56,8 @@ data "github_release" "Release" {
   retrieve_by = "latest"
 }
 
-resource "nomad_job" "JobFile" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
+resource "nomad_job" "AuthentikServerJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/AuthentikServer.hcl", {
     Authentik = {
       SecretKey = var.Secrets.SecretKey
     }

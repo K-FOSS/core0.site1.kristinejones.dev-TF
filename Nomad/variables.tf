@@ -134,18 +134,37 @@ variable "Pomerium" {
       })
     })
 
-    Services = map(object(
-      {
-        Name = string
-        Count = number
+    Authenticate = object({
+      TLS = object({
+        Cert = string
 
-        TLS = object({
-          Cert = string
+        Key = string
+      })
+    })
 
-          Key = string
-        })
-      }
-    ))
+    Authorize = object({
+      TLS = object({
+        Cert = string
+
+        Key = string
+      })
+    })
+
+    DataBroker = object({
+      TLS = object({
+        Cert = string
+
+        Key = string
+      })
+    })
+
+    Proxy = object({
+      TLS = object({
+        Cert = string
+
+        Key = string
+      })
+    })
 
     Secrets = object({
       CookieSecret = string

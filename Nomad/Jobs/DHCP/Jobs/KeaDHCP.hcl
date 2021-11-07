@@ -101,6 +101,15 @@ EOH
       config {
         image = "kristianfjones/kea:vps1-core"
         command = "/local/entry.sh"
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=dhcp,service=kea-dhcp4"
+          }
+        }
       }
 
       #

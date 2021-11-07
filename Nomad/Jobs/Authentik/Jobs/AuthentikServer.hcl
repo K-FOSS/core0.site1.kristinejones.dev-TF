@@ -1,4 +1,4 @@
-job "authentik" {
+job "authentik-server" {
   datacenters = ["core0site1"]
 
   group "authentik-cache" {
@@ -48,6 +48,13 @@ job "authentik" {
 
       port "metrics" { 
         to = 9300
+      }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "172.16.0.1"
+        ]
       }
     }
 
@@ -155,6 +162,13 @@ EOH
 
       port "metrics" { 
         to = 9300
+      }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "172.16.0.1"
+        ]
       }
     }
 

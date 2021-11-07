@@ -79,6 +79,13 @@ job "netbox" {
 
     network {
       mode = "cni/nomadcore1"
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "172.16.0.1"
+        ]
+      }
     }
 
     task "netbox-worker" {
@@ -182,6 +189,13 @@ EOH
 
       port "http" {
         to = 8080  
+      }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "172.16.0.1"
+        ]
       }
     }
 

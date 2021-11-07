@@ -5,13 +5,6 @@ variable "OpenID" {
   })
 }
 
-variable "Secrets" {
-  type = object({
-    CookieSecret = string
-    SharedSecret = string
-  })
-}
-
 variable "TLS" {
   type = object({
     CA = string
@@ -32,17 +25,49 @@ variable "TLS" {
   })
 }
 
-variable "Services" {
-  type = map(object(
-    {
-      Name = string
-      Count = number
+variable "Authenticate" {
+  type = object({
+    TLS = object({
+      Cert = string
 
-      TLS = object({
-        Cert = string
+      Key = string
+    })
+  })
+}
 
-        Key = string
-      })
-    }
-  ))
+variable "Authorize" {
+  type = object({
+    TLS = object({
+      Cert = string
+
+      Key = string
+    })
+  })
+}
+
+variable "DataBroker" {
+  type = object({
+    TLS = object({
+      Cert = string
+
+      Key = string
+    })
+  })
+}
+
+variable "Proxy" {
+  type = object({
+    TLS = object({
+      Cert = string
+
+      Key = string
+    })
+  })
+}
+
+variable "Secrets" {
+  type = object({
+    CookieSecret = string
+    SharedSecret = string
+  })
 }
