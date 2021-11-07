@@ -109,7 +109,7 @@ job "ingress" {
           config {
             loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
 
-            loki-external-labels = "job=tinkerbell,service=hegel"
+            loki-external-labels = "job=web,service=hegel"
           }
         }
       }
