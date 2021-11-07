@@ -13,7 +13,11 @@ job "dns" {
       mode = "cni/nomadcore1"
 
       port "dns" {
+        static = 53
+
         to = 8053
+
+        host_network = "dns"
       }
 
       port "health" { }

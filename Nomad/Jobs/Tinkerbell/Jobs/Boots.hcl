@@ -97,7 +97,7 @@ job "tinkerbell" {
         #
         # DNS
         #
-        DNS_SERVERS = "172.16.100.25,172.16.0.153"
+        DNS_SERVERS = "10.1.1.53"
 
         #
         # Misc

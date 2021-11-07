@@ -50,8 +50,8 @@ data "http" "PSQLFile" {
   url = "https://raw.githubusercontent.com/PowerDNS/pdns/rel/auth-4.5.x/modules/gpgsqlbackend/schema.pgsql.sql"
 }
 
-resource "nomad_job" "NSJobFile" {
-  jobspec = templatefile("${path.module}/JobFile.hcl", {
+resource "nomad_job" "PowerDNSNSJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/PowerDNS.hcl", {
     PowerDNS = {
       PSQL = data.http.PSQLFile.body
       Database = var.PowerDNS.Database
