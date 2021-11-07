@@ -10,6 +10,13 @@ job "pomerium-proxy" {
       port "https" {
         to = 443
       }
+    
+      dns {
+        servers = [
+          "10.1.1.53",
+          "172.16.0.1"
+        ]
+      }
     }
 
     service {
