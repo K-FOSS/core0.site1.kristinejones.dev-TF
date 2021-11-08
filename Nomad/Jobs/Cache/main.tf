@@ -38,3 +38,13 @@ resource "nomad_job" "GitHubCacheJobFile" {
 
   })
 }
+
+#
+# NextCloud
+#
+
+resource "nomad_job" "NextCloudCacheJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/NextCloud.hcl", {
+
+  })
+}
