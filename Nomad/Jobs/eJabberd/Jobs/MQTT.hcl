@@ -103,7 +103,7 @@ EOF
 
         command = "/usr/local/bin/psql"
 
-        args = ["--file=/local/init.psql", "--host=${Database.Hostname}", "--username=${Database.Username}", "${Database.Database}"]
+        args = ["--file=/local/init.psql", "--host=${Database.Hostname}", "--username=${Database.Username}", "--port=${Database.Port}", "${Database.Database}"]
       }
 
       env {
