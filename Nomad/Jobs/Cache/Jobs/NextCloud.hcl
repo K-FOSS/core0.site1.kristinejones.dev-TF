@@ -1,4 +1,4 @@
-job "cache" {
+job "nextcloud-cache" {
   datacenters = ["core0site1"]
 
   group "nextcloud-cache-redis" {

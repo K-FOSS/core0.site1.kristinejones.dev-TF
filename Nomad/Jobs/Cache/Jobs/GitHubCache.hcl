@@ -1,4 +1,4 @@
-job "cache" {
+job "github-cache" {
   datacenters = ["core0site1"]
 
   group "github-cache-redis" {

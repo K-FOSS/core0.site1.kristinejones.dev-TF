@@ -1,4 +1,4 @@
-job "cache" {
+job "cache-ingress" {
   datacenters = ["core0site1"]
 
   group "cache-web" {
