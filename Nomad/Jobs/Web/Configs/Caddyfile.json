@@ -27,6 +27,58 @@
               "match": [
                 {
                   "host": [
+                    "hass.home1.kristianjones.dev"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "trace",
+                  "disabled": false,
+                  "tag": "gassist"
+                }
+              ],
+              "terminal": false
+            },
+            {
+              "match": [
+                {
+                  "host": [
+                    "hass.int.site1.kristianjones.dev"
+                  ],
+                  "path": [
+                    "/api/google_assistant",
+                    "/api/google_assistant/*",
+                    "/auth/token"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "encode",
+                  "encodings": {
+                    "gzip": {}
+                  }
+                },
+                {
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http",
+                    "compression": true
+                  },
+                  "upstreams": [
+                    {
+                      "dial": "172.31.241.2:36006"
+                    }
+                  ]
+                }
+              ],
+              "terminal": false
+            },
+            {
+              "match": [
+                {
+                  "host": [
                     "*.int.site1.kristianjones.dev"
                   ]
                 }
@@ -603,7 +655,8 @@
           {
             "subjects": [
               "*.kristianjones.dev",
-              "*.int.site1.kristianjones.dev"
+              "*.int.site1.kristianjones.dev",
+              "hass.home1.kristianjones.dev"
             ],
             "issuers": [
               {
