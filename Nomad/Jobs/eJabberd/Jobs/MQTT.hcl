@@ -120,7 +120,7 @@ EOH
 
       template {
         data = <<EOH
-${Database.Hostname}:5432:${Database.Database}:${Database.Username}:${Database.Password}
+${Database.Hostname}:${Database.Port}:${Database.Database}:${Database.Username}:${Database.Password}
 EOH
 
         perms = "600"
