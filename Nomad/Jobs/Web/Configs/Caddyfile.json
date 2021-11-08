@@ -27,23 +27,6 @@
               "match": [
                 {
                   "host": [
-                    "hass.home1.kristianjones.dev"
-                  ]
-                }
-              ],
-              "handle": [
-                {
-                  "handler": "trace",
-                  "disabled": false,
-                  "tag": "gassist"
-                }
-              ],
-              "terminal": false
-            },
-            {
-              "match": [
-                {
-                  "host": [
                     "hass.int.site1.kristianjones.dev"
                   ],
                   "path": [
