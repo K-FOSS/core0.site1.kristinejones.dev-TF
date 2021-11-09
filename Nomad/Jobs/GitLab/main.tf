@@ -68,6 +68,8 @@ resource "nomad_job" "GitLabJob" {
     }
 
     WebService = {
+      EntryScript = file("${path.module}/Configs/WebService/Entry.sh")
+
       Templates = {
         Cable = templatefile("${path.module}/Configs/WebService/Cable.yaml", {
 
