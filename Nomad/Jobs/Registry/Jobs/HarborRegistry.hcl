@@ -78,7 +78,7 @@ job "registry-harbor-registry" {
       task = "harbor-registry-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.portal"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.registry"]
     }
 
 
@@ -155,6 +155,19 @@ ${Harbor.TLS.Key}
 EOF
 
         destination = "secrets/TLS/Cert.key"
+      }
+
+      template {
+        data = <<EOH
+#
+# Secret Keys
+#
+CORE_SECRET="${Harbor.Secrets.Core}"
+JOBSERVICE_SECRET="${Harbor.Secrets.JobService}"
+EOH
+
+        destination = "secrets/file.env"
+        env         = true
       }
     }
   }
