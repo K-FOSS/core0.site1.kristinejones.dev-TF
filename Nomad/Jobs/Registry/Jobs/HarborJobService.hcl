@@ -88,6 +88,10 @@ job "registry-harbor-jobservice" {
       config {
         image = "goharbor/harbor-jobservice:${Harbor.Version}"
 
+        entrypoint = ["/harbor/harbor_jobservice"]
+
+        args = ["-c", "/local/Harbor/Config.yaml"]
+
         logging {
           type = "loki"
           config {
