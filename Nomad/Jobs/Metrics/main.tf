@@ -105,3 +105,32 @@ resource "nomad_job" "MikroTikJob" {
     }
   })
 }
+
+#
+# PostgreSQL Exporter
+#
+# resource "nomad_job" "PostgreSQLJob" {
+#   jobspec = templatefile("${path.module}/Jobs/PostgreSQL.hcl", {
+#     PostgreSQL = {
+#       Config = templatefile("${path.module}/Configs/MikroTik/Config.yaml", {
+#         Devices = var.MikroTik.Devices
+#       })
+
+#       Version = "1.0.12-DEVEL"
+#     }
+#   })
+# }
+
+#
+# iDRAC Exporter
+#
+
+resource "nomad_job" "iDRACJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/iDRAC.hcl", {
+    iDRAC = {
+      Config = templatefile("${path.module}/Configs/iDRAC/Config.yaml", {
+        Devices = var.MikroTik.Devices
+      })
+    }
+  })
+}

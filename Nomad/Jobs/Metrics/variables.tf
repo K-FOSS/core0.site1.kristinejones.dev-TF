@@ -87,3 +87,17 @@ variable "MikroTik" {
     ))
   })
 }
+
+# variable "iDRAC" {
+#   type = object({
+#     Devices = map(object(
+#       {
+#         IPAddress = string
+
+        
+#         Username = string
+#         Password = string
+#       }
+#     ))
+#   })
+# }
