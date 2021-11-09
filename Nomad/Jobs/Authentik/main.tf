@@ -64,7 +64,7 @@ resource "nomad_job" "AuthentikServerJobFile" {
 
     Database = var.Database
 
-    Version = split("version/", data.github_release.Release.release_tag)[1]
+    Version = "2021.10.2"
   })
 }
 
@@ -76,6 +76,6 @@ resource "nomad_job" "AuthentikWorkerJobFile" {
 
     Database = var.Database
 
-    Version = split("version/", data.github_release.Release.release_tag)[1]
+    Version = "2021.10.2"
   })
 }
