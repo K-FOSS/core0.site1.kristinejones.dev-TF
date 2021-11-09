@@ -295,7 +295,7 @@
                           },
                           "upstreams": [
                             {
-                              "lookup_srv": "http.authentik.service.dc1.kjdev"
+                              "lookup_srv": "http.server.authentik.service.dc1.kjdev"
                             }
                           ]
                         }

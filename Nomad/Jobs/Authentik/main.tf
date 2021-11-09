@@ -67,3 +67,15 @@ resource "nomad_job" "AuthentikServerJobFile" {
     Version = split("version/", data.github_release.Release.release_tag)[1]
   })
 }
+
+resource "nomad_job" "AuthentikWorkerJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/AuthentikWorker.hcl", {
+    Authentik = {
+      SecretKey = var.Secrets.SecretKey
+    }
+
+    Database = var.Database
+
+    Version = split("version/", data.github_release.Release.release_tag)[1]
+  })
+}

@@ -144,7 +144,8 @@ scrape_configs:
   - job_name: authentik
     dns_sd_configs:
       - names: 
-          - metrics.authentik.service.dc1.kjdev
+          - metrics.server.authentik.service.dc1.kjdev
+          - metrics.worker.authentik.service.dc1.kjdev
 
 
 remote_write:
