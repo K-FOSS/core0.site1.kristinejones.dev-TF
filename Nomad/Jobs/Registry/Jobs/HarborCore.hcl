@@ -57,8 +57,8 @@ job "registry-harbor-core" {
         #
         # Internal Certs
         #
-        INTERNAL_TLS_KEY_PATH = "/escre"
-        INTERNAL_TLS_CERT_PATH = ""
+        INTERNAL_TLS_KEY_PATH = "/secrets/TLS/Cert.key"
+        INTERNAL_TLS_CERT_PATH = "/secrets/TLS/Cert.pem"
 
         #
         # Trusted CA
@@ -78,12 +78,12 @@ job "registry-harbor-core" {
         #
         # Service Connections
         #
-        CORE_URL = ""
-        JOBSERVICE_URL = ""
-        REGISTRY_URL = ""
-        TOKEN_SERVICE_URL = ""
+        CORE_URL = "https://http.core.harbor.service.dc1.kjdev"
+        JOBSERVICE_URL = "https://http.jobservice.harbor.service.dc1.kjdev"
+        REGISTRY_URL = "https://http.registry.harbor.service.dc1.kjdev"
+        TOKEN_SERVICE_URL = "https://http.tokenservice.harbor.service.dc1.kjdev"
 
-        CORE_LOCAL_URL = "http://"
+        CORE_LOCAL_URL = "https://http.core.harbor.service.dc1.kjdev"
 
         #
         # Notary
