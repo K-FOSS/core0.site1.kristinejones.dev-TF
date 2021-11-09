@@ -63,7 +63,7 @@ job "registry-harbor-jobservice" {
       mode = "cni/nomadcore1"
 
       port "http" {
-        to = 8888
+        to = 443
       }
 
       port "metrics" {
@@ -100,6 +100,11 @@ job "registry-harbor-jobservice" {
 
       env {
         #
+        # Listener
+        #
+        PORT = "443"
+
+        #
         # Internal TLS
         #
         INTERNAL_TLS_ENABLED = "true"
@@ -107,8 +112,8 @@ job "registry-harbor-jobservice" {
         #
         # Internal Certs
         #
-        INTERNAL_TLS_KEY_PATH = "/escre"
-        INTERNAL_TLS_CERT_PATH = ""
+        INTERNAL_TLS_KEY_PATH = "/secrets/TLS/Cert.key"
+        INTERNAL_TLS_CERT_PATH = "/secrets/TLS/Cert.pem"
 
         #
         # Trusted CA
@@ -118,11 +123,11 @@ job "registry-harbor-jobservice" {
         #
         # Logs
         #
-        CORE_URL = ""
-        TOKEN_SERVICE_URL = ""
-        REGISTRY_URL = ""
-        REGISTRY_CONTROLLER_URL = ""
-        REGISTRY_CREDENTIAL_USERNAME = ""
+        CORE_URL = "https://http.core.harbor.service.dc1.kjdev"
+        TOKEN_SERVICE_URL = "https://http.tokenservice.harbor.service.dc1.kjdev"
+        REGISTRY_URL = "https://http.registry.harbor.service.dc1.kjdev"
+        REGISTRY_CONTROLLER_URL = "https://http.registrycontroller.harbor.service.dc1.kjdev"
+        REGISTRY_CREDENTIAL_USERNAME = "TODO"
 
       }
 

@@ -13,7 +13,7 @@ job "registry-harbor-registry" {
       mode = "cni/nomadcore1"
 
       port "http" {
-        to = 8888
+        to = 443
       }
 
       port "metrics" {
@@ -49,6 +49,11 @@ job "registry-harbor-registry" {
       }
 
       env {
+        #
+        # Port
+        #
+        PORT = "443"
+
         #
         # Internal TLS
         #
