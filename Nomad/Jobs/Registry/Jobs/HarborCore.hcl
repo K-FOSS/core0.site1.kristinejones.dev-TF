@@ -13,7 +13,7 @@ job "registry-harbor-core" {
       mode = "cni/nomadcore1"
 
       port "http" {
-        to = 8888
+        to = 443
       }
 
       port "metrics" {
@@ -49,6 +49,11 @@ job "registry-harbor-core" {
       }
 
       env {
+        #
+        # Listen
+        #
+        PORT = "443"
+
         #
         # Internal TLS
         #
@@ -107,7 +112,7 @@ job "registry-harbor-core" {
         #
         # Registry
         # 
-        REGISTRY_STORAGE_PROVIDER_NAME = ""
+        REGISTRY_STORAGE_PROVIDER_NAME = "s3"
 
         #
         # ChartMusuem
