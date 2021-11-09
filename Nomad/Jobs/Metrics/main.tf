@@ -66,13 +66,13 @@ resource "nomad_job" "PrometheusJob" {
       YAMLConfig = templatefile("${path.module}/Configs/Prometheus/Prometheus.yaml", {
         CoreVault = var.Prometheus.CoreVault
         Vault = var.Prometheus.Vault
+
+        iDRAC = {
+          Devices = var.iDRAC.Devices
+        }
       })
 
       Grafana = var.Prometheus.Grafana
-
-      iDRAC = {
-        Devices = var.iDRAC.Devices
-      }
 
       Version = "v2.30.0"
     }
