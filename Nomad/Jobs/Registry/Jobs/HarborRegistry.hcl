@@ -88,6 +88,7 @@ job "registry-harbor-registry" {
       config {
         image = "goharbor/registry-photon:${Harbor.Version}"
 
+        entrypoint = ["/usr/bin/registry_DO_NOT_USE_GC"]
         args = ["serve", "/local/HarborRegistry/Config.yaml"]
 
         logging {
