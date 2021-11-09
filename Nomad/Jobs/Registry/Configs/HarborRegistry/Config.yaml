@@ -17,7 +17,7 @@ storage:
       enabled: false
 
 redis:
-  addr: 
+  addr: redis.registry.harbor.service.dc1.kjdev:6379
   db: 0
   pool:
     maxidle: 100
