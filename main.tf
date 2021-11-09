@@ -793,7 +793,7 @@ module "Nomad" {
 
       Database = module.HarborRegistryDatabase.Database
 
-      TLS = module.Vault.Registry.Harbor
+      TLS = module.Vault.Registry.Harbor.TLS
     }
   }
 } 
