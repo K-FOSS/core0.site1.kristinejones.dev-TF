@@ -7,10 +7,31 @@ devices:
 %{ endfor ~}
 
 features:
+  #
+  # Routing
+  #
   bgp: false
-  dhcp: true
-  dhcpv6: false
-  dhcpl: true
+  conntrack: true
   routes: true
+
+  #
+  # DHCP
+  #
+  dhcp: true
+  dhcpv6: true
+  dhcpl: true
   pools: true
+
+  #
+  # System
+  #
+  firmware: true
+  health: true
+  monitor: true
+
+  #
+  # Interfaces
+  #
   optics: true
+  capsman: true
+  netwatch: true
