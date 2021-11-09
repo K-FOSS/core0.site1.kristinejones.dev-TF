@@ -105,8 +105,8 @@ resource "nomad_job" "HarborJobServiceJobFile" {
       TLS = {
         CA = var.Harbor.TLS.CA
 
-        Cert = var.Harbor.TLS.Core.Cert
-        Key = var.Harbor.TLS.Core.Key
+        Cert = var.Harbor.TLS.JobService.Cert
+        Key = var.Harbor.TLS.JobService.Key
       }
 
       Config =  templatefile("${path.module}/Configs/Harbor/Harbor.yaml", {
@@ -143,8 +143,8 @@ resource "nomad_job" "HarborRegistryJobFile" {
       TLS = {
         CA = var.Harbor.TLS.CA
 
-        Cert = var.Harbor.TLS.Core.Cert
-        Key = var.Harbor.TLS.Core.Key
+        Cert = var.Harbor.TLS.Registry.Cert
+        Key = var.Harbor.TLS.Registry.Key
       }
 
       Config =  templatefile("${path.module}/Configs/HarborRegistry/Config.yaml", {
