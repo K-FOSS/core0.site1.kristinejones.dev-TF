@@ -1,0 +1,45 @@
+version: 0.1
+
+log:
+  level: debug
+  fields:
+    service: registry
+
+storage:
+  s3:
+    region:
+    bucket: ${S3.Bucket}
+    keyid: ${S3.Credentials.AccessKey}
+  cache:
+    layerinfo: redis
+  maintenance:
+    uploadpurging:
+      enabled: false
+
+redis:
+  addr: 
+  db: 0
+  pool:
+    maxidle: 100
+    maxactive: 500
+    idletimeout: 60s
+
+http:
+  addr: 0.0.0.0:443
+  tls:
+    certificate: /secrets/TLS/Cert.pem
+    key: /secrets/TLS/Cert.key
+    inimumtls: tls1.2
+  secret: placeholder
+  debug:
+    addr: 0.0.0.0:9090
+    prometheus:
+      enabled: true
+      path: /metrics
+
+validation:
+  disabled: true
+
+compatibility:
+  schema1:
+    enabled: false

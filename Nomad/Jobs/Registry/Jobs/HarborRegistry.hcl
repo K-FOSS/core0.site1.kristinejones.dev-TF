@@ -88,6 +88,8 @@ job "registry-harbor-registry" {
       config {
         image = "goharbor/registry-photon:${Harbor.Version}"
 
+        args = ["serve", "/local/HarborRegistry/Config.yaml"]
+
         logging {
           type = "loki"
           config {
@@ -112,8 +114,8 @@ job "registry-harbor-registry" {
         #
         # Internal Certs
         #
-        INTERNAL_TLS_KEY_PATH = "/escre"
-        INTERNAL_TLS_CERT_PATH = ""
+        INTERNAL_TLS_KEY_PATH = "/secrets/TLS/Cert.key"
+        INTERNAL_TLS_CERT_PATH = "secrets/TLS/Cert.pem"
 
         #
         # Trusted CA
@@ -127,7 +129,7 @@ job "registry-harbor-registry" {
 ${Harbor.Config}
 EOF
 
-        destination = "local/Harbor/Config.yaml"
+        destination = "local/HarborRegistry/Config.yaml"
       }
 
       template {
