@@ -100,6 +100,8 @@ resource "nomad_job" "HarborCoreJobFile" {
 resource "nomad_job" "HarborJobServiceJobFile" {
   jobspec = templatefile("${path.module}/Jobs/HarborJobService.hcl", {
     Harbor = {
+      Secrets = local.Harbor.Secrets
+
       TLS = {
         CA = var.Harbor.TLS.CA
 
@@ -136,6 +138,8 @@ resource "nomad_job" "HarborJobServiceJobFile" {
 resource "nomad_job" "HarborRegistryJobFile" {
   jobspec = templatefile("${path.module}/Jobs/HarborRegistry.hcl", {
     Harbor = {
+      Secrets = local.Harbor.Secrets
+
       TLS = {
         CA = var.Harbor.TLS.CA
 
