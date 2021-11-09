@@ -438,7 +438,7 @@ module "Nomad" {
   # Caddy Web Ingress
   #
 
-  Ingress = {
+  Web = {
     Cloudflare = {
       Token = module.Vault.Cloudflare.data["Token"]
     }
@@ -744,6 +744,15 @@ module "Nomad" {
 
     S3 = {
       RepoBucket = module.GitLabRepoBucket
+    }
+  }
+
+  #
+  # Ingress
+  #
+  Ingress = {
+    GoBetween = {
+      Consul = module.Consul.GoBetween
     }
   }
 } 

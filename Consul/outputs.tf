@@ -69,6 +69,18 @@ output "DNS" {
 }
 
 #
+# GoBetween
+#
+output "GoBetween" {
+  value = {
+    Hostname = "consul.service.kjdev"
+    Port = 8500
+
+    Token = data.consul_acl_token_secret_id.GoBetweenToken.secret_id
+  }
+}
+
+#
 # Consul Backups
 #
 output "Backups" {

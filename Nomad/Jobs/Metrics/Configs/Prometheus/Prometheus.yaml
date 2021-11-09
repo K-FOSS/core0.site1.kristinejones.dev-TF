@@ -147,6 +147,11 @@ scrape_configs:
           - metrics.server.authentik.service.dc1.kjdev
           - metrics.worker.authentik.service.dc1.kjdev
 
+  - job_name: gobetween
+    dns_sd_configs:
+      - names: 
+          - metrics.gobetween.service.dc1.kjdev
+
 
 remote_write:
   - url: http://http.cortex-distributor.service.kjdev:8080/api/v1/push

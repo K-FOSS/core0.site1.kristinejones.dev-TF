@@ -148,9 +148,9 @@ module "Authentik" {
 module "Web" {
   source = "./Jobs/Web"
 
-  Consul = var.Ingress.Consul
+  Consul = var.Web.Consul
 
-  CloudFlare = var.Ingress.Cloudflare
+  CloudFlare = var.Web.Cloudflare
 
   Pomerium = {
     CA = var.Pomerium.TLS.CA
@@ -467,4 +467,13 @@ module "GitLab" {
   Database = var.GitLab.Database
 
   S3 = var.GitLab.S3
+}
+
+#
+# Ingress
+#
+module "Ingress" {
+  source = "./Jobs/Ingress"
+
+  GoBetween = var.Ingress.GoBetween
 }

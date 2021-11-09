@@ -1,0 +1,22 @@
+{
+  "api": {
+    "enabled": true,
+    "bind": "0.0.0.0:8888"
+  },
+  "metrics": {
+    "enabled": true,
+    "bind": ":9284"
+  },
+  "servers": {
+    "https": {
+      "bind": "0.0.0.0:443",
+      "discovery": {
+        "kind": "consul",
+        "consul_host": "${Consul.Hostname}:${Consul.Port}",
+        "consul_acl_token": "${Consul.Token}",
+        "consul_service_name": "ingress-webproxy",
+        "consul_service_tag": "https"
+      }
+    }
+  }
+}

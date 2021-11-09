@@ -29,7 +29,7 @@ variable "Bitwarden" {
 # Caddy Web Ingress
 #
 
-variable "Ingress" {
+variable "Web" {
   type = object({
     Consul = object({
       Token = string
@@ -780,6 +780,22 @@ variable "GitLab" {
 
 
         Bucket = string
+      })
+    })
+  })
+}
+
+#
+# Ingress
+#
+variable "Ingress" {
+  type = object({
+    GoBetween = object({
+      Consul = object({
+        Hostname = string
+        Port = number
+  
+        Token = string
       })
     })
   })

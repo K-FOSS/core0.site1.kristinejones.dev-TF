@@ -199,6 +199,32 @@ data "consul_acl_token_secret_id" "BackupsToken" {
   accessor_id = consul_acl_token.BackupsToken.id
 }
 
+#
+# GoBetween
+#
+
+resource "random_uuid" "GoBetweenToken" { }
+
+
+resource "consul_acl_policy" "GoBetweenACL" {
+  name  = "GoBetween"
+
+  rules = templatefile("${path.module}/ACLs/GoBetween.hcl", {})
+}
+
+resource "consul_acl_token" "GoBetweenToken" {
+  accessor_id = random_uuid.GoBetweenToken.result
+
+  description = "GoBetween Consul Catalog Plugin"
+
+  policies = ["${consul_acl_policy.GoBetweenACL.name}"]
+  local = true
+}
+
+data "consul_acl_token_secret_id" "GoBetweenToken" {
+  accessor_id = consul_acl_token.GoBetweenToken.id
+}
+
 
 #
 # Authentik KV
