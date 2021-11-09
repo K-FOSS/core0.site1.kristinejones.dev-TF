@@ -27,8 +27,10 @@ job "mikrotik-metrics" {
 
       config {
         image = "nshttpd/mikrotik-exporter:${MikroTik.Version}"
+      }
 
-        args = ["-config-file", "/local/Config.yaml"]
+      env {
+        CONFIG_FILE = "/local/Config.yaml"
       }
 
       template {
