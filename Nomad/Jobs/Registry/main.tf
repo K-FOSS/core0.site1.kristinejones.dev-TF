@@ -109,7 +109,7 @@ resource "nomad_job" "HarborJobServiceJobFile" {
         Key = var.Harbor.TLS.JobService.Key
       }
 
-      Config =  templatefile("${path.module}/Configs/Harbor/Harbor.yaml", {
+      Config =  templatefile("${path.module}/Configs/HarborJobService/Config.yaml", {
       })
 
       Version = "v2.4.0-dev"

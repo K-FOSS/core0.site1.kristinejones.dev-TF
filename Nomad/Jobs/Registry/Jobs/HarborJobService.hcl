@@ -16,10 +16,10 @@ job "registry-harbor-jobservice" {
       name = "harbor"
       port = "redis"
 
-      task = "harbor-redis"
+      task = "harbor"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "redis"]
+      tags = ["coredns.enabled", "redis.jobservice"]
 
       check {
         name = "tcp_validate"
@@ -161,6 +161,19 @@ ${Harbor.TLS.Key}
 EOF
 
         destination = "secrets/TLS/Cert.key"
+      }
+
+      template {
+        data = <<EOH
+#
+# Secret Keys
+#
+CORE_SECRET="${Harbor.Secrets.Core}"
+JOBSERVICE_SECRET="${Harbor.Secrets.JobService}"
+EOH
+
+        destination = "secrets/file.env"
+        env         = true
       }
     }
   }

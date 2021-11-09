@@ -1,15 +1,15 @@
 protocol: http
-port: 8080
+port: 443
 
 https_config:
   cert: /secrets/TLS/Cert.pem
-  key: secrets/TLS/Cert.key
+  key: /secrets/TLS/Cert.key
 
 worker_pool:
   workers: 3
   backend: redis
   redis_pool:
-    redis_url: test
+    redis_url: redis://redis.jobservice.harbor.service.dc1.kjdev
     namespace: harbor_job_service_namespace
     idle_timeout_second: 3600
 
