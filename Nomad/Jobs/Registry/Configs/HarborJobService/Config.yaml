@@ -1,0 +1,27 @@
+protocol: http
+port: 8080
+
+https_config:
+  cert: /secrets/TLS/Cert.pem
+  key: secrets/TLS/Cert.key
+
+worker_pool:
+  workers: 3
+  backend: redis
+  redis_pool:
+    redis_url: test
+    namespace: harbor_job_service_namespace
+    idle_timeout_second: 3600
+
+job_loggers:
+  - name: STD_OUTPUT
+    level: DEBUG
+    
+metric:
+  enabled: true
+  path: /metrics
+  port: 9100
+
+loggers:
+  - name: STD_OUTPUT
+    level: DEBUG

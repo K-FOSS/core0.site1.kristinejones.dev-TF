@@ -1,7 +1,7 @@
-job "ingress-fabio" {
+job "ingress-gobetween" {
   datacenters = ["core0site1"]
 
-  group "fabio-server" {
+  group "gobetween-server" {
     count = 3
 
     spread {

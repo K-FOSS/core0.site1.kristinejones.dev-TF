@@ -69,8 +69,8 @@ resource "random_password" "HarborJobServiceSecret" {
 locals {
   Harbor = {
     Secrets = {
-      Core = data.random_password.HarborCoreSecret.result
-      JobService = data.random_password.HarborJobServiceSecret.result
+      Core = random_password.HarborCoreSecret.result
+      JobService = random_password.HarborJobServiceSecret.result
     }
   }
 }
@@ -115,23 +115,23 @@ resource "nomad_job" "HarborJobServiceJobFile" {
   })
 }
 
-resource "nomad_job" "HarborPortalJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/HarborPortal.hcl", {
-    Harbor = {
-      TLS = {
-        CA = var.Harbor.TLS.CA
+# resource "nomad_job" "HarborPortalJobFile" {
+#   jobspec = templatefile("${path.module}/Jobs/HarborPortal.hcl", {
+#     Harbor = {
+#       TLS = {
+#         CA = var.Harbor.TLS.CA
 
-        Cert = var.Harbor.TLS.Core.Cert
-        Key = var.Harbor.TLS.Core.Key
-      }
+#         Cert = var.Harbor.TLS.Core.Cert
+#         Key = var.Harbor.TLS.Core.Key
+#       }
 
-      Config =  templatefile("${path.module}/Configs/Harbor/Harbor.yaml", {
-      })
+#       Config =  templatefile("${path.module}/Configs/Harbor/Harbor.yaml", {
+#       })
 
-      Version = "v2.4.0-dev"
-    }
-  })
-}
+#       Version = "v2.4.0-dev"
+#     }
+#   })
+# }
 
 resource "nomad_job" "HarborRegistryJobFile" {
   jobspec = templatefile("${path.module}/Jobs/HarborRegistry.hcl", {
