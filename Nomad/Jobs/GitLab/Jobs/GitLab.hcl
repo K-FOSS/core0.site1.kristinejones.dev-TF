@@ -256,6 +256,8 @@ EOF
 
       config {
         image = "${Image.Repo}/gitlab-webservice-ce:${Image.Tag}"
+
+        entrypoint = ["/local/entry.sh"]
       }
 
       resources {
@@ -278,6 +280,16 @@ EOF
         #
         CONFIG_TEMPLATE_DIRECTORY = "/local/webservice/configtemplates"
         CONFIG_DIRECTORY = "/local/webservice/config"
+      }
+
+      template {
+        data = <<EOF
+${WebService.EntryScript}
+EOF
+
+        destination = "local/entry.sh"
+
+        perms = "777"
       }
 
       template {
