@@ -7,7 +7,7 @@ log:
 
 storage:
   s3:
-    region:
+    region: us-east-1
     bucket: ${S3.Bucket}
     keyid: ${S3.Credentials.AccessKey}
   cache:
