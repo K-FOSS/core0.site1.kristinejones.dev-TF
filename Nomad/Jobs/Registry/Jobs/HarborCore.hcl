@@ -1,7 +1,57 @@
 job "registry-harbor-core" {
   datacenters = ["core0site1"]
 
-  group "harbor-registry-server" {
+  group "harbor-core-redis" {
+    count = 1
+
+    network {
+      mode = "cni/nomadcore1"
+
+      port "redis" { 
+        to = 6379
+      }
+    }
+
+    service {
+      name = "harbor"
+      port = "redis"
+
+      task = "harbor-core-cache"
+      address_mode = "alloc"
+
+      tags = ["coredns.enabled", "redis.core"]
+
+      check {
+        name = "tcp_validate"
+
+        type = "tcp"
+
+        port = "redis"
+        address_mode = "alloc"
+
+        initial_status = "passing"
+
+        interval = "30s"
+        timeout  = "10s"
+
+        check_restart {
+          limit = 6
+          grace = "120s"
+          ignore_warnings = true
+        }
+      }
+    }
+
+    task "harbor-core-cache" {
+      driver = "docker"
+
+      config {
+        image = "redis:latest"
+      }
+    }
+  }
+
+  group "harbor-registry-core-server" {
     count = 1
 
     spread {
@@ -17,7 +67,7 @@ job "registry-harbor-core" {
       }
 
       port "metrics" {
-        to = 9284
+        to = 9090
       }
     }
 
@@ -127,6 +177,14 @@ job "registry-harbor-core" {
         # Misc
         #
         LOG_LEVEL = "DEBUG"
+
+        #
+        # Cache
+        #
+        CHART_CACHE_DRIVER = "redis"
+
+        _REDIS_URL_CORE = "redis://redis.core.harbor.service.dc1.kjdev:6379"
+        _REDIS_URL_REG = "redis://redis.registry.harbor.service.dc1.kjdev:6379"
 
         #
         # Metrics
