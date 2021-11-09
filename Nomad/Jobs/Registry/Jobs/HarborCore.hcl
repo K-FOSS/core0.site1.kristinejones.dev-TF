@@ -2,7 +2,7 @@ job "registry-harbor-core" {
   datacenters = ["core0site1"]
 
   group "harbor-registry-server" {
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"

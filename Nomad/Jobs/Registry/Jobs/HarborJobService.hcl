@@ -52,7 +52,7 @@ job "registry-harbor-jobservice" {
   }
 
   group "harbor-registry-jobservice" {
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
