@@ -58,7 +58,7 @@ resource "nomad_job" "GitLabJob" {
       GitConfig = templatefile("${path.module}/Configs/Gitaly/gitconfig", {
       })
 
-      Config = templatefile("${path.module}/Configs/Gitaly/gitconfig", {
+      Config = templatefile("${path.module}/Configs/Gitaly/config.toml", {
       })
     }
 
