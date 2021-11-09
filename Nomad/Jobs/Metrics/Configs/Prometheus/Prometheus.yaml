@@ -136,6 +136,11 @@ scrape_configs:
       - names: 
           - http.github-cache-server.service.dc1.kjdev
 
+  - job_name: mikrotik
+    dns_sd_configs:
+      - names: 
+          - metrics.mikrotik.service.dc1.kjdev
+
 
 remote_write:
   - url: http://http.cortex-distributor.service.kjdev:8080/api/v1/push

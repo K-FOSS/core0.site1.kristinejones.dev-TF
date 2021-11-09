@@ -258,6 +258,8 @@ module "Metrics" {
   Cortex = var.Metrics.Cortex
 
   Prometheus = var.Metrics.Prometheus
+
+  MikroTik = var.Metrics.MikroTik
 }
 
 #

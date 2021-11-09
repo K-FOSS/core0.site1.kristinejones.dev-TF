@@ -70,3 +70,20 @@ variable "Prometheus" {
     })
   })
 }
+
+#
+# MikroTik Exporter
+#
+variable "MikroTik" {
+  type = object({
+    Devices = map(object(
+      {
+        IPAddress = string
+
+        
+        Username = string
+        Password = string
+      }
+    ))
+  })
+}

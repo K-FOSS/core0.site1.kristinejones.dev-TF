@@ -86,6 +86,19 @@ output "GitHub" {
   }
 }
 
+#
+# MikroTik
+#
+output "MikroTik" {
+  value = {
+    Home1 = {
+      IPAddress = data.vault_generic_secret.Home1MikroTik.data["IPAddress"]
+      Username = data.vault_generic_secret.Home1MikroTik.data["Username"]
+      Password = data.vault_generic_secret.Home1MikroTik.data["Password"]
+    }
+  }
+}
+
 
 #
 # TrueNAS NAS

@@ -552,6 +552,12 @@ module "Nomad" {
         Token = module.Vault.Vault.Prometheus.Token
       }
     }
+
+    MikroTik = {
+      Devices = tomap({
+        Home1 = module.Vault.MikroTik.Home1
+      })
+    }
   }
 
   #

@@ -1,0 +1,16 @@
+devices:
+%{ for Name, Device in Devices ~}
+  - name: ${Name}
+    address: ${Device.IPAddress}
+    user: ${Device.Username}
+    password: ${Device.Password}
+%{ endfor ~}
+
+features:
+  bgp: false
+  dhcp: true
+  dhcpv6: false
+  dhcpl: true
+  routes: true
+  pools: true
+  optics: true

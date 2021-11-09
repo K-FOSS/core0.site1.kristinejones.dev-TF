@@ -133,6 +133,14 @@ data "vault_generic_secret" "GitHub" {
 }
 
 #
+# MikroTik
+#
+data "vault_generic_secret" "Home1MikroTik" {
+  path = "${vault_mount.Terraform.path}/Home1MikroTik"
+}
+
+
+#
 # TrueNAS NAS
 #
 data "vault_generic_secret" "NASAuth" {

@@ -53,7 +53,7 @@ resource "nomad_job" "CortexJob" {
 
       Database = var.Cortex.Database
 
-      YAMLConfig = templatefile("${path.module}/Configs/Cortex.yaml", var.Cortex)
+      YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
 
       Version = "master-85c3781"
     }
@@ -63,7 +63,7 @@ resource "nomad_job" "CortexJob" {
 resource "nomad_job" "PrometheusJob" {
   jobspec = templatefile("${path.module}/Jobs/Prometheus.hcl", {
     Prometheus = {
-      YAMLConfig = templatefile("${path.module}/Configs/Prometheus.yaml", {
+      YAMLConfig = templatefile("${path.module}/Configs/Prometheus/Prometheus.yaml", {
         CoreVault = var.Prometheus.CoreVault
         Vault = var.Prometheus.Vault
       })
@@ -75,6 +75,10 @@ resource "nomad_job" "PrometheusJob" {
   })
 }
 
+#
+# StarLink Exporter
+#
+
 resource "nomad_job" "StarLinkJob" {
   jobspec = templatefile("${path.module}/Jobs/StarLink.hcl", {
     StarLink = {
@@ -83,6 +87,21 @@ resource "nomad_job" "StarLinkJob" {
       Port = "9200"
 
       Version = "latest"
+    }
+  })
+}
+
+#
+# MikroTik Exporter
+# 
+resource "nomad_job" "MikroTikJob" {
+  jobspec = templatefile("${path.module}/Jobs/MikroTik.hcl", {
+    MikroTik = {
+      Config = templatefile("${path.module}/Configs/MikroTik/Config.yaml", {
+        Devices = var.MikroTik.Devices
+      })
+
+      Version = "1.0.12-DEVEL"
     }
   })
 }

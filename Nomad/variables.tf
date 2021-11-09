@@ -265,6 +265,18 @@ variable "Metrics" {
         Token = string
       })
     })
+
+    MikroTik = object({
+      Devices = map(object(
+        {
+          IPAddress = string
+
+
+          Username = string
+          Password = string
+        }
+      ))
+    })
   })
 }
 
