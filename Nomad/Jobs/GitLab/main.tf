@@ -46,76 +46,76 @@ terraform {
   }
 }
 
-# resource "nomad_job" "GitLabJob" {
-#   jobspec = templatefile("${path.module}/Jobs/GitLab.hcl", {
-#     Image = {
-#       Repo = "registry.gitlab.com/gitlab-org/build/cng"
+resource "nomad_job" "GitLabJob" {
+  jobspec = templatefile("${path.module}/Jobs/GitLab.hcl", {
+    Image = {
+      Repo = "registry.gitlab.com/gitlab-org/build/cng"
 
-#       Tag = "master"
-#     }
+      Tag = "master"
+    }
 
-#     Gitaly = {
-#       GitConfig = templatefile("${path.module}/Configs/Gitaly/gitconfig", {
-#       })
+    Gitaly = {
+      GitConfig = templatefile("${path.module}/Configs/Gitaly/gitconfig", {
+      })
 
-#       Config = templatefile("${path.module}/Configs/Gitaly/gitconfig", {
-#       })
-#     }
+      Config = templatefile("${path.module}/Configs/Gitaly/gitconfig", {
+      })
+    }
 
-#     Pages = {
-#       Config = templatefile("${path.module}/Configs/Pages/Pages-config.erb", {
-#       })
-#     }
+    Pages = {
+      Config = templatefile("${path.module}/Configs/Pages/Pages-config.erb", {
+      })
+    }
 
-#     WebService = {
-#       Templates = {
-#         Cable = templatefile("${path.module}/Configs/WebService/Cable.yaml", {
+    WebService = {
+      Templates = {
+        Cable = templatefile("${path.module}/Configs/WebService/Cable.yaml", {
 
-#         })
+        })
 
-#         Database = templatefile("${path.module}/Configs/WebService/Database.yaml", {
-#           Database = var.Database
-#         })
+        Database = templatefile("${path.module}/Configs/WebService/Database.yaml", {
+          Database = var.Database
+        })
 
-#         GitlabRB = templatefile("${path.module}/Configs/WebService/Gitlab.yml.erb", {
-#         })
+        GitlabRB = templatefile("${path.module}/Configs/WebService/Gitlab.yml.erb", {
+        })
 
-#         Resque = templatefile("${path.module}/Configs/WebService/Resque.yaml", {
-#         })
+        Resque = templatefile("${path.module}/Configs/WebService/Resque.yaml", {
+        })
 
-#       }
-#     }
+      }
+    }
 
-#     Shell = {
-#       Config = templatefile("${path.module}/Configs/Shell/Config.yml.erb", {
-#       })
-#     }
+    Shell = {
+      Config = templatefile("${path.module}/Configs/Shell/Config.yml.erb", {
+      })
+    }
 
-#     Sidekiq = {
-#       Templates = {
-#         Database = templatefile("${path.module}/Configs/Sidekiq/Database.yaml", {
-#           Database = var.Database
-#         })
+    Sidekiq = {
+      Templates = {
+        Database = templatefile("${path.module}/Configs/Sidekiq/Database.yaml", {
+          Database = var.Database
+        })
 
-#         GitlabYAML = templatefile("${path.module}/Configs/Sidekiq/Gitlab.yaml", {
-#         })
+        GitlabYAML = templatefile("${path.module}/Configs/Sidekiq/Gitlab.yaml", {
+        })
 
-#         Resque = templatefile("${path.module}/Configs/Sidekiq/Resque.yaml", {
-#         })
+        Resque = templatefile("${path.module}/Configs/Sidekiq/Resque.yaml", {
+        })
 
-#         SidekiqQueues = templatefile("${path.module}/Configs/Sidekiq/SidekiqQueues.yaml", {
-#         })
-#       }
-#     }
+        SidekiqQueues = templatefile("${path.module}/Configs/Sidekiq/SidekiqQueues.yaml", {
+        })
+      }
+    }
 
-#     WorkHorse = {
-#       Config = templatefile("${path.module}/Configs/WorkHorse/WorkhorseConfig.toml", {
-#       })
-#     }
+    WorkHorse = {
+      Config = templatefile("${path.module}/Configs/WorkHorse/WorkhorseConfig.toml", {
+      })
+    }
     
-#     #
-#     # TODO: Change back to split("v", data.github_release.Release.release_tag)[1] once https://github.com/grafana/grafana/pull/37765 is released on prod
-#     #
-#     Version = "main"
-#   })
-# }
+    #
+    # TODO: Change back to split("v", data.github_release.Release.release_tag)[1] once https://github.com/grafana/grafana/pull/37765 is released on prod
+    #
+    Version = "main"
+  })
+}
