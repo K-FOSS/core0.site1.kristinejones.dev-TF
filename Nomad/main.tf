@@ -56,6 +56,30 @@ provider "github" {
 }
 
 #
+# Mesh
+#
+
+#
+# Consul Core Server
+#
+
+#
+# Consul DC1 Server
+#
+
+#
+# Consul DC1 Cluster Agents
+#
+
+#
+# Meshery
+#
+
+module "Meshery" {
+  source = "./Jobs/Mesh/Meshery"
+}
+
+#
 # CSI
 #
 

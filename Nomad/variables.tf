@@ -800,3 +800,21 @@ variable "Ingress" {
     })
   })
 }
+
+#
+# Mesh
+#
+
+# variable "Mesh" {
+#   type = object({
+#     Meshery = object({
+#       Consul = object({
+#         Hostname = string
+#         Port = number
+  
+#         Token = string
+#       })
+#     })
+#   })
+  
+# }
