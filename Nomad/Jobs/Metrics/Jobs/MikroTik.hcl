@@ -26,14 +26,14 @@ job "mikrotik-metrics" {
       driver = "docker"
 
       config {
-        image = "nshttpd/mikrotik-exporter:${Version}"
+        image = "nshttpd/mikrotik-exporter:${MikroTik.Version}"
 
         args = ["-config-file", "/local/Config.yaml"]
       }
 
       template {
         data = <<EOF
-${Config}
+${MikroTik.Config}
 EOF
 
         change_mode   = "signal"
