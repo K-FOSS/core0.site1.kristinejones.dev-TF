@@ -299,3 +299,38 @@ output "GitLab" {
     }
   }
 }
+
+#
+# Registry
+#
+
+output "Registry" {
+  value = {
+    Harbor = {
+      TLS = {
+        CA = vault_pki_secret_backend_cert.HarborCoreServerCert.ca_chain
+
+        Core = {
+          Cert = vault_pki_secret_backend_cert.HarborCoreServerCert.certificate
+          Key = vault_pki_secret_backend_cert.HarborCoreServerCert.private_key
+        }
+
+        JobService = {
+          Cert = vault_pki_secret_backend_cert.HarborJobServiceServerCert.certificate
+          Key = vault_pki_secret_backend_cert.HarborJobServiceServerCert.private_key
+        }
+
+        Portal = {
+          Cert = vault_pki_secret_backend_cert.HarborPortalServerCert.certificate
+          Key = vault_pki_secret_backend_cert.HarborPortalServerCert.private_key
+        }
+
+        Registry = {
+          Cert = vault_pki_secret_backend_cert.HarborRegistryServerCert.certificate
+          Key = vault_pki_secret_backend_cert.HarborRegistryServerCert.private_key
+        }
+
+      }
+    }
+  }
+}

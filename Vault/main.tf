@@ -351,3 +351,47 @@ resource "vault_pki_secret_backend_cert" "BitwardenServerCert" {
 
   alt_names = ["bitwarden.kristianjones.dev"]
 }
+
+#
+# Harbor
+#
+
+module "Harbor" {
+  source = "./TLS/Template"
+}
+
+resource "vault_pki_secret_backend_cert" "HarborCoreServerCert" {
+  backend = module.Harbor.TLS.Mount.path
+  name = module.Harbor.TLS.Role.name
+
+  common_name = "http.core.harbor.service.kjdev"
+
+  alt_names = ["http.core.harbor.service.dc1.kjdev"]
+}
+
+resource "vault_pki_secret_backend_cert" "HarborJobServiceServerCert" {
+  backend = module.Harbor.TLS.Mount.path
+  name = module.Harbor.TLS.Role.name
+
+  common_name = "http.jobservice.harbor.service.kjdev"
+
+  alt_names = ["http.jobservice.harbor.service.dc1.kjdev"]
+}
+
+resource "vault_pki_secret_backend_cert" "HarborPortalServerCert" {
+  backend = module.Harbor.TLS.Mount.path
+  name = module.Harbor.TLS.Role.name
+
+  common_name = "http.portal.harbor.service.kjdev"
+
+  alt_names = ["http.portal.harbor.service.dc1.kjdev"]
+}
+
+resource "vault_pki_secret_backend_cert" "HarborRegistryServerCert" {
+  backend = module.Harbor.TLS.Mount.path
+  name = module.Harbor.TLS.Role.name
+
+  common_name = "http.registry.harbor.service.kjdev"
+
+  alt_names = ["http.registry.harbor.service.dc1.kjdev"]
+}

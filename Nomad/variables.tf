@@ -802,6 +802,71 @@ variable "Ingress" {
 }
 
 #
+# Harbor
+# 
+
+variable "Registry" {
+  type = object({
+    Harbor = object({
+      S3 = object({
+        Connection = object({
+          Hostname = string
+          Port = number
+
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
+
+
+        Bucket = string
+      })
+
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
+      })
+
+      TLS = object({
+        CA = string
+
+        Core = object({
+          Cert = string
+
+          Key = string
+        })
+
+        JobService = object({
+          Cert = string
+
+          Key = string
+        })
+
+        Portal = object({
+          Cert = string
+
+          Key = string
+        })
+
+        Registry = object({
+          Cert = string
+
+          Key = string
+        })
+      })
+    })
+  })
+}
+
+#
 # Mesh
 #
 

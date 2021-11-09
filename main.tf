@@ -179,6 +179,20 @@ module "GitLabRepoBucket" {
   Credentials = module.Vault.Minio
 }
 
+#
+# Harbor Registry Bucket
+#
+module "HarborRegistryBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
 
 #
 # Databases
@@ -345,6 +359,17 @@ module "GitLabDatabase" {
 
   Credentials = module.Vault.Database
 }
+
+#
+# Registry
+#
+
+module "HarborRegistryDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
  
 #
 # Hashicorp Nomad
@@ -753,6 +778,22 @@ module "Nomad" {
   Ingress = {
     GoBetween = {
       Consul = module.Consul.GoBetween
+    }
+  }
+
+  #
+  # Registry
+  #
+  Registry = {
+    #
+    # Harbor Registry
+    #
+    Harbor = {
+      S3 = module.HarborRegistryBucket
+
+      Database = module.HarborRegistryDatabase.Database
+
+      TLS = module.Vault.Registry.Harbor
     }
   }
 } 

@@ -501,3 +501,13 @@ module "Ingress" {
 
   GoBetween = var.Ingress.GoBetween
 }
+
+#
+# Registry
+#
+
+module "Registry" {
+  source = "./Jobs/Registry"
+
+  Harbor = var.Registry.Harbor
+}
