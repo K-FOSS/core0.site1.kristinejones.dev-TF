@@ -70,6 +70,10 @@ resource "nomad_job" "PrometheusJob" {
 
       Grafana = var.Prometheus.Grafana
 
+      iDRAC = {
+        Devices = var.iDRAC.Devices
+      }
+
       Version = "v2.30.0"
     }
   })
@@ -128,9 +132,8 @@ resource "nomad_job" "MikroTikJob" {
 resource "nomad_job" "iDRACJobFile" {
   jobspec = templatefile("${path.module}/Jobs/iDRAC.hcl", {
     iDRAC = {
-      Config = templatefile("${path.module}/Configs/iDRAC/Config.yaml", {
-        Devices = var.MikroTik.Devices
-      })
+      Username = var.iDRAC.Username
+      Password = var.iDRAC.Password
     }
   })
 }

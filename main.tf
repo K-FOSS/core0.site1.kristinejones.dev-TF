@@ -583,6 +583,23 @@ module "Nomad" {
         Home1 = module.Vault.MikroTik.Home1
       })
     }
+
+    iDRAC = {
+      Username = module.Vault.iDRAC.Username
+      Password = module.Vault.iDRAC.Password
+
+      Devices = tomap({
+        VMH1 = {
+          IPAddress = "172.16.20.61"
+        }
+        VMH2 = {
+          IPAddress = "172.16.20.62"
+        }
+        NAS1 = {
+          IPAddress = "172.16.20.64"
+        }
+      })
+    }
   }
 
   #

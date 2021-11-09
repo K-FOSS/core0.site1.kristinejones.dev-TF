@@ -99,6 +99,16 @@ output "MikroTik" {
   }
 }
 
+#
+# iDRAC
+#
+output "iDRAC" {
+  value = {
+    Username = data.vault_generic_secret.iDRAC.data["Username"]
+    Password = data.vault_generic_secret.iDRAC.data["Password"]
+  }
+}
+
 
 #
 # TrueNAS NAS

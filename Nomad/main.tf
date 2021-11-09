@@ -284,6 +284,8 @@ module "Metrics" {
   Prometheus = var.Metrics.Prometheus
 
   MikroTik = var.Metrics.MikroTik
+
+  iDRAC = var.Metrics.iDRAC
 }
 
 #

@@ -271,9 +271,19 @@ variable "Metrics" {
         {
           IPAddress = string
 
-
           Username = string
           Password = string
+        }
+      ))
+    })
+
+    iDRAC = object({
+      Username = string
+      Password = string
+
+      Devices = map(object(
+        {
+          IPAddress = string
         }
       ))
     })

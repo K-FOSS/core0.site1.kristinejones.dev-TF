@@ -8,7 +8,7 @@ job "idrac-metrics" {
       mode = "cni/nomadcore1"
 
       port "metrics" {
-        to = 9348
+        to = 8080
       }
     }
 
@@ -26,20 +26,21 @@ job "idrac-metrics" {
       driver = "docker"
 
       config {
-        image = "kristianfjones/idracexporter-docker:core0"
+        image = "kvitex/idrac-exporter"
+      }
 
-        args = ["-config", "/local/Config.yaml"]
+      env {
+        FLASK_APP = "idrac-exporter.py"
       }
 
       template {
-        data = <<EOF
-${iDRAC.Config}
-EOF
+        data = <<EOH
+DEVICE_USER="${iDRAC.Username}"
+DEVICE_PASSWORD="${iDRAC.Password}"
+EOH
 
-        change_mode   = "signal"
-        change_signal = "SIGHUP"
-
-        destination = "local/Config.yaml"
+        destination = "secrets/file.env"
+        env         = true
       }
     }
   }

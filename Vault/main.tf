@@ -139,6 +139,13 @@ data "vault_generic_secret" "Home1MikroTik" {
   path = "${vault_mount.Terraform.path}/Home1MikroTik"
 }
 
+#
+# iDRAC
+#
+data "vault_generic_secret" "iDRAC" {
+  path = "${vault_mount.Terraform.path}/iDRAC"
+}
+
 
 #
 # TrueNAS NAS

@@ -152,26 +152,22 @@ scrape_configs:
       - names: 
           - metrics.gobetween.service.dc1.kjdev
 
-  - job_name: idrac.vmh1
-    params:
-      target: 172.16.20.61
-    dns_sd_configs:
-      - names: 
-          - metrics.idrac.service.dc1.kjdev
-
-  - job_name: idrac.vmh2
-    params:
-      target: 172.16.20.62
-    dns_sd_configs:
-      - names: 
-          - metrics.idrac.service.dc1.kjdev
-
-  - job_name: idrac.nas1
-    params:
-      target: 172.16.20.62
-    dns_sd_configs:
-      - names: 
-          - metrics.idrac.service.dc1.kjdev
+  - job_name: idrac
+    scrape_interval: 5m
+    scrape_timeout: 3m
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+        %{ for Device in iDRAC.Devices ~}
+          - ${Device.IPAddress}
+        %{ endfor ~}
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_hostname
+      - source_labels: [__param_hostname]
+        target_label: instance
+      - target_label: __address__
+        replacement: metrics.idrac.service.dc1.kjdev:8080
 
 
 remote_write:
