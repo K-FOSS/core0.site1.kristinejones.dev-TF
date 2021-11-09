@@ -89,7 +89,7 @@ resource "nomad_job" "HarborCoreJobFile" {
 
       Database = var.Harbor.Database
 
-      Config =  templatefile("${path.module}/Configs/Harbor/Harbor.yaml", {
+      Config =  templatefile("${path.module}/Configs/HarborCore/app.conf", {
       })
 
       Version = "v2.4.0-dev"
