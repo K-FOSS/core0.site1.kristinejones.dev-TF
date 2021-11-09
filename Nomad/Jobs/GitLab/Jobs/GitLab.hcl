@@ -163,8 +163,8 @@ EOF
 
       resources {
         cpu = 128
-        memory = 256
-        memory_max = 256
+        memory = 512
+        memory_max = 512
       }
 
       template {

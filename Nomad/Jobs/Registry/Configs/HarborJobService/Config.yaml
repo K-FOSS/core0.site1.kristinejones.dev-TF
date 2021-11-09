@@ -1,4 +1,4 @@
-protocol: http
+protocol: https
 port: 443
 
 https_config:

@@ -88,9 +88,7 @@ job "registry-harbor-jobservice" {
       config {
         image = "goharbor/harbor-jobservice:${Harbor.Version}"
 
-        entrypoint = ["/harbor/harbor_jobservice"]
-
-        args = ["-c", "/local/Harbor/Config.yaml"]
+        entrypoint = ["/local/entry.sh"]
 
         logging {
           type = "loki"
@@ -137,6 +135,16 @@ job "registry-harbor-jobservice" {
 
       template {
         data = <<EOF
+${EntryScript}
+EOF
+
+        destination = "local/entry.sh"
+
+        perms = "777"
+      }
+
+      template {
+        data = <<EOF
 ${Harbor.Config}
 EOF
 
@@ -177,7 +185,7 @@ JOBSERVICE_SECRET="${Harbor.Secrets.JobService}"
 EOH
 
         destination = "secrets/file.env"
-        env         = true
+        env = true
       }
     }
   }
