@@ -33,7 +33,8 @@
                     "/api/google_assistant",
                     "/api/google_assistant/*",
                     "/auth/token",
-                    "/api/websocket"
+                    "/api/websocket",
+                    "/api/mobile_app/registrations"
                   ]
                 }
               ],
