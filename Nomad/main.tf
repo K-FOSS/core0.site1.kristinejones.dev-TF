@@ -331,7 +331,7 @@ module "Tracing" {
 
 
 module "NetboxJob" {
-  source = "./Jobs/Netbox"
+  source = "./Jobs/Inventory/DCIM/Netbox"
 
   Database = var.Netbox.Database
 

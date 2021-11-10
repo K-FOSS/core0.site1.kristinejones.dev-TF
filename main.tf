@@ -100,6 +100,17 @@ module "CortexBucket" {
   Credentials = module.Vault.Minio
 }
 
+module "AlertManagerBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
 #
 # Grafana Loki
 #
@@ -578,6 +589,8 @@ module "Nomad" {
       Targets = module.Cortex.Targets
 
       S3 = module.CortexBucket
+
+      AlertManagerBucket = module.AlertManagerBucket
     }
 
     Prometheus = {

@@ -490,10 +490,10 @@ alertmanager:
 alertmanager_storage:
   backend: s3
   s3:
-    bucket_name: ${S3.Bucket}
-    endpoint: ${S3.Connection.Endpoint}
-    access_key_id: ${S3.Credentials.AccessKey}
-    secret_access_key: ${S3.Credentials.SecretKey}
+    bucket_name: ${AlertManagerBucket.Bucket}
+    endpoint: ${AlertManagerBucket.Connection.Endpoint}
+    access_key_id: ${AlertManagerBucket.Credentials.AccessKey}
+    secret_access_key: ${AlertManagerBucket.Credentials.SecretKey}
     insecure: true
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#supported-contents-and-default-values-of-the-config-file
