@@ -130,6 +130,8 @@ routes:
       - kristianjones.dev
     pass_identity_headers: true
     allow_websockets: true
+    allow_public_unauthenticated_access: true
+    cors_allow_preflight: true
 
 #
 # Tracing
