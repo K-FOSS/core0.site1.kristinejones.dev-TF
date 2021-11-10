@@ -58,14 +58,8 @@ data "github_release" "Release" {
 
 resource "nomad_job" "BitwardenServerJobFile" {
   jobspec = templatefile("${path.module}/Jobs/Bitwarden.hcl", {
-    Authentik = {
-      SecretKey = var.Secrets.SecretKey
-    }
-
     Database = var.Database
 
     TLS = var.TLS
-
-    Version = "2021.10.2"
   })
 }
