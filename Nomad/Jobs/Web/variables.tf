@@ -16,3 +16,9 @@ variable "Pomerium" {
     CA = string
   })
 }
+
+variable "Harbor" {
+  type = object({
+    CA = string
+  })
+}

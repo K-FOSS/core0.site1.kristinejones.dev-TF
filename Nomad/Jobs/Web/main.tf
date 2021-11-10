@@ -59,6 +59,10 @@ resource "nomad_job" "JobFile" {
       CA = var.Pomerium.CA
     }
 
+    Harbor = {
+      CA = var.Harbor.CA
+    }
+
     Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", { 
       Cloudflare = var.CloudFlare
 

@@ -179,6 +179,10 @@ module "Web" {
   Pomerium = {
     CA = var.Pomerium.TLS.CA
   }
+
+  Harbor = {
+    CA = var.Registry.Harbor.TLS.CA
+  }
 }
 
 module "CoTurn" {

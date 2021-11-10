@@ -99,6 +99,14 @@ EOF
         destination = "local/PomeriumCA.pem"
       }
 
+      template {
+        data = <<EOF
+${Harbor.CA}
+EOF
+
+        destination = "local/HarborCA.pem"
+      }
+
       resources {
         cpu = 300
 

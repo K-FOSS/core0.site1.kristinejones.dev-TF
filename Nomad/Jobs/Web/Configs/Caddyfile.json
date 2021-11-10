@@ -337,6 +337,12 @@
                                         "172.16.0.12:8600",
                                         "172.16.0.13:8600"
                                       ]
+                                    },
+                                    "tls": {
+                                      "server_name": "http.core.harbor.service.dc1.kjdev",
+                                      "root_ca_pem_files": [
+                                        "/local/HarborCA.pem"
+                                      ]
                                     }
                                   },
                                   "upstreams": [
@@ -359,6 +365,12 @@
                                         "172.16.0.11:8600",
                                         "172.16.0.12:8600",
                                         "172.16.0.13:8600"
+                                      ]
+                                    },
+                                    "tls": {
+                                      "server_name": "http.portal.harbor.service.dc1.kjdev",
+                                      "root_ca_pem_files": [
+                                        "/local/HarborCA.pem"
                                       ]
                                     }
                                   },
