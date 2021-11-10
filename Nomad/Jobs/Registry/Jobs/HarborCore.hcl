@@ -98,6 +98,8 @@ job "registry-harbor-core" {
     task "harbor-core-server" {
       driver = "docker"
 
+      user = "root"
+
       config {
         image = "goharbor/harbor-core:${Harbor.Version}"
 

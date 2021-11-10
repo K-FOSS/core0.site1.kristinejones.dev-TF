@@ -98,6 +98,8 @@ job "registry-harbor-registry" {
     task "harbor-registry-server" {
       driver = "docker"
 
+      user = "root"
+
       config {
         image = "goharbor/registry-photon:${Harbor.Version}"
 
