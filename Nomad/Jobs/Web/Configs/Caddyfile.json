@@ -301,6 +301,79 @@
                         }
                       ],
                       "terminal": true
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
+                            "registry.kristianjones.dev"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "subroute",
+                          "routes": [
+                            {
+                              "match": [
+                                {
+                                  "path": [
+                                    "/api/*",
+                                    "/service/*",
+                                    "/v2/*",
+                                    "/c/*"
+                                  ]
+                                }
+                              ],
+                              "handle": [
+                                {
+                                  "handler": "reverse_proxy",
+                                  "transport": {
+                                    "protocol": "http",
+                                    "resolver": {
+                                      "addresses": [
+                                        "172.16.0.10:8600",
+                                        "172.16.0.11:8600",
+                                        "172.16.0.12:8600",
+                                        "172.16.0.13:8600"
+                                      ]
+                                    }
+                                  },
+                                  "upstreams": [
+                                    {
+                                      "lookup_srv": "http.core.harbor.service.dc1.kjdev"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "handle": [
+                                {
+                                  "handler": "reverse_proxy",
+                                  "transport": {
+                                    "protocol": "http",
+                                    "resolver": {
+                                      "addresses": [
+                                        "172.16.0.10:8600",
+                                        "172.16.0.11:8600",
+                                        "172.16.0.12:8600",
+                                        "172.16.0.13:8600"
+                                      ]
+                                    }
+                                  },
+                                  "upstreams": [
+                                    {
+                                      "lookup_srv": "http.portal.harbor.service.dc1.kjdev"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "terminal": true
                     }
                   ]
                 }

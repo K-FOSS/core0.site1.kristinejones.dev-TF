@@ -153,7 +153,7 @@ job "registry-harbor-core" {
         CORE_URL = "https://http.core.harbor.service.dc1.kjdev"
         JOBSERVICE_URL = "https://http.jobservice.harbor.service.dc1.kjdev"
         REGISTRY_URL = "https://http.registry.harbor.service.dc1.kjdev"
-        TOKEN_SERVICE_URL = "https://http.tokenservice.harbor.service.dc1.kjdev"
+        TOKEN_SERVICE_URL = "https://http.core.harbor.service.dc1.kjdev:8443/service/token"
 
         CORE_LOCAL_URL = "https://http.core.harbor.service.dc1.kjdev"
 

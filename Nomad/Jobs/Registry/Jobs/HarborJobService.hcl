@@ -141,7 +141,7 @@ job "registry-harbor-jobservice" {
         # Logs
         #
         CORE_URL = "https://http.core.harbor.service.dc1.kjdev:8443"
-        TOKEN_SERVICE_URL = "https://http.tokenservice.harbor.service.dc1.kjdev"
+        TOKEN_SERVICE_URL = "https://http.core.harbor.service.dc1.kjdev:8443/service/token"
         REGISTRY_URL = "https://http.registry.harbor.service.dc1.kjdev"
         REGISTRY_CONTROLLER_URL = "https://http.registrycontroller.harbor.service.dc1.kjdev"
         REGISTRY_CREDENTIAL_USERNAME = "TODO"
