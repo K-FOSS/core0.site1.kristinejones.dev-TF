@@ -189,6 +189,10 @@ module "Web" {
   HomeAssistant = {
     CA = var.HomeAssistant.TLS.CA
   }
+
+  Bitwarden = {
+    CA = var.Bitwarden.TLS.CA
+  }
 }
 
 module "CoTurn" {
