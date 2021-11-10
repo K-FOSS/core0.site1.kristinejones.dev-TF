@@ -126,6 +126,8 @@ routes:
     to: https://172.31.241.2:36006
     tls_custom_ca_file: /secrets/TLS/HomeAssistantCA.pem
     tls_server_name: hass.int.site1.kristianjones.dev
+    allowed_domains:
+      - kristianjones.dev
     pass_identity_headers: true
     allow_websockets: true
     cors_allow_preflight: true
