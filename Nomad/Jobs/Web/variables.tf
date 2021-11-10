@@ -22,3 +22,9 @@ variable "Harbor" {
     CA = string
   })
 }
+
+variable "HomeAssistant" {
+  type = object({
+    CA = string
+  })
+}

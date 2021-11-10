@@ -183,6 +183,10 @@ module "Web" {
   Harbor = {
     CA = var.Registry.Harbor.TLS.CA
   }
+
+  HomeAssistant = {
+    CA = var.HomeAssistant.TLS.CA
+  }
 }
 
 module "CoTurn" {

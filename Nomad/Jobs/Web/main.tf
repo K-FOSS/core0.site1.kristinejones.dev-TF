@@ -63,6 +63,10 @@ resource "nomad_job" "JobFile" {
       CA = var.Harbor.CA
     }
 
+    HomeAssistant = {
+      CA = var.HomeAssistant.CA
+    }
+
     Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", { 
       Cloudflare = var.CloudFlare
 

@@ -47,7 +47,13 @@
                   "handler": "reverse_proxy",
                   "transport": {
                     "protocol": "http",
-                    "compression": true
+                    "compression": true,
+                    "tls": {
+                      "server_name": "hass.int.site1.kristianjones.dev",
+                      "root_ca_pem_files": [
+                        "/local/HomeAssistant.pem"
+                      ]
+                    }
                   },
                   "upstreams": [
                     {

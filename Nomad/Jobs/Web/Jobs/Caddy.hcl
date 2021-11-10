@@ -107,6 +107,14 @@ EOF
         destination = "local/HarborCA.pem"
       }
 
+      template {
+        data = <<EOF
+${HomeAssistant.CA}
+EOF
+
+        destination = "local/HomeAssistant.pem"
+      }
+
       resources {
         cpu = 300
 
