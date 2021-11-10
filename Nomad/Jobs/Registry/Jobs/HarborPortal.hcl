@@ -21,6 +21,19 @@ job "registry-harbor-portal" {
       }
     }
 
+    task "wait-for-harbor-core-redis" {
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
+
+      driver = "exec"
+      config {
+        command = "sh"
+        args = ["-c", "while ! nc -z http.core.harbor.service.dc1.kjdev 8443; do sleep 1; done"]
+      }
+    }
+
     service {
       name = "harbor"
       port = "http"
@@ -69,10 +82,20 @@ job "registry-harbor-portal" {
 
       template {
         data = <<EOF
+${EntryScript}
+EOF
+
+        destination = "local/entry.sh"
+
+        perms = "777"
+      }
+
+      template {
+        data = <<EOF
 ${Harbor.Config}
 EOF
 
-        destination = "local/Harbor/Config.yaml"
+        destination = "local/Harbor/NGINX.conf"
       }
 
       template {

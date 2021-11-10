@@ -121,23 +121,25 @@ resource "nomad_job" "HarborJobServiceJobFile" {
   })
 }
 
-# resource "nomad_job" "HarborPortalJobFile" {
-#   jobspec = templatefile("${path.module}/Jobs/HarborPortal.hcl", {
-#     Harbor = {
-#       TLS = {
-#         CA = var.Harbor.TLS.CA
+resource "nomad_job" "HarborPortalJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/HarborPortal.hcl", {
+    EntryScript = file("${path.module}/Configs/HarborPortal/Entry.sh")
 
-#         Cert = var.Harbor.TLS.Core.Cert
-#         Key = var.Harbor.TLS.Core.Key
-#       }
+    Harbor = {
+      TLS = {
+        CA = var.Harbor.TLS.CA
 
-#       Config =  templatefile("${path.module}/Configs/Harbor/Harbor.yaml", {
-#       })
+        Cert = var.Harbor.TLS.Portal.Cert
+        Key = var.Harbor.TLS.Portal.Key
+      }
 
-#       Version = "v2.4.0-dev"
-#     }
-#   })
-# }
+      Config =  templatefile("${path.module}/Configs/HarborPortal/NGINX.conf", {
+      })
+
+      Version = "v2.4.0-dev"
+    }
+  })
+}
 
 resource "nomad_job" "HarborRegistryJobFile" {
   jobspec = templatefile("${path.module}/Jobs/HarborRegistry.hcl", {
