@@ -10,4 +10,4 @@ ls -lah /etc/harbor/ssl
 
 /harbor/install_cert.sh
 
-exec su harbor --command "/harbor/harbor_core"
+exec su -p -c "/harbor/harbor_core" harbor
