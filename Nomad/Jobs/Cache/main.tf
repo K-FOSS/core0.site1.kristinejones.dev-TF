@@ -48,3 +48,13 @@ resource "nomad_job" "NextCloudCacheJobFile" {
 
   })
 }
+
+#
+# OpenProject
+#
+
+resource "nomad_job" "OpenProjectRedisJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/OpenProjectRedis.hcl", {
+
+  })
+}
