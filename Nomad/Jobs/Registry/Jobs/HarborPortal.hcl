@@ -13,7 +13,7 @@ job "registry-harbor-portal" {
       mode = "cni/nomadcore1"
 
       port "http" {
-        to = 8888
+        to = 8443
       }
 
       port "metrics" {
