@@ -209,12 +209,6 @@
                                         "172.16.0.12:8600",
                                         "172.16.0.13:8600"
                                       ]
-                                    },
-                                    "tls": {
-                                      "server_name": "wss.bitwarden.service.dc1.kjdev",
-                                      "root_ca_pem_files": [
-                                        "/local/Bitwarden.pem"
-                                      ]
                                     }
                                   },
                                   "upstreams": [
