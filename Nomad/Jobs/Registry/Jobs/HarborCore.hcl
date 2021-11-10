@@ -63,11 +63,24 @@ job "registry-harbor-core" {
       mode = "cni/nomadcore1"
 
       port "http" {
-        to = 443
+        to = 8443
       }
 
       port "metrics" {
         to = 9090
+      }
+    }
+
+    task "wait-for-harbor-core-redis" {
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
+
+      driver = "exec"
+      config {
+        command = "sh"
+        args = ["-c", "while ! nc -z redis.core.harbor.service.dc1.kjdev 6379; do sleep 1; done"]
       }
     }
 
@@ -87,6 +100,8 @@ job "registry-harbor-core" {
 
       config {
         image = "goharbor/harbor-core:${Harbor.Version}"
+
+        entrypoint = ["/local/entry.sh"]
 
         logging {
           type = "loki"
@@ -201,6 +216,16 @@ job "registry-harbor-core" {
         #
 
 
+      }
+
+      template {
+        data = <<EOF
+${EntryScript}
+EOF
+
+        destination = "local/entry.sh"
+
+        perms = "777"
       }
 
       template {

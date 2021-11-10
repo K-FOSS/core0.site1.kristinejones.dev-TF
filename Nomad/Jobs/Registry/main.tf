@@ -77,6 +77,8 @@ locals {
 
 resource "nomad_job" "HarborCoreJobFile" {
   jobspec = templatefile("${path.module}/Jobs/HarborCore.hcl", {
+    EntryScript = file("${path.module}/Configs/HarborCore/Entry.sh")
+
     Harbor = {
       Secrets = local.Harbor.Secrets
 
@@ -139,6 +141,8 @@ resource "nomad_job" "HarborJobServiceJobFile" {
 
 resource "nomad_job" "HarborRegistryJobFile" {
   jobspec = templatefile("${path.module}/Jobs/HarborRegistry.hcl", {
+    EntryScript = file("${path.module}/Configs/HarborRegistry/Entry.sh")
+
     Harbor = {
       Secrets = local.Harbor.Secrets
 
