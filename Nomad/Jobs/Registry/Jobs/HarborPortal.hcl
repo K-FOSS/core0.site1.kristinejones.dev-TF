@@ -51,6 +51,8 @@ job "registry-harbor-portal" {
       config {
         image = "goharbor/harbor-portal:${Harbor.Version}"
 
+        entrypoint = ["/local/entry.sh"]
+
         logging {
           type = "loki"
           config {
