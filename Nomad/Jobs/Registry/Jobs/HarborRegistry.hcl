@@ -71,19 +71,6 @@ job "registry-harbor-registry" {
       }
     }
 
-    task "wait-for-harbor-registry-redis" {
-      lifecycle {
-        hook = "prestart"
-        sidecar = false
-      }
-
-      driver = "exec"
-      config {
-        command = "sh"
-        args = ["-c", "while ! nc -z redis.registry.harbor.service.dc1.kjdev 6379; do sleep 1; done"]
-      }
-    }
-
     service {
       name = "harbor"
       port = "http"

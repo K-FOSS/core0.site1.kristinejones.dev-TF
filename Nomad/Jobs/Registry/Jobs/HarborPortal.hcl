@@ -48,6 +48,8 @@ job "registry-harbor-portal" {
     task "harbor-portal-server" {
       driver = "docker"
 
+      user = "root"
+
       config {
         image = "goharbor/harbor-portal:${Harbor.Version}"
 
