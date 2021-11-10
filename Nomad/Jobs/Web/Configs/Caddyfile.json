@@ -32,7 +32,8 @@
                   "path": [
                     "/api/google_assistant",
                     "/api/google_assistant/*",
-                    "/auth/token"
+                    "/auth/token",
+                    "/api/websocket"
                   ]
                 }
               ],
