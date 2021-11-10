@@ -209,11 +209,17 @@
                                         "172.16.0.12:8600",
                                         "172.16.0.13:8600"
                                       ]
+                                    },
+                                    "tls": {
+                                      "server_name": "wss.bitwarden.service.dc1.kjdev",
+                                      "root_ca_pem_files": [
+                                        "/local/Bitwarden.pem"
+                                      ]
                                     }
                                   },
                                   "upstreams": [
                                     {
-                                      "lookup_srv": "bitwarden-ws-cont.service.kjdev"
+                                      "lookup_srv": "wss.bitwarden.service.kjdev"
                                     }
                                   ]
                                 }
@@ -232,11 +238,17 @@
                                         "172.16.0.12:8600",
                                         "172.16.0.13:8600"
                                       ]
+                                    },
+                                    "tls": {
+                                      "server_name": "https.bitwarden.service.dc1.kjdev",
+                                      "root_ca_pem_files": [
+                                        "/local/Bitwarden.pem"
+                                      ]
                                     }
                                   },
                                   "upstreams": [
                                     {
-                                      "lookup_srv": "bitwarden-cont.service.kjdev"
+                                      "lookup_srv": "https.bitwarden.service.kjdev"
                                     }
                                   ]
                                 }

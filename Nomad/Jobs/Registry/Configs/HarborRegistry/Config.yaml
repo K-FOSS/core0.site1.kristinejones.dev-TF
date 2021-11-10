@@ -30,7 +30,6 @@ http:
     certificate: /secrets/TLS/Cert.pem
     key: /secrets/TLS/Cert.key
     inimumtls: tls1.2
-  secret: placeholder
   debug:
     addr: 0.0.0.0:9090
     prometheus:

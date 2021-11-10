@@ -121,10 +121,12 @@ module "Pomerium" {
 #
 # Bitwarden
 #
-resource "nomad_job" "Nomad" {
-  jobspec = templatefile("${path.module}/Jobs/Bitwarden/Bitwarden.hcl", {
-    Database = var.Bitwarden.Database
-  })
+module "Bitwarden" {
+  source = "./Jobs/Bitwarden"
+
+  Database = var.Bitwarden.Database
+
+  TLS = var.Bitwarden.TLS
 }
 
 #

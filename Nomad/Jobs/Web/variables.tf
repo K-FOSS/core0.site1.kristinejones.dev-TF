@@ -28,3 +28,9 @@ variable "HomeAssistant" {
     CA = string
   })
 }
+
+variable "Bitwarden" {
+  type = object({
+    CA = string
+  })
+}

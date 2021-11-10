@@ -354,9 +354,16 @@ resource "vault_pki_secret_backend_cert" "BitwardenServerCert" {
   backend = module.Bitwarden.TLS.Mount.path
   name = module.Bitwarden.TLS.Role.name
 
-  common_name = "bitwarden-cont.service.kjdev"
+  common_name = "bitwarden.service.kjdev"
 
-  alt_names = ["bitwarden.kristianjones.dev"]
+  alt_names = [
+    "bitwarden.kristianjones.dev",
+    "https.bitwarden.service.dc1.kjdev",
+    "bitwarden.service.dc1.kjdev", 
+    "https.bitwarden.service.kjdev",
+    "wss.bitwarden.service.kjdev",
+    "wss.bitwarden.service.dc1.kjdev"
+  ]
 }
 
 #

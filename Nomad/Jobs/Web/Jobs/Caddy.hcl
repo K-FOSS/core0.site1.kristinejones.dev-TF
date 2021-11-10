@@ -115,6 +115,14 @@ EOF
         destination = "local/HomeAssistant.pem"
       }
 
+      template {
+        data = <<EOF
+${Bitwarden.CA}
+EOF
+
+        destination = "local/Bitwarden.pem"
+      }
+
       resources {
         cpu = 300
 

@@ -46,35 +46,26 @@ terraform {
   }
 }
 
-resource "random_password" "CoTurnPassword" {
-  length = 20
-  special = false
+data "github_repository" "Repo" {
+  full_name = "dani-garcia/vaultwarden"
 }
 
-resource "nomad_job" "JobFile" {
-  jobspec = templatefile("${path.module}/Jobs/Caddy.hcl", {
-    Consul = var.Consul
+data "github_release" "Release" {
+  repository  = data.github_repository.Repo.name
+  owner       = split("/", data.github_repository.Repo.full_name)[0]
+  retrieve_by = "latest"
+}
 
-    Pomerium = {
-      CA = var.Pomerium.CA
+resource "nomad_job" "BitwardenServerJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/Bitwarden.hcl", {
+    Authentik = {
+      SecretKey = var.Secrets.SecretKey
     }
 
-    Harbor = {
-      CA = var.Harbor.CA
-    }
+    Database = var.Database
 
-    HomeAssistant = {
-      CA = var.HomeAssistant.CA
-    }
+    TLS = var.TLS
 
-    Bitwarden = {
-      CA = var.Bitwarden.CA
-    }
-
-    Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", { 
-      Cloudflare = var.CloudFlare
-
-      Consul = var.Consul
-    })
+    Version = "2021.10.2"
   })
 }

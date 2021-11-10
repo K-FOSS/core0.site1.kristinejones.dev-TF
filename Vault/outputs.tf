@@ -3,14 +3,6 @@ output "TFMount" {
 }
 
 #
-# Bitwarden
-#
-
-output "BitwardenDB" {
-  value = data.vault_generic_secret.Bitwarden
-}
-
-#
 # Cloudflare
 #
 
@@ -246,6 +238,44 @@ output "HomeAssistant" {
     OpenID = {
       ClientID = data.vault_generic_secret.eJabberDOID.data["ClientID"]
       ClientSecret = data.vault_generic_secret.eJabberDOID.data["ClientSecret"]
+    }
+  }
+}
+
+#
+# DHCP
+#
+output "DHCP" {
+  value = {
+    TLS = {
+      CA = vault_pki_secret_backend_cert.DHCPServerCert.ca_chain
+
+      Server = {
+        Cert = vault_pki_secret_backend_cert.DHCPServerCert.certificate
+        Key = vault_pki_secret_backend_cert.DHCPServerCert.private_key
+      }
+    }
+  }
+}
+
+#
+# Bitwarden
+#
+
+output "Bitwarden" {
+  value = {
+    Database = {
+      Username = data.vault_generic_secret.Bitwarden.data["username"]
+      Password = data.vault_generic_secret.Bitwarden.data["password"]
+    }
+
+    TLS = {
+      CA = vault_pki_secret_backend_cert.BitwardenServerCert.ca_chain
+
+      Server = {
+        Cert = vault_pki_secret_backend_cert.BitwardenServerCert.certificate
+        Key = vault_pki_secret_backend_cert.BitwardenServerCert.private_key
+      }
     }
   }
 }

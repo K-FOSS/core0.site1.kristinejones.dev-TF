@@ -466,11 +466,13 @@ module "Nomad" {
       Hostname = "172.31.241.2"
       Port = 36009
 
-      Username = module.Vault.BitwardenDB.data["username"]
-      Password = module.Vault.BitwardenDB.data["password"]
+      Username = module.Vault.Bitwarden.Database.Username
+      Password = module.Vault.Bitwarden.Database.Password
 
       Database = "bitwarden"
     }
+
+    TLS = module.Vault.Bitwarden.TLS
   }
 
   #
