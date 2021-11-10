@@ -22,6 +22,15 @@ variable "Bitwarden" {
       Username = string
       Password = string
     })
+
+    TLS = object({
+      CA = string
+
+      Server = object({
+        Cert = string
+        Key = string
+      })
+    })
   })
 }
 
