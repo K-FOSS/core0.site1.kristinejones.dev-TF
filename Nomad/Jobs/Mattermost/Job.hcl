@@ -48,9 +48,9 @@ job "mattermost" {
 #
 # Database
 #
-MM_SQLSETTINGS_DATASOURCE="postgres://${Database.Username}:${Database.Password}@${Database.Hostname}/${Database.Database}?sslmode=disable&connect_timeout=10"
+MM_SQLSETTINGS_DATASOURCE="postgres://${Database.Username}:${Database.Password}@${Database.Hostname}:${Database.Port}/${Database.Database}?sslmode=disable&connect_timeout=10"
 DB_HOST="${Database.Hostname}"
-DB_PORT_NUMBER="5432"
+DB_PORT_NUMBER="${Database.Port}"
 EOH
 
         destination = "secrets/file.env"
