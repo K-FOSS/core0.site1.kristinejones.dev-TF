@@ -54,3 +54,26 @@ variable "Tempo" {
 
   description = "Tempo Configuration"
 }
+
+#
+# HomeAssistant
+#
+
+variable "HomeAssistant" {
+  type = object({
+    TLS = object({
+      CA = string
+
+      Cert = string
+      Key = string
+    })
+
+    Connection = object({
+      Hostname = string
+      Port = number
+    })
+  })
+  sensitive = true
+
+  description = "HomeAssistant Configuration"
+}

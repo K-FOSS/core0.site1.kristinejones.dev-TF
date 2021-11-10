@@ -239,3 +239,19 @@ data "consul_key_prefix" "PomeriumOID" {
 data "consul_key_prefix" "eJabberDOID" {
   path_prefix = "authentik/apps/pomeriumproxy/"
 }
+
+#
+# TODO: Export Randomly generated security keys to Consul for Grafana to link up with secure RBAC access to allow for easiler management of DB, Vault, TLS, Redis, ETC
+#
+resource "consul_key_prefix" "HASS" {
+  datacenter = "dc1"
+
+  # Prefix to add to prepend to all of the subkey names below.
+  path_prefix = "TLS/HomeAssistant/"
+
+  subkeys = {
+    "CA" = var.HomeAssistant.TLS.CA
+    "Cert" = var.HomeAssistant.TLS.Cert
+    "Key" = var.HomeAssistant.TLS.Key
+  }
+}

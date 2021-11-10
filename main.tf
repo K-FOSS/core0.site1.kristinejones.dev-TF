@@ -65,6 +65,20 @@ module "Consul" {
   Tempo = {
     Prefix = "tempo"
   }
+
+  HomeAssistant = {
+    TLS = {
+      CA = module.Vault.HomeAssistant.TLS.CA
+
+      Cert = module.Vault.HomeAssistant.TLS.Server.Cert
+      Key = module.Vault.HomeAssistant.TLS.Server.Key
+    }
+
+    Connection = {
+      Hostname = "172.31.241.2"
+      Port = 36006
+    }
+  }
 }
 
 #
