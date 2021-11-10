@@ -115,6 +115,12 @@ job "registry-harbor-registry" {
         }
       }
 
+      resources {
+        cpu = 256
+        memory = 256
+        memory_max = 256
+      }
+
       env {
         #
         # Port
