@@ -104,7 +104,7 @@ routes:
   # Mattermost
   #
   - from: https://mattermost.int.site1.kristianjones.dev
-    to: http://http.drawio.service.dc1.kjdev:8080
+    to: http://mattermost-leader-http-cont.service.dc1.kjdev:8080
     allowed_domains:
       - kristianjones.dev
     pass_identity_headers: true

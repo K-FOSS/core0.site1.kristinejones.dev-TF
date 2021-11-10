@@ -32,9 +32,7 @@
                   "path": [
                     "/api/google_assistant",
                     "/api/google_assistant/*",
-                    "/auth/token",
-                    "/api/websocket",
-                    "/api/mobile_app/registrations"
+                    "/auth/token"
                   ]
                 }
               ],
