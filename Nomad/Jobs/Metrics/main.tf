@@ -55,7 +55,7 @@ resource "nomad_job" "CortexJob" {
 
       YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
 
-      Version = "master-85c3781"
+      Version = "master-cd29c23"
     }
   })
 }
