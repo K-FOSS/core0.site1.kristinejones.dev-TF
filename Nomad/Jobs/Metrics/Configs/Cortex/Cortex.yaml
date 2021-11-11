@@ -488,6 +488,8 @@ alertmanager:
 
     advertise_address: {{ env "NOMAD_ALLOC_INDEX" }}.ha.cortex-alertmanager.service.dc1.kjdev:9094
 
+    peers: 0.ha.cortex-alertmanager.service.dc1.kjdev:9094,1.ha.cortex-alertmanager.service.dc1.kjdev:9094,2.ha.cortex-alertmanager.service.dc1.kjdev:9094
+
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#alertmanager_storage_config
 #
@@ -495,6 +497,7 @@ alertmanager_storage:
   backend: s3
   s3:
     bucket_name: ${AlertManagerBucket.Bucket}
+    region: us-east-1
     endpoint: ${AlertManagerBucket.Connection.Endpoint}
     access_key_id: ${AlertManagerBucket.Credentials.AccessKey}
     secret_access_key: ${AlertManagerBucket.Credentials.SecretKey}
