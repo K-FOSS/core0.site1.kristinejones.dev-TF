@@ -1,4 +1,4 @@
-groupjob "cortex-cache" {
+job "cortex-cache" {
   datacenters = ["core0site1"]
 
   group "cortex-memcached" {
