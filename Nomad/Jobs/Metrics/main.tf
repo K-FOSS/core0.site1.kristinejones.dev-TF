@@ -66,6 +66,26 @@ resource "nomad_job" "CortexJob" {
   })
 }
 
+resource "nomad_job" "CortexRuler" {
+  jobspec = templatefile("${path.module}/Jobs/Cortex/CortexRuler.hcl", {
+    Cortex = {
+      Targets = var.Cortex.Targets
+
+      AlertManager = {
+        Config = templatefile("${path.module}/Configs/Cortex/AlertManager.yaml", {
+          SMTP = var.SMTP
+        })
+      }
+
+      Database = var.Cortex.Database
+
+      YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
+
+      Version = "master-cd29c23"
+    }
+  })
+}
+
 resource "nomad_job" "PrometheusJob" {
   jobspec = templatefile("${path.module}/Jobs/Prometheus.hcl", {
     Prometheus = {
