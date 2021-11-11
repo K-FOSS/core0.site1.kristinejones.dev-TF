@@ -11,13 +11,17 @@ job "dhcp" {
         to = 67
       }
 
-      port "http" {
+      port "metrics" {
+        to = 9547
+      }
+
+      port "controlagent" {
         to = 8000
       }
     }
 
     service {
-      name = "dhcp4"
+      name = "dhcp"
       port = "dhcp"
 
       task = "kea-dhcp-server"
