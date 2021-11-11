@@ -20,6 +20,11 @@
     },
     "rns": {
       "bind": "0.0.0.0:53",
+      "protocol": "udp",
+      "udp": {
+        "max_requests": 124,
+        "max_responses": 124
+      },
       "discovery": {
         "kind": "consul",
         "consul_host": "${Consul.Hostname}:${Consul.Port}",
@@ -30,6 +35,11 @@
     },
     "networkdns": {
       "bind": "0.0.0.0:8055",
+      "protocol": "udp",
+      "udp": {
+        "max_requests": 124,
+        "max_responses": 124
+      },
       "discovery": {
         "kind": "consul",
         "consul_host": "${Consul.Hostname}:${Consul.Port}",
@@ -40,6 +50,11 @@
     },
     "servicedns": {
       "bind": "0.0.0.0:8060",
+      "protocol": "udp",
+      "udp": {
+        "max_requests": 124,
+        "max_responses": 124
+      },
       "discovery": {
         "kind": "consul",
         "consul_host": "${Consul.Hostname}:${Consul.Port}",

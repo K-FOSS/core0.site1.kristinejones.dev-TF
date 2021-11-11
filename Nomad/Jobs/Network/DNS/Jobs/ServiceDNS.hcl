@@ -25,7 +25,7 @@ job "network-dns-servicedns" {
       name = "dns"
       port = "dns"
 
-      task = "coredns-server"
+      task = "servicedns-coredns-server"
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "dns.service"]
