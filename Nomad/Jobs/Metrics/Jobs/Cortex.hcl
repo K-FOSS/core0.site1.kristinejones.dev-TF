@@ -1146,6 +1146,15 @@ EOF
         args = ["-config.file=/local/Cortex.yaml"]
 
         memory_hard_limit = 256
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=cortex,service=alert-manager"
+          }
+        }
       }
 
       meta {
