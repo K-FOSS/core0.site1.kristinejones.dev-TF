@@ -22,8 +22,8 @@
       "bind": "0.0.0.0:53",
       "protocol": "udp",
       "udp": {
-        "max_requests": 124,
-        "max_responses": 124
+        "max_requests": 32,
+        "max_responses": 32
       },
       "discovery": {
         "kind": "consul",
@@ -37,8 +37,8 @@
       "bind": "0.0.0.0:8055",
       "protocol": "udp",
       "udp": {
-        "max_requests": 124,
-        "max_responses": 124
+        "max_requests": 32,
+        "max_responses": 32
       },
       "discovery": {
         "kind": "consul",
@@ -52,8 +52,8 @@
       "bind": "0.0.0.0:8060",
       "protocol": "udp",
       "udp": {
-        "max_requests": 124,
-        "max_responses": 124
+        "max_requests": 32,
+        "max_responses": 32
       },
       "discovery": {
         "kind": "consul",
