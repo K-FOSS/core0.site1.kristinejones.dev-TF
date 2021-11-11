@@ -376,7 +376,7 @@ tenant_federation:
 #
 ruler:
   enable_api: true
-  enable_sharding: false
+  enable_sharding: true
 
   #  
   # Report the wall time for ruler queries to complete as a per user metric and as
@@ -412,8 +412,8 @@ ruler:
         host: ${Consul.Hostname}:${Consul.Port}
         acl_token: ${Consul.Token}
 
-  alertmanager_url: http://http.cortex-alertmanager.service.dc1.kjdev:8080
-  enable_alertmanager_v2: true
+  alertmanager_url: http://http.cortex-alertmanager.service.dc1.kjdev:8080/alertmanager
+  enable_alertmanager_v2: false
   enable_alertmanager_discovery: false
 
 #
@@ -452,7 +452,7 @@ alertmanager:
   # CLI flag: -experimental.alertmanager.enable-api
   enable_api: true
 
-  external_url: http://http.cortex-alertmanager.service.dc1.kjdev:8080
+  external_url: http://http.cortex-alertmanager.service.dc1.kjdev:8080/alertmanager
 
   # Shard tenants across multiple alertmanager instances.
   # CLI flag: -alertmanager.sharding-enabled
