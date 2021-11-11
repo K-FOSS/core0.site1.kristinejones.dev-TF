@@ -79,7 +79,7 @@
     // default value is an empty string which indicates that no
     // suffix is appended.  It may be specified at the global,
     // shared-network and subnet levels.
-    "ddns-qualifying-suffix": "kristianjones.dev",
+    "ddns-qualifying-suffix": "kristianjones.dev.",
     // Enumeration specifying whether the server should honor
     // hostname or Client FQDN sent by the client or replace
     // this name. The acceptable values are: "never" (use the
@@ -132,7 +132,7 @@
       // IP address that Kea DHCPv4 server should use to send
       // NCRs to D2. Default value of zero indicates that Kea
       // should pick suitable address.
-      "sender-ip": "0.0.0.0",
+      "sender-ip": "127.0.0.1",
       // Port number that Kea DHCPv4 server should use to send
       // NCRs to D2. Default value of zero indicates that Kea
       // should pick suitable port.

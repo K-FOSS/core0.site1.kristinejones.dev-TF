@@ -23,7 +23,8 @@
       "protocol": "udp",
       "backend_idle_timeout": "5s",
       "udp": {
-        "max_requests": 32
+        "max_requests": 64,
+        "max_responses": 64
       },
       "discovery": {
         "kind": "consul",

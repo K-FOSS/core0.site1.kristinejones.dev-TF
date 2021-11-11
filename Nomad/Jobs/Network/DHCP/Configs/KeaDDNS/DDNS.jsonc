@@ -20,7 +20,7 @@
     "port": 53001,
     // Maximum time to we will wait for a DNS server to respond to us.
     // Unit is the millisecond, default is 100ms.
-    "dns-server-timeout": 100,
+    "dns-server-timeout": 12000,
     // Protocol to use for Name Change Requests from a Kea DHCP server.
     // Currently only 'UDP' is supported.
     "ncr-protocol": "UDP",
