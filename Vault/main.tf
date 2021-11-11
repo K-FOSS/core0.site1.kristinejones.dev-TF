@@ -148,6 +148,21 @@ data "vault_generic_secret" "iDRAC" {
 
 
 #
+# SMTP
+#
+data "vault_generic_secret" "SMTP" {
+  path = "${vault_mount.Terraform.path}/SMTP"
+}
+
+#
+# Temp KJDev Microsoft Teams
+#
+data "vault_generic_secret" "MSTeams" {
+  path = "${vault_mount.Terraform.path}/MSTeams"
+}
+
+ 
+#
 # TrueNAS NAS
 #
 data "vault_generic_secret" "NASAuth" {

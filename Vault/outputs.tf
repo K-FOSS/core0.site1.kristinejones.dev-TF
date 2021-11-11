@@ -101,6 +101,28 @@ output "iDRAC" {
   }
 }
 
+#
+# SMTP
+#
+
+output "SMTP" {
+  value = {
+    Server = data.vault_generic_secret.SMTP.data["Server"]
+    Port = data.vault_generic_secret.SMTP.data["Port"]
+    
+    Username = data.vault_generic_secret.SMTP.data["Username"]
+    Password = data.vault_generic_secret.SMTP.data["Password"]
+  }
+}
+
+#
+# TMP KJDev MSTeams
+#
+output "MSTeams" {
+  value = {
+    Webhook = data.vault_generic_secret.MSTeams.data["Webhook"]
+  }
+}
 
 #
 # TrueNAS NAS
