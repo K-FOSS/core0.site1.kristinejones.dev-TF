@@ -35,6 +35,19 @@ job "cortex-querier" {
       }
     }
 
+    task "wait-for-memcached" {
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
+
+      driver = "exec"
+      config {
+        command = "sh"
+        args = ["-c", "while ! nc -z cortex-memcached.service.dc1.kjdev 11211; do sleep 1; done"]
+      }
+    }
+
     service {
       name = "cortex-querier"
       port = "http"
