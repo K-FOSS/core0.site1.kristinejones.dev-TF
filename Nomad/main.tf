@@ -302,6 +302,8 @@ module "Metrics" {
   iDRAC = var.Metrics.iDRAC
 
   MSTeams = var.Metrics.MSTeams
+
+  SMTP = var.Metrics.SMTP
 }
 
 #

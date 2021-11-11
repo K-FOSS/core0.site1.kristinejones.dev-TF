@@ -72,6 +72,16 @@ variable "Cortex" {
   })
 }
 
+variable "SMTP" {
+  type = object({
+    Server = string
+    Port = string
+
+    Username = string
+    Password = string
+  })
+}
+
 variable "Prometheus" {
   type = object({
     Grafana = object({

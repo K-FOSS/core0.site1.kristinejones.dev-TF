@@ -278,6 +278,14 @@ variable "Metrics" {
       })
     })
 
+    SMTP = object({
+      Server = string
+      Port = string
+
+      Username = string
+      Password = string
+    })
+
     Prometheus = object({
       Grafana = object({
         CA = string

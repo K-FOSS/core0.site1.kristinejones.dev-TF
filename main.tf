@@ -593,6 +593,8 @@ module "Nomad" {
       AlertManagerBucket = module.AlertManagerBucket
     }
 
+    SMTP = module.Vault.SMTP
+
     Prometheus = {
       Grafana = {
         CA = module.Vault.Grafana.TLS.CA
