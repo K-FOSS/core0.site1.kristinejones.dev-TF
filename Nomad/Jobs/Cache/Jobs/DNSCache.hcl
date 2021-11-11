@@ -13,50 +13,22 @@ job "dns-cache" {
     }
 
     service {
-      name = "github-cache-redis"
+      name = "dns"
       port = "redis"
 
       task = "github-redis-cache"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled"]
+      tags = ["coredns.enabled", "cache.rns"]
     }
 
-    task "github-redis-cache" {
+    task "rns-dns-redis-cache" {
       driver = "docker"
 
       config {
         image = "redis:latest"
       }
     }
-  }
-
-  group "github-cache-server" {
-    count = 3
-
-    spread {
-      attribute = "$${node.unique.id}"
-      weight = 100
-    }
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "http" {
-        to = 8080
-      }
-    }
-
-    service {
-      name = "github-cache-server"
-      port = "http"
-
-      task = "github-cache-server"
-      address_mode = "alloc"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}", "http"]
-    }
-
   }
 }
 
