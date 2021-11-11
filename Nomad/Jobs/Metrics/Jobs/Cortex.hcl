@@ -1058,6 +1058,10 @@ EOF
         to = 8090
       }
 
+      port "alertmanager-ha" {
+        to = 9094
+      }
+
       dns {
         servers = [
           "10.1.1.53",
@@ -1127,6 +1131,17 @@ EOF
       task = "cortex-alertmanager"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "gossip", "$${NOMAD_ALLOC_INDEX}.gossip"]
+    }
+
+    service {
+      name = "cortex-alertmanager"
+      
+      port = "alertmanager-ha"
+      address_mode = "alloc"
+
+      task = "cortex-alertmanager"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "ha", "$${NOMAD_ALLOC_INDEX}.ha"]
     }
 
     task "cortex-alertmanager" {

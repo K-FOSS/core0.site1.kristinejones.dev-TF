@@ -483,6 +483,10 @@ alertmanager:
       consul:
         host: ${Consul.Hostname}:${Consul.Port}
         acl_token: ${Consul.Token}
+  cluster:
+    listen_address: 0.0.0.0:9094
+
+    advertise_address: {{ env "NOMAD_ALLOC_INDEX" }}.ha.cortex-alertmanager.service.dc1.kjdev:9094
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#alertmanager_storage_config
