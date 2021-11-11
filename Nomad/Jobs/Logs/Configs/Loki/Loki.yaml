@@ -156,7 +156,7 @@ ruler:
       s3forcepathstyle: true
       insecure: true
   rule_path: /tmp/scratch
-  alertmanager_url: http://localhost
+  alertmanager_url: http://http.cortex-alertmanager.service.dc1.kjdev:8080/alertmanager
 
   enable_api: true
   enable_sharding: true
