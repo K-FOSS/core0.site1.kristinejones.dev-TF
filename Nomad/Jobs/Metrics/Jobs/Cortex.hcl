@@ -1058,7 +1058,7 @@ EOF
         to = 8090
       }
 
-      port "alertmanager-ha" {
+      port "alertmanagerha" {
         to = 9094
       }
 
@@ -1136,7 +1136,7 @@ EOF
     service {
       name = "cortex-alertmanager"
       
-      port = "alertmanager-ha"
+      port = "alertmanagerha"
       address_mode = "alloc"
 
       task = "cortex-alertmanager"
