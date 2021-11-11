@@ -14,7 +14,7 @@
   }
 
   secondary kristianjones.dev in-addr.arpa. {
-    transfer from 10.1.1.153:53
+    transfer from 10.1.1.153:153
   }
 }
 

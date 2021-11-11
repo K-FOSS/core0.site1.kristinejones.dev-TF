@@ -18,6 +18,31 @@
         "consul_service_tag": "https"
       }
     },
+    "ns-udp": {
+      "bind": "0.0.0.0:153",
+      "protocol": "udp",
+      "backend_idle_timeout": "5s",
+      "udp": {
+        "max_requests": 32
+      },
+      "discovery": {
+        "kind": "consul",
+        "consul_host": "${Consul.Hostname}:${Consul.Port}",
+        "consul_acl_token": "${Consul.Token}",
+        "consul_service_name": "powerdns",
+        "consul_service_tag": "dns"
+      }
+    },
+    "ns-tcp": {
+      "bind": "0.0.0.0:153",
+      "discovery": {
+        "kind": "consul",
+        "consul_host": "${Consul.Hostname}:${Consul.Port}",
+        "consul_acl_token": "${Consul.Token}",
+        "consul_service_name": "powerdns",
+        "consul_service_tag": "dns"
+      }
+    },
     "rns": {
       "bind": "0.0.0.0:53",
       "protocol": "udp",

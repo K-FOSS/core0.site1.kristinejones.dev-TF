@@ -13,11 +13,7 @@ job "ns" {
       mode = "cni/nomadcore1"
 
       port "dns" {
-        static = 53
-
         to = 53
-
-        host_network = "ns"
       }
     }
 
@@ -28,7 +24,7 @@ job "ns" {
       task = "powerdns-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "dns"]
     }
 
     task "powerdns-db" {
