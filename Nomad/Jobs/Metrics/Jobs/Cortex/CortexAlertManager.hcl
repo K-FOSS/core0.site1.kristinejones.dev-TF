@@ -147,6 +147,11 @@ job "cortex-alertmanager" {
         REPLICAS = "3"
       }
 
+      env {
+        JAEGER_AGENT_HOST = "tempo-distributor-http-cont.service.kjdev"
+        JAEGER_AGENT_PORT = "6831"
+      }
+
       resources {
         cpu = 128
         memory = 256

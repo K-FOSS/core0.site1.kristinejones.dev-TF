@@ -132,6 +132,11 @@ job "cortex-ruler" {
         memory_hard_limit = 256
       }
 
+      env {
+        JAEGER_AGENT_HOST = "tempo-distributor-http-cont.service.kjdev"
+        JAEGER_AGENT_PORT = "6831"
+      }
+
       meta {
         TARGET = "ruler"
 
