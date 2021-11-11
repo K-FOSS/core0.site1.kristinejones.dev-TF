@@ -58,3 +58,12 @@ resource "nomad_job" "OpenProjectRedisJobFile" {
 
   })
 }
+
+#
+# Cortex Memcached
+#
+resource "nomad_job" "CortexCacheJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/CortexCache.hcl", {
+
+  })
+}
