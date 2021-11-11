@@ -300,6 +300,8 @@ module "Metrics" {
   MikroTik = var.Metrics.MikroTik
 
   iDRAC = var.Metrics.iDRAC
+
+  MSTeams = var.Metrics.MSTeams
 }
 
 #

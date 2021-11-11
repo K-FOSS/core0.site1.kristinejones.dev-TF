@@ -629,6 +629,10 @@ module "Nomad" {
         }
       })
     }
+
+    MSTeams = {
+      Webhook = module.Vault.MSTeams.Webhook
+    }
   }
 
   #

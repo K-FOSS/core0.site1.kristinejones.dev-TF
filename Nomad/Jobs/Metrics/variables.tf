@@ -117,3 +117,12 @@ variable "iDRAC" {
     ))
   })
 }
+
+#
+# MSTeams
+#
+variable "MSTeams" {
+  type = object({
+    Webhook = string
+  })
+}

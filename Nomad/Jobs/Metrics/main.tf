@@ -141,3 +141,14 @@ resource "nomad_job" "iDRACJobFile" {
     }
   })
 }
+
+#
+# MSTeams
+#
+resource "nomad_job" "MSTeamsJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/TeamsAlert.hcl", {
+    Teams = {
+      Webhook = var.MSTeams.Webhook
+    }
+  })
+}

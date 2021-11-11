@@ -313,6 +313,10 @@ variable "Metrics" {
         }
       ))
     })
+
+    MSTeams = object({
+      Webhook = string
+    })
   })
 }
 
