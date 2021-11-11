@@ -18,7 +18,7 @@
         "consul_service_tag": "https"
       }
     },
-    "dns": {
+    "rns": {
       "bind": "0.0.0.0:53",
       "discovery": {
         "kind": "consul",
@@ -26,6 +26,26 @@
         "consul_acl_token": "${Consul.Token}",
         "consul_service_name": "dns",
         "consul_service_tag": "dns.rns"
+      }
+    },
+    "networkdns": {
+      "bind": "0.0.0.0:8055",
+      "discovery": {
+        "kind": "consul",
+        "consul_host": "${Consul.Hostname}:${Consul.Port}",
+        "consul_acl_token": "${Consul.Token}",
+        "consul_service_name": "dns",
+        "consul_service_tag": "dns.network"
+      }
+    },
+    "servicedns": {
+      "bind": "0.0.0.0:8060",
+      "discovery": {
+        "kind": "consul",
+        "consul_host": "${Consul.Hostname}:${Consul.Port}",
+        "consul_acl_token": "${Consul.Token}",
+        "consul_service_name": "dns",
+        "consul_service_tag": "dns.service"
       }
     }
   }

@@ -7,7 +7,7 @@
     client_server
   }
 
-  fanout . dns.service.dns.kjdev.dc1.kjdev:8053 dns.network.dns.service.dc1.kjdev:8053 127.0.0.1:5310 127.0.0.1:5380 {
+  fanout . 10.1.1.53:8055 10.1.1.53:8060 127.0.0.1:5310 127.0.0.1:5380 {
     worker-count 4
   }
 }
