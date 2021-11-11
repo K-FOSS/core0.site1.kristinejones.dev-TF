@@ -51,6 +51,10 @@ resource "nomad_job" "CortexJob" {
     Cortex = {
       Targets = var.Cortex.Targets
 
+      AlertManager = {
+        Config = file("${path.module}/Configs/Cortex/AlertManager.yaml")
+      }
+
       Database = var.Cortex.Database
 
       YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)

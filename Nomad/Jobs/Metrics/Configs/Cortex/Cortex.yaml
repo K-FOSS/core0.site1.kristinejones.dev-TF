@@ -413,7 +413,7 @@ ruler:
         acl_token: ${Consul.Token}
 
   alertmanager_url: http://http.cortex-alertmanager.service.dc1.kjdev:8080/alertmanager
-  enable_alertmanager_v2: false
+  enable_alertmanager_v2: true
   enable_alertmanager_discovery: false
 
 #
@@ -483,6 +483,7 @@ alertmanager:
       consul:
         host: ${Consul.Hostname}:${Consul.Port}
         acl_token: ${Consul.Token}
+  fallback_config_file: /local/AlertManager.yaml
   cluster:
     listen_address: 0.0.0.0:9094
 

@@ -1197,6 +1197,17 @@ EOF
 
       template {
         data = <<EOF
+${Cortex.AlertManager.Config}
+EOF
+
+        change_mode   = "signal"
+        change_signal = "SIGHUP"
+
+        destination = "local/AlertManager.yaml"
+      }
+
+      template {
+        data = <<EOF
 ${Cortex.Database.Password}
 EOF
 
