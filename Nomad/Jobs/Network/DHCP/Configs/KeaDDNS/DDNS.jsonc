@@ -71,6 +71,17 @@
               "port": 153
             }
           ]
+        },
+        {
+          // Name of the zone (required).
+          "name": "241.31.172.in-addr.arpa.",
+          // List of DNS servers where to send DNS updates.
+          "dns-servers": [
+            {
+              "ip-address": "10.1.1.153",
+              "port": 153
+            }
+          ]
         }
       ]
     },
