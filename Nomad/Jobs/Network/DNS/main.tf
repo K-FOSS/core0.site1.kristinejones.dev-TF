@@ -56,16 +56,47 @@ terraform {
 #   retrieve_by = "latest"
 # }
 
-data "http" "PSQLFile" {
-  url = "https://raw.githubusercontent.com/PowerDNS/pdns/rel/auth-4.5.x/modules/gpgsqlbackend/schema.pgsql.sql"
-}
 
-
-resource "nomad_job" "JobFile" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
+resource "nomad_job" "RDNSJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/RNS.hcl", {
     #Version = split("v", data.github_release.Release.release_tag)[1]
 
-    CoreFile = templatefile("${path.module}/Configs/Corefile", {
+    CoreFile = templatefile("${path.module}/Configs/RNS/Corefile", {
+      Netbox = var.Netbox
+
+      Consul = var.Consul
+    })
+
+    PluginsConfig = templatefile("${path.module}/Configs/plugin.cfg", {})
+  })
+}
+
+#
+# Service DNS
+#
+
+resource "nomad_job" "ServiceDNSJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/ServiceDNS.hcl", {
+    #Version = split("v", data.github_release.Release.release_tag)[1]
+
+    CoreFile = templatefile("${path.module}/Configs/ServiceDNS/Corefile", {
+      Netbox = var.Netbox
+
+      Consul = var.Consul
+    })
+
+    PluginsConfig = templatefile("${path.module}/Configs/plugin.cfg", {})
+  })
+}
+
+#
+# Network DNS
+#
+resource "nomad_job" "NetworkDNSJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/NetworkDNS.hcl", {
+    #Version = split("v", data.github_release.Release.release_tag)[1]
+
+    CoreFile = templatefile("${path.module}/Configs/NetworkDNS/Corefile", {
       Netbox = var.Netbox
 
       Consul = var.Consul

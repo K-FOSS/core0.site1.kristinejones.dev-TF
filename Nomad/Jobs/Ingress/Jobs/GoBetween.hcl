@@ -2,7 +2,7 @@ job "ingress-gobetween" {
   datacenters = ["core0site1"]
 
   group "gobetween-server" {
-    count = 3
+    count = 4
 
     spread {
       attribute = "$${node.unique.id}"
@@ -26,6 +26,14 @@ job "ingress-gobetween" {
         static = 443
 
         host_network = "https"
+      }
+
+      port "dns" {
+        to = 53
+
+        static = 53
+
+        host_network = "dns"
       }
     }
 

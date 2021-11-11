@@ -17,6 +17,16 @@
         "consul_service_name": "ingress-webproxy",
         "consul_service_tag": "https"
       }
+    },
+    "dns": {
+      "bind": "0.0.0.0:53",
+      "discovery": {
+        "kind": "consul",
+        "consul_host": "${Consul.Hostname}:${Consul.Port}",
+        "consul_acl_token": "${Consul.Token}",
+        "consul_service_name": "dns",
+        "consul_service_tag": "dns.rns"
+      }
     }
   }
 }

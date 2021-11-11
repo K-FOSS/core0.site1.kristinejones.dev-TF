@@ -1,0 +1,20 @@
+.:8053 {
+  health 0.0.0.0:8080
+
+  metadata .
+
+  trace zipkin http://tempo-distributor-http-cont.service.kjdev:9411 {
+    client_server
+  }
+
+  netbox {
+    token ${Netbox.Token}
+    url http://${Netbox.Hostname}:${Netbox.Port}/api/ipam/ip-addresses
+    localCacheDuration 5m
+  }
+
+  secondary kristianjones.dev in-addr.arpa. {
+    transfer from 10.1.1.153:53
+  }
+}
+

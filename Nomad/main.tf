@@ -361,7 +361,7 @@ module "Kea" {
 #
 
 module "DNS" {
-  source = "./Jobs/DNS"
+  source = "./Jobs/Network/DNS"
 
   Netbox = {
     Hostname = "netbox-http-cont.service.kjdev"
