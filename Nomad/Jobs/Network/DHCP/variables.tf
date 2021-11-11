@@ -9,3 +9,9 @@ variable "Database" {
     Password = string
   })
 }
+
+variable "TLS" {
+  type = object({
+    CA = string
+  })
+}

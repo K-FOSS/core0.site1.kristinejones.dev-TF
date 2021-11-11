@@ -475,6 +475,10 @@ variable "DHCP" {
       Username = string
       Password = string
     })
+
+    TLS = object({
+      CA = string
+    })
   })
 }
 

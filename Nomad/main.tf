@@ -344,10 +344,12 @@ module "NetboxJob" {
 # DHCP
 #
 
-module "DHCP" {
-  source = "./Jobs/DHCP"
+module "Kea" {
+  source = "./Jobs/Network/DHCP"
 
   Database = var.DHCP.Database
+
+  TLS = var.DHCP.TLS
 }
 
 #

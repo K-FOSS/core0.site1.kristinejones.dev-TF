@@ -250,10 +250,10 @@ output "DHCP" {
     TLS = {
       CA = vault_pki_secret_backend_cert.DHCPServerCert.ca_chain
 
-      Server = {
-        Cert = vault_pki_secret_backend_cert.DHCPServerCert.certificate
-        Key = vault_pki_secret_backend_cert.DHCPServerCert.private_key
-      }
+      # Server = {
+      #   Cert = vault_pki_secret_backend_cert.DHCPServerCert.certificate
+      #   Key = vault_pki_secret_backend_cert.DHCPServerCert.private_key
+      # }
     }
   }
 }

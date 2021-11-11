@@ -699,6 +699,8 @@ module "Nomad" {
 
   DHCP = {
     Database = module.DHCPDatabase.Database
+
+    TLS = module.Vault.DHCP.TLS
   }
 
   #
