@@ -9,6 +9,10 @@ job "dhcp" {
 
       port "dhcp" {
         to = 67
+
+        static = 67
+
+        host_network = "dns"
       }
 
       port "metrics" {
