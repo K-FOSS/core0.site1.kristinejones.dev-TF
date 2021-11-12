@@ -47,7 +47,7 @@ job "openproject-server" {
 
         mount {
           type = "tmpfs"
-          target = "/path/in/container"
+          target = "/app/tmp"
           readonly = false
           tmpfs_options = {
             size = 100000
