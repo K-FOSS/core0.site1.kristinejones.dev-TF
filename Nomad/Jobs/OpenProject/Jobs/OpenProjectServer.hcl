@@ -38,8 +38,6 @@ job "openproject-server" {
     task "openproject-server" {
       driver = "docker"
 
-      user = "101"
-
       config {
         image = "openproject/community:${Version}"
 

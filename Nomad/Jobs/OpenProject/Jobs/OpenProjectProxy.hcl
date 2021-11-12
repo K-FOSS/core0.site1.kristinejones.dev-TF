@@ -28,7 +28,7 @@ job "openproject-proxy" {
       driver = "exec"
       config {
         command = "sh"
-        args = ["-c", "while ! nc -z https.server.openproject.service.dc1.kjdev 443; do sleep 1; done"]
+        args = ["-c", "while ! nc -z https.server.openproject.service.dc1.kjdev 8080; do sleep 1; done"]
       }
     }
 
