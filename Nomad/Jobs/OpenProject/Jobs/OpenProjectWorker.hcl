@@ -14,11 +14,6 @@ job "openproject-worker" {
         sidecar = false
       }
 
-      reschedule {
-        attempts  = 0
-        unlimited = false
-      }
-
       driver = "docker"
 
       config {
