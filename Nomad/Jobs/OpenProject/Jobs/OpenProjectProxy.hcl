@@ -4,7 +4,7 @@ job "openproject-proxy" {
 
   group "openproject-proxy" {
 
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
