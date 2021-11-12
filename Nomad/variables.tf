@@ -738,36 +738,44 @@ variable "eJabberD" {
 # OpenProject
 #
 
-# variable "OpenProject" {
-#   type = object({
-#     Database = object({
-#       Hostname = string
-#       Port = number
+variable "OpenProject" {
+  type = object({
+    Database = object({
+      Hostname = string
+      Port = number
 
-#       Database = string
+      Database = string
 
-#       Username = string
-#       Password = string
-#     })
+      Username = string
+      Password = string
+    })
 
-#     S3 = object({
-#       Connection = object({
-#         Hostname = string
-#         Port = number
+    S3 = object({
+      Connection = object({
+        Hostname = string
+        Port = number
 
-#         Endpoint = string
-#       })
+        Endpoint = string
+      })
 
-#       Credentials = object({
-#         AccessKey = string
-#         SecretKey = string
-#       })
+      Credentials = object({
+        AccessKey = string
+        SecretKey = string
+      })
 
 
-#       Bucket = string
-#     })
-#   })
-# }
+      Bucket = string
+    })
+
+    SMTP = object({
+      Server = string
+      Port = string
+
+      Username = string
+      Password = string
+    })
+  })
+}
 
 
 #

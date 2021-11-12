@@ -789,11 +789,13 @@ module "Nomad" {
   #
   # OpenProject
   #
-  # OpenProject = {
-  #   Database = module.OpenProjectDatabase.Database
+  OpenProject = {
+    Database = module.OpenProjectDatabase.Database
 
-  #   S3 = module.OpenProjectBucket
-  # }
+    S3 = module.OpenProjectBucket
+
+    SMTP = module.Vault.SMTP
+  }
 
   #
   # Automation

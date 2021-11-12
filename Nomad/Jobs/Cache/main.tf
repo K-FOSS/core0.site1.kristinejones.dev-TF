@@ -54,7 +54,7 @@ resource "nomad_job" "NextCloudCacheJobFile" {
 #
 
 resource "nomad_job" "OpenProjectRedisJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/OpenProjectRedis.hcl", {
+  jobspec = templatefile("${path.module}/Jobs/OpenProject.hcl", {
 
   })
 }

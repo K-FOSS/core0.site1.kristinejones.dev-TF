@@ -430,13 +430,13 @@ module "NextCloud" {
 #
 # OpenProject
 #
-# module "OpenProject" {
-#   source = "./Jobs/OpenProject"
+module "OpenProject" {
+  source = "./Jobs/OpenProject"
 
-#   Database = var.NextCloud.Database
+  Database = var.NextCloud.Database
 
-#   S3 = var.NextCloud.S3
-# }
+  S3 = var.NextCloud.S3
+}
 
 
 #
