@@ -416,16 +416,6 @@ module "HarborRegistryDatabase" {
 
 module "Pomerium" {
   source = "./Pomerium"
-
-  TLS = {
-    Proxy = module.Vault.Pomerium.TLS.Proxy
-
-    DataBroker = module.Vault.Pomerium.TLS.DataBroker
-
-    Authenticate = module.Vault.Pomerium.TLS.Authenticate
-
-    Authorize = module.Vault.Pomerium.TLS.Authorize
-  }
 }
 
 #
