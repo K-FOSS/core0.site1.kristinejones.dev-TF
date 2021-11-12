@@ -131,6 +131,30 @@ EOF
       # TLS & mTLS to end services
       #
 
+      #
+      # TODO: Get Grafana checking Pomerium client Certs
+      #
+      template {
+        data = <<EOF
+${TLS.Grafana.CA}
+EOF
+
+        destination = "secrets/TLS/GrafanaCA.pem"
+      }
+
+      #
+      # HomeAssistant
+      #
+      # TODO: Proper mTLS
+      #
+      template {
+        data = <<EOF
+${TLS.HomeAssistant.CA}
+EOF
+
+        destination = "secrets/TLS/HomeAssistantCA.pem"
+      }
+
       resources {
         cpu = 800
         memory = 256

@@ -78,6 +78,9 @@ resource "nomad_job" "PomeriumAuthenticateJobFile" {
       Metrics = var.TLS.Authenticate.Metrics
 
       Server = var.TLS.Authenticate.Server
+
+      Grafana = var.TLS.Grafana
+      HomeAssistant = var.TLS.HomeAssistant
     }
 
     Config = templatefile("${path.module}/Configs/Pomerium/PomeriumAuthenticate.yaml", {
@@ -101,6 +104,9 @@ resource "nomad_job" "PomeriumAuthorizeJobFile" {
       Metrics = var.TLS.Authorize.Metrics
 
       Server = var.TLS.Authorize.Server
+
+      Grafana = var.TLS.Grafana
+      HomeAssistant = var.TLS.HomeAssistant
     }
 
     Config = templatefile("${path.module}/Configs/Pomerium/PomeriumAuthorize.yaml", {
@@ -124,6 +130,9 @@ resource "nomad_job" "PomeriumDataBrokerJobFile" {
       Metrics = var.TLS.Authenticate.Metrics
 
       Server = var.TLS.Authenticate.Server
+
+      Grafana = var.TLS.Grafana
+      HomeAssistant = var.TLS.HomeAssistant
     }
 
     Config = templatefile("${path.module}/Configs/Pomerium/PomeriumDataBroker.yaml", {
