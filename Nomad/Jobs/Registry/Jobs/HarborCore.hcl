@@ -124,6 +124,11 @@ job "registry-harbor-core" {
         EXT_ENDPOINT = "https://registry.kristianjones.dev"
 
         #
+        # Secrets
+        #
+        KEY_PATH = "/secrets/KEY"
+
+        #
         # Internal TLS
         #
         INTERNAL_TLS_ENABLED = "true"
@@ -230,6 +235,12 @@ EOF
         destination = "local/entry.sh"
 
         perms = "777"
+      }
+
+      template {
+        data = ${CoreSecret}
+
+        destination = "secrets/KEY"
       }
 
       template {

@@ -75,12 +75,18 @@ locals {
   }
 }
 
+resource "random_id" "HarborCoreKey" {
+  byte_length = 16
+}
+
 resource "nomad_job" "HarborCoreJobFile" {
   jobspec = templatefile("${path.module}/Jobs/HarborCore.hcl", {
     EntryScript = file("${path.module}/Configs/HarborCore/Entry.sh")
 
     Harbor = {
       Secrets = local.Harbor.Secrets
+
+      CoreSecret = random_id.HarborCoreKey.dec
 
       TLS = {
         CA = var.Harbor.TLS.CA
