@@ -433,9 +433,16 @@ module "NextCloud" {
 module "OpenProject" {
   source = "./Jobs/OpenProject"
 
-  Database = var.NextCloud.Database
+  Database = var.OpenProject.Database
 
-  S3 = var.NextCloud.S3
+  S3 = var.OpenProject.S3
+
+  SMTP = var.OpenProject.SMTP
+
+  Admin = {
+    Username = "kjones"
+    Email = "k@kristianjones.dev"
+  }
 }
 
 
