@@ -73,6 +73,17 @@ job "openproject-worker" {
         #
         IMAP_ENABLED = "false"
 
+
+        #
+        # Outbound Email
+        #
+        EMAIL_DELIVERY_METHOD = "smtp"
+        SMTP_ADDRESS = "${SMTP.Server}"
+        SMTP_PORT = "${SMTP.Port}"
+
+        SMTP_DOMAIN = "kristianjones.dev"
+        SMTP_AUTHENTICATION = "login"
+        SMTP_ENABLE_STARTTLS_AUTO = "true"
       }
 
 
@@ -88,6 +99,13 @@ DATABASE_URL="postgres://${Database.Username}:${Database.Password}@${Database.Ho
 #
 OPENPROJECT_FOG_CREDENTIALS_AWS__ACCESS__KEY__ID="${S3.Credentials.AccessKey}"
 OPENPROJECT_FOG_CREDENTIALS_AWS__SECRET__ACCESS__KEY="${S3.Credentials.SecretKey}"
+
+#
+# Email
+#
+
+SMTP_USER_NAME="${SMTP.Username}"
+SMTP_PASSWORD="${SMTP.Password}"
 EOH
 
         destination = "secrets/file.env"
@@ -138,6 +156,17 @@ EOH
         OPENPROJECT_FOG_DIRECTORY = "${S3.Bucket}"
         OPENPROJECT_FOG_CREDENTIALS_PROVIDER = "aws"
         OPENPROJECT_FOG_CREDENTIALS_PATH__STYLE = "true"
+
+        #
+        # Outbound Email
+        #
+        EMAIL_DELIVERY_METHOD = "smtp"
+        SMTP_ADDRESS = "${SMTP.Server}"
+        SMTP_PORT = "${SMTP.Port}"
+
+        SMTP_DOMAIN = "kristianjones.dev"
+        SMTP_AUTHENTICATION = "login"
+        SMTP_ENABLE_STARTTLS_AUTO = "true"
       }
 
       template {
@@ -152,6 +181,13 @@ DATABASE_URL="postgres://${Database.Username}:${Database.Password}@${Database.Ho
 #
 OPENPROJECT_FOG_CREDENTIALS_AWS__ACCESS__KEY__ID="${S3.Credentials.AccessKey}"
 OPENPROJECT_FOG_CREDENTIALS_AWS__SECRET__ACCESS__KEY="${S3.Credentials.SecretKey}"
+
+#
+# Email
+#
+
+SMTP_USER_NAME="${SMTP.Username}"
+SMTP_PASSWORD="${SMTP.Password}"
 EOH
 
         destination = "secrets/file.env"

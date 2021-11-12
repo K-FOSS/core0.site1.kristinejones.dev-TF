@@ -31,6 +31,14 @@ variable "Bitwarden" {
         Key = string
       })
     })
+
+    SMTP = object({
+      Server = string
+      Port = string
+
+      Username = string
+      Password = string
+    })
   })
 }
 

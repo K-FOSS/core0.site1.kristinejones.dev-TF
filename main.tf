@@ -474,6 +474,8 @@ module "Nomad" {
     }
 
     TLS = module.Vault.Bitwarden.TLS
+
+    SMTP = module.Vault.SMTP
   }
 
   #

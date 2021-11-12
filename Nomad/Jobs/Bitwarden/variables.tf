@@ -20,3 +20,16 @@ variable "TLS" {
     })
   })
 }
+
+#
+# Email
+#
+variable "SMTP" {
+  type = object({
+    Server = string
+    Port = string
+
+    Username = string
+    Password = string
+  })
+}

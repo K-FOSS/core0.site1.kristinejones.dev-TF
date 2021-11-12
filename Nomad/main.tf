@@ -119,6 +119,8 @@ module "Bitwarden" {
   Database = var.Bitwarden.Database
 
   TLS = var.Bitwarden.TLS
+
+  SMTP = var.Bitwarden.SMTP
 }
 
 #

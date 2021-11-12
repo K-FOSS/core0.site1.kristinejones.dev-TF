@@ -63,6 +63,14 @@ resource "random_password" "OpenProjectSecret" {
 
 locals {
   OpenProject = {
+    Database = var.Database
+
+    S3 = var.S3
+
+    Admin = var.Admin
+
+    SMTP = var.SMTP
+
     Version = split("v", data.github_release.Release.release_tag)[1]
   }
 }
@@ -87,13 +95,7 @@ resource "random_password" "NetboxRedisCachePassword" {
 # OpenProject Server
 #
 resource "nomad_job" "OpenProjectServerJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/OpenProjectServer.hcl", {
-    S3 = var.S3
-
-    Database = var.Database
-
-    Version = local.OpenProject.Version
-  })
+  jobspec = templatefile("${path.module}/Jobs/OpenProjectServer.hcl", local.OpenProject)
 }
 
 #
@@ -101,13 +103,7 @@ resource "nomad_job" "OpenProjectServerJobFile" {
 #
 
 resource "nomad_job" "OpenProjectProxyJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/OpenProjectProxy.hcl", {
-    S3 = var.S3
-
-    Database = var.Database
-
-    Version = local.OpenProject.Version
-  })
+  jobspec = templatefile("${path.module}/Jobs/OpenProjectProxy.hcl", local.OpenProject)
 }
 
 #
@@ -115,13 +111,7 @@ resource "nomad_job" "OpenProjectProxyJobFile" {
 #
 
 resource "nomad_job" "OpenProjectWorkerJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/OpenProjectWorker.hcl", {
-    S3 = var.S3
-
-    Database = var.Database
-
-    Version = local.OpenProject.Version
-  })
+  jobspec = templatefile("${path.module}/Jobs/OpenProjectWorker.hcl", local.OpenProject)
 }
 
 #
@@ -129,11 +119,5 @@ resource "nomad_job" "OpenProjectWorkerJobFile" {
 #
 
 resource "nomad_job" "OpenProjectCRONJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/OpenProjectCRON.hcl", {
-    S3 = var.S3
-
-    Database = var.Database
-
-    Version = local.OpenProject.Version
-  })
+  jobspec = templatefile("${path.module}/Jobs/OpenProjectCRON.hcl", local.OpenProject)
 }

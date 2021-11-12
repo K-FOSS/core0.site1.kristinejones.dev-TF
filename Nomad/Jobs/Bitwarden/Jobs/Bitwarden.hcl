@@ -49,6 +49,17 @@ job "bitwarden" {
         DATABASE_URL = "postgresql://${Database.Username}:${Database.Password}@${Database.Hostname}:${Database.Port}/${Database.Database}"
 
         ROCKET_TLS = "{certs=\"/secrets/TLS/server.pem\",key=\"/secrets/TLS/server.key\"}"
+
+
+        DOMAIN = "https://bitwarden.kristianjones.dev"
+
+        SMTP_HOST = "${SMTP.Server}"
+        SMTP_PORT = "${SMTP.Port}"
+        SMTP_FROM = "${SMTP.Username}"
+        SMTP_SSL = "true"
+
+        SMTP_USERNAME = "${SMTP.Username}"
+        SMTP_PASSWORD = "${SMTP.Password}"
       }
 
       resources {
