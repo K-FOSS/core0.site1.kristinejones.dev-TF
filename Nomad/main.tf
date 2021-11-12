@@ -106,14 +106,6 @@ module "Pomerium" {
 
   TLS = var.Pomerium.TLS
 
-  Authenticate = var.Pomerium.Authenticate
-
-  Authorize = var.Pomerium.Authorize
-
-  DataBroker = var.Pomerium.DataBroker
-
-  Proxy = var.Pomerium.Proxy
-
   Secrets = var.Pomerium.Secrets
 }
 
