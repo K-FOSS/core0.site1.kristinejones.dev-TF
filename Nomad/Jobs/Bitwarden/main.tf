@@ -61,5 +61,7 @@ resource "nomad_job" "BitwardenServerJobFile" {
     Database = var.Database
 
     TLS = var.TLS
+
+    SMTP = var.SMTP
   })
 }
