@@ -238,7 +238,7 @@ EOF
       }
 
       template {
-        data = ${CoreSecret}
+        data = ${Harbor.CoreSecret}
 
         destination = "secrets/KEY"
       }
