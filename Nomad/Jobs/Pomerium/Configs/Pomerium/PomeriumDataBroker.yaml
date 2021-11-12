@@ -145,6 +145,7 @@ routes:
   #
   - from: https://openproject.int.site1.kristianjones.dev
     to: http://proxy.openproject.service.dc1.kjdev:80
+    preserve_host_header: true
     allowed_domains:
       - kristianjones.dev
     pass_identity_headers: true
