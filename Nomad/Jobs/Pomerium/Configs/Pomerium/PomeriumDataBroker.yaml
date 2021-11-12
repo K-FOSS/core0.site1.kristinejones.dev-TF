@@ -54,7 +54,7 @@ jwt_claims_headers: email,groups,user,nickname
 
 databroker_service_url: https://https.databroker.pomerium.service.dc1.kjdev:443
 databroker_storage_type: redis
-databroker_storage_connection_string: 'rediss://pomerium-redis-cont.service.kjdev:6379/0'
+databroker_storage_connection_string: 'rediss://redis.pomerium.service.kjdev:6379/0'
 databroker_storage_ca_file: /local/ca.pem
 databroker_storage_cert_file: /local/cert.pem
 databroker_storage_key_file: /local/cert.key
