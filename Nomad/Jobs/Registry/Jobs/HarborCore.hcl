@@ -121,6 +121,8 @@ job "registry-harbor-core" {
         #
         PORT = "443"
 
+        EXT_ENDPOINT = "https://registry.kristianjones.dev"
+
         #
         # Internal TLS
         #
