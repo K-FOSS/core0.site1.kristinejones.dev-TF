@@ -1,4 +1,4 @@
-job "tinkerbell" {
+job "tinkerbell-boots" {
   datacenters = ["core0site1"]
 
   group "boots" {

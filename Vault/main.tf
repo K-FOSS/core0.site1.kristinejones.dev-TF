@@ -210,6 +210,10 @@ module "Pomerium" {
   source = "./TLS/Template"
 }
 
+#
+# Pomerium Proxy
+# 
+
 resource "vault_pki_secret_backend_cert" "PomeriumProxyCert" {
   backend = module.Pomerium.TLS.Mount.path
   name = module.Pomerium.TLS.Role.name
@@ -218,6 +222,11 @@ resource "vault_pki_secret_backend_cert" "PomeriumProxyCert" {
 
   alt_names = ["*.kristianjones.dev", "https.proxy.pomerium.service.dc1.kjdev"]
 }
+
+
+#
+# Pomerium Data Broker
+#
 
 resource "vault_pki_secret_backend_cert" "PomeriumDataBrokerCert" {
   backend = module.Pomerium.TLS.Mount.path
@@ -228,6 +237,11 @@ resource "vault_pki_secret_backend_cert" "PomeriumDataBrokerCert" {
   alt_names = ["https.databroker.pomerium.service.dc1.kjdev"]
 }
 
+
+#
+# Pomerium Authenticate
+##
+
 resource "vault_pki_secret_backend_cert" "PomeriumAuthenticateCert" {
   backend = module.Pomerium.TLS.Mount.path
   name = module.Pomerium.TLS.Role.name
@@ -236,6 +250,11 @@ resource "vault_pki_secret_backend_cert" "PomeriumAuthenticateCert" {
 
   alt_names = ["https.authenticate.pomerium.service.dc1.kjdev"]
 }
+
+
+#
+# Pomerium Authorize
+#
 
 resource "vault_pki_secret_backend_cert" "PomeriumAuthorizeCert" {
   backend = module.Pomerium.TLS.Mount.path
@@ -246,13 +265,17 @@ resource "vault_pki_secret_backend_cert" "PomeriumAuthorizeCert" {
   alt_names = ["https.authorize.pomerium.service.dc1.kjdev"]
 }
 
+#
+# Pomerium Redis
+#
+
 resource "vault_pki_secret_backend_cert" "PomeriumRedisCert" {
   backend = module.Pomerium.TLS.Mount.path
   name = module.Pomerium.TLS.Role.name
 
-  common_name = "pomerium-redis-cont.service.kjdev"
+  common_name = "redis.pomerium.service.kjdev"
 
-  alt_names = []
+  alt_names = ["redis.pomerium.service.dc1.kjdev"]
 }
 
 #
@@ -424,3 +447,12 @@ resource "vault_pki_secret_backend_cert" "HarborRegistryServerCert" {
 
   alt_names = ["http.registry.harbor.service.dc1.kjdev"]
 }
+
+#
+# Prometheus
+#
+
+module "PrometheusTLS" {
+  source = "./TLS/Template"
+}
+

@@ -534,30 +534,15 @@ module "Nomad" {
   # Pomerium
   #
   Pomerium = {
-    OpenID = module.Vault.Pomerium
+    OpenID = module.Vault.Pomerium.OpenID
 
     Secrets = module.Pomerium.Secrets
 
-    Authenticate = {
-      TLS = module.Vault.PomeriumTLS.Authenticate
-    }
-
-    Authorize = {
-      TLS = module.Vault.PomeriumTLS.Authorize
-    }
-
-    DataBroker = {
-      TLS = module.Vault.PomeriumTLS.DataBroker
-    }
-
-    Proxy = {
-      TLS = module.Vault.PomeriumTLS.Proxy
-    }
 
     TLS = {
-      CA = module.Vault.PomeriumTLS.CA
+      CA = module.Vault.Pomerium.TLS.CA
 
-      Redis = module.Vault.PomeriumTLS.Redis
+      Redis = module.Vault.Pomerium.TLS.Redis
 
       Grafana = {
         CA = module.Vault.Grafana.TLS.CA
@@ -565,6 +550,54 @@ module "Nomad" {
 
       HomeAssistant = {
         CA = module.Vault.HomeAssistant.TLS.CA
+      }
+
+      Authenticate = {
+        Metrics = {
+          Server = module.Vault.Pomerium.TLS.Authenticate.Metrics.Server
+
+          Client = {
+            CA = ""
+          }
+        }
+
+        Server = module.Vault.Pomerium.TLS.Authenticate.Server
+      }
+
+      Authorize = {
+        Metrics = {
+          Server = module.Vault.Pomerium.TLS.Authorize.Metrics.Server
+
+          Client = {
+            CA = ""
+          }
+        }
+
+        Server = module.Vault.Pomerium.TLS.Authorize.Server
+      }
+
+      DataBroker = {
+        Metrics = {
+          Server = module.Vault.Pomerium.TLS.DataBroker.Metrics.Server
+
+          Client = {
+            CA = ""
+          }
+        }
+
+        Server = module.Vault.Pomerium.TLS.DataBroker.Server
+      }
+
+      Proxy = {
+        Metrics = {
+          Server = module.Vault.Pomerium.TLS.Proxy.Metrics.Server
+
+          Client = {
+            CA = ""
+          }
+        }
+
+        Server = module.Vault.Pomerium.TLS.Proxy.Server
       }
     }
   }
@@ -812,6 +845,18 @@ module "Nomad" {
     Consul = module.Consul.Backups
 
     S3 = module.ConsulBackupsBucket
+  }
+
+  #
+  # Cache
+  #
+
+  Cache = {
+    Pomerium = {
+      RedisCache = {
+        TLS = module.Vault.Pomerium.TLS.Redis
+      }
+    }
   }
 
   #

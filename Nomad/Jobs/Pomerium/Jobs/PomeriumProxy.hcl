@@ -58,30 +58,64 @@ ${Config}
 EOF
 
         destination = "local/Pomerium.yaml"
+
+        change_mode = "signal"
+        change_signal = "SIGUSR1"
+      }
+
+      #
+      # Server TLS
+      #
+
+      template {
+        data = <<EOF
+${TLS.Server.CA}
+EOF
+
+        destination = "local/ServerCA.pem"
       }
 
       template {
         data = <<EOF
-${TLS.CA}
+${TLS.Server.Cert}
 EOF
 
-        destination = "local/ca.pem"
+        destination = "secrets/TLS/Server.pem"
       }
 
       template {
         data = <<EOF
-${Service.TLS.Cert}
+${TLS.Server.Key}
 EOF
 
-        destination = "local/cert.pem"
+        destination = "secrets/TLS/Server.key"
+      }
+
+      #
+      # Metrics TLS
+      #
+      template {
+        data = <<EOF
+${TLS.Metrics.CA}
+EOF
+
+        destination = "local/MetricsServerCA.pem"
       }
 
       template {
         data = <<EOF
-${Service.TLS.Key}
+${TLS.Metrics.Cert}
 EOF
 
-        destination = "local/cert.key"
+        destination = "secrets/TLS/Metrics.pem"
+      }
+
+      template {
+        data = <<EOF
+${TLS.Metrics.Key}
+EOF
+
+        destination = "secrets/TLS/Metrics.key"
       }
 
       #

@@ -1,78 +1,6 @@
 job "pomerium-databroker" {
   datacenters = ["core0site1"]
 
-  group "pomerium-databroker-cache" {
-    count = 1
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "redis" { 
-        to = 6379
-      }
-    }
-
-    service {
-      name = "pomerium-redis-cont"
-      port = "redis"
-
-      task = "redis"
-      address_mode = "alloc"
-
-      tags = ["coredns.enabled"]
-    }
-
-    task "redis" {
-      driver = "docker"
-
-      config {
-        image = "redis:6-alpine3.14"
-
-        command = "redis-server"
-
-        args = ["/local/redis.conf"]
-      }
-
-      template {
-        data = <<EOF
-port 0
-tls-port 6379
-
-tls-cert-file /local/cert.pem
-tls-key-file /local/cert.key
-
-tls-ca-cert-file /local/ca.pem
-EOF
-
-        destination = "local/redis.conf"
-      }
-
-      template {
-        data = <<EOF
-${TLS.CA}
-EOF
-
-        destination = "local/ca.pem"
-      }
-
-      template {
-        data = <<EOF
-${TLS.Redis.Cert}
-EOF
-
-        destination = "local/cert.pem"
-      }
-
-      template {
-        data = <<EOF
-${TLS.Redis.Key}
-EOF
-
-        destination = "local/cert.key"
-      }
-    }
-  }
-
   group "pomerium-databroker" {
     count = 3
 
@@ -81,6 +9,23 @@ EOF
 
       port "https" {
         to = 443
+      }
+
+      port "metrics" {
+        to = 9443
+      }
+    }
+
+    task "wait-for-redis" {
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
+
+      driver = "exec"
+      config {
+        command = "sh"
+        args = ["-c", "while ! nc -z redis.pomerium.service.dc1.kjdev 6379; do sleep 1; done"]
       }
     }
 
@@ -123,58 +68,64 @@ ${Config}
 EOF
 
         destination = "local/Pomerium.yaml"
+
+        change_mode = "signal"
+        change_signal = "SIGUSR1"
+      }
+
+      #
+      # Server TLS
+      #
+
+      template {
+        data = <<EOF
+${TLS.Server.CA}
+EOF
+
+        destination = "local/ServerCA.pem"
       }
 
       template {
         data = <<EOF
-${TLS.CA}
+${TLS.Server.Cert}
 EOF
 
-        destination = "local/ca.pem"
+        destination = "secrets/TLS/Server.pem"
       }
 
       template {
         data = <<EOF
-${Service.TLS.Cert}
+${TLS.Server.Key}
 EOF
 
-        destination = "local/cert.pem"
+        destination = "secrets/TLS/Server.key"
+      }
+
+      #
+      # Metrics TLS
+      #
+      template {
+        data = <<EOF
+${TLS.Metrics.CA}
+EOF
+
+        destination = "local/MetricsServerCA.pem"
       }
 
       template {
         data = <<EOF
-${Service.TLS.Key}
+${TLS.Metrics.Cert}
 EOF
 
-        destination = "local/cert.key"
+        destination = "secrets/TLS/Metrics.pem"
       }
 
-      #
-      # TLS & mTLS to end services
-      #
-
-      #
-      # TODO: Get Grafana checking Pomerium client Certs
-      #
       template {
         data = <<EOF
-${TLS.Grafana.CA}
+${TLS.Metrics.Key}
 EOF
 
-        destination = "secrets/TLS/GrafanaCA.pem"
-      }
-
-      #
-      # HomeAssistant
-      #
-      # TODO: Proper mTLS
-      #
-      template {
-        data = <<EOF
-${TLS.HomeAssistant.CA}
-EOF
-
-        destination = "secrets/TLS/HomeAssistantCA.pem"
+        destination = "secrets/TLS/Metrics.key"
       }
 
       resources {

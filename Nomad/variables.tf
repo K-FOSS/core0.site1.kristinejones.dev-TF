@@ -141,37 +141,93 @@ variable "Pomerium" {
       HomeAssistant = object({
         CA = string
       })
-    })
 
-    Authenticate = object({
-      TLS = object({
-        Cert = string
+      Authenticate = object({
+        Metrics = object({
+          Server = object({
+            CA = string
 
-        Key = string
+            Cert = string
+            Key = string
+          })
+
+          Client = object({
+            CA = string
+          })
+        })
+
+        Server = object({
+          CA = string
+
+          Cert = string
+          Key = string
+        })
       })
-    })
 
-    Authorize = object({
-      TLS = object({
-        Cert = string
+      Authorize = object({
+        Metrics = object({
+          Server = object({
+            CA = string
 
-        Key = string
+            Cert = string
+            Key = string
+          })
+
+          Client = object({
+            CA = string
+          })
+        })
+
+        Server = object({
+          CA = string
+
+          Cert = string
+          Key = string
+        })
       })
-    })
 
-    DataBroker = object({
-      TLS = object({
-        Cert = string
+      DataBroker = object({
+        Metrics = object({
+          Server = object({
+            CA = string
 
-        Key = string
+            Cert = string
+            Key = string
+          })
+
+          Client = object({
+            CA = string
+          })
+        })
+
+        Server = object({
+          CA = string
+
+          Cert = string
+          Key = string
+        })
       })
-    })
 
-    Proxy = object({
-      TLS = object({
-        Cert = string
+      Proxy = object({
+        Metrics = object({
+          Server = object({
+            CA = string
 
-        Key = string
+            Cert = string
+            Key = string
+          })
+
+          Client = object({
+            CA = string
+          })
+        })
+
+        Server = object({
+          CA = string
+
+          Cert = string
+          Key = string
+        })
       })
     })
 
@@ -792,6 +848,24 @@ variable "ConsulBackups" {
       })
 
       Bucket = string
+    })
+  })
+}
+
+#
+# Cache
+#
+variable "Cache" {
+  type = object({
+    Pomerium = object({
+      RedisCache = object({
+        TLS = object({
+          CA = string
+
+          Cert = string
+          Key = string
+        })
+      })
     })
   })
 }

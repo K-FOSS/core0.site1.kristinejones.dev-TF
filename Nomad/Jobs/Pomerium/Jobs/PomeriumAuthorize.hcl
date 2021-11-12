@@ -1,7 +1,6 @@
 job "pomerium-authorize" {
   datacenters = ["core0site1"]
 
-
   group "pomerium-authorize" {
     count = 3
 
@@ -10,6 +9,10 @@ job "pomerium-authorize" {
 
       port "https" {
         to = 443
+      }
+
+      port "metrics" {
+        to = 9443
       }
     }
 
@@ -52,58 +55,64 @@ ${Config}
 EOF
 
         destination = "local/Pomerium.yaml"
+
+        change_mode = "signal"
+        change_signal = "SIGUSR1"
+      }
+
+      #
+      # Server TLS
+      #
+
+      template {
+        data = <<EOF
+${TLS.Server.CA}
+EOF
+
+        destination = "local/ServerCA.pem"
       }
 
       template {
         data = <<EOF
-${TLS.CA}
+${TLS.Server.Cert}
 EOF
 
-        destination = "local/ca.pem"
+        destination = "secrets/TLS/Server.pem"
       }
 
       template {
         data = <<EOF
-${Service.TLS.Cert}
+${TLS.Server.Key}
 EOF
 
-        destination = "local/cert.pem"
+        destination = "secrets/TLS/Server.key"
+      }
+
+      #
+      # Metrics TLS
+      #
+      template {
+        data = <<EOF
+${TLS.Metrics.CA}
+EOF
+
+        destination = "local/MetricsServerCA.pem"
       }
 
       template {
         data = <<EOF
-${Service.TLS.Key}
+${TLS.Metrics.Cert}
 EOF
 
-        destination = "local/cert.key"
+        destination = "secrets/TLS/Metrics.pem"
       }
 
-      #
-      # TLS & mTLS to end services
-      #
-
-      #
-      # TODO: Get Grafana checking Pomerium client Certs
-      #
       template {
         data = <<EOF
-${TLS.Grafana.CA}
+${TLS.Metrics.Key}
 EOF
 
-        destination = "secrets/TLS/GrafanaCA.pem"
-      }
-
-      #
-      # HomeAssistant
-      #
-      # TODO: Proper mTLS
-      #
-      template {
-        data = <<EOF
-${TLS.HomeAssistant.CA}
-EOF
-
-        destination = "secrets/TLS/HomeAssistantCA.pem"
+        destination = "secrets/TLS/Metrics.key"
       }
 
       resources {

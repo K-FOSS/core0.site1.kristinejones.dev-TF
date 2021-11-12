@@ -77,3 +77,21 @@ resource "nomad_job" "DNSCacheJobFile" {
 
   })
 }
+
+#
+# Authentik Cache
+#
+
+resource "nomad_job" "AuthentikCacheJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/AuthentikRedis.hcl", {
+    
+  })
+}
+
+#
+# Pomerium
+#
+
+resource "nomad_job" "PomeriumCacheJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/PomeriumCache.hcl", var.Pomerium.RedisCache)
+}

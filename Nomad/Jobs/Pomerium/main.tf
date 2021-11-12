@@ -56,22 +56,36 @@ terraform {
 #   retrieve_by = "latest"
 # }
 
+locals {
+  LogLevel = "DEBUG"
+
+  Version = "v0.15.6"
+
+  Tracing = {
+    SampleRate = "0.20"
+  }
+}
+
 #
 # Authenticate
 #
 
 resource "nomad_job" "PomeriumAuthenticateJobFile" {
   jobspec = templatefile("${path.module}/Jobs/PomeriumAuthenticate.hcl", {
-    TLS = var.TLS
+    TLS = {
+      Redis = var.TLS.Redis
 
-    Service = var.Authenticate
+      Metrics = var.TLS.Authenticate.Metrics
+
+      Server = var.TLS.Authenticate.Server
+    }
 
     Config = templatefile("${path.module}/Configs/Pomerium/PomeriumAuthenticate.yaml", {
       Secrets = var.Secrets
       OpenID = var.OpenID
     })
 
-    Version = "v0.15.3"
+    Version = local.Version
   })
 }
 
@@ -81,16 +95,20 @@ resource "nomad_job" "PomeriumAuthenticateJobFile" {
 
 resource "nomad_job" "PomeriumAuthorizeJobFile" {
   jobspec = templatefile("${path.module}/Jobs/PomeriumAuthorize.hcl", {
-    TLS = var.TLS
+    TLS = {
+      Redis = var.TLS.Redis
 
-    Service = var.Authorize
+      Metrics = var.TLS.Authorize.Metrics
+
+      Server = var.TLS.Authorize.Server
+    }
 
     Config = templatefile("${path.module}/Configs/Pomerium/PomeriumAuthorize.yaml", {
       Secrets = var.Secrets
       OpenID = var.OpenID
     })
 
-    Version = "v0.15.3"
+    Version = local.Version
   })
 }
 
@@ -100,16 +118,20 @@ resource "nomad_job" "PomeriumAuthorizeJobFile" {
 
 resource "nomad_job" "PomeriumDataBrokerJobFile" {
   jobspec = templatefile("${path.module}/Jobs/PomeriumDataBroker.hcl", {
-    TLS = var.TLS
+    TLS = {
+      Redis = var.TLS.Redis
 
-    Service = var.DataBroker
+      Metrics = var.TLS.Authenticate.Metrics
+
+      Server = var.TLS.Authenticate.Server
+    }
 
     Config = templatefile("${path.module}/Configs/Pomerium/PomeriumDataBroker.yaml", {
       Secrets = var.Secrets
       OpenID = var.OpenID
     })
 
-    Version = "v0.15.3"
+    Version = local.Version
   })
 }
 
@@ -120,15 +142,22 @@ resource "nomad_job" "PomeriumDataBrokerJobFile" {
 
 resource "nomad_job" "PomeriumProxyJobFile" {
   jobspec = templatefile("${path.module}/Jobs/PomeriumProxy.hcl", {
-    TLS = var.TLS
+    TLS = {
+      Redis = var.TLS.Redis
 
-    Service = var.Proxy
+      Metrics = var.TLS.Authenticate.Metrics
+
+      Server = var.TLS.Authenticate.Server
+
+      Grafana = var.TLS.Grafana
+      HomeAssistant = var.TLS.HomeAssistant
+    }
 
     Config = templatefile("${path.module}/Configs/Pomerium/PomeriumProxy.yaml", {
       Secrets = var.Secrets
       OpenID = var.OpenID
     })
 
-    Version = "v0.15.3"
+    Version = local.Version
   })
 }

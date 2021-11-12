@@ -7,8 +7,6 @@ variable "OpenID" {
 
 variable "TLS" {
   type = object({
-    CA = string
-
     Redis = object({
       Cert = string
 
@@ -22,45 +20,93 @@ variable "TLS" {
     HomeAssistant = object({
       CA = string
     })
-  })
-}
 
-variable "Authenticate" {
-  type = object({
-    TLS = object({
-      Cert = string
+    Authenticate = object({
+      Metrics = object({
+        Server = object({
+          CA = string
 
-      Key = string
+          Cert = string
+          Key = string
+        })
+
+        Client = object({
+          CA = string
+        })
+      })
+
+      Server = object({
+        CA = string
+
+        Cert = string
+        Key = string
+      })
     })
-  })
-}
 
-variable "Authorize" {
-  type = object({
-    TLS = object({
-      Cert = string
+    Authorize = object({
+      Metrics = object({
+        Server = object({
+          CA = string
 
-      Key = string
+          Cert = string
+          Key = string
+        })
+
+        Client = object({
+          CA = string
+        })
+      })
+
+      Server = object({
+        CA = string
+
+        Cert = string
+        Key = string
+      })
     })
-  })
-}
 
-variable "DataBroker" {
-  type = object({
-    TLS = object({
-      Cert = string
+    DataBroker = object({
+      Metrics = object({
+        Server = object({
+          CA = string
 
-      Key = string
+          Cert = string
+          Key = string
+        })
+
+        Client = object({
+          CA = string
+        })
+      })
+
+      Server = object({
+        CA = string
+
+        Cert = string
+        Key = string
+      })
     })
-  })
-}
 
-variable "Proxy" {
-  type = object({
-    TLS = object({
-      Cert = string
+    Proxy = object({
+      Metrics = object({
+        Server = object({
+          CA = string
 
-      Key = string
+          Cert = string
+          Key = string
+        })
+
+        Client = object({
+          CA = string
+        })
+      })
+
+      Server = object({
+        CA = string
+
+        Cert = string
+        Key = string
+      })
     })
   })
 }

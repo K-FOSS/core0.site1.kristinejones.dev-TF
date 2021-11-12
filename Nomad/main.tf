@@ -155,7 +155,7 @@ resource "random_string" "AuthentikSecretKey" {
 }
 
 module "Authentik" {
-  source = "./Jobs/Authentik"
+  source = "./Jobs/AAA/Authentik"
 
   Database = var.Authentik.Database
 
@@ -494,6 +494,8 @@ module "ConsulBackups" {
 
 module "Cache" {
   source = "./Jobs/Cache"
+
+  Pomerium = var.Cache.Pomerium
 }
 
 #

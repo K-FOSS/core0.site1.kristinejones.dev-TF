@@ -4,6 +4,7 @@
 
 address: 0.0.0.0:443
 grpc_address: 0.0.0.0:443
+metrics_address: 0.0.0.0:9443
 
 #
 # Pomerium Core
@@ -22,9 +23,9 @@ autocert_must_staple: false
 # mTLS
 #
 
-certificate_authority_file: /local/ca.pem
-certificate_file: /local/cert.pem
-certificate_key_file: /local/cert.key
+certificate_authority_file: /local/ServerCA.pem
+certificate_file: /secrets/TLS/Server.pem
+certificate_key_file: /secrets/TLS/Server.key
 
 #
 # Authenticate Service
@@ -33,7 +34,7 @@ certificate_key_file: /local/cert.key
 authenticate_service_url: https://auth.int.site1.kristianjones.dev
 
 idp_provider: oidc
-idp_provider_url: http://http.server.authentik.service.kjdev:9000/application/o/pomeriumproxy-auth/
+idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth/
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
 

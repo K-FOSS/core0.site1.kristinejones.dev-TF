@@ -32,13 +32,6 @@ output "Database" {
   }
 }
 
-output "Pomerium" {
-  value = {
-    ClientID = data.vault_generic_secret.PomeriumOID.data["ClientID"]
-    ClientSecret = data.vault_generic_secret.PomeriumOID.data["ClientSecret"]
-  }
-}
-
 #
 # Minio
 #
@@ -157,33 +150,95 @@ output "Tinkerbell" {
   }
 }
 
-output "PomeriumTLS" {
+output "Pomerium" {
   value = {
-    CA = vault_pki_secret_backend_cert.PomeriumProxyCert.ca_chain
-
-    Proxy = {
-      Cert = vault_pki_secret_backend_cert.PomeriumProxyCert.certificate
-      Key = vault_pki_secret_backend_cert.PomeriumProxyCert.private_key
+    OpenID = {
+      ClientID = data.vault_generic_secret.PomeriumOID.data["ClientID"]
+      ClientSecret = data.vault_generic_secret.PomeriumOID.data["ClientSecret"]
     }
 
-    DataBroker = {
-      Cert = vault_pki_secret_backend_cert.PomeriumDataBrokerCert.certificate
-      Key = vault_pki_secret_backend_cert.PomeriumDataBrokerCert.private_key
-    }
 
-    Authenticate = {
-      Cert = vault_pki_secret_backend_cert.PomeriumAuthenticateCert.certificate
-      Key = vault_pki_secret_backend_cert.PomeriumAuthenticateCert.private_key
-    }
+    TLS = {
+      CA = vault_pki_secret_backend_cert.PomeriumProxyCert.ca_chain
 
-    Authorize = {
-      Cert = vault_pki_secret_backend_cert.PomeriumAuthorizeCert.certificate
-      Key = vault_pki_secret_backend_cert.PomeriumAuthorizeCert.private_key
-    }
+      Redis = {
+        CA = vault_pki_secret_backend_cert.PomeriumProxyCert.ca_chain
 
-    Redis = {
-      Cert = vault_pki_secret_backend_cert.PomeriumRedisCert.certificate
-      Key = vault_pki_secret_backend_cert.PomeriumRedisCert.private_key
+        Cert = vault_pki_secret_backend_cert.PomeriumRedisCert.certificate
+        Key = vault_pki_secret_backend_cert.PomeriumRedisCert.private_key
+      }
+
+      Authenticate = {
+        Metrics = {
+          Server = {
+            CA = ""
+
+            Cert = ""
+            Key = ""
+          }
+        }
+
+        Server = {
+          CA = vault_pki_secret_backend_cert.PomeriumProxyCert.ca_chain
+
+          Cert = vault_pki_secret_backend_cert.PomeriumAuthenticateCert.certificate
+          Key = vault_pki_secret_backend_cert.PomeriumAuthenticateCert.private_key
+        }
+      }
+
+      Authorize = {
+        Metrics = {
+          Server = {
+            CA = ""
+            
+            Cert = ""
+            Key = ""
+          }
+        }
+
+        Server = {
+          CA = vault_pki_secret_backend_cert.PomeriumProxyCert.ca_chain
+
+          Cert = vault_pki_secret_backend_cert.PomeriumAuthorizeCert.certificate
+          Key = vault_pki_secret_backend_cert.PomeriumAuthorizeCert.private_key
+        }
+      }
+      
+      DataBroker = {
+        Metrics = {
+          Server = {
+            CA = ""
+            
+            Cert = ""
+            Key = ""
+          }
+        }
+
+        Server = {
+          CA = vault_pki_secret_backend_cert.PomeriumProxyCert.ca_chain
+          
+          Cert = vault_pki_secret_backend_cert.PomeriumDataBrokerCert.certificate
+          Key = vault_pki_secret_backend_cert.PomeriumDataBrokerCert.private_key
+        }
+      }
+
+      Proxy = {
+        Metrics = {
+          Server = {
+            CA = ""
+            
+            Cert = ""
+            Key = ""
+          }
+        }
+
+        Server = {
+          CA = vault_pki_secret_backend_cert.PomeriumProxyCert.ca_chain
+          
+          Cert = vault_pki_secret_backend_cert.PomeriumProxyCert.certificate
+          Key = vault_pki_secret_backend_cert.PomeriumProxyCert.private_key
+        }
+      }
     }
   }
 }
@@ -392,6 +447,26 @@ output "Registry" {
           Key = vault_pki_secret_backend_cert.HarborRegistryServerCert.private_key
         }
 
+      }
+    }
+  }
+}
+
+
+#
+# Prometheus
+#
+
+output "Prometheus" {
+  value = {
+    TLS = {
+      Pomerium = {
+        Server = {
+          CA = ""
+
+          Cert = ""
+          Key = ""
+        }
       }
     }
   }

@@ -1,38 +1,6 @@
 job "authentik-server" {
   datacenters = ["core0site1"]
 
-  group "authentik-cache" {
-    count = 1
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "redis" { 
-        to = 6379
-      }
-    }
-
-    service {
-      name = "authentik-redis-cont"
-      port = "redis"
-
-      task = "redis"
-
-      address_mode = "alloc"
-    }
-
-    task "redis" {
-      driver = "docker"
-
-      config {
-        image = "redis:alpine"
-      }
-    }
-
-  }
-
-
-
   group "auth-server" {
     count = 3
 
@@ -56,8 +24,8 @@ job "authentik-server" {
     network {
       mode = "cni/nomadcore1"
 
-      port "http" { 
-        to = 9000
+      port "https" { 
+        to = 8443
       }
 
       port "metrics" { 
@@ -86,10 +54,13 @@ job "authentik-server" {
       #
       check {
         name = "HTTP Check"
-        type = "http"
 
         address_mode = "alloc"
-        port = "http"
+        port = "https"
+  
+        type = "http"
+        protocol = "https"
+        tls_skip_verify = true
 
         path     = "/-/health/live/"
         interval = "10s"
@@ -105,22 +76,25 @@ job "authentik-server" {
 
     service {
       name = "authentik"
-      port = "http"
+      port = "https"
 
       task = "authentik-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.server"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.server"]
 
       #
       # Liveness check
       #
       check {
         name = "HTTP Check"
-        type = "http"
 
         address_mode = "alloc"
-        port = "http"
+        port = "https"
+  
+        type = "http"
+        protocol = "https"
+        tls_skip_verify = true
 
         path     = "/-/health/live/"
         interval = "10s"
@@ -149,6 +123,8 @@ job "authentik-server" {
         #
         AUTHENTIK_POSTGRESQL__HOST = "${Database.Hostname}"
         AUTHENTIK_POSTGRESQL__PORT = "${Database.Port}"
+
+        AUTHENTIK_COOKIE_DOMAIN = "auth.kristianjones.dev"
       }
 
       template {
@@ -156,7 +132,7 @@ job "authentik-server" {
 #
 # Cache
 #
-AUTHENTIK_REDIS__HOST="authentik-redis-cont.service.dc1.kjdev"
+AUTHENTIK_REDIS__HOST="redis.authentik.service.dc1.kjdev"
 
 #
 # Database
@@ -174,7 +150,7 @@ AUTHENTIK_SECRET_KEY="${Authentik.SecretKey}"
 EOH
 
         destination = "secrets/file.env"
-        env         = true
+        env = true
       }
 
       resources {

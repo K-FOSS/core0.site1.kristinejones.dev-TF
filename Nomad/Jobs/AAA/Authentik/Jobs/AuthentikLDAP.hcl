@@ -90,7 +90,7 @@ job "authentik-ldap" {
 #
 # Cache
 #
-AUTHENTIK_REDIS__HOST="authentik-redis-cont.service.dc1.kjdev"
+AUTHENTIK_REDIS__HOST="redis.authentik.service.dc1.kjdev"
 
 #
 # Database
