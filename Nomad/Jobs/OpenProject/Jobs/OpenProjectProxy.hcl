@@ -46,8 +46,6 @@ job "openproject-proxy" {
     task "openproject-proxy" {
       driver = "docker"
 
-      user = "101"
-
       config {
         image = "openproject/community:${Version}"
 
@@ -64,7 +62,10 @@ job "openproject-proxy" {
       }
 
       env {
-        APP_HOST = "http.server.openproject.service.dc1.kjdev"
+        APP_HOST = "https.server.openproject.service.dc1.kjdev"
+
+        OPENPROJECT_RAILS__RELATIVE__URL__ROOT = ""
+        SERVER_NAME = "openproject.int.site1.kristianjones.dev"
       }
     }
   }
