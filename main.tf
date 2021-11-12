@@ -170,6 +170,17 @@ module "OpenProjectBucket" {
   Credentials = module.Vault.Minio
 }
 
+module "OpenProjectNewBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
 #
 # Consul Backups
 #
@@ -794,7 +805,7 @@ module "Nomad" {
   OpenProject = {
     Database = module.OpenProjectDatabase.Database
 
-    S3 = module.OpenProjectBucket
+    S3 = module.OpenProjectNewBucket
 
     SMTP = module.Vault.SMTP
   }

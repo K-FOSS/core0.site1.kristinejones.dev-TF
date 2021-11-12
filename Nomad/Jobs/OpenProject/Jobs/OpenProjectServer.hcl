@@ -8,7 +8,7 @@ job "openproject-server" {
       mode = "cni/nomadcore1"
 
       port "https" {
-        to = 443
+        to = 80
       }
     }
 
@@ -33,16 +33,6 @@ job "openproject-server" {
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.server"]
-
-      check {
-        port = "https"
-        address_mode = "alloc"
-
-        type = "http"
-        path = "/health_checks/default"
-        interval = "5s"
-        timeout = "2s"
-      }
     }
 
     task "openproject-server" {
