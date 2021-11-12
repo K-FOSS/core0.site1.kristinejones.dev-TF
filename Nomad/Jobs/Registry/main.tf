@@ -86,7 +86,7 @@ resource "nomad_job" "HarborCoreJobFile" {
     Harbor = {
       Secrets = local.Harbor.Secrets
 
-      CoreSecret = random_id.HarborCoreKey.dec
+      CoreSecret = random_id.HarborCoreKey.b64_std
 
       TLS = {
         CA = var.Harbor.TLS.CA
