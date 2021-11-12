@@ -62,10 +62,57 @@ job "openproject-proxy" {
       }
 
       env {
+        #
+        # Cache
+        #
+        RAILS_CACHE_STORE = "memcache"
+        OPENPROJECT_CACHE__MEMCACHE__SERVER = "memcache.openproject.service.dc1.kjdev:11211"
+
         APP_HOST = "https.server.openproject.service.dc1.kjdev"
 
         OPENPROJECT_RAILS__RELATIVE__URL__ROOT = ""
         SERVER_NAME = "openproject.int.site1.kristianjones.dev"
+
+        #
+        #
+        #
+        USE_PUMA = "true"
+
+        #
+        # Outbound Email
+        #
+        EMAIL_DELIVERY_METHOD = "smtp"
+        SMTP_ADDRESS = "${SMTP.Server}"
+        SMTP_PORT = "${SMTP.Port}"
+
+        SMTP_DOMAIN = "kristianjones.dev"
+        SMTP_AUTHENTICATION = "login"
+        SMTP_ENABLE_STARTTLS_AUTO = "true"
+      }
+
+      template {
+        data = <<EOH
+#
+# Database
+#
+DATABASE_URL="postgres://${Database.Username}:${Database.Password}@${Database.Hostname}:${Database.Port}/${Database.Database}?pool=20&encoding=unicode&reconnect=true"
+
+#
+# Storage
+#
+OPENPROJECT_FOG_CREDENTIALS_AWS__ACCESS__KEY__ID="${S3.Credentials.AccessKey}"
+OPENPROJECT_FOG_CREDENTIALS_AWS__SECRET__ACCESS__KEY="${S3.Credentials.SecretKey}"
+
+#
+# Email
+#
+
+SMTP_USER_NAME="${SMTP.Username}"
+SMTP_PASSWORD="${SMTP.Password}"
+EOH
+
+        destination = "secrets/file.env"
+        env = true
       }
     }
   }

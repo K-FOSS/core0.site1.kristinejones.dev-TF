@@ -87,6 +87,8 @@ job "openproject-server" {
         OPENPROJECT_FOG_CREDENTIALS_PROVIDER = "aws"
         OPENPROJECT_FOG_CREDENTIALS_PATH__STYLE = "true"
 
+        OPENPROJECT_RAILS__RELATIVE__URL__ROOT = ""
+
         #
         #
         #
