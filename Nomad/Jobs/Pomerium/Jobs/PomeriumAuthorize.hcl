@@ -93,26 +93,32 @@ EOF
       #
       template {
         data = <<EOF
-${TLS.Metrics.CA}
+${TLS.Metrics.Server.CA}
 EOF
 
         destination = "local/MetricsServerCA.pem"
+
+        change_mode = "noop"
       }
 
       template {
         data = <<EOF
-${TLS.Metrics.Cert}
+${TLS.Metrics.Server.Cert}
 EOF
 
         destination = "secrets/TLS/Metrics.pem"
+
+        change_mode = "noop"
       }
 
       template {
         data = <<EOF
-${TLS.Metrics.Key}
+${TLS.Metrics.Server.Key}
 EOF
 
         destination = "secrets/TLS/Metrics.key"
+
+        change_mode = "noop"
       }
 
       resources {
