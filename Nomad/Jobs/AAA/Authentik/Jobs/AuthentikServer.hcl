@@ -24,8 +24,8 @@ job "authentik-server" {
     network {
       mode = "cni/nomadcore1"
 
-      port "https" { 
-        to = 8443
+      port "http" { 
+        to = 9000
       }
 
       port "metrics" { 
@@ -54,13 +54,10 @@ job "authentik-server" {
       #
       check {
         name = "HTTP Check"
+        type = "http"
 
         address_mode = "alloc"
-        port = "https"
-  
-        type = "http"
-        protocol = "https"
-        tls_skip_verify = true
+        port = "http"
 
         path     = "/-/health/live/"
         interval = "10s"
@@ -76,25 +73,22 @@ job "authentik-server" {
 
     service {
       name = "authentik"
-      port = "https"
+      port = "http"
 
       task = "authentik-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.server"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.server"]
 
       #
       # Liveness check
       #
       check {
         name = "HTTP Check"
+        type = "http"
 
         address_mode = "alloc"
-        port = "https"
-  
-        type = "http"
-        protocol = "https"
-        tls_skip_verify = true
+        port = "http"
 
         path     = "/-/health/live/"
         interval = "10s"
