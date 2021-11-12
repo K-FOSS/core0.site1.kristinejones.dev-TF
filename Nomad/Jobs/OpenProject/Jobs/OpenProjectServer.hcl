@@ -45,6 +45,15 @@ job "openproject-server" {
 
         args = ["./docker/prod/web"]
 
+        mount {
+          type = "tmpfs"
+          target = "/path/in/container"
+          readonly = false
+          tmpfs_options = {
+            size = 100000
+          }
+        }
+
         logging {
           type = "loki"
           config {
@@ -53,6 +62,12 @@ job "openproject-server" {
             loki-external-labels = "job=openproject,service=server"
           }
         }
+      }
+
+      resources {
+        cpu = 256
+
+        memory = 1024
       }
     
       env {
