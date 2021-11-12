@@ -418,13 +418,13 @@ module "Pomerium" {
   source = "./Pomerium"
 
   TLS = {
-    Proxy = module.Vault.PomeriumTLS.Proxy
+    Proxy = module.Vault.Pomerium.TLS.Proxy
 
-    DataBroker = module.Vault.PomeriumTLS.DataBroker
+    DataBroker = module.Vault.Pomerium.TLS.DataBroker
 
-    Authenticate = module.Vault.PomeriumTLS.Authenticate
+    Authenticate = module.Vault.Pomerium.TLS.Authenticate
 
-    Authorize = module.Vault.PomeriumTLS.Authorize
+    Authorize = module.Vault.Pomerium.TLS.Authorize
   }
 }
 
