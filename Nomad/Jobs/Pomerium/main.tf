@@ -127,9 +127,9 @@ resource "nomad_job" "PomeriumDataBrokerJobFile" {
     TLS = {
       Redis = var.TLS.Redis
 
-      Metrics = var.TLS.Authenticate.Metrics
+      Metrics = var.TLS.DataBroker.Metrics
 
-      Server = var.TLS.Authenticate.Server
+      Server = var.TLS.DataBroker.Server
 
       Grafana = var.TLS.Grafana
       HomeAssistant = var.TLS.HomeAssistant
@@ -154,9 +154,9 @@ resource "nomad_job" "PomeriumProxyJobFile" {
     TLS = {
       Redis = var.TLS.Redis
 
-      Metrics = var.TLS.Authenticate.Metrics
+      Metrics = var.TLS.Proxy.Metrics
 
-      Server = var.TLS.Authenticate.Server
+      Server = var.TLS.Proxy.Server
 
       Grafana = var.TLS.Grafana
       HomeAssistant = var.TLS.HomeAssistant
