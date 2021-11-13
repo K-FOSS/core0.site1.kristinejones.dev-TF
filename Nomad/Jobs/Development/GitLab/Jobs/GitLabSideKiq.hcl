@@ -45,7 +45,7 @@ job "development-gitlab-sidekiq" {
         mount {
           type = "bind"
           target = "/var/opt/gitlab/config/templates"
-          source = "local/sidekiq/configtemplates"
+          source = "local/sidekiq/templates"
           readonly = false
         }
       }
