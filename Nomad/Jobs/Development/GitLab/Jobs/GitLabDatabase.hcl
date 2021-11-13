@@ -78,10 +78,10 @@ EOF
 
       template {
         data = <<EOF
-${WebService.Templates.GitlabRB}
+${WebService.Templates.GitlabYML}
 EOF
 
-        destination = "local/webservice/configtemplates/gitlab.yml.erb"
+        destination = "local/webservice/configtemplates/gitlab.yml"
 
         change_mode = "noop"
       }

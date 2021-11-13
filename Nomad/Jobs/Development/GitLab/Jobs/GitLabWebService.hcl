@@ -98,7 +98,7 @@ EOF
 ${WebService.Templates.Cable}
 EOF
 
-        destination = "local/webservice/configtemplates/cable.yaml"
+        destination = "local/webservice/configtemplates/cable.yml"
 
         change_mode = "noop"
       }
@@ -108,17 +108,17 @@ EOF
 ${WebService.Templates.Database}
 EOF
 
-        destination = "local/webservice/configtemplates/database.yaml"
+        destination = "local/webservice/configtemplates/database.yml"
 
         change_mode = "noop"
       }
 
       template {
         data = <<EOF
-${WebService.Templates.GitlabRB}
+${WebService.Templates.GitlabYML}
 EOF
 
-        destination = "local/webservice/configtemplates/gitlab.yml.erb"
+        destination = "local/webservice/configtemplates/gitlab.yml"
 
         change_mode = "noop"
       }
@@ -128,7 +128,7 @@ EOF
 ${WebService.Templates.Resque}
 EOF
 
-        destination = "local/webservice/configtemplates/resque.yaml"
+        destination = "local/webservice/configtemplates/resque.yml"
 
         change_mode = "noop"
       }
