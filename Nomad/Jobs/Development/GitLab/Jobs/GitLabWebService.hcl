@@ -56,15 +56,6 @@ job "development-gitlab-webservice" {
         args = ["/scripts/process-wrapper"]
 
         mount {
-          type = "tmpfs"
-          target = "/srv/gitlab/config"
-          readonly = false
-          tmpfs_options = {
-            size = 100000
-          }
-        }
-
-        mount {
           type = "bind"
           target = "/var/opt/gitlab/config/templates"
           source = "local/webservice/configtemplates"

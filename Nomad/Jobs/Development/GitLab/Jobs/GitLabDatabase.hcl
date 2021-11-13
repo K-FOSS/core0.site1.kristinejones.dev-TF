@@ -38,15 +38,17 @@ job "gitlab-database" {
       }
 
       config {
-        image = "${Image.Repo}/gitlab-rails-ce:${Image.Tag}"
+        image = "${Image.Repo}/gitlab-rails-ee:${Image.Tag}"
 
-        command = "/scripts/db-migrate"
+        command = "/scripts/wait-for-deps"
+
+        args = ["/scripts/db-migrate"]
 
         mount {
           type = "bind"
           target = "/var/opt/gitlab/config/templates"
           source = "local/webservice/configtemplates"
-          readonly = true
+          readonly = false
           bind_options {
             propagation = "rshared"
           }
@@ -81,7 +83,7 @@ EOF
 ${WebService.Templates.Database}
 EOF
 
-        destination = "local/webservice/configtemplates/database.yml.erb"
+        destination = "local/webservice/configtemplates/database.yml"
 
         change_mode = "noop"
       }
@@ -102,6 +104,16 @@ ${WebService.Templates.Resque}
 EOF
 
         destination = "local/webservice/configtemplates/resque.yaml"
+
+        change_mode = "noop"
+      }
+
+      template {
+        data = <<EOF
+${WebService.Templates.Secrets}
+EOF
+
+        destination = "local/webservice/configtemplates/secrets.yml"
 
         change_mode = "noop"
       }
