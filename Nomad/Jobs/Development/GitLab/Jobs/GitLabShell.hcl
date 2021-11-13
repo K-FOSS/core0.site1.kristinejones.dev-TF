@@ -36,6 +36,15 @@ job "development-gitlab-shell" {
 
       config {
         image = "${Image.Repo}/gitlab-shell:${Image.Tag}"
+
+        mount {
+          type = "tmpfs"
+          target = "/local/gitlab-shell"
+          readonly = false
+          tmpfs_options = {
+            size = 100000
+          }
+        }
       }
 
       resources {
