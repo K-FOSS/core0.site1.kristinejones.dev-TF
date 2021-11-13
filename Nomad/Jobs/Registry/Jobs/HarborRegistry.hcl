@@ -329,7 +329,7 @@ JOBSERVICE_SECRET="${Harbor.Secrets.JobService}"
 EOH
 
         destination = "secrets/file.env"
-        env         = true
+        env = true
       }
     }
   }

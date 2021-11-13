@@ -53,7 +53,7 @@ terraform {
 resource "nomad_job" "GitLabDatabaseJob" {
   jobspec = templatefile("${path.module}/Jobs/GitLabDatabase.hcl", {
     Image = {
-      Repo = "registry.gitlab.com/gitlab-org/build/cng"
+      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
       Tag = "master"
     }
@@ -88,7 +88,7 @@ resource "nomad_job" "GitLabDatabaseJob" {
 resource "nomad_job" "GitLabGitalyJob" {
   jobspec = templatefile("${path.module}/Jobs/GitLabGitaly.hcl", {
     Image = {
-      Repo = "registry.gitlab.com/gitlab-org/build/cng"
+      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
       Tag = "master"
     }
@@ -110,7 +110,7 @@ resource "nomad_job" "GitLabGitalyJob" {
 resource "nomad_job" "GitLabPagesJob" {
   jobspec = templatefile("${path.module}/Jobs/GitLabPages.hcl", {
     Image = {
-      Repo = "registry.gitlab.com/gitlab-org/build/cng"
+      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
       Tag = "master"
     }
@@ -129,7 +129,7 @@ resource "nomad_job" "GitLabPagesJob" {
 resource "nomad_job" "GitLabShellJob" {
   jobspec = templatefile("${path.module}/Jobs/GitLabShell.hcl", {
     Image = {
-      Repo = "registry.gitlab.com/gitlab-org/build/cng"
+      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
       Tag = "master"
     }
@@ -148,7 +148,7 @@ resource "nomad_job" "GitLabShellJob" {
 resource "nomad_job" "GitLabSideKiqJob" {
   jobspec = templatefile("${path.module}/Jobs/GitLabSideKiq.hcl", {
     Image = {
-      Repo = "registry.gitlab.com/gitlab-org/build/cng"
+      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
       Tag = "master"
     }
@@ -179,7 +179,7 @@ resource "nomad_job" "GitLabSideKiqJob" {
 resource "nomad_job" "GitLabWebServcieJob" {
   jobspec = templatefile("${path.module}/Jobs/GitLabWebService.hcl", {
     Image = {
-      Repo = "registry.gitlab.com/gitlab-org/build/cng"
+      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
       Tag = "master"
     }
@@ -214,7 +214,7 @@ resource "nomad_job" "GitLabWebServcieJob" {
 resource "nomad_job" "GitLabWorkHorseJob" {
   jobspec = templatefile("${path.module}/Jobs/GitLabWorkHorse.hcl", {
     Image = {
-      Repo = "registry.gitlab.com/gitlab-org/build/cng"
+      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
       Tag = "master"
     }
