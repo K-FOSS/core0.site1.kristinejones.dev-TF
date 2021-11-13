@@ -187,6 +187,27 @@ EOH
         env         = true
       }
     }
+  }
+
+  group "harbor-registry-registryctl" {
+    count = 1
+
+    spread {
+      attribute = "$${node.unique.id}"
+      weight = 100
+    }
+
+    network {
+      mode = "cni/nomadcore1"
+
+      port "https" {
+        to = 443
+      }
+
+      port "metrics" {
+        to = 9284
+      }
+    }
 
     service {
       name = "harbor"
