@@ -46,10 +46,10 @@ job "development-gitlab-webservice" {
     task "gitlab-webservice-server" {
       driver = "docker"
 
+      user = "root"
+
       config {
         image = "${Image.Repo}/gitlab-webservice-ce:${Image.Tag}"
-
-        entrypoint = ["/local/entry.sh"]
 
         mount {
           type = "tmpfs"
