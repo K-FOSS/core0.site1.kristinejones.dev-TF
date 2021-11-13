@@ -159,7 +159,7 @@ resource "nomad_job" "GitLabSideKiqJob" {
           Database = var.Database
         })
 
-        GitlabYML = templatefile("${path.module}/Configs/Sidekiq/Gitlab.yaml", {
+        GitlabYAML = templatefile("${path.module}/Configs/Sidekiq/Gitlab.yaml", {
         })
 
         Resque = templatefile("${path.module}/Configs/Sidekiq/Resque.yaml", {
