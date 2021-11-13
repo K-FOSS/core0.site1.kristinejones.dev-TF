@@ -68,7 +68,7 @@ job "development-gitlab-sidekiq" {
 ${Sidekiq.Templates.Database}
 EOF
 
-        destination = "local/sidekiq/templates/database.yaml"
+        destination = "local/sidekiq/templates/database.yml"
       }
 
       template {
@@ -76,7 +76,7 @@ EOF
 ${Sidekiq.Templates.GitlabYAML}
 EOF
 
-        destination = "local/sidekiq/templates/gitlab.yaml"
+        destination = "local/sidekiq/templates/gitlab.yml"
       }
 
       template {
@@ -84,7 +84,7 @@ EOF
 ${Sidekiq.Templates.Resque}
 EOF
 
-        destination = "local/sidekiq/templates/resque.yaml"
+        destination = "local/sidekiq/templates/resque.yml"
       }
 
       template {
@@ -92,7 +92,7 @@ EOF
 ${Sidekiq.Templates.SidekiqQueues}
 EOF
 
-        destination = "local/sidekiq/templates/sidekiq_queues.yaml"
+        destination = "local/sidekiq/templates/sidekiq_queues.yml"
       }
     }
   }
