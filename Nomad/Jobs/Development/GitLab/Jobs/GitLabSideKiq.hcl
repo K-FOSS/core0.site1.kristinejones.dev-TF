@@ -34,16 +34,13 @@ job "development-gitlab-sidekiq" {
       driver = "docker"
 
       config {
-        image = "${Image.Repo}/gitlab-sidekiq-ce:${Image.Tag}"
+        image = "${Image.Repo}/gitlab-sidekiq-ee:${Image.Tag}"
 
         mount {
           type = "bind"
           target = "/var/opt/gitlab/config/templates"
-          source = "local/webservice/configtemplates"
+          source = "local/sidekiq/configtemplates"
           readonly = false
-          bind_options {
-            propagation = "rshared"
-          }
         }
       }
 
@@ -54,9 +51,16 @@ job "development-gitlab-sidekiq" {
       }
 
       env {
-        CONFIG_TEMPLATE_DIRECTORY = "/local/sidekiq/templates"
+        CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/config/templates"
 
-        CONFIG_DIRECTORY = "/local/gitlab-shell"
+        CONFIG_DIRECTORY = "/srv/gitlab/config"
+
+        WAIT_FOR_TIMEOUT = "60"
+
+        GITLAB_HOST = "localhost"
+        GITLAB_PORT = "3000"
+
+        GITALY_FEATURE_DEFAULT_ON = "1"
       }
 
       template {

@@ -73,7 +73,7 @@ job "gitlab-database" {
 ${WebService.Templates.Cable}
 EOF
 
-        destination = "local/webservice/configtemplates/cable.yaml"
+        destination = "local/webservice/configtemplates/cable.yml"
 
         change_mode = "noop"
       }
@@ -103,7 +103,7 @@ EOF
 ${WebService.Templates.Resque}
 EOF
 
-        destination = "local/webservice/configtemplates/resque.yaml"
+        destination = "local/webservice/configtemplates/resque.yml"
 
         change_mode = "noop"
       }
