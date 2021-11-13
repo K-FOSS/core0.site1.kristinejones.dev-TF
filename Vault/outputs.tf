@@ -447,6 +447,11 @@ output "Registry" {
           Key = vault_pki_secret_backend_cert.HarborRegistryServerCert.private_key
         }
 
+        RegistryCTL = {
+          Cert = vault_pki_secret_backend_cert.HarborRegistryCTLServerCert.certificate
+          Key = vault_pki_secret_backend_cert.HarborRegistryCTLServerCert.private_key
+        }
+
       }
     }
   }

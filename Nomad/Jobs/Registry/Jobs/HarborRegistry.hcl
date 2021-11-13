@@ -148,7 +148,7 @@ EOF
 
       template {
         data = <<EOF
-${Harbor.Config}
+${Harbor.Registry.Config}
 EOF
 
         destination = "local/HarborRegistry/Config.yaml"
@@ -156,7 +156,7 @@ EOF
 
       template {
         data = <<EOF
-${Harbor.TLS.CA}
+${Harbor.Registry.TLS.CA}
 EOF
 
         destination = "local/CA.pem"
@@ -164,7 +164,7 @@ EOF
 
       template {
         data = <<EOF
-${Harbor.TLS.Cert}
+${Harbor.Registry.TLS.Cert}
 EOF
 
         destination = "secrets/TLS/Cert.pem"
@@ -172,7 +172,7 @@ EOF
 
       template {
         data = <<EOF
-${Harbor.TLS.Key}
+${Harbor.Registry.TLS.Key}
 EOF
 
         destination = "secrets/TLS/Cert.key"
@@ -264,7 +264,7 @@ EOF
 
       template {
         data = <<EOF
-${Harbor.Config}
+${Harbor.Registry.Config}
 EOF
 
         destination = "local/HarborRegistry/Config.yaml"
@@ -280,7 +280,7 @@ EOF
 
       template {
         data = <<EOF
-${Harbor.TLS.CA}
+${Harbor.RegistryCTL.TLS.CA}
 EOF
 
         destination = "local/CA.pem"
@@ -288,7 +288,7 @@ EOF
 
       template {
         data = <<EOF
-${Harbor.TLS.Cert}
+${Harbor.RegistryCTL.TLS.Cert}
 EOF
 
         destination = "secrets/TLS/Cert.pem"
@@ -296,7 +296,7 @@ EOF
 
       template {
         data = <<EOF
-${Harbor.TLS.Key}
+${Harbor.RegistryCTL.TLS.Key}
 EOF
 
         destination = "secrets/TLS/Cert.key"

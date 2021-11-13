@@ -443,9 +443,18 @@ resource "vault_pki_secret_backend_cert" "HarborRegistryServerCert" {
   backend = module.Harbor.TLS.Mount.path
   name = module.Harbor.TLS.Role.name
 
-  common_name = "http.registry.harbor.service.kjdev"
+  common_name = "https.registry.harbor.service.kjdev"
 
-  alt_names = ["http.registry.harbor.service.dc1.kjdev"]
+  alt_names = ["https.registry.harbor.service.dc1.kjdev"]
+}
+
+resource "vault_pki_secret_backend_cert" "HarborRegistryCTLServerCert" {
+  backend = module.Harbor.TLS.Mount.path
+  name = module.Harbor.TLS.Role.name
+
+  common_name = "https.registrycontroller.harbor.service.kjdev"
+
+  alt_names = ["https.registry.harbor.service.dc1.kjdev"]
 }
 
 #

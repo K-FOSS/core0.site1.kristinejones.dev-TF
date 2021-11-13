@@ -170,21 +170,30 @@ resource "nomad_job" "HarborRegistryJobFile" {
     Harbor = {
       Secrets = local.Harbor.Secrets
 
-      TLS = {
-        CA = var.Harbor.TLS.CA
+      Registry = {
+        Config = templatefile("${path.module}/Configs/HarborRegistry/Config.yaml", {
+          S3 = var.Harbor.S3
+        })
 
-        Cert = var.Harbor.TLS.Registry.Cert
-        Key = var.Harbor.TLS.Registry.Key
+        TLS = {
+          CA = var.Harbor.TLS.CA
+
+          Cert = var.Harbor.TLS.Registry.Cert
+          Key = var.Harbor.TLS.Registry.Key
+        }
       }
-
-      Config = templatefile("${path.module}/Configs/HarborRegistry/Config.yaml", {
-        S3 = var.Harbor.S3
-      })
 
       RegistryCTL = {
         Config = templatefile("${path.module}/Configs/HarborRegistry/CTLConfig.yaml", {
           S3 = var.Harbor.S3
         })
+
+        TLS = {
+          CA = var.Harbor.TLS.CA
+
+          Cert = var.Harbor.TLS.RegistryCTL.Cert
+          Key = var.Harbor.TLS.RegistryCTL.Key
+        }
 
         EntryScript = file("${path.module}/Configs/HarborRegistry/CTLEntry.sh")
       }

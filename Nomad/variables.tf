@@ -1002,6 +1002,12 @@ variable "Registry" {
 
           Key = string
         })
+
+        RegistryCTL = object({
+          Cert = string
+
+          Key = string
+        })
       })
     })
   })

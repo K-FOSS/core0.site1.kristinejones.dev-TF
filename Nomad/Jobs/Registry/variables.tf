@@ -65,6 +65,12 @@ variable "Harbor" {
 
         Key = string
       })
+
+      RegistryCTL = object({
+        Cert = string
+
+        Key = string
+      })
     })
   })
 }
