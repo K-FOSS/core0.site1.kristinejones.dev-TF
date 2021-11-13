@@ -188,6 +188,16 @@ EOH
       }
     }
 
+    service {
+      name = "harbor"
+      port = "https"
+
+      task = "harbor-registry-ctl-server"
+      address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.registrycontroller"]
+    }
+
     task "harbor-registry-ctl-server" {
       driver = "docker"
 
