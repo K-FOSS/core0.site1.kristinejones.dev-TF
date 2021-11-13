@@ -134,6 +134,14 @@ job "registry-harbor-registry" {
         #
         INTERNAL_TLS_TRUST_CA_PATH = "/local/CA.pem"
 
+        #
+        # Metrics
+        #
+        METRIC_NAMESPACE = "harbor"
+        METRIC_SUBSYSTEM = "registry"
+        TRACE_ENABLED = "true"
+        TRACE_SAMPLE_RATE = "1"
+        TRACE_JAEGER_ENDPOINT = "http://tempo-distributor-http-cont.service.kjdev:14268/api/traces"
       }
 
       template {
@@ -249,6 +257,15 @@ EOH
         # Trusted CA
         #
         INTERNAL_TLS_TRUST_CA_PATH = "/local/CA.pem"
+
+        #
+        # Metrics
+        #
+        METRIC_NAMESPACE = "harbor"
+        METRIC_SUBSYSTEM = "registryctl"
+        TRACE_ENABLED = "true"
+        TRACE_SAMPLE_RATE = "1"
+        TRACE_JAEGER_ENDPOINT = "http://tempo-distributor-http-cont.service.kjdev:14268/api/traces"
 
       }
 

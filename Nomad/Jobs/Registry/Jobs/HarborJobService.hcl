@@ -145,6 +145,15 @@ job "registry-harbor-jobservice" {
         TOKEN_SERVICE_URL = "https://http.core.harbor.service.dc1.kjdev:8443/service/token"
         REGISTRY_URL = "https://https.registry.harbor.service.dc1.kjdev:5443"
         REGISTRY_CONTROLLER_URL = "https://https.registry.harbor.service.dc1.kjdev:8443"
+
+        #
+        # Metrics
+        #
+        METRIC_NAMESPACE = "harbor"
+        METRIC_SUBSYSTEM = "jobservice"
+        TRACE_ENABLED = "true"
+        TRACE_SAMPLE_RATE = "1"
+        TRACE_JAEGER_ENDPOINT = "http://tempo-distributor-http-cont.service.kjdev:14268/api/traces"
       }
 
       template {
