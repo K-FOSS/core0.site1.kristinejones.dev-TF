@@ -100,7 +100,7 @@ resource "nomad_job" "PomeriumCacheJobFile" {
 # GitLab
 #
 
-resource "nomad_job" "PomeriumCacheJobFile" {
+resource "nomad_job" "GitLabJobFile" {
   jobspec = templatefile("${path.module}/Jobs/Gitlab.hcl", {
 
   })
