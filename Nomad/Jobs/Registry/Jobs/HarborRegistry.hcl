@@ -69,6 +69,10 @@ job "registry-harbor-registry" {
       port "metrics" {
         to = 9284
       }
+
+      port "ctlhttps" {
+        to = 9443
+      }
     }
 
     service {
@@ -184,34 +188,13 @@ JOBSERVICE_SECRET="${Harbor.Secrets.JobService}"
 EOH
 
         destination = "secrets/file.env"
-        env         = true
-      }
-    }
-  }
-
-  group "harbor-registry-registryctl" {
-    count = 1
-
-    spread {
-      attribute = "$${node.unique.id}"
-      weight = 100
-    }
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "https" {
-        to = 443
-      }
-
-      port "metrics" {
-        to = 9284
+        env = true
       }
     }
 
     service {
       name = "harbor"
-      port = "https"
+      port = "ctlhttps"
 
       task = "harbor-registry-ctl-server"
       address_mode = "alloc"
@@ -249,7 +232,7 @@ EOH
         #
         # Port
         #
-        PORT = "443"
+        PORT = "9443"
 
         #
         # Internal TLS
