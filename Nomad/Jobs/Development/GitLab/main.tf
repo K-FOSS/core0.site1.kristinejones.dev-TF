@@ -70,7 +70,7 @@ resource "nomad_job" "GitLabDatabaseJob" {
           Database = var.Database
         })
 
-        GitlabYML = templatefile("${path.module}/Configs/WebService/Gitlab.yaml.erb", {
+        GitlabERB = templatefile("${path.module}/Configs/WebService/Gitlab.yaml.erb", {
         })
 
         Resque = templatefile("${path.module}/Configs/WebService/Resque.yaml", {
@@ -159,7 +159,7 @@ resource "nomad_job" "GitLabSideKiqJob" {
           Database = var.Database
         })
 
-        GitlabERB = templatefile("${path.module}/Configs/Sidekiq/Gitlab.yaml", {
+        GitlabYML = templatefile("${path.module}/Configs/Sidekiq/Gitlab.yaml", {
         })
 
         Resque = templatefile("${path.module}/Configs/Sidekiq/Resque.yaml", {
