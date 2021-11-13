@@ -62,12 +62,9 @@ job "development-gitlab-webservice" {
 
         mount {
           type = "bind"
-          target = "/var/opt/gitlab/templates"
+          target = "/var/opt/gitlab/config/templates"
           source = "local/webservice/configtemplates"
-          readonly = true
-          bind_options {
-            propagation = "rshared"
-          }
+          readonly = false
         }
 
       }
@@ -90,18 +87,8 @@ job "development-gitlab-webservice" {
         #
         # Configs
         #
-        CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/templates"
+        CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/config/templates"
         CONFIG_DIRECTORY = "/srv/gitlab/config"
-      }
-
-      template {
-        data = <<EOF
-${WebService.EntryScript}
-EOF
-
-        destination = "local/entry.sh"
-
-        perms = "777"
       }
 
       template {

@@ -34,7 +34,17 @@ job "development-gitlab-sidekiq" {
       driver = "docker"
 
       config {
-        image = "${Image.Repo}/gitlab-sidekiq-ee:${Image.Tag}"
+        image = "${Image.Repo}/gitlab-sidekiq-ce:${Image.Tag}"
+
+        mount {
+          type = "bind"
+          target = "/var/opt/gitlab/config/templates"
+          source = "local/webservice/configtemplates"
+          readonly = false
+          bind_options {
+            propagation = "rshared"
+          }
+        }
       }
 
       resources {

@@ -41,6 +41,16 @@ job "gitlab-database" {
         image = "${Image.Repo}/gitlab-rails-ce:${Image.Tag}"
 
         command = "/scripts/db-migrate"
+
+        mount {
+          type = "bind"
+          target = "/var/opt/gitlab/config/templates"
+          source = "local/webservice/configtemplates"
+          readonly = true
+          bind_options {
+            propagation = "rshared"
+          }
+        }
       }
 
       resources {
