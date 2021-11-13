@@ -73,8 +73,8 @@ job "development-gitlab-webservice" {
 
       resources {
         cpu = 256
-        memory = 512
-        memory_max = 512
+        memory = 2048
+        memory_max = 2048
       }
 
       env {

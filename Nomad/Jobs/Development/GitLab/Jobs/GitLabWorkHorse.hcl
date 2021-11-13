@@ -42,7 +42,7 @@ job "development-gitlab-workhorse" {
       driver = "exec"
       config {
         command = "sh"
-        args = ["-c", "while ! nc -z http.webservice.gitlab.service.dc1.kjdev 6379; do sleep 1; done"]
+        args = ["-c", "while ! nc -z http.webservice.gitlab.service.dc1.kjdev 8080; do sleep 1; done"]
       }
     }
 
