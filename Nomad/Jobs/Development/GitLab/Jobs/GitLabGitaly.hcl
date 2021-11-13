@@ -37,6 +37,13 @@ job "gitlab-gitaly" {
         image = "${Image.Repo}/gitaly:${Image.Tag}"
 
         mount {
+          type = "bind"
+          target = "/var/opt/gitlab/config/secrets/.gitlab_shell_secret"
+          source = "secrets/shell/.gitlab_shell_secret"
+          readonly = true
+        }
+
+        mount {
           type = "tmpfs"
           target = "/app/tmp"
           readonly = false
@@ -70,6 +77,16 @@ ${Gitaly.Config}
 EOF
 
         destination = "local/gitaly/config.toml"
+      }
+
+      template {
+        data = <<EOF
+6fad933c6267760415116fc4f35d2c7fc969f4ce0c162b49c3dd7be5517283e63000340ba7282dd97c2b3518b6d3c97a7cdd995dcb6f00dff11cf0aa316a459f
+EOF
+
+        destination = "secrets/shell/.gitlab_shell_secret"
+
+        change_mode = "noop"
       }
     }
   }

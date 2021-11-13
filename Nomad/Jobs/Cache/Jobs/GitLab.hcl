@@ -53,7 +53,6 @@ job "cache-gitlab" {
         data = <<EOF
 bind 0.0.0.0
 port 6379
-requirepass redis-meercat
 EOF
 
         destination = "local/redis.conf"
