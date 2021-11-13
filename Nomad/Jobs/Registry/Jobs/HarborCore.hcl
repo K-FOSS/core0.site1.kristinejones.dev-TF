@@ -168,7 +168,7 @@ job "registry-harbor-core" {
         # Service Connections
         #
         CORE_URL = "https://http.core.harbor.service.dc1.kjdev"
-        JOBSERVICE_URL = "https://http.jobservice.harbor.service.dc1.kjdev"
+        JOBSERVICE_URL = "https://http.jobservice.harbor.service.dc1.kjdev:8443"
         REGISTRY_URL = "https://https.registry.harbor.service.dc1.kjdev:5443"
         REGISTRY_CONTROLLER_URL = "https://https.registry.harbor.service.dc1.kjdev:8443"
 

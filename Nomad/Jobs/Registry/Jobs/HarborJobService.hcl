@@ -63,7 +63,7 @@ job "registry-harbor-jobservice" {
       mode = "cni/nomadcore1"
 
       port "http" {
-        to = 443
+        to = 8443
       }
 
       port "metrics" {
@@ -119,7 +119,7 @@ job "registry-harbor-jobservice" {
         #
         # Listener
         #
-        PORT = "443"
+        PORT = "8443"
 
         #
         # Internal TLS
