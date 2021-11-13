@@ -42,10 +42,11 @@ staging:
   main:
     adapter: postgresql
     encoding: unicode
-    database: gitlabhq_staging
-    username: git
-    password: "secure password"
-    host: localhost
+    database: ${Database.Database}
+    username: ${Database.Username}
+    password: ${Database.Password}
+    host: ${Database.Hostname}
+    port: ${Database.Port}
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

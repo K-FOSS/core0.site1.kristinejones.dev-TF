@@ -53,12 +53,23 @@ job "development-gitlab-webservice" {
 
         mount {
           type = "tmpfs"
-          target = "/local/webservice"
+          target = "/srv/gitlab/config"
           readonly = false
           tmpfs_options = {
             size = 100000
           }
         }
+
+        mount {
+          type = "bind"
+          target = "/var/opt/gitlab/templates"
+          source = "local/webservice/configtemplates"
+          readonly = true
+          bind_options {
+            propagation = "rshared"
+          }
+        }
+
       }
 
       resources {
@@ -79,8 +90,8 @@ job "development-gitlab-webservice" {
         #
         # Configs
         #
-        CONFIG_TEMPLATE_DIRECTORY = "/local/webservice/configtemplates"
-        CONFIG_DIRECTORY = "/local/webservice/config"
+        CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/templates"
+        CONFIG_DIRECTORY = "/srv/gitlab/config"
       }
 
       template {
@@ -108,7 +119,7 @@ EOF
 ${WebService.Templates.Database}
 EOF
 
-        destination = "local/webservice/configtemplates/database.yml.erb"
+        destination = "local/webservice/configtemplates/database.yml"
 
         change_mode = "noop"
       }
