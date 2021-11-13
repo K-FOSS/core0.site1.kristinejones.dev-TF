@@ -33,8 +33,14 @@ job "development-gitlab-sidekiq" {
     task "gitlab-sidekiq-server" {
       driver = "docker"
 
+      user = "root"
+
       config {
         image = "${Image.Repo}/gitlab-sidekiq-ee:${Image.Tag}"
+
+        command = "/scripts/wait-for-deps"
+
+        args = ["/scripts/process-wrapper"]
 
         mount {
           type = "bind"
