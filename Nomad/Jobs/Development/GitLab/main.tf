@@ -87,23 +87,23 @@ terraform {
 # Gitlab Gitaly
 #
 
-# resource "nomad_job" "GitLabGitalyJob" {
-#   jobspec = templatefile("${path.module}/Jobs/GitLabGitaly.hcl", {
-#     Image = {
-#       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
+resource "nomad_job" "GitLabGitalyJob" {
+  jobspec = templatefile("${path.module}/Jobs/GitLabGitaly.hcl", {
+    Image = {
+      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
-#       Tag = "master"
-#     }
+      Tag = "master"
+    }
 
-#     Gitaly = {
-#       GitConfig = templatefile("${path.module}/Configs/Gitaly/gitconfig", {
-#       })
+    Gitaly = {
+      GitConfig = templatefile("${path.module}/Configs/Gitaly/gitconfig", {
+      })
 
-#       Config = templatefile("${path.module}/Configs/Gitaly/config.toml", {
-#       })
-#     }
-#   })
-# }
+      Config = templatefile("${path.module}/Configs/Gitaly/config.toml", {
+      })
+    }
+  })
+}
 
 #
 # GitLab Pages
@@ -147,32 +147,32 @@ resource "nomad_job" "GitLabShellJob" {
 # GitLab SideKiq
 # 
 
-# resource "nomad_job" "GitLabSideKiqJob" {
-#   jobspec = templatefile("${path.module}/Jobs/GitLabSideKiq.hcl", {
-#     Image = {
-#       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
+resource "nomad_job" "GitLabSideKiqJob" {
+  jobspec = templatefile("${path.module}/Jobs/GitLabSideKiq.hcl", {
+    Image = {
+      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
-#       Tag = "master"
-#     }
+      Tag = "master"
+    }
 
-#     Sidekiq = {
-#       Templates = {
-#         Database = templatefile("${path.module}/Configs/Sidekiq/Database.yaml", {
-#           Database = var.Database
-#         })
+    Sidekiq = {
+      Templates = {
+        Database = templatefile("${path.module}/Configs/Sidekiq/Database.yaml", {
+          Database = var.Database
+        })
 
-#         GitlabYAML = templatefile("${path.module}/Configs/Sidekiq/Gitlab.yaml", {
-#         })
+        GitlabYAML = templatefile("${path.module}/Configs/Sidekiq/Gitlab.yaml", {
+        })
 
-#         Resque = templatefile("${path.module}/Configs/Sidekiq/Resque.yaml", {
-#         })
+        Resque = templatefile("${path.module}/Configs/Sidekiq/Resque.yaml", {
+        })
 
-#         SidekiqQueues = templatefile("${path.module}/Configs/Sidekiq/SidekiqQueues.yaml", {
-#         })
-#       }
-#     }
-#   })
-# }
+        SidekiqQueues = templatefile("${path.module}/Configs/Sidekiq/SidekiqQueues.yaml", {
+        })
+      }
+    }
+  })
+}
 
 #
 # GitLab WebService
@@ -216,17 +216,17 @@ resource "nomad_job" "GitLabWebServcieJob" {
 # GitLab WorkHorse
 #
 
-# resource "nomad_job" "GitLabWorkHorseJob" {
-#   jobspec = templatefile("${path.module}/Jobs/GitLabWorkHorse.hcl", {
-#     Image = {
-#       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
+resource "nomad_job" "GitLabWorkHorseJob" {
+  jobspec = templatefile("${path.module}/Jobs/GitLabWorkHorse.hcl", {
+    Image = {
+      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
-#       Tag = "master"
-#     }
+      Tag = "master"
+    }
 
-#     WorkHorse = {
-#       Config = templatefile("${path.module}/Configs/WorkHorse/WorkhorseConfig.toml", {
-#       })
-#     }
-#   })
-# }
+    WorkHorse = {
+      Config = templatefile("${path.module}/Configs/WorkHorse/WorkhorseConfig.toml", {
+      })
+    }
+  })
+}
