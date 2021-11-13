@@ -71,7 +71,7 @@ job "registry-harbor-registry" {
       }
 
       port "ctlhttps" {
-        to = 9443
+        to = 8443
       }
     }
 
@@ -232,7 +232,7 @@ EOH
         #
         # Port
         #
-        PORT = "9443"
+        PORT = "8443"
 
         #
         # Internal TLS

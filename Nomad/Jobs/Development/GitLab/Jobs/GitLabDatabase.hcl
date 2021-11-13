@@ -71,17 +71,17 @@ EOF
 ${WebService.Templates.Database}
 EOF
 
-        destination = "local/webservice/configtemplates/database.yaml"
+        destination = "local/webservice/configtemplates/database.yml.erb"
 
         change_mode = "noop"
       }
 
       template {
         data = <<EOF
-${WebService.Templates.GitlabYML}
+${WebService.Templates.GitlabERB}
 EOF
 
-        destination = "local/webservice/configtemplates/gitlab.yml"
+        destination = "local/webservice/configtemplates/gitlab.yml.erb"
 
         change_mode = "noop"
       }

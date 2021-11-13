@@ -454,7 +454,7 @@ resource "vault_pki_secret_backend_cert" "HarborRegistryCTLServerCert" {
 
   common_name = "https.registrycontroller.harbor.service.kjdev"
 
-  alt_names = ["https.registry.harbor.service.dc1.kjdev"]
+  alt_names = ["https.registrycontroller.harbor.service.dc1.kjdev"]
 }
 
 #
