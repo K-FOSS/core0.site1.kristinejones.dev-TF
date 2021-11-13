@@ -38,7 +38,7 @@ job "gitlab-gitaly" {
 
         mount {
           type = "bind"
-          target = "/var/opt/gitlab/config/secrets/.gitlab_shell_secret"
+          target = "/etc/gitaly/.gitlab_shell_secret"
           source = "secrets/shell/.gitlab_shell_secret"
           readonly = true
         }

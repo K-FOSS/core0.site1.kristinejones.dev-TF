@@ -39,7 +39,7 @@ job "development-gitlab-shell" {
 
         mount {
           type = "bind"
-          target = "/var/opt/gitlab/config/secrets/.gitlab_shell_secret"
+          target = "/srv/gitlab-secrets/.gitlab_shell_secret"
           source = "secrets/shell/.gitlab_shell_secret"
           readonly = true
         }
