@@ -50,6 +50,15 @@ job "development-gitlab-webservice" {
         image = "${Image.Repo}/gitlab-webservice-ce:${Image.Tag}"
 
         entrypoint = ["/local/entry.sh"]
+
+        mount {
+          type = "tmpfs"
+          target = "/local/webservice"
+          readonly = false
+          tmpfs_options = {
+            size = 100000
+          }
+        }
       }
 
       resources {
