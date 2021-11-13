@@ -105,6 +105,16 @@ job "registry-harbor-core" {
 
         entrypoint = ["/local/entry.sh"]
 
+        mount {
+          type = "bind"
+          target = "/etc/core/private_key.pem"
+          source = "local/Secrets/Key.pem"
+          readonly = true
+          bind_options {
+            propagation = "rshared"
+          }
+        }
+
         logging {
           type = "loki"
           config {
@@ -278,6 +288,14 @@ ${Harbor.TLS.Key}
 EOF
 
         destination = "secrets/TLS/Cert.key"
+      }
+
+      template {
+        data = <<EOF
+${Harbor.TLS.Key}
+EOF
+
+        destination = "local/Secrets/Key.pem"
       }
 
       template {
