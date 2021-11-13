@@ -107,20 +107,20 @@ resource "nomad_job" "GitLabGitalyJob" {
 # GitLab Pages
 # 
 
-resource "nomad_job" "GitLabPagesJob" {
-  jobspec = templatefile("${path.module}/Jobs/GitLabPages.hcl", {
-    Image = {
-      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
+# resource "nomad_job" "GitLabPagesJob" {
+#   jobspec = templatefile("${path.module}/Jobs/GitLabPages.hcl", {
+#     Image = {
+#       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
-      Tag = "master"
-    }
+#       Tag = "master"
+#     }
 
-    Pages = {
-      Config = templatefile("${path.module}/Configs/Pages/Pages-config.erb", {
-      })
-    }
-  })
-}
+#     Pages = {
+#       Config = templatefile("${path.module}/Configs/Pages/Pages-config.erb", {
+#       })
+#     }
+#   })
+# }
 
 #
 # GitLab Shell
