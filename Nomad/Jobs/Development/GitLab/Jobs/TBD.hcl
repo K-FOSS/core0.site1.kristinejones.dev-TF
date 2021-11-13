@@ -119,6 +119,7 @@ EOF
     }
   }
 
+
   #
   # GitLab Migrations
   #
@@ -134,82 +135,28 @@ EOF
       mode = "cni/nomadcore1"
     }
 
-    task "wait-for-gitlab-redis" {
-      lifecycle {
-        hook = "prestart"
-        sidecar = false
-      }
-
-      driver = "exec"
-      config {
-        command = "sh"
-        args = ["-c", "while ! nc -z redis.gitlab.service.dc1.kjdev 6379; do sleep 1; done"]
-      }
-    }
-
-    task "gitlab-migrations-task" {
+    task "gitlab-pages-server" {
       driver = "docker"
 
-      lifecycle {
-        hook = "poststart"
-        sidecar = false
-      }
-
       config {
-        image = "${Image.Repo}/gitlab-rails-ce:${Image.Tag}"
-
-        command = "/scripts/db-migrate"
+        image = "${Image.Repo}/gitlab-rails-ee:${Image.Tag}"
       }
 
       resources {
-        cpu = 128
+        cpu = 256
         memory = 512
         memory_max = 512
       }
 
-      template {
-        data = <<EOF
-${WebService.Templates.Cable}
-EOF
-
-        destination = "local/webservice/configtemplates/cable.yaml"
-
-        change_mode = "noop"
-      }
-
-      template {
-        data = <<EOF
-${WebService.Templates.Database}
-EOF
-
-        destination = "local/webservice/configtemplates/database.yaml"
-
-        change_mode = "noop"
-      }
-
-      template {
-        data = <<EOF
-${WebService.Templates.GitlabRB}
-EOF
-
-        destination = "local/webservice/configtemplates/gitlab.yml.erb"
-
-        change_mode = "noop"
-      }
-
-      template {
-        data = <<EOF
-${WebService.Templates.Resque}
-EOF
-
-        destination = "local/webservice/configtemplates/resque.yaml"
-
-        change_mode = "noop"
-      }
     }
   }
 
- #
+
+  #
+  # GitLab Toolbox
+  #
+
+  #
   # GitLab Web Service
   #
   group "gitlab-webservice" {
@@ -255,9 +202,7 @@ EOF
       driver = "docker"
 
       config {
-        image = "${Image.Repo}/gitlab-webservice-ce:${Image.Tag}"
-
-        entrypoint = ["/local/entry.sh"]
+        image = "${Image.Repo}/gitlab-webservice-ee:${Image.Tag}"
       }
 
       resources {
@@ -280,16 +225,6 @@ EOF
         #
         CONFIG_TEMPLATE_DIRECTORY = "/local/webservice/configtemplates"
         CONFIG_DIRECTORY = "/local/webservice/config"
-      }
-
-      template {
-        data = <<EOF
-${WebService.EntryScript}
-EOF
-
-        destination = "local/entry.sh"
-
-        perms = "777"
       }
 
       template {
@@ -333,4 +268,9 @@ EOF
       }
     }
   }
+
+
+  #
+  # GitLab Registry
+  #
 }

@@ -1,4 +1,4 @@
-job "mattermost" {
+job "vommunications-mattermost" {
   datacenters = ["core0site1"]
 
   group "mattermost-leader" {

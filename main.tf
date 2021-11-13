@@ -387,6 +387,20 @@ module "GrafanaLokiConfigDatabase" {
 }
 
 #
+# Development
+#
+
+#
+# Gitea
+#
+
+module "GiteaDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
 # GitLab
 #
 

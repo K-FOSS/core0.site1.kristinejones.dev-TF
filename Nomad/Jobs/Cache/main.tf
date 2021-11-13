@@ -95,3 +95,13 @@ resource "nomad_job" "AuthentikCacheJobFile" {
 resource "nomad_job" "PomeriumCacheJobFile" {
   jobspec = templatefile("${path.module}/Jobs/PomeriumCache.hcl", var.Pomerium.RedisCache)
 }
+
+#
+# GitLab
+#
+
+resource "nomad_job" "PomeriumCacheJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/Gitlab.hcl", {
+
+  })
+}

@@ -381,7 +381,7 @@ module "NS" {
 # Mattermsot
 #
 module "Mattermost" {
-  source = "./Jobs/Mattermost"
+  source = "./Jobs/Communications/Mattermost"
 
   Database = var.Mattermost.Database
 }
@@ -482,7 +482,7 @@ module "HomeAssistant" {
 # Backups
 # 
 module "ConsulBackups" {
-  source = "./Jobs/ConsulBackups"
+  source = "./Jobs/Backups/ConsulBackups"
 
   Consul = var.ConsulBackups.Consul
 
@@ -510,8 +510,16 @@ module "Draw" {
 # Development
 #
 
+#
+# Gitea
+#
+
+# module "Gitea" {
+#   source = "./Jobs/Development/Gitea"
+# }
+
 module "GitLab" {
-  source = "./Jobs/GitLab"
+  source = "./Jobs/Development/GitLab"
   
   Database = var.GitLab.Database
 

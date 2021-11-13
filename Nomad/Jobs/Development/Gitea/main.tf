@@ -45,21 +45,3 @@ terraform {
     }
   }
 }
-
-data "github_repository" "Repo" {
-  full_name = "mattermost/mattermost-server"
-}
-
-data "github_release" "Release" {
-  repository  = data.github_repository.Repo.name
-  owner       = split("/", data.github_repository.Repo.full_name)[0]
-  retrieve_by = "latest"
-}
-
-resource "nomad_job" "Mattermost" {
-  jobspec = templatefile("${path.module}/Job.hcl", {
-    Database = var.Database
-
-    Version = "master"
-  })
-}

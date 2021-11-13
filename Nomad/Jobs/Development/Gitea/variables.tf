@@ -1,3 +1,7 @@
+#
+# Database
+#
+
 variable "Database" {
   type = object({
     Hostname = string
@@ -10,19 +14,9 @@ variable "Database" {
   })
 }
 
-# variable "TLS" {
-#   type = object({
-#     WebService = {
-#       CA = string
-
-#       Cert = string
-#       Key = string
-#     }
-#   })
-# }
 
 #
-# Object Storage for GitLab
+# Object Storage
 #
 variable "S3" {
   type = object({
