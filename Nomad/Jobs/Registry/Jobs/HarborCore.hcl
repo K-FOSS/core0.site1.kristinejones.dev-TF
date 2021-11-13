@@ -184,6 +184,11 @@ job "registry-harbor-core" {
         # TRIVY_ADAPTER_URL = ""
 
         #
+        # Registry Proxy Cache
+        # 
+        PERMITTED_REGISTRY_TYPES_FOR_PROXY_CACHE = "docker-hub,harbor"
+
+        #
         # Registry
         # 
         REGISTRY_STORAGE_PROVIDER_NAME = "s3"
