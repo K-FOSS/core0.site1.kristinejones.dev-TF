@@ -143,7 +143,7 @@ job "registry-harbor-jobservice" {
         CORE_URL = "https://http.core.harbor.service.dc1.kjdev:8443"
         TOKEN_SERVICE_URL = "https://http.core.harbor.service.dc1.kjdev:8443/service/token"
         REGISTRY_URL = "https://https.registry.harbor.service.dc1.kjdev"
-        REGISTRY_CONTROLLER_URL = "https://https.registrycontroller.harbor.service.dc1.kjdev:8443"
+        REGISTRY_CONTROLLER_URL = "https://https.registry.harbor.service.dc1.kjdev:8443"
       }
 
       template {

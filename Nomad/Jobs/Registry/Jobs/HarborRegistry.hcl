@@ -127,7 +127,7 @@ job "registry-harbor-registry" {
         # Internal Certs
         #
         INTERNAL_TLS_KEY_PATH = "/secrets/TLS/Cert.key"
-        INTERNAL_TLS_CERT_PATH = "secrets/TLS/Cert.pem"
+        INTERNAL_TLS_CERT_PATH = "/secrets/TLS/Cert.pem"
 
         #
         # Trusted CA
@@ -243,7 +243,7 @@ EOH
         # Internal Certs
         #
         INTERNAL_TLS_KEY_PATH = "/secrets/TLS/Cert.key"
-        INTERNAL_TLS_CERT_PATH = "secrets/TLS/Cert.pem"
+        INTERNAL_TLS_CERT_PATH = "/secrets/TLS/Cert.pem"
 
         #
         # Trusted CA
@@ -280,7 +280,7 @@ EOF
 
       template {
         data = <<EOF
-${Harbor.RegistryCTL.TLS.CA}
+${Harbor.Registry.TLS.CA}
 EOF
 
         destination = "local/CA.pem"
@@ -288,7 +288,7 @@ EOF
 
       template {
         data = <<EOF
-${Harbor.RegistryCTL.TLS.Cert}
+${Harbor.Registry.TLS.Cert}
 EOF
 
         destination = "secrets/TLS/Cert.pem"
@@ -296,7 +296,7 @@ EOF
 
       template {
         data = <<EOF
-${Harbor.RegistryCTL.TLS.Key}
+${Harbor.Registry.TLS.Key}
 EOF
 
         destination = "secrets/TLS/Cert.key"
