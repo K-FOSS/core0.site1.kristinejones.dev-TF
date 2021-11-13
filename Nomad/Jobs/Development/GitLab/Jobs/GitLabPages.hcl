@@ -35,6 +35,15 @@ job "development-gitlab-pages" {
 
       config {
         image = "${Image.Repo}/gitlab-pages:${Image.Tag}"
+
+        mount {
+          type = "tmpfs"
+          target = "/local/pages"
+          readonly = false
+          tmpfs_options = {
+            size = 100000
+          }
+        }
       }
 
       resources {
