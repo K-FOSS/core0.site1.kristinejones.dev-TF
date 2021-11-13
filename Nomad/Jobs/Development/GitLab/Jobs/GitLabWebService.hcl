@@ -49,7 +49,11 @@ job "development-gitlab-webservice" {
       user = "root"
 
       config {
-        image = "${Image.Repo}/gitlab-webservice-ce:${Image.Tag}"
+        image = "${Image.Repo}/gitlab-webservice-ee:${Image.Tag}"
+
+        command = "/scripts/wait-for-deps"
+
+        args = ["/scripts/process-wrapper"]
 
         mount {
           type = "tmpfs"
@@ -89,6 +93,19 @@ job "development-gitlab-webservice" {
         #
         CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/config/templates"
         CONFIG_DIRECTORY = "/srv/gitlab/config"
+
+        GITLAB_HOST = "localhost"
+        GITLAB_PORT = "3000"
+        GITLAB_SSH_PORT = "2222"
+
+        GITALY_FEATURE_DEFAULT_ON = "1"
+
+        ACTION_CABLE_IN_APP = "true"
+
+        REGISTRY_PORT = "5000"
+
+        WAIT_FOR_TIMEOUT = "60"
+
       }
 
       template {
@@ -127,6 +144,16 @@ ${WebService.Templates.Resque}
 EOF
 
         destination = "local/webservice/configtemplates/resque.yml"
+
+        change_mode = "noop"
+      }
+
+      template {
+        data = <<EOF
+${WebService.Templates.Secrets}
+EOF
+
+        destination = "local/webservice/configtemplates/secrets.yml"
 
         change_mode = "noop"
       }

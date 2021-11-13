@@ -202,6 +202,9 @@ resource "nomad_job" "GitLabWebServcieJob" {
         Resque = templatefile("${path.module}/Configs/WebService/Resque.yaml", {
         })
 
+        Secrets = templatefile("${path.module}/Configs/WebService/Secrets.yaml", {
+        })
+
       }
     }
   })
