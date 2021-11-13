@@ -1,0 +1,8 @@
+protocol: "https"
+port: 8443
+https_config:
+  cert: /secrets/TLS/Cert.pem
+  key: /secrets/TLS/Cert.key
+
+log_level: DEBUG
+registry_config: /local/HarborRegistry/Config.yaml

@@ -62,7 +62,7 @@ job "registry-harbor-registry" {
     network {
       mode = "cni/nomadcore1"
 
-      port "http" {
+      port "https" {
         to = 443
       }
 
@@ -73,12 +73,12 @@ job "registry-harbor-registry" {
 
     service {
       name = "harbor"
-      port = "http"
+      port = "https"
 
       task = "harbor-registry-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.registry"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.registry"]
     }
 
 
@@ -148,6 +148,120 @@ ${Harbor.Config}
 EOF
 
         destination = "local/HarborRegistry/Config.yaml"
+      }
+
+      template {
+        data = <<EOF
+${Harbor.TLS.CA}
+EOF
+
+        destination = "local/CA.pem"
+      }
+
+      template {
+        data = <<EOF
+${Harbor.TLS.Cert}
+EOF
+
+        destination = "secrets/TLS/Cert.pem"
+      }
+
+      template {
+        data = <<EOF
+${Harbor.TLS.Key}
+EOF
+
+        destination = "secrets/TLS/Cert.key"
+      }
+
+      template {
+        data = <<EOH
+#
+# Secret Keys
+#
+CORE_SECRET="${Harbor.Secrets.Core}"
+JOBSERVICE_SECRET="${Harbor.Secrets.JobService}"
+EOH
+
+        destination = "secrets/file.env"
+        env         = true
+      }
+    }
+
+    task "harbor-registry-ctl-server" {
+      driver = "docker"
+
+      user = "root"
+
+      config {
+        image = "goharbor/harbor-registryctl:${Harbor.Version}"
+
+        entrypoint = ["/local/entry.sh"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=harbor,service=registry"
+          }
+        }
+      }
+
+      resources {
+        cpu = 256
+        memory = 256
+        memory_max = 256
+      }
+
+      env {
+        #
+        # Port
+        #
+        PORT = "443"
+
+        #
+        # Internal TLS
+        #
+        INTERNAL_TLS_ENABLED = "true"
+
+        #
+        # Internal Certs
+        #
+        INTERNAL_TLS_KEY_PATH = "/secrets/TLS/Cert.key"
+        INTERNAL_TLS_CERT_PATH = "secrets/TLS/Cert.pem"
+
+        #
+        # Trusted CA
+        #
+        INTERNAL_TLS_TRUST_CA_PATH = "/local/CA.pem"
+
+      }
+
+      template {
+        data = <<EOF
+${Harbor.RegistryCTL.EntryScript}
+EOF
+
+        destination = "local/entry.sh"
+
+        perms = "777"
+      }
+
+      template {
+        data = <<EOF
+${Harbor.Config}
+EOF
+
+        destination = "local/HarborRegistry/Config.yaml"
+      }
+
+      template {
+        data = <<EOF
+${Harbor.RegistryCTL.Config}
+EOF
+
+        destination = "local/HarborRegistryCTL/Config.yaml"
       }
 
       template {

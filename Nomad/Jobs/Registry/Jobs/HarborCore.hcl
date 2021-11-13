@@ -196,7 +196,7 @@ job "registry-harbor-core" {
         #
         # Registry Proxy Cache
         # 
-        PERMITTED_REGISTRY_TYPES_FOR_PROXY_CACHE = "docker-hub,harbor"
+        PERMITTED_REGISTRY_TYPES_FOR_PROXY_CACHE = "docker-hub,harbor,azure-acr,aws-ecr,google-gcr,quay,docker-registry"
 
         #
         # Registry
@@ -253,7 +253,7 @@ EOF
       }
 
       template {
-        data = "${Harbor.CoreSecret}"
+        data = "${Harbor.Secrets.CoreSecretKey}"
 
         destination = "secrets/KEY"
       }
@@ -313,6 +313,11 @@ POSTGRESQL_DATABASE="${Harbor.Database.Database}"
 
 POSTGRESQL_USERNAME="${Harbor.Database.Username}"
 POSTGRESQL_PASSWORD="${Harbor.Database.Password}"
+
+#
+# Misc
+#
+CSRF_KEY="${Harbor.Secrets.CSRFKey}"
 EOH
 
         destination = "secrets/file.env"

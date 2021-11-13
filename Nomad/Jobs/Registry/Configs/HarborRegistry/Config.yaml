@@ -34,7 +34,7 @@ http:
   tls:
     certificate: /secrets/TLS/Cert.pem
     key: /secrets/TLS/Cert.key
-    inimumtls: tls1.2
+    minimumtls: tls1.2
   debug:
     addr: 0.0.0.0:9090
     prometheus:

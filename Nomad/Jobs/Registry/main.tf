@@ -71,20 +71,31 @@ resource "random_password" "HarborRegistryServiceSecret" {
   special = false
 }
 
-locals {
-  Harbor = {
-    Secrets = {
-      Core = random_password.HarborCoreSecret.result
-      JobService = random_password.HarborJobServiceSecret.result
-
-      Registry = random_password.HarborRegistryServiceSecret.result
-    }
-  }
+resource "random_password" "HarborCSRFKeySecret" {
+  length = 32
+  special = false
 }
 
 resource "random_id" "HarborCoreKey" {
   byte_length = 16
 }
+
+locals {
+  Harbor = {
+    Secrets = {
+      Core = random_password.HarborCoreSecret.result
+      CoreSecretKey = random_id.HarborCoreKey.b64_std
+
+      JobService = random_password.HarborJobServiceSecret.result
+
+      Registry = random_password.HarborRegistryServiceSecret.result
+
+      CSRFKey = random_password.HarborCSRFKeySecret.result
+    }
+  }
+}
+
+
 
 resource "nomad_job" "HarborCoreJobFile" {
   jobspec = templatefile("${path.module}/Jobs/HarborCore.hcl", {
@@ -92,8 +103,6 @@ resource "nomad_job" "HarborCoreJobFile" {
 
     Harbor = {
       Secrets = local.Harbor.Secrets
-
-      CoreSecret = random_id.HarborCoreKey.b64_std
 
       TLS = {
         CA = var.Harbor.TLS.CA
@@ -168,9 +177,17 @@ resource "nomad_job" "HarborRegistryJobFile" {
         Key = var.Harbor.TLS.Registry.Key
       }
 
-      Config =  templatefile("${path.module}/Configs/HarborRegistry/Config.yaml", {
+      Config = templatefile("${path.module}/Configs/HarborRegistry/Config.yaml", {
         S3 = var.Harbor.S3
       })
+
+      RegistryCTL = {
+        Config = templatefile("${path.module}/Configs/HarborRegistry/CTLConfig.yaml", {
+          S3 = var.Harbor.S3
+        })
+
+        EntryScript = file("${path.module}/Configs/HarborRegistry/CTLEntry.sh")
+      }
 
       Version = "v2.4.0-dev"
     }
