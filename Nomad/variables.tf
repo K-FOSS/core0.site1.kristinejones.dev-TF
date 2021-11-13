@@ -117,7 +117,6 @@ variable "Patroni" {
       ServiceName = string
     })
   })
-  sensitive = true
 
   description = "Patroni Configuration"
 }

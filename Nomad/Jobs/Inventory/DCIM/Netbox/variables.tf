@@ -21,5 +21,4 @@ variable "Admin" {
 variable "Token" {
   type = string
 
-  sensitive = true
 }

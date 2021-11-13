@@ -13,7 +13,6 @@ variable "Credentials" {
     SecretKey = string
   })
 
-  sensitive = true
   description = "Minio credentials"
 }
 

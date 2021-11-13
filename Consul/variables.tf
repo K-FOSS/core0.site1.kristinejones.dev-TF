@@ -7,7 +7,6 @@ variable "Patroni" {
     Prefix = string
     ServiceName = string
   })
-  sensitive = true
 
   description = "Patroni Configuration"
 }
@@ -25,7 +24,6 @@ variable "Cortex" {
   type = object({
     Prefix = string
   })
-  sensitive = true
 
   description = "Cortex Configuration"
 }
@@ -38,7 +36,6 @@ variable "Loki" {
   type = object({
     Prefix = string
   })
-  sensitive = true
 
   description = "Loki Configuration"
 }
@@ -50,7 +47,6 @@ variable "Tempo" {
   type = object({
     Prefix = string
   })
-  sensitive = true
 
   description = "Tempo Configuration"
 }
@@ -73,7 +69,6 @@ variable "HomeAssistant" {
       Port = number
     })
   })
-  sensitive = true
 
   description = "HomeAssistant Configuration"
 }

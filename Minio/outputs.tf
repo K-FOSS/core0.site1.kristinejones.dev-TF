@@ -25,7 +25,6 @@ output "Credentials" {
     SecretKey = minio_user.BucketUser.secret_key
   }
 
-  sensitive = true
 
   description = "S3 Access Credential"
 }
