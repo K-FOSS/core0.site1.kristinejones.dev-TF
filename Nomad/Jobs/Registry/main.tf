@@ -66,11 +66,18 @@ resource "random_password" "HarborJobServiceSecret" {
   special = true
 }
 
+resource "random_password" "HarborRegistryServiceSecret" {
+  length = 16
+  special = false
+}
+
 locals {
   Harbor = {
     Secrets = {
       Core = random_password.HarborCoreSecret.result
       JobService = random_password.HarborJobServiceSecret.result
+
+      Registry = random_password.HarborRegistryServiceSecret.result
     }
   }
 }

@@ -9,7 +9,11 @@ storage:
   s3:
     region: us-east-1
     bucket: ${S3.Bucket}
-    keyid: ${S3.Credentials.AccessKey}
+    accesskey: ${S3.Credentials.AccessKey}
+    secretkey: ${S3.Credentials.SecretKey}
+    regionendpoint: ${S3.Connection.Endpoint}
+    secure: false
+    v4auth: true
   cache:
     layerinfo: redis
   maintenance:
@@ -26,6 +30,7 @@ redis:
 
 http:
   addr: 0.0.0.0:443
+  secret: helloworld
   tls:
     certificate: /secrets/TLS/Cert.pem
     key: /secrets/TLS/Cert.key
