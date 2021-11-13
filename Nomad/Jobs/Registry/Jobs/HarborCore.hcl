@@ -129,7 +129,7 @@ job "registry-harbor-core" {
         #
         # Listen
         #
-        PORT = "443"
+        PORT = "8443"
 
         EXT_ENDPOINT = "https://registry.kristianjones.dev"
 

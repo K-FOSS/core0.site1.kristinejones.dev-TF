@@ -138,11 +138,12 @@ job "registry-harbor-jobservice" {
         INTERNAL_TLS_TRUST_CA_PATH = "/local/CA.pem"
 
         #
-        # Logs
+        # URLs
         #
         CORE_URL = "https://http.core.harbor.service.dc1.kjdev:8443"
+
         TOKEN_SERVICE_URL = "https://http.core.harbor.service.dc1.kjdev:8443/service/token"
-        REGISTRY_URL = "https://https.registry.harbor.service.dc1.kjdev"
+        REGISTRY_URL = "https://https.registry.harbor.service.dc1.kjdev:5443"
         REGISTRY_CONTROLLER_URL = "https://https.registry.harbor.service.dc1.kjdev:8443"
       }
 

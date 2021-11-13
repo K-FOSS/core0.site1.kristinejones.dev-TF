@@ -62,22 +62,22 @@ job "registry-harbor-registry" {
     network {
       mode = "cni/nomadcore1"
 
-      port "https" {
-        to = 443
+      port "registryhttps" {
+        to = 5443
       }
 
       port "metrics" {
         to = 9284
       }
 
-      port "ctlhttps" {
+      port "registryctlhttps" {
         to = 8443
       }
     }
 
     service {
       name = "harbor"
-      port = "https"
+      port = "registryhttps"
 
       task = "harbor-registry-server"
       address_mode = "alloc"
@@ -116,7 +116,7 @@ job "registry-harbor-registry" {
         #
         # Port
         #
-        PORT = "443"
+        PORT = "5443"
 
         #
         # Internal TLS
@@ -194,7 +194,7 @@ EOH
 
     service {
       name = "harbor"
-      port = "ctlhttps"
+      port = "registryctlhttps"
 
       task = "harbor-registry-ctl-server"
       address_mode = "alloc"
