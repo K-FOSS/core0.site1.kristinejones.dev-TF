@@ -63,6 +63,20 @@ job "development-gitlab-workhorse" {
         image = "${Image.Repo}/gitlab-workhorse-ee:${Image.Tag}"
 
         command = "/scripts/start-workhorse"
+
+        mount {
+          type = "bind"
+          target = "/etc/gitlab/gitlab-workhorse/secret"
+          source = "secrets/workhorse/.gitlab_workhorse_secret"
+          readonly = true
+        }
+      
+        mount {
+          type = "bind"
+          target = "/var/opt/gitlab/config/templates"
+          source = "local/workhorse/"
+          readonly = false
+        }
       }
 
       resources {
@@ -72,9 +86,9 @@ job "development-gitlab-workhorse" {
       }
 
       env {
-        CONFIG_TEMPLATE_DIRECTORY = "/local/workhorse/templates"
+        CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/config/templates"
 
-        CONFIG_DIRECTORY = "/local/workhorse/config"
+        CONFIG_DIRECTORY = "/srv/gitlab/config"
 
         GITLAB_WORKHORSE_LISTEN_PORT = "8080"
 
@@ -87,6 +101,16 @@ ${WorkHorse.Config}
 EOF
 
         destination = "local/workhorse/workhorse-config.toml"
+      }
+
+      template {
+        data = <<EOF
+6fad933c6267760415116fc4f35d2c7fc969f4ce0c162b49c3dd7be5517283e63000340ba7282dd97c2b3518b6d3c97a7cdd995dcb6f00dff11cf0aa316a459f
+EOF
+
+        destination = "secrets/workhorse/.gitlab_workhorse_secret"
+
+        change_mode = "noop"
       }
     }
   }
