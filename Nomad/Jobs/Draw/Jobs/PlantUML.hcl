@@ -31,7 +31,7 @@ job "plantuml" {
       driver = "docker"
 
       config {
-        image = "plantuml/plantuml-server:server:tomcat"
+        image = "plantuml/plantuml-server:tomcat"
       }
 
       resources {
