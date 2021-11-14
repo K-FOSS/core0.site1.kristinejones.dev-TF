@@ -29,6 +29,12 @@ job "prometheus" {
         args = ["--config.file=/local/prometheus.yaml", "--enable-feature=exemplar-storage"]
       }
 
+      resources {
+        cpu = 256
+        memory = 1024
+        memory_max = 1024
+      }
+
       template {
         data = <<EOF
 ${Prometheus.YAMLConfig}
