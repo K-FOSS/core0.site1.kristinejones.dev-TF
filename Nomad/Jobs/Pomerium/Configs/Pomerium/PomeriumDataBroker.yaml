@@ -156,7 +156,7 @@ routes:
   # GitLab
   #
   - from: https://gitlab.int.site1.kristianjones.dev
-    to: http://http.webservice.gitlab.service.dc1.kjdev:8080
+    to: http://http.workhorse.gitlab.service.dc1.kjdev:8080
     preserve_host_header: true
     allowed_domains:
       - kristianjones.dev
