@@ -92,7 +92,17 @@ job "container-metrics" {
             container_path = "/dev/kmsg"
             cgroup_permissions = "r"
           }
-        ] 
+        ]
+
+        mount {
+          type = "bind"
+          target = "/var/lib/docker"
+          source = "/var/lib/docker/"
+          readonly = true
+          bind_options {
+            propagation = "rshared"
+          }
+        }
       }
 
       volume_mount {
@@ -108,11 +118,6 @@ job "container-metrics" {
       volume_mount {
         volume = "sys"
         destination = "/sys"
-      }
-
-      volume_mount {
-        volume = "docker-socket"
-        destination = "/var/lib/docker"
       }
 
       volume_mount {
