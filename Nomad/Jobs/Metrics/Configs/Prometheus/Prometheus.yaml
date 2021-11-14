@@ -136,10 +136,19 @@ scrape_configs:
       - names: 
           - http.github-cache-server.service.dc1.kjdev
 
+
+  #
+  # MikroTik
+  #
+
   - job_name: mikrotik
     dns_sd_configs:
       - names: 
           - metrics.mikrotik.service.dc1.kjdev
+
+  #
+  # Authentik
+  #
 
   - job_name: authentik
     dns_sd_configs:
@@ -147,10 +156,18 @@ scrape_configs:
           - metrics.server.authentik.service.dc1.kjdev
           - metrics.worker.authentik.service.dc1.kjdev
 
+  #
+  # GoBetween
+  #
+
   - job_name: gobetween
     dns_sd_configs:
       - names: 
           - metrics.gobetween.service.dc1.kjdev
+
+  #
+  # iDRAC
+  #
 
   - job_name: idrac
     scrape_interval: 5m
@@ -168,6 +185,14 @@ scrape_configs:
         target_label: instance
       - target_label: __address__
         replacement: metrics.idrac.service.dc1.kjdev:8080
+
+  #
+  # cAdvisor
+  #
+  - job_name: cadvisor
+    dns_sd_configs:
+      - names: 
+          - metrics.cadvisor.service.dc1.kjdev
 
 
 remote_write:

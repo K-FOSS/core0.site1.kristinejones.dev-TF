@@ -46,6 +46,27 @@ terraform {
   }
 }
 
+#
+# cAdvisor
+#
+
+# data "github_repository" "Repo" {
+#   full_name = "google/cadvisor"
+# }
+
+# data "github_release" "Release" {
+#   repository  = data.github_repository.Repo.name
+#   owner       = split("/", data.github_repository.Repo.full_name)[0]
+#   retrieve_by = "latest"
+# }
+
+
+#
+# Prometheus
+#
+# TODO: Get GitHub Cache Back working with Terraform
+#
+
 resource "nomad_job" "CortexAlertManager" {
   jobspec = templatefile("${path.module}/Jobs/Cortex/CortexAlertManager.hcl", {
     Cortex = {
@@ -303,6 +324,22 @@ resource "nomad_job" "iDRACJobFile" {
     }
   })
 }
+
+#
+# cAdvisor
+#
+
+resource "nomad_job" "cAdvisorJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/cAdvisor.hcl", {
+    cAdvisor = {
+      Version = "v0.43.0"
+    }
+  })
+}
+
+#
+# Alerts and Notification Systems
+#
 
 #
 # MSTeams
