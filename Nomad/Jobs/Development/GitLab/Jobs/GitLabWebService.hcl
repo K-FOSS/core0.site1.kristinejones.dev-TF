@@ -124,6 +124,8 @@ job "development-gitlab-webservice" {
         GITLAB_ROOT_PASSWORD = "RANDOM_PASS5859!!"
 
         ENABLE_BOOTSNAP = "1"
+
+        PUMA_WORKER_MAX_MEMORY = "1024"
       }
 
       template {

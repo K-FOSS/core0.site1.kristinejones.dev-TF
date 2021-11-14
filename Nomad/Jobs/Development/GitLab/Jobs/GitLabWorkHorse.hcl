@@ -101,7 +101,7 @@ job "development-gitlab-workhorse" {
 
         GITLAB_WORKHORSE_LISTEN_PORT = "8080"
 
-        GITLAB_WORKHORSE_EXTRA_ARGS = "-authBackend http://http.webservice.gitlab.service.dc1.kdjev:8080 -cableBackend http://http.webservice.gitlab.service.dc1.kdjev:8080"
+        GITLAB_WORKHORSE_EXTRA_ARGS = "-authBackend http://http.webservice.gitlab.service.dc1.kjdev:8080 -cableBackend http://http.webservice.gitlab.service.dc1.kjdev:8080"
       }
 
       template {
