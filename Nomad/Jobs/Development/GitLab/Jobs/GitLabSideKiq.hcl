@@ -67,6 +67,8 @@ job "development-gitlab-sidekiq" {
         GITLAB_PORT = "3000"
 
         GITALY_FEATURE_DEFAULT_ON = "1"
+
+        ENABLE_BOOTSNAP = "1"
       }
 
       template {

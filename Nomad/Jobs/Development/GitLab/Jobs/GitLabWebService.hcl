@@ -99,6 +99,8 @@ job "development-gitlab-webservice" {
         CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/config/templates"
         CONFIG_DIRECTORY = "/srv/gitlab/config"
 
+        EXTERNAL_URL = "https://gitlab.int.site1.kristianjones.dev"
+
         GITLAB_HOST = "localhost"
         GITLAB_PORT = "3000"
         GITLAB_SSH_PORT = "2222"
@@ -113,6 +115,7 @@ job "development-gitlab-webservice" {
 
         GITLAB_ROOT_PASSWORD = "RANDOM_PASS5859!!"
 
+        ENABLE_BOOTSNAP = "1"
       }
 
       template {

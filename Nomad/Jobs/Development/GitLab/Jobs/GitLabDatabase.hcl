@@ -75,6 +75,10 @@ job "gitlab-database" {
         BYPASS_SCHEMA_VERSION = "true"
 
         GITLAB_ROOT_PASSWORD = "RANDOM_PASS5859!!"
+
+        EXTERNAL_URL = "https://gitlab.int.site1.kristianjones.dev"
+
+        ENABLE_BOOTSNAP = "1"
       }
 
       template {
