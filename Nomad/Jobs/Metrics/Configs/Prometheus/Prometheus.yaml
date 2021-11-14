@@ -190,6 +190,7 @@ scrape_configs:
   # cAdvisor
   #
   - job_name: cadvisor
+    scrape_interval: 120s
     dns_sd_configs:
       - names: 
           - metrics.cadvisor.service.dc1.kjdev
