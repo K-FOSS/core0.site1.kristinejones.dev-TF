@@ -28,13 +28,13 @@ job "prometheus" {
 
         args = ["--config.file=/local/prometheus.yaml", "--enable-feature=exemplar-storage"]
 
-        memory_hard_limit = 1024
+        memory_hard_limit = 2048
       }
 
       resources {
         cpu = 256
-        memory = 256
-        memory_max = 1024
+        memory = 1024
+        memory_max = 2048
       }
 
       template {
