@@ -17,57 +17,6 @@ job "container-metrics" {
       }
     }
 
-    #
-    # Root FS
-    #
-
-    volume "rootfs" {
-      type = "host"
-      read_only = true
-      source = "system-rootfs"
-    }
-
-    #
-    # Var RUN
-    #
-
-    volume "run" {
-      type = "host"
-      read_only = true
-      source = "system-varrun"
-    }
-
-    #
-    # Sys
-    #
-
-    volume "sys" {
-      type = "host"
-      read_only = true
-      source = "system-sys"
-    }
-
-    #
-    # Docker Daemon Socket
-    #
-
-    volume "docker-socket" {
-      type = "host"
-      read_only = true
-      source = "docker-socket"
-    }
-
-    #
-    # Disk
-    #
-
-    volume "disk" {
-      type = "host"
-      read_only = true
-      source = "system-disk"
-    }
-
-
     service {
       name = "cadvisor"
       port = "metrics"
@@ -96,6 +45,36 @@ job "container-metrics" {
 
         mount {
           type = "bind"
+          target = "/"
+          source = "/rootfs"
+          readonly = true
+          bind_options {
+            propagation = "rshared"
+          }
+        }
+
+        mount {
+          type = "bind"
+          target = "/var/run"
+          source = "/var/run"
+          readonly = true
+          bind_options {
+            propagation = "rshared"
+          }
+        }
+
+        mount {
+          type = "bind"
+          target = "/sys"
+          source = "/sys"
+          readonly = true
+          bind_options {
+            propagation = "rshared"
+          }
+        }
+
+        mount {
+          type = "bind"
           target = "/var/lib/docker"
           source = "/var/lib/docker/"
           readonly = true
@@ -103,28 +82,17 @@ job "container-metrics" {
             propagation = "rshared"
           }
         }
-      }
 
-      volume_mount {
-        volume = "rootfs"
-        destination = "/rootfs"
+        mount {
+          type = "bind"
+          target = "/dev/disk"
+          source = "/dev/disk"
+          readonly = true
+          bind_options {
+            propagation = "rshared"
+          }
+        }
       }
-
-      volume_mount {
-        volume = "run"
-        destination = "/var/run"
-      }
-
-      volume_mount {
-        volume = "sys"
-        destination = "/sys"
-      }
-
-      volume_mount {
-        volume = "disk"
-        destination = "/dev/disk"
-      }
-
     }
   }
 }
