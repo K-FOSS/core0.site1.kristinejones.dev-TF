@@ -45,8 +45,8 @@ job "container-metrics" {
 
         mount {
           type = "bind"
-          target = "/"
-          source = "/rootfs"
+          target = "/rootfs"
+          source = "/"
           readonly = true
           bind_options {
             propagation = "rshared"
