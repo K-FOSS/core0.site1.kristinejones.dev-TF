@@ -103,7 +103,7 @@ job "cortex-ingester" {
 
         args = ["-config.file=/local/Cortex.yaml"]
 
-        memory_hard_limit = 256
+        memory_hard_limit = 1024
       }
 
       meta {
@@ -114,8 +114,8 @@ job "cortex-ingester" {
 
       resources {
         cpu = 256
-        memory = 812
-        memory_max = 812
+        memory = 256
+        memory_max = 1024
       }
 
       template {

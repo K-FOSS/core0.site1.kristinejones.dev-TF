@@ -34,6 +34,8 @@ job "container-metrics" {
         image = "gcr.io/cadvisor/cadvisor:${cAdvisor.Version}"
 
         privileged = true
+
+        memory_hard_limit = 2048
         
         devices = [
           {
@@ -92,6 +94,12 @@ job "container-metrics" {
             propagation = "rshared"
           }
         }
+      }
+
+      resources {
+        cpu = 256
+        memory = 128
+        memory_max = 2048
       }
     }
   }

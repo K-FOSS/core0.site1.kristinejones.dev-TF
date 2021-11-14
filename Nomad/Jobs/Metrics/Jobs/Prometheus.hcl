@@ -27,11 +27,13 @@ job "prometheus" {
         image = "prom/prometheus:${Prometheus.Version}"
 
         args = ["--config.file=/local/prometheus.yaml", "--enable-feature=exemplar-storage"]
+
+        memory_hard_limit = 1024
       }
 
       resources {
         cpu = 256
-        memory = 1024
+        memory = 256
         memory_max = 1024
       }
 
