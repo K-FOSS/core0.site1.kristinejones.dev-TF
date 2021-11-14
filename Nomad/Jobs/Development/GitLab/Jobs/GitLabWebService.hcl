@@ -49,7 +49,7 @@ job "development-gitlab-webservice" {
       user = "root"
 
       config {
-        image = "${Image.Repo}/gitlab-webservice-ee:${Image.Tag}"
+        image = "${Image.Repo}/gitlab-webservice-ce:${Image.Tag}"
 
         command = "/scripts/wait-for-deps"
 
@@ -59,14 +59,14 @@ job "development-gitlab-webservice" {
           type = "bind"
           target = "/var/opt/gitlab/config/secrets/.gitlab_shell_secret"
           source = "secrets/shell/.gitlab_shell_secret"
-          readonly = true
+          readonly = false
         }
 
         mount {
           type = "bind"
           target = "/srv/gitlab/.gitlab_workhorse_secret"
           source = "secrets/workhorse/.gitlab_workhorse_secret"
-          readonly = true
+          readonly = false
         }
 
         mount {

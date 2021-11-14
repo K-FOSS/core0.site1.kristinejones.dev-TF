@@ -36,7 +36,7 @@ job "development-gitlab-sidekiq" {
       user = "root"
 
       config {
-        image = "${Image.Repo}/gitlab-sidekiq-ee:${Image.Tag}"
+        image = "${Image.Repo}/gitlab-sidekiq-ce:${Image.Tag}"
 
         command = "/scripts/wait-for-deps"
 

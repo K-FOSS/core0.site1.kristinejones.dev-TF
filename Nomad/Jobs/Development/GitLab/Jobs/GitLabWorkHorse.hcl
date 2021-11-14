@@ -60,7 +60,7 @@ job "development-gitlab-workhorse" {
       driver = "docker"
 
       config {
-        image = "${Image.Repo}/gitlab-workhorse-ee:${Image.Tag}"
+        image = "${Image.Repo}/gitlab-workhorse-ce:${Image.Tag}"
 
         command = "/scripts/start-workhorse"
 

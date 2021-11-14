@@ -38,7 +38,7 @@ job "gitlab-database" {
       }
 
       config {
-        image = "${Image.Repo}/gitlab-rails-ee:${Image.Tag}"
+        image = "${Image.Repo}/gitlab-rails-ce:${Image.Tag}"
 
         command = "/scripts/wait-for-deps"
 
