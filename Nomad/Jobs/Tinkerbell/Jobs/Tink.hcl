@@ -117,6 +117,7 @@ job "tinkerbell-tink" {
 #
 PGDATABASE="${Database.Database}"
 PGHOST="${Database.Hostname}"
+PGPORT="${Database.Port}"
 
 PGUSER="${Database.Username}"
 PGPASSWORD="${Database.Password}"
@@ -172,6 +173,7 @@ EOH
 #
 PGDATABASE="${Database.Database}"
 PGHOST="${Database.Hostname}"
+PGPORT="${Database.Port}"
 
 PGUSER="${Database.Username}"
 PGPASSWORD="${Database.Password}"
@@ -322,6 +324,7 @@ EOH
 #
 PGDATABASE="${Database.Database}"
 PGHOST="${Database.Hostname}"
+PGPORT="${Database.Port}"
 
 PGUSER="${Database.Username}"
 PGPASSWORD="${Database.Password}"
