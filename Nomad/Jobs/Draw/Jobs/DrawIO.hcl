@@ -2,7 +2,7 @@ job "draw-io" {
   datacenters = ["core0site1"]
 
   group "draw-io" {
-    count = 1
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"
@@ -38,6 +38,32 @@ job "draw-io" {
         cpu = 512
         memory = 812
         memory_max = 812
+      }
+
+      env {
+        #
+        # Core
+        #
+        DRAWIO_BASE_URL = "https://drawio.int.site1.kristianjones.dev"
+        DRAWIO_SELF_CONTAINED = "1"
+
+        #
+        # GitLab
+        #
+        DRAWIO_GITLAB_URL = "https://gitlab.int.site1.kristianjones.dev"
+        DRAWIO_GITLAB_ID = ""
+        DRAWIO_GITLAB_SECRET = ""
+
+        #
+        # PlantUML
+        #
+        PLANTUML_URL = "http://http.plantuml.service.dc1.kjdev:8080"
+
+        #
+        # Cache
+        #
+        DRAWIO_MEMCACHED_ENDPOINT = "cache.drawio.service.dc1.kjdev:11211"
+
       }
     }
   }

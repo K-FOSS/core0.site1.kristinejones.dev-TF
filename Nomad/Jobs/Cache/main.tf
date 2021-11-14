@@ -105,3 +105,13 @@ resource "nomad_job" "GitLabJobFile" {
 
   })
 }
+
+#
+# DrawIO
+#
+
+resource "nomad_job" "DrawIOJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/DrawIO.hcl", {
+
+  })
+}

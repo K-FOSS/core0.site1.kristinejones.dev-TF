@@ -5,7 +5,7 @@ job "development-gitlab-workhorse" {
   # GitLab WorkHorse
   #
   group "gitlab-workhorse" {
-    count = 1
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"
