@@ -113,9 +113,9 @@ job "cortex-ingester" {
       }
 
       resources {
-        cpu = 128
-        memory = 256
-        memory_max = 256
+        cpu = 256
+        memory = 812
+        memory_max = 812
       }
 
       template {
