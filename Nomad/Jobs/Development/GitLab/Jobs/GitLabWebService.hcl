@@ -111,6 +111,8 @@ job "development-gitlab-webservice" {
 
         WAIT_FOR_TIMEOUT = "60"
 
+        GITLAB_ROOT_PASSWORD = "RANDOM_PASS5859!!"
+
       }
 
       template {

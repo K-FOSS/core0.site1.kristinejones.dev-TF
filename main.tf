@@ -410,6 +410,12 @@ module "GitLabDatabase" {
   Credentials = module.Vault.Database
 }
 
+module "GitLabNewDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
 #
 # Registry
 #
@@ -883,7 +889,7 @@ module "Nomad" {
   #
 
   GitLab = {
-    Database = module.GitLabDatabase.Database
+    Database = module.GitLabNewDatabase.Database
 
     S3 = {
       RepoBucket = module.GitLabRepoBucket

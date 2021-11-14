@@ -73,6 +73,8 @@ job "gitlab-database" {
         CONFIG_DIRECTORY = "/srv/gitlab/config"
 
         BYPASS_SCHEMA_VERSION = "true"
+
+        GITLAB_ROOT_PASSWORD = "RANDOM_PASS5859!!"
       }
 
       template {
