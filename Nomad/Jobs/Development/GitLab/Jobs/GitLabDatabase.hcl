@@ -48,7 +48,14 @@ job "gitlab-database" {
           type = "bind"
           target = "/var/opt/gitlab/config/secrets/.gitlab_shell_secret"
           source = "secrets/shell/.gitlab_shell_secret"
-          readonly = true
+          readonly = false
+        }
+
+        mount {
+          type = "bind"
+          target = "/srv/gitlab/.gitlab_workhorse_secret"
+          source = "secrets/workhorse/.gitlab_workhorse_secret"
+          readonly = false
         }
 
         mount {
@@ -56,10 +63,8 @@ job "gitlab-database" {
           target = "/var/opt/gitlab/config/templates"
           source = "local/webservice/configtemplates"
           readonly = false
-          bind_options {
-            propagation = "rshared"
-          }
         }
+
 
         logging {
           type = "loki"
@@ -146,6 +151,16 @@ EOF
 EOF
 
         destination = "secrets/shell/.gitlab_shell_secret"
+
+        change_mode = "noop"
+      }
+
+      template {
+        data = <<EOF
+6fad933c6267760415116fc4f35d2c7fc969f4ce0c162b49c3dd7be5517283e63000340ba7282dd97c2b3518b6d3c97a7cdd995dcb6f00dff11cf0aa316a459f
+EOF
+
+        destination = "secrets/workhorse/.gitlab_workhorse_secret"
 
         change_mode = "noop"
       }
