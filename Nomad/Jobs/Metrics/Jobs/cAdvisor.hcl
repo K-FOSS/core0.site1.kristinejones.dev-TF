@@ -120,17 +120,6 @@ job "container-metrics" {
         destination = "/dev/disk"
       }
 
-      template {
-        data = <<EOH
-DEVICE_USER="${iDRAC.Username}"
-IDRAC_USER="${iDRAC.Username}"
-DEVICE_PASSWORD="${iDRAC.Password}"
-IDRAC_PASSWORD="${iDRAC.Password}"
-EOH
-
-        destination = "secrets/file.env"
-        env         = true
-      }
     }
   }
 }
