@@ -98,6 +98,14 @@ variable "Authentik" {
       Username = string
       Password = string
     })
+
+    SMTP = object({
+      Server = string
+      Port = string
+
+      Username = string
+      Password = string
+    })
   })
 }
 

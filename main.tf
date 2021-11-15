@@ -544,6 +544,8 @@ module "Nomad" {
 
   Authentik = {
     Database = module.AuthentikDatabase.Database
+
+    SMTP = module.Vault.SMTP
   }
 
   #

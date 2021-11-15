@@ -119,6 +119,8 @@ job "authentik-server" {
         AUTHENTIK_POSTGRESQL__PORT = "${Database.Port}"
 
         AUTHENTIK_COOKIE_DOMAIN = "auth.kristianjones.dev"
+
+        AUTHENTIK_EMAIL__USE_TLS = "true"
       }
 
       template {
@@ -141,6 +143,16 @@ AUTHENTIK_POSTGRESQL__PASSWORD="${Database.Password}"
 # Secrets
 #
 AUTHENTIK_SECRET_KEY="${Authentik.SecretKey}"
+
+#
+# Email
+#
+AUTHENTIK_EMAIL__HOST="${SMTP.Server}"
+AUTHENTIK_EMAIL__PORT="${SMTP.Port}"
+
+AUTHENTIK_EMAIL__FROM="${SMTP.Username}"
+AUTHENTIK_EMAIL__USERNAME="${SMTP.Username}"
+AUTHENTIK_EMAIL__PASSWORD="${SMTP.Password}"
 EOH
 
         destination = "secrets/file.env"

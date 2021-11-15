@@ -144,8 +144,8 @@ module "Grafana" {
 #
 
 resource "random_string" "AuthentikSecretKey" {
-  length           = 10
-  special          = false
+  length = 10
+  special = false
 }
 
 module "Authentik" {
@@ -156,6 +156,8 @@ module "Authentik" {
   Secrets = {
     SecretKey = random_string.AuthentikSecretKey.result
   }
+
+  SMTP = var.Authentik.SMTP
 }
 
 

@@ -19,3 +19,13 @@ variable "Secrets" {
     SecretKey = string
   })
 }
+
+variable "SMTP" {
+  type = object({
+    Server = string
+    Port = string
+
+    Username = string
+    Password = string
+  })
+}
