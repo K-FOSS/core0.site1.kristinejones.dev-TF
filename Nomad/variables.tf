@@ -923,6 +923,12 @@ variable "GitLab" {
         Bucket = string
       })
     })
+
+    OpenID = object({
+      ClientID = string
+
+      ClientSecret = string
+    })
   })
 }
 

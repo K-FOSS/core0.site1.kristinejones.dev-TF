@@ -161,6 +161,13 @@ data "vault_generic_secret" "MSTeams" {
   path = "${vault_mount.Terraform.path}/MSTeams"
 }
 
+#
+# GitLab
+#
+data "vault_generic_secret" "GitLab" {
+  path = "${vault_mount.Terraform.path}/GitLab"
+}
+
  
 #
 # TrueNAS NAS

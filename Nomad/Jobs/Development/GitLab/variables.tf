@@ -48,3 +48,14 @@ variable "S3" {
     })
   }) 
 }
+
+#
+# OpenID
+#
+variable "OpenID" {
+  type = object({
+    ClientID = string
+
+    ClientSecret = string
+  })
+}

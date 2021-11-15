@@ -894,6 +894,8 @@ module "Nomad" {
     S3 = {
       RepoBucket = module.GitLabRepoBucket
     }
+
+    OpenID = module.Vault.GitLab.OpenID
   }
 
   #

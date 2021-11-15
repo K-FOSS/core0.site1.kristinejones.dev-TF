@@ -524,6 +524,8 @@ module "GitLab" {
   Database = var.GitLab.Database
 
   S3 = var.GitLab.S3
+
+  OpenID = var.GitLab.OpenID
 }
 
 #

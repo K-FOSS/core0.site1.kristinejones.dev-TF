@@ -411,8 +411,9 @@ output "DockerHub" {
 
 output "GitLab" {
   value = {
-    WebServices = {
-      
+    OpenID = {
+      ClientID = data.vault_generic_secret.GitLab.data["OpenIDClient"]
+      ClientSecret = data.vault_generic_secret.GitLab.data["OpenIDSecret"]
     }
   }
 }

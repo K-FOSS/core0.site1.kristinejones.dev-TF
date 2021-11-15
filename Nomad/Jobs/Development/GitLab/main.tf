@@ -162,6 +162,7 @@ resource "nomad_job" "GitLabSideKiqJob" {
         })
 
         GitlabYAML = templatefile("${path.module}/Configs/Sidekiq/Gitlab.yaml", {
+          OpenID = var.OpenID
         })
 
         Resque = templatefile("${path.module}/Configs/Sidekiq/Resque.yaml", {
@@ -199,6 +200,7 @@ resource "nomad_job" "GitLabWebServcieJob" {
         })
 
         GitlabERB = templatefile("${path.module}/Configs/WebService/Gitlab.yaml.erb", {
+          OpenID = var.OpenID
         })
 
         Resque = templatefile("${path.module}/Configs/WebService/Resque.yaml", {
