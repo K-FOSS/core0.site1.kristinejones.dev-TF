@@ -25,8 +25,8 @@ production: &base
         provider: AWS
         aws_access_key_id: '${S3.ArtifactsBucket.Credentials.AccessKey}'
         aws_secret_access_key: '${S3.ArtifactsBucket.Credentials.SecretKey}'
-        host: ${S3.ArtifactsBucket.Hostname}
-        endpoint: ${S3.ArtifactsBucket.Endpoint}
+        host: ${S3.ArtifactsBucket.Connection.Hostname}
+        endpoint: ${S3.ArtifactsBucket.Connection.Endpoint}
         path_style: true
 
   external_diffs:
@@ -38,8 +38,8 @@ production: &base
         provider: AWS
         aws_access_key_id: '${S3.ExternalDiffsBucket.Credentials.AccessKey}'
         aws_secret_access_key: '${S3.ExternalDiffsBucket.Credentials.SecretKey}'
-        host: ${S3.ExternalDiffsBucket.Hostname}
-        endpoint: ${S3.ExternalDiffsBucket.Endpoint}
+        host: ${S3.ExternalDiffsBucket.Connection.Hostname}
+        endpoint: ${S3.ExternalDiffsBucket.Connection.Endpoint}
         path_style: true
       
   lfs:
