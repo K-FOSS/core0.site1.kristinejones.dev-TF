@@ -50,39 +50,41 @@ terraform {
 # GitLab Database
 #
 
-resource "nomad_job" "GitLabDatabaseJob" {
-  jobspec = templatefile("${path.module}/Jobs/GitLabDatabase.hcl", {
-    Image = {
-      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
+# resource "nomad_job" "GitLabDatabaseJob" {
+#   jobspec = templatefile("${path.module}/Jobs/GitLabDatabase.hcl", {
+#     Image = {
+#       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
-      Tag = "master"
-    }
+#       Tag = "master"
+#     }
 
-    WebService = {
-      EntryScript = file("${path.module}/Configs/WebService/Entry.sh")
+#     WebService = {
+#       EntryScript = file("${path.module}/Configs/WebService/Entry.sh")
 
-      Templates = {
-        Cable = templatefile("${path.module}/Configs/WebService/Cable.yaml", {
+#       Templates = {
+#         Cable = templatefile("${path.module}/Configs/WebService/Cable.yaml", {
 
-        })
+#         })
 
-        Database = templatefile("${path.module}/Configs/WebService/Database.yaml", {
-          Database = var.Database
-        })
+#         Database = templatefile("${path.module}/Configs/WebService/Database.yaml", {
+#           Database = var.Database
+#         })
 
-        GitlabERB = templatefile("${path.module}/Configs/WebService/Gitlab.yaml.erb", {
-          OpenID = var.OpenID
-        })
+#         GitlabERB = templatefile("${path.module}/Configs/WebService/Gitlab.yaml.erb", {
+#           OpenID = var.OpenID
 
-        Resque = templatefile("${path.module}/Configs/WebService/Resque.yaml", {
-        })
+#           SMTP = var.SMTP
+#         })
 
-        Secrets = templatefile("${path.module}/Configs/WebService/Secrets.yaml", {
-        })
-      }
-    }
-  })
-}
+#         Resque = templatefile("${path.module}/Configs/WebService/Resque.yaml", {
+#         })
+
+#         Secrets = templatefile("${path.module}/Configs/WebService/Secrets.yaml", {
+#         })
+#       }
+#     }
+#   })
+# }
 
 #
 # Gitlab Gitaly
@@ -164,6 +166,10 @@ resource "nomad_job" "GitLabSideKiqJob" {
 
         GitlabYAML = templatefile("${path.module}/Configs/Sidekiq/Gitlab.yaml", {
           OpenID = var.OpenID
+
+          SMTP = var.SMTP
+
+          S3 = var.S3
         })
 
         Resque = templatefile("${path.module}/Configs/Sidekiq/Resque.yaml", {
@@ -202,6 +208,10 @@ resource "nomad_job" "GitLabWebServcieJob" {
 
         GitlabERB = templatefile("${path.module}/Configs/WebService/Gitlab.yaml.erb", {
           OpenID = var.OpenID
+
+          SMTP = var.SMTP
+
+          S3 = var.S3
         })
 
         Resque = templatefile("${path.module}/Configs/WebService/Resque.yaml", {

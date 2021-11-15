@@ -204,6 +204,10 @@ module "ConsulBackupsBucket" {
 # GitLab
 #
 
+#
+# TODO
+#
+
 module "GitLabRepoBucket" {
   source = "./Minio"
 
@@ -214,6 +218,131 @@ module "GitLabRepoBucket" {
 
   Credentials = module.Vault.Minio
 }
+
+#
+# GitLab Artifacts Bucket
+#
+
+module "GitLabArtifactsBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+#
+# GitLab External Diffs Buckets
+#
+
+module "GitLabExternalDiffsBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+#
+# GitLab LFS Bucket
+#
+
+module "GitLabLFSBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+#
+# GitLab Uplaods Bucket
+#
+
+module "GitLabUploadsBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+#
+# GitLab Packages Bucket
+#
+
+module "GitLabPackagesBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+#
+# Gitlab Dependency Proxy Bucket
+#
+
+module "GitLabDependencyProxyBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+#
+# GitLab Terraform State Bucket
+#
+
+module "GitLabTerraformStateBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+#
+# GitLab Pages Bucket
+#
+
+module "GitLabPagesBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+#
+# GitLab Pages
+#
+
 
 #
 # Harbor Registry Bucket
@@ -894,10 +1023,28 @@ module "Nomad" {
     Database = module.GitLabNewDatabase.Database
 
     S3 = {
+      ArtifactsBucket = module.GitLabArtifactsBucket
+
+      ExternalDiffsBucket = module.GitLabExternalDiffsBucket
+
       RepoBucket = module.GitLabRepoBucket
+
+      LFSBucket = module.GitLabLFSBucket
+
+      UploadsBucket = module.GitLabUploadsBucket
+
+      PackagesBucket = module.GitLabPackagesBucket
+
+      DependencyProxyBucket = module.GitLabDependencyProxyBucket
+
+      TerraformStateBucket = module.GitLabTerraformStateBucket
+
+      PagesBucket = module.GitLabPagesBucket
     }
 
     OpenID = module.Vault.GitLab.OpenID
+
+    SMTP = module.Vault.SMTP
   }
 
   #

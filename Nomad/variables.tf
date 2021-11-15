@@ -914,6 +914,38 @@ variable "GitLab" {
     })
 
     S3 = object({
+      ArtifactsBucket = object({
+        Connection = object({
+          Hostname = string
+          Port = number
+
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
+
+        Bucket = string
+      })
+
+      ExternalDiffsBucket = object({
+        Connection = object({
+          Hostname = string
+          Port = number
+
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
+
+        Bucket = string
+      })
+    
       RepoBucket = object({
         Connection = object({
           Hostname = string
@@ -927,6 +959,101 @@ variable "GitLab" {
           SecretKey = string
         })
 
+        Bucket = string
+      })
+
+      LFSBucket = object({
+        Connection = object({
+          Hostname = string
+          Port = number
+
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
+
+        Bucket = string
+      })
+
+      UploadsBucket = object({
+        Connection = object({
+          Hostname = string
+          Port = number
+
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
+
+        Bucket = string
+      })
+
+      PackagesBucket = object({
+        Connection = object({
+          Hostname = string
+          Port = number
+
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
+
+        Bucket = string
+      })
+
+      DependencyProxyBucket = object({
+        Connection = object({
+          Hostname = string
+          Port = number
+
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
+
+        Bucket = string
+      })
+
+      TerraformStateBucket = object({
+        Connection = object({
+          Hostname = string
+          Port = number
+
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
+
+        Bucket = string
+      })
+
+      PagesBucket = object({
+        Connection = object({
+          Hostname = string
+          Port = number
+
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
 
         Bucket = string
       })
@@ -936,6 +1063,14 @@ variable "GitLab" {
       ClientID = string
 
       ClientSecret = string
+    })
+
+    SMTP = object({
+      Server = string
+      Port = string
+
+      Username = string
+      Password = string
     })
   })
 }

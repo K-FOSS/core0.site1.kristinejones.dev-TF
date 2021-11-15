@@ -30,6 +30,38 @@ variable "Database" {
 #
 variable "S3" {
   type = object({
+    ArtifactsBucket = object({
+      Connection = object({
+        Hostname = string
+        Port = number
+
+        Endpoint = string
+      })
+
+      Credentials = object({
+        AccessKey = string
+        SecretKey = string
+      })
+
+      Bucket = string
+    })
+
+    ExternalDiffsBucket = object({
+      Connection = object({
+        Hostname = string
+        Port = number
+
+        Endpoint = string
+      })
+
+      Credentials = object({
+        AccessKey = string
+        SecretKey = string
+      })
+
+      Bucket = string
+    })
+
     RepoBucket = object({
       Connection = object({
         Hostname = string
@@ -43,6 +75,101 @@ variable "S3" {
         SecretKey = string
       })
 
+      Bucket = string
+    })
+
+    LFSBucket = object({
+      Connection = object({
+        Hostname = string
+        Port = number
+
+        Endpoint = string
+      })
+
+      Credentials = object({
+        AccessKey = string
+        SecretKey = string
+      })
+
+      Bucket = string
+    })
+
+    UploadsBucket = object({
+      Connection = object({
+        Hostname = string
+        Port = number
+
+        Endpoint = string
+      })
+
+      Credentials = object({
+        AccessKey = string
+        SecretKey = string
+      })
+
+      Bucket = string
+    })
+
+    PackagesBucket = object({
+      Connection = object({
+        Hostname = string
+        Port = number
+
+        Endpoint = string
+      })
+
+      Credentials = object({
+        AccessKey = string
+        SecretKey = string
+      })
+
+      Bucket = string
+    })
+
+    DependencyProxyBucket = object({
+      Connection = object({
+        Hostname = string
+        Port = number
+
+        Endpoint = string
+      })
+
+      Credentials = object({
+        AccessKey = string
+        SecretKey = string
+      })
+
+      Bucket = string
+    })
+
+    TerraformStateBucket = object({
+      Connection = object({
+        Hostname = string
+        Port = number
+
+        Endpoint = string
+      })
+
+      Credentials = object({
+        AccessKey = string
+        SecretKey = string
+      })
+
+      Bucket = string
+    })
+
+    PagesBucket = object({
+      Connection = object({
+        Hostname = string
+        Port = number
+
+        Endpoint = string
+      })
+
+      Credentials = object({
+        AccessKey = string
+        SecretKey = string
+      })
 
       Bucket = string
     })
@@ -57,5 +184,19 @@ variable "OpenID" {
     ClientID = string
 
     ClientSecret = string
+  })
+}
+
+#
+# SMTP
+# 
+
+variable "SMTP" {
+  type = object({
+    Server = string
+    Port = string
+
+    Username = string
+    Password = string
   })
 }

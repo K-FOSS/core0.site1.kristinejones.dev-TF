@@ -528,6 +528,8 @@ module "GitLab" {
   S3 = var.GitLab.S3
 
   OpenID = var.GitLab.OpenID
+
+  SMTP = var.GitLab.SMTP
 }
 
 #

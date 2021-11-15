@@ -1,5 +1,6 @@
 production: &base
   gitlab:
+    host: gitlab.int.site1.kristianjones.dev
     https: false # Set to true if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
     trusted_proxies:
     email_from: example@example.com
@@ -17,10 +18,70 @@ production: &base
     enabled: false
   artifacts:
     enabled: true
-  lfs:
-    enabled: false
     object_store:
-      enabled: false
+      enabled: true
+      remote_directory: ${S3.ArtifactsBucket.Bucket}
+      connection:
+        provider: AWS
+        aws_access_key_id: '${S3.ArtifactsBucket.Credentials.AccessKey}'
+        aws_secret_access_key: '${S3.ArtifactsBucket.Credentials.SecretKey}'
+        host: ${S3.ArtifactsBucket.Hostname}
+        endpoint: ${S3.ArtifactsBucket.Endpoint}
+        path_style: true
+
+  external_diffs:
+    enabled: true
+    object_store:
+      enabled: true
+      remote_directory: ${S3.ExternalDiffsBucket.Bucket}
+      connection:
+        provider: AWS
+        aws_access_key_id: '${S3.ExternalDiffsBucket.Credentials.AccessKey}'
+        aws_secret_access_key: '${S3.ExternalDiffsBucket.Credentials.SecretKey}'
+        host: ${S3.ExternalDiffsBucket.Hostname}
+        endpoint: ${S3.ExternalDiffsBucket.Endpoint}
+        path_style: true
+      
+  lfs:
+    enabled: true
+    object_store:
+      enabled: true
+      remote_directory: ${S3.LFSBucket.Bucket}
+      connection:
+        provider: AWS
+        aws_access_key_id: '${S3.LFSBucket.Credentials.AccessKey}'
+        aws_secret_access_key: '${S3.LFSBucket.Credentials.SecretKey}'
+        host: ${S3.LFSBucket.Connection.Hostname}
+        endpoint: ${S3.LFSBucket.Connection.Endpoint}
+        path_style: true
+
+  dependency_proxy:
+    enabled: true
+    object_store:
+      enabled: true
+      remote_directory: ${S3.DependencyProxyBucket.Bucket}
+      connection:
+        provider: AWS
+        aws_access_key_id: '${S3.DependencyProxyBucket.Credentials.AccessKey}'
+        aws_secret_access_key: '${S3.DependencyProxyBucket.Credentials.SecretKey}'
+        host: ${S3.DependencyProxyBucket.Connection.Hostname}
+        endpoint: ${S3.DependencyProxyBucket.Connection.Endpoint}
+        path_style: true
+
+
+  terraform_state:
+    enabled: true
+    object_store:
+      enabled: true
+      remote_directory: ${S3.TerraformStateBucket.Bucket}
+      connection:
+        provider: AWS
+        aws_access_key_id: '${S3.TerraformStateBucket.Credentials.AccessKey}'
+        aws_secret_access_key: '${S3.TerraformStateBucket.Credentials.SecretKey}'
+        host: ${S3.TerraformStateBucket.Connection.Hostname}
+        endpoint: ${S3.TerraformStateBucket.Connection.Endpoint}
+        path_style: true
+
   pages:
     enabled: false
   mattermost:
