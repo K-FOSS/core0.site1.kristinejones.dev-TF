@@ -46,6 +46,19 @@ terraform {
   }
 }
 
+resource "random_id" "WorkHorseKey" {
+  byte_length = 32
+}
+
+locals {
+  GitLab = {
+    Secrets = {
+      WorkHorse = random_id.WorkHorseKey.b64_std
+    }
+  }
+}
+
+
 #
 # GitLab Database
 #
@@ -195,6 +208,8 @@ resource "nomad_job" "GitLabWebServcieJob" {
     }
 
     WebService = {
+      Secrets = local.GitLab.Secrets
+
       EntryScript = file("${path.module}/Configs/WebService/Entry.sh")
 
       Templates = {
@@ -238,6 +253,8 @@ resource "nomad_job" "GitLabWorkHorseJob" {
     }
 
     WorkHorse = {
+      Secrets = local.GitLab.Secrets
+
       Config = templatefile("${path.module}/Configs/WorkHorse/WorkhorseConfig.toml", {
       })
     }
