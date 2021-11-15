@@ -18,6 +18,10 @@ production: &base
       snippets: true
       builds: true
       container_registry: true
+
+  consul:
+    api_url: 'http://consul.service.dc1.kjdev:8500'
+    
   incoming_email:
     enabled: false
 
