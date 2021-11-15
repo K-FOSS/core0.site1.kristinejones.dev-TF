@@ -71,6 +71,7 @@ resource "nomad_job" "GitLabDatabaseJob" {
         })
 
         GitlabERB = templatefile("${path.module}/Configs/WebService/Gitlab.yaml.erb", {
+          OpenID = var.OpenID
         })
 
         Resque = templatefile("${path.module}/Configs/WebService/Resque.yaml", {
