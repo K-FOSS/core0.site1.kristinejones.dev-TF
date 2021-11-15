@@ -58,7 +58,27 @@ production: &base
   kerberos:
     enabled: false
   omniauth:
-    enabled: false
+    enabled: true
+    providers:
+      - { name: 'openid_connect',
+          label: 'Authentik',
+          icon: 'https://d33wubrfki0l68.cloudfront.net/3986a9ebfee622cb3fed7c0b7d3661e431dcff5c/8fd41/img/icon_top_brand.svg',
+          args: {
+            name: 'openid_connect',
+            scope: ['openid','profile','email'],
+            response_type: 'code',
+            issuer: 'https://auth.kristianjones.dev/application/o/gitlab/',
+            discovery: true,
+            client_auth_method: 'query',
+            uid_field: 'preferred_username',
+            send_scope_to_token_endpoint: false,
+            client_options: {
+              identifier: '${OpenID.ClientID}',
+              secret: '${OpenID.ClientSecret}',
+              redirect_uri: 'https://gitlab.int.site1.kristianjones.dev/users/auth/openid_connect/callback'
+            }
+          }
+        }
   shared:
   gitaly:
     client_path: /home/git/gitaly/bin
