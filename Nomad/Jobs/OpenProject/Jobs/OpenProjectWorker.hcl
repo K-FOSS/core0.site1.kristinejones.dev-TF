@@ -17,7 +17,7 @@ job "openproject-worker" {
       driver = "docker"
 
       config {
-        image = "openproject/community:${Version}"
+        image = "registry.kristianjones.dev/cache/openproject/community:${Version}"
 
         args = ["./docker/prod/seeder"]
 
@@ -119,7 +119,7 @@ EOH
       user = "101"
 
       config {
-        image = "openproject/community:${Version}"
+        image = "registry.kristianjones.dev/cache/openproject/community:${Version}"
 
         args = ["./docker/prod/worker"]
 

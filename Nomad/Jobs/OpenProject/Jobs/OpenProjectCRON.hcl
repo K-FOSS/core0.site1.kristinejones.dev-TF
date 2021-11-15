@@ -37,7 +37,7 @@ job "openproject-cron" {
       user = "101"
 
       config {
-        image = "openproject/community:${Version}"
+        image = "registry.kristianjones.dev/cache/openproject/community:${Version}"
 
         command = "./docker/prod/cron"
 

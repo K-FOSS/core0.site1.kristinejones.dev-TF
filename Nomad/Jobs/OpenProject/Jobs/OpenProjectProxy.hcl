@@ -47,7 +47,7 @@ job "openproject-proxy" {
       driver = "docker"
 
       config {
-        image = "openproject/community:${Version}"
+        image = "registry.kristianjones.dev/cache/openproject/community:${Version}"
 
         command = "./docker/prod/proxy"
 
