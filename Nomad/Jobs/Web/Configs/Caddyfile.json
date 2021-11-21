@@ -441,7 +441,7 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "http.loki-distributor.service.kjdev"
+                      "lookup_srv": "http.distributor.loki.service.kjdev"
                     }
                   ]
                 }
@@ -474,7 +474,7 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "http.loki-querier.service.kjdev"
+                      "lookup_srv": "http.querier.loki.service.kjdev"
                     }
                   ]
                 }
@@ -515,7 +515,7 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "http.loki-query-frontend.service.kjdev"
+                      "lookup_srv": "http.query-frontend.loki.service.kjdev"
                     }
                   ]
                 }
@@ -553,7 +553,7 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "http.loki-ruler.service.kjdev"
+                      "lookup_srv": "http.ruler.loki.service.kjdev"
                     }
                   ]
                 }
