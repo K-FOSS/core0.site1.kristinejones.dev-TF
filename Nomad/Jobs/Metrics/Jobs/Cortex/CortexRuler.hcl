@@ -133,7 +133,7 @@ job "cortex-ruler" {
       }
 
       env {
-        JAEGER_AGENT_HOST = "tempo-distributor-http-cont.service.kjdev"
+        JAEGER_AGENT_HOST = "http.distributor.tempo.service.kjdev"
         JAEGER_AGENT_PORT = "6831"
       }
 

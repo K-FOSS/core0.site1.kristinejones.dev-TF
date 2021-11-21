@@ -850,8 +850,6 @@ module "Nomad" {
     Tempo = {
       Consul = module.Consul.Tempo
 
-      Targets = module.Tempo.Targets
-
       S3 = module.TempoBucket
     }
   }

@@ -2,7 +2,7 @@ job "ingress-gobetween" {
   datacenters = ["core0site1"]
 
   group "gobetween-server" {
-    count = 4
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"
@@ -102,7 +102,7 @@ job "ingress-gobetween" {
         logging {
           type = "loki"
           config {
-            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
 
             loki-external-labels = "job=ingress,service=gobetween"
           }

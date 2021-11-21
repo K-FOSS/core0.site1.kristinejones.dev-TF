@@ -58,13 +58,7 @@ distributor:
       store: memberlist
       prefix: ${Consul.Prefix}/collectors/
 
-      #
-      # Docs: https://grafana.com/docs/loki/latest/configuration/#consul_config
-      #
-      # Configuration for a Consul client. Only applies if store is "consul"
-      consul:
-        host: ${Consul.Hostname}:${Consul.Port}
-        acl_token: ${Consul.Token}
+
 
 
 #
@@ -103,7 +97,7 @@ frontend:
   # TODO: Figure this out
   # tail_proxy_url
 
-  scheduler_address: grpc.loki-query-scheduler.service.kjdev:8085
+  scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
 
 
 #
@@ -125,7 +119,7 @@ query_range:
     #
     cache:
       memcached_client:
-        addresses: dns+loki-memcached.service.kjdev:11211
+        addresses: dns+memcached.loki.service.kjdev:11211
   
   # Cache query results.
   cache_results: true
@@ -156,7 +150,7 @@ ruler:
       s3forcepathstyle: true
       insecure: true
   rule_path: /tmp/scratch
-  alertmanager_url: http://http.cortex-alertmanager.service.dc1.kjdev:8080/alertmanager
+  alertmanager_url: http://http.alertmanager.cortex.service.dc1.kjdev:8080/alertmanager
 
   enable_api: true
   enable_sharding: true
@@ -255,7 +249,7 @@ storage_config:
 
     index_gateway_client:
       # "Hostname or IP of the Index Gateway gRPC server.
-      server_address: grpc.loki-index-gateway.service.kjdev:8085
+      server_address: grpc.index-gateway.loki.service.kjdev:8085
 
   #
   # Docs: https://grafana.com/docs/loki/latest/configuration/#cache_config
@@ -267,7 +261,7 @@ storage_config:
       batch_size: 256
       parallelism: 10
     memcached_client:
-      addresses: dns+loki-memcached.service.kjdev:11211
+      addresses: dns+memcached.loki.service.kjdev:11211
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#chunk_store_config
@@ -278,7 +272,7 @@ chunk_store_config:
       batch_size: 256
       parallelism: 10
     memcached_client:
-      addresses: dns+loki-memcached.service.kjdev:11211
+      addresses: dns+memcached.loki.service.kjdev:11211
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#schema_config
@@ -322,7 +316,7 @@ frontend_worker:
   grpc_client_config:
     max_send_msg_size: 1.048576e+08
   parallelism: 6
-  scheduler_address: grpc.loki-query-scheduler.service.kjdev:8085
+  scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
 
 
 #
@@ -351,31 +345,31 @@ memberlist:
   
   join_members:
     # Distributor
-    - dnssrv+gossip.loki-distributor.service.dc1.kjdev
+    - dnssrv+gossip.distributor.loki.service.dc1.kjdev
 
     # Querier
-    - dnssrv+gossip.loki-querier.service.dc1.kjdev
+    - dnssrv+gossip.querier.loki.service.dc1.kjdev
     
     # Query Scheduler
-    - dnssrv+gossip.loki-query-scheduler.service.dc1.kjdev
+    - dnssrv+gossip.query-scheduler.loki.service.dc1.kjdev
 
     # Query Frontend
-    - dnssrv+gossip.loki-query-frontend.service.dc1.kjdev
+    - dnssrv+gossip.query-frontend.loki.service.dc1.kjdev
 
     # Ruler
-    - dnssrv+gossip.loki-ruler.service.dc1.kjdev
+    - dnssrv+gossip.ruler.loki.service.dc1.kjdev
 
     # Ingesters
-    - dnssrv+gossip.loki-ingester.service.dc1.kjdev
+    - dnssrv+gossip.ingester.loki.service.dc1.kjdev
 
     # Ingester Querier
     # - dnssrv+gossip.loki-ingester-querier.service.dc1.kjdev
 
     # Compactor
-    - dnssrv+gossip.loki-compactor.service.dc1.kjdev
+    - dnssrv+gossip.compactor.loki.service.dc1.kjdev
 
     # Index Gateway
-    - dnssrv+gossip.loki-index-gateway.service.dc1.kjdev
+    - dnssrv+gossip.index-gateway.loki.service.dc1.kjdev
 
     # Table Manager
 
@@ -391,3 +385,51 @@ memberlist:
 #
 # tracing:
 
+#
+# Common to dedupe config
+#
+common:
+  storage:
+    #
+    # Minio S3
+    #
+    s3:
+      endpoint: ${S3.Connection.Endpoint}
+      bucketnames: ${S3.Bucket}
+      access_key_id: '${S3.Credentials.AccessKey}'
+      secret_access_key: '${S3.Credentials.SecretKey}'
+      s3forcepathstyle: true
+      insecure: true
+
+  replication_factor: 1
+
+  # When true, the ingester, compactor, and query_scheduler ring tokens will be saved
+  # to files in the path_prefix directory. Loki will error if you set this to true
+  # and path_prefix is empty.
+  persist_tokens: true
+
+  # A common ring configuration to be used by all Loki rings.
+  # If a common ring is given, its values are used to define any undefined ring values.
+  # For instance, you can expect the `heartbeat_period` defined in the common section
+  # to be used by the distributor's ring, but only if the distributor's ring itself
+  # doesn't have a `heartbeat_period` set.  
+  ring:
+    kvstore:
+      store: multi
+
+      prefix: ${Consul.Prefix}/collectors/
+
+      #
+      # Docs: https://grafana.com/docs/loki/latest/configuration/#consul_config
+      #
+      # Configuration for a Consul client. Only applies if store is "consul"
+      consul:
+        host: ${Consul.Hostname}:${Consul.Port}
+        acl_token: ${Consul.Token}
+
+      multi:
+        primary: memberlist
+
+        secondary: consul
+
+        mirror_enabled: true

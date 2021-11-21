@@ -68,14 +68,84 @@ resource "nomad_job" "SyslogJobFile" {
   })
 }
 
-resource "nomad_job" "LokiJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/Loki.hcl", {
-    Loki = {
-      Targets = var.Loki.Targets
+#
+# Grafana Loki Time Series Structured Data
+#
 
-      YAMLConfig = templatefile("${path.module}/Configs/Loki/Loki.yaml", var.Loki)
+locals {
+  Loki = {
+    YAMLConfig = templatefile("${path.module}/Configs/Loki/Loki.yaml", var.Loki)
 
-      Version = "master"
-    }
+    Version = "master"
+  }
+}
+
+#
+# Distributor
+#
+
+resource "nomad_job" "LokiDistributorJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/Loki/LokiDistributor.hcl", {
+    Loki = local.Loki
+  })
+}
+
+#
+# Loki Querier
+#
+
+resource "nomad_job" "LokiQuerierJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/Loki/LokiQuerier.hcl", {
+    Loki = local.Loki
+  })
+}
+
+#
+# Loki Query Scheduler
+#
+
+resource "nomad_job" "LokiQuerySchedulerJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/Loki/LokiQueryScheduler.hcl", {
+    Loki = local.Loki
+  })
+}
+
+#
+# Loki Query Frontend
+#
+
+resource "nomad_job" "LokiQueryFrontendJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/Loki/LokiQueryFrontend.hcl", {
+    Loki = local.Loki
+  })
+}
+
+#
+# Loki Ruler
+#
+
+resource "nomad_job" "LokiRulerJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/Loki/LokiRuler.hcl", {
+    Loki = local.Loki
+  })
+}
+
+#
+# Loki Ingester
+#
+
+resource "nomad_job" "LokiIngesterJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/Loki/LokiIngester.hcl", {
+    Loki = local.Loki
+  })
+}
+
+#
+# Loki Index Gateway
+#
+
+resource "nomad_job" "LokiIndexGatewayJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/Loki/LokiIndexGateway.hcl", {
+    Loki = local.Loki
   })
 }

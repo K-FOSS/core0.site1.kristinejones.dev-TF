@@ -1,7 +1,7 @@
-job "cortex-cache" {
+job "loki-cache" {
   datacenters = ["core0site1"]
 
-  group "cortex-memcached" {
+  group "loki-memcached" {
     count = 1
 
     network {
@@ -13,7 +13,7 @@ job "cortex-cache" {
     }
 
     service {
-      name = "cortex"
+      name = "loki"
       port = "memcached"
 
       task = "memcached"

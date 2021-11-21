@@ -1,0 +1,2603 @@
+Usage of /bin/cortex:
+  -alertmanager-storage.azure.account-key value
+    	Azure storage account key
+  -alertmanager-storage.azure.account-name string
+    	Azure storage account name
+  -alertmanager-storage.azure.container-name string
+    	Azure storage container name
+  -alertmanager-storage.azure.endpoint-suffix string
+    	Azure storage endpoint suffix without schema. The account name will be prefixed to this value to create the FQDN
+  -alertmanager-storage.azure.max-retries int
+    	Number of retries for recoverable errors (default 20)
+  -alertmanager-storage.backend string
+    	Backend storage to use. Supported backends are: s3, gcs, azure, swift, filesystem, configdb, local. (default "s3")
+  -alertmanager-storage.configs.client-timeout duration
+    	Timeout for requests to Weave Cloud configs service. (default 5s)
+  -alertmanager-storage.configs.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -alertmanager-storage.configs.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -alertmanager-storage.configs.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -alertmanager-storage.configs.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -alertmanager-storage.configs.tls-server-name string
+    	Override the expected name on the server certificate.
+  -alertmanager-storage.configs.url value
+    	URL of configs API server.
+  -alertmanager-storage.filesystem.dir string
+    	Local filesystem storage directory.
+  -alertmanager-storage.gcs.bucket-name string
+    	GCS bucket name
+  -alertmanager-storage.gcs.service-account value
+    	JSON representing either a Google Developers Console client_credentials.json file or a Google Developers service account key file. If empty, fallback to Google default logic.
+  -alertmanager-storage.local.path string
+    	Path at which alertmanager configurations are stored.
+  -alertmanager-storage.s3.access-key-id string
+    	S3 access key ID
+  -alertmanager-storage.s3.bucket-name string
+    	S3 bucket name
+  -alertmanager-storage.s3.endpoint string
+    	The S3 bucket endpoint. It could be an AWS S3 endpoint listed at https://docs.aws.amazon.com/general/latest/gr/s3.html or the address of an S3-compatible service in hostname:port format.
+  -alertmanager-storage.s3.expect-continue-timeout duration
+    	The time to wait for a server's first response headers after fully writing the request headers if the request has an Expect header. 0 to send the request body immediately. (default 1s)
+  -alertmanager-storage.s3.http.idle-conn-timeout duration
+    	The time an idle connection will remain idle before closing. (default 1m30s)
+  -alertmanager-storage.s3.http.insecure-skip-verify
+    	If the client connects to S3 via HTTPS and this option is enabled, the client will accept any certificate and hostname.
+  -alertmanager-storage.s3.http.response-header-timeout duration
+    	The amount of time the client will wait for a servers response headers. (default 2m0s)
+  -alertmanager-storage.s3.insecure
+    	If enabled, use http:// for the S3 endpoint instead of https://. This could be useful in local dev/test environments while using an S3-compatible backend storage, like Minio.
+  -alertmanager-storage.s3.max-connections-per-host int
+    	Maximum number of connections per host. 0 means no limit.
+  -alertmanager-storage.s3.max-idle-connections int
+    	Maximum number of idle (keep-alive) connections across all hosts. 0 means no limit. (default 100)
+  -alertmanager-storage.s3.max-idle-connections-per-host int
+    	Maximum number of idle (keep-alive) connections to keep per-host. If 0, a built-in default value is used. (default 100)
+  -alertmanager-storage.s3.region string
+    	S3 region. If unset, the client will issue a S3 GetBucketLocation API call to autodetect it.
+  -alertmanager-storage.s3.secret-access-key value
+    	S3 secret access key
+  -alertmanager-storage.s3.signature-version string
+    	The signature version to use for authenticating against S3. Supported values are: v4, v2. (default "v4")
+  -alertmanager-storage.s3.sse.kms-encryption-context string
+    	KMS Encryption Context used for object encryption. It expects JSON formatted string.
+  -alertmanager-storage.s3.sse.kms-key-id string
+    	KMS Key ID used to encrypt objects in S3
+  -alertmanager-storage.s3.sse.type string
+    	Enable AWS Server Side Encryption. Supported values: SSE-KMS, SSE-S3.
+  -alertmanager-storage.s3.tls-handshake-timeout duration
+    	Maximum time to wait for a TLS handshake. 0 means no limit. (default 10s)
+  -alertmanager-storage.swift.auth-url string
+    	OpenStack Swift authentication URL
+  -alertmanager-storage.swift.auth-version int
+    	OpenStack Swift authentication API version. 0 to autodetect.
+  -alertmanager-storage.swift.connect-timeout duration
+    	Time after which a connection attempt is aborted. (default 10s)
+  -alertmanager-storage.swift.container-name string
+    	Name of the OpenStack Swift container to put chunks in.
+  -alertmanager-storage.swift.domain-id string
+    	OpenStack Swift user's domain ID.
+  -alertmanager-storage.swift.domain-name string
+    	OpenStack Swift user's domain name.
+  -alertmanager-storage.swift.max-retries int
+    	Max retries on requests error. (default 3)
+  -alertmanager-storage.swift.password string
+    	OpenStack Swift API key.
+  -alertmanager-storage.swift.project-domain-id string
+    	ID of the OpenStack Swift project's domain (v3 auth only), only needed if it differs the from user domain.
+  -alertmanager-storage.swift.project-domain-name string
+    	Name of the OpenStack Swift project's domain (v3 auth only), only needed if it differs from the user domain.
+  -alertmanager-storage.swift.project-id string
+    	OpenStack Swift project ID (v2,v3 auth only).
+  -alertmanager-storage.swift.project-name string
+    	OpenStack Swift project name (v2,v3 auth only).
+  -alertmanager-storage.swift.region-name string
+    	OpenStack Swift Region to use (v2,v3 auth only).
+  -alertmanager-storage.swift.request-timeout duration
+    	Time after which an idle request is aborted. The timeout watchdog is reset each time some data is received, so the timeout triggers after X time no data is received on a request. (default 5s)
+  -alertmanager-storage.swift.user-domain-id string
+    	OpenStack Swift user's domain ID.
+  -alertmanager-storage.swift.user-domain-name string
+    	OpenStack Swift user's domain name.
+  -alertmanager-storage.swift.user-id string
+    	OpenStack Swift user ID.
+  -alertmanager-storage.swift.username string
+    	OpenStack Swift username.
+  -alertmanager.alertmanager-client.remote-timeout duration
+    	Timeout for downstream alertmanagers. (default 2s)
+  -alertmanager.alertmanager-client.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -alertmanager.alertmanager-client.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -alertmanager.alertmanager-client.tls-enabled
+    	Enable TLS in the GRPC client. This flag needs to be enabled when any other TLS flag is set. If set to false, insecure connection to gRPC server will be used.
+  -alertmanager.alertmanager-client.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -alertmanager.alertmanager-client.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -alertmanager.alertmanager-client.tls-server-name string
+    	Override the expected name on the server certificate.
+  -alertmanager.cluster.advertise-address string
+    	Explicit address or hostname to advertise in cluster.
+  -alertmanager.cluster.gossip-interval duration
+    	The interval between sending gossip messages. By lowering this value (more frequent) gossip messages are propagated across cluster more quickly at the expense of increased bandwidth usage. (default 200ms)
+  -alertmanager.cluster.listen-address string
+    	Listen address and port for the cluster. Not specifying this flag disables high-availability mode. (default "0.0.0.0:9094")
+  -alertmanager.cluster.peer-timeout duration
+    	Time to wait between peers to send notifications. (default 15s)
+  -alertmanager.cluster.peers value
+    	Comma-separated list of initial peers.
+  -alertmanager.cluster.push-pull-interval duration
+    	The interval between gossip state syncs. Setting this interval lower (more frequent) will increase convergence speeds across larger clusters at the expense of increased bandwidth usage. (default 1m0s)
+  -alertmanager.configs.auto-webhook-root string
+    	Root of URL to generate if config is http://internal.monitor
+  -alertmanager.configs.client-timeout duration
+    	Timeout for requests to Weave Cloud configs service. (default 5s)
+  -alertmanager.configs.fallback string
+    	Filename of fallback config to use if none specified for instance.
+  -alertmanager.configs.poll-interval duration
+    	How frequently to poll Cortex configs (default 15s)
+  -alertmanager.configs.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -alertmanager.configs.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -alertmanager.configs.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -alertmanager.configs.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -alertmanager.configs.tls-server-name string
+    	Override the expected name on the server certificate.
+  -alertmanager.configs.url value
+    	URL of configs API server.
+  -alertmanager.max-alerts-count int
+    	Maximum number of alerts that a single user can have. Inserting more alerts will fail with a log message and metric increment. 0 = no limit.
+  -alertmanager.max-alerts-size-bytes int
+    	Maximum total size of alerts that a single user can have, alert size is the sum of the bytes of its labels, annotations and generatorURL. Inserting more alerts will fail with a log message and metric increment. 0 = no limit.
+  -alertmanager.max-config-size-bytes int
+    	Maximum size of configuration file for Alertmanager that tenant can upload via Alertmanager API. 0 = no limit.
+  -alertmanager.max-dispatcher-aggregation-groups int
+    	Maximum number of aggregation groups in Alertmanager's dispatcher that a tenant can have. Each active aggregation group uses single goroutine. When the limit is reached, dispatcher will not dispatch alerts that belong to additional aggregation groups, but existing groups will keep working properly. 0 = no limit.
+  -alertmanager.max-recv-msg-size int
+    	Maximum size (bytes) of an accepted HTTP request body. (default 16777216)
+  -alertmanager.max-template-size-bytes int
+    	Maximum size of single template in tenant's Alertmanager configuration uploaded via Alertmanager API. 0 = no limit.
+  -alertmanager.max-templates-count int
+    	Maximum number of templates in tenant's Alertmanager configuration uploaded via Alertmanager API. 0 = no limit.
+  -alertmanager.notification-rate-limit float
+    	Per-user rate limit for sending notifications from Alertmanager in notifications/sec. 0 = rate limit disabled. Negative value = no notifications are allowed.
+  -alertmanager.notification-rate-limit-per-integration value
+    	Per-integration notification rate limits. Value is a map, where each key is integration name and value is a rate-limit (float). On command line, this map is given in JSON format. Rate limit has the same meaning as -alertmanager.notification-rate-limit, but only applies for specific integration. Allowed integration names: webhook, email, pagerduty, opsgenie, wechat, slack, victorops, pushover, sns. (default {})
+  -alertmanager.persist-interval duration
+    	The interval between persisting the current alertmanager state (notification log and silences) to object storage. This is only used when sharding is enabled. This state is read when all replicas for a shard can not be contacted. In this scenario, having persisted the state more frequently will result in potentially fewer lost silences, and fewer duplicate notifications. (default 15m0s)
+  -alertmanager.receivers-firewall-block-cidr-networks value
+    	Comma-separated list of network CIDRs to block in Alertmanager receiver integrations.
+  -alertmanager.receivers-firewall-block-private-addresses
+    	True to block private and local addresses in Alertmanager receiver integrations. It blocks private addresses defined by  RFC 1918 (IPv4 addresses) and RFC 4193 (IPv6 addresses), as well as loopback, local unicast and local multicast addresses.
+  -alertmanager.sharding-enabled
+    	Shard tenants across multiple alertmanager instances.
+  -alertmanager.sharding-ring.consul.acl-token string
+    	ACL Token used to interact with Consul.
+  -alertmanager.sharding-ring.consul.client-timeout duration
+    	HTTP timeout when talking to Consul (default 20s)
+  -alertmanager.sharding-ring.consul.consistent-reads
+    	Enable consistent reads to Consul.
+  -alertmanager.sharding-ring.consul.hostname string
+    	Hostname and port of Consul. (default "localhost:8500")
+  -alertmanager.sharding-ring.consul.watch-burst-size int
+    	Burst size used in rate limit. Values less than 1 are treated as 1. (default 1)
+  -alertmanager.sharding-ring.consul.watch-rate-limit float
+    	Rate limit when watching key or prefix in Consul, in requests per second. 0 disables the rate limit. (default 1)
+  -alertmanager.sharding-ring.etcd.dial-timeout duration
+    	The dial timeout for the etcd connection. (default 10s)
+  -alertmanager.sharding-ring.etcd.endpoints value
+    	The etcd endpoints to connect to.
+  -alertmanager.sharding-ring.etcd.max-retries int
+    	The maximum number of retries to do for failed ops. (default 10)
+  -alertmanager.sharding-ring.etcd.password string
+    	Etcd password.
+  -alertmanager.sharding-ring.etcd.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -alertmanager.sharding-ring.etcd.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -alertmanager.sharding-ring.etcd.tls-enabled
+    	Enable TLS.
+  -alertmanager.sharding-ring.etcd.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -alertmanager.sharding-ring.etcd.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -alertmanager.sharding-ring.etcd.tls-server-name string
+    	Override the expected name on the server certificate.
+  -alertmanager.sharding-ring.etcd.username string
+    	Etcd username.
+  -alertmanager.sharding-ring.heartbeat-period duration
+    	Period at which to heartbeat to the ring. 0 = disabled. (default 15s)
+  -alertmanager.sharding-ring.heartbeat-timeout duration
+    	The heartbeat timeout after which alertmanagers are considered unhealthy within the ring. 0 = never (timeout disabled). (default 1m0s)
+  -alertmanager.sharding-ring.instance-addr string
+    	IP address to advertise in the ring.
+  -alertmanager.sharding-ring.instance-availability-zone string
+    	The availability zone where this instance is running. Required if zone-awareness is enabled.
+  -alertmanager.sharding-ring.instance-id string
+    	Instance ID to register in the ring. (default "cf3bb0742627")
+  -alertmanager.sharding-ring.instance-interface-names value
+    	Name of network interface to read address from. (default [eth0 en0])
+  -alertmanager.sharding-ring.instance-port int
+    	Port to advertise in the ring (defaults to server.grpc-listen-port).
+  -alertmanager.sharding-ring.multi.mirror-enabled
+    	Mirror writes to secondary store.
+  -alertmanager.sharding-ring.multi.mirror-timeout duration
+    	Timeout for storing value to secondary store. (default 2s)
+  -alertmanager.sharding-ring.multi.primary string
+    	Primary backend storage used by multi-client.
+  -alertmanager.sharding-ring.multi.secondary string
+    	Secondary backend storage used by multi-client.
+  -alertmanager.sharding-ring.prefix string
+    	The prefix for the keys in the store. Should end with a /. (default "alertmanagers/")
+  -alertmanager.sharding-ring.replication-factor int
+    	The replication factor to use when sharding the alertmanager. (default 3)
+  -alertmanager.sharding-ring.store string
+    	Backend storage to use for the ring. Supported values are: consul, etcd, inmemory, memberlist, multi. (default "consul")
+  -alertmanager.sharding-ring.zone-awareness-enabled
+    	True to enable zone-awareness and replicate alerts across different availability zones.
+  -alertmanager.storage.azure.account-key value
+    	The Microsoft Azure account key to use.
+  -alertmanager.storage.azure.account-name string
+    	The Microsoft Azure account name to be used
+  -alertmanager.storage.azure.container-name string
+    	Name of the blob container used to store chunks. This container must be created before running cortex. (default "cortex")
+  -alertmanager.storage.azure.download-buffer-count int
+    	Number of buffers used to used to upload a chunk. (default 1)
+  -alertmanager.storage.azure.download-buffer-size int
+    	Preallocated buffer size for downloads. (default 512000)
+  -alertmanager.storage.azure.environment string
+    	Azure Cloud environment. Supported values are: AzureGlobal, AzureChinaCloud, AzureGermanCloud, AzureUSGovernment. (default "AzureGlobal")
+  -alertmanager.storage.azure.max-retries int
+    	Number of retries for a request which times out. (default 5)
+  -alertmanager.storage.azure.max-retry-delay duration
+    	Maximum time to wait before retrying a request. (default 500ms)
+  -alertmanager.storage.azure.min-retry-delay duration
+    	Minimum time to wait before retrying a request. (default 10ms)
+  -alertmanager.storage.azure.request-timeout duration
+    	Timeout for requests made against azure blob storage. (default 30s)
+  -alertmanager.storage.azure.upload-buffer-size int
+    	Preallocated buffer size for uploads. (default 256000)
+  -alertmanager.storage.gcs.bucketname string
+    	Name of GCS bucket. Please refer to https://cloud.google.com/docs/authentication/production for more information about how to configure authentication.
+  -alertmanager.storage.gcs.chunk-buffer-size int
+    	The size of the buffer that GCS client for each PUT request. 0 to disable buffering.
+  -alertmanager.storage.gcs.enable-opencensus
+    	Enabled OpenCensus (OC) instrumentation for all requests. (default true)
+  -alertmanager.storage.gcs.request-timeout duration
+    	The duration after which the requests to GCS should be timed out.
+  -alertmanager.storage.local.path string
+    	Path at which alertmanager configurations are stored.
+  -alertmanager.storage.path string
+    	Base path for data storage. (default "data/")
+  -alertmanager.storage.retention duration
+    	How long to keep data for. (default 120h0m0s)
+  -alertmanager.storage.s3.access-key-id string
+    	AWS Access Key ID
+  -alertmanager.storage.s3.buckets string
+    	Comma separated list of bucket names to evenly distribute chunks over. Overrides any buckets specified in s3.url flag
+  -alertmanager.storage.s3.endpoint string
+    	S3 Endpoint to connect to.
+  -alertmanager.storage.s3.force-path-style true
+    	Set this to true to force the request to use path-style addressing.
+  -alertmanager.storage.s3.http.idle-conn-timeout duration
+    	The maximum amount of time an idle connection will be held open. (default 1m30s)
+  -alertmanager.storage.s3.http.insecure-skip-verify
+    	Set to false to skip verifying the certificate chain and hostname.
+  -alertmanager.storage.s3.http.response-header-timeout duration
+    	If non-zero, specifies the amount of time to wait for a server's response headers after fully writing the request.
+  -alertmanager.storage.s3.insecure
+    	Disable https on s3 connection.
+  -alertmanager.storage.s3.region string
+    	AWS region to use.
+  -alertmanager.storage.s3.secret-access-key string
+    	AWS Secret Access Key
+  -alertmanager.storage.s3.signature-version string
+    	The signature version to use for authenticating against S3. Supported values are: v4, v2. (default "v4")
+  -alertmanager.storage.s3.sse-encryption
+    	Enable AWS Server Side Encryption [Deprecated: Use .sse instead. if s3.sse-encryption is enabled, it assumes .sse.type SSE-S3]
+  -alertmanager.storage.s3.sse.kms-encryption-context string
+    	KMS Encryption Context used for object encryption. It expects JSON formatted string.
+  -alertmanager.storage.s3.sse.kms-key-id string
+    	KMS Key ID used to encrypt objects in S3
+  -alertmanager.storage.s3.sse.type string
+    	Enable AWS Server Side Encryption. Supported values: SSE-KMS, SSE-S3.
+  -alertmanager.storage.s3.url value
+    	S3 endpoint URL with escaped Key and Secret encoded. If only region is specified as a host, proper endpoint will be deduced. Use inmemory:///<bucket-name> to use a mock in-memory implementation.
+  -alertmanager.storage.type string
+    	Type of backend to use to store alertmanager configs. Supported values are: "configdb", "gcs", "s3", "local". (default "configdb")
+  -alertmanager.web.external-url value
+    	The URL under which Alertmanager is externally reachable (for example, if Alertmanager is served via a reverse proxy). Used for generating relative and absolute links back to Alertmanager itself. If the URL has a path portion, it will be used to prefix all HTTP endpoints served by Alertmanager. If omitted, relevant URL components will be derived automatically.
+  -api.response-compression-enabled
+    	Use GZIP compression for API responses. Some endpoints serve large YAML or JSON blobs which can benefit from compression.
+  -auth.enabled
+    	Set to false to disable auth. (default true)
+  -azure.account-key value
+    	The Microsoft Azure account key to use.
+  -azure.account-name string
+    	The Microsoft Azure account name to be used
+  -azure.container-name string
+    	Name of the blob container used to store chunks. This container must be created before running cortex. (default "cortex")
+  -azure.download-buffer-count int
+    	Number of buffers used to used to upload a chunk. (default 1)
+  -azure.download-buffer-size int
+    	Preallocated buffer size for downloads. (default 512000)
+  -azure.environment string
+    	Azure Cloud environment. Supported values are: AzureGlobal, AzureChinaCloud, AzureGermanCloud, AzureUSGovernment. (default "AzureGlobal")
+  -azure.max-retries int
+    	Number of retries for a request which times out. (default 5)
+  -azure.max-retry-delay duration
+    	Maximum time to wait before retrying a request. (default 500ms)
+  -azure.min-retry-delay duration
+    	Minimum time to wait before retrying a request. (default 10ms)
+  -azure.request-timeout duration
+    	Timeout for requests made against azure blob storage. (default 30s)
+  -azure.upload-buffer-size int
+    	Preallocated buffer size for uploads. (default 256000)
+  -bigtable.backoff-max-period duration
+    	Maximum delay when backing off. (default 10s)
+  -bigtable.backoff-min-period duration
+    	Minimum delay when backing off. (default 100ms)
+  -bigtable.backoff-on-ratelimits
+    	Enable backoff and retry when we hit ratelimits.
+  -bigtable.backoff-retries int
+    	Number of times to backoff and retry before failing. (default 10)
+  -bigtable.grpc-client-rate-limit float
+    	Rate limit for gRPC client; 0 means disabled.
+  -bigtable.grpc-client-rate-limit-burst int
+    	Rate limit burst for gRPC client.
+  -bigtable.grpc-compression string
+    	Use compression when sending messages. Supported values are: 'gzip', 'snappy' and '' (disable compression)
+  -bigtable.grpc-max-recv-msg-size int
+    	gRPC client max receive message size (bytes). (default 104857600)
+  -bigtable.grpc-max-send-msg-size int
+    	gRPC client max send message size (bytes). (default 16777216)
+  -bigtable.instance string
+    	Bigtable instance ID. Please refer to https://cloud.google.com/docs/authentication/production for more information about how to configure authentication.
+  -bigtable.project string
+    	Bigtable project ID.
+  -bigtable.table-cache.enabled
+    	If enabled, once a tables info is fetched, it is cached. (default true)
+  -bigtable.table-cache.expiration duration
+    	Duration to cache tables before checking again. (default 30m0s)
+  -bigtable.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -bigtable.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -bigtable.tls-enabled
+    	Enable TLS in the GRPC client. This flag needs to be enabled when any other TLS flag is set. If set to false, insecure connection to gRPC server will be used. (default true)
+  -bigtable.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -bigtable.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -bigtable.tls-server-name string
+    	Override the expected name on the server certificate.
+  -blocks-storage.azure.account-key value
+    	Azure storage account key
+  -blocks-storage.azure.account-name string
+    	Azure storage account name
+  -blocks-storage.azure.container-name string
+    	Azure storage container name
+  -blocks-storage.azure.endpoint-suffix string
+    	Azure storage endpoint suffix without schema. The account name will be prefixed to this value to create the FQDN
+  -blocks-storage.azure.max-retries int
+    	Number of retries for recoverable errors (default 20)
+  -blocks-storage.backend string
+    	Backend storage to use. Supported backends are: s3, gcs, azure, swift, filesystem. (default "s3")
+  -blocks-storage.bucket-store.block-sync-concurrency int
+    	Maximum number of concurrent blocks synching per tenant. (default 20)
+  -blocks-storage.bucket-store.bucket-index.enabled
+    	True to enable querier and store-gateway to discover blocks in the storage via bucket index instead of bucket scanning.
+  -blocks-storage.bucket-store.bucket-index.idle-timeout duration
+    	How long a unused bucket index should be cached. Once this timeout expires, the unused bucket index is removed from the in-memory cache. This option is used only by querier. (default 1h0m0s)
+  -blocks-storage.bucket-store.bucket-index.max-stale-period duration
+    	The maximum allowed age of a bucket index (last updated) before queries start failing because the bucket index is too old. The bucket index is periodically updated by the compactor, while this check is enforced in the querier (at query time). (default 1h0m0s)
+  -blocks-storage.bucket-store.bucket-index.update-on-error-interval duration
+    	How frequently a bucket index, which previously failed to load, should be tried to load again. This option is used only by querier. (default 1m0s)
+  -blocks-storage.bucket-store.chunk-pool-max-bucket-size-bytes int
+    	Size - in bytes - of the largest chunks pool bucket. (default 50000000)
+  -blocks-storage.bucket-store.chunk-pool-min-bucket-size-bytes int
+    	Size - in bytes - of the smallest chunks pool bucket. (default 16000)
+  -blocks-storage.bucket-store.chunks-cache.attributes-ttl duration
+    	TTL for caching object attributes for chunks. (default 168h0m0s)
+  -blocks-storage.bucket-store.chunks-cache.backend string
+    	Backend for chunks cache, if not empty. Supported values: memcached.
+  -blocks-storage.bucket-store.chunks-cache.max-get-range-requests int
+    	Maximum number of sub-GetRange requests that a single GetRange request can be split into when fetching chunks. Zero or negative value = unlimited number of sub-requests. (default 3)
+  -blocks-storage.bucket-store.chunks-cache.memcached.addresses string
+    	Comma separated list of memcached addresses. Supported prefixes are: dns+ (looked up as an A/AAAA query), dnssrv+ (looked up as a SRV query, dnssrvnoa+ (looked up as a SRV query, with no A/AAAA lookup made after that).
+  -blocks-storage.bucket-store.chunks-cache.memcached.auto-discovery
+    	Use memcached auto-discovery mechanism provided by some cloud provider like GCP and AWS
+  -blocks-storage.bucket-store.chunks-cache.memcached.max-async-buffer-size int
+    	The maximum number of enqueued asynchronous operations allowed. (default 10000)
+  -blocks-storage.bucket-store.chunks-cache.memcached.max-async-concurrency int
+    	The maximum number of concurrent asynchronous operations can occur. (default 50)
+  -blocks-storage.bucket-store.chunks-cache.memcached.max-get-multi-batch-size int
+    	The maximum number of keys a single underlying get operation should run. If more keys are specified, internally keys are split into multiple batches and fetched concurrently, honoring the max concurrency. If set to 0, the max batch size is unlimited.
+  -blocks-storage.bucket-store.chunks-cache.memcached.max-get-multi-concurrency int
+    	The maximum number of concurrent connections running get operations. If set to 0, concurrency is unlimited. (default 100)
+  -blocks-storage.bucket-store.chunks-cache.memcached.max-idle-connections int
+    	The maximum number of idle connections that will be maintained per address. (default 16)
+  -blocks-storage.bucket-store.chunks-cache.memcached.max-item-size int
+    	The maximum size of an item stored in memcached. Bigger items are not stored. If set to 0, no maximum size is enforced. (default 1048576)
+  -blocks-storage.bucket-store.chunks-cache.memcached.timeout duration
+    	The socket read/write timeout. (default 100ms)
+  -blocks-storage.bucket-store.chunks-cache.subrange-size int
+    	Size of each subrange that bucket object is split into for better caching. (default 16000)
+  -blocks-storage.bucket-store.chunks-cache.subrange-ttl duration
+    	TTL for caching individual chunks subranges. (default 24h0m0s)
+  -blocks-storage.bucket-store.consistency-delay duration
+    	Minimum age of a block before it's being read. Set it to safe value (e.g 30m) if your object storage is eventually consistent. GCS and S3 are (roughly) strongly consistent.
+  -blocks-storage.bucket-store.ignore-deletion-marks-delay duration
+    	Duration after which the blocks marked for deletion will be filtered out while fetching blocks. The idea of ignore-deletion-marks-delay is to ignore blocks that are marked for deletion with some delay. This ensures store can still serve blocks that are meant to be deleted but do not have a replacement yet. Default is 6h, half of the default value for -compactor.deletion-delay. (default 6h0m0s)
+  -blocks-storage.bucket-store.index-cache.backend string
+    	The index cache backend type. Supported values: inmemory, memcached. (default "inmemory")
+  -blocks-storage.bucket-store.index-cache.inmemory.max-size-bytes uint
+    	Maximum size in bytes of in-memory index cache used to speed up blocks index lookups (shared between all tenants). (default 1073741824)
+  -blocks-storage.bucket-store.index-cache.memcached.addresses string
+    	Comma separated list of memcached addresses. Supported prefixes are: dns+ (looked up as an A/AAAA query), dnssrv+ (looked up as a SRV query, dnssrvnoa+ (looked up as a SRV query, with no A/AAAA lookup made after that).
+  -blocks-storage.bucket-store.index-cache.memcached.auto-discovery
+    	Use memcached auto-discovery mechanism provided by some cloud provider like GCP and AWS
+  -blocks-storage.bucket-store.index-cache.memcached.max-async-buffer-size int
+    	The maximum number of enqueued asynchronous operations allowed. (default 10000)
+  -blocks-storage.bucket-store.index-cache.memcached.max-async-concurrency int
+    	The maximum number of concurrent asynchronous operations can occur. (default 50)
+  -blocks-storage.bucket-store.index-cache.memcached.max-get-multi-batch-size int
+    	The maximum number of keys a single underlying get operation should run. If more keys are specified, internally keys are split into multiple batches and fetched concurrently, honoring the max concurrency. If set to 0, the max batch size is unlimited.
+  -blocks-storage.bucket-store.index-cache.memcached.max-get-multi-concurrency int
+    	The maximum number of concurrent connections running get operations. If set to 0, concurrency is unlimited. (default 100)
+  -blocks-storage.bucket-store.index-cache.memcached.max-idle-connections int
+    	The maximum number of idle connections that will be maintained per address. (default 16)
+  -blocks-storage.bucket-store.index-cache.memcached.max-item-size int
+    	The maximum size of an item stored in memcached. Bigger items are not stored. If set to 0, no maximum size is enforced. (default 1048576)
+  -blocks-storage.bucket-store.index-cache.memcached.timeout duration
+    	The socket read/write timeout. (default 100ms)
+  -blocks-storage.bucket-store.index-header-lazy-loading-enabled
+    	If enabled, store-gateway will lazy load an index-header only once required by a query.
+  -blocks-storage.bucket-store.index-header-lazy-loading-idle-timeout duration
+    	If index-header lazy loading is enabled and this setting is > 0, the store-gateway will offload unused index-headers after 'idle timeout' inactivity. (default 20m0s)
+  -blocks-storage.bucket-store.max-chunk-pool-bytes uint
+    	Max size - in bytes - of a chunks pool, used to reduce memory allocations. The pool is shared across all tenants. 0 to disable the limit. (default 2147483648)
+  -blocks-storage.bucket-store.max-concurrent int
+    	Max number of concurrent queries to execute against the long-term storage. The limit is shared across all tenants. (default 100)
+  -blocks-storage.bucket-store.meta-sync-concurrency int
+    	Number of Go routines to use when syncing block meta files from object storage per tenant. (default 20)
+  -blocks-storage.bucket-store.metadata-cache.backend string
+    	Backend for metadata cache, if not empty. Supported values: memcached.
+  -blocks-storage.bucket-store.metadata-cache.block-index-attributes-ttl duration
+    	How long to cache attributes of the block index. (default 168h0m0s)
+  -blocks-storage.bucket-store.metadata-cache.bucket-index-content-ttl duration
+    	How long to cache content of the bucket index. (default 5m0s)
+  -blocks-storage.bucket-store.metadata-cache.bucket-index-max-size-bytes int
+    	Maximum size of bucket index content to cache in bytes. Caching will be skipped if the content exceeds this size. This is useful to avoid network round trip for large content if the configured caching backend has an hard limit on cached items size (in this case, you should set this limit to the same limit in the caching backend). (default 1048576)
+  -blocks-storage.bucket-store.metadata-cache.chunks-list-ttl duration
+    	How long to cache list of chunks for a block. (default 24h0m0s)
+  -blocks-storage.bucket-store.metadata-cache.memcached.addresses string
+    	Comma separated list of memcached addresses. Supported prefixes are: dns+ (looked up as an A/AAAA query), dnssrv+ (looked up as a SRV query, dnssrvnoa+ (looked up as a SRV query, with no A/AAAA lookup made after that).
+  -blocks-storage.bucket-store.metadata-cache.memcached.auto-discovery
+    	Use memcached auto-discovery mechanism provided by some cloud provider like GCP and AWS
+  -blocks-storage.bucket-store.metadata-cache.memcached.max-async-buffer-size int
+    	The maximum number of enqueued asynchronous operations allowed. (default 10000)
+  -blocks-storage.bucket-store.metadata-cache.memcached.max-async-concurrency int
+    	The maximum number of concurrent asynchronous operations can occur. (default 50)
+  -blocks-storage.bucket-store.metadata-cache.memcached.max-get-multi-batch-size int
+    	The maximum number of keys a single underlying get operation should run. If more keys are specified, internally keys are split into multiple batches and fetched concurrently, honoring the max concurrency. If set to 0, the max batch size is unlimited.
+  -blocks-storage.bucket-store.metadata-cache.memcached.max-get-multi-concurrency int
+    	The maximum number of concurrent connections running get operations. If set to 0, concurrency is unlimited. (default 100)
+  -blocks-storage.bucket-store.metadata-cache.memcached.max-idle-connections int
+    	The maximum number of idle connections that will be maintained per address. (default 16)
+  -blocks-storage.bucket-store.metadata-cache.memcached.max-item-size int
+    	The maximum size of an item stored in memcached. Bigger items are not stored. If set to 0, no maximum size is enforced. (default 1048576)
+  -blocks-storage.bucket-store.metadata-cache.memcached.timeout duration
+    	The socket read/write timeout. (default 100ms)
+  -blocks-storage.bucket-store.metadata-cache.metafile-attributes-ttl duration
+    	How long to cache attributes of the block metafile. (default 168h0m0s)
+  -blocks-storage.bucket-store.metadata-cache.metafile-content-ttl duration
+    	How long to cache content of the metafile. (default 24h0m0s)
+  -blocks-storage.bucket-store.metadata-cache.metafile-doesnt-exist-ttl duration
+    	How long to cache information that block metafile doesn't exist. Also used for user deletion mark file. (default 5m0s)
+  -blocks-storage.bucket-store.metadata-cache.metafile-exists-ttl duration
+    	How long to cache information that block metafile exists. Also used for user deletion mark file. (default 2h0m0s)
+  -blocks-storage.bucket-store.metadata-cache.metafile-max-size-bytes int
+    	Maximum size of metafile content to cache in bytes. Caching will be skipped if the content exceeds this size. This is useful to avoid network round trip for large content if the configured caching backend has an hard limit on cached items size (in this case, you should set this limit to the same limit in the caching backend). (default 1048576)
+  -blocks-storage.bucket-store.metadata-cache.tenant-blocks-list-ttl duration
+    	How long to cache list of blocks for each tenant. (default 5m0s)
+  -blocks-storage.bucket-store.metadata-cache.tenants-list-ttl duration
+    	How long to cache list of tenants in the bucket. (default 15m0s)
+  -blocks-storage.bucket-store.partitioner-max-gap-bytes uint
+    	Max size - in bytes - of a gap for which the partitioner aggregates together two bucket GET object requests. (default 524288)
+  -blocks-storage.bucket-store.posting-offsets-in-mem-sampling int
+    	Controls what is the ratio of postings offsets that the store will hold in memory. (default 32)
+  -blocks-storage.bucket-store.sync-dir string
+    	Directory to store synchronized TSDB index headers. (default "tsdb-sync")
+  -blocks-storage.bucket-store.sync-interval duration
+    	How frequently to scan the bucket, or to refresh the bucket index (if enabled), in order to look for changes (new blocks shipped by ingesters and blocks deleted by retention or compaction). (default 15m0s)
+  -blocks-storage.bucket-store.tenant-sync-concurrency int
+    	Maximum number of concurrent tenants synching blocks. (default 10)
+  -blocks-storage.filesystem.dir string
+    	Local filesystem storage directory.
+  -blocks-storage.gcs.bucket-name string
+    	GCS bucket name
+  -blocks-storage.gcs.service-account value
+    	JSON representing either a Google Developers Console client_credentials.json file or a Google Developers service account key file. If empty, fallback to Google default logic.
+  -blocks-storage.s3.access-key-id string
+    	S3 access key ID
+  -blocks-storage.s3.bucket-name string
+    	S3 bucket name
+  -blocks-storage.s3.endpoint string
+    	The S3 bucket endpoint. It could be an AWS S3 endpoint listed at https://docs.aws.amazon.com/general/latest/gr/s3.html or the address of an S3-compatible service in hostname:port format.
+  -blocks-storage.s3.expect-continue-timeout duration
+    	The time to wait for a server's first response headers after fully writing the request headers if the request has an Expect header. 0 to send the request body immediately. (default 1s)
+  -blocks-storage.s3.http.idle-conn-timeout duration
+    	The time an idle connection will remain idle before closing. (default 1m30s)
+  -blocks-storage.s3.http.insecure-skip-verify
+    	If the client connects to S3 via HTTPS and this option is enabled, the client will accept any certificate and hostname.
+  -blocks-storage.s3.http.response-header-timeout duration
+    	The amount of time the client will wait for a servers response headers. (default 2m0s)
+  -blocks-storage.s3.insecure
+    	If enabled, use http:// for the S3 endpoint instead of https://. This could be useful in local dev/test environments while using an S3-compatible backend storage, like Minio.
+  -blocks-storage.s3.max-connections-per-host int
+    	Maximum number of connections per host. 0 means no limit.
+  -blocks-storage.s3.max-idle-connections int
+    	Maximum number of idle (keep-alive) connections across all hosts. 0 means no limit. (default 100)
+  -blocks-storage.s3.max-idle-connections-per-host int
+    	Maximum number of idle (keep-alive) connections to keep per-host. If 0, a built-in default value is used. (default 100)
+  -blocks-storage.s3.region string
+    	S3 region. If unset, the client will issue a S3 GetBucketLocation API call to autodetect it.
+  -blocks-storage.s3.secret-access-key value
+    	S3 secret access key
+  -blocks-storage.s3.signature-version string
+    	The signature version to use for authenticating against S3. Supported values are: v4, v2. (default "v4")
+  -blocks-storage.s3.sse.kms-encryption-context string
+    	KMS Encryption Context used for object encryption. It expects JSON formatted string.
+  -blocks-storage.s3.sse.kms-key-id string
+    	KMS Key ID used to encrypt objects in S3
+  -blocks-storage.s3.sse.type string
+    	Enable AWS Server Side Encryption. Supported values: SSE-KMS, SSE-S3.
+  -blocks-storage.s3.tls-handshake-timeout duration
+    	Maximum time to wait for a TLS handshake. 0 means no limit. (default 10s)
+  -blocks-storage.swift.auth-url string
+    	OpenStack Swift authentication URL
+  -blocks-storage.swift.auth-version int
+    	OpenStack Swift authentication API version. 0 to autodetect.
+  -blocks-storage.swift.connect-timeout duration
+    	Time after which a connection attempt is aborted. (default 10s)
+  -blocks-storage.swift.container-name string
+    	Name of the OpenStack Swift container to put chunks in.
+  -blocks-storage.swift.domain-id string
+    	OpenStack Swift user's domain ID.
+  -blocks-storage.swift.domain-name string
+    	OpenStack Swift user's domain name.
+  -blocks-storage.swift.max-retries int
+    	Max retries on requests error. (default 3)
+  -blocks-storage.swift.password string
+    	OpenStack Swift API key.
+  -blocks-storage.swift.project-domain-id string
+    	ID of the OpenStack Swift project's domain (v3 auth only), only needed if it differs the from user domain.
+  -blocks-storage.swift.project-domain-name string
+    	Name of the OpenStack Swift project's domain (v3 auth only), only needed if it differs from the user domain.
+  -blocks-storage.swift.project-id string
+    	OpenStack Swift project ID (v2,v3 auth only).
+  -blocks-storage.swift.project-name string
+    	OpenStack Swift project name (v2,v3 auth only).
+  -blocks-storage.swift.region-name string
+    	OpenStack Swift Region to use (v2,v3 auth only).
+  -blocks-storage.swift.request-timeout duration
+    	Time after which an idle request is aborted. The timeout watchdog is reset each time some data is received, so the timeout triggers after X time no data is received on a request. (default 5s)
+  -blocks-storage.swift.user-domain-id string
+    	OpenStack Swift user's domain ID.
+  -blocks-storage.swift.user-domain-name string
+    	OpenStack Swift user's domain name.
+  -blocks-storage.swift.user-id string
+    	OpenStack Swift user ID.
+  -blocks-storage.swift.username string
+    	OpenStack Swift username.
+  -blocks-storage.tsdb.block-ranges-period value
+    	TSDB blocks range period. (default 2h0m0s)
+  -blocks-storage.tsdb.close-idle-tsdb-timeout duration
+    	If TSDB has not received any data for this duration, and all blocks from TSDB have been shipped, TSDB is closed and deleted from local disk. If set to positive value, this value should be equal or higher than -querier.query-ingesters-within flag to make sure that TSDB is not closed prematurely, which could cause partial query results. 0 or negative value disables closing of idle TSDB.
+  -blocks-storage.tsdb.dir string
+    	Local directory to store TSDBs in the ingesters. (default "tsdb")
+  -blocks-storage.tsdb.flush-blocks-on-shutdown
+    	True to flush blocks to storage on shutdown. If false, incomplete blocks will be reused after restart.
+  -blocks-storage.tsdb.head-chunks-write-buffer-size-bytes int
+    	The write buffer size used by the head chunks mapper. Lower values reduce memory utilisation on clusters with a large number of tenants at the cost of increased disk I/O operations. (default 4194304)
+  -blocks-storage.tsdb.head-compaction-concurrency int
+    	Maximum number of tenants concurrently compacting TSDB head into a new block (default 5)
+  -blocks-storage.tsdb.head-compaction-idle-timeout duration
+    	If TSDB head is idle for this duration, it is compacted. Note that up to 25% jitter is added to the value to avoid ingesters compacting concurrently. 0 means disabled. (default 1h0m0s)
+  -blocks-storage.tsdb.head-compaction-interval duration
+    	How frequently does Cortex try to compact TSDB head. Block is only created if data covers smallest block range. Must be greater than 0 and max 5 minutes. (default 1m0s)
+  -blocks-storage.tsdb.max-exemplars int
+    	Enables support for exemplars in TSDB and sets the maximum number that will be stored. 0 or less means disabled.
+  -blocks-storage.tsdb.max-tsdb-opening-concurrency-on-startup int
+    	limit the number of concurrently opening TSDB's on startup (default 10)
+  -blocks-storage.tsdb.retention-period duration
+    	TSDB blocks retention in the ingester before a block is removed. This should be larger than the block_ranges_period and large enough to give store-gateways and queriers enough time to discover newly uploaded blocks. (default 6h0m0s)
+  -blocks-storage.tsdb.ship-concurrency int
+    	Maximum number of tenants concurrently shipping blocks to the storage. (default 10)
+  -blocks-storage.tsdb.ship-interval duration
+    	How frequently the TSDB blocks are scanned and new ones are shipped to the storage. 0 means shipping is disabled. (default 1m0s)
+  -blocks-storage.tsdb.stripe-size int
+    	The number of shards of series to use in TSDB (must be a power of 2). Reducing this will decrease memory footprint, but can negatively impact performance. (default 16384)
+  -blocks-storage.tsdb.wal-compression-enabled
+    	True to enable TSDB WAL compression.
+  -blocks-storage.tsdb.wal-segment-size-bytes int
+    	TSDB WAL segments files max size (bytes). (default 134217728)
+  -boltdb.dir string
+    	Location of BoltDB index files.
+  -cassandra.addresses string
+    	Comma-separated hostnames or IPs of Cassandra instances.
+  -cassandra.auth
+    	Enable password authentication when connecting to cassandra.
+  -cassandra.ca-path string
+    	Path to certificate file to verify the peer.
+  -cassandra.connect-timeout duration
+    	Initial connection timeout, used during initial dial to server. (default 5s)
+  -cassandra.consistency string
+    	Consistency level for Cassandra. (default "QUORUM")
+  -cassandra.convict-hosts-on-failure
+    	Convict hosts of being down on failure. (default true)
+  -cassandra.custom-authenticator value
+    	If set, when authenticating with cassandra a custom authenticator will be expected during the handshake. This flag can be set multiple times.
+  -cassandra.disable-initial-host-lookup
+    	Instruct the cassandra driver to not attempt to get host info from the system.peers table.
+  -cassandra.host-selection-policy string
+    	Policy for selecting Cassandra host. Supported values are: round-robin, token-aware. (default "round-robin")
+  -cassandra.host-verification
+    	Require SSL certificate validation. (default true)
+  -cassandra.keyspace string
+    	Keyspace to use in Cassandra.
+  -cassandra.max-retries int
+    	Number of retries to perform on a request. Set to 0 to disable retries.
+  -cassandra.num-connections int
+    	Number of TCP connections per host. (default 2)
+  -cassandra.password value
+    	Password to use when connecting to cassandra.
+  -cassandra.password-file string
+    	File containing password to use when connecting to cassandra.
+  -cassandra.port int
+    	Port that Cassandra is running on (default 9042)
+  -cassandra.query-concurrency int
+    	Limit number of concurrent queries to Cassandra. Set to 0 to disable the limit.
+  -cassandra.reconnent-interval duration
+    	Interval to retry connecting to cassandra nodes marked as DOWN. (default 1s)
+  -cassandra.replication-factor int
+    	Replication factor to use in Cassandra. (default 3)
+  -cassandra.retry-max-backoff duration
+    	Maximum time to wait before retrying a failed request. (default 10s)
+  -cassandra.retry-min-backoff duration
+    	Minimum time to wait before retrying a failed request. (default 100ms)
+  -cassandra.ssl
+    	Use SSL when connecting to cassandra instances.
+  -cassandra.table-options WITH
+    	Table options used to create index or chunk tables. This value is used as plain text in the table WITH like this, "CREATE TABLE <generated_by_cortex> (...) WITH <cassandra.table-options>". For details, see https://cortexmetrics.io/docs/production/cassandra. By default it will use the default table options of your Cassandra cluster.
+  -cassandra.timeout duration
+    	Timeout when connecting to cassandra. (default 2s)
+  -cassandra.tls-cert-path string
+    	Path to certificate file used by TLS.
+  -cassandra.tls-key-path string
+    	Path to private key file used by TLS.
+  -cassandra.username string
+    	Username to use when connecting to cassandra.
+  -compactor.block-deletion-marks-migration-enabled
+    	When enabled, at compactor startup the bucket will be scanned and all found deletion marks inside the block location will be copied to the markers global location too. This option can (and should) be safely disabled as soon as the compactor has successfully run at least once. (default true)
+  -compactor.block-ranges value
+    	List of compaction time ranges. (default 2h0m0s,12h0m0s,24h0m0s)
+  -compactor.block-sync-concurrency int
+    	Number of Go routines to use when syncing block index and chunks files from the long term storage. (default 20)
+  -compactor.blocks-retention-period value
+    	Delete blocks containing samples older than the specified retention period. 0 to disable.
+  -compactor.cleanup-concurrency int
+    	Max number of tenants for which blocks cleanup and maintenance should run concurrently. (default 20)
+  -compactor.cleanup-interval duration
+    	How frequently compactor should run blocks cleanup and maintenance, as well as update the bucket index. (default 15m0s)
+  -compactor.compaction-concurrency int
+    	Max number of concurrent compactions running. (default 1)
+  -compactor.compaction-interval duration
+    	The frequency at which the compaction runs (default 1h0m0s)
+  -compactor.compaction-retries int
+    	How many times to retry a failed compaction within a single compaction run. (default 3)
+  -compactor.consistency-delay duration
+    	Minimum age of fresh (non-compacted) blocks before they are being processed. Malformed blocks older than the maximum of consistency-delay and 48h0m0s will be removed.
+  -compactor.data-dir string
+    	Data directory in which to cache blocks and process compactions (default "./data")
+  -compactor.deletion-delay duration
+    	Time before a block marked for deletion is deleted from bucket. If not 0, blocks will be marked for deletion and compactor component will permanently delete blocks marked for deletion from the bucket. If 0, blocks will be deleted straight away. Note that deleting blocks immediately can cause query failures. (default 12h0m0s)
+  -compactor.disabled-tenants value
+    	Comma separated list of tenants that cannot be compacted by this compactor. If specified, and compactor would normally pick given tenant for compaction (via -compactor.enabled-tenants or sharding), it will be ignored instead.
+  -compactor.enabled-tenants value
+    	Comma separated list of tenants that can be compacted. If specified, only these tenants will be compacted by compactor, otherwise all tenants can be compacted. Subject to sharding.
+  -compactor.meta-sync-concurrency int
+    	Number of Go routines to use when syncing block meta files from the long term storage. (default 20)
+  -compactor.ring.consul.acl-token string
+    	ACL Token used to interact with Consul.
+  -compactor.ring.consul.client-timeout duration
+    	HTTP timeout when talking to Consul (default 20s)
+  -compactor.ring.consul.consistent-reads
+    	Enable consistent reads to Consul.
+  -compactor.ring.consul.hostname string
+    	Hostname and port of Consul. (default "localhost:8500")
+  -compactor.ring.consul.watch-burst-size int
+    	Burst size used in rate limit. Values less than 1 are treated as 1. (default 1)
+  -compactor.ring.consul.watch-rate-limit float
+    	Rate limit when watching key or prefix in Consul, in requests per second. 0 disables the rate limit. (default 1)
+  -compactor.ring.etcd.dial-timeout duration
+    	The dial timeout for the etcd connection. (default 10s)
+  -compactor.ring.etcd.endpoints value
+    	The etcd endpoints to connect to.
+  -compactor.ring.etcd.max-retries int
+    	The maximum number of retries to do for failed ops. (default 10)
+  -compactor.ring.etcd.password string
+    	Etcd password.
+  -compactor.ring.etcd.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -compactor.ring.etcd.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -compactor.ring.etcd.tls-enabled
+    	Enable TLS.
+  -compactor.ring.etcd.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -compactor.ring.etcd.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -compactor.ring.etcd.tls-server-name string
+    	Override the expected name on the server certificate.
+  -compactor.ring.etcd.username string
+    	Etcd username.
+  -compactor.ring.heartbeat-period duration
+    	Period at which to heartbeat to the ring. 0 = disabled. (default 5s)
+  -compactor.ring.heartbeat-timeout duration
+    	The heartbeat timeout after which compactors are considered unhealthy within the ring. 0 = never (timeout disabled). (default 1m0s)
+  -compactor.ring.instance-addr string
+    	IP address to advertise in the ring.
+  -compactor.ring.instance-id string
+    	Instance ID to register in the ring. (default "cf3bb0742627")
+  -compactor.ring.instance-interface-names value
+    	Name of network interface to read address from. (default [eth0 en0])
+  -compactor.ring.instance-port int
+    	Port to advertise in the ring (defaults to server.grpc-listen-port).
+  -compactor.ring.multi.mirror-enabled
+    	Mirror writes to secondary store.
+  -compactor.ring.multi.mirror-timeout duration
+    	Timeout for storing value to secondary store. (default 2s)
+  -compactor.ring.multi.primary string
+    	Primary backend storage used by multi-client.
+  -compactor.ring.multi.secondary string
+    	Secondary backend storage used by multi-client.
+  -compactor.ring.prefix string
+    	The prefix for the keys in the store. Should end with a /. (default "collectors/")
+  -compactor.ring.store string
+    	Backend storage to use for the ring. Supported values are: consul, etcd, inmemory, memberlist, multi. (default "consul")
+  -compactor.ring.wait-active-instance-timeout duration
+    	Timeout for waiting on compactor to become ACTIVE in the ring. (default 10m0s)
+  -compactor.ring.wait-stability-max-duration duration
+    	Maximum time to wait for ring stability at startup. If the compactor ring keeps changing after this period of time, the compactor will start anyway. (default 5m0s)
+  -compactor.ring.wait-stability-min-duration duration
+    	Minimum time to wait for ring stability at startup. 0 to disable. (default 1m0s)
+  -compactor.sharding-enabled
+    	Shard tenants across multiple compactor instances. Sharding is required if you run multiple compactor instances, in order to coordinate compactions and avoid race conditions leading to the same tenant blocks simultaneously compacted by different instances.
+  -compactor.tenant-cleanup-delay duration
+    	For tenants marked for deletion, this is time between deleting of last block, and doing final cleanup (marker files, debug files) of the tenant. (default 6h0m0s)
+  -config.expand-env
+    	Expands ${var} or $var in config according to the values of the environment variables.
+  -config.file value
+    	Configuration file to load.
+  -configs.database.migrations-dir string
+    	Path where the database migration files can be found
+  -configs.database.password-file string
+    	File containing password (username goes in URI)
+  -configs.database.uri string
+    	URI where the database can be found (for dev you can use memory://) (default "postgres://postgres@configs-db.weave.local/configs?sslmode=disable")
+  -configs.notifications.disable-email
+    	Disable Email notifications for Alertmanager.
+  -configs.notifications.disable-webhook
+    	Disable WebHook notifications for Alertmanager.
+  -consul.acl-token string
+    	ACL Token used to interact with Consul.
+  -consul.client-timeout duration
+    	HTTP timeout when talking to Consul (default 20s)
+  -consul.consistent-reads
+    	Enable consistent reads to Consul.
+  -consul.hostname string
+    	Hostname and port of Consul. (default "localhost:8500")
+  -consul.watch-burst-size int
+    	Burst size used in rate limit. Values less than 1 are treated as 1. (default 1)
+  -consul.watch-rate-limit float
+    	Rate limit when watching key or prefix in Consul, in requests per second. 0 disables the rate limit. (default 1)
+  -debug.block-profile-rate int
+    	Fraction of goroutine blocking events that are reported in the blocking profile. 1 to include every blocking event in the profile, 0 to disable.
+  -debug.mutex-profile-fraction int
+    	Fraction of mutex contention events that are reported in the mutex profile. On average 1/rate events are reported. 0 to disable.
+  -deletes.requests-table-name string
+    	Name of the table which stores delete requests (default "delete_requests")
+  -deletes.store string
+    	Store for keeping delete request
+  -deletes.table.enable-ondemand-throughput-mode
+    	Enables on demand throughput provisioning for the storage provider (if supported). Applies only to tables which are not autoscaled. Supported by DynamoDB
+  -deletes.table.read-throughput int
+    	Table default read throughput. Supported by DynamoDB (default 300)
+  -deletes.table.read-throughput.scale.enabled
+    	Should we enable autoscale for the table.
+  -deletes.table.read-throughput.scale.in-cooldown int
+    	DynamoDB minimum seconds between each autoscale down. (default 1800)
+  -deletes.table.read-throughput.scale.max-capacity int
+    	DynamoDB maximum provision capacity. (default 6000)
+  -deletes.table.read-throughput.scale.min-capacity int
+    	DynamoDB minimum provision capacity. (default 3000)
+  -deletes.table.read-throughput.scale.out-cooldown int
+    	DynamoDB minimum seconds between each autoscale up. (default 1800)
+  -deletes.table.read-throughput.scale.role-arn string
+    	AWS AutoScaling role ARN
+  -deletes.table.read-throughput.scale.target-value float
+    	DynamoDB target ratio of consumed capacity to provisioned capacity. (default 80)
+  -deletes.table.tags value
+    	Tag (of the form key=value) to be added to the tables. Supported by DynamoDB
+  -deletes.table.write-throughput int
+    	Table default write throughput. Supported by DynamoDB (default 1)
+  -deletes.table.write-throughput.scale.enabled
+    	Should we enable autoscale for the table.
+  -deletes.table.write-throughput.scale.in-cooldown int
+    	DynamoDB minimum seconds between each autoscale down. (default 1800)
+  -deletes.table.write-throughput.scale.max-capacity int
+    	DynamoDB maximum provision capacity. (default 6000)
+  -deletes.table.write-throughput.scale.min-capacity int
+    	DynamoDB minimum provision capacity. (default 3000)
+  -deletes.table.write-throughput.scale.out-cooldown int
+    	DynamoDB minimum seconds between each autoscale up. (default 1800)
+  -deletes.table.write-throughput.scale.role-arn string
+    	AWS AutoScaling role ARN
+  -deletes.table.write-throughput.scale.target-value float
+    	DynamoDB target ratio of consumed capacity to provisioned capacity. (default 80)
+  -distributor.client-cleanup-period duration
+    	How frequently to clean up clients for ingesters that have gone away. (default 15s)
+  -distributor.drop-label value
+    	This flag can be used to specify label names that to drop during sample ingestion within the distributor and can be repeated in order to drop multiple labels.
+  -distributor.excluded-zones value
+    	Comma-separated list of zones to exclude from the ring. Instances in excluded zones will be filtered out from the ring.
+  -distributor.extend-writes
+    	Try writing to an additional ingester in the presence of an ingester not in the ACTIVE state. It is useful to disable this along with -ingester.unregister-on-shutdown=false in order to not spread samples to extra ingesters during rolling restarts with consistent naming. (default true)
+  -distributor.extra-query-delay duration
+    	Time to wait before sending more than the minimum successful query requests.
+  -distributor.ha-tracker.cluster string
+    	Prometheus label to look for in samples to identify a Prometheus HA cluster. (default "cluster")
+  -distributor.ha-tracker.consul.acl-token string
+    	ACL Token used to interact with Consul.
+  -distributor.ha-tracker.consul.client-timeout duration
+    	HTTP timeout when talking to Consul (default 20s)
+  -distributor.ha-tracker.consul.consistent-reads
+    	Enable consistent reads to Consul.
+  -distributor.ha-tracker.consul.hostname string
+    	Hostname and port of Consul. (default "localhost:8500")
+  -distributor.ha-tracker.consul.watch-burst-size int
+    	Burst size used in rate limit. Values less than 1 are treated as 1. (default 1)
+  -distributor.ha-tracker.consul.watch-rate-limit float
+    	Rate limit when watching key or prefix in Consul, in requests per second. 0 disables the rate limit. (default 1)
+  -distributor.ha-tracker.enable
+    	Enable the distributors HA tracker so that it can accept samples from Prometheus HA replicas gracefully (requires labels).
+  -distributor.ha-tracker.enable-for-all-users
+    	Flag to enable, for all users, handling of samples with external labels identifying replicas in an HA Prometheus setup.
+  -distributor.ha-tracker.etcd.dial-timeout duration
+    	The dial timeout for the etcd connection. (default 10s)
+  -distributor.ha-tracker.etcd.endpoints value
+    	The etcd endpoints to connect to.
+  -distributor.ha-tracker.etcd.max-retries int
+    	The maximum number of retries to do for failed ops. (default 10)
+  -distributor.ha-tracker.etcd.password string
+    	Etcd password.
+  -distributor.ha-tracker.etcd.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -distributor.ha-tracker.etcd.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -distributor.ha-tracker.etcd.tls-enabled
+    	Enable TLS.
+  -distributor.ha-tracker.etcd.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -distributor.ha-tracker.etcd.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -distributor.ha-tracker.etcd.tls-server-name string
+    	Override the expected name on the server certificate.
+  -distributor.ha-tracker.etcd.username string
+    	Etcd username.
+  -distributor.ha-tracker.failover-timeout duration
+    	If we don't receive any samples from the accepted replica for a cluster in this amount of time we will failover to the next replica we receive a sample from. This value must be greater than the update timeout (default 30s)
+  -distributor.ha-tracker.max-clusters int
+    	Maximum number of clusters that HA tracker will keep track of for single user. 0 to disable the limit.
+  -distributor.ha-tracker.multi.mirror-enabled
+    	Mirror writes to secondary store.
+  -distributor.ha-tracker.multi.mirror-timeout duration
+    	Timeout for storing value to secondary store. (default 2s)
+  -distributor.ha-tracker.multi.primary string
+    	Primary backend storage used by multi-client.
+  -distributor.ha-tracker.multi.secondary string
+    	Secondary backend storage used by multi-client.
+  -distributor.ha-tracker.prefix string
+    	The prefix for the keys in the store. Should end with a /. (default "ha-tracker/")
+  -distributor.ha-tracker.replica string
+    	Prometheus label to look for in samples to identify a Prometheus HA replica. (default "__replica__")
+  -distributor.ha-tracker.store string
+    	Backend storage to use for the ring. Supported values are: consul, etcd, inmemory, memberlist, multi. (default "consul")
+  -distributor.ha-tracker.update-timeout duration
+    	Update the timestamp in the KV store for a given cluster/replica only after this amount of time has passed since the current stored timestamp. (default 15s)
+  -distributor.ha-tracker.update-timeout-jitter-max duration
+    	Maximum jitter applied to the update timeout, in order to spread the HA heartbeats over time. (default 5s)
+  -distributor.health-check-ingesters
+    	Run a health check on each ingester client during periodic cleanup. (default true)
+  -distributor.ingestion-burst-size int
+    	Per-user allowed ingestion burst size (in number of samples). (default 50000)
+  -distributor.ingestion-rate-limit float
+    	Per-user ingestion rate limit in samples per second. (default 25000)
+  -distributor.ingestion-rate-limit-strategy string
+    	Whether the ingestion rate limit should be applied individually to each distributor instance (local), or evenly shared across the cluster (global). (default "local")
+  -distributor.ingestion-tenant-shard-size int
+    	The default tenant's shard size when the shuffle-sharding strategy is used. Must be set both on ingesters and distributors. When this setting is specified in the per-tenant overrides, a value of 0 disables shuffle sharding for the tenant.
+  -distributor.instance-limits.max-inflight-push-requests int
+    	Max inflight push requests that this distributor can handle. This limit is per-distributor, not per-tenant. Additional requests will be rejected. 0 = unlimited.
+  -distributor.instance-limits.max-ingestion-rate float
+    	Max ingestion rate (samples/sec) that this distributor will accept. This limit is per-distributor, not per-tenant. Additional push requests will be rejected. Current ingestion rate is computed as exponentially weighted moving average, updated every second. 0 = unlimited.
+  -distributor.max-recv-msg-size int
+    	remote_write API max receive message size (bytes). (default 104857600)
+  -distributor.remote-timeout duration
+    	Timeout for downstream ingesters. (default 2s)
+  -distributor.replication-factor int
+    	The number of ingesters to write to and read from. (default 3)
+  -distributor.ring.consul.acl-token string
+    	ACL Token used to interact with Consul.
+  -distributor.ring.consul.client-timeout duration
+    	HTTP timeout when talking to Consul (default 20s)
+  -distributor.ring.consul.consistent-reads
+    	Enable consistent reads to Consul.
+  -distributor.ring.consul.hostname string
+    	Hostname and port of Consul. (default "localhost:8500")
+  -distributor.ring.consul.watch-burst-size int
+    	Burst size used in rate limit. Values less than 1 are treated as 1. (default 1)
+  -distributor.ring.consul.watch-rate-limit float
+    	Rate limit when watching key or prefix in Consul, in requests per second. 0 disables the rate limit. (default 1)
+  -distributor.ring.etcd.dial-timeout duration
+    	The dial timeout for the etcd connection. (default 10s)
+  -distributor.ring.etcd.endpoints value
+    	The etcd endpoints to connect to.
+  -distributor.ring.etcd.max-retries int
+    	The maximum number of retries to do for failed ops. (default 10)
+  -distributor.ring.etcd.password string
+    	Etcd password.
+  -distributor.ring.etcd.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -distributor.ring.etcd.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -distributor.ring.etcd.tls-enabled
+    	Enable TLS.
+  -distributor.ring.etcd.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -distributor.ring.etcd.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -distributor.ring.etcd.tls-server-name string
+    	Override the expected name on the server certificate.
+  -distributor.ring.etcd.username string
+    	Etcd username.
+  -distributor.ring.heartbeat-period duration
+    	Period at which to heartbeat to the ring. 0 = disabled. (default 5s)
+  -distributor.ring.heartbeat-timeout duration
+    	The heartbeat timeout after which distributors are considered unhealthy within the ring. 0 = never (timeout disabled). (default 1m0s)
+  -distributor.ring.instance-addr string
+    	IP address to advertise in the ring.
+  -distributor.ring.instance-id string
+    	Instance ID to register in the ring. (default "cf3bb0742627")
+  -distributor.ring.instance-interface-names value
+    	Name of network interface to read address from. (default [eth0 en0])
+  -distributor.ring.instance-port int
+    	Port to advertise in the ring (defaults to server.grpc-listen-port).
+  -distributor.ring.multi.mirror-enabled
+    	Mirror writes to secondary store.
+  -distributor.ring.multi.mirror-timeout duration
+    	Timeout for storing value to secondary store. (default 2s)
+  -distributor.ring.multi.primary string
+    	Primary backend storage used by multi-client.
+  -distributor.ring.multi.secondary string
+    	Secondary backend storage used by multi-client.
+  -distributor.ring.prefix string
+    	The prefix for the keys in the store. Should end with a /. (default "collectors/")
+  -distributor.ring.store string
+    	Backend storage to use for the ring. Supported values are: consul, etcd, inmemory, memberlist, multi. (default "consul")
+  -distributor.shard-by-all-labels
+    	Distribute samples based on all labels, as opposed to solely by user and metric name.
+  -distributor.sharding-strategy string
+    	The sharding strategy to use. Supported values are: default, shuffle-sharding. (default "default")
+  -distributor.zone-awareness-enabled
+    	True to enable the zone-awareness and replicate ingested samples across different availability zones.
+  -dynamodb.api-limit float
+    	DynamoDB table management requests per second limit. (default 2)
+  -dynamodb.chunk-gang-size int
+    	Number of chunks to group together to parallelise fetches (zero to disable) (default 10)
+  -dynamodb.chunk.get-max-parallelism int
+    	Max number of chunk-get operations to start in parallel (default 32)
+  -dynamodb.max-backoff duration
+    	Maximum backoff time (default 50s)
+  -dynamodb.max-retries int
+    	Maximum number of times to retry an operation (default 20)
+  -dynamodb.min-backoff duration
+    	Minimum backoff time (default 100ms)
+  -dynamodb.throttle-limit float
+    	DynamoDB rate cap to back off when throttled. (default 10)
+  -dynamodb.url value
+    	DynamoDB endpoint URL with escaped Key and Secret encoded. If only region is specified as a host, proper endpoint will be deduced. Use inmemory:///<table-name> to use a mock in-memory implementation.
+  -etcd.dial-timeout duration
+    	The dial timeout for the etcd connection. (default 10s)
+  -etcd.endpoints value
+    	The etcd endpoints to connect to.
+  -etcd.max-retries int
+    	The maximum number of retries to do for failed ops. (default 10)
+  -etcd.password string
+    	Etcd password.
+  -etcd.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -etcd.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -etcd.tls-enabled
+    	Enable TLS.
+  -etcd.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -etcd.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -etcd.tls-server-name string
+    	Override the expected name on the server certificate.
+  -etcd.username string
+    	Etcd username.
+  -event.sample-rate int
+    	How often to sample observability events (0 = never).
+  -experimental.alertmanager.enable-api
+    	Enable the experimental alertmanager config api.
+  -experimental.ruler.enable-api
+    	Enable the ruler api
+  -flusher.concurrent-flushes int
+    	Number of concurrent goroutines flushing to storage (chunks storage engine only). (default 50)
+  -flusher.exit-after-flush
+    	Stop Cortex after flush has finished. If false, Cortex process will keep running, doing nothing. (default true)
+  -flusher.flush-op-timeout duration
+    	Timeout for individual flush operations (chunks storage engine only). (default 2m0s)
+  -flusher.wal-dir string
+    	Directory to read WAL from (chunks storage engine only). (default "wal")
+  -frontend.background.write-back-buffer int
+    	How many key batches to buffer for background write-back. (default 10000)
+  -frontend.background.write-back-concurrency int
+    	At what concurrency to write back to cache. (default 10)
+  -frontend.cache-split-interval value
+    	Deprecated: The maximum interval expected for each request, results will be cached per single interval. This behavior is now determined by querier.split-queries-by-interval.
+  -frontend.cache.enable-fifocache
+    	Enable in-memory cache.
+  -frontend.compression string
+    	Use compression in results cache. Supported values are: 'snappy' and '' (disable compression).
+  -frontend.default-validity duration
+    	The default validity of entries for caches unless overridden.
+  -frontend.downstream-url string
+    	URL of downstream Prometheus.
+  -frontend.fifocache.duration duration
+    	The expiry duration for the cache.
+  -frontend.fifocache.max-size-bytes string
+    	Maximum memory size of the cache in bytes. A unit suffix (KB, MB, GB) may be applied.
+  -frontend.fifocache.max-size-items int
+    	Maximum number of entries in the cache.
+  -frontend.fifocache.size int
+    	Deprecated (use max-size-items or max-size-bytes instead): The number of entries to cache. 
+  -frontend.grpc-client-config.backoff-max-period duration
+    	Maximum delay when backing off. (default 10s)
+  -frontend.grpc-client-config.backoff-min-period duration
+    	Minimum delay when backing off. (default 100ms)
+  -frontend.grpc-client-config.backoff-on-ratelimits
+    	Enable backoff and retry when we hit ratelimits.
+  -frontend.grpc-client-config.backoff-retries int
+    	Number of times to backoff and retry before failing. (default 10)
+  -frontend.grpc-client-config.grpc-client-rate-limit float
+    	Rate limit for gRPC client; 0 means disabled.
+  -frontend.grpc-client-config.grpc-client-rate-limit-burst int
+    	Rate limit burst for gRPC client.
+  -frontend.grpc-client-config.grpc-compression string
+    	Use compression when sending messages. Supported values are: 'gzip', 'snappy' and '' (disable compression)
+  -frontend.grpc-client-config.grpc-max-recv-msg-size int
+    	gRPC client max receive message size (bytes). (default 104857600)
+  -frontend.grpc-client-config.grpc-max-send-msg-size int
+    	gRPC client max send message size (bytes). (default 16777216)
+  -frontend.grpc-client-config.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -frontend.grpc-client-config.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -frontend.grpc-client-config.tls-enabled
+    	Enable TLS in the GRPC client. This flag needs to be enabled when any other TLS flag is set. If set to false, insecure connection to gRPC server will be used.
+  -frontend.grpc-client-config.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -frontend.grpc-client-config.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -frontend.grpc-client-config.tls-server-name string
+    	Override the expected name on the server certificate.
+  -frontend.instance-addr string
+    	IP address to advertise to querier (via scheduler) (resolved via interfaces by default).
+  -frontend.instance-interface-names value
+    	Name of network interface to read address from. This address is sent to query-scheduler and querier, which uses it to send the query response back to query-frontend. (default [eth0 en0])
+  -frontend.instance-port int
+    	Port to advertise to querier (via scheduler) (defaults to server.grpc-listen-port).
+  -frontend.log-queries-longer-than duration
+    	Log queries that are slower than the specified duration. Set to 0 to disable. Set to < 0 to enable on all queries.
+  -frontend.max-body-size int
+    	Max body size for downstream prometheus. (default 10485760)
+  -frontend.max-cache-freshness value
+    	Most recent allowed cacheable result per-tenant, to prevent caching very recent results that might still be in flux. (default 1m)
+  -frontend.max-queriers-per-tenant int
+    	Maximum number of queriers that can handle requests for a single tenant. If set to 0 or value higher than number of available queriers, *all* queriers will handle requests for the tenant. Each frontend (or query-scheduler, if used) will select the same set of queriers for the same tenant (given that all queriers are connected to all frontends / query-schedulers). This option only works with queriers connecting to the query-frontend / query-scheduler, not when using downstream URL.
+  -frontend.memcached.addresses string
+    	EXPERIMENTAL: Comma separated addresses list in DNS Service Discovery format: https://cortexmetrics.io/docs/configuration/arguments/#dns-service-discovery
+  -frontend.memcached.batchsize int
+    	How many keys to fetch in each batch. (default 1024)
+  -frontend.memcached.circuit-breaker-consecutive-failures uint
+    	Trip circuit-breaker after this number of consecutive dial failures (if zero then circuit-breaker is disabled). (default 10)
+  -frontend.memcached.circuit-breaker-interval duration
+    	Reset circuit-breaker counts after this long (if zero then never reset). (default 10s)
+  -frontend.memcached.circuit-breaker-timeout duration
+    	Duration circuit-breaker remains open after tripping (if zero then 60 seconds is used). (default 10s)
+  -frontend.memcached.consistent-hash
+    	Use consistent hashing to distribute to memcache servers. (default true)
+  -frontend.memcached.expiration duration
+    	How long keys stay in the memcache.
+  -frontend.memcached.hostname string
+    	Hostname for memcached service to use. If empty and if addresses is unset, no memcached will be used.
+  -frontend.memcached.max-idle-conns int
+    	Maximum number of idle connections in pool. (default 16)
+  -frontend.memcached.max-item-size int
+    	The maximum size of an item stored in memcached. Bigger items are not stored. If set to 0, no maximum size is enforced.
+  -frontend.memcached.parallelism int
+    	Maximum active requests to memcache. (default 100)
+  -frontend.memcached.service string
+    	SRV service used to discover memcache servers. (default "memcached")
+  -frontend.memcached.timeout duration
+    	Maximum time to wait before giving up on memcached requests. (default 100ms)
+  -frontend.memcached.update-interval duration
+    	Period with which to poll DNS for memcache servers. (default 1m0s)
+  -frontend.query-stats-enabled
+    	True to enable query statistics tracking. When enabled, a message with some statistics is logged for every query.
+  -frontend.redis.db int
+    	Database index.
+  -frontend.redis.endpoint string
+    	Redis Server endpoint to use for caching. A comma-separated list of endpoints for Redis Cluster or Redis Sentinel. If empty, no redis will be used.
+  -frontend.redis.expiration duration
+    	How long keys stay in the redis.
+  -frontend.redis.idle-timeout duration
+    	Close connections after remaining idle for this duration. If the value is zero, then idle connections are not closed.
+  -frontend.redis.master-name string
+    	Redis Sentinel master name. An empty string for Redis Server or Redis Cluster.
+  -frontend.redis.max-connection-age duration
+    	Close connections older than this duration. If the value is zero, then the pool does not close connections based on age.
+  -frontend.redis.password value
+    	Password to use when connecting to redis.
+  -frontend.redis.pool-size int
+    	Maximum number of connections in the pool.
+  -frontend.redis.timeout duration
+    	Maximum time to wait before giving up on redis requests. (default 500ms)
+  -frontend.redis.tls-enabled
+    	Enable connecting to redis with TLS.
+  -frontend.redis.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -frontend.scheduler-address string
+    	DNS hostname used for finding query-schedulers.
+  -frontend.scheduler-dns-lookup-period duration
+    	How often to resolve the scheduler-address, in order to look for new query-scheduler instances. (default 10s)
+  -frontend.scheduler-worker-concurrency int
+    	Number of concurrent workers forwarding queries to single query-scheduler. (default 5)
+  -gcs.bucketname string
+    	Name of GCS bucket. Please refer to https://cloud.google.com/docs/authentication/production for more information about how to configure authentication.
+  -gcs.chunk-buffer-size int
+    	The size of the buffer that GCS client for each PUT request. 0 to disable buffering.
+  -gcs.enable-opencensus
+    	Enabled OpenCensus (OC) instrumentation for all requests. (default true)
+  -gcs.request-timeout duration
+    	The duration after which the requests to GCS should be timed out.
+  -grpc-store.server-address string
+    	Hostname or IP of the gRPC store instance.
+  -http.alertmanager-http-prefix string
+    	HTTP URL path under which the Alertmanager ui and api will be served. (default "/alertmanager")
+  -http.prefix string
+    	HTTP path prefix for Cortex API. (default "/api/prom")
+  -http.prometheus-http-prefix string
+    	HTTP URL path under which the Prometheus api will be served. (default "/prometheus")
+  -ingester-client.expected-labels int
+    	Expected number of labels per timeseries, used for preallocations. (default 20)
+  -ingester-client.expected-samples-per-series int
+    	Expected number of samples per timeseries, used for preallocations. (default 10)
+  -ingester-client.expected-timeseries int
+    	Expected number of timeseries per request, used for preallocations. (default 100)
+  -ingester.active-series-metrics-enabled
+    	Enable tracking of active series and export them as metrics. (default true)
+  -ingester.active-series-metrics-idle-timeout duration
+    	After what time a series is considered to be inactive. (default 10m0s)
+  -ingester.active-series-metrics-update-period duration
+    	How often to update active series metrics. (default 1m0s)
+  -ingester.availability-zone string
+    	The availability zone where this instance is running.
+  -ingester.checkpoint-duration duration
+    	Interval at which checkpoints should be created. (default 30m0s)
+  -ingester.checkpoint-enabled
+    	Enable checkpointing of in-memory chunks. It should always be true when using normally. Set it to false iff you are doing some small tests as there is no mechanism to delete the old WAL yet if checkpoint is disabled. (default true)
+  -ingester.chunk-age-jitter duration
+    	Range of time to subtract from -ingester.max-chunk-age to spread out flushes
+  -ingester.chunk-encoding value
+    	Encoding version to use for chunks. (default Bigchunk)
+  -ingester.client.backoff-max-period duration
+    	Maximum delay when backing off. (default 10s)
+  -ingester.client.backoff-min-period duration
+    	Minimum delay when backing off. (default 100ms)
+  -ingester.client.backoff-on-ratelimits
+    	Enable backoff and retry when we hit ratelimits.
+  -ingester.client.backoff-retries int
+    	Number of times to backoff and retry before failing. (default 10)
+  -ingester.client.grpc-client-rate-limit float
+    	Rate limit for gRPC client; 0 means disabled.
+  -ingester.client.grpc-client-rate-limit-burst int
+    	Rate limit burst for gRPC client.
+  -ingester.client.grpc-compression string
+    	Use compression when sending messages. Supported values are: 'gzip', 'snappy' and '' (disable compression)
+  -ingester.client.grpc-max-recv-msg-size int
+    	gRPC client max receive message size (bytes). (default 104857600)
+  -ingester.client.grpc-max-send-msg-size int
+    	gRPC client max send message size (bytes). (default 16777216)
+  -ingester.client.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -ingester.client.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -ingester.client.tls-enabled
+    	Enable TLS in the GRPC client. This flag needs to be enabled when any other TLS flag is set. If set to false, insecure connection to gRPC server will be used.
+  -ingester.client.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -ingester.client.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -ingester.client.tls-server-name string
+    	Override the expected name on the server certificate.
+  -ingester.concurrent-flushes int
+    	Number of concurrent goroutines flushing to dynamodb. (default 50)
+  -ingester.final-sleep duration
+    	Duration to sleep for before exiting, to ensure metrics are scraped. (default 30s)
+  -ingester.flush-on-shutdown-with-wal-enabled
+    	When WAL is enabled, should chunks be flushed to long-term storage on shutdown. Useful eg. for migration to blocks engine.
+  -ingester.flush-op-timeout duration
+    	Timeout for individual flush operations. (default 1m0s)
+  -ingester.flush-period duration
+    	Period with which to attempt to flush chunks. (default 1m0s)
+  -ingester.heartbeat-period duration
+    	Period at which to heartbeat to consul. 0 = disabled. (default 5s)
+  -ingester.ignore-series-limit-for-metric-names string
+    	Comma-separated list of metric names, for which -ingester.max-series-per-metric and -ingester.max-global-series-per-metric limits will be ignored. Does not affect max-series-per-user or max-global-series-per-metric limits.
+  -ingester.instance-limits.max-inflight-push-requests int
+    	Max inflight push requests that this ingester can handle (across all tenants). Additional requests will be rejected. 0 = unlimited.
+  -ingester.instance-limits.max-ingestion-rate float
+    	Max ingestion rate (samples/sec) that ingester will accept. This limit is per-ingester, not per-tenant. Additional push requests will be rejected. Current ingestion rate is computed as exponentially weighted moving average, updated every second. This limit only works when using blocks engine. 0 = unlimited.
+  -ingester.instance-limits.max-series int
+    	Max series that this ingester can hold (across all tenants). Requests to create additional series will be rejected. This limit only works when using blocks engine. 0 = unlimited.
+  -ingester.instance-limits.max-tenants int
+    	Max users that this ingester can hold. Requests from additional users will be rejected. This limit only works when using blocks engine. 0 = unlimited.
+  -ingester.join-after duration
+    	Period to wait for a claim from another member; will join automatically after this.
+  -ingester.lifecycler.ID string
+    	ID to register in the ring. (default "cf3bb0742627")
+  -ingester.lifecycler.addr string
+    	IP address to advertise in the ring.
+  -ingester.lifecycler.interface value
+    	Name of network interface to read address from. (default [eth0 en0])
+  -ingester.lifecycler.port int
+    	port to advertise in consul (defaults to server.grpc-listen-port).
+  -ingester.max-chunk-age duration
+    	Maximum chunk age before flushing. (default 12h0m0s)
+  -ingester.max-chunk-idle duration
+    	Maximum chunk idle time before flushing. (default 5m0s)
+  -ingester.max-global-metadata-per-metric int
+    	The maximum number of metadata per metric, across the cluster. 0 to disable.
+  -ingester.max-global-metadata-per-user int
+    	The maximum number of active metrics with metadata per user, across the cluster. 0 to disable. Supported only if -distributor.shard-by-all-labels is true.
+  -ingester.max-global-series-per-metric int
+    	The maximum number of active series per metric name, across the cluster before replication. 0 to disable.
+  -ingester.max-global-series-per-user int
+    	The maximum number of active series per user, across the cluster before replication. 0 to disable. Supported only if -distributor.shard-by-all-labels is true.
+  -ingester.max-metadata-per-metric int
+    	The maximum number of metadata per metric, per ingester. 0 to disable. (default 10)
+  -ingester.max-metadata-per-user int
+    	The maximum number of active metrics with metadata per user, per ingester. 0 to disable. (default 8000)
+  -ingester.max-samples-per-query int
+    	The maximum number of samples that a query can return. This limit only applies when running the Cortex chunks storage with -querier.ingester-streaming=false. (default 1000000)
+  -ingester.max-series-per-metric int
+    	The maximum number of active series per metric name, per ingester. 0 to disable. (default 50000)
+  -ingester.max-series-per-query int
+    	The maximum number of series for which a query can fetch samples from each ingester. This limit is enforced only in the ingesters (when querying samples not flushed to the storage yet) and it's a per-instance limit. This limit is ignored when running the Cortex blocks storage. When running Cortex with blocks storage use -querier.max-fetched-series-per-query limit instead. (default 100000)
+  -ingester.max-series-per-user int
+    	The maximum number of active series per user, per ingester. 0 to disable. (default 5000000)
+  -ingester.max-stale-chunk-idle duration
+    	Maximum chunk idle time for chunks terminating in stale markers before flushing. 0 disables it and a stale series is not flushed until the max-chunk-idle timeout is reached. (default 2m0s)
+  -ingester.max-transfer-retries int
+    	Number of times to try and transfer chunks before falling back to flushing. Negative value or zero disables hand-over. This feature is supported only by the chunks storage. (default 10)
+  -ingester.metadata-retain-period duration
+    	Period at which metadata we have not seen will remain in memory before being deleted. (default 10m0s)
+  -ingester.min-chunk-length int
+    	Minimum number of samples in an idle chunk to flush it to the store. Use with care, if chunks are less than this size they will be discarded. This option is ignored when running the Cortex blocks storage. 0 to disable.
+  -ingester.min-ready-duration duration
+    	Minimum duration to wait after the internal readiness checks have passed but before succeeding the readiness endpoint. This is used to slowdown deployment controllers (eg. Kubernetes) after an instance is ready and before they proceed with a rolling update, to give the rest of the cluster instances enough time to receive ring updates. (default 15s)
+  -ingester.num-tokens int
+    	Number of tokens for each ingester. (default 128)
+  -ingester.observe-period duration
+    	Observe tokens after generating to resolve collisions. Useful when using gossiping ring.
+  -ingester.rate-update-period duration
+    	Period with which to update the per-user ingestion rates. (default 15s)
+  -ingester.readiness-check-ring-health
+    	When enabled the readiness probe succeeds only after all instances are ACTIVE and healthy in the ring, otherwise only the instance itself is checked. This option should be disabled if in your cluster multiple instances can be rolled out simultaneously, otherwise rolling updates may be slowed down. (default true)
+  -ingester.recover-from-wal
+    	Recover data from existing WAL irrespective of WAL enabled/disabled.
+  -ingester.retain-period duration
+    	Period chunks will remain in memory after flushing. (default 5m0s)
+  -ingester.spread-flushes
+    	If true, spread series flushes across the whole period of -ingester.max-chunk-age. (default true)
+  -ingester.stream-chunks-when-using-blocks
+    	Stream chunks when using blocks. This is experimental feature and not yet tested. Once ready, it will be made default and this config option removed.
+  -ingester.tokens-file-path string
+    	File path where tokens are stored. If empty, tokens are not stored at shutdown and restored at startup.
+  -ingester.unregister-on-shutdown
+    	Unregister from the ring upon clean shutdown. It can be useful to disable for rolling restarts with consistent naming in conjunction with -distributor.extend-writes=false. (default true)
+  -ingester.wal-dir string
+    	Directory to store the WAL and/or recover from WAL. (default "wal")
+  -ingester.wal-enabled
+    	Enable writing of ingested data into WAL.
+  -local.chunk-directory string
+    	Directory to store chunks in.
+  -log.format value
+    	Output log messages in the given format. Valid formats: [logfmt, json] (default logfmt)
+  -log.level value
+    	Only log messages with the given severity or above. Valid levels: [debug, info, warn, error] (default info)
+  -mem-ballast-size-bytes int
+    	Size of memory ballast to allocate.
+  -memberlist.abort-if-join-fails
+    	If this node fails to join memberlist cluster, abort. (default true)
+  -memberlist.advertise-addr string
+    	Gossip address to advertise to other members in the cluster. Used for NAT traversal.
+  -memberlist.advertise-port int
+    	Gossip port to advertise to other members in the cluster. Used for NAT traversal. (default 7946)
+  -memberlist.bind-addr value
+    	IP address to listen on for gossip messages. Multiple addresses may be specified. Defaults to 0.0.0.0
+  -memberlist.bind-port int
+    	Port to listen on for gossip messages. (default 7946)
+  -memberlist.compression-enabled
+    	Enable message compression. This can be used to reduce bandwidth usage at the cost of slightly more CPU utilization. (default true)
+  -memberlist.dead-node-reclaim-time duration
+    	How soon can dead node's name be reclaimed with new address. 0 to disable.
+  -memberlist.gossip-interval duration
+    	How often to gossip. (default 200ms)
+  -memberlist.gossip-nodes int
+    	How many nodes to gossip to. (default 3)
+  -memberlist.gossip-to-dead-nodes-time duration
+    	How long to keep gossiping to dead nodes, to give them chance to refute their death. (default 30s)
+  -memberlist.join value
+    	Other cluster members to join. Can be specified multiple times. It can be an IP, hostname or an entry specified in the DNS Service Discovery format.
+  -memberlist.leave-timeout duration
+    	Timeout for leaving memberlist cluster. (default 5s)
+  -memberlist.left-ingesters-timeout duration
+    	How long to keep LEFT ingesters in the ring. (default 5m0s)
+  -memberlist.max-join-backoff duration
+    	Max backoff duration to join other cluster members. (default 1m0s)
+  -memberlist.max-join-retries int
+    	Max number of retries to join other cluster members. (default 10)
+  -memberlist.message-history-buffer-bytes int
+    	How much space to use for keeping received and sent messages in memory for troubleshooting (two buffers). 0 to disable.
+  -memberlist.min-join-backoff duration
+    	Min backoff duration to join other cluster members. (default 1s)
+  -memberlist.nodename string
+    	Name of the node in memberlist cluster. Defaults to hostname.
+  -memberlist.packet-dial-timeout duration
+    	Timeout used when connecting to other nodes to send packet. (default 5s)
+  -memberlist.packet-write-timeout duration
+    	Timeout for writing 'packet' data. (default 5s)
+  -memberlist.pullpush-interval duration
+    	How often to use pull/push sync. (default 30s)
+  -memberlist.randomize-node-name
+    	Add random suffix to the node name. (default true)
+  -memberlist.rejoin-interval duration
+    	If not 0, how often to rejoin the cluster. Occasional rejoin can help to fix the cluster split issue, and is harmless otherwise. For example when using only few components as a seed nodes (via -memberlist.join), then it's recommended to use rejoin. If -memberlist.join points to dynamic service that resolves to all gossiping nodes (eg. Kubernetes headless service), then rejoin is not needed.
+  -memberlist.retransmit-factor int
+    	Multiplication factor used when sending out messages (factor * log(N+1)). (default 4)
+  -memberlist.stream-timeout duration
+    	The timeout for establishing a connection with a remote node, and for read/write operations. (default 10s)
+  -memberlist.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -memberlist.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -memberlist.tls-enabled
+    	Enable TLS on the memberlist transport layer.
+  -memberlist.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -memberlist.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -memberlist.tls-server-name string
+    	Override the expected name on the server certificate.
+  -memberlist.transport-debug
+    	Log debug transport messages. Note: global log.level must be at debug level as well.
+  -metrics.ignore-throttle-below float
+    	Ignore throttling below this level (rate per second) (default 1)
+  -metrics.queue-length-query string
+    	query to fetch ingester queue length (default "sum(avg_over_time(cortex_ingester_flush_queue_length{job=\"cortex/ingester\"}[2m]))")
+  -metrics.read-error-query string
+    	query to fetch read errors per table (default "sum(increase(cortex_dynamo_failures_total{operation=\"DynamoDB.QueryPages\",error=\"ProvisionedThroughputExceededException\"}[1m])) by (table) > 0")
+  -metrics.read-usage-query string
+    	query to fetch read capacity usage per table (default "sum(rate(cortex_dynamo_consumed_capacity_total{operation=\"DynamoDB.QueryPages\"}[1h])) by (table) > 0")
+  -metrics.scale-up-factor float
+    	Scale up capacity by this multiple (default 1.3)
+  -metrics.target-queue-length int
+    	Queue length above which we will scale up capacity (default 100000)
+  -metrics.url string
+    	Use metrics-based autoscaling, via this query URL
+  -metrics.usage-query string
+    	query to fetch write capacity usage per table (default "sum(rate(cortex_dynamo_consumed_capacity_total{operation=\"DynamoDB.BatchWriteItem\"}[15m])) by (table) > 0")
+  -metrics.write-throttle-query string
+    	query to fetch throttle rates per table (default "sum(rate(cortex_dynamo_throttled_total{operation=\"DynamoDB.BatchWriteItem\"}[1m])) by (table) > 0")
+  -modules
+    	List available values that can be used as target.
+  -multi.mirror-enabled
+    	Mirror writes to secondary store.
+  -multi.mirror-timeout duration
+    	Timeout for storing value to secondary store. (default 2s)
+  -multi.primary string
+    	Primary backend storage used by multi-client.
+  -multi.secondary string
+    	Secondary backend storage used by multi-client.
+  -print.config
+    	Print the config and exit.
+  -purger.delete-request-cancel-period duration
+    	Allow cancellation of delete request until duration after they are created. Data would be deleted only after delete requests have been older than this duration. Ideally this should be set to at least 24h. (default 24h0m0s)
+  -purger.enable
+    	Enable purger to allow deletion of series. Be aware that Delete series feature is still experimental
+  -purger.num-workers int
+    	Number of workers executing delete plans in parallel (default 2)
+  -purger.object-store-type string
+    	Name of the object store to use for storing delete plans
+  -querier.active-query-tracker-dir string
+    	Active query tracker monitors active queries, and writes them to the file in given directory. If Cortex discovers any queries in this log during startup, it will log them to the log file. Setting to empty value disables active query tracker, which also disables -querier.max-concurrent option. (default "./active-query-tracker")
+  -querier.align-querier-with-step
+    	Mutate incoming queries to align their start and end with their step.
+  -querier.at-modifier-enabled
+    	Enable the @ modifier in PromQL.
+  -querier.batch-iterators
+    	Use batch iterators to execute query, as opposed to fully materialising the series in memory.  Takes precedent over the -querier.iterators flag. (default true)
+  -querier.cache-results
+    	Cache query results.
+  -querier.default-evaluation-interval duration
+    	The default evaluation interval or step size for subqueries. (default 1m0s)
+  -querier.dns-lookup-period duration
+    	How often to query DNS for query-frontend or query-scheduler address. (default 10s)
+  -querier.frontend-address string
+    	Address of query frontend service, in host:port format. If -querier.scheduler-address is set as well, querier will use scheduler instead. Only one of -querier.frontend-address or -querier.scheduler-address can be set. If neither is set, queries are only received via HTTP endpoint.
+  -querier.frontend-client.backoff-max-period duration
+    	Maximum delay when backing off. (default 10s)
+  -querier.frontend-client.backoff-min-period duration
+    	Minimum delay when backing off. (default 100ms)
+  -querier.frontend-client.backoff-on-ratelimits
+    	Enable backoff and retry when we hit ratelimits.
+  -querier.frontend-client.backoff-retries int
+    	Number of times to backoff and retry before failing. (default 10)
+  -querier.frontend-client.grpc-client-rate-limit float
+    	Rate limit for gRPC client; 0 means disabled.
+  -querier.frontend-client.grpc-client-rate-limit-burst int
+    	Rate limit burst for gRPC client.
+  -querier.frontend-client.grpc-compression string
+    	Use compression when sending messages. Supported values are: 'gzip', 'snappy' and '' (disable compression)
+  -querier.frontend-client.grpc-max-recv-msg-size int
+    	gRPC client max receive message size (bytes). (default 104857600)
+  -querier.frontend-client.grpc-max-send-msg-size int
+    	gRPC client max send message size (bytes). (default 16777216)
+  -querier.frontend-client.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -querier.frontend-client.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -querier.frontend-client.tls-enabled
+    	Enable TLS in the GRPC client. This flag needs to be enabled when any other TLS flag is set. If set to false, insecure connection to gRPC server will be used.
+  -querier.frontend-client.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -querier.frontend-client.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -querier.frontend-client.tls-server-name string
+    	Override the expected name on the server certificate.
+  -querier.id string
+    	Querier ID, sent to frontend service to identify requests from the same querier. Defaults to hostname.
+  -querier.ingester-streaming
+    	Use streaming RPCs to query ingester. (default true)
+  -querier.iterators
+    	Use iterators to execute query, as opposed to fully materialising the series in memory.
+  -querier.lookback-delta duration
+    	Time since the last sample after which a time series is considered stale and ignored by expression evaluations. (default 5m0s)
+  -querier.max-concurrent int
+    	The maximum number of concurrent queries. (default 20)
+  -querier.max-fetched-chunk-bytes-per-query int
+    	The maximum size of all chunks in bytes that a query can fetch from each ingester and storage. This limit is enforced in the querier and ruler only when running Cortex with blocks storage. 0 to disable.
+  -querier.max-fetched-chunks-per-query int
+    	Maximum number of chunks that can be fetched in a single query from ingesters and long-term storage. This limit is enforced in the querier, ruler and store-gateway. Takes precedence over the deprecated -store.query-chunk-limit. 0 to disable.
+  -querier.max-fetched-series-per-query int
+    	The maximum number of unique series for which a query can fetch samples from each ingesters and blocks storage. This limit is enforced in the querier only when running Cortex with blocks storage. 0 to disable
+  -querier.max-outstanding-requests-per-tenant int
+    	Maximum number of outstanding requests per tenant per frontend; requests beyond this error with HTTP 429. (default 100)
+  -querier.max-query-into-future duration
+    	Maximum duration into the future you can query. 0 to disable. (default 10m0s)
+  -querier.max-query-lookback value
+    	Limit how long back data (series and metadata) can be queried, up until <lookback> duration ago. This limit is enforced in the query-frontend, querier and ruler. If the requested time range is outside the allowed range, the request will not fail but will be manipulated to only query data within the allowed time range. 0 to disable.
+  -querier.max-query-parallelism int
+    	Maximum number of split queries will be scheduled in parallel by the frontend. (default 14)
+  -querier.max-retries-per-request int
+    	Maximum number of retries for a single request; beyond this, the downstream error is returned. (default 5)
+  -querier.max-samples int
+    	Maximum number of samples a single query can load into memory. (default 50000000)
+  -querier.parallelise-shardable-queries
+    	Perform query parallelisations based on storage sharding configuration and query ASTs. This feature is supported only by the chunks storage engine.
+  -querier.query-ingesters-within duration
+    	Maximum lookback beyond which queries are not sent to ingester. 0 means all queries are sent to ingester.
+  -querier.query-parallelism int
+    	Max subqueries run in parallel per higher-level query. (default 100)
+  -querier.query-store-after duration
+    	The time after which a metric should be queried from storage and not just ingesters. 0 means all queries are sent to store. When running the blocks storage, if this option is enabled, the time range of the query sent to the store will be manipulated to ensure the query end is not more recent than 'now - query-store-after'.
+  -querier.query-store-for-labels-enabled
+    	Query long-term store for series, label values and label names APIs. Works only with blocks engine.
+  -querier.scheduler-address string
+    	Hostname (and port) of scheduler that querier will periodically resolve, connect to and receive queries from. Only one of -querier.frontend-address or -querier.scheduler-address can be set. If neither is set, queries are only received via HTTP endpoint.
+  -querier.second-store-engine string
+    	Second store engine to use for querying. Empty = disabled.
+  -querier.shuffle-sharding-ingesters-lookback-period duration
+    	When distributor's sharding strategy is shuffle-sharding and this setting is > 0, queriers fetch in-memory series from the minimum set of required ingesters, selecting only ingesters which may have received series since 'now - lookback period'. The lookback period should be greater or equal than the configured 'query store after' and 'query ingesters within'. If this setting is 0, queriers always query all ingesters (ingesters shuffle sharding on read path is disabled).
+  -querier.split-queries-by-interval duration
+    	Split queries by an interval and execute in parallel, 0 disables it. You should use an a multiple of 24 hours (same as the storage bucketing scheme), to avoid queriers downloading and processing the same chunks. This also determines how cache keys are chosen when result caching is enabled
+  -querier.store-gateway-addresses string
+    	Comma separated list of store-gateway addresses in DNS Service Discovery format. This option should be set when using the blocks storage and the store-gateway sharding is disabled (when enabled, the store-gateway instances form a ring and addresses are picked from the ring).
+  -querier.store-gateway-client.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -querier.store-gateway-client.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -querier.store-gateway-client.tls-enabled
+    	Enable TLS for gRPC client connecting to store-gateway.
+  -querier.store-gateway-client.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -querier.store-gateway-client.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -querier.store-gateway-client.tls-server-name string
+    	Override the expected name on the server certificate.
+  -querier.timeout duration
+    	The timeout for a query. (default 2m0s)
+  -querier.use-second-store-before-time value
+    	If specified, second store is only used for queries before this timestamp. Default value 0 means secondary store is always queried.
+  -querier.worker-match-max-concurrent
+    	Force worker concurrency to match the -querier.max-concurrent option. Overrides querier.worker-parallelism.
+  -querier.worker-parallelism int
+    	Number of simultaneous queries to process per query-frontend or query-scheduler. (default 10)
+  -query-frontend.querier-forget-delay duration
+    	If a querier disconnects without sending notification about graceful shutdown, the query-frontend will keep the querier in the tenant's shard until the forget delay has passed. This feature is useful to reduce the blast radius when shuffle-sharding is enabled.
+  -query-scheduler.grpc-client-config.backoff-max-period duration
+    	Maximum delay when backing off. (default 10s)
+  -query-scheduler.grpc-client-config.backoff-min-period duration
+    	Minimum delay when backing off. (default 100ms)
+  -query-scheduler.grpc-client-config.backoff-on-ratelimits
+    	Enable backoff and retry when we hit ratelimits.
+  -query-scheduler.grpc-client-config.backoff-retries int
+    	Number of times to backoff and retry before failing. (default 10)
+  -query-scheduler.grpc-client-config.grpc-client-rate-limit float
+    	Rate limit for gRPC client; 0 means disabled.
+  -query-scheduler.grpc-client-config.grpc-client-rate-limit-burst int
+    	Rate limit burst for gRPC client.
+  -query-scheduler.grpc-client-config.grpc-compression string
+    	Use compression when sending messages. Supported values are: 'gzip', 'snappy' and '' (disable compression)
+  -query-scheduler.grpc-client-config.grpc-max-recv-msg-size int
+    	gRPC client max receive message size (bytes). (default 104857600)
+  -query-scheduler.grpc-client-config.grpc-max-send-msg-size int
+    	gRPC client max send message size (bytes). (default 16777216)
+  -query-scheduler.grpc-client-config.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -query-scheduler.grpc-client-config.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -query-scheduler.grpc-client-config.tls-enabled
+    	Enable TLS in the GRPC client. This flag needs to be enabled when any other TLS flag is set. If set to false, insecure connection to gRPC server will be used.
+  -query-scheduler.grpc-client-config.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -query-scheduler.grpc-client-config.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -query-scheduler.grpc-client-config.tls-server-name string
+    	Override the expected name on the server certificate.
+  -query-scheduler.max-outstanding-requests-per-tenant int
+    	Maximum number of outstanding requests per tenant per query-scheduler. In-flight requests above this limit will fail with HTTP response status code 429. (default 100)
+  -query-scheduler.querier-forget-delay duration
+    	If a querier disconnects without sending notification about graceful shutdown, the query-scheduler will keep the querier in the tenant's shard until the forget delay has passed. This feature is useful to reduce the blast radius when shuffle-sharding is enabled.
+  -ring.heartbeat-timeout duration
+    	The heartbeat timeout after which ingesters are skipped for reads/writes. 0 = never (timeout disabled). (default 1m0s)
+  -ring.prefix string
+    	The prefix for the keys in the store. Should end with a /. (default "collectors/")
+  -ring.store string
+    	Backend storage to use for the ring. Supported values are: consul, etcd, inmemory, memberlist, multi. (default "consul")
+  -ruler-storage.azure.account-key value
+    	Azure storage account key
+  -ruler-storage.azure.account-name string
+    	Azure storage account name
+  -ruler-storage.azure.container-name string
+    	Azure storage container name
+  -ruler-storage.azure.endpoint-suffix string
+    	Azure storage endpoint suffix without schema. The account name will be prefixed to this value to create the FQDN
+  -ruler-storage.azure.max-retries int
+    	Number of retries for recoverable errors (default 20)
+  -ruler-storage.backend string
+    	Backend storage to use. Supported backends are: s3, gcs, azure, swift, filesystem, configdb, local. (default "s3")
+  -ruler-storage.configs.client-timeout duration
+    	Timeout for requests to Weave Cloud configs service. (default 5s)
+  -ruler-storage.configs.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -ruler-storage.configs.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -ruler-storage.configs.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -ruler-storage.configs.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -ruler-storage.configs.tls-server-name string
+    	Override the expected name on the server certificate.
+  -ruler-storage.configs.url value
+    	URL of configs API server.
+  -ruler-storage.filesystem.dir string
+    	Local filesystem storage directory.
+  -ruler-storage.gcs.bucket-name string
+    	GCS bucket name
+  -ruler-storage.gcs.service-account value
+    	JSON representing either a Google Developers Console client_credentials.json file or a Google Developers service account key file. If empty, fallback to Google default logic.
+  -ruler-storage.local.directory string
+    	Directory to scan for rules
+  -ruler-storage.s3.access-key-id string
+    	S3 access key ID
+  -ruler-storage.s3.bucket-name string
+    	S3 bucket name
+  -ruler-storage.s3.endpoint string
+    	The S3 bucket endpoint. It could be an AWS S3 endpoint listed at https://docs.aws.amazon.com/general/latest/gr/s3.html or the address of an S3-compatible service in hostname:port format.
+  -ruler-storage.s3.expect-continue-timeout duration
+    	The time to wait for a server's first response headers after fully writing the request headers if the request has an Expect header. 0 to send the request body immediately. (default 1s)
+  -ruler-storage.s3.http.idle-conn-timeout duration
+    	The time an idle connection will remain idle before closing. (default 1m30s)
+  -ruler-storage.s3.http.insecure-skip-verify
+    	If the client connects to S3 via HTTPS and this option is enabled, the client will accept any certificate and hostname.
+  -ruler-storage.s3.http.response-header-timeout duration
+    	The amount of time the client will wait for a servers response headers. (default 2m0s)
+  -ruler-storage.s3.insecure
+    	If enabled, use http:// for the S3 endpoint instead of https://. This could be useful in local dev/test environments while using an S3-compatible backend storage, like Minio.
+  -ruler-storage.s3.max-connections-per-host int
+    	Maximum number of connections per host. 0 means no limit.
+  -ruler-storage.s3.max-idle-connections int
+    	Maximum number of idle (keep-alive) connections across all hosts. 0 means no limit. (default 100)
+  -ruler-storage.s3.max-idle-connections-per-host int
+    	Maximum number of idle (keep-alive) connections to keep per-host. If 0, a built-in default value is used. (default 100)
+  -ruler-storage.s3.region string
+    	S3 region. If unset, the client will issue a S3 GetBucketLocation API call to autodetect it.
+  -ruler-storage.s3.secret-access-key value
+    	S3 secret access key
+  -ruler-storage.s3.signature-version string
+    	The signature version to use for authenticating against S3. Supported values are: v4, v2. (default "v4")
+  -ruler-storage.s3.sse.kms-encryption-context string
+    	KMS Encryption Context used for object encryption. It expects JSON formatted string.
+  -ruler-storage.s3.sse.kms-key-id string
+    	KMS Key ID used to encrypt objects in S3
+  -ruler-storage.s3.sse.type string
+    	Enable AWS Server Side Encryption. Supported values: SSE-KMS, SSE-S3.
+  -ruler-storage.s3.tls-handshake-timeout duration
+    	Maximum time to wait for a TLS handshake. 0 means no limit. (default 10s)
+  -ruler-storage.swift.auth-url string
+    	OpenStack Swift authentication URL
+  -ruler-storage.swift.auth-version int
+    	OpenStack Swift authentication API version. 0 to autodetect.
+  -ruler-storage.swift.connect-timeout duration
+    	Time after which a connection attempt is aborted. (default 10s)
+  -ruler-storage.swift.container-name string
+    	Name of the OpenStack Swift container to put chunks in.
+  -ruler-storage.swift.domain-id string
+    	OpenStack Swift user's domain ID.
+  -ruler-storage.swift.domain-name string
+    	OpenStack Swift user's domain name.
+  -ruler-storage.swift.max-retries int
+    	Max retries on requests error. (default 3)
+  -ruler-storage.swift.password string
+    	OpenStack Swift API key.
+  -ruler-storage.swift.project-domain-id string
+    	ID of the OpenStack Swift project's domain (v3 auth only), only needed if it differs the from user domain.
+  -ruler-storage.swift.project-domain-name string
+    	Name of the OpenStack Swift project's domain (v3 auth only), only needed if it differs from the user domain.
+  -ruler-storage.swift.project-id string
+    	OpenStack Swift project ID (v2,v3 auth only).
+  -ruler-storage.swift.project-name string
+    	OpenStack Swift project name (v2,v3 auth only).
+  -ruler-storage.swift.region-name string
+    	OpenStack Swift Region to use (v2,v3 auth only).
+  -ruler-storage.swift.request-timeout duration
+    	Time after which an idle request is aborted. The timeout watchdog is reset each time some data is received, so the timeout triggers after X time no data is received on a request. (default 5s)
+  -ruler-storage.swift.user-domain-id string
+    	OpenStack Swift user's domain ID.
+  -ruler-storage.swift.user-domain-name string
+    	OpenStack Swift user's domain name.
+  -ruler-storage.swift.user-id string
+    	OpenStack Swift user ID.
+  -ruler-storage.swift.username string
+    	OpenStack Swift username.
+  -ruler.alertmanager-client.basic-auth-password string
+    	HTTP Basic authentication password. It overrides the password set in the URL (if any).
+  -ruler.alertmanager-client.basic-auth-username string
+    	HTTP Basic authentication username. It overrides the username set in the URL (if any).
+  -ruler.alertmanager-client.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -ruler.alertmanager-client.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -ruler.alertmanager-client.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -ruler.alertmanager-client.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -ruler.alertmanager-client.tls-server-name string
+    	Override the expected name on the server certificate.
+  -ruler.alertmanager-discovery
+    	Use DNS SRV records to discover Alertmanager hosts.
+  -ruler.alertmanager-refresh-interval duration
+    	How long to wait between refreshing DNS resolutions of Alertmanager hosts. (default 1m0s)
+  -ruler.alertmanager-url string
+    	Comma-separated list of URL(s) of the Alertmanager(s) to send notifications to. Each Alertmanager URL is treated as a separate group in the configuration. Multiple Alertmanagers in HA per group can be supported by using DNS resolution via -ruler.alertmanager-discovery.
+  -ruler.alertmanager-use-v2
+    	If enabled requests to Alertmanager will utilize the V2 API.
+  -ruler.client-timeout value
+    	This flag has been renamed to ruler.configs.client-timeout
+  -ruler.client.backoff-max-period duration
+    	Maximum delay when backing off. (default 10s)
+  -ruler.client.backoff-min-period duration
+    	Minimum delay when backing off. (default 100ms)
+  -ruler.client.backoff-on-ratelimits
+    	Enable backoff and retry when we hit ratelimits.
+  -ruler.client.backoff-retries int
+    	Number of times to backoff and retry before failing. (default 10)
+  -ruler.client.grpc-client-rate-limit float
+    	Rate limit for gRPC client; 0 means disabled.
+  -ruler.client.grpc-client-rate-limit-burst int
+    	Rate limit burst for gRPC client.
+  -ruler.client.grpc-compression string
+    	Use compression when sending messages. Supported values are: 'gzip', 'snappy' and '' (disable compression)
+  -ruler.client.grpc-max-recv-msg-size int
+    	gRPC client max receive message size (bytes). (default 104857600)
+  -ruler.client.grpc-max-send-msg-size int
+    	gRPC client max send message size (bytes). (default 16777216)
+  -ruler.client.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -ruler.client.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -ruler.client.tls-enabled
+    	Enable TLS in the GRPC client. This flag needs to be enabled when any other TLS flag is set. If set to false, insecure connection to gRPC server will be used.
+  -ruler.client.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -ruler.client.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -ruler.client.tls-server-name string
+    	Override the expected name on the server certificate.
+  -ruler.configs.client-timeout duration
+    	Timeout for requests to Weave Cloud configs service. (default 5s)
+  -ruler.configs.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -ruler.configs.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -ruler.configs.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -ruler.configs.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -ruler.configs.tls-server-name string
+    	Override the expected name on the server certificate.
+  -ruler.configs.url value
+    	URL of configs API server.
+  -ruler.disabled-tenants value
+    	Comma separated list of tenants whose rules this ruler cannot evaluate. If specified, a ruler that would normally pick the specified tenant(s) for processing will ignore them instead. Subject to sharding.
+  -ruler.enable-sharding
+    	Distribute rule evaluation using ring backend
+  -ruler.enabled-tenants value
+    	Comma separated list of tenants whose rules this ruler can evaluate. If specified, only these tenants will be handled by ruler, otherwise this ruler can process rules from all tenants. Subject to sharding.
+  -ruler.evaluation-delay-duration value
+    	Duration to delay the evaluation of rules to ensure the underlying metrics have been pushed to Cortex.
+  -ruler.evaluation-interval duration
+    	How frequently to evaluate rules (default 1m0s)
+  -ruler.external.url value
+    	URL of alerts return path.
+  -ruler.flush-period duration
+    	Period with which to attempt to flush rule groups. (default 1m0s)
+  -ruler.for-grace-period duration
+    	Minimum duration between alert and restored "for" state. This is maintained only for alerts with configured "for" time greater than grace period. (default 10m0s)
+  -ruler.for-outage-tolerance duration
+    	Max time to tolerate outage for restoring "for" state of alert. (default 1h0m0s)
+  -ruler.group-timeout value
+    	This flag is no longer functional.
+  -ruler.max-rule-groups-per-tenant int
+    	Maximum number of rule groups per-tenant. 0 to disable.
+  -ruler.max-rules-per-rule-group int
+    	Maximum number of rules per rule group per-tenant. 0 to disable.
+  -ruler.notification-queue-capacity int
+    	Capacity of the queue for notifications to be sent to the Alertmanager. (default 10000)
+  -ruler.notification-timeout duration
+    	HTTP timeout duration when sending notifications to the Alertmanager. (default 10s)
+  -ruler.num-workers value
+    	This flag is no longer functional. For increased concurrency horizontal sharding is recommended
+  -ruler.poll-interval duration
+    	How frequently to poll for rule changes (default 1m0s)
+  -ruler.query-stats-enabled
+    	Report the wall time for ruler queries to complete as a per user metric and as an info level log message.
+  -ruler.resend-delay duration
+    	Minimum amount of time to wait before resending an alert to Alertmanager. (default 1m0s)
+  -ruler.ring.consul.acl-token string
+    	ACL Token used to interact with Consul.
+  -ruler.ring.consul.client-timeout duration
+    	HTTP timeout when talking to Consul (default 20s)
+  -ruler.ring.consul.consistent-reads
+    	Enable consistent reads to Consul.
+  -ruler.ring.consul.hostname string
+    	Hostname and port of Consul. (default "localhost:8500")
+  -ruler.ring.consul.watch-burst-size int
+    	Burst size used in rate limit. Values less than 1 are treated as 1. (default 1)
+  -ruler.ring.consul.watch-rate-limit float
+    	Rate limit when watching key or prefix in Consul, in requests per second. 0 disables the rate limit. (default 1)
+  -ruler.ring.etcd.dial-timeout duration
+    	The dial timeout for the etcd connection. (default 10s)
+  -ruler.ring.etcd.endpoints value
+    	The etcd endpoints to connect to.
+  -ruler.ring.etcd.max-retries int
+    	The maximum number of retries to do for failed ops. (default 10)
+  -ruler.ring.etcd.password string
+    	Etcd password.
+  -ruler.ring.etcd.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -ruler.ring.etcd.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -ruler.ring.etcd.tls-enabled
+    	Enable TLS.
+  -ruler.ring.etcd.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -ruler.ring.etcd.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -ruler.ring.etcd.tls-server-name string
+    	Override the expected name on the server certificate.
+  -ruler.ring.etcd.username string
+    	Etcd username.
+  -ruler.ring.heartbeat-period duration
+    	Period at which to heartbeat to the ring. 0 = disabled. (default 5s)
+  -ruler.ring.heartbeat-timeout duration
+    	The heartbeat timeout after which rulers are considered unhealthy within the ring. 0 = never (timeout disabled). (default 1m0s)
+  -ruler.ring.instance-addr string
+    	IP address to advertise in the ring.
+  -ruler.ring.instance-id string
+    	Instance ID to register in the ring. (default "cf3bb0742627")
+  -ruler.ring.instance-interface-names value
+    	Name of network interface to read address from. (default [eth0 en0])
+  -ruler.ring.instance-port int
+    	Port to advertise in the ring (defaults to server.grpc-listen-port).
+  -ruler.ring.multi.mirror-enabled
+    	Mirror writes to secondary store.
+  -ruler.ring.multi.mirror-timeout duration
+    	Timeout for storing value to secondary store. (default 2s)
+  -ruler.ring.multi.primary string
+    	Primary backend storage used by multi-client.
+  -ruler.ring.multi.secondary string
+    	Secondary backend storage used by multi-client.
+  -ruler.ring.num-tokens int
+    	Number of tokens for each ruler. (default 128)
+  -ruler.ring.prefix string
+    	The prefix for the keys in the store. Should end with a /. (default "rulers/")
+  -ruler.ring.store string
+    	Backend storage to use for the ring. Supported values are: consul, etcd, inmemory, memberlist, multi. (default "consul")
+  -ruler.rule-path string
+    	file path to store temporary rule files for the prometheus rule managers (default "/rules")
+  -ruler.search-pending-for duration
+    	Time to spend searching for a pending ruler when shutting down. (default 5m0s)
+  -ruler.sharding-strategy string
+    	The sharding strategy to use. Supported values are: default, shuffle-sharding. (default "default")
+  -ruler.storage.azure.account-key value
+    	The Microsoft Azure account key to use.
+  -ruler.storage.azure.account-name string
+    	The Microsoft Azure account name to be used
+  -ruler.storage.azure.container-name string
+    	Name of the blob container used to store chunks. This container must be created before running cortex. (default "cortex")
+  -ruler.storage.azure.download-buffer-count int
+    	Number of buffers used to used to upload a chunk. (default 1)
+  -ruler.storage.azure.download-buffer-size int
+    	Preallocated buffer size for downloads. (default 512000)
+  -ruler.storage.azure.environment string
+    	Azure Cloud environment. Supported values are: AzureGlobal, AzureChinaCloud, AzureGermanCloud, AzureUSGovernment. (default "AzureGlobal")
+  -ruler.storage.azure.max-retries int
+    	Number of retries for a request which times out. (default 5)
+  -ruler.storage.azure.max-retry-delay duration
+    	Maximum time to wait before retrying a request. (default 500ms)
+  -ruler.storage.azure.min-retry-delay duration
+    	Minimum time to wait before retrying a request. (default 10ms)
+  -ruler.storage.azure.request-timeout duration
+    	Timeout for requests made against azure blob storage. (default 30s)
+  -ruler.storage.azure.upload-buffer-size int
+    	Preallocated buffer size for uploads. (default 256000)
+  -ruler.storage.gcs.bucketname string
+    	Name of GCS bucket. Please refer to https://cloud.google.com/docs/authentication/production for more information about how to configure authentication.
+  -ruler.storage.gcs.chunk-buffer-size int
+    	The size of the buffer that GCS client for each PUT request. 0 to disable buffering.
+  -ruler.storage.gcs.enable-opencensus
+    	Enabled OpenCensus (OC) instrumentation for all requests. (default true)
+  -ruler.storage.gcs.request-timeout duration
+    	The duration after which the requests to GCS should be timed out.
+  -ruler.storage.local.directory string
+    	Directory to scan for rules
+  -ruler.storage.s3.access-key-id string
+    	AWS Access Key ID
+  -ruler.storage.s3.buckets string
+    	Comma separated list of bucket names to evenly distribute chunks over. Overrides any buckets specified in s3.url flag
+  -ruler.storage.s3.endpoint string
+    	S3 Endpoint to connect to.
+  -ruler.storage.s3.force-path-style true
+    	Set this to true to force the request to use path-style addressing.
+  -ruler.storage.s3.http.idle-conn-timeout duration
+    	The maximum amount of time an idle connection will be held open. (default 1m30s)
+  -ruler.storage.s3.http.insecure-skip-verify
+    	Set to false to skip verifying the certificate chain and hostname.
+  -ruler.storage.s3.http.response-header-timeout duration
+    	If non-zero, specifies the amount of time to wait for a server's response headers after fully writing the request.
+  -ruler.storage.s3.insecure
+    	Disable https on s3 connection.
+  -ruler.storage.s3.region string
+    	AWS region to use.
+  -ruler.storage.s3.secret-access-key string
+    	AWS Secret Access Key
+  -ruler.storage.s3.signature-version string
+    	The signature version to use for authenticating against S3. Supported values are: v4, v2. (default "v4")
+  -ruler.storage.s3.sse-encryption
+    	Enable AWS Server Side Encryption [Deprecated: Use .sse instead. if s3.sse-encryption is enabled, it assumes .sse.type SSE-S3]
+  -ruler.storage.s3.sse.kms-encryption-context string
+    	KMS Encryption Context used for object encryption. It expects JSON formatted string.
+  -ruler.storage.s3.sse.kms-key-id string
+    	KMS Key ID used to encrypt objects in S3
+  -ruler.storage.s3.sse.type string
+    	Enable AWS Server Side Encryption. Supported values: SSE-KMS, SSE-S3.
+  -ruler.storage.s3.url value
+    	S3 endpoint URL with escaped Key and Secret encoded. If only region is specified as a host, proper endpoint will be deduced. Use inmemory:///<bucket-name> to use a mock in-memory implementation.
+  -ruler.storage.swift.auth-url string
+    	OpenStack Swift authentication URL
+  -ruler.storage.swift.auth-version int
+    	OpenStack Swift authentication API version. 0 to autodetect.
+  -ruler.storage.swift.connect-timeout duration
+    	Time after which a connection attempt is aborted. (default 10s)
+  -ruler.storage.swift.container-name string
+    	Name of the OpenStack Swift container to put chunks in.
+  -ruler.storage.swift.domain-id string
+    	OpenStack Swift user's domain ID.
+  -ruler.storage.swift.domain-name string
+    	OpenStack Swift user's domain name.
+  -ruler.storage.swift.max-retries int
+    	Max retries on requests error. (default 3)
+  -ruler.storage.swift.password string
+    	OpenStack Swift API key.
+  -ruler.storage.swift.project-domain-id string
+    	ID of the OpenStack Swift project's domain (v3 auth only), only needed if it differs the from user domain.
+  -ruler.storage.swift.project-domain-name string
+    	Name of the OpenStack Swift project's domain (v3 auth only), only needed if it differs from the user domain.
+  -ruler.storage.swift.project-id string
+    	OpenStack Swift project ID (v2,v3 auth only).
+  -ruler.storage.swift.project-name string
+    	OpenStack Swift project name (v2,v3 auth only).
+  -ruler.storage.swift.region-name string
+    	OpenStack Swift Region to use (v2,v3 auth only).
+  -ruler.storage.swift.request-timeout duration
+    	Time after which an idle request is aborted. The timeout watchdog is reset each time some data is received, so the timeout triggers after X time no data is received on a request. (default 5s)
+  -ruler.storage.swift.user-domain-id string
+    	OpenStack Swift user's domain ID.
+  -ruler.storage.swift.user-domain-name string
+    	OpenStack Swift user's domain name.
+  -ruler.storage.swift.user-id string
+    	OpenStack Swift user ID.
+  -ruler.storage.swift.username string
+    	OpenStack Swift username.
+  -ruler.storage.type string
+    	Method to use for backend rule storage (configdb, azure, gcs, s3, swift, local) (default "configdb")
+  -ruler.tenant-shard-size int
+    	The default tenant's shard size when the shuffle-sharding strategy is used by ruler. When this setting is specified in the per-tenant overrides, a value of 0 disables shuffle sharding for the tenant.
+  -runtime-config.file string
+    	File with the configuration that can be updated in runtime.
+  -runtime-config.reload-period duration
+    	How often to check runtime config file. (default 10s)
+  -s3.access-key-id string
+    	AWS Access Key ID
+  -s3.buckets string
+    	Comma separated list of bucket names to evenly distribute chunks over. Overrides any buckets specified in s3.url flag
+  -s3.endpoint string
+    	S3 Endpoint to connect to.
+  -s3.force-path-style true
+    	Set this to true to force the request to use path-style addressing.
+  -s3.http.idle-conn-timeout duration
+    	The maximum amount of time an idle connection will be held open. (default 1m30s)
+  -s3.http.insecure-skip-verify
+    	Set to false to skip verifying the certificate chain and hostname.
+  -s3.http.response-header-timeout duration
+    	If non-zero, specifies the amount of time to wait for a server's response headers after fully writing the request.
+  -s3.insecure
+    	Disable https on s3 connection.
+  -s3.region string
+    	AWS region to use.
+  -s3.secret-access-key string
+    	AWS Secret Access Key
+  -s3.signature-version string
+    	The signature version to use for authenticating against S3. Supported values are: v4, v2. (default "v4")
+  -s3.sse-encryption
+    	Enable AWS Server Side Encryption [Deprecated: Use .sse instead. if s3.sse-encryption is enabled, it assumes .sse.type SSE-S3]
+  -s3.sse.kms-encryption-context string
+    	KMS Encryption Context used for object encryption. It expects JSON formatted string.
+  -s3.sse.kms-key-id string
+    	KMS Key ID used to encrypt objects in S3
+  -s3.sse.type string
+    	Enable AWS Server Side Encryption. Supported values: SSE-KMS, SSE-S3.
+  -s3.url value
+    	S3 endpoint URL with escaped Key and Secret encoded. If only region is specified as a host, proper endpoint will be deduced. Use inmemory:///<bucket-name> to use a mock in-memory implementation.
+  -schema-config-file string
+    	The path to the schema config file. The schema config is used only when running Cortex with the chunks storage.
+  -server.graceful-shutdown-timeout duration
+    	Timeout for graceful shutdowns (default 30s)
+  -server.grpc-conn-limit int
+    	Maximum number of simultaneous grpc connections, <=0 to disable
+  -server.grpc-listen-address string
+    	gRPC server listen address.
+  -server.grpc-listen-network string
+    	gRPC server listen network (default "tcp")
+  -server.grpc-listen-port int
+    	gRPC server listen port. (default 9095)
+  -server.grpc-max-concurrent-streams uint
+    	Limit on the number of concurrent streams for gRPC calls (0 = unlimited) (default 100)
+  -server.grpc-max-recv-msg-size-bytes int
+    	Limit on the size of a gRPC message this server can receive (bytes). (default 4194304)
+  -server.grpc-max-send-msg-size-bytes int
+    	Limit on the size of a gRPC message this server can send (bytes). (default 4194304)
+  -server.grpc-tls-ca-path string
+    	GRPC TLS Client CA path.
+  -server.grpc-tls-cert-path string
+    	GRPC TLS server cert path.
+  -server.grpc-tls-client-auth string
+    	GRPC TLS Client Auth type.
+  -server.grpc-tls-key-path string
+    	GRPC TLS server key path.
+  -server.grpc.keepalive.max-connection-age duration
+    	The duration for the maximum amount of time a connection may exist before it will be closed. Default: infinity (default 2562047h47m16.854775807s)
+  -server.grpc.keepalive.max-connection-age-grace duration
+    	An additive period after max-connection-age after which the connection will be forcibly closed. Default: infinity (default 2562047h47m16.854775807s)
+  -server.grpc.keepalive.max-connection-idle duration
+    	The duration after which an idle connection should be closed. Default: infinity (default 2562047h47m16.854775807s)
+  -server.grpc.keepalive.min-time-between-pings duration
+    	Minimum amount of time a client should wait before sending a keepalive ping. If client sends keepalive ping more often, server will send GOAWAY and close the connection. (default 10s)
+  -server.grpc.keepalive.ping-without-stream-allowed
+    	If true, server allows keepalive pings even when there are no active streams(RPCs). If false, and client sends ping when there are no active streams, server will send GOAWAY and close the connection. (default true)
+  -server.grpc.keepalive.time duration
+    	Duration after which a keepalive probe is sent in case of no activity over the connection., Default: 2h (default 2h0m0s)
+  -server.grpc.keepalive.timeout duration
+    	After having pinged for keepalive check, the duration after which an idle connection should be closed, Default: 20s (default 20s)
+  -server.http-conn-limit int
+    	Maximum number of simultaneous http connections, <=0 to disable
+  -server.http-idle-timeout duration
+    	Idle timeout for HTTP server (default 2m0s)
+  -server.http-listen-address string
+    	HTTP server listen address.
+  -server.http-listen-network string
+    	HTTP server listen network, default tcp (default "tcp")
+  -server.http-listen-port int
+    	HTTP server listen port. (default 80)
+  -server.http-read-timeout duration
+    	Read timeout for HTTP server (default 30s)
+  -server.http-tls-ca-path string
+    	HTTP TLS Client CA path.
+  -server.http-tls-cert-path string
+    	HTTP server cert path.
+  -server.http-tls-client-auth string
+    	HTTP TLS Client Auth type.
+  -server.http-tls-key-path string
+    	HTTP server key path.
+  -server.http-write-timeout duration
+    	Write timeout for HTTP server (default 30s)
+  -server.log-source-ips-enabled
+    	Optionally log the source IPs.
+  -server.log-source-ips-header string
+    	Header field storing the source IPs. Only used if server.log-source-ips-enabled is true. If not set the default Forwarded, X-Real-IP and X-Forwarded-For headers are used
+  -server.log-source-ips-regex string
+    	Regex for matching the source IPs. Only used if server.log-source-ips-enabled is true. If not set the default Forwarded, X-Real-IP and X-Forwarded-For headers are used
+  -server.path-prefix string
+    	Base path to serve all API routes from (e.g. /v1/)
+  -server.register-instrumentation
+    	Register the intrumentation handlers (/metrics etc). (default true)
+  -store-gateway.sharding-enabled
+    	Shard blocks across multiple store gateway instances. This option needs be set both on the store-gateway and querier when running in microservices mode.
+  -store-gateway.sharding-ring.consul.acl-token string
+    	ACL Token used to interact with Consul.
+  -store-gateway.sharding-ring.consul.client-timeout duration
+    	HTTP timeout when talking to Consul (default 20s)
+  -store-gateway.sharding-ring.consul.consistent-reads
+    	Enable consistent reads to Consul.
+  -store-gateway.sharding-ring.consul.hostname string
+    	Hostname and port of Consul. (default "localhost:8500")
+  -store-gateway.sharding-ring.consul.watch-burst-size int
+    	Burst size used in rate limit. Values less than 1 are treated as 1. (default 1)
+  -store-gateway.sharding-ring.consul.watch-rate-limit float
+    	Rate limit when watching key or prefix in Consul, in requests per second. 0 disables the rate limit. (default 1)
+  -store-gateway.sharding-ring.etcd.dial-timeout duration
+    	The dial timeout for the etcd connection. (default 10s)
+  -store-gateway.sharding-ring.etcd.endpoints value
+    	The etcd endpoints to connect to.
+  -store-gateway.sharding-ring.etcd.max-retries int
+    	The maximum number of retries to do for failed ops. (default 10)
+  -store-gateway.sharding-ring.etcd.password string
+    	Etcd password.
+  -store-gateway.sharding-ring.etcd.tls-ca-path string
+    	Path to the CA certificates file to validate server certificate against. If not set, the host's root CA certificates are used.
+  -store-gateway.sharding-ring.etcd.tls-cert-path string
+    	Path to the client certificate file, which will be used for authenticating with the server. Also requires the key path to be configured.
+  -store-gateway.sharding-ring.etcd.tls-enabled
+    	Enable TLS.
+  -store-gateway.sharding-ring.etcd.tls-insecure-skip-verify
+    	Skip validating server certificate.
+  -store-gateway.sharding-ring.etcd.tls-key-path string
+    	Path to the key file for the client certificate. Also requires the client certificate to be configured.
+  -store-gateway.sharding-ring.etcd.tls-server-name string
+    	Override the expected name on the server certificate.
+  -store-gateway.sharding-ring.etcd.username string
+    	Etcd username.
+  -store-gateway.sharding-ring.heartbeat-period duration
+    	Period at which to heartbeat to the ring. 0 = disabled. (default 15s)
+  -store-gateway.sharding-ring.heartbeat-timeout duration
+    	The heartbeat timeout after which store gateways are considered unhealthy within the ring. 0 = never (timeout disabled). This option needs be set both on the store-gateway and querier when running in microservices mode. (default 1m0s)
+  -store-gateway.sharding-ring.instance-addr string
+    	IP address to advertise in the ring.
+  -store-gateway.sharding-ring.instance-availability-zone string
+    	The availability zone where this instance is running. Required if zone-awareness is enabled.
+  -store-gateway.sharding-ring.instance-id string
+    	Instance ID to register in the ring. (default "cf3bb0742627")
+  -store-gateway.sharding-ring.instance-interface-names value
+    	Name of network interface to read address from. (default [eth0 en0])
+  -store-gateway.sharding-ring.instance-port int
+    	Port to advertise in the ring (defaults to server.grpc-listen-port).
+  -store-gateway.sharding-ring.multi.mirror-enabled
+    	Mirror writes to secondary store.
+  -store-gateway.sharding-ring.multi.mirror-timeout duration
+    	Timeout for storing value to secondary store. (default 2s)
+  -store-gateway.sharding-ring.multi.primary string
+    	Primary backend storage used by multi-client.
+  -store-gateway.sharding-ring.multi.secondary string
+    	Secondary backend storage used by multi-client.
+  -store-gateway.sharding-ring.prefix string
+    	The prefix for the keys in the store. Should end with a /. (default "collectors/")
+  -store-gateway.sharding-ring.replication-factor int
+    	The replication factor to use when sharding blocks. This option needs be set both on the store-gateway and querier when running in microservices mode. (default 3)
+  -store-gateway.sharding-ring.store string
+    	Backend storage to use for the ring. Supported values are: consul, etcd, inmemory, memberlist, multi. (default "consul")
+  -store-gateway.sharding-ring.tokens-file-path string
+    	File path where tokens are stored. If empty, tokens are not stored at shutdown and restored at startup.
+  -store-gateway.sharding-ring.wait-stability-max-duration duration
+    	Maximum time to wait for ring stability at startup. If the store-gateway ring keeps changing after this period of time, the store-gateway will start anyway. (default 5m0s)
+  -store-gateway.sharding-ring.wait-stability-min-duration duration
+    	Minimum time to wait for ring stability at startup. 0 to disable. (default 1m0s)
+  -store-gateway.sharding-ring.zone-awareness-enabled
+    	True to enable zone-awareness and replicate blocks across different availability zones.
+  -store-gateway.sharding-strategy string
+    	The sharding strategy to use. Supported values are: default, shuffle-sharding. (default "default")
+  -store-gateway.tenant-shard-size int
+    	The default tenant's shard size when the shuffle-sharding strategy is used. Must be set when the store-gateway sharding is enabled with the shuffle-sharding strategy. When this setting is specified in the per-tenant overrides, a value of 0 disables shuffle sharding for the tenant.
+  -store.bigchunk-size-cap-bytes int
+    	When using bigchunk encoding, start a new bigchunk if over this size (0 = unlimited)
+  -store.cache-lookups-older-than value
+    	Cache index entries older than this period. 0 to disable.
+  -store.cardinality-limit int
+    	Cardinality limit for index queries. This limit is ignored when running the Cortex blocks storage. 0 to disable. (default 100000)
+  -store.chunks-cache.background.write-back-buffer int
+    	Cache config for chunks. How many key batches to buffer for background write-back. (default 10000)
+  -store.chunks-cache.background.write-back-concurrency int
+    	Cache config for chunks. At what concurrency to write back to cache. (default 10)
+  -store.chunks-cache.cache-stubs
+    	If true, don't write the full chunk to cache, just a stub entry.
+  -store.chunks-cache.cache.enable-fifocache
+    	Cache config for chunks. Enable in-memory cache.
+  -store.chunks-cache.default-validity duration
+    	Cache config for chunks. The default validity of entries for caches unless overridden.
+  -store.chunks-cache.fifocache.duration duration
+    	Cache config for chunks. The expiry duration for the cache.
+  -store.chunks-cache.fifocache.max-size-bytes string
+    	Cache config for chunks. Maximum memory size of the cache in bytes. A unit suffix (KB, MB, GB) may be applied.
+  -store.chunks-cache.fifocache.max-size-items int
+    	Cache config for chunks. Maximum number of entries in the cache.
+  -store.chunks-cache.fifocache.size int
+    	Deprecated (use max-size-items or max-size-bytes instead): Cache config for chunks. The number of entries to cache. 
+  -store.chunks-cache.memcached.addresses string
+    	Cache config for chunks. EXPERIMENTAL: Comma separated addresses list in DNS Service Discovery format: https://cortexmetrics.io/docs/configuration/arguments/#dns-service-discovery
+  -store.chunks-cache.memcached.batchsize int
+    	Cache config for chunks. How many keys to fetch in each batch. (default 1024)
+  -store.chunks-cache.memcached.circuit-breaker-consecutive-failures uint
+    	Cache config for chunks. Trip circuit-breaker after this number of consecutive dial failures (if zero then circuit-breaker is disabled). (default 10)
+  -store.chunks-cache.memcached.circuit-breaker-interval duration
+    	Cache config for chunks. Reset circuit-breaker counts after this long (if zero then never reset). (default 10s)
+  -store.chunks-cache.memcached.circuit-breaker-timeout duration
+    	Cache config for chunks. Duration circuit-breaker remains open after tripping (if zero then 60 seconds is used). (default 10s)
+  -store.chunks-cache.memcached.consistent-hash
+    	Cache config for chunks. Use consistent hashing to distribute to memcache servers. (default true)
+  -store.chunks-cache.memcached.expiration duration
+    	Cache config for chunks. How long keys stay in the memcache.
+  -store.chunks-cache.memcached.hostname string
+    	Cache config for chunks. Hostname for memcached service to use. If empty and if addresses is unset, no memcached will be used.
+  -store.chunks-cache.memcached.max-idle-conns int
+    	Cache config for chunks. Maximum number of idle connections in pool. (default 16)
+  -store.chunks-cache.memcached.max-item-size int
+    	Cache config for chunks. The maximum size of an item stored in memcached. Bigger items are not stored. If set to 0, no maximum size is enforced.
+  -store.chunks-cache.memcached.parallelism int
+    	Cache config for chunks. Maximum active requests to memcache. (default 100)
+  -store.chunks-cache.memcached.service string
+    	Cache config for chunks. SRV service used to discover memcache servers. (default "memcached")
+  -store.chunks-cache.memcached.timeout duration
+    	Cache config for chunks. Maximum time to wait before giving up on memcached requests. (default 100ms)
+  -store.chunks-cache.memcached.update-interval duration
+    	Cache config for chunks. Period with which to poll DNS for memcache servers. (default 1m0s)
+  -store.chunks-cache.redis.db int
+    	Cache config for chunks. Database index.
+  -store.chunks-cache.redis.endpoint string
+    	Cache config for chunks. Redis Server endpoint to use for caching. A comma-separated list of endpoints for Redis Cluster or Redis Sentinel. If empty, no redis will be used.
+  -store.chunks-cache.redis.expiration duration
+    	Cache config for chunks. How long keys stay in the redis.
+  -store.chunks-cache.redis.idle-timeout duration
+    	Cache config for chunks. Close connections after remaining idle for this duration. If the value is zero, then idle connections are not closed.
+  -store.chunks-cache.redis.master-name string
+    	Cache config for chunks. Redis Sentinel master name. An empty string for Redis Server or Redis Cluster.
+  -store.chunks-cache.redis.max-connection-age duration
+    	Cache config for chunks. Close connections older than this duration. If the value is zero, then the pool does not close connections based on age.
+  -store.chunks-cache.redis.password value
+    	Cache config for chunks. Password to use when connecting to redis.
+  -store.chunks-cache.redis.pool-size int
+    	Cache config for chunks. Maximum number of connections in the pool.
+  -store.chunks-cache.redis.timeout duration
+    	Cache config for chunks. Maximum time to wait before giving up on redis requests. (default 500ms)
+  -store.chunks-cache.redis.tls-enabled
+    	Cache config for chunks. Enable connecting to redis with TLS.
+  -store.chunks-cache.redis.tls-insecure-skip-verify
+    	Cache config for chunks. Skip validating server certificate.
+  -store.engine string
+    	The storage engine to use: chunks (deprecated) or blocks. (default "chunks")
+  -store.index-cache-read.background.write-back-buffer int
+    	Cache config for index entry reading. How many key batches to buffer for background write-back. (default 10000)
+  -store.index-cache-read.background.write-back-concurrency int
+    	Cache config for index entry reading. At what concurrency to write back to cache. (default 10)
+  -store.index-cache-read.cache.enable-fifocache
+    	Cache config for index entry reading. Enable in-memory cache.
+  -store.index-cache-read.default-validity duration
+    	Cache config for index entry reading. The default validity of entries for caches unless overridden.
+  -store.index-cache-read.fifocache.duration duration
+    	Cache config for index entry reading. The expiry duration for the cache.
+  -store.index-cache-read.fifocache.max-size-bytes string
+    	Cache config for index entry reading. Maximum memory size of the cache in bytes. A unit suffix (KB, MB, GB) may be applied.
+  -store.index-cache-read.fifocache.max-size-items int
+    	Cache config for index entry reading. Maximum number of entries in the cache.
+  -store.index-cache-read.fifocache.size int
+    	Deprecated (use max-size-items or max-size-bytes instead): Cache config for index entry reading. The number of entries to cache. 
+  -store.index-cache-read.memcached.addresses string
+    	Cache config for index entry reading. EXPERIMENTAL: Comma separated addresses list in DNS Service Discovery format: https://cortexmetrics.io/docs/configuration/arguments/#dns-service-discovery
+  -store.index-cache-read.memcached.batchsize int
+    	Cache config for index entry reading. How many keys to fetch in each batch. (default 1024)
+  -store.index-cache-read.memcached.circuit-breaker-consecutive-failures uint
+    	Cache config for index entry reading. Trip circuit-breaker after this number of consecutive dial failures (if zero then circuit-breaker is disabled). (default 10)
+  -store.index-cache-read.memcached.circuit-breaker-interval duration
+    	Cache config for index entry reading. Reset circuit-breaker counts after this long (if zero then never reset). (default 10s)
+  -store.index-cache-read.memcached.circuit-breaker-timeout duration
+    	Cache config for index entry reading. Duration circuit-breaker remains open after tripping (if zero then 60 seconds is used). (default 10s)
+  -store.index-cache-read.memcached.consistent-hash
+    	Cache config for index entry reading. Use consistent hashing to distribute to memcache servers. (default true)
+  -store.index-cache-read.memcached.expiration duration
+    	Cache config for index entry reading. How long keys stay in the memcache.
+  -store.index-cache-read.memcached.hostname string
+    	Cache config for index entry reading. Hostname for memcached service to use. If empty and if addresses is unset, no memcached will be used.
+  -store.index-cache-read.memcached.max-idle-conns int
+    	Cache config for index entry reading. Maximum number of idle connections in pool. (default 16)
+  -store.index-cache-read.memcached.max-item-size int
+    	Cache config for index entry reading. The maximum size of an item stored in memcached. Bigger items are not stored. If set to 0, no maximum size is enforced.
+  -store.index-cache-read.memcached.parallelism int
+    	Cache config for index entry reading. Maximum active requests to memcache. (default 100)
+  -store.index-cache-read.memcached.service string
+    	Cache config for index entry reading. SRV service used to discover memcache servers. (default "memcached")
+  -store.index-cache-read.memcached.timeout duration
+    	Cache config for index entry reading. Maximum time to wait before giving up on memcached requests. (default 100ms)
+  -store.index-cache-read.memcached.update-interval duration
+    	Cache config for index entry reading. Period with which to poll DNS for memcache servers. (default 1m0s)
+  -store.index-cache-read.redis.db int
+    	Cache config for index entry reading. Database index.
+  -store.index-cache-read.redis.endpoint string
+    	Cache config for index entry reading. Redis Server endpoint to use for caching. A comma-separated list of endpoints for Redis Cluster or Redis Sentinel. If empty, no redis will be used.
+  -store.index-cache-read.redis.expiration duration
+    	Cache config for index entry reading. How long keys stay in the redis.
+  -store.index-cache-read.redis.idle-timeout duration
+    	Cache config for index entry reading. Close connections after remaining idle for this duration. If the value is zero, then idle connections are not closed.
+  -store.index-cache-read.redis.master-name string
+    	Cache config for index entry reading. Redis Sentinel master name. An empty string for Redis Server or Redis Cluster.
+  -store.index-cache-read.redis.max-connection-age duration
+    	Cache config for index entry reading. Close connections older than this duration. If the value is zero, then the pool does not close connections based on age.
+  -store.index-cache-read.redis.password value
+    	Cache config for index entry reading. Password to use when connecting to redis.
+  -store.index-cache-read.redis.pool-size int
+    	Cache config for index entry reading. Maximum number of connections in the pool.
+  -store.index-cache-read.redis.timeout duration
+    	Cache config for index entry reading. Maximum time to wait before giving up on redis requests. (default 500ms)
+  -store.index-cache-read.redis.tls-enabled
+    	Cache config for index entry reading. Enable connecting to redis with TLS.
+  -store.index-cache-read.redis.tls-insecure-skip-verify
+    	Cache config for index entry reading. Skip validating server certificate.
+  -store.index-cache-validity duration
+    	Cache validity for active index entries. Should be no higher than -ingester.max-chunk-idle. (default 5m0s)
+  -store.index-cache-write.background.write-back-buffer int
+    	Cache config for index entry writing. How many key batches to buffer for background write-back. (default 10000)
+  -store.index-cache-write.background.write-back-concurrency int
+    	Cache config for index entry writing. At what concurrency to write back to cache. (default 10)
+  -store.index-cache-write.cache.enable-fifocache
+    	Cache config for index entry writing. Enable in-memory cache.
+  -store.index-cache-write.default-validity duration
+    	Cache config for index entry writing. The default validity of entries for caches unless overridden.
+  -store.index-cache-write.fifocache.duration duration
+    	Cache config for index entry writing. The expiry duration for the cache.
+  -store.index-cache-write.fifocache.max-size-bytes string
+    	Cache config for index entry writing. Maximum memory size of the cache in bytes. A unit suffix (KB, MB, GB) may be applied.
+  -store.index-cache-write.fifocache.max-size-items int
+    	Cache config for index entry writing. Maximum number of entries in the cache.
+  -store.index-cache-write.fifocache.size int
+    	Deprecated (use max-size-items or max-size-bytes instead): Cache config for index entry writing. The number of entries to cache. 
+  -store.index-cache-write.memcached.addresses string
+    	Cache config for index entry writing. EXPERIMENTAL: Comma separated addresses list in DNS Service Discovery format: https://cortexmetrics.io/docs/configuration/arguments/#dns-service-discovery
+  -store.index-cache-write.memcached.batchsize int
+    	Cache config for index entry writing. How many keys to fetch in each batch. (default 1024)
+  -store.index-cache-write.memcached.circuit-breaker-consecutive-failures uint
+    	Cache config for index entry writing. Trip circuit-breaker after this number of consecutive dial failures (if zero then circuit-breaker is disabled). (default 10)
+  -store.index-cache-write.memcached.circuit-breaker-interval duration
+    	Cache config for index entry writing. Reset circuit-breaker counts after this long (if zero then never reset). (default 10s)
+  -store.index-cache-write.memcached.circuit-breaker-timeout duration
+    	Cache config for index entry writing. Duration circuit-breaker remains open after tripping (if zero then 60 seconds is used). (default 10s)
+  -store.index-cache-write.memcached.consistent-hash
+    	Cache config for index entry writing. Use consistent hashing to distribute to memcache servers. (default true)
+  -store.index-cache-write.memcached.expiration duration
+    	Cache config for index entry writing. How long keys stay in the memcache.
+  -store.index-cache-write.memcached.hostname string
+    	Cache config for index entry writing. Hostname for memcached service to use. If empty and if addresses is unset, no memcached will be used.
+  -store.index-cache-write.memcached.max-idle-conns int
+    	Cache config for index entry writing. Maximum number of idle connections in pool. (default 16)
+  -store.index-cache-write.memcached.max-item-size int
+    	Cache config for index entry writing. The maximum size of an item stored in memcached. Bigger items are not stored. If set to 0, no maximum size is enforced.
+  -store.index-cache-write.memcached.parallelism int
+    	Cache config for index entry writing. Maximum active requests to memcache. (default 100)
+  -store.index-cache-write.memcached.service string
+    	Cache config for index entry writing. SRV service used to discover memcache servers. (default "memcached")
+  -store.index-cache-write.memcached.timeout duration
+    	Cache config for index entry writing. Maximum time to wait before giving up on memcached requests. (default 100ms)
+  -store.index-cache-write.memcached.update-interval duration
+    	Cache config for index entry writing. Period with which to poll DNS for memcache servers. (default 1m0s)
+  -store.index-cache-write.redis.db int
+    	Cache config for index entry writing. Database index.
+  -store.index-cache-write.redis.endpoint string
+    	Cache config for index entry writing. Redis Server endpoint to use for caching. A comma-separated list of endpoints for Redis Cluster or Redis Sentinel. If empty, no redis will be used.
+  -store.index-cache-write.redis.expiration duration
+    	Cache config for index entry writing. How long keys stay in the redis.
+  -store.index-cache-write.redis.idle-timeout duration
+    	Cache config for index entry writing. Close connections after remaining idle for this duration. If the value is zero, then idle connections are not closed.
+  -store.index-cache-write.redis.master-name string
+    	Cache config for index entry writing. Redis Sentinel master name. An empty string for Redis Server or Redis Cluster.
+  -store.index-cache-write.redis.max-connection-age duration
+    	Cache config for index entry writing. Close connections older than this duration. If the value is zero, then the pool does not close connections based on age.
+  -store.index-cache-write.redis.password value
+    	Cache config for index entry writing. Password to use when connecting to redis.
+  -store.index-cache-write.redis.pool-size int
+    	Cache config for index entry writing. Maximum number of connections in the pool.
+  -store.index-cache-write.redis.timeout duration
+    	Cache config for index entry writing. Maximum time to wait before giving up on redis requests. (default 500ms)
+  -store.index-cache-write.redis.tls-enabled
+    	Cache config for index entry writing. Enable connecting to redis with TLS.
+  -store.index-cache-write.redis.tls-insecure-skip-verify
+    	Cache config for index entry writing. Skip validating server certificate.
+  -store.max-query-length value
+    	Limit the query time range (end - start time). This limit is enforced in the query-frontend (on the received query), in the querier (on the query possibly split by the query-frontend) and in the chunks storage. 0 to disable.
+  -store.query-chunk-limit int
+    	Deprecated. Use -querier.max-fetched-chunks-per-query CLI flag and its respective YAML config option instead. Maximum number of chunks that can be fetched in a single query. This limit is enforced when fetching chunks from the long-term storage only. When running the Cortex chunks storage, this limit is enforced in the querier and ruler, while when running the Cortex blocks storage this limit is enforced in the querier, ruler and store-gateway. 0 to disable. (default 2000000)
+  -swift.auth-url string
+    	OpenStack Swift authentication URL
+  -swift.auth-version int
+    	OpenStack Swift authentication API version. 0 to autodetect.
+  -swift.connect-timeout duration
+    	Time after which a connection attempt is aborted. (default 10s)
+  -swift.container-name string
+    	Name of the OpenStack Swift container to put chunks in.
+  -swift.domain-id string
+    	OpenStack Swift user's domain ID.
+  -swift.domain-name string
+    	OpenStack Swift user's domain name.
+  -swift.max-retries int
+    	Max retries on requests error. (default 3)
+  -swift.password string
+    	OpenStack Swift API key.
+  -swift.project-domain-id string
+    	ID of the OpenStack Swift project's domain (v3 auth only), only needed if it differs the from user domain.
+  -swift.project-domain-name string
+    	Name of the OpenStack Swift project's domain (v3 auth only), only needed if it differs from the user domain.
+  -swift.project-id string
+    	OpenStack Swift project ID (v2,v3 auth only).
+  -swift.project-name string
+    	OpenStack Swift project name (v2,v3 auth only).
+  -swift.region-name string
+    	OpenStack Swift Region to use (v2,v3 auth only).
+  -swift.request-timeout duration
+    	Time after which an idle request is aborted. The timeout watchdog is reset each time some data is received, so the timeout triggers after X time no data is received on a request. (default 5s)
+  -swift.user-domain-id string
+    	OpenStack Swift user's domain ID.
+  -swift.user-domain-name string
+    	OpenStack Swift user's domain name.
+  -swift.user-id string
+    	OpenStack Swift user ID.
+  -swift.username string
+    	OpenStack Swift username.
+  -table-manager.chunk-table.enable-ondemand-throughput-mode
+    	Enables on demand throughput provisioning for the storage provider (if supported). Applies only to tables which are not autoscaled. Supported by DynamoDB
+  -table-manager.chunk-table.inactive-enable-ondemand-throughput-mode
+    	Enables on demand throughput provisioning for the storage provider (if supported). Applies only to tables which are not autoscaled. Supported by DynamoDB
+  -table-manager.chunk-table.inactive-read-throughput int
+    	Table read throughput for inactive tables. Supported by DynamoDB (default 300)
+  -table-manager.chunk-table.inactive-read-throughput.scale-last-n int
+    	Number of last inactive tables to enable read autoscale. (default 4)
+  -table-manager.chunk-table.inactive-read-throughput.scale.enabled
+    	Should we enable autoscale for the table.
+  -table-manager.chunk-table.inactive-read-throughput.scale.in-cooldown int
+    	DynamoDB minimum seconds between each autoscale down. (default 1800)
+  -table-manager.chunk-table.inactive-read-throughput.scale.max-capacity int
+    	DynamoDB maximum provision capacity. (default 6000)
+  -table-manager.chunk-table.inactive-read-throughput.scale.min-capacity int
+    	DynamoDB minimum provision capacity. (default 3000)
+  -table-manager.chunk-table.inactive-read-throughput.scale.out-cooldown int
+    	DynamoDB minimum seconds between each autoscale up. (default 1800)
+  -table-manager.chunk-table.inactive-read-throughput.scale.role-arn string
+    	AWS AutoScaling role ARN
+  -table-manager.chunk-table.inactive-read-throughput.scale.target-value float
+    	DynamoDB target ratio of consumed capacity to provisioned capacity. (default 80)
+  -table-manager.chunk-table.inactive-write-throughput int
+    	Table write throughput for inactive tables. Supported by DynamoDB (default 1)
+  -table-manager.chunk-table.inactive-write-throughput.scale-last-n int
+    	Number of last inactive tables to enable write autoscale. (default 4)
+  -table-manager.chunk-table.inactive-write-throughput.scale.enabled
+    	Should we enable autoscale for the table.
+  -table-manager.chunk-table.inactive-write-throughput.scale.in-cooldown int
+    	DynamoDB minimum seconds between each autoscale down. (default 1800)
+  -table-manager.chunk-table.inactive-write-throughput.scale.max-capacity int
+    	DynamoDB maximum provision capacity. (default 6000)
+  -table-manager.chunk-table.inactive-write-throughput.scale.min-capacity int
+    	DynamoDB minimum provision capacity. (default 3000)
+  -table-manager.chunk-table.inactive-write-throughput.scale.out-cooldown int
+    	DynamoDB minimum seconds between each autoscale up. (default 1800)
+  -table-manager.chunk-table.inactive-write-throughput.scale.role-arn string
+    	AWS AutoScaling role ARN
+  -table-manager.chunk-table.inactive-write-throughput.scale.target-value float
+    	DynamoDB target ratio of consumed capacity to provisioned capacity. (default 80)
+  -table-manager.chunk-table.read-throughput int
+    	Table default read throughput. Supported by DynamoDB (default 300)
+  -table-manager.chunk-table.read-throughput.scale.enabled
+    	Should we enable autoscale for the table.
+  -table-manager.chunk-table.read-throughput.scale.in-cooldown int
+    	DynamoDB minimum seconds between each autoscale down. (default 1800)
+  -table-manager.chunk-table.read-throughput.scale.max-capacity int
+    	DynamoDB maximum provision capacity. (default 6000)
+  -table-manager.chunk-table.read-throughput.scale.min-capacity int
+    	DynamoDB minimum provision capacity. (default 3000)
+  -table-manager.chunk-table.read-throughput.scale.out-cooldown int
+    	DynamoDB minimum seconds between each autoscale up. (default 1800)
+  -table-manager.chunk-table.read-throughput.scale.role-arn string
+    	AWS AutoScaling role ARN
+  -table-manager.chunk-table.read-throughput.scale.target-value float
+    	DynamoDB target ratio of consumed capacity to provisioned capacity. (default 80)
+  -table-manager.chunk-table.write-throughput int
+    	Table default write throughput. Supported by DynamoDB (default 1000)
+  -table-manager.chunk-table.write-throughput.scale.enabled
+    	Should we enable autoscale for the table.
+  -table-manager.chunk-table.write-throughput.scale.in-cooldown int
+    	DynamoDB minimum seconds between each autoscale down. (default 1800)
+  -table-manager.chunk-table.write-throughput.scale.max-capacity int
+    	DynamoDB maximum provision capacity. (default 6000)
+  -table-manager.chunk-table.write-throughput.scale.min-capacity int
+    	DynamoDB minimum provision capacity. (default 3000)
+  -table-manager.chunk-table.write-throughput.scale.out-cooldown int
+    	DynamoDB minimum seconds between each autoscale up. (default 1800)
+  -table-manager.chunk-table.write-throughput.scale.role-arn string
+    	AWS AutoScaling role ARN
+  -table-manager.chunk-table.write-throughput.scale.target-value float
+    	DynamoDB target ratio of consumed capacity to provisioned capacity. (default 80)
+  -table-manager.index-table.enable-ondemand-throughput-mode
+    	Enables on demand throughput provisioning for the storage provider (if supported). Applies only to tables which are not autoscaled. Supported by DynamoDB
+  -table-manager.index-table.inactive-enable-ondemand-throughput-mode
+    	Enables on demand throughput provisioning for the storage provider (if supported). Applies only to tables which are not autoscaled. Supported by DynamoDB
+  -table-manager.index-table.inactive-read-throughput int
+    	Table read throughput for inactive tables. Supported by DynamoDB (default 300)
+  -table-manager.index-table.inactive-read-throughput.scale-last-n int
+    	Number of last inactive tables to enable read autoscale. (default 4)
+  -table-manager.index-table.inactive-read-throughput.scale.enabled
+    	Should we enable autoscale for the table.
+  -table-manager.index-table.inactive-read-throughput.scale.in-cooldown int
+    	DynamoDB minimum seconds between each autoscale down. (default 1800)
+  -table-manager.index-table.inactive-read-throughput.scale.max-capacity int
+    	DynamoDB maximum provision capacity. (default 6000)
+  -table-manager.index-table.inactive-read-throughput.scale.min-capacity int
+    	DynamoDB minimum provision capacity. (default 3000)
+  -table-manager.index-table.inactive-read-throughput.scale.out-cooldown int
+    	DynamoDB minimum seconds between each autoscale up. (default 1800)
+  -table-manager.index-table.inactive-read-throughput.scale.role-arn string
+    	AWS AutoScaling role ARN
+  -table-manager.index-table.inactive-read-throughput.scale.target-value float
+    	DynamoDB target ratio of consumed capacity to provisioned capacity. (default 80)
+  -table-manager.index-table.inactive-write-throughput int
+    	Table write throughput for inactive tables. Supported by DynamoDB (default 1)
+  -table-manager.index-table.inactive-write-throughput.scale-last-n int
+    	Number of last inactive tables to enable write autoscale. (default 4)
+  -table-manager.index-table.inactive-write-throughput.scale.enabled
+    	Should we enable autoscale for the table.
+  -table-manager.index-table.inactive-write-throughput.scale.in-cooldown int
+    	DynamoDB minimum seconds between each autoscale down. (default 1800)
+  -table-manager.index-table.inactive-write-throughput.scale.max-capacity int
+    	DynamoDB maximum provision capacity. (default 6000)
+  -table-manager.index-table.inactive-write-throughput.scale.min-capacity int
+    	DynamoDB minimum provision capacity. (default 3000)
+  -table-manager.index-table.inactive-write-throughput.scale.out-cooldown int
+    	DynamoDB minimum seconds between each autoscale up. (default 1800)
+  -table-manager.index-table.inactive-write-throughput.scale.role-arn string
+    	AWS AutoScaling role ARN
+  -table-manager.index-table.inactive-write-throughput.scale.target-value float
+    	DynamoDB target ratio of consumed capacity to provisioned capacity. (default 80)
+  -table-manager.index-table.read-throughput int
+    	Table default read throughput. Supported by DynamoDB (default 300)
+  -table-manager.index-table.read-throughput.scale.enabled
+    	Should we enable autoscale for the table.
+  -table-manager.index-table.read-throughput.scale.in-cooldown int
+    	DynamoDB minimum seconds between each autoscale down. (default 1800)
+  -table-manager.index-table.read-throughput.scale.max-capacity int
+    	DynamoDB maximum provision capacity. (default 6000)
+  -table-manager.index-table.read-throughput.scale.min-capacity int
+    	DynamoDB minimum provision capacity. (default 3000)
+  -table-manager.index-table.read-throughput.scale.out-cooldown int
+    	DynamoDB minimum seconds between each autoscale up. (default 1800)
+  -table-manager.index-table.read-throughput.scale.role-arn string
+    	AWS AutoScaling role ARN
+  -table-manager.index-table.read-throughput.scale.target-value float
+    	DynamoDB target ratio of consumed capacity to provisioned capacity. (default 80)
+  -table-manager.index-table.write-throughput int
+    	Table default write throughput. Supported by DynamoDB (default 1000)
+  -table-manager.index-table.write-throughput.scale.enabled
+    	Should we enable autoscale for the table.
+  -table-manager.index-table.write-throughput.scale.in-cooldown int
+    	DynamoDB minimum seconds between each autoscale down. (default 1800)
+  -table-manager.index-table.write-throughput.scale.max-capacity int
+    	DynamoDB maximum provision capacity. (default 6000)
+  -table-manager.index-table.write-throughput.scale.min-capacity int
+    	DynamoDB minimum provision capacity. (default 3000)
+  -table-manager.index-table.write-throughput.scale.out-cooldown int
+    	DynamoDB minimum seconds between each autoscale up. (default 1800)
+  -table-manager.index-table.write-throughput.scale.role-arn string
+    	AWS AutoScaling role ARN
+  -table-manager.index-table.write-throughput.scale.target-value float
+    	DynamoDB target ratio of consumed capacity to provisioned capacity. (default 80)
+  -table-manager.periodic-table.grace-period duration
+    	Periodic tables grace period (duration which table will be created/deleted before/after it's needed). (default 10m0s)
+  -table-manager.poll-interval duration
+    	How frequently to poll backend to learn our capacity. (default 2m0s)
+  -table-manager.retention-deletes-enabled
+    	If true, enables retention deletes of DB tables
+  -table-manager.retention-period value
+    	Tables older than this retention period are deleted. Must be either 0 (disabled) or a multiple of 24h. When enabled, be aware this setting is destructive to data!
+  -table-manager.throughput-updates-disabled
+    	If true, disable all changes to DB capacity
+  -target value
+    	Comma-separated list of Cortex modules to load. The alias 'all' can be used in the list to load a number of core modules and will enable single-binary mode. Use '-modules' command line flag to get a list of available modules, and to see which modules are included in 'all'. (default all)
+  -tenant-federation.enabled |
+    	If enabled on all Cortex services, queries can be federated across multiple tenants. The tenant IDs involved need to be specified separated by a | character in the `X-Scope-OrgID` header (experimental).
+  -validation.create-grace-period value
+    	Duration which table will be created/deleted before/after it's needed; we won't accept sample from before this time. (default 10m)
+  -validation.enforce-metadata-metric-name
+    	Enforce every metadata has a metric name. (default true)
+  -validation.enforce-metric-name
+    	Enforce every sample has a metric name. (default true)
+  -validation.max-label-names-per-series int
+    	Maximum number of label names per series. (default 30)
+  -validation.max-length-label-name int
+    	Maximum length accepted for label names (default 1024)
+  -validation.max-length-label-value int
+    	Maximum length accepted for label value. This setting also applies to the metric name (default 2048)
+  -validation.max-metadata-length int
+    	Maximum length accepted for metric metadata. Metadata refers to Metric Name, HELP and UNIT. (default 1024)
+  -validation.reject-old-samples
+    	Reject old samples.
+  -validation.reject-old-samples.max-age value
+    	Maximum accepted sample age before rejecting. (default 2w)
+  -version
+    	Print Cortex version and exit.

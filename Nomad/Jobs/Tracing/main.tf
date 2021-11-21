@@ -46,14 +46,64 @@ terraform {
   }
 }
 
-resource "nomad_job" "TempoJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/Tempo.hcl", {
-    Tempo = {
-      Targets = var.Tempo.Targets
+#
+# Grafana Tempo
+#
 
-      YAMLConfig = templatefile("${path.module}/Configs/Tempo/Tempo.yaml", var.Tempo)
+locals {
+  Tempo = {
+    YAMLConfig = templatefile("${path.module}/Configs/Tempo/Tempo.yaml", var.Tempo)
+    
+    Version = ""
+  }
+}
 
-      Version = "main-2af905a"
-    }
+#
+# Grafana Tempo Distributor
+#
+
+resource "nomad_job" "TempoDistributorJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/TempoDistributor.hcl", {
+    Tempo = local.Tempo
+  })
+}
+
+#
+# Grafana Tempo Ingester
+#
+
+resource "nomad_job" "TempoIngesterJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/TempoIngester.hcl", {
+    Tempo = local.Tempo
+  })
+}
+
+#
+# Grafana Tempo Query Frontend
+#
+
+resource "nomad_job" "TempoQueryFrontendJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/TempoQueryFrontend.hcl", {
+    Tempo = local.Tempo
+  })
+}
+
+#
+# Grafana Tempo Querier
+#
+
+resource "nomad_job" "TempoQuerierJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/TempoQuerier.hcl", {
+    Tempo = local.Tempo
+  })
+}
+
+#
+# Grafana Tempo Compactor
+#
+
+resource "nomad_job" "TempoCompactorJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/TempoCompactor.hcl", {
+    Tempo = local.Tempo
   })
 }

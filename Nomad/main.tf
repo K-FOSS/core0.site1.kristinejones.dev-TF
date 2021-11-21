@@ -191,14 +191,6 @@ module "Web" {
   }
 }
 
-module "CoTurn" {
-  source = "./Jobs/CoTurn"
-
-  Realm = "kristianjones.dev"
-
-  Database = var.CoTurn.Database
-}
-
 #
 # Grafana
 #
@@ -377,6 +369,19 @@ module "NS" {
   source = "./Jobs/NS"
 
   PowerDNS = var.NS.PowerDNS
+}
+
+#
+# NATPunch
+#
+module "NATPunch" {
+  source = "./Jobs/Network/NATPunch"
+
+  CoTurn = {
+    Realm = "kristianjones.dev"
+
+    Database = var.CoTurn.Database
+  }
 }
 
 #

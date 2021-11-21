@@ -472,3 +472,32 @@ module "PrometheusTLS" {
   source = "./TLS/Template"
 }
 
+#
+# Development
+#
+
+#
+# GitLab
+#
+
+module "GitLabTLS" {
+  source = "./TLS/Template"
+}
+
+resource "vault_pki_secret_backend_cert" "GitLabWebServicesCert" {
+  backend = module.Harbor.TLS.Mount.path
+  name = module.Harbor.TLS.Role.name
+
+  common_name = "https.webservices.gitlab.service.kjdev"
+
+  alt_names = ["https.webservices.gitlab.service.dc1.kjdev"]
+}
+
+resource "vault_pki_secret_backend_cert" "GitLabWorkHorseCert" {
+  backend = module.Harbor.TLS.Mount.path
+  name = module.Harbor.TLS.Role.name
+
+  common_name = "https.webservices.gitlab.service.kjdev"
+
+  alt_names = ["https.webservices.gitlab.service.dc1.kjdev"]
+}

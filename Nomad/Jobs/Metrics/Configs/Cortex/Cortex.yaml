@@ -102,7 +102,7 @@ distributor:
 
   ring:
     instance_id: {{ env "NOMAD_ALLOC_NAME" }}
-    instance_addr: {{ env "NOMAD_ALLOC_INDEX" }}.http.cortex-{{ env "NOMAD_META_TARGET" }}.service.dc1.kjdev
+    instance_addr: {{ env "NOMAD_ALLOC_INDEX" }}.http.{{ env "NOMAD_META_TARGET" }}.cortex.service.dc1.kjdev
     kvstore:
       store: multi
       prefix: ${Consul.Prefix}/collectors/

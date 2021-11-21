@@ -46,10 +46,21 @@ terraform {
   }
 }
 
-# resource "nomad_job" "MesheryServerJobFile" {
-#   jobspec = templatefile("${path.module}/Jobs/MesheryServer.hcl", {  })
-# }
+resource "random_password" "CoTurnPassword" {
+  length = 20
+  special = false
+}
 
-# resource "nomad_job" "MesheryConsulAdapterJobFile" {
-#   jobspec = templatefile("${path.module}/Jobs/MesheryConsul.hcl", {  })
-# }
+resource "nomad_job" "JobFile" {
+  jobspec = templatefile("${path.module}/Jobs/CoTurn.hcl", {
+    CoTurn = {
+      Config = templatefile("${path.module}/Configs/CoTurn/turnserver.conf", {
+        Realm = var.CoTurn.Realm
+        
+        Database = var.CoTurn.Database
+        
+        CLIPassword = random_password.CoTurnPassword.result
+      })
+    }
+  })
+}

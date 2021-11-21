@@ -1,13 +1,12 @@
-job "tracing" {
+job "tempo-query-frontend" {
   datacenters = ["core0site1"]
 
-%{ for Target in Tempo.Targets ~}
-  group "tempo-${Target.name}" {
-    count = ${Target.count}
+  group "tempo-query-frontend" {
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
-      weight    = 100
+      weight = 100
     }
 
     network {
@@ -23,31 +22,31 @@ job "tracing" {
     }
 
     service {
-      name = "tempo-${Target.name}-http-cont"
+      name = "tempo"
       port = "http"
 
-      task = "tempo-${Target.name}"
+      task = "tempo-query-frontend"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.query-frontend"]
     }
 
     service {
-      name = "tempo-${Target.name}-grpc-cont"
+      name = "tempo"
       port = "grpc"
 
-      task = "tempo-${Target.name}"
+      task = "tempo-query-frontend"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.query-frontend"]
     }
 
-    task "tempo-${Target.name}" {
+    task "tempo-query-frontend" {
       driver = "docker"
 
       restart {
         attempts = 5
-        delay    = "60s"
+        delay = "60s"
       }
 
       config {
@@ -57,7 +56,7 @@ job "tracing" {
       }
 
       meta {
-        TARGET = "${Target.name}"
+        TARGET = "query-frontend"
       }
 
       template {
@@ -88,5 +87,4 @@ EOF
       }
     }
   }
-%{ endfor ~}
 }

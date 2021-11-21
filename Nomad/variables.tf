@@ -472,13 +472,6 @@ variable "Tracing" {
         Prefix = string
       })
 
-      Targets = map(object(
-        {
-          name = string
-          count = number
-        }
-      ))
-
       S3 = object({
         Connection = object({
           Hostname = string

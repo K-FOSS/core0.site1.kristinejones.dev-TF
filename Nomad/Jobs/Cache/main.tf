@@ -62,8 +62,19 @@ resource "nomad_job" "OpenProjectRedisJobFile" {
 #
 # Cortex Memcached
 #
+
 resource "nomad_job" "CortexCacheJobFile" {
   jobspec = templatefile("${path.module}/Jobs/CortexCache.hcl", {
+
+  })
+}
+
+#
+# Grafana Loki Cache
+#
+
+resource "nomad_job" "GrafanaLokiCacheJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/LokiCache.hcl", {
 
   })
 }
