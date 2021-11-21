@@ -76,7 +76,7 @@ locals {
   Loki = {
     YAMLConfig = templatefile("${path.module}/Configs/Loki/Loki.yaml", var.Loki)
 
-    Version = "master"
+    Version = "main"
   }
 }
 
