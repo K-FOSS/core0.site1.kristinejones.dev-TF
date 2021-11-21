@@ -406,7 +406,7 @@ common:
   # When true, the ingester, compactor, and query_scheduler ring tokens will be saved
   # to files in the path_prefix directory. Loki will error if you set this to true
   # and path_prefix is empty.
-  persist_tokens: true
+  persist_tokens: false
 
   # A common ring configuration to be used by all Loki rings.
   # If a common ring is given, its values are used to define any undefined ring values.
