@@ -81,6 +81,8 @@ job "loki-ingester" {
     task "loki-ingester" {
       driver = "docker"
 
+      user = "root"
+
       restart {
         attempts = 5
         delay = "60s"
