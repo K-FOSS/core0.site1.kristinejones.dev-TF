@@ -4,7 +4,7 @@ job "ingress" {
   type = "service"
 
   group "proxies" {
-    count = 6
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"

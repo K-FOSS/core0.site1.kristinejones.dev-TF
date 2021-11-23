@@ -28,6 +28,12 @@ job "cortex-cache" {
       config {
         image = "memcached:1.6"
       }
+
+      resources {
+        cpu = 128
+        memory = 32
+        memory_max = 64
+      }
     }
   }
 }

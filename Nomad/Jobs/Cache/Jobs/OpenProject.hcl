@@ -58,6 +58,12 @@ job "cache-openproject" {
       config {
         image = "memcached:1.6"
       }
+
+      resources {
+        cpu = 128
+        memory = 256
+        memory_max = 256
+      }
     }
   }
 }

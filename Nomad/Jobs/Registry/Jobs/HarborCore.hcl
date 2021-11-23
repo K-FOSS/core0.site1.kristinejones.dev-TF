@@ -82,6 +82,12 @@ job "registry-harbor-core" {
         command = "sh"
         args = ["-c", "while ! nc -z redis.core.harbor.service.dc1.kjdev 6379; do sleep 1; done"]
       }
+
+      resources {
+        cpu = 16
+        memory = 16
+        memory_max = 32
+      }
     }
 
     service {
@@ -123,6 +129,12 @@ job "registry-harbor-core" {
             loki-external-labels = "job=harbor,service=core"
           }
         }
+      }
+
+      resources {
+        cpu = 128
+        memory = 32
+        memory_max = 64
       }
 
       env {

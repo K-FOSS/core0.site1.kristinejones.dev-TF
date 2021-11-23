@@ -28,6 +28,12 @@ job "nextcloud-cache" {
       config {
         image = "redis:latest"
       }
+
+      resources {
+        cpu = 128
+        memory = 32
+        memory_max = 64
+      }
     }
   }
 }

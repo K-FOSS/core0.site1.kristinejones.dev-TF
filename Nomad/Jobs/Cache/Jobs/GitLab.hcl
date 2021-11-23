@@ -49,6 +49,12 @@ job "cache-gitlab" {
         image = "redis:latest"
       }
 
+      resources {
+        cpu = 128
+        memory = 128
+        memory_max = 128
+      }
+
       template {
         data = <<EOF
 bind 0.0.0.0

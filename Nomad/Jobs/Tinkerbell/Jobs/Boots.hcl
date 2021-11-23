@@ -42,6 +42,12 @@ job "tinkerbell-boots" {
         command = "sh"
         args = ["-c", "while ! nc -z tink-http-cont.service.dc1.kjdev 42114; do sleep 1; done"]
       }
+
+      resources {
+        cpu = 16
+        memory = 16
+        memory_max = 16
+      }
     }
 
     service {

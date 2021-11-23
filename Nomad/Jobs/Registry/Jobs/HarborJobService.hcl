@@ -48,6 +48,12 @@ job "registry-harbor-jobservice" {
       config {
         image = "redis:latest"
       }
+
+      resources {
+        cpu = 128
+        memory = 32
+        memory_max = 64
+      }
     }
   }
 
@@ -81,6 +87,12 @@ job "registry-harbor-jobservice" {
       config {
         command = "sh"
         args = ["-c", "while ! nc -z redis.jobservice.harbor.service.dc1.kjdev 6379; do sleep 1; done"]
+      }
+
+      resources {
+        cpu = 16
+        memory = 16
+        memory_max = 32
       }
     }
 

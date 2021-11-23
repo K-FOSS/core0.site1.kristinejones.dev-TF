@@ -28,6 +28,12 @@ job "dns-cache" {
       config {
         image = "redis:latest"
       }
+
+      resources {
+        cpu = 64
+        memory = 16
+        memory_max = 32
+      }
     }
   }
 }

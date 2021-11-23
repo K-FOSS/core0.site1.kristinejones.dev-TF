@@ -5,7 +5,7 @@ job "development-gitlab-webservice" {
   # GitLab Web Service
   #
   group "gitlab-webservice" {
-    count = 2
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"

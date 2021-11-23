@@ -88,6 +88,12 @@ job "tinkerbell-tink" {
         image = "quay.io/tinkerbell/tink:${Version}"
       }
 
+      resources {
+        cpu = 32
+        memory = 32
+        memory_max = 64
+      }
+
       env {
         FACILITY = "onprem"
 

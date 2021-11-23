@@ -33,6 +33,12 @@ job "pomerium-cache" {
         args = ["/local/redis.conf"]
       }
 
+      resources {
+        cpu = 128
+        memory = 64
+        memory_max = 64
+      }
+
       template {
         data = <<EOF
 port 0
