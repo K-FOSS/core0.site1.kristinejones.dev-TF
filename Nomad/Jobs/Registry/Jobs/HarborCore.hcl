@@ -132,9 +132,9 @@ job "registry-harbor-core" {
       }
 
       resources {
-        cpu = 128
-        memory = 32
-        memory_max = 64
+        cpu = 512
+        memory = 256
+        memory_max = 256
       }
 
       env {
