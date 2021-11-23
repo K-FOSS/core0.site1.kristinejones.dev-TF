@@ -2,7 +2,7 @@ job "ns" {
   datacenters = ["core0site1"]
 
   group "powerdns" {
-    count = 3
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"
@@ -14,6 +14,10 @@ job "ns" {
 
       port "dns" {
         to = 53
+
+        static = 53
+
+        host_network = "ns"
       }
     }
 
@@ -71,6 +75,8 @@ EOH
 
       config {
         image = "powerdns/pdns-auth-master"
+
+        ports = ["dns"]
 
         args = ["--config-dir=/local/"]
       }

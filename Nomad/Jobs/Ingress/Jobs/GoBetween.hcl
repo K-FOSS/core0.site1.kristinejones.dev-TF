@@ -51,14 +51,6 @@ job "ingress-gobetween" {
 
         host_network = "dns"
       }
-
-      port "ns" {
-        to = 153
-
-        static = 153
-
-        host_network = "ns"
-      }
     }
 
     service {
