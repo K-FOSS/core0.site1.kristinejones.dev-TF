@@ -14,6 +14,10 @@ job "network-dns-networkdns" {
 
       port "dns" {
         to = 8055
+
+        static = 8055
+
+        host_network = "dns"
       }
 
       port "health" {

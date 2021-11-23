@@ -27,22 +27,6 @@ job "ingress-gobetween" {
 
         host_network = "dns"
       }
-
-      port "networkdns" {
-        to = 8055
-
-        static = 8055
-
-        host_network = "dns"
-      }
-
-      port "servicedns" {
-        to = 8060
-
-        static = 8060
-
-        host_network = "dns"
-      }
     }
 
     service {

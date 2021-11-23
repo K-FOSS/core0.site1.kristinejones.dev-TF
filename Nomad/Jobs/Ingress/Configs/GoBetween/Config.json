@@ -22,36 +22,6 @@
         "consul_service_name": "dns",
         "consul_service_tag": "dns.rns"
       }
-    },
-    "networkdns": {
-      "bind": "0.0.0.0:8055",
-      "protocol": "udp",
-      "backend_idle_timeout": "5s",
-      "udp": {
-        "max_requests": 32
-      },
-      "discovery": {
-        "kind": "consul",
-        "consul_host": "${Consul.Hostname}:${Consul.Port}",
-        "consul_acl_token": "${Consul.Token}",
-        "consul_service_name": "dns",
-        "consul_service_tag": "dns.network"
-      }
-    },
-    "servicedns": {
-      "bind": "0.0.0.0:8060",
-      "protocol": "udp",
-      "backend_idle_timeout": "5s",
-      "udp": {
-        "max_requests": 32
-      },
-      "discovery": {
-        "kind": "consul",
-        "consul_host": "${Consul.Hostname}:${Consul.Port}",
-        "consul_acl_token": "${Consul.Token}",
-        "consul_service_name": "dns",
-        "consul_service_tag": "dns.service"
-      }
     }
   }
 }
