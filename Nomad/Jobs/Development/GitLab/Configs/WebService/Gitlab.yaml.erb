@@ -169,7 +169,7 @@ production: &base
     storages: # You must have at least a `default` storage path.
       default:
         path: /var/opt/gitlab/repo
-        gitaly_address: tcp://http.gitaly.gitlab.service.dc1.kjdev:8075 # TCP connections are supported too (e.g. tcp://host:port)
+        gitaly_address: tcp://172.31.241.2:37075 # TCP connections are supported too (e.g. tcp://host:port)
   backup:
     path: "tmp/backups"   # Relative paths are relative to Rails.root (default: tmp/backups/)
   gitlab_shell:

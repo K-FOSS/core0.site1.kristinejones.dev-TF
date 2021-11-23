@@ -87,6 +87,8 @@ resource "nomad_job" "GitLabDatabaseJob" {
           OpenID = var.OpenID
 
           SMTP = var.SMTP
+
+          S3 = var.S3
         })
 
         Resque = templatefile("${path.module}/Configs/WebService/Resque.yaml", {
