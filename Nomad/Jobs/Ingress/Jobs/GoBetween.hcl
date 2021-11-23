@@ -49,16 +49,6 @@ job "ingress-gobetween" {
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "metrics"]
     }
 
-    service {
-      name = "gobetween"
-      port = "https"
-
-      task = "gobetween-server"
-      address_mode = "host"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https"]
-    }
-
     task "gobetween-server" {
       driver = "docker"
 
