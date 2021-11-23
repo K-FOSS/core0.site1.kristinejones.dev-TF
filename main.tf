@@ -624,7 +624,7 @@ module "Nomad" {
 
   Bitwarden = {
     Database = {
-      Hostname = "172.31.241.2"
+      Hostname = "172.16.20.21"
       Port = 36009
 
       Username = module.Vault.Bitwarden.Database.Username
