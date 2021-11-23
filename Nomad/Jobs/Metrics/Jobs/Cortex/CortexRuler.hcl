@@ -57,7 +57,13 @@ job "cortex-ruler" {
       driver = "exec"
       config {
         command = "sh"
-        args = ["-c", "while ! nc -z cortex-memcached.service.dc1.kjdev 11211; do sleep 1; done"]
+        args = ["-c", "while ! nc -z memcached.cortex.service.dc1.kjdev 11211; do sleep 1; done"]
+      }
+
+      resources {
+        cpu = 32
+        memory = 32
+        memory_max = 32
       }
     }
 
