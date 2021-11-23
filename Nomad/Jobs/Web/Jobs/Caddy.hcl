@@ -16,6 +16,10 @@ job "ingress" {
 
       port "https" {
         to = 443
+
+        static = 443
+
+        host_network = "https"
       }
 
       port "http" {
@@ -69,12 +73,14 @@ job "ingress" {
       
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
 
+        ports = ["https"]
+
         logging {
           type = "loki"
           config {
-            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
 
-            loki-external-labels = "job=ingress,service=web"
+            loki-external-labels = "job=ingress,service=gobetween"
           }
         }
       }

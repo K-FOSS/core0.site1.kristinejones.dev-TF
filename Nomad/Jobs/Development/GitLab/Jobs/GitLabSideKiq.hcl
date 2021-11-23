@@ -61,8 +61,8 @@ job "development-gitlab-sidekiq" {
 
       resources {
         cpu = 256
-        memory = 1024
-        memory_max = 1024
+        memory = 256
+        memory_max = 256
       }
 
       env {

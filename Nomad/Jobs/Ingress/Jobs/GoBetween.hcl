@@ -20,14 +20,6 @@ job "ingress-gobetween" {
         to = 9284
       }
 
-      port "https" {
-        to = 443
-
-        static = 443
-
-        host_network = "https"
-      }
-
       port "dns" {
         to = 53
 
