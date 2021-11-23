@@ -103,23 +103,23 @@ locals {
 # Gitlab Gitaly
 #
 
-resource "nomad_job" "GitLabGitalyJob" {
-  jobspec = templatefile("${path.module}/Jobs/GitLabGitaly.hcl", {
-    Image = {
-      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
+# resource "nomad_job" "GitLabGitalyJob" {
+#   jobspec = templatefile("${path.module}/Jobs/GitLabGitaly.hcl", {
+#     Image = {
+#       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
-      Tag = "master"
-    }
+#       Tag = "master"
+#     }
 
-    Gitaly = {
-      GitConfig = templatefile("${path.module}/Configs/Gitaly/gitconfig", {
-      })
+#     Gitaly = {
+#       GitConfig = templatefile("${path.module}/Configs/Gitaly/gitconfig", {
+#       })
 
-      Config = templatefile("${path.module}/Configs/Gitaly/config.toml", {
-      })
-    }
-  })
-}
+#       Config = templatefile("${path.module}/Configs/Gitaly/config.toml", {
+#       })
+#     }
+#   })
+# }
 
 #
 # GitLab Pages
