@@ -2,7 +2,7 @@ job "network-dns-servicedns" {
   datacenters = ["core0site1"]
 
   group "servicedns-coredns-server" {
-    count = 3
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"
