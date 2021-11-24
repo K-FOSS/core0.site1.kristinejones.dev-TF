@@ -1,6 +1,19 @@
+trusted_cidrs_for_x_forwarded_for = ["172.16.0.0/12"]
+
 [redis]
 URL = "tcp://redis.gitlab.service.dc1.kjdev:6379"
 
 [image_resizer]
   max_scaler_procs = 100
   max_filesize = 250000
+
+[object_storage]
+  provider = "AWS" # Allowed options: AWS, AzureRM
+
+[object_storage.s3]
+  region = "us-west-1"
+  aws_access_key_id = "${S3.RepoBucket.Credentials.AccessKey}"
+  aws_secret_access_key = "${S3.RepoBucket.Credentials.SecretKey}"
+  host = "${S3.RepoBucket.Connection.Hostname}"
+  endpoint = "${S3.RepoBucket.Connection.Endpoint}"
+  path_style = "true"

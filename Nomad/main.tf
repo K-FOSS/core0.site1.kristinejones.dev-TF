@@ -530,6 +530,8 @@ module "GitLab" {
   
   Database = var.GitLab.Database
 
+  TLS = var.GitLab.TLS
+
   S3 = var.GitLab.S3
 
   OpenID = var.GitLab.OpenID

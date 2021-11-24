@@ -149,6 +149,19 @@ EOF
         destination = "secrets/TLS/HomeAssistantCA.pem"
       }
 
+      #
+      # GitLab
+      #
+      # TODO: Proper mTLS
+      #
+      template {
+        data = <<EOF
+${TLS.GitLab.CA}
+EOF
+
+        destination = "secrets/TLS/GitLab.pem"
+      }
+
       resources {
         cpu = 800
         memory = 256

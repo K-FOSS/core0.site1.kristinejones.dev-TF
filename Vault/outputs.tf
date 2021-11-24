@@ -415,6 +415,22 @@ output "GitLab" {
       ClientID = data.vault_generic_secret.GitLab.data["OpenIDClient"]
       ClientSecret = data.vault_generic_secret.GitLab.data["OpenIDSecret"]
     }
+
+    TLS = {
+      WebService = {
+        CA = vault_pki_secret_backend_cert.GitLabWebServicesCert.ca_chain
+  
+        Cert = vault_pki_secret_backend_cert.GitLabWebServicesCert.certificate
+        Key = vault_pki_secret_backend_cert.GitLabWebServicesCert.private_key
+      }
+
+      WorkHorse = {
+        CA = vault_pki_secret_backend_cert.GitLabWorkHorseCert.ca_chain
+  
+        Cert = vault_pki_secret_backend_cert.GitLabWorkHorseCert.certificate
+        Key = vault_pki_secret_backend_cert.GitLabWorkHorseCert.private_key
+      }
+    }
   }
 }
 

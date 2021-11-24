@@ -258,6 +258,7 @@ resource "nomad_job" "GitLabWorkHorseJob" {
       Secrets = local.GitLab.Secrets
 
       Config = templatefile("${path.module}/Configs/WorkHorse/WorkhorseConfig.toml", {
+        S3 = var.S3
       })
     }
   })

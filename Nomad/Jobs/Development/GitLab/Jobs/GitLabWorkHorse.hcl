@@ -31,6 +31,11 @@ job "development-gitlab-workhorse" {
         command = "sh"
         args = ["-c", "while ! nc -z redis.gitlab.service.dc1.kjdev 6379; do sleep 1; done"]
       }
+
+      resources {
+        cpu = 16
+        memory = 16
+      }
     }
 
     task "wait-for-gitlab-webservice" {
@@ -43,6 +48,11 @@ job "development-gitlab-workhorse" {
       config {
         command = "sh"
         args = ["-c", "while ! nc -z http.webservice.gitlab.service.dc1.kjdev 8080; do sleep 1; done"]
+      }
+
+      resources {
+        cpu = 16
+        memory = 16
       }
     }
 
@@ -95,13 +105,25 @@ job "development-gitlab-workhorse" {
       }
 
       env {
+        #
+        # Configs
+        #
         CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/config/templates"
 
         CONFIG_DIRECTORY = "/srv/gitlab/config"
 
+        #
+        # Workhorse
+        #
         GITLAB_WORKHORSE_LISTEN_PORT = "8080"
-
         GITLAB_WORKHORSE_EXTRA_ARGS = "-authBackend http://http.webservice.gitlab.service.dc1.kjdev:8080 -cableBackend http://http.webservice.gitlab.service.dc1.kjdev:8080"
+
+        ENABLE_BOOTSNAP = "1"
+
+        #
+        # Tracing
+        #
+        GITLAB_TRACING = "opentracing://jaeger?http_endpoint=http%3A%2F%2Fhttp.distributor.tempo.service.kjdev%3A14268%2Fapi%2Ftraces&sampler=const&sampler_param=1"
       }
 
       template {

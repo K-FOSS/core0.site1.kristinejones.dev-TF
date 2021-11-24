@@ -485,8 +485,8 @@ module "GitLabTLS" {
 }
 
 resource "vault_pki_secret_backend_cert" "GitLabWebServicesCert" {
-  backend = module.Harbor.TLS.Mount.path
-  name = module.Harbor.TLS.Role.name
+  backend = module.GitLabTLS.TLS.Mount.path
+  name = module.GitLabTLS.TLS.Role.name
 
   common_name = "https.webservices.gitlab.service.kjdev"
 
@@ -494,8 +494,8 @@ resource "vault_pki_secret_backend_cert" "GitLabWebServicesCert" {
 }
 
 resource "vault_pki_secret_backend_cert" "GitLabWorkHorseCert" {
-  backend = module.Harbor.TLS.Mount.path
-  name = module.Harbor.TLS.Role.name
+  backend = module.GitLabTLS.TLS.Mount.path
+  name = module.GitLabTLS.TLS.Role.name
 
   common_name = "https.webservices.gitlab.service.kjdev"
 

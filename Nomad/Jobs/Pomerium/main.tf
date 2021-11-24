@@ -81,6 +81,7 @@ resource "nomad_job" "PomeriumAuthenticateJobFile" {
 
       Grafana = var.TLS.Grafana
       HomeAssistant = var.TLS.HomeAssistant
+      GitLab = var.TLS.GitLab
     }
 
     Config = templatefile("${path.module}/Configs/Pomerium/PomeriumAuthenticate.yaml", {
@@ -107,6 +108,7 @@ resource "nomad_job" "PomeriumAuthorizeJobFile" {
 
       Grafana = var.TLS.Grafana
       HomeAssistant = var.TLS.HomeAssistant
+      GitLab = var.TLS.GitLab
     }
 
     Config = templatefile("${path.module}/Configs/Pomerium/PomeriumAuthorize.yaml", {
@@ -133,6 +135,7 @@ resource "nomad_job" "PomeriumDataBrokerJobFile" {
 
       Grafana = var.TLS.Grafana
       HomeAssistant = var.TLS.HomeAssistant
+      GitLab = var.TLS.GitLab
     }
 
     Config = templatefile("${path.module}/Configs/Pomerium/PomeriumDataBroker.yaml", {
@@ -160,6 +163,7 @@ resource "nomad_job" "PomeriumProxyJobFile" {
 
       Grafana = var.TLS.Grafana
       HomeAssistant = var.TLS.HomeAssistant
+      GitLab = var.TLS.GitLab
     }
 
     Config = templatefile("${path.module}/Configs/Pomerium/PomeriumProxy.yaml", {

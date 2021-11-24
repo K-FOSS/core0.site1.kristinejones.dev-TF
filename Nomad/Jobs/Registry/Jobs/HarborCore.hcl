@@ -259,7 +259,7 @@ job "registry-harbor-core" {
         #
         TRACE_ENABLED = "true"
         TRACE_SAMPLE_RATE = "1"
-        TRACE_JAEGER_ENDPOINT = "http://tempo-distributor-http-cont.service.kjdev:14268/api/traces"
+        TRACE_JAEGER_ENDPOINT = "http://http.distributor.tempo.service.kjdev:14268/api/traces"
 
       }
 

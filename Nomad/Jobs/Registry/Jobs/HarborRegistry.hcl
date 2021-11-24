@@ -147,7 +147,7 @@ job "registry-harbor-registry" {
         METRIC_SUBSYSTEM = "registry"
         TRACE_ENABLED = "true"
         TRACE_SAMPLE_RATE = "1"
-        TRACE_JAEGER_ENDPOINT = "http://tempo-distributor-http-cont.service.kjdev:14268/api/traces"
+        TRACE_JAEGER_ENDPOINT = "http://http.distributor.tempo.service.kjdev:14268/api/traces"
       }
 
       template {
@@ -271,7 +271,7 @@ EOH
         METRIC_SUBSYSTEM = "registryctl"
         TRACE_ENABLED = "true"
         TRACE_SAMPLE_RATE = "1"
-        TRACE_JAEGER_ENDPOINT = "http://tempo-distributor-http-cont.service.kjdev:14268/api/traces"
+        TRACE_JAEGER_ENDPOINT = "http://http.distributor.tempo.service.kjdev:14268/api/traces"
 
       }
 

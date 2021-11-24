@@ -30,6 +30,11 @@ job "openproject-proxy" {
         command = "sh"
         args = ["-c", "while ! nc -z https.server.openproject.service.dc1.kjdev 8080; do sleep 1; done"]
       }
+
+      resources {
+        cpu = 16
+        memory = 16
+      }
     }
 
     service {

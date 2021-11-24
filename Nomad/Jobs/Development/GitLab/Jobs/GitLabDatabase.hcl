@@ -27,6 +27,11 @@ job "gitlab-database" {
         command = "sh"
         args = ["-c", "while ! nc -z redis.gitlab.service.dc1.kjdev 6379; do sleep 1; done"]
       }
+
+      resources {
+        cpu = 16
+        memory = 16
+      }
     }
 
     task "gitlab-migrations-task" {
@@ -69,7 +74,7 @@ job "gitlab-database" {
         logging {
           type = "loki"
           config {
-            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
 
             loki-external-labels = "job=gitlab,service=migrations"
           }

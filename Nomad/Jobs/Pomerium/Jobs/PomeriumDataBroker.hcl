@@ -27,6 +27,11 @@ job "pomerium-databroker" {
         command = "sh"
         args = ["-c", "while ! nc -z redis.pomerium.service.dc1.kjdev 6379; do sleep 1; done"]
       }
+
+      resources {
+        cpu = 16
+        memory = 16
+      }
     }
 
     service {
@@ -162,11 +167,23 @@ EOF
         destination = "secrets/TLS/HomeAssistantCA.pem"
       }
 
+      #
+      # GitLab
+      #
+      # TODO: Proper mTLS
+      #
+      template {
+        data = <<EOF
+${TLS.GitLab.CA}
+EOF
+
+        destination = "secrets/TLS/GitLab.pem"
+      }
+
       resources {
         cpu = 800
         memory = 256
       }
     }
   }
-
 }

@@ -50,6 +50,11 @@ job "cortex-alertmanager" {
         command = "sh"
         args = ["-c", "while ! nc -z http.cortex-configs.service.dc1.kjdev 8080; do sleep 1; done"]
       }
+
+      resources {
+        cpu = 16
+        memory = 16
+      }
     }
 
     service {

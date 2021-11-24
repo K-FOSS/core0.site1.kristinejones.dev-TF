@@ -23,6 +23,11 @@ job "openproject-server" {
         command = "sh"
         args = ["-c", "while ! nc -z memcache.openproject.service.dc1.kjdev 11211; do sleep 1; done"]
       }
+
+      resources {
+        cpu = 16
+        memory = 16
+      }
     }
 
     service {

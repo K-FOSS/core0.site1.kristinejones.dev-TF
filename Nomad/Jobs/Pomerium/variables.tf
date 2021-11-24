@@ -21,6 +21,10 @@ variable "TLS" {
       CA = string
     })
 
+    GitLab = object({
+      CA = string
+    })
+
     Authenticate = object({
       Metrics = object({
         Server = object({

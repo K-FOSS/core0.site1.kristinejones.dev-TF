@@ -906,6 +906,22 @@ variable "GitLab" {
       Password = string
     })
 
+    TLS = object({
+      WebService = object({
+        CA = string
+
+        Cert = string
+        Key = string
+      })
+
+      WorkHorse = object({
+        CA = string
+
+        Cert = string
+        Key = string
+      })
+    })
+
     S3 = object({
       ArtifactsBucket = object({
         Connection = object({

@@ -31,6 +31,11 @@ job "development-gitlab-webservice" {
         command = "sh"
         args = ["-c", "while ! nc -z redis.gitlab.service.dc1.kjdev 6379; do sleep 1; done"]
       }
+
+      resources {
+        cpu = 16
+        memory = 16
+      }
     }
 
     service {

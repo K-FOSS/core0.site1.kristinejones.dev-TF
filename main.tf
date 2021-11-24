@@ -1020,6 +1020,8 @@ module "Nomad" {
   GitLab = {
     Database = module.GitLabNewDatabase.Database
 
+    TLS = module.Vault.GitLab.TLS
+
     S3 = {
       ArtifactsBucket = module.GitLabArtifactsBucket
 
