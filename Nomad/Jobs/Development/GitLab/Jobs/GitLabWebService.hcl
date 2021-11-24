@@ -15,8 +15,8 @@ job "development-gitlab-webservice" {
     network {
       mode = "cni/nomadcore1"
 
-      port "http" { 
-        to = 8080
+      port "https" { 
+        to = 443
       }
     }
 
@@ -40,12 +40,12 @@ job "development-gitlab-webservice" {
 
     service {
       name = "gitlab"
-      port = "http"
+      port = "https"
 
       task = "gitlab-webservice-server"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "http.webservice"]
+      tags = ["coredns.enabled", "https.webservice"]
     }
 
     task "gitlab-webservice-server" {
@@ -103,7 +103,7 @@ job "development-gitlab-webservice" {
         #
         GITLAB_WEBSERVER = "PUMA"
 
-        INTERNAL_PORT = "8080"
+        INTERNAL_PORT = "443"
 
 
         #
@@ -131,6 +131,12 @@ job "development-gitlab-webservice" {
         ENABLE_BOOTSNAP = "1"
 
         PUMA_WORKER_MAX_MEMORY = "1024"
+
+        #
+        # TLS
+        #
+        SSL_CERT_DIR = "/secrets/TLS"
+        SSL_CERT_FILE = "/secrets/TLS/Cert.pem"
       }
 
       template {
@@ -199,6 +205,30 @@ EOF
         destination = "secrets/workhorse/.gitlab_workhorse_secret"
 
         change_mode = "noop"
+      }
+
+      template {
+        data = <<EOF
+${WebService.TLS.CA}
+EOF
+
+        destination = "secrets/TLS/CA.pem"
+      }
+
+      template {
+        data = <<EOF
+${WebService.TLS.Cert}
+EOF
+
+        destination = "secrets/TLS/Cert.pem"
+      }
+
+      template {
+        data = <<EOF
+${WebService.TLS.Key}
+EOF
+
+        destination = "secrets/TLS/Cert.key"
       }
     }
   }

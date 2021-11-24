@@ -15,8 +15,8 @@ job "development-gitlab-workhorse" {
     network {
       mode = "cni/nomadcore1"
 
-      port "http" { 
-        to = 8080
+      port "https" { 
+        to = 443
       }
     }
 
@@ -47,7 +47,7 @@ job "development-gitlab-workhorse" {
       driver = "exec"
       config {
         command = "sh"
-        args = ["-c", "while ! nc -z http.webservice.gitlab.service.dc1.kjdev 8080; do sleep 1; done"]
+        args = ["-c", "while ! nc -z https.webservice.gitlab.service.dc1.kjdev 443; do sleep 1; done"]
       }
 
       resources {
@@ -58,12 +58,12 @@ job "development-gitlab-workhorse" {
 
     service {
       name = "gitlab"
-      port = "http"
+      port = "https"
 
       task = "gitlab-workhorse-server"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "http.workhorse"]
+      tags = ["coredns.enabled", "https.workhorse"]
     }
 
     task "gitlab-workhorse-server" {
@@ -115,10 +115,16 @@ job "development-gitlab-workhorse" {
         #
         # Workhorse
         #
-        GITLAB_WORKHORSE_LISTEN_PORT = "8080"
-        GITLAB_WORKHORSE_EXTRA_ARGS = "-authBackend http://http.webservice.gitlab.service.dc1.kjdev:8080 -cableBackend http://http.webservice.gitlab.service.dc1.kjdev:8080"
+        GITLAB_WORKHORSE_LISTEN_PORT = "443"
+        GITLAB_WORKHORSE_EXTRA_ARGS = "-authBackend https://https.webservice.gitlab.service.dc1.kjdev:443 -cableBackend https://https.webservice.gitlab.service.dc1.kjdev:443"
 
         ENABLE_BOOTSNAP = "1"
+
+        #
+        # TLS
+        #
+        SSL_CERT_DIR = "/secrets/TLS"
+        SSL_CERT_FILE = "/secrets/TLS/Cert.pem"
 
         #
         # Tracing
@@ -132,6 +138,30 @@ ${WorkHorse.Config}
 EOF
 
         destination = "local/workhorse/workhorse-config.toml"
+      }
+
+      template {
+        data = <<EOF
+${WorkHorse.TLS.CA}
+EOF
+
+        destination = "secrets/TLS/CA.pem"
+      }
+
+      template {
+        data = <<EOF
+${WorkHorse.TLS.Cert}
+EOF
+
+        destination = "secrets/TLS/Cert.pem"
+      }
+
+      template {
+        data = <<EOF
+${WorkHorse.TLS.Key}
+EOF
+
+        destination = "secrets/TLS/Cert.key"
       }
 
       template {

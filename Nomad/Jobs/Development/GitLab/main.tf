@@ -212,6 +212,8 @@ resource "nomad_job" "GitLabWebServcieJob" {
     WebService = {
       Secrets = local.GitLab.Secrets
 
+      TLS = var.TLS.WebService
+
       EntryScript = file("${path.module}/Configs/WebService/Entry.sh")
 
       Templates = {
@@ -255,6 +257,8 @@ resource "nomad_job" "GitLabWorkHorseJob" {
     }
 
     WorkHorse = {
+      TLS = var.TLS.WorkHorse
+
       Secrets = local.GitLab.Secrets
 
       Config = templatefile("${path.module}/Configs/WorkHorse/WorkhorseConfig.toml", {

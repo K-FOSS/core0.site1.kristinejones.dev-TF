@@ -1,10 +1,10 @@
-job "gitlab-gitaly" {
+job "gitlab-praefect" {
   datacenters = ["core0site1"]
 
   #
   # GitLab Gitaly
   #
-  group "gitlab-gitaly" {
+  group "gitlab-praefect" {
     count = 1
 
     spread {
@@ -24,17 +24,17 @@ job "gitlab-gitaly" {
       name = "gitlab"
       port = "http"
 
-      task = "gitlab-gitaly-server"
+      task = "gitlab-praefect-server"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "http.gitaly"]
+      tags = ["coredns.enabled", "http.praefect"]
     }
 
-    task "gitlab-gitaly-server" {
+    task "gitlab-praefect-server" {
       driver = "docker"
 
       config {
-        image = "${Image.Repo}/gitaly:${Image.Tag}"
+        image = "${Image.Repo}/praefect:${Image.Tag}"
 
         mount {
           type = "bind"
@@ -67,9 +67,9 @@ job "gitlab-gitaly" {
       }
 
       resources {
-        cpu = 256
-        memory = 1024
-        memory_max = 1024
+        cpu = 100
+        memory = 256
+        memory_max = 256
       }
 
       template {

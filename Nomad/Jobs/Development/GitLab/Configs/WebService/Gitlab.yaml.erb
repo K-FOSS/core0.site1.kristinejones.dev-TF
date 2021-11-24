@@ -1,7 +1,7 @@
 production: &base
   gitlab:
     host: gitlab.int.site1.kristianjones.dev
-    https: false # Set to true if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
+    https: true # Set to true if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
 <% if ENV['GITLAB_SSH_PORT'] && ENV['GITLAB_HOST'] %>
     ssh_host: "<%= ENV['GITLAB_HOST'] %>:<%= ENV['GITLAB_SSH_PORT'] %>"
 <% end %>

@@ -1,11 +1,11 @@
-listen-proxy=0.0.0.0:8090
+listen-proxy=0.0.0.0:8443
 pages-domain=pages.127.0.0.1.nip.io
 pages-root=/srv/gitlab/shared/pages
 log-format=json
 log-verbose
-redirect-http=false
+redirect-http=true
 use-http2=true
-artifacts-server=http://http.workhorse.gitlab.service.dc1.kjdev:8080/api/v4
-gitlab-server=http://http.workhorse.gitlab.service.dc1.kjdev:8080
+artifacts-server=http://https.workhorse.gitlab.service.dc1.kjdev:443/api/v4
+gitlab-server=https://https.workhorse.gitlab.service.dc1.kjdev:443
 api-secret-key=/etc/gitlab-pages/.gitlab_pages_secret
 domain-config-source=gitlab

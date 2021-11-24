@@ -706,6 +706,10 @@ module "Nomad" {
         CA = module.Vault.HomeAssistant.TLS.CA
       }
 
+      GitLab = {
+        CA = module.Vault.GitLab.WorkHorse.CA
+      }
+
       Authenticate = {
         Metrics = {
           Server = module.Vault.Pomerium.TLS.Authenticate.Metrics.Server

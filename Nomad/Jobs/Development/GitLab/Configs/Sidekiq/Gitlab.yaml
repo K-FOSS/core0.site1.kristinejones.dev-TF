@@ -1,8 +1,9 @@
 production: &base
   gitlab:
     host: gitlab.int.site1.kristianjones.dev
-    https: false # Set to true if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
+    https: true # Set to true if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
     trusted_proxies:
+      - 172.16.0.0/12
     email_from: example@example.com
     email_display_name: GitLab
     email_reply_to: noreply@example.com

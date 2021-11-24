@@ -490,14 +490,14 @@ resource "vault_pki_secret_backend_cert" "GitLabWebServicesCert" {
 
   common_name = "https.webservices.gitlab.service.kjdev"
 
-  alt_names = ["https.webservices.gitlab.service.dc1.kjdev"]
+  alt_names = ["https.webservices.gitlab.service.dc1.kjdev", "https.webservice.gitlab.service.dc1.kjdev", "https.webservice.gitlab.service.kjdev"]
 }
 
 resource "vault_pki_secret_backend_cert" "GitLabWorkHorseCert" {
   backend = module.GitLabTLS.TLS.Mount.path
   name = module.GitLabTLS.TLS.Role.name
 
-  common_name = "https.webservices.gitlab.service.kjdev"
+  common_name = "https.workhorse.gitlab.service.kjdev"
 
-  alt_names = ["https.webservices.gitlab.service.dc1.kjdev"]
+  alt_names = ["https.workhorse.gitlab.service.dc1.kjdev"]
 }
