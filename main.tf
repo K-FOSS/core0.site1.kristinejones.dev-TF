@@ -707,7 +707,7 @@ module "Nomad" {
       }
 
       GitLab = {
-        CA = module.Vault.GitLab.WorkHorse.CA
+        CA = module.Vault.GitLab.TLS.WorkHorse.CA
       }
 
       Authenticate = {
