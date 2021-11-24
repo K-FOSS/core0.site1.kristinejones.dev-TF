@@ -80,7 +80,7 @@ job "ingress" {
           config {
             loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
 
-            loki-external-labels = "job=ingress,service=gobetween"
+            loki-external-labels = "job=ingress,service=web"
           }
         }
       }

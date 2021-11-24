@@ -22,10 +22,6 @@ job "ingress-gobetween" {
 
       port "dns" {
         to = 53
-
-        static = 53
-
-        host_network = "dns"
       }
     }
 

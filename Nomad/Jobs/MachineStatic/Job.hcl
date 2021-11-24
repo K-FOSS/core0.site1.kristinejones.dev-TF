@@ -115,7 +115,7 @@ EOF
         logging {
           type = "loki"
           config {
-            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
 
             loki-external-labels = "job=tinkerbell,service=static-http"
           }
