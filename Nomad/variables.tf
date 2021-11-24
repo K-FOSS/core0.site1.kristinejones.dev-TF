@@ -157,6 +157,10 @@ variable "Pomerium" {
         CA = string
       })
 
+      GitLab = object({
+        CA = string
+      })
+
       Authenticate = object({
         Metrics = object({
           Server = object({
