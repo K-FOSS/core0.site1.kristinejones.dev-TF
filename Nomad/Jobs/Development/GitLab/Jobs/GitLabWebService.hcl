@@ -81,6 +81,13 @@ job "development-gitlab-webservice" {
           readonly = false
         }
 
+        mount {
+          type = "bind"
+          target = "/opt/gitlab/embedded/ssl/certs/gitlab.pem"
+          source = "secrets/TLS/CA.pem"
+          readonly = false
+        }
+
         logging {
           type = "loki"
           config {
@@ -134,9 +141,7 @@ job "development-gitlab-webservice" {
 
         #
         # TLS
-        #
-        SSL_CERT_DIR = "/secrets/TLS"
-        SSL_CERT_FILE = "/secrets/TLS/Cert.pem"
+        #SSL_CERT_FILE
       }
 
       template {
