@@ -127,12 +127,6 @@ job "development-gitlab-workhorse" {
         GITLAB_PORT = "443"
 
         #
-        # TLS
-        #
-        SSL_CERT_DIR = "/secrets/TLS"
-        SSL_CERT_FILE = "/secrets/TLS/Cert.pem"
-
-        #
         # Tracing
         #
         GITLAB_TRACING = "opentracing://jaeger?http_endpoint=http%3A%2F%2Fhttp.distributor.tempo.service.kjdev%3A14268%2Fapi%2Ftraces&sampler=const&sampler_param=1"
