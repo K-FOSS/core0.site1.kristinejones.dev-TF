@@ -53,6 +53,15 @@ job "tempo-ingester" {
         image = "grafana/tempo:${Tempo.Version}"
 
         args = ["-search.enabled=true", "-config.file=/local/Tempo.yaml"]
+
+        mount {
+          type = "tmpfs"
+          target = "/var/tempo/wal"
+          readonly = false
+          tmpfs_options = {
+            size = 100000
+          }
+        }
       }
 
       meta {
