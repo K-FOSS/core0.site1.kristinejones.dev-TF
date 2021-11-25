@@ -13,7 +13,9 @@ terraform {
 }
 
 locals {
-  Memcached = merge(var, {
+  Memcached = merge({
+    Service = var.Service
+  }, {
     Version = "1.6.12"
   })
 }
