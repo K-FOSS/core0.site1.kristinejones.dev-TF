@@ -2,7 +2,7 @@ job "tempo-query-frontend" {
   datacenters = ["core0site1"]
 
   group "tempo-query-frontend" {
-    count = 1
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
