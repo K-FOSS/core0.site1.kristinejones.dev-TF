@@ -60,8 +60,8 @@ job "tempo-querier" {
       }
 
       resources {
-        cpu = 64
-        memory = 128
+        cpu = 128
+        memory = 256
       }
 
       template {

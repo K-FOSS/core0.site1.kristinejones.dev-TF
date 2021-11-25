@@ -60,8 +60,8 @@ job "tempo-query-frontend" {
       }
 
       resources {
-        cpu = 64
-        memory = 128
+        cpu = 128
+        memory = 256
       }
 
       template {
