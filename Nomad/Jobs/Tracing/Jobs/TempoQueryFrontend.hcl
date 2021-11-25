@@ -59,6 +59,11 @@ job "tempo-query-frontend" {
         TARGET = "query-frontend"
       }
 
+      resources {
+        cpu = 64
+        memory = 128
+      }
+
       template {
         data = <<EOF
 ${Tempo.YAMLConfig}

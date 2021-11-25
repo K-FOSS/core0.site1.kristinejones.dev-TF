@@ -58,7 +58,12 @@ job "tempo-compactor" {
       meta {
         TARGET = "compactor"
       }
-
+    
+      resources {
+        cpu = 64
+        memory = 128
+      }
+      
       template {
         data = <<EOF
 ${Tempo.YAMLConfig}

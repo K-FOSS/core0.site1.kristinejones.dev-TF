@@ -1,7 +1,7 @@
-job "cortex-cache" {
+job "${lower(Service.Name)}-cache" {
   datacenters = ["core0site1"]
 
-  group "cortex-memcached" {
+  group "${lower(Service.Name)}-memcached" {
     count = 1
 
     network {
@@ -13,7 +13,7 @@ job "cortex-cache" {
     }
 
     service {
-      name = "cortex"
+      name = "${Service.Consul.ServiceName}"
       port = "memcached"
 
       task = "memcached"
@@ -26,12 +26,12 @@ job "cortex-cache" {
       driver = "docker"
 
       config {
-        image = "memcached:1.6"
+        image = "memcached:${Version}"
       }
 
       resources {
         cpu = 128
-        memory = 32
+        memory = 64
         memory_max = 64
       }
     }

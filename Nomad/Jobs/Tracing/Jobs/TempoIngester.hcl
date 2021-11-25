@@ -2,7 +2,7 @@ job "tempo-ingester" {
   datacenters = ["core0site1"]
 
   group "tempo-ingester" {
-    count = 1
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
@@ -57,6 +57,11 @@ job "tempo-ingester" {
 
       meta {
         TARGET = "ingester"
+      }
+
+      resources {
+        cpu = 64
+        memory = 128
       }
 
       template {

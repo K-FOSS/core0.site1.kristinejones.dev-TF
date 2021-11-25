@@ -59,6 +59,11 @@ job "tempo-querier" {
         TARGET = "querier"
       }
 
+      resources {
+        cpu = 64
+        memory = 128
+      }
+
       template {
         data = <<EOF
 ${Tempo.YAMLConfig}

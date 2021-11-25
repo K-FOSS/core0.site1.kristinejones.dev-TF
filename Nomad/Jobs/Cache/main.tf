@@ -60,24 +60,53 @@ resource "nomad_job" "OpenProjectRedisJobFile" {
 }
 
 #
-# Cortex Memcached
-#
-
-resource "nomad_job" "CortexCacheJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/CortexCache.hcl", {
-
-  })
-}
-
-#
 # Grafana Loki Cache
 #
 
-resource "nomad_job" "GrafanaLokiCacheJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/LokiCache.hcl", {
+module "LokiMemcache" {
+  source = "./Templates/Memcached"
 
-  })
+  Service = {
+    Name = "Loki"
+
+    Consul = {
+      ServiceName = "loki"
+    }
+  }
 }
+
+#
+# Tempo
+#
+
+module "TempoMemcache" {
+  source = "./Templates/Memcached"
+
+  Service = {
+    Name = "Tempo"
+
+    Consul = {
+      ServiceName = "tempo"
+    }
+  }
+}
+
+#
+# Cortex
+#
+
+module "CortexMemcache" {
+  source = "./Templates/Memcached"
+
+  Service = {
+    Name = "Cortex"
+
+    Consul = {
+      ServiceName = "cortex"
+    }
+  }
+}
+
 
 #
 # Recursive DNS Cache
