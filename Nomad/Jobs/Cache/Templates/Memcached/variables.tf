@@ -1,5 +1,5 @@
 variable "Service" {
-  value = object({
+  type = object({
     Name = string
 
     Consul = object({
