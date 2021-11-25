@@ -2,7 +2,7 @@ job "tempo-distributor" {
   datacenters = ["core0site1"]
 
   group "tempo-distributor" {
-    count = 1
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
