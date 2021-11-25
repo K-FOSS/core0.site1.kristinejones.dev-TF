@@ -159,9 +159,7 @@ routes:
   # GitLab
   #
   - from: https://gitlab.int.site1.kristianjones.dev
-    to: https://https.workhorse.gitlab.service.dc1.kjdev:443
-    tls_custom_ca_file: /secrets/TLS/GitLab.pem
-    tls_server_name: https.workhorse.gitlab.service.dc1.kjdev
+    to: http://https.workhorse.gitlab.service.dc1.kjdev:443
     preserve_host_header: true
     allowed_domains:
       - kristianjones.dev

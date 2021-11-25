@@ -38,10 +38,6 @@ job "development-gitlab-sidekiq" {
       config {
         image = "${Image.Repo}/gitlab-sidekiq-ce:${Image.Tag}"
 
-        command = "/scripts/wait-for-deps"
-
-        args = ["/scripts/process-wrapper"]
-
         mount {
           type = "bind"
           target = "/var/opt/gitlab/config/templates"
@@ -60,9 +56,9 @@ job "development-gitlab-sidekiq" {
       }
 
       resources {
-        cpu = 256
-        memory = 1024
-        memory_max = 1024
+        cpu = 900
+        memory = 2000
+        memory_max = 2000
       }
 
       env {
@@ -72,8 +68,8 @@ job "development-gitlab-sidekiq" {
 
         WAIT_FOR_TIMEOUT = "60"
 
-        GITLAB_HOST = "localhost"
-        GITLAB_PORT = "3000"
+        GITLAB_HOST = "https://gitlab.int.site1.kristianjones.dev"
+        GITLAB_PORT = "443"
 
         GITALY_FEATURE_DEFAULT_ON = "1"
 

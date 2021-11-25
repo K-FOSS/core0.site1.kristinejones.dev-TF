@@ -114,7 +114,7 @@ job "development-gitlab-webservice" {
 
         EXTERNAL_URL = "https://gitlab.int.site1.kristianjones.dev"
 
-        GITLAB_HOST = "localhost"
+        GITLAB_HOST = "https://gitlab.int.site1.kristianjones.dev"
         GITLAB_PORT = "443"
         GITLAB_SSH_PORT = "2222"
 

@@ -83,11 +83,14 @@ job "gitlab-database" {
 
       resources {
         cpu = 128
-        memory = 512
-        memory_max = 512
+        memory = 2048
+        memory_max = 2048
       }
 
       env {
+        #
+        # Config
+        #
         CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/config/templates"
         CONFIG_DIRECTORY = "/srv/gitlab/config"
 
@@ -96,6 +99,9 @@ job "gitlab-database" {
         GITLAB_ROOT_PASSWORD = "RANDOM_PASS5859!!"
 
         EXTERNAL_URL = "https://gitlab.int.site1.kristianjones.dev"
+
+        GITLAB_HOST = "https://gitlab.int.site1.kristianjones.dev"
+        GITLAB_PORT = "443"
 
         ENABLE_BOOTSNAP = "1"
       }

@@ -116,9 +116,15 @@ job "development-gitlab-workhorse" {
         # Workhorse
         #
         GITLAB_WORKHORSE_LISTEN_PORT = "443"
-        GITLAB_WORKHORSE_EXTRA_ARGS = "-authBackend https://https.webservice.gitlab.service.dc1.kjdev:443 -cableBackend https://https.webservice.gitlab.service.dc1.kjdev:443"
+        GITLAB_WORKHORSE_EXTRA_ARGS = "-authBackend http://https.webservice.gitlab.service.dc1.kjdev:443 -cableBackend http://https.webservice.gitlab.service.dc1.kjdev:443"
 
         ENABLE_BOOTSNAP = "1"
+
+        #
+        # Misc - External Access
+        #
+        GITLAB_HOST = "https://gitlab.int.site1.kristianjones.dev"
+        GITLAB_PORT = "443"
 
         #
         # TLS

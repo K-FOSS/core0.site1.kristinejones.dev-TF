@@ -73,6 +73,12 @@ job "development-gitlab-shell" {
         CONFIG_TEMPLATE_DIRECTORY = "/local/gitlab-config"
 
         CONFIG_DIRECTORY = "/local/gitlab-shell"
+
+        #
+        # Misc
+        #
+        GITLAB_HOST = "https://gitlab.int.site1.kristianjones.dev"
+        GITLAB_PORT = "443"
       }
 
       template {
