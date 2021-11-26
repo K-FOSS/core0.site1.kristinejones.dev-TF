@@ -1,7 +1,7 @@
 production: &base
   gitlab:
     host: gitlab.int.site1.kristianjones.dev
-    https: false # Set to true if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
+    https: true # Set to true if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
     trusted_proxies:
       - 172.16.0.0/12
     email_from: example@example.com
@@ -152,7 +152,7 @@ production: &base
   repositories:
     storages: # You must have at least a `default` storage path.
       default:
-        path: /var/opt/gitlab/repo
+        path: /home/git/repositories
         gitaly_address: tcp://172.31.241.2:37075 # TCP connections are supported too (e.g. tcp://host:port)
   backup:
     path: "tmp/backups"   # Relative paths are relative to Rails.root (default: tmp/backups/)
