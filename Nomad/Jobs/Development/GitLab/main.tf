@@ -170,7 +170,7 @@ resource "nomad_job" "GitLabSideKiqJob" {
     Image = {
       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
-      Tag = "master"
+      Tag = "v14.5.0"
     }
 
     Sidekiq = {
@@ -206,7 +206,7 @@ resource "nomad_job" "GitLabWebServcieJob" {
     Image = {
       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
-      Tag = "master"
+      Tag = "v14.5.0"
     }
 
     WebService = {
@@ -253,7 +253,7 @@ resource "nomad_job" "GitLabWorkHorseJob" {
     Image = {
       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
-      Tag = "master"
+      Tag = "v14.5.0"
     }
 
     WorkHorse = {

@@ -19,6 +19,10 @@ job "tempo-querier" {
       port "grpc" { 
         to = 8085
       }
+
+      port "gossip" { 
+        to = 8090
+      }
     }
 
     service {
@@ -41,6 +45,17 @@ job "tempo-querier" {
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.querier"]
     }
 
+    service {
+      name = "tempo"
+      
+      port = "gossip"
+      address_mode = "alloc"
+
+      task = "tempo-querier"
+
+      tags = ["coredns.enabled", "gossip.querier", "$${NOMAD_ALLOC_INDEX}.gossip.querier"]
+    }
+
     task "tempo-querier" {
       driver = "docker"
 
@@ -53,6 +68,15 @@ job "tempo-querier" {
         image = "grafana/tempo:${Tempo.Version}"
 
         args = ["-search.enabled=true", "-config.file=/local/Tempo.yaml"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=tempo,service=querier"
+          }
+        }
       }
 
       meta {

@@ -19,6 +19,10 @@ job "tempo-compactor" {
       port "grpc" { 
         to = 8085
       }
+
+      port "gossip" { 
+        to = 8090
+      }
     }
 
     service {
@@ -41,6 +45,17 @@ job "tempo-compactor" {
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.compactor"]
     }
 
+    service {
+      name = "tempo"
+      
+      port = "gossip"
+      address_mode = "alloc"
+
+      task = "tempo-compactor"
+
+      tags = ["coredns.enabled", "gossip.compactor", "$${NOMAD_ALLOC_INDEX}.gossip.compactor"]
+    }
+
     task "tempo-compactor" {
       driver = "docker"
 
@@ -53,6 +68,15 @@ job "tempo-compactor" {
         image = "grafana/tempo:${Tempo.Version}"
 
         args = ["-search.enabled=true", "-config.file=/local/Tempo.yaml"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=tempo,service=compactor"
+          }
+        }
       }
 
       meta {

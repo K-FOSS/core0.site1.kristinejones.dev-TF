@@ -19,6 +19,10 @@ job "tempo-ingester" {
       port "grpc" { 
         to = 8085
       }
+
+      port "gossip" { 
+        to = 8090
+      }
     }
 
     service {
@@ -41,6 +45,17 @@ job "tempo-ingester" {
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.ingester"]
     }
 
+    service {
+      name = "tempo"
+      
+      port = "gossip"
+      address_mode = "alloc"
+
+      task = "tempo-ingester"
+
+      tags = ["coredns.enabled", "gossip.ingester", "$${NOMAD_ALLOC_INDEX}.gossip.ingester"]
+    }
+
     task "tempo-ingester" {
       driver = "docker"
 
@@ -60,6 +75,15 @@ job "tempo-ingester" {
           readonly = false
           tmpfs_options = {
             size = 100000
+          }
+        }
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=tempo,service=ingester"
           }
         }
       }
