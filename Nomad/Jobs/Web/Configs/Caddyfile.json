@@ -268,7 +268,36 @@
                           },
                           "upstreams": [
                             {
-                              "lookup_srv": "nextcloud-web-cont.service.kjdev"
+                              "dial": "172.20.52.81:80"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
+                            "drawio.kristianjones.dev"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "compression": true,
+                            "resolver": {
+                              "addresses": [
+                                "172.16.0.10:8600",
+                                "172.16.0.13:8600"
+                              ]
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "http.drawio.service.dc1.kjdev"
                             }
                           ]
                         }
