@@ -1,6 +1,6 @@
 production: &base
   gitlab:
-    host: gitlab.int.site1.kristianjones.dev
+    host: gitlab.kristianjones.dev
     https: true # Set to true if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
     trusted_proxies:
       - 172.16.0.0/12
@@ -141,7 +141,7 @@ production: &base
             client_options: {
               identifier: '${OpenID.ClientID}',
               secret: '${OpenID.ClientSecret}',
-              redirect_uri: 'https://gitlab.int.site1.kristianjones.dev/users/auth/openid_connect/callback'
+              redirect_uri: 'https://gitlab.kristianjones.dev/users/auth/openid_connect/callback'
             }
           }
         }
@@ -153,7 +153,7 @@ production: &base
     storages: # You must have at least a `default` storage path.
       default:
         path: /home/git/repositories
-        gitaly_address: tcp://172.31.241.2:37075 # TCP connections are supported too (e.g. tcp://host:port)
+        gitaly_address: tcp://172.16.20.21:37075 # TCP connections are supported too (e.g. tcp://host:port)
   backup:
     path: "tmp/backups"   # Relative paths are relative to Rails.root (default: tmp/backups/)
   gitlab_shell:

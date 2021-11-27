@@ -68,7 +68,7 @@ job "development-gitlab-sidekiq" {
 
         WAIT_FOR_TIMEOUT = "60"
 
-        GITLAB_HOST = "https://gitlab.int.site1.kristianjones.dev"
+        GITLAB_HOST = "https://gitlab.kristianjones.dev"
         GITLAB_PORT = "443"
 
         GITALY_FEATURE_DEFAULT_ON = "1"

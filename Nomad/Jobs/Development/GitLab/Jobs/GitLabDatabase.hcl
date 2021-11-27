@@ -98,9 +98,9 @@ job "gitlab-database" {
 
         GITLAB_ROOT_PASSWORD = "RANDOM_PASS5859!!"
 
-        EXTERNAL_URL = "https://gitlab.int.site1.kristianjones.dev"
+        EXTERNAL_URL = "https://gitlab.kristianjones.dev"
 
-        GITLAB_HOST = "https://gitlab.int.site1.kristianjones.dev"
+        GITLAB_HOST = "https://gitlab.kristianjones.dev"
         GITLAB_PORT = "443"
 
         ENABLE_BOOTSNAP = "1"

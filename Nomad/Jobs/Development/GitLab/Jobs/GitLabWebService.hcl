@@ -56,10 +56,6 @@ job "development-gitlab-webservice" {
       config {
         image = "${Image.Repo}/gitlab-webservice-ce:${Image.Tag}"
 
-        command = "/scripts/wait-for-deps"
-
-        args = ["/scripts/process-wrapper"]
-
         mount {
           type = "bind"
           target = "/var/opt/gitlab/config/secrets/.gitlab_shell_secret"
@@ -119,9 +115,9 @@ job "development-gitlab-webservice" {
         CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/config/templates"
         CONFIG_DIRECTORY = "/srv/gitlab/config"
 
-        EXTERNAL_URL = "https://gitlab.int.site1.kristianjones.dev"
+        EXTERNAL_URL = "https://gitlab.kristianjones.dev"
 
-        GITLAB_HOST = "https://gitlab.int.site1.kristianjones.dev"
+        GITLAB_HOST = "https://gitlab.kristianjones.dev"
         GITLAB_PORT = "443"
         GITLAB_SSH_PORT = "2222"
 

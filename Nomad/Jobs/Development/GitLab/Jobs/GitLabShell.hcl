@@ -77,7 +77,7 @@ job "development-gitlab-shell" {
         #
         # Misc
         #
-        GITLAB_HOST = "https://gitlab.int.site1.kristianjones.dev"
+        GITLAB_HOST = "https://gitlab.kristianjones.dev"
         GITLAB_PORT = "443"
       }
 
