@@ -261,7 +261,7 @@
                             "compression": true,
                             "resolver": {
                               "addresses": [
-                                "172.18.0.10:53"
+                                "172.18.0.10"
                               ]
                             }
                           },
