@@ -78,6 +78,8 @@ resource "nomad_job" "AuthentikWorkerJobFile" {
 
     Database = var.Database
 
+    SMTP = var.SMTP
+
     Version = "2021.10.2"
   })
 }
