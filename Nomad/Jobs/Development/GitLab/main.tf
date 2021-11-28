@@ -310,8 +310,8 @@ resource "nomad_job" "GitLabKASJob" {
     Secrets = local.GitLab.Secrets
 
     KAS = {
-      Config = templatefile("${path.module}/Configs/KAS/config.yaml", {
-        S3 = var.S3
+      Config = templatefile("${path.module}/Configs/KAS/Config.yaml", {
+
       })
     }
   })
