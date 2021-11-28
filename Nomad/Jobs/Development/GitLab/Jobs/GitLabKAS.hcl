@@ -16,19 +16,33 @@ job "development-gitlab-kas" {
     network {
       mode = "cni/nomadcore1"
 
-      port "http" { 
+      port "api" { 
         to = 8080
+      }
+
+      port "agent" { 
+        to = 8085
       }
     }
 
     service {
       name = "gitlab"
-      port = "http"
+      port = "api"
 
       task = "gitlab-kas-server"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "http.kas"]
+      tags = ["coredns.enabled", "http.api.kas"]
+    }
+
+    service {
+      name = "gitlab"
+      port = "agent"
+
+      task = "gitlab-kas-server"
+      address_mode = "alloc"
+
+      tags = ["coredns.enabled", "http.agent.kas"]
     }
 
     task "gitlab-kas-server" {

@@ -8,7 +8,7 @@ gitlab:
 agent:
   listen:
     network: tcp
-    address: 127.0.0.1:8150
+    address: 0.0.0.0:8085
     websocket: false
     # certificate_file: /server-cert.pem
     # key_file: /server-key.pem
@@ -81,7 +81,7 @@ redis:
 api:
   listen:
     network: tcp
-    address: 127.0.0.1:8153
+    address: 0.0.0.0:8080
     authentication_secret_file: /secrets/KAS/.gitlab_kas_secret # required
     # certificate_file: /server-cert.pem
     # key_file: /server-key.pem
