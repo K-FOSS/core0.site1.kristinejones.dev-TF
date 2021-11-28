@@ -545,6 +545,12 @@ module "GitLabNewDatabase" {
   Credentials = module.Vault.Database
 }
 
+module "GitLabPraefectDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
 #
 # Registry
 #
@@ -1022,7 +1028,11 @@ module "Nomad" {
   #
 
   GitLab = {
-    Database = module.GitLabNewDatabase.Database
+    Database = {
+      Core = module.GitLabNewDatabase.Database
+
+      Praefect = module.GitLabPraefectDatabase.Database
+    }
 
     TLS = module.Vault.GitLab.TLS
 

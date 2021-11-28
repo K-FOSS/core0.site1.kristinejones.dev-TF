@@ -101,7 +101,7 @@ locals {
 #         })
 
 #         Database = templatefile("${path.module}/Configs/WebService/Database.yaml", {
-#           Database = var.Database
+#           Database = var.Database.Core
 #         })
 
 #         GitlabERB = templatefile("${path.module}/Configs/WebService/Gitlab.yaml.erb", {
@@ -201,7 +201,7 @@ resource "nomad_job" "GitLabSideKiqJob" {
     Sidekiq = {
       Templates = {
         Database = templatefile("${path.module}/Configs/Sidekiq/Database.yaml", {
-          Database = var.Database
+          Database = var.Database.Core
         })
 
         GitlabYAML = templatefile("${path.module}/Configs/Sidekiq/Gitlab.yaml", {
@@ -249,7 +249,7 @@ resource "nomad_job" "GitLabWebServcieJob" {
         })
 
         Database = templatefile("${path.module}/Configs/WebService/Database.yaml", {
-          Database = var.Database
+          Database = var.Database.Core
         })
 
         GitlabERB = templatefile("${path.module}/Configs/WebService/Gitlab.yaml.erb", {

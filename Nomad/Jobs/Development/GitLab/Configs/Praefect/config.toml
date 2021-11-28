@@ -1,0 +1,18 @@
+listen_addr = '0.0.0.0:8080'
+
+prometheus_listen_addr = '0.0.0.0:9090'
+
+[auth]
+token = 'BLAH'
+transitioning = false
+
+
+[[virtual_storage]]
+name = 'default'
+
+[[virtual_storage.node]]
+storage = 'infra1'
+address = ''
+token = ""
+
+[database]

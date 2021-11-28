@@ -16,7 +16,7 @@ job "development-gitlab-kas" {
     network {
       mode = "cni/nomadcore1"
 
-      port "http-api" { 
+      port "http" { 
         to = 8080
       }
     }

@@ -901,13 +901,25 @@ variable "Cache" {
 variable "GitLab" {
   type = object({
     Database = object({
-      Hostname = string
-      Port = number
+      Core = object({
+        Hostname = string
+        Port = number
 
-      Database = string
+        Database = string
 
-      Username = string
-      Password = string
+        Username = string
+        Password = string
+      })
+
+      Praefect = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
+      })
     })
 
     TLS = object({
