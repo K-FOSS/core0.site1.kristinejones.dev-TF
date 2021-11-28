@@ -126,7 +126,10 @@
                         {
                           "host": [
                             "*.int.site1.kristianjones.dev",
-                            "sabnzbd.kjmedia.stream"
+                            "sabnzbd.kjmedia.stream",
+                            "prowlarr.kjmedia.stream",
+                            "radarr.kjmedia.stream",
+                            "sonarr.kjmedia.stream"
                           ]
                         }
                       ],
