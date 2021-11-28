@@ -179,6 +179,43 @@ routes:
     allow_websockets: true
     cors_allow_preflight: true
 
+  #
+  # Radarr
+  #
+  - from: https://radarr.kjmedia.stream
+    to: http://kjmedia-radarr.ix-kjmedia-radarr.svc.cluster.local:8080
+    preserve_host_header: true
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true
+    cors_allow_preflight: true
+
+  #
+  # Sonarr
+  #
+  - from: https://sonarr.kjmedia.stream
+    to: http://kjmedia-sonarr.ix-kjmedia-sonarr.svc.cluster.local:8080
+    preserve_host_header: true
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true
+    cors_allow_preflight: true
+
+
+  #
+  # Prowlarr
+  #
+  - from: https://prowlarr.kjmedia.stream
+    to: http://kjmedia-prowlarr.ix-kjmedia-prowlarr.svc.cluster.local:8080
+    preserve_host_header: true
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true
+    cors_allow_preflight: true
+
 #
 # Tracing
 #
