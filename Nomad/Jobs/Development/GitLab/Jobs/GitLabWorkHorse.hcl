@@ -165,7 +165,7 @@ EOF
       }
 
       template {
-        data = "${WorkHorse.Secrets.WorkHorse}"
+        data = "${Secrets.WorkHorse}"
 
         destination = "secrets/workhorse/.gitlab_workhorse_secret"
 
