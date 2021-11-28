@@ -159,6 +159,84 @@
               "match": [
                 {
                   "host": [
+                    "*.kjmedia.stream",
+                    "kjmedia.stream"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "subroute",
+                  "routes": [
+                    {
+                      "match": [
+                        {
+                          "host": [
+                            "jellyfin.kjmedia.stream"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "compression": true,
+                            "resolver": {
+                              "addresses": [
+                                "172.18.0.10"
+                              ]
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "kjmedia-jellyfin.ix-kjmedia-jellyfin.svc.cluster.local"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "handler": "subroute",
+                  "routes": [
+                    {
+                      "match": [
+                        {
+                          "host": [
+                            "sabnzbd.kjmedia.stream"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "compression": true,
+                            "resolver": {
+                              "addresses": [
+                                "172.18.0.10"
+                              ]
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "kjmedia-jellyfin.ix-kjmedia-jellyfin.svc.cluster.local"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "match": [
+                {
+                  "host": [
                     "*.kristianjones.dev"
                   ]
                 }
@@ -762,7 +840,9 @@
             "subjects": [
               "*.kristianjones.dev",
               "*.int.site1.kristianjones.dev",
-              "hass.home1.kristianjones.dev"
+              "hass.home1.kristianjones.dev",
+              "kjmedia.stream",
+              "*.kjmedia.stream"
             ],
             "issuers": [
               {
