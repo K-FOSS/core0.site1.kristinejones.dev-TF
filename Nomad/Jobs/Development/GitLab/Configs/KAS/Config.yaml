@@ -1,6 +1,6 @@
 gitlab:
   address: http://https.workhorse.gitlab.service.dc1.kjdev:443 # required
-  authentication_secret_file: /some/file # required
+  authentication_secret_file: /secrets/KAS/.gitlab_kas_secret # required
   # ca_certificate_file: /server-ca.pem
   api_rate_limit:
     refill_rate_per_second: 10.0
@@ -82,7 +82,7 @@ api:
   listen:
     network: tcp
     address: 127.0.0.1:8153
-    authentication_secret_file: /some/file # required
+    authentication_secret_file: /secrets/KAS/.gitlab_kas_secret # required
     # certificate_file: /server-cert.pem
     # key_file: /server-key.pem
     max_connection_age: "1800s"
