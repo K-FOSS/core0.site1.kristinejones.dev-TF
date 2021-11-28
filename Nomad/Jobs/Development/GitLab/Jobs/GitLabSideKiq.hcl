@@ -107,6 +107,16 @@ EOF
 
         destination = "local/sidekiq/templates/sidekiq_queues.yml"
       }
+
+      template {
+        data = <<EOF
+${Secrets.KAS}
+EOF
+
+        destination = "secrets/KAS/.gitlab_kas_secret"
+
+        change_mode = "noop"
+      }
     }
   }
 }

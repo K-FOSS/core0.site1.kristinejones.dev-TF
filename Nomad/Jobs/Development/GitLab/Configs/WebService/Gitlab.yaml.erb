@@ -179,6 +179,11 @@ production: &base
     upload_pack: true
     receive_pack: true
   workhorse:
+  gitlab_kas:
+    enabled: true
+    secret_file: /secrets/KAS/.gitlab_kas_secret
+    external_url: TODO
+    internal_url: TODO
   git:
     bin_path: /usr/bin/git
   webpack:

@@ -50,10 +50,31 @@ resource "random_id" "WorkHorseKey" {
   byte_length = 32
 }
 
+resource "random_password" "ShellPassword" {
+  length = 128
+  special = false
+}
+
+resource "random_password" "KASPassword" {
+  length = 128
+  special = false
+}
+
+resource "random_password" "KASPrivatePassword" {
+  length = 128
+  special = false
+}
+
 locals {
   GitLab = {
     Secrets = {
       WorkHorse = random_id.WorkHorseKey.b64_std
+
+      Shell = random_password.ShellPassword.result
+
+      KAS = random_password.KASPassword.result
+
+      KASPrivate = random_password.KASPrivatePassword.result
     }
   }
 }
@@ -154,6 +175,8 @@ resource "nomad_job" "GitLabShellJob" {
       Tag = "master"
     }
 
+    Secrets = local.GitLab.Secrets
+
     Shell = {
       Config = templatefile("${path.module}/Configs/Shell/Config.yml.erb", {
       })
@@ -172,6 +195,8 @@ resource "nomad_job" "GitLabSideKiqJob" {
 
       Tag = "v14.5.0"
     }
+
+    Secrets = local.GitLab.Secrets
 
     Sidekiq = {
       Templates = {
@@ -208,6 +233,8 @@ resource "nomad_job" "GitLabWebServcieJob" {
 
       Tag = "v14.5.0"
     }
+
+    Secrets = local.GitLab.Secrets
 
     WebService = {
       Secrets = local.GitLab.Secrets
@@ -256,12 +283,34 @@ resource "nomad_job" "GitLabWorkHorseJob" {
       Tag = "v14.5.0"
     }
 
+    Secrets = local.GitLab.Secrets
+
     WorkHorse = {
       TLS = var.TLS.WorkHorse
 
-      Secrets = local.GitLab.Secrets
-
       Config = templatefile("${path.module}/Configs/WorkHorse/WorkhorseConfig.toml", {
+        S3 = var.S3
+      })
+    }
+  })
+}
+
+#
+# GitLab Kubernetes Agent Server
+#
+
+resource "nomad_job" "GitLabKASJob" {
+  jobspec = templatefile("${path.module}/Jobs/GitLabKAS.hcl", {
+    Image = {
+      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/cluster-integration/gitlab-agent"
+
+      Tag = "v14.5.0"
+    }
+
+    Secrets = local.GitLab.Secrets
+
+    KAS = {
+      Config = templatefile("${path.module}/Configs/KAS/config.yaml", {
         S3 = var.S3
       })
     }
