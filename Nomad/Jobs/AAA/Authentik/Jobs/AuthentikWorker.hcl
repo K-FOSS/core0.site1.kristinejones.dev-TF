@@ -2,7 +2,7 @@ job "authentik-worker" {
   datacenters = ["core0site1"]
 
   group "auth-workers" {
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
@@ -67,6 +67,8 @@ job "authentik-worker" {
         #
         AUTHENTIK_POSTGRESQL__HOST = "${Database.Hostname}"
         AUTHENTIK_POSTGRESQL__PORT = "${Database.Port}"
+
+        AUTHENTIK_EMAIL__USE_TLS = "true"
       }
 
       template {
@@ -89,6 +91,16 @@ AUTHENTIK_POSTGRESQL__PASSWORD="${Database.Password}"
 # Secrets
 #
 AUTHENTIK_SECRET_KEY="${Authentik.SecretKey}"
+
+#
+# Email
+#
+AUTHENTIK_EMAIL__HOST="${SMTP.Server}"
+AUTHENTIK_EMAIL__PORT="${SMTP.Port}"
+
+AUTHENTIK_EMAIL__FROM="${SMTP.Username}"
+AUTHENTIK_EMAIL__USERNAME="${SMTP.Username}"
+AUTHENTIK_EMAIL__PASSWORD="${SMTP.Password}"
 EOH
 
         destination = "secrets/file.env"
@@ -98,7 +110,8 @@ EOH
       resources {
         cpu = 124
 
-        memory = 256
+        memory = 812
+        memory_max = 812
       }
     }
   }
