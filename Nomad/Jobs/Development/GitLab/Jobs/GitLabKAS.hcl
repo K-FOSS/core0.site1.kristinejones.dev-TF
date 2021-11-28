@@ -23,6 +23,14 @@ job "development-gitlab-kas" {
       port "agent" { 
         to = 8085
       }
+
+      port "kas" { 
+        to = 8155
+      }
+
+      port "kube" { 
+        to = 8154
+      }
     }
 
     service {
@@ -43,6 +51,26 @@ job "development-gitlab-kas" {
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "http.agent.kas"]
+    }
+
+    service {
+      name = "gitlab"
+      port = "kas"
+
+      task = "gitlab-kas-server"
+      address_mode = "alloc"
+
+      tags = ["coredns.enabled", "http.kas.kas"]
+    }
+
+    service {
+      name = "gitlab"
+      port = "kube"
+
+      task = "gitlab-kas-server"
+      address_mode = "alloc"
+
+      tags = ["coredns.enabled", "http.kube.kas"]
     }
 
     task "gitlab-kas-server" {
@@ -84,7 +112,7 @@ job "development-gitlab-kas" {
         GITLAB_HOST = "https://gitlab.kristianjones.dev"
         GITLAB_PORT = "443"
         
-        OWN_PRIVATE_API_URL = "grpc://http.kas.gitlab.service.dc1.kjdev:"
+        OWN_PRIVATE_API_URL = "grpc://http.kas.kas.gitlab.service.dc1.kjdev:8155"
       }
 
       template {
