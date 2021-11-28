@@ -125,6 +125,8 @@ production: &base
     enabled: false
   omniauth:
     enabled: true
+    allow_single_sign_on: true
+    block_auto_created_users: false
     providers:
       - { name: 'openid_connect',
           label: 'Authentik',
