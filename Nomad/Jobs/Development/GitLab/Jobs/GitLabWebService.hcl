@@ -201,9 +201,7 @@ EOF
       }
 
       template {
-        data = <<EOF
-${Secrets.KAS}
-EOF
+        data = "${Secrets.KAS}"
 
         destination = "secrets/KAS/.gitlab_kas_secret"
 
@@ -211,7 +209,7 @@ EOF
       }
 
       template {
-        data = "${WebService.Secrets.WorkHorse}"
+        data = "${Secrets.WorkHorse}"
 
         destination = "secrets/workhorse/.gitlab_workhorse_secret"
 

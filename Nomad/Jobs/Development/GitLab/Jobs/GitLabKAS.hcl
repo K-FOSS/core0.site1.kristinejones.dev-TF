@@ -63,9 +63,6 @@ job "development-gitlab-kas" {
       }
 
       env {
-        CONFIG_TEMPLATE_DIRECTORY = "/local/gitlab-config"
-
-        CONFIG_DIRECTORY = "/local/gitlab-shell"
 
         #
         # Misc
@@ -95,9 +92,15 @@ EOF
       }
 
       template {
-        data = <<EOF
-${Secrets.KAS}
-EOF
+        data = "${Secrets.WorkHorse}"
+
+        destination = "secrets/workhorse/.gitlab_workhorse_secret"
+
+        change_mode = "noop"
+      }
+
+      template {
+        data = "${Secrets.KAS}"
 
         destination = "secrets/KAS/.gitlab_kas_secret"
 

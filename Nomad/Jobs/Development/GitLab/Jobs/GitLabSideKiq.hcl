@@ -109,9 +109,7 @@ EOF
       }
 
       template {
-        data = <<EOF
-${Secrets.KAS}
-EOF
+        data = "${Secrets.KAS}"
 
         destination = "secrets/KAS/.gitlab_kas_secret"
 

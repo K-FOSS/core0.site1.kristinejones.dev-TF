@@ -50,17 +50,20 @@ resource "random_id" "WorkHorseKey" {
   byte_length = 32
 }
 
+resource "random_id" "KASKey" {
+  byte_length = 32
+}
+
 resource "random_password" "ShellPassword" {
   length = 128
   special = false
 }
 
-resource "random_password" "KASPassword" {
-  length = 128
-  special = false
-}
+#
+# Gitaly
+#
 
-resource "random_password" "KASPrivatePassword" {
+resource "random_password" "PraefectPassword" {
   length = 128
   special = false
 }
@@ -72,9 +75,9 @@ locals {
 
       Shell = random_password.ShellPassword.result
 
-      KAS = random_password.KASPassword.result
+      KAS = random_id.KASKey.b64_std
 
-      KASPrivate = random_password.KASPrivatePassword.result
+      Praefect = random_password.PraefectPassword.result
     }
   }
 }
@@ -237,8 +240,6 @@ resource "nomad_job" "GitLabWebServcieJob" {
     Secrets = local.GitLab.Secrets
 
     WebService = {
-      Secrets = local.GitLab.Secrets
-
       TLS = var.TLS.WebService
 
       EntryScript = file("${path.module}/Configs/WebService/Entry.sh")
@@ -312,6 +313,30 @@ resource "nomad_job" "GitLabKASJob" {
     KAS = {
       Config = templatefile("${path.module}/Configs/KAS/Config.yaml", {
 
+      })
+    }
+  })
+}
+
+#
+# GitLab Praefect
+#
+
+resource "nomad_job" "GitLabPraefectJob" {
+  jobspec = templatefile("${path.module}/Jobs/GitLabPraefect.hcl", {
+    Image = {
+      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
+
+      Tag = "v14.5.0"
+    }
+
+    Secrets = local.GitLab.Secrets
+
+    Praefect = {
+      Config = templatefile("${path.module}/Configs/Praefect/config.toml", {
+        PraefectToken = local.GitLab.Secrets.Praefect
+
+        Database = var.Database.Praefect
       })
     }
   })

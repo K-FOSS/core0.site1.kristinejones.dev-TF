@@ -34,7 +34,7 @@ job "gitlab-praefect" {
       driver = "docker"
 
       config {
-        image = "${Image.Repo}/praefect:${Image.Tag}"
+        image = "${Image.Repo}/gitaly:${Image.Tag}"
 
         mount {
           type = "bind"
@@ -57,7 +57,7 @@ job "gitlab-praefect" {
           config {
             loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
 
-            loki-external-labels = "job=gitlab,service=gitaly"
+            loki-external-labels = "job=gitlab,service=praefect"
           }
         }
       }
@@ -74,15 +74,7 @@ job "gitlab-praefect" {
 
       template {
         data = <<EOF
-${Gitaly.GitConfig}
-EOF
-
-        destination = "local/Loki.yaml"
-      }
-
-      template {
-        data = <<EOF
-${Gitaly.Config}
+${Praefect.Config}
 EOF
 
         destination = "local/gitaly/config.toml"
