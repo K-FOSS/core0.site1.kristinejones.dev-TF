@@ -168,7 +168,7 @@ production: &base
     enabled: true
     secret_file: /secrets/KAS/.gitlab_kas_secret
     external_url: ws://http.agent.kas.gitlab.service.dc1.kjdev:8085
-    internal_url: grpc://http.agent.kas.gitlab.service.dc1.kjdev:8080
+    internal_url: grpc://http.api.kas.gitlab.service.dc1.kjdev:8080
 
   git:
     bin_path: /usr/bin/git
