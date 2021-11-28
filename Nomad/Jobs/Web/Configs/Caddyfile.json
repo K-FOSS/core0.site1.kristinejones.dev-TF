@@ -69,7 +69,8 @@
               "match": [
                 {
                   "host": [
-                    "*.int.site1.kristianjones.dev"
+                    "*.int.site1.kristianjones.dev",
+                    "sabnzbd.kjmedia.stream"
                   ]
                 }
               ],
@@ -121,7 +122,8 @@
                       "match": [
                         {
                           "host": [
-                            "*.int.site1.kristianjones.dev"
+                            "*.int.site1.kristianjones.dev",
+                            "sabnzbd.kjmedia.stream"
                           ]
                         }
                       ],
@@ -191,39 +193,6 @@
                           "upstreams": [
                             {
                               "lookup_srv": "kjmedia-jellyfin.ix-kjmedia-jellyfin.svc.cluster.local"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "handler": "subroute",
-                  "routes": [
-                    {
-                      "match": [
-                        {
-                          "host": [
-                            "sabnzbd.kjmedia.stream"
-                          ]
-                        }
-                      ],
-                      "handle": [
-                        {
-                          "handler": "reverse_proxy",
-                          "transport": {
-                            "protocol": "http",
-                            "compression": true,
-                            "resolver": {
-                              "addresses": [
-                                "172.18.0.10:53"
-                              ]
-                            }
-                          },
-                          "upstreams": [
-                            {
-                              "lookup_srv": "kjmedia-sabnzbd.ix-kjmedia-sabnzbd.svc.cluster.local"
                             }
                           ]
                         }
@@ -871,7 +840,8 @@
               "*.int.site1.kristianjones.dev",
               "hass.home1.kristianjones.dev",
               "kjmedia.stream",
-              "*.kjmedia.stream"
+              "*.kjmedia.stream",
+              "jellyfin.kjmedia.stream"
             ],
             "issuers": [
               {

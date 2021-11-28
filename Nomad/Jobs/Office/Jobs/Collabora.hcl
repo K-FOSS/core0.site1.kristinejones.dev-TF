@@ -27,10 +27,6 @@ job "collabora" {
       tags = ["coredns.enabled", "http"]
     }
 
-    network {
-      mode = "cni/nomadcore1"
-    }
-
     task "collabora-online-server" {
       driver = "docker"
 
