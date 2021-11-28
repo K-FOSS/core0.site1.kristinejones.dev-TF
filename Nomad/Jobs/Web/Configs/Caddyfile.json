@@ -421,7 +421,8 @@
                           "transport": {
                             "protocol": "http",
                             "tls": {
-                              "insecure_skip_verify": true
+                              "insecure_skip_verify": true,
+                              "server_name": "office.kristianjones.dev"
                             },
                             "resolver": {
                               "addresses": [
