@@ -372,6 +372,14 @@ module "NS" {
 }
 
 #
+# Office
+#
+module "Office" {
+  source = "./Jobs/Office"
+}
+
+
+#
 # NATPunch
 #
 module "NATPunch" {
