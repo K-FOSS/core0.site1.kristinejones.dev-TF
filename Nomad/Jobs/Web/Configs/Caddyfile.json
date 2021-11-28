@@ -223,7 +223,7 @@
                           },
                           "upstreams": [
                             {
-                              "lookup_srv": "kjmedia-jellyfin.ix-kjmedia-jellyfin.svc.cluster.local"
+                              "lookup_srv": "kjmedia-sabnzbd.ix-kjmedia-sabnzbd.svc.cluster.local"
                             }
                           ]
                         }
