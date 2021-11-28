@@ -420,6 +420,9 @@
                           "handler": "reverse_proxy",
                           "transport": {
                             "protocol": "http",
+                            "tls": {
+                              "insecure_skip_verify": true
+                            },
                             "resolver": {
                               "addresses": [
                                 "172.16.0.10:8600",
