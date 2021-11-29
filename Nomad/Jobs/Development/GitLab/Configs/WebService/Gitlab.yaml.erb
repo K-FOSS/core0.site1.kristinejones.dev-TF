@@ -139,10 +139,13 @@ production: &base
     enabled: false
   kerberos:
     enabled: false
+
   omniauth:
     enabled: true
-    allow_single_sign_on: true
+    sync_profile_attributes: true
+    allow_single_sign_on: ["openid_connect"]
     block_auto_created_users: false
+    auto_link_user: true
     providers:
       - { name: 'openid_connect',
           label: 'Authentik',
@@ -166,12 +169,12 @@ production: &base
   shared:
   gitaly:
     client_path: /home/git/gitaly/bin
-    token: gitalytokengitalytoken
+    token: ${Praefect.Token}
   repositories:
     storages: # You must have at least a `default` storage path.
       default:
         path: /home/git/repositories
-        gitaly_address: tcp://kjdev-gitaly1-custom-app.ix-kjdev-gitaly1.svc.cluster.local:8075
+        gitaly_address: tcp://http.praefect.gitlab.service.kjdev:8080
   backup:
     path: "tmp/backups"   # Relative paths are relative to Rails.root (default: tmp/backups/)
   gitlab_shell:

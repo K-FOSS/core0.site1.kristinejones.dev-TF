@@ -10,14 +10,14 @@ transitioning = false
 [[virtual_storage]]
 name = 'default'
 
-[[virtual_storage.node]]
-storage = 'infra1'
+[[virtual_storage.infra1site1]]
+storage = 'default'
 address = 'tcp://kjdev-gitaly1-custom-app.ix-kjdev-gitaly1.svc.cluster.local:8075'
 token = "gitalytokengitalytoken"
 
 [database]
 host = '${Database.Hostname}'
-port = '${Database.Port}'
+port = ${Database.Port}
 user = '${Database.Username}'
 password = '${Database.Password}'
 dbname = '${Database.Database}'

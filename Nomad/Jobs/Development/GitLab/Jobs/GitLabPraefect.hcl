@@ -64,6 +64,11 @@ job "gitlab-praefect" {
 
       env {
         CONFIG_TEMPLATE_DIRECTORY = "/local/gitaly"
+
+        PRAEFECT_CONFIG_FILE = "/local/gitaly/config.toml"
+
+        USE_PRAEFECT_SERVICE = "1"
+        PRAEFECT_AUTO_MIGRATE = "1"
       }
 
       resources {

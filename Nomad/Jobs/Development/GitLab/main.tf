@@ -217,6 +217,10 @@ resource "nomad_job" "GitLabSideKiqJob" {
           SMTP = var.SMTP
 
           S3 = var.S3
+
+          Praefect = {
+            Token = local.GitLab.Secrets.Praefect
+          }
         })
 
         Resque = templatefile("${path.module}/Configs/Sidekiq/Resque.yaml", {
@@ -263,6 +267,10 @@ resource "nomad_job" "GitLabWebServcieJob" {
           SMTP = var.SMTP
 
           S3 = var.S3
+
+          Praefect = {
+            Token = local.GitLab.Secrets.Praefect
+          }
         })
 
         Resque = templatefile("${path.module}/Configs/WebService/Resque.yaml", {
