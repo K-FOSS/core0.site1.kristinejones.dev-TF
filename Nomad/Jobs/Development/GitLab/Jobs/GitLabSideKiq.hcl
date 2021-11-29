@@ -45,6 +45,13 @@ job "development-gitlab-sidekiq" {
           readonly = false
         }
 
+        mount {
+          type = "bind"
+          target = "/var/opt/gitlab/config/secrets/.gitlab_shell_secret"
+          source = "secrets/shell/.gitlab_shell_secret"
+          readonly = false
+        }
+
         logging {
           type = "loki"
           config {
@@ -74,6 +81,8 @@ job "development-gitlab-sidekiq" {
         GITALY_FEATURE_DEFAULT_ON = "1"
 
         ENABLE_BOOTSNAP = "1"
+
+        GITLAB_TRACING = "opentracing://jaeger?http_endpoint=http%3A%2F%2Fhttp.distributor.tempo.service.kjdev%3A14268%2Fapi%2Ftraces&sampler=const&sampler_param=1"
       }
 
       template {
@@ -112,6 +121,16 @@ EOF
         data = "${Secrets.KAS}"
 
         destination = "secrets/KAS/.gitlab_kas_secret"
+
+        change_mode = "noop"
+      }
+
+      template {
+        data = <<EOF
+${Secrets.Shell}
+EOF
+
+        destination = "secrets/shell/.gitlab_shell_secret"
 
         change_mode = "noop"
       }

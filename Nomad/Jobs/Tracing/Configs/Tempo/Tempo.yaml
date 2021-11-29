@@ -119,7 +119,7 @@ ingester:
         consul:
           host: ${Consul.Hostname}:${Consul.Port}
           acl_token: ${Consul.Token}
-      replication_factor: 3
+      replication_factor: 2
 
 
 storage:

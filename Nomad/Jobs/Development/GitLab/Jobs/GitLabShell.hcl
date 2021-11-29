@@ -91,7 +91,7 @@ EOF
 
       template {
         data = <<EOF
-6fad933c6267760415116fc4f35d2c7fc969f4ce0c162b49c3dd7be5517283e63000340ba7282dd97c2b3518b6d3c97a7cdd995dcb6f00dff11cf0aa316a459f
+${Secrets.Shell}
 EOF
 
         destination = "secrets/shell/.gitlab_shell_secret"

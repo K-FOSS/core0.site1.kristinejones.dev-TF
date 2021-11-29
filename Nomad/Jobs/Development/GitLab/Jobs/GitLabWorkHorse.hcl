@@ -76,6 +76,13 @@ job "development-gitlab-workhorse" {
 
         mount {
           type = "bind"
+          target = "/var/opt/gitlab/config/secrets/.gitlab_shell_secret"
+          source = "secrets/shell/.gitlab_shell_secret"
+          readonly = false
+        }
+
+        mount {
+          type = "bind"
           target = "/etc/gitlab/gitlab-workhorse/secret"
           source = "secrets/workhorse/.gitlab_workhorse_secret"
           readonly = true
@@ -168,6 +175,16 @@ EOF
         data = "${Secrets.WorkHorse}"
 
         destination = "secrets/workhorse/.gitlab_workhorse_secret"
+
+        change_mode = "noop"
+      }
+
+      template {
+        data = <<EOF
+${Secrets.Shell}
+EOF
+
+        destination = "secrets/shell/.gitlab_shell_secret"
 
         change_mode = "noop"
       }
