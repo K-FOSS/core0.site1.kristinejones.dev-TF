@@ -359,6 +359,35 @@
                       "match": [
                         {
                           "host": [
+                            "plantuml.kristianjones.dev"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "compression": true,
+                            "resolver": {
+                              "addresses": [
+                                "172.16.0.10:8600",
+                                "172.16.0.13:8600"
+                              ]
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "http.plantuml.service.dc1.kjdev"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
                             "auth.kristianjones.dev"
                           ]
                         }
