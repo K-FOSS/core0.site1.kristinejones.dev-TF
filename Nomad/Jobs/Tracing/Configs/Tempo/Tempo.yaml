@@ -79,7 +79,7 @@ distributor:
         acl_token: ${Consul.Token}
 
 querier:
-  max_concurrent_queries: 500
+  max_concurrent_queries: 1000
   frontend_worker:
     #scheduler_address: 0.tempo-query-scheduler-grpc-cont.service.kjdev:8085,1.tempo-query-scheduler-grpc-cont.service.kjdev:8085,2.tempo-query-scheduler-grpc-cont.service.kjdev:8085
     frontend_address: grpc.query-frontend.tempo.service.dc1.kjdev:8085
@@ -119,7 +119,7 @@ ingester:
         consul:
           host: ${Consul.Hostname}:${Consul.Port}
           acl_token: ${Consul.Token}
-      replication_factor: 2
+      replication_factor: 3
 
 
 storage:

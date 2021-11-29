@@ -5,7 +5,7 @@ job "development-gitlab-webservice" {
   # GitLab Web Service
   #
   group "gitlab-webservice" {
-    count = 1
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"
@@ -95,9 +95,9 @@ job "development-gitlab-webservice" {
       }
 
       resources {
-        cpu = 256
-        memory = 2048
-        memory_max = 2048
+        cpu = 812
+        memory = 4096
+        memory_max = 4096
       }
 
       env {
