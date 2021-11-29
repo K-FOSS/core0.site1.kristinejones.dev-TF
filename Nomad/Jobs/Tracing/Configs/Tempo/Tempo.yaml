@@ -173,7 +173,3 @@ memberlist:
 
     # Compactor
     - dnssrv+gossip.compactor.tempo.service.dc1.kjdev
-
-
-overrides:
-  per_tenant_override_config: /local/overrides.yaml
