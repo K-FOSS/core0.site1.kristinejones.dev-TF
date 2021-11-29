@@ -15,7 +15,12 @@ storage = 'default'
 address = 'tcp://kjdev-gitaly1-custom-app.ix-kjdev-gitaly1.svc.cluster.local:8075'
 token = "gitalytokengitalytoken"
 
-[[virtual_storage.node]]
+[[virtual_storage.node2]]
+storage = 'default'
+address = 'tcp://kjdev-gitaly2-custom-app.ix-kjdev-gitaly2.svc.cluster.local:8075'
+token = "gitalytokengitalytoken"
+
+[[virtual_storage.node3]]
 storage = 'default'
 address = 'tcp://172.31.241.2:37075'
 token = "gitalytokengitalytoken"
