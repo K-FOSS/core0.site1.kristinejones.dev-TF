@@ -1,4 +1,5 @@
 production:
   adapter: redis
   url: redis://redis.gitlab.service.dc1.kjdev:6379
+  channel_prefix: gitlab_production
   

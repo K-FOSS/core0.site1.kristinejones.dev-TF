@@ -21,6 +21,7 @@ production: &base
 
   incoming_email:
     enabled: false
+
   artifacts:
     enabled: true
     object_store:
@@ -125,8 +126,10 @@ production: &base
     enabled: false
   omniauth:
     enabled: true
-    allow_single_sign_on: true
+    sync_profile_attributes: true
+    allow_single_sign_on: ["openid_connect"]
     block_auto_created_users: false
+    auto_link_user: true
     providers:
       - { name: 'openid_connect',
           label: 'Authentik',
@@ -169,6 +172,7 @@ production: &base
     secret_file: /secrets/KAS/.gitlab_kas_secret
     external_url: ws://http.agent.kas.gitlab.service.dc1.kjdev:8085
     internal_url: grpc://http.api.kas.gitlab.service.dc1.kjdev:8080
+    external_k8s_proxy_url: https://kube.gitlab.kristianjones.dev
 
   git:
     bin_path: /usr/bin/git

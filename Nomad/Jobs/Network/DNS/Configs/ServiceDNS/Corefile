@@ -4,6 +4,8 @@
   metadata .
 
   trace zipkin http://http.distributor.tempo.service.kjdev:9411 {
+    every 100
+    
     client_server
   }
 
