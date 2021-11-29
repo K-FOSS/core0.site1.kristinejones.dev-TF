@@ -87,6 +87,16 @@ job "development-gitlab-sidekiq" {
 
       template {
         data = <<EOF
+${Sidekiq.Templates.Cable}
+EOF
+
+        destination = "local/sidekiq/configtemplates/cable.yml"
+
+        change_mode = "noop"
+      }
+
+      template {
+        data = <<EOF
 ${Sidekiq.Templates.Database}
 EOF
 

@@ -203,6 +203,10 @@ resource "nomad_job" "GitLabSideKiqJob" {
 
     Sidekiq = {
       Templates = {
+        Cable = templatefile("${path.module}/Configs/WebService/Cable.yaml", {
+
+        })
+
         Database = templatefile("${path.module}/Configs/Sidekiq/Database.yaml", {
           Database = var.Database.Core
         })
