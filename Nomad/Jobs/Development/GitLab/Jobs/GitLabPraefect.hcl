@@ -18,6 +18,10 @@ job "gitlab-praefect" {
       port "http" { 
         to = 8080
       }
+
+      port "metrics" { 
+        to = 9000
+      }
     }
 
     service {
