@@ -95,6 +95,8 @@ resource "nomad_job" "GitLabDatabaseJob" {
       Tag = "v14.5.0"
     }
 
+    Secrets = local.GitLab.Secrets
+
     WebService = {
       TLS = var.TLS.WebService
 
