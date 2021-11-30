@@ -87,43 +87,50 @@ locals {
 # GitLab Database
 #
 
-# resource "nomad_job" "GitLabDatabaseJob" {
-#   jobspec = templatefile("${path.module}/Jobs/GitLabDatabase.hcl", {
-#     Image = {
-#       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
+resource "nomad_job" "GitLabDatabaseJob" {
+  jobspec = templatefile("${path.module}/Jobs/GitLabDatabase.hcl", {
+    Image = {
+      Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
-#       Tag = "master"
-#     }
+      Tag = "v14.5.0"
+    }
 
-#     WebService = {
-#       EntryScript = file("${path.module}/Configs/WebService/Entry.sh")
+    WebService = {
+      TLS = var.TLS.WebService
 
-#       Templates = {
-#         Cable = templatefile("${path.module}/Configs/WebService/Cable.yaml", {
+      EntryScript = file("${path.module}/Configs/WebService/Entry.sh")
 
-#         })
+      Templates = {
+        Cable = templatefile("${path.module}/Configs/WebService/Cable.yaml", {
 
-#         Database = templatefile("${path.module}/Configs/WebService/Database.yaml", {
-#           Database = var.Database.Core
-#         })
+        })
 
-#         GitlabERB = templatefile("${path.module}/Configs/WebService/Gitlab.yaml.erb", {
-#           OpenID = var.OpenID
+        Database = templatefile("${path.module}/Configs/WebService/Database.yaml", {
+          Database = var.Database.Core
+        })
 
-#           SMTP = var.SMTP
+        GitlabERB = templatefile("${path.module}/Configs/WebService/Gitlab.yaml.erb", {
+          OpenID = var.OpenID
 
-#           S3 = var.S3
-#         })
+          SMTP = var.SMTP
 
-#         Resque = templatefile("${path.module}/Configs/WebService/Resque.yaml", {
-#         })
+          S3 = var.S3
 
-#         Secrets = templatefile("${path.module}/Configs/WebService/Secrets.yaml", {
-#         })
-#       }
-#     }
-#   })
-# }
+          Praefect = {
+            Token = local.GitLab.Secrets.Praefect
+          }
+        })
+
+        Resque = templatefile("${path.module}/Configs/WebService/Resque.yaml", {
+        })
+
+        Secrets = templatefile("${path.module}/Configs/WebService/Secrets.yaml", {
+        })
+
+      }
+    }
+  })
+}
 
 #
 # Gitlab Gitaly

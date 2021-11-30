@@ -45,9 +45,7 @@ job "gitlab-database" {
       config {
         image = "${Image.Repo}/gitlab-rails-ce:${Image.Tag}"
 
-        command = "/scripts/wait-for-deps"
-
-        args = ["/scripts/db-migrate"]
+        command = "/scripts/db-migrate"
 
         mount {
           type = "bind"
@@ -82,7 +80,7 @@ job "gitlab-database" {
       }
 
       resources {
-        cpu = 128
+        cpu = 1024
         memory = 2048
         memory_max = 2048
       }
@@ -158,7 +156,7 @@ EOF
 
       template {
         data = <<EOF
-6fad933c6267760415116fc4f35d2c7fc969f4ce0c162b49c3dd7be5517283e63000340ba7282dd97c2b3518b6d3c97a7cdd995dcb6f00dff11cf0aa316a459f
+${Secrets.Shell}
 EOF
 
         destination = "secrets/shell/.gitlab_shell_secret"
@@ -167,9 +165,15 @@ EOF
       }
 
       template {
-        data = <<EOF
-6fad933c6267760415116fc4f35d2c7fc969f4ce0c162b49c3dd7be5517283e63000340ba7282dd97c2b3518b6d3c97a7cdd995dcb6f00dff11cf0aa316a459f
-EOF
+        data = "${Secrets.KAS}"
+
+        destination = "secrets/KAS/.gitlab_kas_secret"
+
+        change_mode = "noop"
+      }
+
+      template {
+        data = "${Secrets.WorkHorse}"
 
         destination = "secrets/workhorse/.gitlab_workhorse_secret"
 
