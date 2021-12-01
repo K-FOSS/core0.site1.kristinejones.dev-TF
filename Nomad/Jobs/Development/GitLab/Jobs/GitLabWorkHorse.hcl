@@ -94,7 +94,7 @@ job "development-gitlab-workhorse" {
         #
         # Configs
         #
-        CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/config/templates"
+        CONFIG_TEMPLATE_DIRECTORY = "/local/configtemplates"
 
         CONFIG_DIRECTORY = "/srv/gitlab/config"
 

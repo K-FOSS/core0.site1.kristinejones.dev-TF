@@ -260,6 +260,10 @@ resource "nomad_job" "GitLabWorkHorseJob" {
 
     Secrets = local.GitLab.Secrets
 
+    GitLab = {
+      Configs = local.GitLab.Config
+    }
+
     WorkHorse = {
       TLS = var.TLS.WorkHorse
 
