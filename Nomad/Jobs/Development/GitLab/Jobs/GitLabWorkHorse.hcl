@@ -72,16 +72,7 @@ job "development-gitlab-workhorse" {
       config {
         image = "${Image.Repo}/gitlab-workhorse-ce:${Image.Tag}"
 
-        entrypoint = ["/usr/local/bin/gitlab-workhorse"]
-
-        args = [
-          "-config=/local/WorkhorseConfig.yaml",
-          "-secretPath", "secrets/.gitlab_workhorse_secret",
-          "-authBackend", "http://https.webservice.gitlab.service.dc1.kjdev:443",
-          "-cableBackend", "http://https.webservice.gitlab.service.dc1.kjdev:443",
-
-          "-listenAddr", "0.0.0.0:443"
-        ]
+        command = "/scripts/start-workhorse"
 
         logging {
           type = "loki"
@@ -100,6 +91,19 @@ job "development-gitlab-workhorse" {
       }
 
       env {
+        #
+        # Configs
+        #
+        CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/config/templates"
+
+        CONFIG_DIRECTORY = "/srv/gitlab/config"
+
+        #
+        # Workhorse
+        #
+        GITLAB_WORKHORSE_LISTEN_PORT = "443"
+        GITLAB_WORKHORSE_EXTRA_ARGS = "-authBackend http://https.webservice.gitlab.service.dc1.kjdev:443 -cableBackend http://https.webservice.gitlab.service.dc1.kjdev:443"
+
         ENABLE_BOOTSNAP = "1"
 
         #
@@ -119,7 +123,47 @@ job "development-gitlab-workhorse" {
 ${WorkHorse.Config}
 EOF
 
-        destination = "local/WorkhorseConfig.yaml"
+        destination = "local/configtemplates/workhorse-config.toml"
+      }
+
+      template {
+        data = <<EOF
+${GitLab.Configs.GitLab}
+EOF
+
+        destination = "local/configtemplates/gitlab.yml"
+
+        change_mode = "noop"
+      }
+
+      template {
+        data = <<EOF
+${GitLab.Configs.Cable}
+EOF
+
+        destination = "local/configtemplates/cable.yml"
+
+        change_mode = "noop"
+      }
+
+      template {
+        data = <<EOF
+${GitLab.Configs.Database}
+EOF
+
+        destination = "local/configtemplates/database.yml"
+
+        change_mode = "noop"
+      }
+
+      template {
+        data = <<EOF
+${GitLab.Configs.Resque}
+EOF
+
+        destination = "local/configtemplates/resque.yml"
+
+        change_mode = "noop"
       }
 
       #
