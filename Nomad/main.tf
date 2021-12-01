@@ -565,3 +565,11 @@ module "Registry" {
 
   Harbor = var.Registry.Harbor
 }
+
+#
+# Misc
+#
+
+module "Misc" {
+  source = "./Jobs/Misc"
+}

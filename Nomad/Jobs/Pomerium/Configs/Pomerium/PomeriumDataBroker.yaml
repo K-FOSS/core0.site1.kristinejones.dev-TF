@@ -85,16 +85,6 @@ routes:
     pass_identity_headers: true
 
   #
-  # NextCloud
-  #
-  - from: https://nextcloud.int.site1.kristianjones.dev
-    to: http://nextcloud-web-cont.service.kjdev:8080
-    allowed_domains:
-      - kristianjones.dev
-    pass_identity_headers: true
-    allow_websockets: true
-
-  #
   # Draw 
   #
   - from: https://drawio.int.site1.kristianjones.dev
@@ -108,7 +98,7 @@ routes:
   # Mattermost
   #
   - from: https://mattermost.int.site1.kristianjones.dev
-    to: http://mattermost-leader-http-cont.service.dc1.kjdev:8080
+    to: http://mattermost-leader-http-cont.service.dc1.kjdev:8065
     allowed_domains:
       - kristianjones.dev
     pass_identity_headers: true
@@ -145,18 +135,6 @@ routes:
   #
   - from: https://openproject.int.site1.kristianjones.dev
     to: http://proxy.openproject.service.dc1.kjdev:80
-    preserve_host_header: true
-    allowed_domains:
-      - kristianjones.dev
-    pass_identity_headers: true
-    allow_websockets: true
-    cors_allow_preflight: true
-
-  #
-  # GitLab
-  #
-  - from: https://gitlab.int.site1.kristianjones.dev
-    to: http://https.workhorse.gitlab.service.dc1.kjdev:443
     preserve_host_header: true
     allowed_domains:
       - kristianjones.dev
@@ -206,6 +184,30 @@ routes:
   #
   - from: https://prowlarr.kjmedia.stream
     to: http://kjmedia-prowlarr.ix-kjmedia-prowlarr.svc.cluster.local:8080
+    preserve_host_header: true
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true
+    cors_allow_preflight: true
+
+  #
+  # CyberChef
+  #
+  - from: https://cyberchef.int.site1.kristianjones.dev
+    to: http://http.cyberchef.service.dc1.kjdev:8000
+    preserve_host_header: true
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true
+    cors_allow_preflight: true
+
+  #
+  # ShareX
+  #
+  - from: https://sharex.int.site1.kristianjones.dev
+    to: http://http.cyberchef.service.dc1.kjdev:8000
     preserve_host_header: true
     allowed_domains:
       - kristianjones.dev
