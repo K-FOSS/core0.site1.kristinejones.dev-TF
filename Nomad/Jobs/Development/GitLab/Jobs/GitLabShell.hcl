@@ -37,15 +37,6 @@ job "development-gitlab-shell" {
       config {
         image = "${Image.Repo}/gitlab-shell:${Image.Tag}"
 
-        mount {
-          type = "tmpfs"
-          target = "/local/gitlab-shell"
-          readonly = false
-          tmpfs_options = {
-            size = 100000
-          }
-        }
-
         logging {
           type = "loki"
           config {
@@ -65,7 +56,7 @@ job "development-gitlab-shell" {
       env {
         CONFIG_TEMPLATE_DIRECTORY = "/local/configtemplates"
 
-        CONFIG_DIRECTORY = "/local/gitlab-shell"
+        CONFIG_DIRECTORY = "/srv/gitlab/config"
 
         #
         # Misc
