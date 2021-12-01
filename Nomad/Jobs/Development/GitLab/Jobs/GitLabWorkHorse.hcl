@@ -72,7 +72,7 @@ job "development-gitlab-workhorse" {
       config {
         image = "${Image.Repo}/gitlab-workhorse-ce:${Image.Tag}"
 
-        entrypoint = ["/scripts/start-workhorse"]
+        entrypoint = ["/usr/local/bin/gitlab-workhorse"]
 
         args = [
           "-config=/local/WorkhorseConfig.yaml",

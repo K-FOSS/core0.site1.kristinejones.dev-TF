@@ -58,13 +58,6 @@ job "development-gitlab-webservice" {
 
         mount {
           type = "bind"
-          target = "/var/opt/gitlab/config/templates"
-          source = "local/webservice/configtemplates"
-          readonly = false
-        }
-
-        mount {
-          type = "bind"
           target = "/opt/gitlab/embedded/ssl/certs/gitlab.pem"
           source = "secrets/TLS/CA.pem"
           readonly = false
@@ -98,7 +91,7 @@ job "development-gitlab-webservice" {
         #
         # Configs
         #
-        CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/config/templates"
+        CONFIG_TEMPLATE_DIRECTORY = "/local/configtemplates"
         CONFIG_DIRECTORY = "/srv/gitlab/config"
 
         EXTERNAL_URL = "https://gitlab.kristianjones.dev"

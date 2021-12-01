@@ -38,13 +38,6 @@ job "development-gitlab-sidekiq" {
       config {
         image = "${Image.Repo}/gitlab-sidekiq-ce:${Image.Tag}"
 
-        mount {
-          type = "bind"
-          target = "/var/opt/gitlab/config/templates"
-          source = "local/templates"
-          readonly = false
-        }
-
         logging {
           type = "loki"
           config {
