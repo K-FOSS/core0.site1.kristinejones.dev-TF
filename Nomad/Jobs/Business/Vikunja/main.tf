@@ -48,7 +48,7 @@ terraform {
 
 locals {
   Vikunja = {
-    Config = templatefile("${path.module}/Jobs/VikunjaAPI.hcl", {
+    Config = templatefile("${path.module}/Configs/Vikunja/Config.yaml", {
       Database = var.Database
     })
   }
