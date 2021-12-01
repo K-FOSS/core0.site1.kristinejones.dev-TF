@@ -573,3 +573,17 @@ module "Registry" {
 module "Misc" {
   source = "./Jobs/Misc"
 }
+
+#
+# Business
+# 
+
+#
+# Task System
+#
+
+module "Vikunja" {
+  source = "./Jobs/Business/Vikunja"
+
+  Database = var.Business.Vikunja.Database
+}

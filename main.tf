@@ -561,6 +561,25 @@ module "HarborRegistryDatabase" {
   Credentials = module.Vault.Database
 }
 
+#
+# Business Databases
+#
+
+#
+# Task System
+#
+
+module "VikunjaDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+
+#
+# Ticket System
+#
+
  
 #
 # Hashicorp Nomad
@@ -1083,6 +1102,15 @@ module "Nomad" {
       Database = module.HarborRegistryDatabase.Database
 
       TLS = module.Vault.Registry.Harbor.TLS
+    }
+  }
+
+  #
+  # Business
+  #
+  Business = {
+    Vikunja = {
+      Database = module.VikunjaDatabase.Database
     }
   }
 } 

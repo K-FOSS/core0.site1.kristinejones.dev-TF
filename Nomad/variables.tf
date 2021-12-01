@@ -1204,3 +1204,22 @@ variable "Registry" {
 #   })
   
 # }
+
+#
+# Business
+#
+variable "Business" {
+  type = object({
+    Vikunja = object({
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
+      })
+    })
+  })
+}
