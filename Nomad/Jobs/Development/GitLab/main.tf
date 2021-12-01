@@ -325,3 +325,23 @@ resource "nomad_job" "GitLabPraefectJob" {
     }
   })
 }
+
+#
+# GitLab Toolbox
+#
+
+# resource "nomad_job" "GitLabToolboxJob" {
+#   jobspec = templatefile("${path.module}/Jobs/GitLabToolbox.hcl", {
+#     Image = {
+#       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
+
+#       Tag = "v14.5.0"
+#     }
+
+#     Secrets = local.GitLab.Secrets
+
+#     GitLab = {
+#       Configs = local.GitLab.Config
+#     }
+#   })
+# }

@@ -1,10 +1,11 @@
-job "development-gitlab-sidekiq" {
+job "development-gitlab-kas" {
   datacenters = ["core0site1"]
 
+
   #
-  # GitLab Sidekiq
+  # GitLab Kubernetes Agent Server
   #
-  group "gitlab-sidekiq" {
+  group "gitlab-kas" {
     count = 1
 
     spread {
@@ -15,70 +16,64 @@ job "development-gitlab-sidekiq" {
     network {
       mode = "cni/nomadcore1"
 
-      port "http" { 
+      port "api" { 
         to = 8080
       }
     }
 
     service {
       name = "gitlab"
-      port = "http"
+      port = "api"
 
-      task = "gitlab-sidekiq-server"
+      task = "gitlab-toolbox"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "http.sidekiq"]
+      tags = ["coredns.enabled", "http.api.kas"]
     }
 
-    task "gitlab-sidekiq-server" {
+    task "gitlab-toolbox" {
       driver = "docker"
 
-      user = "root"
-
       config {
-        image = "${Image.Repo}/gitlab-sidekiq-ce:${Image.Tag}"
+        image = "${Image.Repo}/gitlab-toolbox-ce:${Image.Tag}"
 
-        mount {
-          type = "bind"
-          target = "/var/opt/gitlab/config/templates"
-          source = "local/templates"
-          readonly = false
-        }
+        args = ["--configuration-file=/local/Config.yaml"]
 
         logging {
           type = "loki"
           config {
             loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
 
-            loki-external-labels = "job=gitlab,service=sidekiq"
+            loki-external-labels = "job=gitlab,service=toolbox"
           }
         }
       }
 
       resources {
-        cpu = 900
-        memory = 1024
-        memory_max = 1024
+        cpu = 256
+        memory = 512
+        memory_max = 512
       }
 
       env {
-        CONFIG_TEMPLATE_DIRECTORY = "/local/configtemplates"
 
-        CONFIG_DIRECTORY = "/srv/gitlab/config"
+        #
+        # Config
+        #
 
-        WAIT_FOR_TIMEOUT = "60"
 
+        #
+        # Misc
+        #
         GITLAB_HOST = "https://gitlab.kristianjones.dev"
         GITLAB_PORT = "443"
-
-        GITALY_FEATURE_DEFAULT_ON = "1"
 
         #
         # Rails
         #
         ENABLE_BOOTSNAP = "1"
 
-        GITLAB_TRACING = "opentracing://jaeger?http_endpoint=http%3A%2F%2Fhttp.distributor.tempo.service.kjdev%3A14268%2Fapi%2Ftraces&sampler=const&sampler_param=1"
+
       }
 
       #
@@ -156,4 +151,5 @@ EOF
       }
     }
   }
+
 }

@@ -73,6 +73,15 @@ job "development-gitlab-shell" {
         GITLAB_HOST = "https://gitlab.kristianjones.dev"
         GITLAB_PORT = "443"
 
+        #
+        # Gitaly
+        #
+        GITALY_FEATURE_DEFAULT_ON = "1"
+
+        #
+        # Observability
+        #
+
         GITLAB_TRACING = "opentracing://jaeger?http_endpoint=http%3A%2F%2Fhttp.distributor.tempo.service.kjdev%3A14268%2Fapi%2Ftraces&sampler=const&sampler_param=1"
       }
 

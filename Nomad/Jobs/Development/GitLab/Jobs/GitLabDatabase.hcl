@@ -79,6 +79,9 @@ job "gitlab-database" {
         GITLAB_HOST = "https://gitlab.kristianjones.dev"
         GITLAB_PORT = "443"
 
+        #
+        # Rails
+        #
         ENABLE_BOOTSNAP = "1"
       }
 

@@ -357,6 +357,7 @@ production: &base
     hooks_path: /home/git/gitlab-shell/hooks/
     upload_pack: true
     receive_pack: true
+    secret_file: /secrets/.gitlab_shell_secret
 
   workhorse:
     secret_file: /secrets/.gitlab_workhorse_secret
