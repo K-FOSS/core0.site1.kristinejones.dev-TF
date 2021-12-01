@@ -8,7 +8,7 @@ job "business-vikunja-api" {
       mode = "cni/nomadcore1"
 
       port "https" {
-        to = 3456
+        to = 8080
       }
     }
 
