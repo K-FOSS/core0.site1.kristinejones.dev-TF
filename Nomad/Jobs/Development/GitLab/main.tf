@@ -71,7 +71,7 @@ resource "random_password" "PraefectPassword" {
 locals {
   GitLab = {
     Config = {
-      GitLab = templatefile("${path.module}/Configs/Gitlab.yaml", {
+      GitLab = templatefile("${path.module}/Configs/GitLab.yaml", {
         OpenID = var.OpenID
 
         SMTP = var.SMTP
