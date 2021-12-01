@@ -1,6 +1,6 @@
 gitlab:
   address: http://https.workhorse.gitlab.service.dc1.kjdev:443 # required
-  authentication_secret_file: /secrets/KAS/.gitlab_kas_secret # required
+  authentication_secret_file: /secrets/.gitlab_kas_secret # required
 
 agent:
   listen:
@@ -83,11 +83,11 @@ redis:
 api:
   listen:
     address: 0.0.0.0:8080
-    authentication_secret_file: /secrets/KAS/.gitlab_kas_secret # required
+    authentication_secret_file: /secrets/.gitlab_kas_secret # required
     # certificate_file: /server-cert.pem
     # key_file: /server-key.pem
 
 private_api:
   listen:
     address: 0.0.0.0:8155
-    authentication_secret_file: /secrets/KAS/.gitlab_kas_secret
+    authentication_secret_file: /secrets/.gitlab_kas_secret
