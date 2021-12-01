@@ -37,6 +37,15 @@ job "development-gitlab-shell" {
       config {
         image = "${Image.Repo}/gitlab-shell:${Image.Tag}"
 
+        mount {
+          type = "tmpfs"
+          target = "/srv/gitlab/config"
+          readonly = false
+          tmpfs_options = {
+            size = 100000
+          }
+        }
+
         logging {
           type = "loki"
           config {

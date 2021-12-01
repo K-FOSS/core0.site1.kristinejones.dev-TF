@@ -25,6 +25,7 @@ batch_size = 10 # configures the number of replication jobs to dequeue and lock 
 
 [failover]
 enabled = true
+election_strategy = 'per_repository'
 
 
 [[virtual_storage]]
