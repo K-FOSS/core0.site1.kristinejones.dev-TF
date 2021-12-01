@@ -31,12 +31,12 @@ enabled = true
 name = 'default'
 
 [[virtual_storage.node1]]
-storage = 'kjdev-gitaly1'
+storage = 'default'
 address = 'tcp://kjdev-gitaly1-custom-app.ix-kjdev-gitaly1.svc.cluster.local:8075'
 token = "gitalytokengitalytoken"
 
 [[virtual_storage.node2]]
-storage = 'kjdev-gitaly2'
+storage = 'default'
 address = 'tcp://kjdev-gitaly2-custom-app.ix-kjdev-gitaly2.svc.cluster.local:8075'
 token = "gitalytokengitalytoken"
 
