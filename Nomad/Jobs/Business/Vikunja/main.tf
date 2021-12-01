@@ -59,7 +59,9 @@ locals {
 #
 
 resource "nomad_job" "VikunjaAPIServerJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/VikunjaAPI.hcl", local)
+  jobspec = templatefile("${path.module}/Jobs/VikunjaAPI.hcl", {
+    Vikunja = local.Vikunja
+  })
 }
 
 #
@@ -67,5 +69,7 @@ resource "nomad_job" "VikunjaAPIServerJobFile" {
 #
 
 resource "nomad_job" "VikunjaFrontendServerJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/VikunjaFrontend.hcl", local)
+  jobspec = templatefile("${path.module}/Jobs/VikunjaFrontend.hcl", {
+    Vikunja = local.Vikunja
+  })
 }
