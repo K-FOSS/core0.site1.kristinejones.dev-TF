@@ -27,25 +27,27 @@ job "business-vikunja-api" {
 
       config {
         image = "vikunja/api"
-      }
 
-      env {
-        #
-        # Database
-        #
-        VIKUNJA_DATABASE_TYPE = "postgres"
+        entrypoint = ["/app/vikunja/vikunja"]
 
-        VIKUNJA_DATABASE_HOST = "${Database.Hostname}:${Database.Port}"
-        VIKUNJA_DATABASE_DATABASE = "${Database.Database}"
-
-        VIKUNJA_DATABASE_USER = "${Database.Username}"
-        VIKUNJA_DATABASE_PASSWORD = "${Database.Password}"
+        args = ["-c", "/local/Config.yaml"]
       }
 
       resources {
         cpu = 128
         memory = 64
         memory_max = 128
+      }
+
+      template {
+        data = <<EOF
+${Vikunja.Config}
+EOF
+
+        destination = "local/Config.yaml"
+
+        change_mode = "signal"
+        change_signal = "SIGUSR1"
       }
     }
   }

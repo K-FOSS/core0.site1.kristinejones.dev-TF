@@ -46,14 +46,20 @@ terraform {
   }
 }
 
+locals {
+  Vikunja = {
+    Config = templatefile("${path.module}/Jobs/VikunjaAPI.hcl", {
+      Database = var.Database
+    })
+  }
+}
+
 #
 # API
 #
 
 resource "nomad_job" "VikunjaAPIServerJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/VikunjaAPI.hcl", {
-    Database = var.Database
-  })
+  jobspec = templatefile("${path.module}/Jobs/VikunjaAPI.hcl", local)
 }
 
 #
@@ -61,6 +67,5 @@ resource "nomad_job" "VikunjaAPIServerJobFile" {
 #
 
 resource "nomad_job" "VikunjaFrontendServerJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/VikunjaFrontend.hcl", {
-  })
+  jobspec = templatefile("${path.module}/Jobs/VikunjaFrontend.hcl", local)
 }
