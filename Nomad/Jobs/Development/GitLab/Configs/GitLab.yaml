@@ -1,0 +1,455 @@
+production: &base
+  gitlab:
+    host: gitlab.kristianjones.dev
+    https: true # Set to true if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
+    trusted_proxies:
+      - 172.16.0.0/12
+    email_from: bots@kristianjones.dev
+    email_display_name: GitLab
+    email_reply_to: me@kristianjones.dev
+    email_subject_suffix: ''
+
+    default_projects_features:
+      issues: true
+      merge_requests: true
+      wiki: true
+      snippets: true
+      builds: true
+      container_registry: true
+
+    ## Webhook settings
+    # Number of seconds to wait for HTTP response after sending webhook HTTP POST request (default: 10)
+    # webhook_timeout: 10
+
+    ### GraphQL Settings
+    # Tells the rails application how long it has to complete a GraphQL request.
+    # We suggest this value to be higher than the database timeout value
+    # and lower than the worker timeout set in Puma. (default: 30)
+    # graphql_timeout: 30
+
+    ## Repository downloads directory
+    # When a user clicks e.g. 'Download zip' on a project, a temporary zip file is created in the following directory.
+    # The default is 'shared/cache/archive/' relative to the root of the Rails app.
+    # repository_downloads_path: shared/cache/archive/
+
+  incoming_email:
+    enabled: false
+
+  ## Consolidated object store config
+  ## This will only take effect if the object_store sections are not defined
+  ## within the types (e.g. artifacts, lfs, etc.).
+  # object_store:
+  #   enabled: false
+  #   proxy_download: false # Passthrough all downloads via GitLab instead of using Redirects to Object Storage
+  #   connection:
+  #     provider: AWS # Only AWS supported at the moment
+  #     aws_access_key_id: AWS_ACCESS_KEY_ID
+  #     aws_secret_access_key: AWS_SECRET_ACCESS_KEY
+  #     region: us-east-1
+  #     aws_signature_version: 4 # For creation of signed URLs. Set to 2 if provider does not support v4.
+  #     endpoint: 'https://s3.amazonaws.com' # default: nil - Useful for S3 compliant services such as DigitalOcean Spaces
+  #   storage_options:
+  #     server_side_encryption: AES256 # AES256, aws:kms
+  #     server_side_encryption_kms_key_id: # Amazon Resource Name. See https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html
+  #   objects:
+  #     artifacts:
+  #       bucket: artifacts
+  #     external_diffs:
+  #       bucket: external-diffs
+  #     lfs:
+  #       bucket: lfs-objects
+  #     uploads:
+  #       bucket: uploads
+  #     packages:
+  #       bucket: packages
+  #     dependency_proxy:
+  #       bucket: dependency_proxy
+
+  artifacts:
+    enabled: true
+    object_store:
+      enabled: true
+      remote_directory: ${S3.ArtifactsBucket.Bucket}
+      connection:
+        provider: AWS
+        aws_access_key_id: '${S3.ArtifactsBucket.Credentials.AccessKey}'
+        aws_secret_access_key: '${S3.ArtifactsBucket.Credentials.SecretKey}'
+        host: ${S3.ArtifactsBucket.Connection.Hostname}
+        endpoint: ${S3.ArtifactsBucket.Connection.Endpoint}
+        path_style: true
+
+  external_diffs:
+    enabled: true
+    object_store:
+      enabled: true
+      remote_directory: ${S3.ExternalDiffsBucket.Bucket}
+      background_upload: true
+      proxy_download: true
+      connection:
+        provider: AWS
+        aws_access_key_id: '${S3.ExternalDiffsBucket.Credentials.AccessKey}'
+        aws_secret_access_key: '${S3.ExternalDiffsBucket.Credentials.SecretKey}'
+        host: ${S3.ExternalDiffsBucket.Connection.Hostname}
+        endpoint: ${S3.ExternalDiffsBucket.Connection.Endpoint}
+        path_style: true
+      
+  lfs:
+    enabled: true
+    object_store:
+      enabled: true
+      remote_directory: ${S3.LFSBucket.Bucket}
+      background_upload: true
+      proxy_download: true
+      connection:
+        provider: AWS
+        aws_access_key_id: '${S3.LFSBucket.Credentials.AccessKey}'
+        aws_secret_access_key: '${S3.LFSBucket.Credentials.SecretKey}'
+        host: ${S3.LFSBucket.Connection.Hostname}
+        endpoint: ${S3.LFSBucket.Connection.Endpoint}
+        path_style: true
+
+  dependency_proxy:
+    enabled: true
+    object_store:
+      enabled: true
+      remote_directory: ${S3.DependencyProxyBucket.Bucket}
+      connection:
+        provider: AWS
+        aws_access_key_id: '${S3.DependencyProxyBucket.Credentials.AccessKey}'
+        aws_secret_access_key: '${S3.DependencyProxyBucket.Credentials.SecretKey}'
+        host: ${S3.DependencyProxyBucket.Connection.Hostname}
+        endpoint: ${S3.DependencyProxyBucket.Connection.Endpoint}
+        path_style: true
+
+
+  terraform_state:
+    enabled: true
+    object_store:
+      enabled: true
+      remote_directory: ${S3.TerraformStateBucket.Bucket}
+      connection:
+        provider: AWS
+        aws_access_key_id: '${S3.TerraformStateBucket.Credentials.AccessKey}'
+        aws_secret_access_key: '${S3.TerraformStateBucket.Credentials.SecretKey}'
+        host: ${S3.TerraformStateBucket.Connection.Hostname}
+        endpoint: ${S3.TerraformStateBucket.Connection.Endpoint}
+        path_style: true
+
+  pages:
+    enabled: false
+
+  ## Mattermost
+  ## For enabling Add to Mattermost button
+  mattermost:
+    enabled: false
+    host: 'https://mattermost.example.com'
+
+  ## Gravatar
+  ## If using gravatar.com, there's nothing to change here. For Libravatar
+  ## you'll need to provide the custom URLs. For more information,
+  ## see: https://docs.gitlab.com/ee/administration/libravatar.html
+  gravatar:
+    # Gravatar/Libravatar URLs: possible placeholders: %{hash} %{size} %{email} %{username}
+    # plain_url: "http://..."     # default: https://www.gravatar.com/avatar/%{hash}?s=%{size}&d=identicon
+    # ssl_url:   "https://..."    # default: https://secure.gravatar.com/avatar/%{hash}?s=%{size}&d=identicon
+
+  ## Sidekiq
+  sidekiq:
+    log_format: json # (default is the original format)
+    # An array of tuples indicating the rules for re-routing a worker to a
+    # desirable queue before scheduling. For example:
+    # routing_rules:
+    #   - ["resource_boundary=cpu", "cpu_boundary"]
+    #   - ["feature_category=pages", null]
+    #   - ["*", "default"]
+
+  ## Auxiliary jobs
+  # Periodically executed jobs, to self-heal GitLab, do external synchronizations, etc.
+  # Please read here for more information: https://github.com/ondrejbartas/sidekiq-cron#adding-cron-job
+  cron_jobs:
+    # Flag stuck CI jobs as failed
+    stuck_ci_jobs_worker:
+      cron: "0 * * * *"
+    # Execute scheduled triggers
+    pipeline_schedule_worker:
+      cron: "3-59/10 * * * *"
+    # Remove expired build artifacts
+    expire_build_artifacts_worker:
+      cron: "*/7 * * * *"
+    # Remove expired pipeline artifacts
+    ci_pipelines_expire_artifacts_worker:
+      cron: "*/23 * * * *"
+    # Remove files from object storage
+    ci_schedule_delete_objects_worker:
+      cron: "*/16 * * * *"
+    # Stop expired environments
+    environments_auto_stop_cron_worker:
+      cron: "24 * * * *"
+    # Delete stopped environments
+    environments_auto_delete_cron_worker:
+      cron: "34 * * * *"
+    # Periodically run 'git fsck' on all repositories. If started more than
+    # once per hour you will have concurrent 'git fsck' jobs.
+    repository_check_worker:
+      cron: "20 * * * *"
+    # Archive live traces which have not been archived yet
+    ci_archive_traces_cron_worker:
+      cron: "17 * * * *"
+    # Send admin emails once a week
+    admin_email_worker:
+      cron: "0 0 * * 0"
+    # Send emails for personal tokens which are about to expire
+    personal_access_tokens_expiring_worker:
+      cron: "0 1 * * *"
+
+    # Remove outdated repository archives
+    repository_archive_cache_worker:
+      cron: "0 * * * *"
+
+    # Verify custom GitLab Pages domains
+    pages_domain_verification_cron_worker:
+      cron: "*/15 * * * *"
+
+    # Periodically migrate diffs from the database to external storage
+    schedule_migrate_external_diffs_worker:
+      cron: "15 * * * *"
+
+    # Update CI Platform Metrics daily
+    ci_platform_metrics_update_cron_worker:
+      cron: "47 9 * * *"
+
+  #
+  # TODO: Hook into Harbor
+  #
+  registry:
+    enabled: false
+    host: registry.kristianjones.dev
+    # port: 5005
+    # api_url: http://localhost:5000/ # internal address to the registry, will be used by GitLab to directly communicate with API
+    # key: config/registry.key
+    # path: shared/registry
+    # issuer: gitlab-issuer
+    # notification_secret: '' # only set it when you use Geo replication feature without built-in Registry
+
+    # Add notification settings if you plan to use Geo Replication for the registry
+    # notifications:
+    # - name: geo_event
+    #   url: https://example.com/api/v4/container_registry_event/events
+    #   timeout: 2s
+    #   threshold: 5
+    #   backoff: 1s
+    #   headers:
+    #     Authorization: secret_phrase
+
+  ## Error Reporting and Logging with Sentry
+  sentry:
+    # enabled: false
+    # dsn: https://<key>@sentry.io/<project>
+    # clientside_dsn: https://<key>@sentry.io/<project>
+    # environment: 'production' # e.g. development, staging, production
+
+  ## Geo
+  # NOTE: These settings will only take effect if Geo is enabled
+  geo:
+    # This is an optional identifier which Geo nodes can use to identify themselves.
+    # For example, if external_url is the same for two secondaries, you must specify
+    # a unique Geo node name for those secondaries.
+    #
+    # If it is blank, it defaults to external_url.
+    node_name: ''
+
+    registry_replication:
+      # enabled: true
+      # primary_api_url: http://localhost:5000/ # internal address to the primary registry, will be used by GitLab to directly communicate with primary registry API
+
+  ## Feature Flag https://docs.gitlab.com/ee/operations/feature_flags.html
+  feature_flags:
+    unleash:
+      # enabled: false
+      # url: https://gitlab.com/api/v4/feature_flags/unleash/<project_id>
+      # app_name: gitlab.com # Environment name of your GitLab instance
+      # instance_id: INSTANCE_ID
+
+  #
+  # 2. GitLab CI settings
+  # ==========================
+  gitlab_ci:
+    # Default project notifications settings:
+    #
+    # Send emails only on broken builds (default: true)
+    # all_broken_builds: true
+    #
+    # Add pusher to recipients list (default: false)
+    # add_pusher: true
+
+    # The location where build traces are stored (default: builds/). Relative paths are relative to Rails.root
+    # builds_path: builds/
+
+  #
+  # TODO: Deploy Authentik LDAP and hook into GitLab
+  #
+  ldap:
+    enabled: false
+
+  kerberos:
+    enabled: false
+
+  omniauth:
+    enabled: true
+    sync_profile_attributes: true
+    allow_single_sign_on: ["openid_connect"]
+    block_auto_created_users: false
+    auto_link_user: true
+    providers:
+      - { name: 'openid_connect',
+          label: 'Authentik',
+          icon: 'https://d33wubrfki0l68.cloudfront.net/3986a9ebfee622cb3fed7c0b7d3661e431dcff5c/8fd41/img/icon_top_brand.svg',
+          args: {
+            name: 'openid_connect',
+            scope: ['openid','profile','email'],
+            response_type: 'code',
+            issuer: 'https://auth.kristianjones.dev/application/o/gitlab/',
+            discovery: true,
+            client_auth_method: 'query',
+            uid_field: 'preferred_username',
+            send_scope_to_token_endpoint: false,
+            client_options: {
+              identifier: '${OpenID.ClientID}',
+              secret: '${OpenID.ClientSecret}',
+              redirect_uri: 'https://gitlab.kristianjones.dev/users/auth/openid_connect/callback'
+            }
+          }
+        }
+
+  # Shared file storage settings
+  shared:
+    path: /tmp
+
+  # Encrypted Settings configuration
+  encrypted_settings:
+    # path: /mnt/gitlab/encrypted_settings  # Default: shared/encrypted_settings
+
+  gitaly:
+    token: ${Praefect.Token}
+
+  repositories:
+    storages:
+      default:
+        path: /home/git/repositories
+        gitaly_address: tcp://http.praefect.gitlab.service.kjdev:8080
+
+  backup:
+    path: "tmp/backups"   # Relative paths are relative to Rails.root (default: tmp/backups/)
+
+  ## Pseudonymizer exporter
+  pseudonymizer:
+    # Tables manifest that specifies the fields to extract and pseudonymize.
+    manifest: config/pseudonymizer.yml
+    upload:
+      remote_directory: 'gitlab-elt'
+      # Fog storage connection settings, see http://fog.io/storage/ .
+      connection:
+      #   provider: AWS
+      #   region: eu-west-1
+      #   aws_access_key_id: AKIAKIAKI
+      #   aws_secret_access_key: 'secret123'
+      #   # The remote 'directory' to store the CSV files. For S3, this would be the bucket name.
+
+  gitlab_shell:
+    path: /home/git/gitlab-shell/
+    hooks_path: /home/git/gitlab-shell/hooks/
+    upload_pack: true
+    receive_pack: true
+
+  workhorse:
+    secret_file: /secrets/.gitlab_workhorse_secret
+
+  gitlab_kas:
+    enabled: true
+    secret_file: /secrets/KAS/.gitlab_kas_secret
+    external_url: ws://http.agent.kas.gitlab.service.dc1.kjdev:8085
+    internal_url: grpc://http.api.kas.gitlab.service.dc1.kjdev:8080
+    external_k8s_proxy_url: https://kube.gitlab.kristianjones.dev
+
+  ## Git settings
+  # CAUTION!
+  # Use the default values unless you really know what you are doing
+  git:
+    bin_path: /usr/bin/git
+
+  ## Webpack settings
+  # If enabled, this will tell rails to serve frontend assets from the webpack-dev-server running
+  # on a given port instead of serving directly from /assets/webpack. This is only indended for use
+  # in development.
+  webpack:
+    # dev_server:
+    #   enabled: true
+    #   port: 3808
+
+  ## Monitoring
+  # Built in monitoring settings
+  monitoring:
+    # IP whitelist to access monitoring endpoints
+    ip_whitelist:
+      - 127.0.0.0/8
+
+    # Sidekiq exporter is webserver built in to Sidekiq to expose Prometheus metrics
+    sidekiq_exporter:
+    #  enabled: true
+    #  log_enabled: false
+    #  address: localhost
+
+    # Web exporter is a dedicated Rack server running alongside Puma to expose Prometheus metrics
+    # It runs alongside the `/metrics` endpoints to ease the publish of metrics
+    web_exporter:
+    #  enabled: true
+    #  address: localhost
+
+  ## Prometheus settings
+  # Do not modify these settings here. They should be modified in /etc/gitlab/gitlab.rb
+  # if you installed GitLab via Omnibus.
+  # If you installed from source, you need to install and configure Prometheus
+  # yourself, and then update the values here.
+  # https://docs.gitlab.com/ee/administration/monitoring/prometheus/
+  prometheus:
+    # enabled: true
+    # server_address: 'localhost:9090'
+
+  ## Consul settings
+  consul:
+    # api_url: 'http://localhost:8500'
+
+
+  shutdown:
+    #  # blackout_seconds:
+    #  #   defines an interval to block healthcheck,
+    #  #   but continue accepting application requests
+    #  #   this allows Load Balancer to notice service
+    #  #   being shutdown and not interrupt any of the clients
+    #  blackout_seconds: 10
+
+  #
+  # 5. Extra customization
+  # ==========================
+
+  extra:
+    ## Google analytics. Uncomment if you want it
+    # google_analytics_id: '_your_tracking_id'
+
+    ## Google tag manager
+    # google_tag_manager_id: '_your_tracking_id'
+
+    ## OneTrust
+    # one_trust_id: '_your_one_trust_id'
+
+    ## Matomo analytics.
+    # matomo_url: '_your_matomo_url'
+    # matomo_site_id: '_your_matomo_site_id'
+    # matomo_disable_cookies: false
+
+    ## Maximum file size for syntax highlighting
+    ## https://docs.gitlab.com/ee/user/project/highlighting.html
+    # maximum_text_highlight_size_kilobytes: 512
+
+  rack_attack:
+    git_basic_auth:

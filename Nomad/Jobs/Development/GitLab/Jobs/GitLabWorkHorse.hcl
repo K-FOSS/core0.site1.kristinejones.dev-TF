@@ -72,28 +72,16 @@ job "development-gitlab-workhorse" {
       config {
         image = "${Image.Repo}/gitlab-workhorse-ce:${Image.Tag}"
 
-        command = "/scripts/start-workhorse"
+        entrypoint = ["/scripts/start-workhorse"]
 
-        mount {
-          type = "bind"
-          target = "/var/opt/gitlab/config/secrets/.gitlab_shell_secret"
-          source = "secrets/shell/.gitlab_shell_secret"
-          readonly = false
-        }
+        args = [
+          "-config=/local/WorkhorseConfig.yaml",
+          "-secretPath", "secrets/.gitlab_workhorse_secret",
+          "-authBackend", "http://https.webservice.gitlab.service.dc1.kjdev:443",
+          "-cableBackend", "http://https.webservice.gitlab.service.dc1.kjdev:443",
 
-        mount {
-          type = "bind"
-          target = "/etc/gitlab/gitlab-workhorse/secret"
-          source = "secrets/workhorse/.gitlab_workhorse_secret"
-          readonly = true
-        }
-      
-        mount {
-          type = "bind"
-          target = "/var/opt/gitlab/config/templates"
-          source = "local/workhorse/"
-          readonly = false
-        }
+          "-listenAddr", "0.0.0.0:443"
+        ]
 
         logging {
           type = "loki"
@@ -112,19 +100,6 @@ job "development-gitlab-workhorse" {
       }
 
       env {
-        #
-        # Configs
-        #
-        CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/config/templates"
-
-        CONFIG_DIRECTORY = "/srv/gitlab/config"
-
-        #
-        # Workhorse
-        #
-        GITLAB_WORKHORSE_LISTEN_PORT = "443"
-        GITLAB_WORKHORSE_EXTRA_ARGS = "-authBackend http://https.webservice.gitlab.service.dc1.kjdev:443 -cableBackend http://https.webservice.gitlab.service.dc1.kjdev:443"
-
         ENABLE_BOOTSNAP = "1"
 
         #
@@ -144,8 +119,17 @@ job "development-gitlab-workhorse" {
 ${WorkHorse.Config}
 EOF
 
-        destination = "local/workhorse/workhorse-config.toml"
+        destination = "local/WorkhorseConfig.yaml"
       }
+
+      #
+      # TLS
+      #
+
+      #
+      # Server
+      #
+
 
       template {
         data = <<EOF
@@ -171,20 +155,34 @@ EOF
         destination = "secrets/TLS/Cert.key"
       }
 
+      #
+      # mTLS
+      #
+
+      #
+      # Shared Secrets
+      #
+
       template {
         data = "${Secrets.WorkHorse}"
 
-        destination = "secrets/workhorse/.gitlab_workhorse_secret"
+        destination = "secrets/.gitlab_workhorse_secret"
 
         change_mode = "noop"
       }
 
       template {
-        data = <<EOF
-${Secrets.Shell}
-EOF
+        data = "${Secrets.Shell}"
 
-        destination = "secrets/shell/.gitlab_shell_secret"
+        destination = "secrets/.gitlab_shell_secret"
+
+        change_mode = "noop"
+      }
+
+      template {
+        data = "${Secrets.KAS}"
+
+        destination = "secrets/.gitlab_kas_secret"
 
         change_mode = "noop"
       }

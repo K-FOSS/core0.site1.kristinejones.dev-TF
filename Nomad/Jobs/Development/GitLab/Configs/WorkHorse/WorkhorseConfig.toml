@@ -12,8 +12,8 @@ URL = "tcp://redis.gitlab.service.dc1.kjdev:6379"
 
 [object_storage.s3]
   region = "us-east-1"
-  aws_access_key_id = "${S3.RepoBucket.Credentials.AccessKey}"
+  bucket = "${S3.RepoBucket.Credentials.AccessKey}"
+  aws_access_key_id = "${S3.RepoBucket.Bucket}"
   aws_secret_access_key = "${S3.RepoBucket.Credentials.SecretKey}"
-  host = "${S3.RepoBucket.Connection.Hostname}"
   endpoint = "${S3.RepoBucket.Connection.Endpoint}"
   path_style = "true"

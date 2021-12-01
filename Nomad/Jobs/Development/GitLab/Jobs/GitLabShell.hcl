@@ -38,13 +38,6 @@ job "development-gitlab-shell" {
         image = "${Image.Repo}/gitlab-shell:${Image.Tag}"
 
         mount {
-          type = "bind"
-          target = "/srv/gitlab-secrets/.gitlab_shell_secret"
-          source = "secrets/shell/.gitlab_shell_secret"
-          readonly = true
-        }
-
-        mount {
           type = "tmpfs"
           target = "/local/gitlab-shell"
           readonly = false
@@ -70,7 +63,7 @@ job "development-gitlab-shell" {
       }
 
       env {
-        CONFIG_TEMPLATE_DIRECTORY = "/local/gitlab-config"
+        CONFIG_TEMPLATE_DIRECTORY = "/local/configtemplates"
 
         CONFIG_DIRECTORY = "/local/gitlab-shell"
 
@@ -79,6 +72,8 @@ job "development-gitlab-shell" {
         #
         GITLAB_HOST = "https://gitlab.kristianjones.dev"
         GITLAB_PORT = "443"
+
+        GITLAB_TRACING = "opentracing://jaeger?http_endpoint=http%3A%2F%2Fhttp.distributor.tempo.service.kjdev%3A14268%2Fapi%2Ftraces&sampler=const&sampler_param=1"
       }
 
       template {
@@ -86,15 +81,33 @@ job "development-gitlab-shell" {
 ${Shell.Config}
 EOF
 
-        destination = "local/gitlab-config/config.yaml.erb"
+        destination = "local/configtemplates/config.yaml.erb"
+      }
+
+      #
+      # Shared Secrets
+      #
+
+      template {
+        data = "${Secrets.WorkHorse}"
+
+        destination = "secrets/.gitlab_workhorse_secret"
+
+        change_mode = "noop"
       }
 
       template {
-        data = <<EOF
-${Secrets.Shell}
-EOF
+        data = "${Secrets.Shell}"
 
-        destination = "secrets/shell/.gitlab_shell_secret"
+        destination = "secrets/.gitlab_shell_secret"
+
+        change_mode = "noop"
+      }
+
+      template {
+        data = "${Secrets.KAS}"
+
+        destination = "secrets/.gitlab_kas_secret"
 
         change_mode = "noop"
       }

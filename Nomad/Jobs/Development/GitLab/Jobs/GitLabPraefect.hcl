@@ -40,13 +40,9 @@ job "gitlab-praefect" {
       config {
         image = "${Image.Repo}/gitaly:${Image.Tag}"
 
-        mount {
-          type = "bind"
-          target = "/etc/gitaly/.gitlab_shell_secret"
-          source = "secrets/shell/.gitlab_shell_secret"
-          readonly = true
-        }
-
+        #
+        # TODO: Fine tune this?
+        #
         mount {
           type = "tmpfs"
           target = "/app/tmp"
@@ -67,9 +63,7 @@ job "gitlab-praefect" {
       }
 
       env {
-        CONFIG_TEMPLATE_DIRECTORY = "/local/gitaly"
-
-        PRAEFECT_CONFIG_FILE = "/local/gitaly/config.toml"
+        PRAEFECT_CONFIG_FILE = "/local/Config.toml"
 
         USE_PRAEFECT_SERVICE = "1"
         PRAEFECT_AUTO_MIGRATE = "1"
@@ -86,15 +80,33 @@ job "gitlab-praefect" {
 ${Praefect.Config}
 EOF
 
-        destination = "local/gitaly/config.toml"
+        destination = "local/Config.toml"
+      }
+
+      #
+      # Shared Secrets
+      #
+
+      template {
+        data = "${Secrets.WorkHorse}"
+
+        destination = "secrets/.gitlab_workhorse_secret"
+
+        change_mode = "noop"
       }
 
       template {
-        data = <<EOF
-6fad933c6267760415116fc4f35d2c7fc969f4ce0c162b49c3dd7be5517283e63000340ba7282dd97c2b3518b6d3c97a7cdd995dcb6f00dff11cf0aa316a459f
-EOF
+        data = "${Secrets.Shell}"
 
-        destination = "secrets/shell/.gitlab_shell_secret"
+        destination = "secrets/.gitlab_shell_secret"
+
+        change_mode = "noop"
+      }
+
+      template {
+        data = "${Secrets.KAS}"
+
+        destination = "secrets/.gitlab_kas_secret"
 
         change_mode = "noop"
       }

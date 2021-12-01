@@ -81,13 +81,6 @@ job "development-gitlab-kas" {
 
         args = ["--configuration-file=/local/Config.yaml"]
 
-        mount {
-          type = "bind"
-          target = "/srv/gitlab-secrets/.gitlab_shell_secret"
-          source = "secrets/shell/.gitlab_shell_secret"
-          readonly = true
-        }
-
         logging {
           type = "loki"
           config {
@@ -123,20 +116,22 @@ EOF
         destination = "local/Config.yaml"
       }
 
-      template {
-        data = <<EOF
-${Secrets.Shell}
-EOF
+      #
+      # Shared Secrets
+      #
 
-        destination = "secrets/shell/.gitlab_shell_secret"
+      template {
+        data = "${Secrets.WorkHorse}"
+
+        destination = "secrets/.gitlab_workhorse_secret"
 
         change_mode = "noop"
       }
 
       template {
-        data = "${Secrets.WorkHorse}"
+        data = "${Secrets.Shell}"
 
-        destination = "secrets/workhorse/.gitlab_workhorse_secret"
+        destination = "secrets/.gitlab_shell_secret"
 
         change_mode = "noop"
       }
@@ -144,7 +139,7 @@ EOF
       template {
         data = "${Secrets.KAS}"
 
-        destination = "secrets/KAS/.gitlab_kas_secret"
+        destination = "secrets/.gitlab_kas_secret"
 
         change_mode = "noop"
       }

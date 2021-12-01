@@ -14,6 +14,7 @@ agent:
   configuration:
     poll_period: "20s"
     max_configuration_file_size: 131072
+
   gitops:
     poll_period: "20s"
     project_info_cache_ttl: "300s"
@@ -31,6 +32,7 @@ agent:
     url_path_prefix: /
     allowed_agent_cache_ttl: "60s"
     allowed_agent_cache_error_ttl: "10s"
+
   info_cache_ttl: "300s"
   info_cache_error_ttl: "60s"
   redis_conn_info_ttl: "300s"
@@ -58,6 +60,7 @@ observability:
     url_path: /liveness
   readiness_probe:
     url_path: /readiness
+
 gitaly:
   global_api_rate_limit:
     refill_rate_per_second: 30.0
@@ -65,6 +68,7 @@ gitaly:
   per_server_api_rate_limit:
     refill_rate_per_second: 15.0
     bucket_size: 40
+
 redis:
   server:
     address: "redis.gitlab.service.dc1.kjdev:6379" # required

@@ -47,28 +47,6 @@ job "gitlab-database" {
 
         command = "/scripts/db-migrate"
 
-        mount {
-          type = "bind"
-          target = "/var/opt/gitlab/config/secrets/.gitlab_shell_secret"
-          source = "secrets/shell/.gitlab_shell_secret"
-          readonly = false
-        }
-
-        mount {
-          type = "bind"
-          target = "/srv/gitlab/.gitlab_workhorse_secret"
-          source = "secrets/workhorse/.gitlab_workhorse_secret"
-          readonly = false
-        }
-
-        mount {
-          type = "bind"
-          target = "/var/opt/gitlab/config/templates"
-          source = "local/webservice/configtemplates"
-          readonly = false
-        }
-
-
         logging {
           type = "loki"
           config {
@@ -89,7 +67,7 @@ job "gitlab-database" {
         #
         # Config
         #
-        CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/config/templates"
+        CONFIG_TEMPLATE_DIRECTORY = "/local/configtemplates"
         CONFIG_DIRECTORY = "/srv/gitlab/config"
 
         BYPASS_SCHEMA_VERSION = "true"
@@ -104,62 +82,69 @@ job "gitlab-database" {
         ENABLE_BOOTSNAP = "1"
       }
 
+      #
+      # Configs
+      #
+      
+      #
+      # GitLab YAML
+      #
       template {
         data = <<EOF
-${WebService.Templates.Cable}
+${GitLab.Configs.GitLab}
 EOF
 
-        destination = "local/webservice/configtemplates/cable.yml"
+        destination = "local/configtemplates/gitlab.yml"
 
         change_mode = "noop"
       }
 
       template {
         data = <<EOF
-${WebService.Templates.Database}
+${GitLab.Configs.Cable}
 EOF
 
-        destination = "local/webservice/configtemplates/database.yml"
+        destination = "local/configtemplates/cable.yml"
 
         change_mode = "noop"
       }
 
       template {
         data = <<EOF
-${WebService.Templates.GitlabERB}
+${GitLab.Configs.Database}
 EOF
 
-        destination = "local/webservice/configtemplates/gitlab.yml.erb"
+        destination = "local/configtemplates/database.yml"
 
         change_mode = "noop"
       }
 
       template {
         data = <<EOF
-${WebService.Templates.Resque}
+${GitLab.Configs.Resque}
 EOF
 
-        destination = "local/webservice/configtemplates/resque.yml"
+        destination = "local/configtemplates/resque.yml"
+
+        change_mode = "noop"
+      }
+
+      #
+      # Shared Secrets
+      #
+
+      template {
+        data = "${Secrets.WorkHorse}"
+
+        destination = "secrets/.gitlab_workhorse_secret"
 
         change_mode = "noop"
       }
 
       template {
-        data = <<EOF
-${WebService.Templates.Secrets}
-EOF
+        data = "${Secrets.Shell}"
 
-        destination = "local/webservice/configtemplates/secrets.yml"
-
-        change_mode = "noop"
-      }
-
-      template {
-        data = <<EOF
-${Secrets.Shell}
-EOF
-
-        destination = "secrets/shell/.gitlab_shell_secret"
+        destination = "secrets/.gitlab_shell_secret"
 
         change_mode = "noop"
       }
@@ -167,15 +152,7 @@ EOF
       template {
         data = "${Secrets.KAS}"
 
-        destination = "secrets/KAS/.gitlab_kas_secret"
-
-        change_mode = "noop"
-      }
-
-      template {
-        data = "${Secrets.WorkHorse}"
-
-        destination = "secrets/workhorse/.gitlab_workhorse_secret"
+        destination = "secrets/.gitlab_kas_secret"
 
         change_mode = "noop"
       }

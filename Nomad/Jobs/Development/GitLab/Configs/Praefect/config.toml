@@ -1,28 +1,43 @@
-listen_addr = '0.0.0.0:8080'
+listen_addr = "0.0.0.0:8080"
 
-prometheus_listen_addr = '0.0.0.0:9000'
+# [tls]
+# certificate_path = '/home/git/cert.cert'
+# key_path = '/home/git/key.pem'
+
+[logging]
+format = "json"
+level = "debug"
 
 [auth]
-token = '${PraefectToken}'
-transitioning = false
+token = '${Praefect.Token}'
+
+
+[replication]
+batch_size = 10 # configures the number of replication jobs to dequeue and lock in a batch
+
+
+[reconciliation]
+# Duration value specifying an interval at which to run the automatic repository reconciler.
+# Automatic reconciliation is disabled if set to 0. Example: "1m" for reconciliation every minute.
+scheduling_interval = 0 
+# Scheduling duration histogram buckets.
+histogram_buckets = [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10] 
+
+[failover]
+enabled = true
 
 
 [[virtual_storage]]
-name = 'default'
+name = 'praefect'
 
-[[virtual_storage.node]]
-storage = 'default'
+[[virtual_storage.node1]]
+storage = 'kjdev-gitaly1'
 address = 'tcp://kjdev-gitaly1-custom-app.ix-kjdev-gitaly1.svc.cluster.local:8075'
 token = "gitalytokengitalytoken"
 
 [[virtual_storage.node2]]
-storage = 'default'
+storage = 'kjdev-gitaly2'
 address = 'tcp://kjdev-gitaly2-custom-app.ix-kjdev-gitaly2.svc.cluster.local:8075'
-token = "gitalytokengitalytoken"
-
-[[virtual_storage.node3]]
-storage = 'default'
-address = 'tcp://172.31.241.2:37075'
 token = "gitalytokengitalytoken"
 
 

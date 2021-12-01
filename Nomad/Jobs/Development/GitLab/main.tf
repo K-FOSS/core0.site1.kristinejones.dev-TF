@@ -70,6 +70,28 @@ resource "random_password" "PraefectPassword" {
 
 locals {
   GitLab = {
+    Config = {
+      GitLab = templatefile("${path.module}/Configs/Gitlab.yaml", {
+        OpenID = var.OpenID
+
+        SMTP = var.SMTP
+
+        S3 = var.S3
+
+        Praefect = {
+          Token = random_password.PraefectPassword.result
+        }
+      })
+
+      Cable = file("${path.module}/Configs/Cable.yaml")
+
+      Database = templatefile("${path.module}/Configs/Database.yaml", {
+        Database = var.Database.Core
+      })
+
+      Resque = file("${path.module}/Configs/Resque.yaml")
+    }
+
     Secrets = {
       WorkHorse = random_id.WorkHorseKey.b64_std
 
@@ -97,39 +119,14 @@ resource "nomad_job" "GitLabDatabaseJob" {
 
     Secrets = local.GitLab.Secrets
 
+    GitLab = {
+      Configs = local.GitLab.Config
+    }
+
     WebService = {
       TLS = var.TLS.WebService
 
       EntryScript = file("${path.module}/Configs/WebService/Entry.sh")
-
-      Templates = {
-        Cable = templatefile("${path.module}/Configs/WebService/Cable.yaml", {
-
-        })
-
-        Database = templatefile("${path.module}/Configs/WebService/Database.yaml", {
-          Database = var.Database.Core
-        })
-
-        GitlabERB = templatefile("${path.module}/Configs/WebService/Gitlab.yaml.erb", {
-          OpenID = var.OpenID
-
-          SMTP = var.SMTP
-
-          S3 = var.S3
-
-          Praefect = {
-            Token = local.GitLab.Secrets.Praefect
-          }
-        })
-
-        Resque = templatefile("${path.module}/Configs/WebService/Resque.yaml", {
-        })
-
-        Secrets = templatefile("${path.module}/Configs/WebService/Secrets.yaml", {
-        })
-
-      }
     }
   })
 }
@@ -210,31 +207,12 @@ resource "nomad_job" "GitLabSideKiqJob" {
 
     Secrets = local.GitLab.Secrets
 
+    GitLab = {
+      Configs = local.GitLab.Config
+    }
+
     Sidekiq = {
       Templates = {
-        Cable = templatefile("${path.module}/Configs/WebService/Cable.yaml", {
-
-        })
-
-        Database = templatefile("${path.module}/Configs/Sidekiq/Database.yaml", {
-          Database = var.Database.Core
-        })
-
-        GitlabYAML = templatefile("${path.module}/Configs/Sidekiq/Gitlab.yaml", {
-          OpenID = var.OpenID
-
-          SMTP = var.SMTP
-
-          S3 = var.S3
-
-          Praefect = {
-            Token = local.GitLab.Secrets.Praefect
-          }
-        })
-
-        Resque = templatefile("${path.module}/Configs/Sidekiq/Resque.yaml", {
-        })
-
         SidekiqQueues = templatefile("${path.module}/Configs/Sidekiq/SidekiqQueues.yaml", {
         })
       }
@@ -256,39 +234,14 @@ resource "nomad_job" "GitLabWebServcieJob" {
 
     Secrets = local.GitLab.Secrets
 
+    GitLab = {
+      Configs = local.GitLab.Config
+    }
+
     WebService = {
       TLS = var.TLS.WebService
 
       EntryScript = file("${path.module}/Configs/WebService/Entry.sh")
-
-      Templates = {
-        Cable = templatefile("${path.module}/Configs/WebService/Cable.yaml", {
-
-        })
-
-        Database = templatefile("${path.module}/Configs/WebService/Database.yaml", {
-          Database = var.Database.Core
-        })
-
-        GitlabERB = templatefile("${path.module}/Configs/WebService/Gitlab.yaml.erb", {
-          OpenID = var.OpenID
-
-          SMTP = var.SMTP
-
-          S3 = var.S3
-
-          Praefect = {
-            Token = local.GitLab.Secrets.Praefect
-          }
-        })
-
-        Resque = templatefile("${path.module}/Configs/WebService/Resque.yaml", {
-        })
-
-        Secrets = templatefile("${path.module}/Configs/WebService/Secrets.yaml", {
-        })
-
-      }
     }
   })
 }
@@ -331,6 +284,10 @@ resource "nomad_job" "GitLabKASJob" {
 
     Secrets = local.GitLab.Secrets
 
+    GitLab = {
+      Configs = local.GitLab.Config
+    }
+
     KAS = {
       Config = templatefile("${path.module}/Configs/KAS/Config.yaml", {
 
@@ -353,9 +310,15 @@ resource "nomad_job" "GitLabPraefectJob" {
 
     Secrets = local.GitLab.Secrets
 
+    GitLab = {
+      Configs = local.GitLab.Config
+    }
+
     Praefect = {
       Config = templatefile("${path.module}/Configs/Praefect/config.toml", {
-        PraefectToken = local.GitLab.Secrets.Praefect
+        Praefect = {
+          Token = local.GitLab.Secrets.Praefect
+        }
 
         Database = var.Database.Praefect
       })

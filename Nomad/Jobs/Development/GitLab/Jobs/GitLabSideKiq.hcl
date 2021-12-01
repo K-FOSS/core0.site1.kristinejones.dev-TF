@@ -41,14 +41,7 @@ job "development-gitlab-sidekiq" {
         mount {
           type = "bind"
           target = "/var/opt/gitlab/config/templates"
-          source = "local/sidekiq/templates"
-          readonly = false
-        }
-
-        mount {
-          type = "bind"
-          target = "/var/opt/gitlab/config/secrets/.gitlab_shell_secret"
-          source = "secrets/shell/.gitlab_shell_secret"
+          source = "local/templates"
           readonly = false
         }
 
@@ -69,7 +62,7 @@ job "development-gitlab-sidekiq" {
       }
 
       env {
-        CONFIG_TEMPLATE_DIRECTORY = "/var/opt/gitlab/config/templates"
+        CONFIG_TEMPLATE_DIRECTORY = "/local/configtemplates"
 
         CONFIG_DIRECTORY = "/srv/gitlab/config"
 
@@ -85,62 +78,76 @@ job "development-gitlab-sidekiq" {
         GITLAB_TRACING = "opentracing://jaeger?http_endpoint=http%3A%2F%2Fhttp.distributor.tempo.service.kjdev%3A14268%2Fapi%2Ftraces&sampler=const&sampler_param=1"
       }
 
+      #
+      # Configs
+      #
+      
+      #
+      # GitLab YAML
+      #
       template {
         data = <<EOF
-${Sidekiq.Templates.Cable}
+${GitLab.Configs.GitLab}
 EOF
 
-        destination = "local/sidekiq/configtemplates/cable.yml"
+        destination = "local/configtemplates/gitlab.yml"
 
         change_mode = "noop"
       }
 
       template {
         data = <<EOF
-${Sidekiq.Templates.Database}
+${GitLab.Configs.Cable}
 EOF
 
-        destination = "local/sidekiq/templates/database.yml"
+        destination = "local/configtemplates/cable.yml"
+
+        change_mode = "noop"
       }
 
       template {
         data = <<EOF
-${Sidekiq.Templates.GitlabYAML}
+${GitLab.Configs.Database}
 EOF
 
-        destination = "local/sidekiq/templates/gitlab.yml"
+        destination = "local/configtemplates/database.yml"
+
+        change_mode = "noop"
       }
 
       template {
         data = <<EOF
-${Sidekiq.Templates.Resque}
+${GitLab.Configs.Resque}
 EOF
 
-        destination = "local/sidekiq/templates/resque.yml"
+        destination = "local/configtemplates/resque.yml"
+
+        change_mode = "noop"
+      }
+      #
+      # Shared Secrets
+      #
+
+      template {
+        data = "${Secrets.WorkHorse}"
+
+        destination = "secrets/.gitlab_workhorse_secret"
+
+        change_mode = "noop"
       }
 
       template {
-        data = <<EOF
-${Sidekiq.Templates.SidekiqQueues}
-EOF
+        data = "${Secrets.Shell}"
 
-        destination = "local/sidekiq/templates/sidekiq_queues.yml"
+        destination = "secrets/.gitlab_shell_secret"
+
+        change_mode = "noop"
       }
 
       template {
         data = "${Secrets.KAS}"
 
-        destination = "secrets/KAS/.gitlab_kas_secret"
-
-        change_mode = "noop"
-      }
-
-      template {
-        data = <<EOF
-${Secrets.Shell}
-EOF
-
-        destination = "secrets/shell/.gitlab_shell_secret"
+        destination = "secrets/.gitlab_kas_secret"
 
         change_mode = "noop"
       }
