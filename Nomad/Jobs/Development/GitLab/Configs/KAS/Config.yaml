@@ -1,93 +1,30 @@
+agent:
+  listen:
+    address: ':8085'
+    websocket: true
+
+  kubernetes_api:
+    listen:
+      address: ':8154'
+
 gitlab:
   address: http://https.workhorse.gitlab.service.dc1.kjdev:443 # required
   authentication_secret_file: /secrets/.gitlab_kas_secret # required
 
-agent:
-  listen:
-    address: 0.0.0.0:8085
-    websocket: true
-    # certificate_file: /server-cert.pem
-    # key_file: /server-key.pem
-    connections_per_token_per_minute: 10000
-    max_connection_age: "1800s"
-
-  configuration:
-    poll_period: "20s"
-    max_configuration_file_size: 131072
-
-  gitops:
-    poll_period: "20s"
-    project_info_cache_ttl: "300s"
-    project_info_cache_error_ttl: "60s"
-    max_manifest_file_size: 5242880
-    max_total_manifest_file_size: 20971520
-    max_number_of_paths: 100
-    max_number_of_files: 1000
-
-  kubernetes_api:
-    listen:
-      address: 0.0.0.0:8154
-      # certificate_file: /server-cert.pem
-      # key_file: /server-key.pem
-    url_path_prefix: /
-    allowed_agent_cache_ttl: "60s"
-    allowed_agent_cache_error_ttl: "10s"
-
-  info_cache_ttl: "300s"
-  info_cache_error_ttl: "60s"
-  redis_conn_info_ttl: "300s"
-  redis_conn_info_refresh: "240s"
-  redis_conn_info_gc: "600s"
-
 observability:
-  usage_reporting_period: "60s"
   listen:
-    address: 127.0.0.1:8151
-  prometheus:
-    url_path: /metrics
-  tracing:
-    connection_string: ""
-  sentry:
-    dsn: ""
-    environment: ""
-  logging:
-    level: info
-  google_profiler:
-    enabled: false
-    # project_id: ""
-    # credentials_file: /some/file
-  liveness_probe:
-    url_path: /liveness
-  readiness_probe:
-    url_path: /readiness
-
-gitaly:
-  global_api_rate_limit:
-    refill_rate_per_second: 30.0
-    bucket_size: 70
-  per_server_api_rate_limit:
-    refill_rate_per_second: 15.0
-    bucket_size: 40
+    address: ':8151'
 
 redis:
   server:
     address: "redis.gitlab.service.dc1.kjdev:6379" # required
-  pool_size: 5
-  dial_timeout: "5s"
-  read_timeout: "1s"
-  write_timeout: "1s"
-  idle_timeout: "50s"
-  key_prefix: gitlab-kas
-  network: "tcp"
 
 api:
   listen:
-    address: 0.0.0.0:8080
+    address: ':8080'
     authentication_secret_file: /secrets/.gitlab_kas_secret # required
-    # certificate_file: /server-cert.pem
-    # key_file: /server-key.pem
 
 private_api:
   listen:
-    address: 0.0.0.0:8155
+    address: ':8155'
     authentication_secret_file: /secrets/.gitlab_kas_secret

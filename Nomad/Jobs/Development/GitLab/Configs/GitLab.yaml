@@ -158,7 +158,7 @@ production: &base
   ## For enabling Add to Mattermost button
   mattermost:
     enabled: false
-    host: 'https://mattermost.example.com'
+    host: 'https://mattermost.kristianjones.dev'
 
   ## Gravatar
   ## If using gravatar.com, there's nothing to change here. For Libravatar
