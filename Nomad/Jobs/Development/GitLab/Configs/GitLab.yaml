@@ -78,8 +78,9 @@ production: &base
         aws_access_key_id: '${S3.ArtifactsBucket.Credentials.AccessKey}'
         aws_secret_access_key: '${S3.ArtifactsBucket.Credentials.SecretKey}'
         host: ${S3.ArtifactsBucket.Connection.Hostname}
-        endpoint: ${S3.ArtifactsBucket.Connection.Endpoint}
+        endpoint: http://${S3.ArtifactsBucket.Connection.Endpoint}
         path_style: true
+        region: us-east-1
 
   external_diffs:
     enabled: true
@@ -94,8 +95,9 @@ production: &base
         aws_access_key_id: '${S3.ExternalDiffsBucket.Credentials.AccessKey}'
         aws_secret_access_key: '${S3.ExternalDiffsBucket.Credentials.SecretKey}'
         host: ${S3.ExternalDiffsBucket.Connection.Hostname}
-        endpoint: ${S3.ExternalDiffsBucket.Connection.Endpoint}
+        endpoint: http://${S3.ExternalDiffsBucket.Connection.Endpoint}
         path_style: true
+        region: us-east-1
       
   lfs:
     enabled: true
@@ -110,8 +112,9 @@ production: &base
         aws_access_key_id: '${S3.LFSBucket.Credentials.AccessKey}'
         aws_secret_access_key: '${S3.LFSBucket.Credentials.SecretKey}'
         host: ${S3.LFSBucket.Connection.Hostname}
-        endpoint: ${S3.LFSBucket.Connection.Endpoint}
+        endpoint: http://${S3.LFSBucket.Connection.Endpoint}
         path_style: true
+        region: us-east-1
 
   dependency_proxy:
     enabled: true
@@ -126,8 +129,9 @@ production: &base
         aws_access_key_id: '${S3.DependencyProxyBucket.Credentials.AccessKey}'
         aws_secret_access_key: '${S3.DependencyProxyBucket.Credentials.SecretKey}'
         host: ${S3.DependencyProxyBucket.Connection.Hostname}
-        endpoint: ${S3.DependencyProxyBucket.Connection.Endpoint}
+        endpoint: http://${S3.DependencyProxyBucket.Connection.Endpoint}
         path_style: true
+        region: us-east-1
 
 
   terraform_state:
@@ -143,8 +147,9 @@ production: &base
         aws_access_key_id: '${S3.TerraformStateBucket.Credentials.AccessKey}'
         aws_secret_access_key: '${S3.TerraformStateBucket.Credentials.SecretKey}'
         host: ${S3.TerraformStateBucket.Connection.Hostname}
-        endpoint: ${S3.TerraformStateBucket.Connection.Endpoint}
+        endpoint: http://${S3.TerraformStateBucket.Connection.Endpoint}
         path_style: true
+        region: us-east-1
 
   pages:
     enabled: false
