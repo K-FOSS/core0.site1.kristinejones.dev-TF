@@ -30,7 +30,9 @@ job "business-vikunja-api" {
 
         entrypoint = ["/app/vikunja/vikunja"]
 
-        args = ["-c", "/local/Config.yaml"]
+        args = ["web"]
+
+        work_dir = "/local"
       }
 
       resources {
@@ -44,7 +46,7 @@ job "business-vikunja-api" {
 ${Vikunja.Config}
 EOF
 
-        destination = "local/Config.yaml"
+        destination = "local/config.yaml"
 
         change_mode = "signal"
         change_signal = "SIGUSR1"

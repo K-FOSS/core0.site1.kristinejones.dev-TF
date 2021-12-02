@@ -29,14 +29,10 @@ job "misc-cyberchef" {
         image = "registry.kristianjones.dev/cache/mpepping/cyberchef:latest"
       }
 
-      env {
-
-      }
-
       resources {
-        cpu = 128
-        memory = 64
-        memory_max = 128
+        cpu = 64
+        memory = 32
+        memory_max = 32
       }
     }
   }

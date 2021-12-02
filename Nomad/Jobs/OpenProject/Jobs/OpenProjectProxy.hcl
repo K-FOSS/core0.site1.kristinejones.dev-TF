@@ -76,7 +76,7 @@ job "openproject-proxy" {
         APP_HOST = "https.server.openproject.service.dc1.kjdev"
 
         OPENPROJECT_RAILS__RELATIVE__URL__ROOT = ""
-        SERVER_NAME = "openproject.int.site1.kristianjones.dev"
+        SERVER_NAME = "openproject.kristianjones.dev"
 
         #
         #

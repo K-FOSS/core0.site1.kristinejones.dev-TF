@@ -617,6 +617,35 @@
                       "match": [
                         {
                           "host": [
+                            "openproject.kristianjones.dev"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "resolver": {
+                              "addresses": [
+                                "172.16.0.10:8600",
+                                "172.16.0.13:8600"
+                              ]
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "http.proxy.openproject.service.dc1.kjdev"
+                            }
+                          ]
+                        }
+                      ],
+                      "terminal": true
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
                             "office.kristianjones.dev"
                           ]
                         }
@@ -1057,7 +1086,8 @@
               "prowlarr.kjmedia.stream",
               "radarr.kjmedia.stream",
               "sonarr.kjmedia.stream",
-              "todo.kristianjones.dev"
+              "todo.kristianjones.dev",
+              "projects.kristianjones.dev"
             ],
             "issuers": [
               {

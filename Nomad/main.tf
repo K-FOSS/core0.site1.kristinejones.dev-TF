@@ -587,3 +587,9 @@ module "Vikunja" {
 
   Database = var.Business.Vikunja.Database
 }
+
+module "Zammad" {
+  source = "./Jobs/Business/Zammad"
+
+  Database = var.Business.Zammad.Database
+}

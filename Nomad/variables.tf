@@ -1221,5 +1221,17 @@ variable "Business" {
         Password = string
       })
     })
+
+    Zammad = object({
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
+      })
+    })
   })
 }

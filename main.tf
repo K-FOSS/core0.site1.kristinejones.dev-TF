@@ -575,6 +575,16 @@ module "VikunjaDatabase" {
   Credentials = module.Vault.Database
 }
 
+#
+# Zammad
+#
+
+module "ZammadDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
 
 #
 # Ticket System
@@ -1111,6 +1121,10 @@ module "Nomad" {
   Business = {
     Vikunja = {
       Database = module.VikunjaDatabase.Database
+    }
+
+    Zammad = {
+      Database = module.ZammadDatabase.Database
     }
   }
 } 

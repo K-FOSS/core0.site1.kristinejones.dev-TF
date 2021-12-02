@@ -155,3 +155,23 @@ resource "nomad_job" "DrawIOJobFile" {
 
   })
 }
+
+#
+# Vikunja
+#
+
+resource "nomad_job" "VikunjaJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/VikunjaRedis.hcl", {
+
+  })
+}
+
+#
+# Zammad
+#
+
+resource "nomad_job" "ZammadJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/ZammadCache.hcl", {
+
+  })
+}

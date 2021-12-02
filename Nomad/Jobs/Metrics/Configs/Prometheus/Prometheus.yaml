@@ -24,10 +24,10 @@ scrape_configs:
           - 172.16.0.1:9100
           - 172.16.0.2:9100
 
-  - job_name: patroni
-    dns_sd_configs:
-      - names: 
-          - patroni.service.kjdev
+  # - job_name: patroni
+  #   dns_sd_configs:
+  #     - names: 
+  #         - patroni.service.kjdev
 
   # - job_name: netbox
   #   dns_sd_configs:
@@ -39,10 +39,10 @@ scrape_configs:
       - names: 
           - metrics.starlink.service.dc1.kjdev
 
-  - job_name: nextcloud
-    dns_sd_configs:
-      - names:
-          - nextcloud-prom-cont.service.kjdev
+  # - job_name: nextcloud
+  #   dns_sd_configs:
+  #     - names:
+  #         - nextcloud-prom-cont.service.kjdev
 
   - job_name: grafana
     #
@@ -58,21 +58,20 @@ scrape_configs:
 
   - job_name: loki
     dns_sd_configs:
-      - names: 
-          - http.loki-compactor.service.kjdev
-          - http.loki-distributor.service.kjdev
-          - http.loki-index-gateway.service.kjdev
-          - http.loki-ingester.service.kjdev
-          - http.loki-querier.service.kjdev
-          - http.loki-query-frontend.service.kjdev
-          - http.loki-query-scheduler.service.kjdev
+      - names:
+          - http.distributor.loki.service.kjdev
+          - http.index-gateway.loki.service.kjdev
+          - http.ingester.loki.service.kjdev
+          - http.querier.loki.service.kjdev
+          - http.query-frontend.loki.service.kjdev
+          - http.query-scheduler.loki.service.kjdev
 
   - job_name: cortex
     dns_sd_configs:
       - names: 
           - http.cortex-purger.service.kjdev
           - http.cortex-alertmanager.service.kjdev
-          - httpcortex-store-gateway.service.kjdev
+          - http.cortex-store-gateway.service.kjdev
           - http.cortex-distributor.service.kjdev
           - http.cortex-ingester.service.kjdev
           - http.cortex-query-frontend.service.kjdev
@@ -190,8 +189,8 @@ scrape_configs:
   # cAdvisor
   #
   - job_name: cadvisor
-    scrape_interval: 120s
-    scrape_timeout: 60s
+    scrape_interval: 5m
+    scrape_timeout: 300s
     dns_sd_configs:
       - names: 
           - metrics.cadvisor.service.dc1.kjdev
