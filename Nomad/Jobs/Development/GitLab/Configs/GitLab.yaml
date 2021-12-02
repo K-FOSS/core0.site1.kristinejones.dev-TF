@@ -70,6 +70,9 @@ production: &base
     object_store:
       enabled: true
       remote_directory: ${S3.ArtifactsBucket.Bucket}
+      background_upload: false
+      direct_upload: true
+      proxy_download: true
       connection:
         provider: AWS
         aws_access_key_id: '${S3.ArtifactsBucket.Credentials.AccessKey}'
@@ -83,7 +86,8 @@ production: &base
     object_store:
       enabled: true
       remote_directory: ${S3.ExternalDiffsBucket.Bucket}
-      background_upload: true
+      background_upload: false
+      direct_upload: true
       proxy_download: true
       connection:
         provider: AWS
@@ -98,7 +102,8 @@ production: &base
     object_store:
       enabled: true
       remote_directory: ${S3.LFSBucket.Bucket}
-      background_upload: true
+      background_upload: false
+      direct_upload: true
       proxy_download: true
       connection:
         provider: AWS
@@ -113,6 +118,9 @@ production: &base
     object_store:
       enabled: true
       remote_directory: ${S3.DependencyProxyBucket.Bucket}
+      background_upload: false
+      direct_upload: true
+      proxy_download: true
       connection:
         provider: AWS
         aws_access_key_id: '${S3.DependencyProxyBucket.Credentials.AccessKey}'
@@ -127,6 +135,9 @@ production: &base
     object_store:
       enabled: true
       remote_directory: ${S3.TerraformStateBucket.Bucket}
+      background_upload: false
+      direct_upload: true
+      proxy_download: true
       connection:
         provider: AWS
         aws_access_key_id: '${S3.TerraformStateBucket.Credentials.AccessKey}'
