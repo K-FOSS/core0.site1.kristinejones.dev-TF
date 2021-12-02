@@ -74,7 +74,7 @@ job "tempo-ingester" {
           target = "/var/tempo/wal"
           readonly = false
           tmpfs_options = {
-            size = 10000000
+            size = 1000000000
           }
         }
 

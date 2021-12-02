@@ -69,6 +69,15 @@ job "tempo-distributor" {
 
         args = ["-search.enabled=true", "-config.file=/local/Tempo.yaml"]
 
+        mount {
+          type = "tmpfs"
+          target = "/var/tempo/wal"
+          readonly = false
+          tmpfs_options = {
+            size = 1000000000
+          }
+        }
+
         logging {
           type = "loki"
           config {
