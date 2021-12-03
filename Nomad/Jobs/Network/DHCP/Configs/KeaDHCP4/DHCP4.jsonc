@@ -26,7 +26,7 @@
           {
             "name": "unifi-address",
             "space": "ubnt",
-            "data": "172.16.0.10"
+            "data": "10.1.1.80"
           },
           {
             "name": "vendor-encapsulated-options"

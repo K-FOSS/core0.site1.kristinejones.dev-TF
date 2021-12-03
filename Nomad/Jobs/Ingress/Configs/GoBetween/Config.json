@@ -1,4 +1,5 @@
 {
+  "$schema": "",
   "api": {
     "enabled": true,
     "bind": "0.0.0.0:8888"
@@ -8,8 +9,8 @@
     "bind": ":9284"
   },
   "servers": {
-    "rns": {
-      "bind": "0.0.0.0:53",
+    "stun-udp": {
+      "bind": "0.0.0.0:3478",
       "protocol": "udp",
       "backend_idle_timeout": "5s",
       "udp": {
@@ -19,8 +20,28 @@
         "kind": "consul",
         "consul_host": "${Consul.Hostname}:${Consul.Port}",
         "consul_acl_token": "${Consul.Token}",
-        "consul_service_name": "dns",
-        "consul_service_tag": "dns.rns"
+        "consul_service_name": "coturn",
+        "consul_service_tag": "stun"
+      }
+    },
+    "stun-tcp": {
+      "bind": "0.0.0.0:3478",
+      "protocol": "tcp",
+      "discovery": {
+        "kind": "consul",
+        "consul_host": "${Consul.Hostname}:${Consul.Port}",
+        "consul_acl_token": "${Consul.Token}",
+        "consul_service_name": "coturn",
+        "consul_service_tag": "stun"
+      }
+    },
+    "unifi-inform": {
+      "bind": "0.0.0.0:8080",
+      "protocol": "tcp",
+      "discovery": {
+        "kind": "srv",
+        "srv_lookup_server": "172.17.0.10",
+        "srv_lookup_pattern": "kjdev-unifi-comm.ix-kjdev-unifi.svc.cluster.local."
       }
     }
   }

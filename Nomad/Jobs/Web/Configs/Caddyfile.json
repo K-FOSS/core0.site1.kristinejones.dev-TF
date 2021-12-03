@@ -679,6 +679,37 @@
                       "match": [
                         {
                           "host": [
+                            "unifi.site1.kristianjones.dev"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "tls": {
+                              "insecure_skip_verify": true
+                            },
+                            "resolver": {
+                              "addresses": [
+                                "172.17.0.10:53"
+                              ]
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "kjdev-unifi.ix-kjdev-unifi.svc.cluster.local"
+                            }
+                          ]
+                        }
+                      ],
+                      "terminal": true
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
                             "registry.kristianjones.dev"
                           ]
                         }
@@ -1077,6 +1108,8 @@
             "subjects": [
               "*.kristianjones.dev",
               "*.gitlab.kristianjones.dev",
+              "*.site1.kristianjones.dev",
+              "unifi.site1.kristianjones.dev",
               "*.int.site1.kristianjones.dev",
               "hass.home1.kristianjones.dev",
               "kjmedia.stream",
