@@ -635,7 +635,7 @@
                           },
                           "upstreams": [
                             {
-                              "lookup_srv": "http.proxy.openproject.service.dc1.kjdev"
+                              "lookup_srv": "proxy.openproject.service.dc1.kjdev"
                             }
                           ]
                         }
