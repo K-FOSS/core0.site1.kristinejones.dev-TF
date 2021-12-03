@@ -2,7 +2,7 @@ job "dhcp" {
   datacenters = ["core0site1"]
 
   group "dhcp" {
-    count = 4
+    count = 2
 
     network {
       mode = "cni/nomadcore1"
