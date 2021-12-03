@@ -13,7 +13,7 @@
     "client-classes": [
       {
         "name": "ubnt",
-        "test": "option[60].hex == 'ubnt'",
+        "test": "substring(option[60].hex,0,4) == 'ubnt'",
         "option-def": [
           {
             "name": "vendor-encapsulated-options",
