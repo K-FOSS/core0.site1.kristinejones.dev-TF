@@ -9,38 +9,12 @@
     "bind": ":9284"
   },
   "servers": {
-    "stun-udp": {
-      "bind": "0.0.0.0:3478",
-      "protocol": "udp",
-      "backend_idle_timeout": "5s",
-      "udp": {
-        "max_requests": 32
-      },
-      "discovery": {
-        "kind": "consul",
-        "consul_host": "${Consul.Hostname}:${Consul.Port}",
-        "consul_acl_token": "${Consul.Token}",
-        "consul_service_name": "coturn",
-        "consul_service_tag": "stun"
-      }
-    },
-    "stun-tcp": {
-      "bind": "0.0.0.0:3478",
-      "protocol": "tcp",
-      "discovery": {
-        "kind": "consul",
-        "consul_host": "${Consul.Hostname}:${Consul.Port}",
-        "consul_acl_token": "${Consul.Token}",
-        "consul_service_name": "coturn",
-        "consul_service_tag": "stun"
-      }
-    },
     "unifi-inform": {
       "bind": "0.0.0.0:8080",
       "protocol": "tcp",
       "discovery": {
         "kind": "srv",
-        "srv_lookup_server": "172.17.0.10",
+        "srv_lookup_server": "172.17.0.10:53",
         "srv_lookup_pattern": "kjdev-unifi-comm.ix-kjdev-unifi.svc.cluster.local."
       }
     }

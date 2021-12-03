@@ -33,7 +33,7 @@ job "coturn" {
   }
 
   group "coturn" {
-    count = 4
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"
@@ -45,6 +45,10 @@ job "coturn" {
 
       port "turn" {
         to = 3478
+        
+        static = 3478
+
+        host_network = "https"
       }
 
       port "stun" { }
