@@ -20,14 +20,6 @@ job "ingress-gobetween" {
         to = 9284
       }
 
-      port "stun" {
-        to = 3478
-        
-        static = 3478
-
-        host_network = "https"
-      }
-
       port "unifi" {
         to = 8080
         
