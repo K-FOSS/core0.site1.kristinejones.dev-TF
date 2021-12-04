@@ -5,7 +5,7 @@ job "development-gitlab-workhorse" {
   # GitLab WorkHorse
   #
   group "gitlab-workhorse" {
-    count = 1
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"
@@ -79,7 +79,7 @@ job "development-gitlab-workhorse" {
           "-cableBackend", "http://https.webservice.gitlab.service.dc1.kjdev:443",
           "-listenAddr", "0.0.0.0:443",
           "-documentRoot", "/srv/gitlab/public",
-          "-secretPath", "/local/configtemplates/workhorse-config.toml",
+          "-secretPath", "/secrets/.gitlab_workhorse_secret",
           "-config", "/local/configtemplates/workhorse-config.toml"
         ]
 
