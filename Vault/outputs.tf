@@ -127,6 +127,20 @@ output "NAS" {
 }
 
 #
+# ENMS
+#
+
+output "ENMS" {
+  value = {
+    Repo = {
+      URI = data.vault_generic_secret.ENMS.data["RepoURI"]
+      Token = data.vault_generic_secret.ENMS.data["RepoToken"]
+    }
+  }
+}
+
+
+#
 # Tinkerbell
 #
 output "Tinkerbell" {

@@ -45,6 +45,15 @@ job "ns" {
         command = "/usr/local/bin/psql"
 
         args = ["--file=/local/dns.psql", "--host=${PowerDNS.Database.Hostname}", "--username=${PowerDNS.Database.Username}", "--port=${PowerDNS.Database.Port}", "${PowerDNS.Database.Database}"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=openproject,service=proxy"
+          }
+        }
       }
 
       env {

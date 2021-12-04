@@ -183,6 +183,19 @@ module "TinkerbellPKI" {
   source = "./TLS/Template"
 }
 
+#
+# Network
+#
+
+#
+# ENMS
+#
+
+data "vault_generic_secret" "ENMS" {
+  path = "${vault_mount.Terraform.path}/ENMS"
+}
+
+
 resource "vault_pki_secret_backend_cert" "TinkCert" {
   backend = module.TinkerbellPKI.TLS.Mount.path
   name = module.TinkerbellPKI.TLS.Role.name

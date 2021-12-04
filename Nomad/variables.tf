@@ -594,9 +594,49 @@ variable "NS" {
         Password = string
       })
     })
+
+    PowerDNSAdmin = object({
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
+      })
+    })
   })
 
   description = "Configuration for Authoritative NS Servers"
+}
+
+#
+# ENMS
+#
+
+variable "ENMS" {
+  type = object({
+    Database = object({
+      Hostname = string
+      Port = number
+
+      Database = string
+
+      Username = string
+      Password = string
+    })
+
+    # Vault = object({
+
+    # })
+
+    Repo = object({
+      URI = string
+
+      Token = string
+    })
+  })
 }
 
 #

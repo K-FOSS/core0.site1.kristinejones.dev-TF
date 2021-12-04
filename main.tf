@@ -375,9 +375,24 @@ module "GrafanaDatabase" {
 }
 
 #
+# AAA
+#
+
+#
 # Authentik Database
 #
+
 module "AuthentikDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# Gravational Teleport
+#
+
+module "TeleportDatabase" {
   source = "./Database"
 
   Credentials = module.Vault.Database
@@ -410,6 +425,44 @@ module "DHCPDatabase" {
 
   Credentials = module.Vault.Database
 }
+
+#
+# NS
+#
+
+#
+# PowerDNS Authoritative DNS Server
+#
+
+module "PowerDNSDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# NS Admin
+#
+
+module "PowerDNSAdminDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# ENMS Database
+#
+
+module "ENMSDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# TODO: ENMS
+#
 
 #
 # NextCloud
@@ -482,14 +535,7 @@ module "HomeAssistantDatabase" {
   Credentials = module.Vault.Database
 }
 
-#
-# PowerDNS Authoritative DNS Server
-#
-module "PowerDNSDatabase" {
-  source = "./Database"
 
-  Credentials = module.Vault.Database
-}
 
 #
 # Observability Stacks
@@ -576,6 +622,10 @@ module "VikunjaDatabase" {
 }
 
 #
+# Ticket System
+#
+
+#
 # Zammad
 #
 
@@ -586,9 +636,6 @@ module "ZammadDatabase" {
 }
 
 
-#
-# Ticket System
-#
 
  
 #
@@ -949,6 +996,20 @@ module "Nomad" {
     PowerDNS = {
       Database = module.PowerDNSDatabase.Database
     }
+
+    PowerDNSAdmin = {
+      Database = module.PowerDNSAdminDatabase.Database
+    }
+  }
+
+  #
+  # ENMS
+  #
+
+  ENMS = {
+    Database = module.ENMSDatabase.Database
+
+    Repo = module.Vault.ENMS.Repo
   }
 
 

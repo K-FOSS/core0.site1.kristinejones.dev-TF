@@ -366,9 +366,23 @@ module "DNS" {
 #
 
 module "NS" {
-  source = "./Jobs/NS"
+  source = "./Jobs/Network/NS"
 
   PowerDNS = var.NS.PowerDNS
+
+  PowerDNSAdmin = var.NS.PowerDNSAdmin
+}
+
+#
+# ENMS
+#
+
+module "ENMS" {
+  source = "./Jobs/Network/ENMS"
+
+  Database = var.ENMS.Database
+
+  Repo = var.ENMS.Repo
 }
 
 #
