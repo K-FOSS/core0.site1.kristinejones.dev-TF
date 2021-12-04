@@ -15,7 +15,7 @@ job "openproject-proxy" {
       mode = "cni/nomadcore1"
 
       port "http" { 
-        to = 8080
+        to = 80
       }
     }
 
