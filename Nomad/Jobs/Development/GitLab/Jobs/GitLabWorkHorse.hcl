@@ -80,7 +80,7 @@ job "development-gitlab-workhorse" {
           "-listenAddr", "0.0.0.0:443",
           "-documentRoot", "/srv/gitlab/public",
           "-secretPath", "/local/configtemplates/workhorse-config.toml",
-          "-config", "/srv/gitlab/config/workhorse-config.toml"
+          "-config", "/local/configtemplates/workhorse-config.toml"
         ]
 
         logging {
