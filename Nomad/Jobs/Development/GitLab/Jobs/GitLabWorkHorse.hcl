@@ -72,7 +72,16 @@ job "development-gitlab-workhorse" {
       config {
         image = "${Image.Repo}/gitlab-workhorse-ce:${Image.Tag}"
 
-        command = "/scripts/start-workhorse"
+        entrypoint = ["/usr/local/bin/gitlab-workhorse"]
+
+        args = [
+          "-authBackend", "http://https.webservice.gitlab.service.dc1.kjdev:443",
+          "-cableBackend", "http://https.webservice.gitlab.service.dc1.kjdev:443",
+          "-listenAddr", "0.0.0.0:443",
+          "-documentRoot", "/srv/gitlab/public",
+          "-secretPath", "/local/configtemplates/workhorse-config.toml",
+          "-config", "/srv/gitlab/config/workhorse-config.toml"
+        ]
 
         logging {
           type = "loki"
@@ -102,7 +111,7 @@ job "development-gitlab-workhorse" {
         # Workhorse
         #
         GITLAB_WORKHORSE_LISTEN_PORT = "443"
-        GITLAB_WORKHORSE_EXTRA_ARGS = "-authBackend http://https.webservice.gitlab.service.dc1.kjdev:443 -cableBackend http://https.webservice.gitlab.service.dc1.kjdev:443"
+        GITLAB_WORKHORSE_EXTRA_ARGS = ""
 
         ENABLE_BOOTSNAP = "1"
 
