@@ -186,7 +186,9 @@ EOF
       #
 
       template {
-        data = "${TLS.Registry.Cert}"
+        data = <<EOF
+${TLS.Registry.CA}
+EOF
 
         destination = "local/TLS/RegistryCA.pem"
 
@@ -194,7 +196,9 @@ EOF
       }
     
       template {
-        data = "${TLS.Registry.Cert}"
+        data = <<EOF
+${TLS.Registry.Cert}
+EOF
 
         destination = "secrets/TLS/Registry.pem"
 
@@ -202,8 +206,9 @@ EOF
       }
 
       template {
-        data = "${TLS.Registry.Key}"
-
+        data = <<EOF
+${TLS.Registry.Key}
+EOF
         destination = "secrets/TLS/Registry.key"
 
         change_mode = "noop"
