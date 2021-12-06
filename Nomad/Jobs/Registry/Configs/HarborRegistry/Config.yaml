@@ -19,6 +19,8 @@ storage:
   maintenance:
     uploadpurging:
       enabled: false
+  redirect:
+    disable: true
 
 redis:
   addr: redis.registry.harbor.service.dc1.kjdev:6379
