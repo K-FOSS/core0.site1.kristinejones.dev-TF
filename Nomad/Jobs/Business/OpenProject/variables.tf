@@ -15,6 +15,17 @@ variable "Database" {
 }
 
 #
+# Auth
+#
+
+variable "OpenID" {
+  type = object({
+    ClientID = string
+    ClientSecret = string
+  })
+}
+
+#
 # S3 Uploads Bucket
 #
 variable "S3" {

@@ -139,6 +139,19 @@ output "ENMS" {
   }
 }
 
+#
+# OpenProject
+#
+
+output "OpenProject" {
+  value = {
+    OpenID = {
+      ClientID = data.vault_generic_secret.OpenProject.data["ClientID"]
+      ClientSecret = data.vault_generic_secret.OpenProject.data["ClientSecret"]
+    }
+  }
+}
+
 
 #
 # Tinkerbell

@@ -65,6 +65,8 @@ locals {
   OpenProject = {
     Database = var.Database
 
+    OpenID = var.OpenID
+
     S3 = var.S3
 
     Admin = var.Admin

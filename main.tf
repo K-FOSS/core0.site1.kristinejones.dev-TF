@@ -1054,6 +1054,8 @@ module "Nomad" {
   OpenProject = {
     Database = module.OpenProjectDatabase.Database
 
+    OpenID = module.Vault.OpenProject.OpenID
+
     S3 = module.OpenProjectNewBucket
 
     SMTP = module.Vault.SMTP

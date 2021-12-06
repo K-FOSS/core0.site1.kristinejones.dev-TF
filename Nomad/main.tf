@@ -466,6 +466,8 @@ module "OpenProject" {
 
   Database = var.OpenProject.Database
 
+  OpenID = var.OpenProject.OpenID
+
   S3 = var.OpenProject.S3
 
   SMTP = var.OpenProject.SMTP

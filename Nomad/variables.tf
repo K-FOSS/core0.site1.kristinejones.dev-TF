@@ -802,6 +802,11 @@ variable "OpenProject" {
       Password = string
     })
 
+    OpenID = object({
+      ClientID = string
+      ClientSecret = string
+    })
+
     S3 = object({
       Connection = object({
         Hostname = string

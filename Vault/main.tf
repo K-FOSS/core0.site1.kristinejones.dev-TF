@@ -195,6 +195,14 @@ data "vault_generic_secret" "ENMS" {
   path = "${vault_mount.Terraform.path}/ENMS"
 }
 
+#
+# OpenProject
+#
+
+data "vault_generic_secret" "OpenProject" {
+  path = "${vault_mount.Terraform.path}/OpenProject"
+}
+
 
 resource "vault_pki_secret_backend_cert" "TinkCert" {
   backend = module.TinkerbellPKI.TLS.Mount.path
