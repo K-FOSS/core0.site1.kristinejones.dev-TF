@@ -109,6 +109,24 @@ job "openproject-server" {
         SMTP_DOMAIN = "kristianjones.dev"
         SMTP_AUTHENTICATION = "login"
         SMTP_ENABLE_STARTTLS_AUTO = "true"
+
+        #
+        # Auth
+        #
+        OPENPROJECT_OMNIAUTH__DIRECT__LOGIN__PROVIDER = "authentik"
+        OPENPROJECT_OPENID__CONNECT_AUTHENTIK_ISSUER = "https://auth.kristianjones.dev/application/o/OpenProject/"
+        OPENPROJECT_OPENID__CONNECT_AUTHENTIK_SCOPE = "openid email profile"
+
+        OPENPROJECT_OPENID__CONNECT_AUTHENTIK_TOKEN__ENDPOINT = "https://auth.kristianjones.dev/application/o/token/"
+        OPENPROJECT_OPENID__CONNECT_AUTHENTIK_USERINFO__ENDPOINT = "https://auth.kristianjones.dev/application/o/userinfo/"
+        OPENPROJECT_OPENID__CONNECT_AUTHENTIK_AUTHORIZATION__ENDPOINT = "https://auth.kristianjones.dev/application/o/authorize/"
+
+        
+        
+        OPENPROJECT_OPENID__CONNECT_AUTHENTIK_SSO = "true"
+
+        OPENPROJECT_OPENID__CONNECT_AUTHENTIK_DISPLAY__NAME = "KJDev"
+        OPENPROJECT_OPENID__CONNECT_AUTHENTIK_HOST = "auth.kristianjones.dev"
       }
 
       template {
@@ -130,6 +148,12 @@ OPENPROJECT_FOG_CREDENTIALS_AWS__SECRET__ACCESS__KEY="${S3.Credentials.SecretKey
 
 SMTP_USER_NAME="${SMTP.Username}"
 SMTP_PASSWORD="${SMTP.Password}"
+
+#
+# OpenID
+#
+OPENPROJECT_OPENID__CONNECT_AUTHENTIK_IDENTIFIER="${OpenID.ClientID}"
+OPENPROJECT_OPENID__CONNECT_AUTHENTIK_SECRET="${OpenID.ClientSecret}"
 EOH
 
         destination = "secrets/file.env"
