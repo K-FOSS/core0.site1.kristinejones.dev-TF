@@ -63,6 +63,13 @@ job "development-gitlab-webservice" {
           readonly = false
         }
 
+        mount {
+          type = "bind"
+          target = "/opt/gitlab/embedded/ssl/certs/registry.pem"
+          source = "local/TLS/RegistryCA.pem"
+          readonly = false
+        }
+
         logging {
           type = "loki"
           config {

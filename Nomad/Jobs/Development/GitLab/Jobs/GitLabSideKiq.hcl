@@ -38,6 +38,13 @@ job "development-gitlab-sidekiq" {
       config {
         image = "${Image.Repo}/gitlab-sidekiq-ce:${Image.Tag}"
 
+        mount {
+          type = "bind"
+          target = "/opt/gitlab/embedded/ssl/certs/registry.pem"
+          source = "local/TLS/RegistryCA.pem"
+          readonly = false
+        }
+
         logging {
           type = "loki"
           config {

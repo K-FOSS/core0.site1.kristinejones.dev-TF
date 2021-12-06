@@ -76,7 +76,7 @@ job "development-gitlab-workhorse" {
 
         args = [
           "-logFormat", "json",
-          "-propagateCorrelationID", "true",
+          "-propagateCorrelationID",
           "-authBackend", "http://https.webservice.gitlab.service.dc1.kjdev:443",
           "-cableBackend", "http://https.webservice.gitlab.service.dc1.kjdev:443",
           "-listenAddr", "0.0.0.0:443",
@@ -84,6 +84,13 @@ job "development-gitlab-workhorse" {
           "-secretPath", "/secrets/.gitlab_workhorse_secret",
           "-config", "/local/configtemplates/workhorse-config.toml"
         ]
+
+        mount {
+          type = "bind"
+          target = "/opt/gitlab/embedded/ssl/certs/registry.pem"
+          source = "local/TLS/RegistryCA.pem"
+          readonly = false
+        }
 
         logging {
           type = "loki"
