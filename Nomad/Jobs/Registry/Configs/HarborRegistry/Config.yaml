@@ -43,6 +43,13 @@ http:
       enabled: true
       path: /metrics
 
+auth:
+  token:
+    issuer: gitlab-issuer
+    realm: https://gitlab.kristianjones.dev/jwt/auth
+    service: container_registry
+    rootcertbundle: /local/CA.pem
+
 validation:
   disabled: true
 

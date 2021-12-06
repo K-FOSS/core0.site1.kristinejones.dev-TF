@@ -119,6 +119,8 @@ resource "nomad_job" "GitLabDatabaseJob" {
 
     Secrets = local.GitLab.Secrets
 
+    TLS = var.TLS
+
     GitLab = {
       Configs = local.GitLab.Config
     }
@@ -186,6 +188,8 @@ resource "nomad_job" "GitLabShellJob" {
 
     Secrets = local.GitLab.Secrets
 
+    TLS = var.TLS
+
     Shell = {
       Config = templatefile("${path.module}/Configs/Shell/Config.yml.erb", {
       })
@@ -210,6 +214,8 @@ resource "nomad_job" "GitLabSideKiqJob" {
     GitLab = {
       Configs = local.GitLab.Config
     }
+
+    TLS = var.TLS
 
     Sidekiq = {
       Templates = {
@@ -238,6 +244,8 @@ resource "nomad_job" "GitLabWebServcieJob" {
       Configs = local.GitLab.Config
     }
 
+    TLS = var.TLS
+
     WebService = {
       TLS = var.TLS.WebService
 
@@ -263,6 +271,8 @@ resource "nomad_job" "GitLabWorkHorseJob" {
     GitLab = {
       Configs = local.GitLab.Config
     }
+
+    TLS = var.TLS
 
     WorkHorse = {
       TLS = var.TLS.WorkHorse
@@ -292,6 +302,8 @@ resource "nomad_job" "GitLabKASJob" {
       Configs = local.GitLab.Config
     }
 
+    TLS = var.TLS
+
     KAS = {
       Config = templatefile("${path.module}/Configs/KAS/Config.yaml", {
 
@@ -317,6 +329,8 @@ resource "nomad_job" "GitLabPraefectJob" {
     GitLab = {
       Configs = local.GitLab.Config
     }
+
+    TLS = var.TLS
 
     Praefect = {
       Config = templatefile("${path.module}/Configs/Praefect/config.toml", {

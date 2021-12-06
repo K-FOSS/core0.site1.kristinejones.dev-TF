@@ -98,7 +98,7 @@ production: &base
         endpoint: http://${S3.ExternalDiffsBucket.Connection.Endpoint}
         path_style: true
         region: us-east-1
-      
+
   lfs:
     enabled: true
     object_store:
@@ -132,7 +132,6 @@ production: &base
         endpoint: http://${S3.DependencyProxyBucket.Connection.Endpoint}
         path_style: true
         region: us-east-1
-
 
   terraform_state:
     enabled: true
@@ -182,67 +181,67 @@ production: &base
   cron_jobs:
     # Flag stuck CI jobs as failed
     stuck_ci_jobs_worker:
-      cron: "0 * * * *"
+      cron: '0 * * * *'
     # Execute scheduled triggers
     pipeline_schedule_worker:
-      cron: "3-59/10 * * * *"
+      cron: '3-59/10 * * * *'
     # Remove expired build artifacts
     expire_build_artifacts_worker:
-      cron: "*/7 * * * *"
+      cron: '*/7 * * * *'
     # Remove expired pipeline artifacts
     ci_pipelines_expire_artifacts_worker:
-      cron: "*/23 * * * *"
+      cron: '*/23 * * * *'
     # Remove files from object storage
     ci_schedule_delete_objects_worker:
-      cron: "*/16 * * * *"
+      cron: '*/16 * * * *'
     # Stop expired environments
     environments_auto_stop_cron_worker:
-      cron: "24 * * * *"
+      cron: '24 * * * *'
     # Delete stopped environments
     environments_auto_delete_cron_worker:
-      cron: "34 * * * *"
+      cron: '34 * * * *'
     # Periodically run 'git fsck' on all repositories. If started more than
     # once per hour you will have concurrent 'git fsck' jobs.
     repository_check_worker:
-      cron: "20 * * * *"
+      cron: '20 * * * *'
     # Archive live traces which have not been archived yet
     ci_archive_traces_cron_worker:
-      cron: "17 * * * *"
+      cron: '17 * * * *'
     # Send admin emails once a week
     admin_email_worker:
-      cron: "0 0 * * 0"
+      cron: '0 0 * * 0'
     # Send emails for personal tokens which are about to expire
     personal_access_tokens_expiring_worker:
-      cron: "0 1 * * *"
+      cron: '0 1 * * *'
 
     # Remove outdated repository archives
     repository_archive_cache_worker:
-      cron: "0 * * * *"
+      cron: '0 * * * *'
 
     # Verify custom GitLab Pages domains
     pages_domain_verification_cron_worker:
-      cron: "*/15 * * * *"
+      cron: '*/15 * * * *'
 
     # Periodically migrate diffs from the database to external storage
     schedule_migrate_external_diffs_worker:
-      cron: "15 * * * *"
+      cron: '15 * * * *'
 
     # Update CI Platform Metrics daily
     ci_platform_metrics_update_cron_worker:
-      cron: "47 9 * * *"
+      cron: '47 9 * * *'
 
   #
   # TODO: Hook into Harbor
   #
   registry:
-    enabled: false
+    enabled: true
     host: registry.kristianjones.dev
-    # port: 5005
-    # api_url: http://localhost:5000/ # internal address to the registry, will be used by GitLab to directly communicate with API
-    # key: config/registry.key
-    # path: shared/registry
-    # issuer: gitlab-issuer
-    # notification_secret: '' # only set it when you use Geo replication feature without built-in Registry
+    port: 8443
+    api_url: https://https.registry.harbor.service.kjdev:5443 # internal address to the registry, will be used by GitLab to directly communicate with API
+    key: /secrets/TLS/Registry.key
+    #path: shared/registry
+    issuer: gitlab-issuer
+    #notification_secret: '' # only set it when you use Geo replication feature without built-in Registry
 
     # Add notification settings if you plan to use Geo Replication for the registry
     # notifications:
@@ -310,28 +309,31 @@ production: &base
   omniauth:
     enabled: true
     sync_profile_attributes: true
-    allow_single_sign_on: ["openid_connect"]
+    allow_single_sign_on: ['openid_connect']
     block_auto_created_users: false
     auto_link_user: true
     providers:
-      - { name: 'openid_connect',
+      - {
+          name: 'openid_connect',
           label: 'Authentik',
           icon: 'https://d33wubrfki0l68.cloudfront.net/3986a9ebfee622cb3fed7c0b7d3661e431dcff5c/8fd41/img/icon_top_brand.svg',
-          args: {
-            name: 'openid_connect',
-            scope: ['openid','profile','email'],
-            response_type: 'code',
-            issuer: 'https://auth.kristianjones.dev/application/o/gitlab/',
-            discovery: true,
-            client_auth_method: 'query',
-            uid_field: 'preferred_username',
-            send_scope_to_token_endpoint: false,
-            client_options: {
-              identifier: '${OpenID.ClientID}',
-              secret: '${OpenID.ClientSecret}',
-              redirect_uri: 'https://gitlab.kristianjones.dev/users/auth/openid_connect/callback'
-            }
-          }
+          args:
+            {
+              name: 'openid_connect',
+              scope: ['openid', 'profile', 'email'],
+              response_type: 'code',
+              issuer: 'https://auth.kristianjones.dev/application/o/gitlab/',
+              discovery: true,
+              client_auth_method: 'query',
+              uid_field: 'preferred_username',
+              send_scope_to_token_endpoint: false,
+              client_options:
+                {
+                  identifier: '${OpenID.ClientID}',
+                  secret: '${OpenID.ClientSecret}',
+                  redirect_uri: 'https://gitlab.kristianjones.dev/users/auth/openid_connect/callback',
+                },
+            },
         }
 
   # Shared file storage settings
@@ -352,7 +354,7 @@ production: &base
         gitaly_address: tcp://http.praefect.gitlab.service.kjdev:8080
 
   backup:
-    path: "tmp/backups"   # Relative paths are relative to Rails.root (default: tmp/backups/)
+    path: 'tmp/backups' # Relative paths are relative to Rails.root (default: tmp/backups/)
 
   ## Pseudonymizer exporter
   pseudonymizer:
@@ -432,7 +434,6 @@ production: &base
   ## Consul settings
   consul:
     # api_url: 'http://localhost:8500'
-
 
   shutdown:
     #  # blackout_seconds:

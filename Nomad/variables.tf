@@ -976,6 +976,13 @@ variable "GitLab" {
         Cert = string
         Key = string
       })
+
+      Registry = object({
+        CA = string
+
+        Cert = string
+        Key = string
+      })
     })
 
     S3 = object({
@@ -1275,3 +1282,24 @@ variable "Business" {
     })
   })
 }
+
+#
+# Workflows
+#
+
+# variable "Workflow" {
+#   type = object({
+#     N8N = object({
+#       Database = object({
+#         Hostname = string
+#         Port = number
+
+#         Database = string
+
+#         Username = string
+#         Password = string
+#       })
+#     })
+
+#   })
+# }

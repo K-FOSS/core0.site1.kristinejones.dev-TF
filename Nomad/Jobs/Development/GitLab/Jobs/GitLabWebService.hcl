@@ -172,6 +172,38 @@ EOF
       }
 
       #
+      # TLS
+      #
+
+      #
+      # Registry
+      #
+
+      template {
+        data = "${TLS.Registry.Cert}"
+
+        destination = "local/TLS/RegistryCA.pem"
+
+        change_mode = "noop"
+      }
+    
+      template {
+        data = "${TLS.Registry.Cert}"
+
+        destination = "secrets/TLS/Registry.pem"
+
+        change_mode = "noop"
+      }
+
+      template {
+        data = "${TLS.Registry.Key}"
+
+        destination = "secrets/TLS/Registry.key"
+
+        change_mode = "noop"
+      }
+
+      #
       # Shared Secrets
       #
 

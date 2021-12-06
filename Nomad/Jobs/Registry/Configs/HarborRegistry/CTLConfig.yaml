@@ -1,5 +1,6 @@
-protocol: "https"
+protocol: 'https'
 port: 8443
+
 https_config:
   cert: /secrets/TLS/Cert.pem
   key: /secrets/TLS/Cert.key

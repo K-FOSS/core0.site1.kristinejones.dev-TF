@@ -607,3 +607,13 @@ module "Zammad" {
 
   Database = var.Business.Zammad.Database
 }
+
+#
+# N8N
+#
+
+# module "N8N" {
+#   source = "./Jobs/Workflows/n8n"
+
+#   Database = var.Workflows.N8N.Database
+# }

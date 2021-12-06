@@ -444,6 +444,13 @@ output "GitLab" {
         Cert = vault_pki_secret_backend_cert.GitLabWorkHorseCert.certificate
         Key = vault_pki_secret_backend_cert.GitLabWorkHorseCert.private_key
       }
+
+      Registry = {
+        CA = vault_pki_secret_backend_cert.HarborCoreServerCert.ca_chain
+
+        Cert = vault_pki_secret_backend_cert.HarborRegistryServerCert.certificate
+        Key = vault_pki_secret_backend_cert.HarborRegistryServerCert.private_key
+      }
     }
   }
 }
