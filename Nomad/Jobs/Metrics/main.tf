@@ -81,7 +81,7 @@ locals {
 
     YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
 
-    Version = "master-cd29c23"
+    Version = "v1.11.0"
   }
 }
 
@@ -102,7 +102,7 @@ resource "nomad_job" "CortexAlertManager" {
 
       YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
 
-      Version = "master-cd29c23"
+      Version = "v1.11.0"
     }
   })
 }
@@ -124,7 +124,7 @@ resource "nomad_job" "CortexConfigs" {
 
       YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
 
-      Version = "master-cd29c23"
+      Version = "v1.11.0"
     }
   })
 }
@@ -146,7 +146,7 @@ resource "nomad_job" "CortexDistributor" {
 
       YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
 
-      Version = "master-cd29c23"
+      Version = "v1.11.0"
     }
   })
 }
@@ -168,7 +168,7 @@ resource "nomad_job" "CortexIngester" {
 
       YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
 
-      Version = "master-cd29c23"
+      Version = "v1.11.0"
     }
   })
 }
@@ -190,7 +190,7 @@ resource "nomad_job" "CortexQuerier" {
 
       YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
 
-      Version = "master-cd29c23"
+      Version = "v1.11.0"
     }
   })
 }
@@ -212,7 +212,7 @@ resource "nomad_job" "CortexQueryFrontend" {
 
       YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
 
-      Version = "master-cd29c23"
+      Version = "v1.11.0"
     }
   })
 }
@@ -234,7 +234,7 @@ resource "nomad_job" "CortexQueryScheduler" {
 
       YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
 
-      Version = "master-cd29c23"
+      Version = "v1.11.0"
     }
   })
 }
@@ -256,7 +256,7 @@ resource "nomad_job" "CortexRuler" {
 
       YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
 
-      Version = "master-cd29c23"
+      Version = "v1.11.0"
     }
   })
 }
@@ -278,7 +278,7 @@ resource "nomad_job" "CortexStoreGateway" {
 
       YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
 
-      Version = "master-cd29c23"
+      Version = "v1.11.0"
     }
   })
 }
@@ -300,7 +300,7 @@ resource "nomad_job" "CortexCompactor" {
 
       YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
 
-      Version = "master-cd29c23"
+      Version = "v1.11.0"
     }
   })
 }
@@ -323,7 +323,7 @@ resource "nomad_job" "PrometheusJob" {
 
       Grafana = var.Prometheus.Grafana
 
-      Version = "v2.30.0"
+      Version = "v2.32.0-rc.0"
     }
   })
 }
