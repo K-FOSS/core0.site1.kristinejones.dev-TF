@@ -133,7 +133,7 @@ job "grafana" {
 
         #
         # Pass the plugins you want installed to Docker with the GF_INSTALL_PLUGINS environment variable as a comma-separated list.
-        # This sends each plugin name to grafana-cli plugins install ${plugin} and installs them when Grafana starts.
+        # This sends each plugin name to grafana-cli plugins install plugin and installs them when Grafana starts.
         #
         #
         # TODO: Make this an array/map/object that is looped through and then creates the final comma seperated env var

@@ -214,6 +214,8 @@ resource "nomad_job" "HarborExporterJobFile" {
     Harbor = {
       Secrets = local.Harbor.Secrets
 
+      Database = var.Harbor.Database
+
       TLS = {
         CA = var.Harbor.TLS.CA
 
