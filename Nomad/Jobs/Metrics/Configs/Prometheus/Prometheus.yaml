@@ -57,6 +57,7 @@ scrape_configs:
           - grafana-cont.service.kjdev
 
   - job_name: loki
+    scrape_interval: 45s
     dns_sd_configs:
       - names:
           - http.distributor.loki.service.kjdev
@@ -67,6 +68,7 @@ scrape_configs:
           - http.query-scheduler.loki.service.kjdev
 
   - job_name: cortex
+    scrape_interval: 45s
     dns_sd_configs:
       - names: 
           - http.cortex-purger.service.kjdev
@@ -141,6 +143,7 @@ scrape_configs:
   #
 
   - job_name: mikrotik
+    scrape_interval: 30s
     dns_sd_configs:
       - names: 
           - metrics.mikrotik.service.dc1.kjdev
@@ -150,6 +153,7 @@ scrape_configs:
   #
 
   - job_name: authentik
+    scrape_interval: 60s
     dns_sd_configs:
       - names: 
           - metrics.server.authentik.service.dc1.kjdev
@@ -160,6 +164,7 @@ scrape_configs:
   #
 
   - job_name: gobetween
+    scrape_interval: 300s
     dns_sd_configs:
       - names: 
           - metrics.gobetween.service.dc1.kjdev
@@ -203,8 +208,7 @@ scrape_configs:
   # Harbor
   #
   - job_name: harbor
-    scrape_interval: 5m
-    scrape_timeout: 300s
+    scrape_interval: 1m
     dns_sd_configs:
       - names: 
           - metrics.core.harbor.service.dc1.kjdev
@@ -215,5 +219,6 @@ scrape_configs:
 remote_write:
   - url: http://http.cortex-distributor.service.kjdev:8080/api/v1/push
     send_exemplars: true
+    remote_timeout: 60s
 
   
