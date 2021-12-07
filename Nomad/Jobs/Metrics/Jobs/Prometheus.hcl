@@ -58,6 +58,16 @@ EOF
 
         change_mode = "noop"
       }
+
+      template {
+        data = <<EOF
+${Prometheus.HomeAssistant.CA}
+EOF
+
+        destination = "local/HomeAssistantCA.pem"
+
+        change_mode = "noop"
+      } 
     }
   }
 }

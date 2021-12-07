@@ -311,6 +311,8 @@ output "eJabberD" {
 #
 output "HomeAssistant" {
   value = {
+    AccessToken = data.vault_generic_secret.HomeAssistant.data["AccessToken"]
+
     MQTT = {
       Connection = {
         Hostname = "ejabberd-mqtt-cont.service.kjdev"

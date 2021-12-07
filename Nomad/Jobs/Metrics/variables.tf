@@ -95,6 +95,12 @@ variable "Prometheus" {
     Vault = object({
       Token = string
     })
+
+    HomeAssistant = object({
+      AccessToken = string
+
+      CA = string  
+    })
   })
 }
 

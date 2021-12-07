@@ -885,6 +885,12 @@ module "Nomad" {
       Vault = {
         Token = module.Vault.Vault.Prometheus.Token
       }
+
+      HomeAssistant = {
+        CA = module.Vault.HomeAssistant.TLS.CA
+
+        AccessToken = module.Vault.HomeAssistant.AccessToken
+      }
     }
 
     MikroTik = {

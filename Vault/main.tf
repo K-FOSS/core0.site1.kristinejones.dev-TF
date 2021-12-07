@@ -190,7 +190,14 @@ data "vault_generic_secret" "GitLab" {
   path = "${vault_mount.Terraform.path}/GitLab"
 }
 
- 
+#
+# HomeAssistant
+#
+
+data "vault_generic_secret" "HomeAssistant" {
+  path = "${vault_mount.Terraform.path}/HASS"
+}
+  
 #
 # TrueNAS NAS
 #

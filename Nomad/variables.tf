@@ -375,6 +375,12 @@ variable "Metrics" {
       Vault = object({
         Token = string
       })
+
+      HomeAssistant = object({
+        AccessToken = string
+
+        CA = string  
+      })
     })
 
     MikroTik = object({

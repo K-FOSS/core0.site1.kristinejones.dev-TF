@@ -316,12 +316,16 @@ resource "nomad_job" "PrometheusJob" {
         CoreVault = var.Prometheus.CoreVault
         Vault = var.Prometheus.Vault
 
+        HomeAssistant = var.Prometheus.HomeAssistant
+
         iDRAC = {
           Devices = var.iDRAC.Devices
         }
       })
 
       Grafana = var.Prometheus.Grafana
+
+      HomeAssistant = var.Prometheus.HomeAssistant
 
       Version = "v2.32.0-rc.0"
     }

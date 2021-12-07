@@ -208,12 +208,29 @@ scrape_configs:
   # Harbor
   #
   - job_name: harbor
-    scrape_interval: 1m
+    scrape_interval: 60s
     dns_sd_configs:
       - names: 
           - metrics.core.harbor.service.dc1.kjdev
           - metrics.jobservice.harbor.service.dc1.kjdev
           - metrics.registry.harbor.service.dc1.kjdev
+
+  #
+  # HomeAssistant
+  #
+  - job_name: hass
+    scrape_interval: 60s
+    metrics_path: /api/prometheus
+    bearer_token: "${HomeAssistant.AccessToken}"
+
+    scheme: https
+    tls_config:
+      ca_file: /local/HomeAssistantCA.pem
+      server_name: hass.int.site1.kristianjones.dev
+    dns_sd_configs:
+      - names: 
+          - home1-hass-home-assistant.ix-home1-hass.svc.cluster.local
+
 
 
 remote_write:
