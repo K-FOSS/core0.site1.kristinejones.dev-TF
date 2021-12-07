@@ -462,7 +462,7 @@ module "NextCloud" {
 # OpenProject
 #
 module "OpenProject" {
-  source = "./Jobs/OpenProject"
+  source = "./Jobs/Business/OpenProject"
 
   Database = var.OpenProject.Database
 
