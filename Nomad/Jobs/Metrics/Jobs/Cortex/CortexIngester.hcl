@@ -104,6 +104,15 @@ job "cortex-ingester" {
         args = ["-config.file=/local/Cortex.yaml"]
 
         memory_hard_limit = 1024
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=cortex,service=ingester"
+          }
+        }
       }
 
       meta {

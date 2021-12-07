@@ -153,8 +153,16 @@ job "cortex-alertmanager" {
       }
 
       env {
+        #
+        # Tracing
+        #
         JAEGER_AGENT_HOST = "http.distributor.tempo.service.kjdev"
         JAEGER_AGENT_PORT = "6831"
+
+        JAEGER_SAMPLER_TYPE = "const"
+        JAEGER_SAMPLER_PARAM = "1"
+
+        JAEGER_TAGS = "job=cortex,service=alert-manager"
       }
 
       resources {

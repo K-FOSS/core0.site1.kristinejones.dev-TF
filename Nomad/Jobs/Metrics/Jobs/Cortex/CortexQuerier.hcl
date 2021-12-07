@@ -121,12 +121,34 @@ job "cortex-querier" {
         args = ["-config.file=/local/Cortex.yaml"]
 
         memory_hard_limit = 256
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=cortex,service=querier"
+          }
+        }
       }
 
       meta {
         TARGET = "querier"
 
         REPLICAS = "3"
+      }
+
+      env {
+        #
+        # Tracing
+        #
+        JAEGER_AGENT_HOST = "http.distributor.tempo.service.kjdev"
+        JAEGER_AGENT_PORT = "6831"
+
+        JAEGER_SAMPLER_TYPE = "const"
+        JAEGER_SAMPLER_PARAM = "1"
+
+        JAEGER_TAGS = "job=cortex,service=querier"
       }
 
       resources {
