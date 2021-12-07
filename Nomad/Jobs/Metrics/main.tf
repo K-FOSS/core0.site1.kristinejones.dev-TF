@@ -67,11 +67,31 @@ terraform {
 # TODO: Get GitHub Cache Back working with Terraform
 #
 
+#
+# Cortex
+#
+
+locals {
+  Cortex = {
+    AlertManager = {
+      Config = templatefile("${path.module}/Configs/Cortex/AlertManager.yaml", {
+        SMTP = var.SMTP
+      })
+    }
+
+    YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
+
+    Version = "master-cd29c23"
+  }
+}
+
+#
+# Alert Manager
+#
+
 resource "nomad_job" "CortexAlertManager" {
   jobspec = templatefile("${path.module}/Jobs/Cortex/CortexAlertManager.hcl", {
     Cortex = {
-      Targets = var.Cortex.Targets
-
       AlertManager = {
         Config = templatefile("${path.module}/Configs/Cortex/AlertManager.yaml", {
           SMTP = var.SMTP
@@ -86,12 +106,14 @@ resource "nomad_job" "CortexAlertManager" {
     }
   })
 }
+
+#
+# Configs
+#
 
 resource "nomad_job" "CortexConfigs" {
   jobspec = templatefile("${path.module}/Jobs/Cortex/CortexConfigs.hcl", {
     Cortex = {
-      Targets = var.Cortex.Targets
-
       AlertManager = {
         Config = templatefile("${path.module}/Configs/Cortex/AlertManager.yaml", {
           SMTP = var.SMTP
@@ -106,12 +128,14 @@ resource "nomad_job" "CortexConfigs" {
     }
   })
 }
+
+#
+# Distributor
+# 
 
 resource "nomad_job" "CortexDistributor" {
   jobspec = templatefile("${path.module}/Jobs/Cortex/CortexDistributor.hcl", {
     Cortex = {
-      Targets = var.Cortex.Targets
-
       AlertManager = {
         Config = templatefile("${path.module}/Configs/Cortex/AlertManager.yaml", {
           SMTP = var.SMTP
@@ -126,12 +150,14 @@ resource "nomad_job" "CortexDistributor" {
     }
   })
 }
+
+#
+# Ingester
+#
 
 resource "nomad_job" "CortexIngester" {
   jobspec = templatefile("${path.module}/Jobs/Cortex/CortexIngester.hcl", {
     Cortex = {
-      Targets = var.Cortex.Targets
-
       AlertManager = {
         Config = templatefile("${path.module}/Configs/Cortex/AlertManager.yaml", {
           SMTP = var.SMTP
@@ -146,12 +172,14 @@ resource "nomad_job" "CortexIngester" {
     }
   })
 }
+
+#
+# Querier
+#
 
 resource "nomad_job" "CortexQuerier" {
   jobspec = templatefile("${path.module}/Jobs/Cortex/CortexQuerier.hcl", {
     Cortex = {
-      Targets = var.Cortex.Targets
-
       AlertManager = {
         Config = templatefile("${path.module}/Configs/Cortex/AlertManager.yaml", {
           SMTP = var.SMTP
@@ -166,12 +194,14 @@ resource "nomad_job" "CortexQuerier" {
     }
   })
 }
+
+#
+# Query Frontend
+#
 
 resource "nomad_job" "CortexQueryFrontend" {
   jobspec = templatefile("${path.module}/Jobs/Cortex/CortexQueryFrontend.hcl", {
     Cortex = {
-      Targets = var.Cortex.Targets
-
       AlertManager = {
         Config = templatefile("${path.module}/Configs/Cortex/AlertManager.yaml", {
           SMTP = var.SMTP
@@ -186,12 +216,14 @@ resource "nomad_job" "CortexQueryFrontend" {
     }
   })
 }
+
+#
+# Query Scheduler
+#
 
 resource "nomad_job" "CortexQueryScheduler" {
   jobspec = templatefile("${path.module}/Jobs/Cortex/CortexQueryScheduler.hcl", {
     Cortex = {
-      Targets = var.Cortex.Targets
-
       AlertManager = {
         Config = templatefile("${path.module}/Configs/Cortex/AlertManager.yaml", {
           SMTP = var.SMTP
@@ -206,12 +238,14 @@ resource "nomad_job" "CortexQueryScheduler" {
     }
   })
 }
+
+#
+# Ruler
+#
 
 resource "nomad_job" "CortexRuler" {
   jobspec = templatefile("${path.module}/Jobs/Cortex/CortexRuler.hcl", {
     Cortex = {
-      Targets = var.Cortex.Targets
-
       AlertManager = {
         Config = templatefile("${path.module}/Configs/Cortex/AlertManager.yaml", {
           SMTP = var.SMTP
@@ -226,12 +260,14 @@ resource "nomad_job" "CortexRuler" {
     }
   })
 }
+
+#
+# Store Gateway
+#
 
 resource "nomad_job" "CortexStoreGateway" {
   jobspec = templatefile("${path.module}/Jobs/Cortex/CortexStoreGateway.hcl", {
     Cortex = {
-      Targets = var.Cortex.Targets
-
       AlertManager = {
         Config = templatefile("${path.module}/Configs/Cortex/AlertManager.yaml", {
           SMTP = var.SMTP
@@ -246,6 +282,32 @@ resource "nomad_job" "CortexStoreGateway" {
     }
   })
 }
+
+#
+# Compactor
+#
+
+resource "nomad_job" "CortexStoreGateway" {
+  jobspec = templatefile("${path.module}/Jobs/Cortex/CortexCompactor.hcl", {
+    Cortex = {
+      AlertManager = {
+        Config = templatefile("${path.module}/Configs/Cortex/AlertManager.yaml", {
+          SMTP = var.SMTP
+        })
+      }
+
+      Database = var.Cortex.Database
+
+      YAMLConfig = templatefile("${path.module}/Configs/Cortex/Cortex.yaml", var.Cortex)
+
+      Version = "master-cd29c23"
+    }
+  })
+}
+
+#
+# Prometheus
+#
 
 resource "nomad_job" "PrometheusJob" {
   jobspec = templatefile("${path.module}/Jobs/Prometheus.hcl", {

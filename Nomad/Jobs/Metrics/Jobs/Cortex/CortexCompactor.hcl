@@ -1,10 +1,10 @@
-job "cortex-queryscheduler" {
+job "cortex-compactor" {
   datacenters = ["core0site1"]
 
   #
-  # Cortex Query Scheduler
+  # Cortex Distributor
   #
-  group "cortex-query-scheduler" {
+  group "cortex-compactor" {
     count = 3
 
     spread {
@@ -36,13 +36,13 @@ job "cortex-queryscheduler" {
     }
 
     service {
-      name = "cortex-query-scheduler"
+      name = "cortex"
       port = "http"
 
-      task = "cortex-query-scheduler"
+      task = "cortex-compactor"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.compactor"]
 
       #
       # Liveness check
@@ -65,27 +65,27 @@ job "cortex-queryscheduler" {
     }
 
     service {
-      name = "cortex-query-scheduler"
+      name = "cortex"
       port = "grpc"
 
-      task = "cortex-query-scheduler"
+      task = "cortex-distributor"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc", "$${NOMAD_ALLOC_INDEX}.grpc"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.compactor", "$${NOMAD_ALLOC_INDEX}.grpc.compactor"]
     }
 
     service {
-      name = "cortex-query-scheduler"
+      name = "cortex"
       
       port = "gossip"
       address_mode = "alloc"
 
-      task = "cortex-query-scheduler"
+      task = "cortex-compactor"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "gossip", "$${NOMAD_ALLOC_INDEX}.gossip"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "gossip.compactor", "$${NOMAD_ALLOC_INDEX}.gossip.compactor"]
     }
 
-    task "cortex-query-scheduler" {
+    task "cortex-compactor" {
       driver = "docker"
 
       restart {
@@ -105,7 +105,7 @@ job "cortex-queryscheduler" {
       }
 
       meta {
-        TARGET = "query-scheduler"
+        TARGET = "compactor"
 
         REPLICAS = "3"
       }

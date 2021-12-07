@@ -132,7 +132,9 @@ distributor:
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#querier_config
 #
 querier:
-  query_ingesters_within: 3h
+  query_ingesters_within: 13h
+
+  query_store_after: 12h
 
   # Used when the blocks sharding is disabled.
   store_gateway_addresses: dnssrv+grpc.cortex-store-gateway.service.dc1.kjdev
@@ -154,7 +156,16 @@ ingester_client:
 ingester:
   lifecycler:
     # We want to start immediately.
-    join_after: 0
+    join_after: 10s
+
+    # -- To avoid generating same tokens by multiple ingesters, they can "observe" the ring for a while,
+    # after putting their own tokens into it. This is only useful when using gossip, since multiple
+    # ingesters joining at the same time can have conflicting tokens if they don't see each other yet.
+    observe_period: 10s
+
+    # -- Duration to sleep for before exiting, to ensure metrics are scraped.
+    final_sleep: 30s
+    
     num_tokens: 512
 
     ring:
@@ -210,6 +221,12 @@ limits:
   # Maximum number of label names per series.
   max_label_names_per_series: 64
 
+  enforce_metric_name: true
+
+  reject_old_samples: true
+  
+  reject_old_samples_max_age: 168h
+
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#frontend_worker_config
 #
@@ -240,6 +257,16 @@ frontend:
 query_range:
   split_queries_by_interval: 24h
 
+  align_queries_with_step: true
+
+  cache_results: true
+  results_cache:
+    cache:
+      memcached:
+        expiration: 1h
+      memcached_client:
+        timeout: 1s
+
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#table_manager_config
 #
@@ -254,11 +281,18 @@ query_range:
 blocks_storage:
   backend: s3
 
+  s3:
+    endpoint: ${S3.Connection.Endpoint}
+    bucket_name: ${S3.Bucket}
+    access_key_id: ${S3.Credentials.AccessKey}
+    secret_access_key: ${S3.Credentials.SecretKey}
+    insecure: true
+
   tsdb:
     dir: /alloc/cortex-tsdb-ingester
     ship_interval: 1m
     block_ranges_period: [2h]
-    retention_period: 3h
+    retention_period: 6h
     max_exemplars: 5000
 
   bucket_store:
@@ -279,13 +313,6 @@ blocks_storage:
       backend: memcached
       memcached:
         addresses: dns+memcached.cortex.service.dc1.kjdev:11211
-
-  s3:
-    endpoint: ${S3.Connection.Endpoint}
-    bucket_name: ${S3.Bucket}
-    access_key_id: ${S3.Credentials.AccessKey}
-    secret_access_key: ${S3.Credentials.SecretKey}
-    insecure: true
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#compactor_config
@@ -328,7 +355,7 @@ compactor:
 store_gateway:
   sharding_enabled: true
   sharding_ring:
-    replication_factor: 1
+    replication_factor: 3
     heartbeat_period: 5s
     heartbeat_timeout: 15s
     kvstore:
@@ -539,6 +566,9 @@ memberlist:
 
     # Store Gateway
     - dnssrv+gossip.cortex-store-gateway.service.dc1.kjdev
+
+    # Compactor
+    - dnssrv+gossip.compactor.cortex.service.dc1.kjdev
 
     # Ruler
     - dnssrv+gossip.cortex-ruler.service.dc1.kjdev

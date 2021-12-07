@@ -2,11 +2,11 @@ job "container-metrics" {
   datacenters = ["core0site1"]
 
   group "cadvisor-exporter-server" {
-    count = 4
+    count = 2
 
-    spread {
-      attribute = "$${node.unique.id}"
-      weight = 100
+    constraint {
+      operator  = "distinct_hosts"
+      value     = "true"
     }
 
     network {

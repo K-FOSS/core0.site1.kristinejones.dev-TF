@@ -96,8 +96,6 @@ job "cortex-storegateway" {
 
       kill_timeout = "120s"
 
-
-
       config {
         image = "cortexproject/cortex:${Cortex.Version}"
 
