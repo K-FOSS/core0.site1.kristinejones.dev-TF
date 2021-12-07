@@ -58,7 +58,7 @@
                   },
                   "upstreams": [
                     {
-                      "dial": "172.31.241.2:36006"
+                      "lookup_srv": "home1-hass-home-assistant.ix-home1-hass.svc.cluster.local"
                     }
                   ]
                 }
