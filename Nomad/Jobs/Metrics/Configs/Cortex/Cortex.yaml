@@ -325,8 +325,6 @@ compactor:
   cleanup_interval: 10m
   tenant_cleanup_delay: 10m
   sharding_ring:
-    wait_stability_min_duration: 0
-    wait_stability_max_duration: 15s
     kvstore:
       store: multi
       prefix: ${Consul.Prefix}/collectors/
@@ -360,6 +358,8 @@ store_gateway:
     replication_factor: 1
     heartbeat_period: 5s
     heartbeat_timeout: 15s
+    instance_id: {{ env "NOMAD_ALLOC_NAME" }}
+    instance_addr: {{ env "NOMAD_ALLOC_INDEX" }}.http.{{ env "NOMAD_META_TARGET" }}.cortex.service.dc1.kjdev
     kvstore:
       store: multi
       prefix: ${Consul.Prefix}/collectors/
@@ -375,6 +375,8 @@ store_gateway:
 
         # Secondary backend storage used by multi-client.
         secondary: consul
+
+        mirror_enabled: true
 
       #
       # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
@@ -551,6 +553,7 @@ memberlist:
   randomize_node_name: false
   
   compression_enabled: true
+  abort_if_cluster_join_fails: false
 
   advertise_port: 8090
   join_members:
