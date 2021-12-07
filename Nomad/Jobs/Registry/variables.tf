@@ -71,6 +71,12 @@ variable "Harbor" {
 
         Key = string
       })
+
+      Exporter = object({
+        Cert = string
+
+        Key = string
+      })
     })
   })
 }

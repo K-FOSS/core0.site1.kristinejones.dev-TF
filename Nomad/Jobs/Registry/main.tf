@@ -202,3 +202,26 @@ resource "nomad_job" "HarborRegistryJobFile" {
     }
   })
 }
+
+#
+# Exporter
+#
+
+resource "nomad_job" "HarborExporterJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/HarborExporter.hcl", {
+    EntryScript = file("${path.module}/Configs/HarborExporter/Entry.sh")
+
+    Harbor = {
+      Secrets = local.Harbor.Secrets
+
+      TLS = {
+        CA = var.Harbor.TLS.CA
+
+        Cert = var.Harbor.TLS.Exporter.Cert
+        Key = var.Harbor.TLS.Exporter.Key
+      }
+
+      Version = "v2.4.0-dev"
+    }
+  })
+}

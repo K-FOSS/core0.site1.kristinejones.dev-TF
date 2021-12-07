@@ -508,6 +508,11 @@ output "Registry" {
           Key = vault_pki_secret_backend_cert.HarborRegistryCTLServerCert.private_key
         }
 
+        Exporter = {
+          Cert = vault_pki_secret_backend_cert.HarborExporterServerCert.certificate
+          Key = vault_pki_secret_backend_cert.HarborExporterServerCert.private_key
+        }
+
       }
     }
   }

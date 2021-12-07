@@ -514,6 +514,15 @@ resource "vault_pki_secret_backend_cert" "HarborRegistryCTLServerCert" {
   alt_names = ["https.registrycontroller.harbor.service.dc1.kjdev"]
 }
 
+resource "vault_pki_secret_backend_cert" "HarborExporterServerCert" {
+  backend = module.Harbor.TLS.Mount.path
+  name = module.Harbor.TLS.Role.name
+
+  common_name = "https.exporter.harbor.service.kjdev"
+
+  alt_names = ["https.exporter.harbor.service.dc1.kjdev"]
+}
+
 #
 # Prometheus
 #

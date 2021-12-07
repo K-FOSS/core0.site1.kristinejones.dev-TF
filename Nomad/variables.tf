@@ -1242,6 +1242,12 @@ variable "Registry" {
 
           Key = string
         })
+
+        Exporter = object({
+          Cert = string
+
+          Key = string
+        })
       })
     })
   })
