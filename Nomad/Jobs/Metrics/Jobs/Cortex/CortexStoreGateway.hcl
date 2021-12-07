@@ -5,7 +5,7 @@ job "cortex-storegateway" {
   # Cortex Store Gateway
   #
   group "cortex-store-gateway" {
-    count = 3
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"
@@ -116,7 +116,7 @@ job "cortex-storegateway" {
       meta {
         TARGET = "store-gateway"
 
-        REPLICAS = "3"
+        REPLICAS = "2"
       }
 
       env {
