@@ -43,25 +43,6 @@ job "cortex-storegateway" {
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
-
-      #
-      # Liveness check
-      #
-      check {
-        port = "http"
-        address_mode = "alloc"
-
-        type = "http"
-
-        path = "/ready"
-        interval = "15s"
-        timeout  = "3s"
-
-        check_restart {
-          limit = 10
-          grace = "10m"
-        }
-      }
     }
 
     service {
