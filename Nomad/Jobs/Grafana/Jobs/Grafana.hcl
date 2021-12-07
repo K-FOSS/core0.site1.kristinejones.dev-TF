@@ -131,7 +131,14 @@ job "grafana" {
         GF_LOG_MODE = "console"
         GF_PATHS_PROVISIONING =	"/local/provisioning"
 
-        GF_INSTALL_PLUGINS = "ae3e-plotly-panel"
+        #
+        # Pass the plugins you want installed to Docker with the GF_INSTALL_PLUGINS environment variable as a comma-separated list.
+        # This sends each plugin name to grafana-cli plugins install ${plugin} and installs them when Grafana starts.
+        #
+        #
+        # TODO: Make this an array/map/object that is looped through and then creates the final comma seperated env var
+        #  
+        GF_INSTALL_PLUGINS = "ae3e-plotly-panel,sbueringer-consul-datasource,cloudflare-app,grafana-clock-panel,speakyourcode-button-panel,thiagoarrais-matomotracking-panel,radensolutions-netxms-datasource,grafana-k6cloud-datasource,flaminggoat-maptrack3d-panel,grafana-sentry-datasource,gowee-traceroutemap-panel,grafana-worldmap-panel,novatec-sdg-panel,magnesium-wordcloud-panel,opennms-helm-app,grafana-opensearch-datasource"
       }
 
       template {
