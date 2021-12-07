@@ -15,10 +15,6 @@ job "registry-harbor-exporter" {
       port "http" {
         to = 8443
       }
-
-      port "metrics" {
-        to = 9284
-      }
     }
 
     task "wait-for-harbor-core-redis" {
@@ -102,6 +98,12 @@ job "registry-harbor-exporter" {
         HARBOR_REDIS_URL = "redis://redis.core.harbor.service.dc1.kjdev:6379"
         HARBOR_REDIS_NAMESPACE = "harbor_job_service_namespace"
         HARBOR_REDIS_TIMEOUT = "3600"
+
+        #
+        # Exporter
+        #
+        HARBOR_EXPORTER_PORT = "8443"
+        HARBOR_EXPORTER_METRICS_ENABLED = "true"
 
         #
         # Metrics
