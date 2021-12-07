@@ -103,7 +103,8 @@ scrape_configs:
     # tls_config:
     #   ca_file: your_ca_here.pem
     
-    bearer_token: "${CoreVault.Token}"
+    authorization:
+      credentials: "${CoreVault.Token}"
     dns_sd_configs:
       - names: 
           - CoreVault.service.dc1.kjdev
