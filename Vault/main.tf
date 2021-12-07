@@ -194,7 +194,7 @@ data "vault_generic_secret" "GitLab" {
 # HomeAssistant
 #
 
-data "vault_generic_secret" "HomeAssistant" {
+data "vault_generic_secret" "HASS" {
   path = "${vault_mount.Terraform.path}/HASS"
 }
   

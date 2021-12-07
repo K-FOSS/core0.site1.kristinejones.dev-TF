@@ -311,7 +311,7 @@ output "eJabberD" {
 #
 output "HomeAssistant" {
   value = {
-    AccessToken = data.vault_generic_secret.HomeAssistant.data["AccessToken"]
+    AccessToken = data.vault_generic_secret.HASS.data["AccessToken"]
 
     MQTT = {
       Connection = {
