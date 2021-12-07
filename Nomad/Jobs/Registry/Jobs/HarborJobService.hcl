@@ -73,7 +73,7 @@ job "registry-harbor-jobservice" {
       }
 
       port "metrics" {
-        to = 9284
+        to = 9090
       }
     }
 
@@ -104,6 +104,16 @@ job "registry-harbor-jobservice" {
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.jobservice"]
+    }
+
+    service {
+      name = "harbor"
+      port = "metrics"
+
+      task = "harbor-jobservice-server"
+      address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "metrics.jobservice"]
     }
 
 
@@ -163,6 +173,11 @@ job "registry-harbor-jobservice" {
         #
         METRIC_NAMESPACE = "harbor"
         METRIC_SUBSYSTEM = "jobservice"
+
+
+        #
+        # Tracing
+        #
         TRACE_ENABLED = "true"
         TRACE_SAMPLE_RATE = "1"
         TRACE_JAEGER_ENDPOINT = "http://http.distributor.tempo.service.kjdev:14268/api/traces"

@@ -20,7 +20,7 @@ job_loggers:
 metric:
   enabled: true
   path: /metrics
-  port: 9100
+  port: 9090
 
 loggers:
   - name: STD_OUTPUT

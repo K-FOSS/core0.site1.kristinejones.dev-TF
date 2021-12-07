@@ -100,6 +100,16 @@ job "registry-harbor-core" {
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.core"]
     }
 
+    service {
+      name = "harbor"
+      port = "metrics"
+
+      task = "harbor-core-server"
+      address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "metrics.core"]
+    }
+
 
     task "harbor-core-server" {
       driver = "docker"
@@ -260,7 +270,6 @@ job "registry-harbor-core" {
         TRACE_ENABLED = "true"
         TRACE_SAMPLE_RATE = "1"
         TRACE_JAEGER_ENDPOINT = "http://http.distributor.tempo.service.kjdev:14268/api/traces"
-
       }
 
       template {

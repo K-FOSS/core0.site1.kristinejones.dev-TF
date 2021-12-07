@@ -195,6 +195,22 @@ scrape_configs:
       - names: 
           - metrics.cadvisor.service.dc1.kjdev
 
+  #
+  # Registry
+  #
+
+  #
+  # Harbor
+  #
+  - job_name: harbor
+    scrape_interval: 5m
+    scrape_timeout: 300s
+    dns_sd_configs:
+      - names: 
+          - metrics.core.harbor.service.dc1.kjdev
+          - metrics.jobservice.harbor.service.dc1.kjdev
+          - metrics.registry.harbor.service.dc1.kjdev
+
 
 remote_write:
   - url: http://http.cortex-distributor.service.kjdev:8080/api/v1/push
