@@ -7,6 +7,12 @@ grpc_address: 0.0.0.0:443
 metrics_address: 0.0.0.0:9443
 
 #
+# General
+#
+
+installation_id: '{{ env "NOMAD_ALLOC_NAME" }}'
+
+#
 # Pomerium Core
 #
 
@@ -66,7 +72,7 @@ databroker_storage_key_file: /secrets/TLS/Server.key
 #
 
 authorize_service_url: https://https.authorize.pomerium.service.dc1.kjdev:443
-signing_key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSU1tM2JCOXZKZi94V25vQzlVTFBTTlFhZUlHcW9LYzNsaEFBU0VPZzFFRkFvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFMWs5bG5wYmdUMXBSZERjK3JYWmRYQU9TSzE5di9xYUdxRmIwSmxNb2t0S0YwblBLWFVYWAo2QjZKY3JmY09vc2RvTEZkZ2ROQW9NNGRzUmVmenVTaVlRPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
+signing_key: ${Secrets.SigningKey}
 
 #
 # Proxy Service
@@ -76,7 +82,6 @@ signing_key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSU1tM2JCOXZKZi9
 default_upstream_timeout: 5m
 
 # https://pomerium.com/reference/#routes
-routes:
 routes:
   #
   # NetBox
@@ -220,6 +225,24 @@ routes:
 
   - from: https://unifi.int.site1.kristianjones.dev
     to: https://kjdev-unifi.ix-kjdev-unifi.svc.cluster.local:8443
+    tls_skip_verify: true
+    preserve_host_header: true
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true
+    cors_allow_preflight: true
+
+  #
+  # AAA
+  #
+
+  #
+  # Teleport
+  #
+
+  - from: https://teleport.int.site1.kristianjones.dev
+    to: https://http.proxy.teleport.service.dc1.kjdev:443
     tls_skip_verify: true
     preserve_host_header: true
     allowed_domains:

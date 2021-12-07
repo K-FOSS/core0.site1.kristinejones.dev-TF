@@ -119,5 +119,7 @@ variable "Secrets" {
   type = object({
     CookieSecret = string
     SharedSecret = string
+
+    SigningKey = string
   })
 }

@@ -10,6 +10,10 @@ job "pomerium-proxy" {
       port "https" {
         to = 443
       }
+
+      port "metrics" {
+        to = 9443
+      }
     
       dns {
         servers = [
@@ -27,6 +31,16 @@ job "pomerium-proxy" {
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.proxy"]
+    }
+
+    service {
+      name = "pomerium"
+      port = "metrics"
+
+      task = "pomerium-proxy-server"
+      address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "metrics.proxy"]
     }
 
     task "pomerium-proxy-server" {

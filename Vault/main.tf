@@ -9,6 +9,16 @@ terraform {
       source = "hashicorp/vault"
       version = "2.24.0"
     }
+
+    #
+    # TLS
+    #
+    # Docs: https://registry.terraform.io/providers/hashicorp/tls/latest/docs
+    #
+    tls = {
+      source = "hashicorp/tls"
+      version = "3.1.0"
+    }
   }
 }
 
@@ -90,6 +100,18 @@ data "vault_generic_secret" "Bitwarden" {
 data "vault_generic_secret" "PomeriumOID" {
   path = "${var.Pomerium.VaultPath}"
 }
+
+#
+# Pomerium
+#
+
+resource "tls_private_key" "PomeriumSigningKey" {
+  algorithm = "ECDSA"
+
+  ecdsa_curve = "P256"
+}
+
+
 
 #
 # eJabberD

@@ -184,6 +184,9 @@ output "Pomerium" {
       ClientSecret = data.vault_generic_secret.PomeriumOID.data["ClientSecret"]
     }
 
+    Secrets = {
+      SigningKey = tls_private_key.PomeriumSigningKey.private_key_pem
+    }
 
     TLS = {
       CA = vault_pki_secret_backend_cert.PomeriumProxyCert.ca_chain

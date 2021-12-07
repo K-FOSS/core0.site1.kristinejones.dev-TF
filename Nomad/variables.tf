@@ -253,6 +253,8 @@ variable "Pomerium" {
     Secrets = object({
       CookieSecret = string
       SharedSecret = string
+
+      SigningKey = string
     })
   })
 }

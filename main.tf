@@ -772,7 +772,12 @@ module "Nomad" {
   Pomerium = {
     OpenID = module.Vault.Pomerium.OpenID
 
-    Secrets = module.Pomerium.Secrets
+    Secrets = {
+      CookieSecret = module.Pomerium.Secrets.CookieSecret
+      SharedSecret = module.Pomerium.Secrets.SharedSecret
+
+      SigningKey = module.Vault.Pomerium.Secrets.SigningKey
+    }
 
 
     TLS = {
