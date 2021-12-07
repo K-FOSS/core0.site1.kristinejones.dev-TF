@@ -198,7 +198,7 @@ job "registry-harbor-core" {
 
         CORE_LOCAL_URL = "https://127.0.0.1:8443"
 
-        PORTAL_URL = "https://http.portal.harbor.service.dc1.kjdev"
+        PORTAL_URL = "https://http.portal.harbor.service.dc1.kjdev:8443"
 
         #
         # Notary

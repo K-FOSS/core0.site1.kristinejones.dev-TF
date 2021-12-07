@@ -215,6 +215,7 @@ scrape_configs:
           - metrics.core.harbor.service.dc1.kjdev
           - metrics.jobservice.harbor.service.dc1.kjdev
           - metrics.registry.harbor.service.dc1.kjdev
+          - https.exporter.harbor.service.dc1.kjdev
 
   #
   # HomeAssistant

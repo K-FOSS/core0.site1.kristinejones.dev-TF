@@ -104,6 +104,7 @@ job "registry-harbor-exporter" {
         #
         HARBOR_EXPORTER_PORT = "8443"
         HARBOR_EXPORTER_METRICS_ENABLED = "true"
+        HARBOR_EXPORTER_METRICS_PATH = "/metrics"
 
         #
         # Metrics
