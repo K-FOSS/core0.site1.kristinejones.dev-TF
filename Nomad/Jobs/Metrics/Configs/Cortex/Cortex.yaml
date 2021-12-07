@@ -52,7 +52,7 @@ server:
 
   # Only log messages with the given severity or above. Valid levels: [debug, info, warn, error]
   # CLI flag: -log.level
-  log_level: warn
+  log_level: debug
 
   # Optionally log the source IPs.
   # CLI flag: -server.log-source-ips-enabled
@@ -289,14 +289,12 @@ blocks_storage:
     insecure: true
 
   tsdb:
-    dir: /alloc/cortex-tsdb-ingester
     ship_interval: 1m
     block_ranges_period: [2h]
     retention_period: 6h
     max_exemplars: 5000
 
   bucket_store:
-    sync_dir: /alloc/cortex-tsdb-querier
     consistency_delay: 5s
 
     index_cache:
@@ -319,7 +317,6 @@ blocks_storage:
 #
 compactor:
   compaction_interval: 30m
-  data_dir: /alloc/cortex-compactor
   consistency_delay: 1m
   sharding_enabled: true
   cleanup_interval: 10m
