@@ -287,7 +287,7 @@ resource "nomad_job" "CortexStoreGateway" {
 # Compactor
 #
 
-resource "nomad_job" "CortexStoreGateway" {
+resource "nomad_job" "CortexCompactor" {
   jobspec = templatefile("${path.module}/Jobs/Cortex/CortexCompactor.hcl", {
     Cortex = {
       AlertManager = {
