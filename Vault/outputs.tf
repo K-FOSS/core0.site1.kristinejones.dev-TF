@@ -185,7 +185,7 @@ output "Pomerium" {
     }
 
     Secrets = {
-      SigningKey = tls_private_key.PomeriumSigningKey.private_key_pem
+      SigningKey = base64encode(tls_private_key.PomeriumSigningKey.private_key_pem)
     }
 
     TLS = {
