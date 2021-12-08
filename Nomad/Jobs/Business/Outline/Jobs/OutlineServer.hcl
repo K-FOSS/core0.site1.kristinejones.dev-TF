@@ -30,9 +30,9 @@ job "business-outline-api" {
       }
 
       resources {
-        cpu = 128
-        memory = 64
-        memory_max = 128
+        cpu = 256
+        memory = 1024
+        memory_max = 1024
       }
 
       env {
@@ -66,6 +66,8 @@ job "business-outline-api" {
         AWS_S3_FORCE_PATH_STYLE = "true"
         # TODO: Learn about this
         AWS_S3_ACL = "private"
+        AWS_S3_UPLOAD_MAX_SIZE = "26214400"
+        AWS_REGION = "us-east-1"
 
         #
         # Misc

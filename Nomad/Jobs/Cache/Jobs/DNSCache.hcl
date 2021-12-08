@@ -16,7 +16,7 @@ job "dns-cache" {
       name = "dns"
       port = "redis"
 
-      task = "github-redis-cache"
+      task = "rns-dns-redis-cache"
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "cache.rns"]

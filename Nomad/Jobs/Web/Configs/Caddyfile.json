@@ -399,6 +399,35 @@
                       "match": [
                         {
                           "host": [
+                            "notes.kristianjones.dev"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "compression": true,
+                            "resolver": {
+                              "addresses": [
+                                "172.16.0.10:8600",
+                                "172.16.0.13:8600"
+                              ]
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "https.api.outline.service.kjdev"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
                             "drawio.kristianjones.dev"
                           ]
                         }
