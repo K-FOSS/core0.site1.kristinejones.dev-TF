@@ -293,6 +293,7 @@ blocks_storage:
     block_ranges_period: [2h]
     retention_period: 6h
     max_exemplars: 5000
+    wal_compression_enabled: true
 
   bucket_store:
     consistency_delay: 5s

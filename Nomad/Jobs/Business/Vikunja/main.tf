@@ -50,6 +50,8 @@ locals {
   Vikunja = {
     Config = templatefile("${path.module}/Configs/Vikunja/Config.yaml", {
       Database = var.Database
+
+      SMTP = var.SMTP
     })
   }
 }

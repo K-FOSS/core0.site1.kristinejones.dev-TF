@@ -602,12 +602,18 @@ module "Vikunja" {
   source = "./Jobs/Business/Vikunja"
 
   Database = var.Business.Vikunja.Database
+
+  OpenID = var.Business.Vikunja.OpenID
+
+  SMTP = var.Business.Vikunja.SMTP
 }
 
 module "Zammad" {
   source = "./Jobs/Business/Zammad"
 
   Database = var.Business.Zammad.Database
+
+  SMTP = var.Business.Zammad.SMTP
 }
 
 #

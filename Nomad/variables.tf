@@ -1286,6 +1286,20 @@ variable "Business" {
         Username = string
         Password = string
       })
+
+      OpenID = object({
+        ClientID = string
+
+        ClientSecret = string
+      })
+
+      SMTP = object({
+        Server = string
+        Port = string
+
+        Username = string
+        Password = string
+      })
     })
 
     Zammad = object({
@@ -1294,6 +1308,14 @@ variable "Business" {
         Port = number
 
         Database = string
+
+        Username = string
+        Password = string
+      })
+
+      SMTP = object({
+        Server = string
+        Port = string
 
         Username = string
         Password = string

@@ -57,6 +57,7 @@ variable "Admin" {
 #
 # SMTP
 #
+
 variable "SMTP" {
   type = object({
     Server = string

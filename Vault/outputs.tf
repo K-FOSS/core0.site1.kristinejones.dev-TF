@@ -152,6 +152,21 @@ output "OpenProject" {
   }
 }
 
+#
+# Business
+#
+
+output "Business" {
+  value = {
+    Vikunja = {
+      OpenID = {
+        ClientID = data.vault_generic_secret.Vikunja.data["OpenIDClientID"]
+        ClientSecret = data.vault_generic_secret.Vikunja.data["OpenIDClientSecret"]
+      }
+    }
+  }
+}
+
 
 #
 # Tinkerbell

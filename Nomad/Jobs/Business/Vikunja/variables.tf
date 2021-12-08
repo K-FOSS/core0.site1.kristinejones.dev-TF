@@ -9,3 +9,33 @@ variable "Database" {
     Password = string
   })
 }
+
+#
+# AAA
+#
+
+variable "OpenID" {
+  type = object({
+    ClientID = string
+
+    ClientSecret = string
+  })
+}
+
+#
+# Email
+#
+
+#
+# SMTP
+#
+
+variable "SMTP" {
+  type = object({
+    Server = string
+    Port = string
+
+    Username = string
+    Password = string
+  })
+}

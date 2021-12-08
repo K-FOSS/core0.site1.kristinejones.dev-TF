@@ -1059,18 +1059,7 @@ module "Nomad" {
     Credentials = module.Vault.NextCloud
   }
 
-  #
-  # OpenProject
-  #
-  OpenProject = {
-    Database = module.OpenProjectDatabase.Database
 
-    OpenID = module.Vault.OpenProject.OpenID
-
-    S3 = module.OpenProjectNewBucket
-
-    SMTP = module.Vault.SMTP
-  }
 
   #
   # Automation
@@ -1195,10 +1184,29 @@ module "Nomad" {
   Business = {
     Vikunja = {
       Database = module.VikunjaDatabase.Database
+
+      OpenID = module.Vault.Business.Vikunja.OpenID
+
+      SMTP = module.Vault.SMTP
     }
 
     Zammad = {
       Database = module.ZammadDatabase.Database
+
+      SMTP = module.Vault.SMTP
     }
+  }
+
+  #
+  # OpenProject
+  #
+  OpenProject = {
+    Database = module.OpenProjectDatabase.Database
+
+    OpenID = module.Vault.OpenProject.OpenID
+
+    S3 = module.OpenProjectNewBucket
+
+    SMTP = module.Vault.SMTP
   }
 } 

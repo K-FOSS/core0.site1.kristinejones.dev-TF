@@ -225,11 +225,23 @@ data "vault_generic_secret" "ENMS" {
 }
 
 #
+# Business
+#
+
+#
 # OpenProject
 #
 
 data "vault_generic_secret" "OpenProject" {
   path = "${vault_mount.Terraform.path}/OpenProject"
+}
+
+#
+# Vikunja
+#
+
+data "vault_generic_secret" "Vikunja" {
+  path = "${vault_mount.Terraform.path}/Vikunja"
 }
 
 

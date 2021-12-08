@@ -6,7 +6,7 @@ service:
   # The default is 259200 seconds (3 Days).
   jwtttl: 259200
   # The interface on which to run the webserver
-  interface: ":8080"
+  interface: "0.0.0.0:8080"
   # # Path to Unix socket. If set, it will be created and used instead of tcp
   # unixsocket:
   # # Permission bits for the Unix socket. Note that octal values must be prefixed by "0o", e.g. 0o660
@@ -85,11 +85,13 @@ cache:
 
 redis:
   # Whether to enable redis or not
-  enabled: false
+  enabled: true
   # The host of the redis server including its port.
-  host: 'localhost:6379'
+  host: redis.vikunja.service.kjdev:6379
   # The password used to authenicate against the redis server
-  password: ''
+  #
+  # TODO: Password & TLS
+  # password: ''
   # 0 means default database
   db: 0
 
@@ -101,24 +103,25 @@ cors:
   # A list of origins which may access the api. These need to include the protocol (`http://` or `https://`) and port, if any.
   origins:
     - "*"
+    - https://todo.kristianjones.dev:443
   # How long (in seconds) the results of a preflight request can be cached.
   maxage: 0
 
 mailer:
   # Whether to enable the mailer or not. If it is disabled, all users are enabled right away and password reset is not possible.
-  enabled: false
+  enabled: true
   # SMTP Host
-  host: ""
+  host: ${SMTP.Server}
   # SMTP Host port
-  port: 587
+  port: ${SMTP.Port}
   # SMTP username
-  username: "user"
+  username: ${SMTP.Username}
   # SMTP password
-  password: ""
+  password: ${SMTP.Password}
   # Wether to skip verification of the tls certificate on the server
   skiptlsverify: false
   # The default from address when sending emails
-  fromemail: "mail@vikunja"
+  fromemail: ${SMTP.Username}
   # The length of the mail queue.
   queuelength: 100
   # The timeout in seconds after which the current open connection to the mailserver will be closed.
@@ -215,7 +218,7 @@ backgrounds:
 # The Key Value Storage is used for different kinds of things like metrics and a few cache systems.
 keyvalue:
   # The type of the storage backend. Can be either "memory" or "redis". If "redis" is chosen it needs to be configured seperately.
-  type: memory
+  type: redis
 
 auth:
   # Local authentication will let users log in and register (if enabled) through the db.
