@@ -1,7 +1,7 @@
 job "outline-redis" {
   datacenters = ["core0site1"]
 
-  group "dns-cache-redis" {
+  group "outline-redis" {
     count = 1
 
     network {
@@ -16,10 +16,10 @@ job "outline-redis" {
       name = "outline"
       port = "redis"
 
-      task = "github-redis-cache"
+      task = "outline-redis"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "cache.server"]
+      tags = ["coredns.enabled", "redis"]
     }
 
     task "outline-redis" {

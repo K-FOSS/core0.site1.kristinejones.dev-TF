@@ -175,3 +175,13 @@ resource "nomad_job" "ZammadJobFile" {
 
   })
 }
+
+#
+# Outline
+#
+
+resource "nomad_job" "OutlineJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/Outline.hcl", {
+
+  })
+}
