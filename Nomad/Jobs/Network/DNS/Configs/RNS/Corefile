@@ -3,6 +3,11 @@
 
   metadata .
 
+  cache 30
+  redisc 40 {
+    endpoint cache.rns.dns.service.kjdev:6379
+  }
+
   trace zipkin http://http.distributor.tempo.service.kjdev:9411 {
     every 100
     client_server
