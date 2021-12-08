@@ -5,8 +5,6 @@ variable "Netbox" {
 
     Token = string
   })
-  
-  sensitive = true
 }
 
 variable "Consul" {
@@ -16,6 +14,4 @@ variable "Consul" {
 
     Token = string
   })
-  
-  sensitive = true
 }
