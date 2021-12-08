@@ -244,6 +244,14 @@ data "vault_generic_secret" "Vikunja" {
   path = "${vault_mount.Terraform.path}/Vikunja"
 }
 
+#
+# Outline
+#
+
+data "vault_generic_secret" "Outline" {
+  path = "${vault_mount.Terraform.path}/Outline"
+}
+
 
 resource "vault_pki_secret_backend_cert" "TinkCert" {
   backend = module.TinkerbellPKI.TLS.Mount.path

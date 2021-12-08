@@ -608,6 +608,26 @@ module "Vikunja" {
   SMTP = var.Business.Vikunja.SMTP
 }
 
+#
+# Notes
+#
+
+#
+# Outline
+#
+
+module "Outline" {
+  source = "./Jobs/Business/Outline"
+
+  Database = var.Business.Outline.Database
+
+  OpenID = var.Business.Outline.OpenID
+
+  S3 = var.Business.Outline.S3
+
+  SMTP = var.Business.Outline.SMTP
+}
+
 module "Zammad" {
   source = "./Jobs/Business/Zammad"
 

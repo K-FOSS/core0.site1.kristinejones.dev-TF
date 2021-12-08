@@ -164,6 +164,13 @@ output "Business" {
         ClientSecret = data.vault_generic_secret.Vikunja.data["OpenIDClientSecret"]
       }
     }
+
+    Outline = {
+      OpenID = {
+        ClientID = data.vault_generic_secret.Outline.data["OpenIDClientID"]
+        ClientSecret = data.vault_generic_secret.Outline.data["OpenIDClientSecret"]
+      }
+    }
   }
 }
 

@@ -182,6 +182,25 @@ module "OpenProjectNewBucket" {
 }
 
 #
+# Outline
+#
+
+module "OutlineBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "node3.core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+#
+# Zammad
+#
+
+#
 # Consul Backups
 #
 
@@ -616,6 +635,16 @@ module "HarborRegistryDatabase" {
 #
 
 module "VikunjaDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# Notes
+#
+
+module "OutlineDatabase" {
   source = "./Database"
 
   Credentials = module.Vault.Database
@@ -1186,6 +1215,16 @@ module "Nomad" {
       Database = module.VikunjaDatabase.Database
 
       OpenID = module.Vault.Business.Vikunja.OpenID
+
+      SMTP = module.Vault.SMTP
+    }
+
+    Outline = {
+      Database = module.OutlineDatabase.Database
+
+      S3 = module.OutlineBucket
+
+      OpenID = module.Vault.Business.Outline.OpenID
 
       SMTP = module.Vault.SMTP
     }

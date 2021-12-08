@@ -1302,6 +1302,32 @@ variable "Business" {
       })
     })
 
+    Outline = object({
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
+      })
+
+      OpenID = object({
+        ClientID = string
+
+        ClientSecret = string
+      })
+
+      SMTP = object({
+        Server = string
+        Port = string
+
+        Username = string
+        Password = string
+      })
+    })
+
     Zammad = object({
       Database = object({
         Hostname = string
