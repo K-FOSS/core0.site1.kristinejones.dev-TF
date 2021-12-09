@@ -42,6 +42,11 @@ job "network-dns-rns" {
     task "rns-dns-redis-cache" {
       driver = "docker"
 
+      lifecycle {
+        hook = "prestart"
+        sidecar = true
+      }
+
       config {
         image = "redis:latest"
       }
