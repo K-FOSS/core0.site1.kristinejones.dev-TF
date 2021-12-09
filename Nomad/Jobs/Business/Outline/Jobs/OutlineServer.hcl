@@ -41,8 +41,13 @@ job "business-outline-api" {
         #
         # Network
         #
-        URL = "notes.kristianjones.dev"
+        URL = "https://notes.kristianjones.dev:443"
         PORT = "8080"
+
+        #
+        # Database
+        #
+        PGSSLMODE = "disable"
 
 
         #
