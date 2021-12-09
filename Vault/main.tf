@@ -54,6 +54,22 @@ resource "vault_generic_secret" "Tinkerbell" {
 }
 
 #
+# AAA
+# 
+
+#
+# Authentik
+#
+
+#
+# Teleport
+#
+
+data "vault_generic_secret" "Teleport" {
+  path = "${vault_mount.Terraform.path}/Teleport"
+}
+
+#
 # Cloudflare
 # 
 data "vault_generic_secret" "Cloudflare" {

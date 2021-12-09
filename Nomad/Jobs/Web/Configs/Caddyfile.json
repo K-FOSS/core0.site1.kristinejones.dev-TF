@@ -69,6 +69,54 @@
               "match": [
                 {
                   "host": [
+                    "*.access.kristianjones.dev"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "subroute",
+                  "routes": [
+                    {
+                      "match": [
+                        {
+                          "host": ["auth.access.kristianjones.dev"]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "resolver": {
+                              "addresses": [
+                                "172.16.0.10:8600",
+                                "172.16.0.13:8600"
+                              ]
+                            },
+                            "tls": {
+                              "server_name": "https.authenticate.pomerium.service.kjdev",
+                              "root_ca_pem_files": [
+                                "/local/PomeriumCA.pem"
+                              ]
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "https.authenticate.pomerium.service.dc1.kjdev"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "match": [
+                {
+                  "host": [
                     "*.int.site1.kristianjones.dev",
                     "sabnzbd.kjmedia.stream",
                     "prowlarr.kjmedia.stream",
@@ -1172,7 +1220,9 @@
               "radarr.kjmedia.stream",
               "sonarr.kjmedia.stream",
               "todo.kristianjones.dev",
-              "projects.kristianjones.dev"
+              "projects.kristianjones.dev",
+              "access.kristianjones.dev",
+              "*.access.kristianjones.dev"
             ],
             "issuers": [
               {
