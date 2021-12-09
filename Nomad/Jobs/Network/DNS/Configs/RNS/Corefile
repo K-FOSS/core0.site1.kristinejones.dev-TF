@@ -5,7 +5,7 @@
 
   cache 30
   redisc 40 {
-    endpoint cache.rns.dns.service.kjdev:6379
+    endpoint 127.0.0.1:6379
   }
 
   trace zipkin http://http.distributor.tempo.service.kjdev:9411 {

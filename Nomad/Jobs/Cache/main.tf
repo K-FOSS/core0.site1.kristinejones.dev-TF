@@ -112,11 +112,11 @@ module "CortexMemcache" {
 # Recursive DNS Cache
 #
 
-resource "nomad_job" "DNSCacheJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/DNSCache.hcl", {
+# resource "nomad_job" "DNSCacheJobFile" {
+#   jobspec = templatefile("${path.module}/Jobs/DNSCache.hcl", {
 
-  })
-}
+#   })
+# }
 
 #
 # Authentik Cache
