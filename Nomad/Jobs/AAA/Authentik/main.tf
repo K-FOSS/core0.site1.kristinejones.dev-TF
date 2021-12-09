@@ -66,7 +66,7 @@ resource "nomad_job" "AuthentikServerJobFile" {
 
     SMTP = var.SMTP
 
-    Version = "2021.10.2"
+    Version = "2021.10.4"
   })
 }
 
@@ -80,6 +80,6 @@ resource "nomad_job" "AuthentikWorkerJobFile" {
 
     SMTP = var.SMTP
 
-    Version = "2021.10.2"
+    Version = "2021.10.4"
   })
 }

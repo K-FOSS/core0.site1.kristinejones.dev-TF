@@ -49,9 +49,11 @@
                   "disabled": false,
                   "service_name": "ingress",
                   "rpc_metrics": true,
+                  "traceid_128bit": true,
                   "reporter": {
                     "local_agent_host_port": "http.distributor.tempo.service.kjdev:6831",
-                    "queue_size": 50
+                    "queue_size": 1,
+                    "log_spans": true
                   },
                   "sampler": {
                     "type": "const"
@@ -509,13 +511,21 @@
                           "disabled": false,
                           "service_name": "ingress",
                           "rpc_metrics": true,
+                          "traceid_128bit": true,
                           "reporter": {
                             "local_agent_host_port": "http.distributor.tempo.service.kjdev:6831",
-                            "queue_size": 50
+                            "queue_size": 1,
+                            "log_spans": true
                           },
                           "sampler": {
                             "type": "const"
                           }
+                        },
+                        {
+                          "handler": "trace",
+                          "disabled": false,
+                          "response_debug_enabled": true,
+                          "tag": "auth"
                         },
                         {
                           "handler": "reverse_proxy",

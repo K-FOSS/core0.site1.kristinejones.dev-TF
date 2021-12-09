@@ -87,6 +87,8 @@ job "ingress" {
 
       env {
         CADDY_CLUSTERING_CONSUL_AESKEY = "${Consul.EncryptionKey}"
+
+        JAEGER_SAMPLER_PARAM = "1"
       }
 
       template {
