@@ -45,6 +45,19 @@
                   }
                 },
                 {
+                  "handler": "opentracing",
+                  "disabled": false,
+                  "service_name": "ingress",
+                  "rpc_metrics": true,
+                  "reporter": {
+                    "local_agent_host_port": "http.distributor.tempo.service.kjdev:6831",
+                    "queue_size": 50
+                  },
+                  "sampler": {
+                    "type": "const"
+                  }
+                },
+                {
                   "handler": "reverse_proxy",
                   "transport": {
                     "protocol": "http",
@@ -491,6 +504,19 @@
                         }
                       ],
                       "handle": [
+                        {
+                          "handler": "opentracing",
+                          "disabled": false,
+                          "service_name": "ingress",
+                          "rpc_metrics": true,
+                          "reporter": {
+                            "local_agent_host_port": "http.distributor.tempo.service.kjdev:6831",
+                            "queue_size": 50
+                          },
+                          "sampler": {
+                            "type": "const"
+                          }
+                        },
                         {
                           "handler": "reverse_proxy",
                           "transport": {
