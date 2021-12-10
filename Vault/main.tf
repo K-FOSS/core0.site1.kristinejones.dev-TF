@@ -62,6 +62,14 @@ resource "vault_generic_secret" "Tinkerbell" {
 #
 
 #
+# Authentik LDAP
+#
+
+data "vault_generic_secret" "LDAP" {
+  path = "${vault_mount.Terraform.path}/LDAP"
+}
+
+#
 # Teleport
 #
 

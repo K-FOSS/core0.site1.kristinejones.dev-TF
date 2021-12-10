@@ -11,6 +11,21 @@ output "Cloudflare" {
 }
 
 #
+# AAA
+#
+
+output "AAA" {
+  value = {
+    Authentik = {
+      LDAP = {
+        AuthentikHost = data.vault_generic_secret.LDAP.data["AuthentikHost"]
+        AuthentikToken = data.vault_generic_secret.LDAP.data["AuthentikToken"]
+      }
+    }
+  }
+}
+
+#
 # Caddy
 #
 
