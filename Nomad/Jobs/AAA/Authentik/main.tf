@@ -102,7 +102,7 @@ resource "nomad_job" "AuthentikWorkerJobFile" {
       SecretKey = var.Secrets.SecretKey
     }
 
-    LDAP = 
+    LDAP = var.LDAP
 
     Database = var.Database
 

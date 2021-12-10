@@ -40,10 +40,6 @@ job "authentik-ldap" {
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.ldap"]
-
-      meta {
-        meta = "for your service"
-      }
     }
 
     service {
@@ -54,10 +50,6 @@ job "authentik-ldap" {
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.ldap"]
-
-      meta {
-        meta = "for your service"
-      }
     }
 
     service {
@@ -80,9 +72,11 @@ job "authentik-ldap" {
       }
 
       env {
-        AUTHENTIK_HOST = "http://http.server.authentik.service.dc1.kjdev:9000"
+        AUTHENTIK_HOST = "${LDAP.AuthentikHost}"
 
-        AUTHENTIK_INSECURE = "true"
+        AUTHENTIK_INSECURE = "false"
+
+
       }
 
       template {
@@ -105,6 +99,11 @@ AUTHENTIK_POSTGRESQL__PASSWORD="${Database.Password}"
 # Secrets
 #
 AUTHENTIK_SECRET_KEY="${Authentik.SecretKey}"
+
+#
+# LDAP
+#
+AUTHENTIK_TOKEN="${LDAP.AuthentikToken}"
 EOH
 
         destination = "secrets/file.env"
