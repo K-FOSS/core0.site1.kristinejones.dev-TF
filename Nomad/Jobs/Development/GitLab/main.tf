@@ -89,6 +89,23 @@ resource "random_password" "SecretKeyBase" {
   special = false
 }
 
+#
+# Database
+#
+resource "random_password" "DatabaseKeyBase" {
+  length = 128
+  special = false
+}
+
+#
+# OTP Keybase
+#
+resource "random_password" "OTPKeyBase" {
+  length = 128
+  special = false
+}
+
+
 locals {
   GitLab = {
     Config = {
@@ -124,7 +141,9 @@ locals {
 
       SecretKeyBase = random_password.SecretKeyBase.result
 
-      DatabaseKeyBase = random_password.PraefectPassword.result
+      DatabaseKeyBase = random_password.DatabaseKeyBase.result
+
+      OTPKeyBase = random_password.OTPKeyBase.result
 
       #
       # OpenID Signing Key

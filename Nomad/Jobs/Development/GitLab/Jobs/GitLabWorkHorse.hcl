@@ -192,6 +192,7 @@ EOF
 production:
   secret_key_base: ${Secrets.SecretKeyBase}
   db_key_base: ${Secrets.DatabaseKeyBase}
+  otp_key_base: ${Secrets.OTPKeyBase}
   encrypted_settings_key_base: ${Secrets.DatabaseKeyBase}
   openid_connect_signing_key: |
     ${Secrets.OpenIDSigningKey}
