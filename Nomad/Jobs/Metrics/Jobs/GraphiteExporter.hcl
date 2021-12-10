@@ -54,6 +54,8 @@ job "graphite" {
       config {
         image = "prom/graphite-exporter:${Version}"
 
+        args = ["--graphite.mapping-config=/local/graphite.yaml"]
+
         memory_hard_limit = 128
       }
 
@@ -61,6 +63,18 @@ job "graphite" {
         cpu = 128
         memory = 128
         memory_max = 128
+      }
+
+      template {
+        data = <<EOF
+${YAMLConfig}
+EOF
+
+        destination = "local/graphite.yaml"
+        
+        # Config Replacement
+        change_mode = "signal"
+        change_signal = "SIGHUP"
       }
     }
   }

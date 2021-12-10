@@ -424,6 +424,8 @@ resource "nomad_job" "MSTeamsJobFile" {
 
 resource "nomad_job" "GraphiteExporterJobFile" {
   jobspec = templatefile("${path.module}/Jobs/GraphiteExporter.hcl", {
+    YAMLConfig = file("${path.module}/Configs/Graphite/Config.yaml")
+
     Version = "v0.12.0"
   })
 }
