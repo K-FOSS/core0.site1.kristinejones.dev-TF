@@ -47,30 +47,6 @@ terraform {
 }
 
 #
-# CyberChef
+# Configuration
 #
 
-resource "nomad_job" "CyberChefJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/CyberChef.hcl", {
-
-  })
-}
-
-#
-# Avatars
-#
-
-#
-# Ivatar
-#
-
-# resource "nomad_job" "IvatarJobFile" {
-#   jobspec = templatefile("${path.module}/Jobs/Ivatar.hcl", var.Ivatar)
-# }
-
-
-#
-# ShareX
-#
-# TODO: Find a ShareX server with S3, OpenID, and Postgresql
-#

@@ -206,6 +206,16 @@ data "vault_generic_secret" "GitLab" {
   path = "${vault_mount.Terraform.path}/GitLab"
 }
 
+
+#
+# Misc
+#
+
+data "vault_generic_secret" "Ivatar" {
+  path = "${vault_mount.Terraform.path}/Ivatar"
+}
+
+
 #
 # HomeAssistant
 #

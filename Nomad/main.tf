@@ -588,6 +588,8 @@ module "Registry" {
 
 module "Misc" {
   source = "./Jobs/Misc"
+
+  Ivatar = var.Misc.Ivatar
 }
 
 #
@@ -626,6 +628,16 @@ module "Outline" {
   S3 = var.Business.Outline.S3
 
   SMTP = var.Business.Outline.SMTP
+}
+
+#
+# ReadFlow
+#
+
+module "ReadFlow" {
+  source = "./Jobs/Business/ReadFlow"
+
+  Database = var.Business.ReadFlow.Database
 }
 
 module "Zammad" {

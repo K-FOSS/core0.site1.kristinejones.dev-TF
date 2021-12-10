@@ -11,7 +11,7 @@
   },
   "apps": {
     "http": {
-      "http_port": 8080,
+      "http_port": 80,
       "https_port": 443,
       "servers": {
         "CoreWeb": {
@@ -19,7 +19,8 @@
             ":443"
           ],
           "automatic_https": {
-            "disable": false
+            "disable": false,
+            "disable_redirects": false
           },
           "experimental_http3": true,
           "routes": [
@@ -299,6 +300,44 @@
                         }
                       ]
                     },
+                    {
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "compression": true,
+                            "resolver": {
+                              "addresses": [
+                                "172.16.0.10:8600",
+                                "172.16.0.13:8600"
+                              ]
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "https.frontend.vikunja.service.dc1.kjdev"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "match": [
+                {
+                  "host": [
+                    "avatars.kristianjones.dev"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "subroute",
+                  "routes": [
                     {
                       "handle": [
                         {
@@ -1222,7 +1261,8 @@
               "todo.kristianjones.dev",
               "projects.kristianjones.dev",
               "access.kristianjones.dev",
-              "*.access.kristianjones.dev"
+              "*.access.kristianjones.dev",
+              "avatars.kristianjones.dev"
             ],
             "issuers": [
               {

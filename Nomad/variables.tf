@@ -411,6 +411,27 @@ variable "Metrics" {
   })
 }
 
+variable "Misc" {
+  type = object({
+    Ivatar = object({
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
+      })
+
+      OpenID = object({
+        ClientID = string
+        ClientSecret = string
+      })
+    })
+  })
+}
+
 #
 # Logs Stack
 #
@@ -1339,6 +1360,18 @@ variable "Business" {
       SMTP = object({
         Server = string
         Port = string
+
+        Username = string
+        Password = string
+      })
+    })
+
+    ReadFlow = object({
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
 
         Username = string
         Password = string

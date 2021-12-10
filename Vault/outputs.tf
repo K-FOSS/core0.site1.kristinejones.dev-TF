@@ -496,6 +496,21 @@ output "GitLab" {
 }
 
 #
+# Misc
+#
+
+output "Misc" {
+  value = {
+    Ivatar = {
+      OpenID = {
+        ClientID = data.vault_generic_secret.Ivatar.data["OpenIDClientID"]
+        ClientSecret = data.vault_generic_secret.Ivatar.data["OpenIDClientSecret"]
+      }
+    }
+  }
+}
+
+#
 # Registry
 #
 

@@ -94,12 +94,22 @@ job "container-metrics" {
             propagation = "rshared"
           }
         }
+
+        mount {
+          type = "bind"
+          target = "/cgroup"
+          source = "/cgroup"
+          readonly = true
+          bind_options {
+            propagation = "rshared"
+          }
+        }
       }
 
       resources {
-        cpu = 256
-        memory = 128
-        memory_max = 2048
+        cpu = 1024
+        memory = 512
+        memory_max = 512
       }
     }
   }

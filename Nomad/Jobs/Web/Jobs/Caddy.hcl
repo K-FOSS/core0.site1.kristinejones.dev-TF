@@ -23,6 +23,14 @@ job "ingress" {
       }
 
       port "http" {
+        to = 80
+
+        static = 80
+
+        host_network = "https"
+      }
+
+      port "http-alt" {
         to = 8080
       }
 
@@ -56,8 +64,30 @@ job "ingress" {
     }
 
     service {
-      name = "ingress-webproxy"
+      name = "web"
+      port = "https"
+
+      task = "web"
+
+      address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https"]
+    }
+
+    service {
+      name = "web"
       port = "http"
+
+      task = "web"
+
+      address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
+    }
+
+    service {
+      name = "ingress-webproxy"
+      port = "http-alt"
 
       task = "web"
 
@@ -83,7 +113,7 @@ job "ingress" {
       
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
 
-        ports = ["https"]
+        ports = ["https", "http"]
 
         logging {
           type = "loki"

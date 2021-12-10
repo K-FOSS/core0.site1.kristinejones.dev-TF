@@ -61,18 +61,18 @@ data "github_release" "Netbox" {
 #
 
 resource "random_password" "NetBoxSecret" {
-  length           = 50
-  special          = true
+  length = 50
+  special = true
 }
 
 resource "random_password" "NetboxRedisPassword" {
-  length           = 16
-  special          = true
+  length = 16
+  special = true
 }
 
 resource "random_password" "NetboxRedisCachePassword" {
-  length           = 16
-  special          = true
+  length = 16
+  special = true
 }
 
 resource "nomad_job" "Netbox" {

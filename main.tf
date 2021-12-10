@@ -571,6 +571,20 @@ module "CortexConfigDatabase" {
 }
 
 #
+# Misc
+#
+
+#
+# Ivatar
+#
+
+module "IvatarDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
 # Grafana Loki Database
 #
 
@@ -649,6 +663,17 @@ module "OutlineDatabase" {
 
   Credentials = module.Vault.Database
 }
+
+#
+# Feeds/ReadFlow
+#
+
+module "ReadFlowDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
 
 #
 # Ticket System
@@ -951,6 +976,18 @@ module "Nomad" {
   }
 
   #
+  # Misc
+  #
+
+  Misc = {
+    Ivatar = {
+      Database = module.IvatarDatabase.Database
+
+      OpenID = module.Vault.Misc.Ivatar.OpenID
+    }
+  }
+
+  #
   # Syslogs
   #
   # Loki, Vector
@@ -1227,6 +1264,10 @@ module "Nomad" {
       OpenID = module.Vault.Business.Outline.OpenID
 
       SMTP = module.Vault.SMTP
+    }
+
+    ReadFlow = {
+      Database = module.ReadFlowDatabase.Database
     }
 
     Zammad = {
