@@ -96,7 +96,7 @@ resource "nomad_job" "AuthentikWorkerJobFile" {
 # LDAP Outpost
 #
 
-resource "nomad_job" "AuthentikWorkerJobFile" {
+resource "nomad_job" "AuthentikLDAPOutpostJobFile" {
   jobspec = templatefile("${path.module}/Jobs/AuthentikLDAP.hcl", {
     Authentik = {
       SecretKey = var.Secrets.SecretKey
