@@ -99,6 +99,11 @@ variable "Authentik" {
       Password = string
     })
 
+    LDAP = object({
+      AuthentikHost = string
+      AuthentikToken = string
+    })
+
     SMTP = object({
       Server = string
       Port = string

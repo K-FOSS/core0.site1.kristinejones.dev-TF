@@ -157,6 +157,8 @@ module "Authentik" {
     SecretKey = random_string.AuthentikSecretKey.result
   }
 
+  LDAP = var.Authentik.LDAP
+
   SMTP = var.Authentik.SMTP
 }
 

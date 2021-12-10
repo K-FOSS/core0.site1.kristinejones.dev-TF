@@ -20,6 +20,13 @@ variable "Secrets" {
   })
 }
 
+variable "LDAP" {
+  type = object({
+    AuthentikHost = string
+    AuthentikToken = string
+  })
+}
+
 variable "SMTP" {
   type = object({
     Server = string

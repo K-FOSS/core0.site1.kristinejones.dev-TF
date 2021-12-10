@@ -810,6 +810,8 @@ module "Nomad" {
   Authentik = {
     Database = module.AuthentikDatabase.Database
 
+    LDAP = module.Vault.AAA.Authentik.LDAP
+
     SMTP = module.Vault.SMTP
   }
 

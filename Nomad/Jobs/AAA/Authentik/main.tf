@@ -52,9 +52,13 @@ data "github_repository" "Repo" {
 
 data "github_release" "Release" {
   repository  = data.github_repository.Repo.name
-  owner       = split("/", data.github_repository.Repo.full_name)[0]
+  owner = split("/", data.github_repository.Repo.full_name)[0]
   retrieve_by = "latest"
 }
+
+#
+# Authentik Server
+#
 
 resource "nomad_job" "AuthentikServerJobFile" {
   jobspec = templatefile("${path.module}/Jobs/AuthentikServer.hcl", {
@@ -70,11 +74,35 @@ resource "nomad_job" "AuthentikServerJobFile" {
   })
 }
 
+#
+# Authentik Workers
+#
+
 resource "nomad_job" "AuthentikWorkerJobFile" {
   jobspec = templatefile("${path.module}/Jobs/AuthentikWorker.hcl", {
     Authentik = {
       SecretKey = var.Secrets.SecretKey
     }
+
+    Database = var.Database
+
+    SMTP = var.SMTP
+
+    Version = "2021.10.4"
+  })
+}
+
+#
+# LDAP Outpost
+#
+
+resource "nomad_job" "AuthentikWorkerJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/AuthentikLDAP.hcl", {
+    Authentik = {
+      SecretKey = var.Secrets.SecretKey
+    }
+
+    LDAP = 
 
     Database = var.Database
 
