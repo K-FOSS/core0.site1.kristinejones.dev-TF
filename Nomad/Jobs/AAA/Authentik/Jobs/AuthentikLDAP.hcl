@@ -12,16 +12,12 @@ job "authentik-ldap" {
     network {
       mode = "cni/nomadcore1"
 
-      port "http" { 
-        to = 9000
-      }
-
       port "metrics" { 
         to = 9300
       }
 
       port "ldap" { 
-        to = 9300
+        to = 3389
       }
 
       dns {
@@ -34,22 +30,12 @@ job "authentik-ldap" {
 
     service {
       name = "authentik"
-      port = "http"
-
-      task = "authentik-ldap-server"
-      address_mode = "alloc"
-
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.ldap"]
-    }
-
-    service {
-      name = "authentik"
       port = "ldap"
 
       task = "authentik-ldap-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.ldap"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "ldap.ldap"]
     }
 
     service {
@@ -62,7 +48,7 @@ job "authentik-ldap" {
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "metrics.ldap"]
     }
 
-    task "authentik-proxy-server" {
+    task "authentik-ldap-server" {
       driver = "docker"
 
       config {
@@ -73,8 +59,6 @@ job "authentik-ldap" {
         AUTHENTIK_HOST = "${LDAP.AuthentikHost}"
 
         AUTHENTIK_INSECURE = "false"
-
-
       }
 
       template {
