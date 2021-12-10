@@ -417,3 +417,13 @@ resource "nomad_job" "MSTeamsJobFile" {
     }
   })
 }
+
+#
+# Graphite Exporter
+#
+
+resource "nomad_job" "GraphiteExporterJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/GraphiteExporter.hcl", {
+    Version = "v0.12.0"
+  })
+}

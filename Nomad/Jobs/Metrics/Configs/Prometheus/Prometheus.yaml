@@ -223,6 +223,12 @@ scrape_configs:
       - names: 
           - kjmedia-jellyfin.ix-kjmedia-jellyfin.svc.cluster.local
 
+  - job_name: storage
+    scrape_interval: 300s
+    dns_sd_configs:
+      - names: 
+          - metrics.graphite.service.dc1.kjdev
+
   #
   # HomeAssistant
   #
