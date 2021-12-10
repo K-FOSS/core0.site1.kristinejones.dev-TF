@@ -217,6 +217,12 @@ scrape_configs:
           - metrics.registry.harbor.service.dc1.kjdev
           - https.exporter.harbor.service.dc1.kjdev
 
+  - job_name: jellyfin
+    scrape_interval: 300s
+    dns_sd_configs:
+      - names: 
+          - kjmedia-jellyfin.ix-kjmedia-jellyfin.svc.cluster.local
+
   #
   # HomeAssistant
   #
