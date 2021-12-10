@@ -66,9 +66,7 @@ job "authentik-ldap" {
       driver = "docker"
 
       config {
-        image = "goauthentik.io/proxy::${Version}"
-
-        args = ["worker"]
+        image = "goauthentik.io/ldap:${Version}"
       }
 
       env {

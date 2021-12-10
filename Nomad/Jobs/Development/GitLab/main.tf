@@ -129,7 +129,7 @@ locals {
       #
       # OpenID Signing Key
       #
-      OpenIDSigningKey = var.Secrets.OpenIDSigningKey
+      OpenIDSigningKey = indent(4, var.Secrets.OpenIDSigningKey)
     }
   }
 }
