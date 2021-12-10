@@ -11,6 +11,7 @@ global:
 
 scrape_configs:
   - job_name: 'prometheus'
+    scrape_interval: 5m
 
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
@@ -49,6 +50,7 @@ scrape_configs:
     # TODO: mTLS
     #
     scheme: https
+    scrape_interval: 300s
     tls_config:
       ca_file: /local/GrafanaCA.pem
       server_name: grafana-cont.service.kjdev
@@ -57,7 +59,7 @@ scrape_configs:
           - grafana-cont.service.kjdev
 
   - job_name: loki
-    scrape_interval: 45s
+    scrape_interval: 60s
     dns_sd_configs:
       - names:
           - http.distributor.loki.service.kjdev
@@ -68,7 +70,7 @@ scrape_configs:
           - http.query-scheduler.loki.service.kjdev
 
   - job_name: cortex
-    scrape_interval: 45s
+    scrape_interval: 60s
     dns_sd_configs:
       - names: 
           - http.cortex-purger.service.kjdev
@@ -93,6 +95,7 @@ scrape_configs:
   #
   - job_name: corevault.core0.site1.kristianjones.dev
     metrics_path: /v1/sys/metrics
+    scrape_interval: 5m
     params:
       format: ['prometheus']
 
@@ -134,6 +137,7 @@ scrape_configs:
   # GitHub Cache
   #
   - job_name: githubcache
+    scrape_interval: 5m
     dns_sd_configs:
       - names: 
           - http.github-cache-server.service.dc1.kjdev
@@ -154,7 +158,7 @@ scrape_configs:
   #
 
   - job_name: authentik
-    scrape_interval: 60s
+    scrape_interval: 15m
     dns_sd_configs:
       - names: 
           - metrics.server.authentik.service.dc1.kjdev
@@ -165,7 +169,7 @@ scrape_configs:
   #
 
   - job_name: gobetween
-    scrape_interval: 300s
+    scrape_interval: 15m
     dns_sd_configs:
       - names: 
           - metrics.gobetween.service.dc1.kjdev
@@ -209,7 +213,7 @@ scrape_configs:
   # Harbor
   #
   - job_name: harbor
-    scrape_interval: 60s
+    scrape_interval: 10m
     dns_sd_configs:
       - names: 
           - metrics.core.harbor.service.dc1.kjdev
@@ -233,7 +237,7 @@ scrape_configs:
   # HomeAssistant
   #
   - job_name: hass
-    scrape_interval: 60s
+    scrape_interval: 30s
     metrics_path: /api/prometheus
     bearer_token: "${HomeAssistant.AccessToken}"
 
@@ -244,6 +248,14 @@ scrape_configs:
     dns_sd_configs:
       - names: 
           - home1-hass-home-assistant.ix-home1-hass.svc.cluster.local
+
+  #
+  # Development
+  #
+
+  #
+  # TODO: GitLab
+  #
 
 
 

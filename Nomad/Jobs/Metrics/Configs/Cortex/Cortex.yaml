@@ -137,7 +137,7 @@ querier:
   query_store_after: 12h
 
   # Used when the blocks sharding is disabled.
-  store_gateway_addresses: dnssrv+grpc.cortex-store-gateway.service.dc1.kjdev
+  store_gateway_addresses: grpc.cortex-store-gateway.service.dc1.kjdev:8085
 
 
 #
@@ -367,7 +367,7 @@ store_gateway:
     #
     instance_id: {{ env "NOMAD_ALLOC_NAME" }}
     instance_port: 8091
-    instance_addr: {{ env "NOMAD_ALLOC_INDEX" }}.http.{{ env "NOMAD_META_TARGET" }}.cortex.service.dc1.kjdev:8091
+    instance_addr: {{ env "NOMAD_ALLOC_INDEX" }}.http.{{ env "NOMAD_META_TARGET" }}.cortex.service.dc1.kjdev
     kvstore:
       store: multi
       prefix: ${Consul.Prefix}/collectors/
@@ -526,7 +526,7 @@ alertmanager:
   cluster:
     listen_address: 0.0.0.0:9094
 
-    advertise_address: {{ env "NOMAD_ALLOC_INDEX" }}.ha.cortex-alertmanager.service.dc1.kjdev:9094
+    advertise_address: {{ env "NOMAD_ALLOC_INDEX" }}.ha.cortex-alertmanager.service.dc1.kjdev
 
     peers: 0.ha.cortex-alertmanager.service.dc1.kjdev:9094,1.ha.cortex-alertmanager.service.dc1.kjdev:9094,2.ha.cortex-alertmanager.service.dc1.kjdev:9094
 

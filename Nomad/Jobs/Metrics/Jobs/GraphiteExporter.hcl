@@ -12,7 +12,7 @@ job "graphite" {
       }
 
       port "graphite" {
-        to = 9109
+        to = 2003
       }
 
       dns {
@@ -54,7 +54,7 @@ job "graphite" {
       config {
         image = "prom/graphite-exporter:${Version}"
 
-        args = ["--graphite.mapping-config=/local/graphite.yaml"]
+        args = ["--graphite.mapping-config=/local/graphite.yaml", "--graphite.listen-address=0.0.0.0:2003"]
 
         memory_hard_limit = 128
       }
