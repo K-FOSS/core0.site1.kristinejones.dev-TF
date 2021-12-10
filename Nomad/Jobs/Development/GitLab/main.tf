@@ -46,13 +46,25 @@ terraform {
   }
 }
 
+#
+# GitLab WorkHorse Shared Secret
+#
+
 resource "random_id" "WorkHorseKey" {
   byte_length = 32
 }
 
+#
+# GitLab Kubernetes App Server Secret Key
+#
+
 resource "random_id" "KASKey" {
   byte_length = 32
 }
+
+#
+# Shell Shared Password
+#
 
 resource "random_password" "ShellPassword" {
   length = 128
@@ -64,6 +76,15 @@ resource "random_password" "ShellPassword" {
 #
 
 resource "random_password" "PraefectPassword" {
+  length = 128
+  special = false
+}
+
+#
+# GitLab Secret Key Base
+#
+
+resource "random_password" "SecretKeyBase" {
   length = 128
   special = false
 }
@@ -100,6 +121,15 @@ locals {
       KAS = random_id.KASKey.b64_std
 
       Praefect = random_password.PraefectPassword.result
+
+      SecretKeyBase = random_password.SecretKeyBase.result
+
+      DatabaseKeyBase = random_password.PraefectPassword.result
+
+      #
+      # OpenID Signing Key
+      #
+      OpenIDSigningKey = var.Secrets.OpenIDSigningKey
     }
   }
 }

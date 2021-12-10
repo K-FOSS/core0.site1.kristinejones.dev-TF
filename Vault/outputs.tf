@@ -485,6 +485,10 @@ output "GitLab" {
       ClientSecret = data.vault_generic_secret.GitLab.data["OpenIDSecret"]
     }
 
+    Secrets = {
+      OpenIDSigningKey = tls_private_key.GitLabOpenIDSigningKey.private_key_pem
+    }
+
     TLS = {
       WebService = {
         CA = vault_pki_secret_backend_cert.GitLabWebServicesCert.ca_chain

@@ -593,6 +593,18 @@ module "PrometheusTLS" {
 # GitLab
 #
 
+#
+# OpenID
+#
+
+resource "tls_private_key" "GitLabOpenIDSigningKey" {
+  algorithm = "RSA"
+}
+
+#
+# mTLS
+#
+
 module "GitLabTLS" {
   source = "./TLS/Template"
 }

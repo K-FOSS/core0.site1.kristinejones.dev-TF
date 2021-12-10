@@ -556,6 +556,8 @@ module "GitLab" {
   
   Database = var.GitLab.Database
 
+  Secrets = var.GitLab.Secrets
+
   TLS = var.GitLab.TLS
 
   S3 = var.GitLab.S3

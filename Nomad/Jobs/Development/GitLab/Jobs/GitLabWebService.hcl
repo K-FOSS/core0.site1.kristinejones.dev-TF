@@ -179,6 +179,26 @@ EOF
       }
 
       #
+      # Secrets YAML
+      #
+      template {
+        data = <<EOF
+production:
+  secret_key_base: ${Secrets.SecretKeyBase}
+  db_key_base: ${Secrets.DatabaseKeyBase}
+  encrypted_settings_key_base: ${Secrets.DatabaseKeyBase}
+  openid_connect_signing_key: |
+    ${Secrets.OpenIDSigningKey}
+  ci_jwt_signing_key: |
+    ${Secrets.OpenIDSigningKey}
+EOF
+
+        destination = "local/configtemplates/secrets.yml"
+
+        change_mode = "noop"
+      }
+
+      #
       # TLS
       #
 

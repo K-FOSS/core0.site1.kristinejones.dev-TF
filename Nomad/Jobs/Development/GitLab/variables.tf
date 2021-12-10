@@ -26,6 +26,16 @@ variable "Database" {
   })
 }
 
+#
+# Secrets
+#
+
+variable "Secrets" {
+  type = object({
+    OpenIDSigningKey = string
+  })
+}
+
 variable "TLS" {
   type = object({
     WebService = object({
@@ -212,6 +222,8 @@ variable "OpenID" {
     ClientSecret = string
   })
 }
+
+
 
 #
 # SMTP

@@ -1196,6 +1196,8 @@ module "Nomad" {
 
     TLS = module.Vault.GitLab.TLS
 
+    Secrets = module.Vault.GitLab.Secrets
+
     S3 = {
       ArtifactsBucket = module.GitLabArtifactsBucket
 

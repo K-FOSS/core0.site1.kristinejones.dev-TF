@@ -1001,6 +1001,10 @@ variable "GitLab" {
       })
     })
 
+    Secrets = object({
+      OpenIDSigningKey = string
+    })
+
     TLS = object({
       WebService = object({
         CA = string
