@@ -30,7 +30,7 @@ job "ingress" {
         host_network = "https"
       }
 
-      port "http-alt" {
+      port "http_alt" {
         to = 8080
       }
 
@@ -87,7 +87,7 @@ job "ingress" {
 
     service {
       name = "ingress-webproxy"
-      port = "http-alt"
+      port = "http_alt"
 
       task = "web"
 
