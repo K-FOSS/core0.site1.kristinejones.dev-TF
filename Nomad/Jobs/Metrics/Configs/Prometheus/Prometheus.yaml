@@ -273,9 +273,7 @@ scrape_configs:
     scrape_interval: 2m
     scheme: http
     static_configs:
-      - targets: ['10.2.2.21:9100', '10.1.2.21:9100']
-
-
+      - targets: ['10.1.1.10:9100', '10.1.1.13:9100', '10.2.2.21:9100', '10.1.2.21:9100']
 
 remote_write:
   - url: http://http.cortex-distributor.service.kjdev:8080/api/v1/push
