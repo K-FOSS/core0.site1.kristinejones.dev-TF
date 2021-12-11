@@ -137,7 +137,7 @@ querier:
   query_store_after: 12h
 
   # Used when the blocks sharding is disabled.
-  store_gateway_addresses: grpc.cortex-store-gateway.service.dc1.kjdev:8085
+  store_gateway_addresses: grpc.store-gateway.cortex.service.dc1.kjdev:8085
 
 
 #
@@ -578,7 +578,7 @@ memberlist:
     - dnssrv+gossip.cortex-query-frontend.service.dc1.kjdev
 
     # Store Gateway
-    - dnssrv+gossip.cortex-store-gateway.service.dc1.kjdev
+    - dnssrv+gossip.store-gateway.cortex.service.dc1.kjdev
 
     # Compactor
     - dnssrv+gossip.compactor.cortex.service.dc1.kjdev
