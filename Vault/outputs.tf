@@ -56,7 +56,7 @@ output "Minio" {
     AccessKey = data.vault_generic_secret.Minio.data["AccessKey"]
     SecretKey = data.vault_generic_secret.Minio.data["SecretKey"]
     
-    AccessToken = data.vault_generic_secret.Minio.data["SecretKey"]
+    AccessToken = data.vault_generic_secret.Minio.data["AccessToken"]
   }
 }
 
