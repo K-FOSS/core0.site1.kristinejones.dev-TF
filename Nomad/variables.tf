@@ -381,6 +381,10 @@ variable "Metrics" {
         Token = string
       })
 
+      Minio = object({
+        AccessToken = string
+      })
+
       HomeAssistant = object({
         AccessToken = string
 
@@ -551,27 +555,49 @@ variable "Storage" {
 }
 
 #
-# Netbox 
+# Inventory
 #
-variable "Netbox" {
+
+variable "Inventory" {
   type = object({
-    Database = object({
-      Hostname = string
-      Port = number
+    #
+    # Netbox DCIM
+    #
+    Netbox = object({
+      Database = object({
+        Hostname = string
+        Port = number
 
-      Database = string
+        Database = string
 
-      Username = string
-      Password = string
+        Username = string
+        Password = string
+      })
+
+      Admin = object({
+        Username = string
+
+        Email = string
+      })
+
+      Token = string
+    })
+    
+    #
+    # MeshCentral Mobility Management
+    #
+    MeshCentral = object({
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
+      })
     })
 
-    Admin = object({
-      Username = string
-
-      Email = string
-    })
-
-    Token = string
   })
 }
 

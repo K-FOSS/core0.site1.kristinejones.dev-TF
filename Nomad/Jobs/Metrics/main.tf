@@ -318,6 +318,8 @@ resource "nomad_job" "PrometheusJob" {
 
         HomeAssistant = var.Prometheus.HomeAssistant
 
+        Minio = var.Prometheus.Minio
+
         iDRAC = {
           Devices = var.iDRAC.Devices
         }

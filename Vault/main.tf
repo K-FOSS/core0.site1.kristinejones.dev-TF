@@ -463,6 +463,36 @@ resource "vault_pki_secret_backend_cert" "HomeAssistantHTTPSCert" {
 }
 
 #
+# Inventory
+#
+
+#
+# DCIM
+#
+
+#
+# Netbox
+#
+
+# module "Netbox" {
+#   source = "./TLS/Template"
+# }
+
+# data "vault_generic_secret" "NetboxServer" {
+#   path = "${vault_mount.Terraform.path}/HomeAssistant"
+# }
+
+# resource "vault_pki_secret_backend_cert" "HomeAssistantHTTPSCert" {
+#   backend = module.HomeAssistant.TLS.Mount.path
+#   name = module.HomeAssistant.TLS.Role.name
+
+#   common_name = "homeassistant-https-cont.service.kjdev"
+
+#   alt_names = ["hass.int.site1.kristianjones.dev"]
+# }
+
+
+#
 # Tokens
 #
 

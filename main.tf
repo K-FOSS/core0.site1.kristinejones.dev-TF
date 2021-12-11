@@ -428,6 +428,10 @@ module "CoTurnDatabase" {
 }
 
 #
+# Inventory
+#
+
+#
 # Netbox
 #
 module "NetboxDatabase" {
@@ -435,6 +439,22 @@ module "NetboxDatabase" {
 
   Credentials = module.Vault.Database
 }
+
+#
+# Devices
+#
+
+#
+# MeshCentral
+#
+
+module "MeshCentralDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+
 
 #
 # DHCP Database
@@ -942,6 +962,10 @@ module "Nomad" {
         Token = module.Vault.Vault.Prometheus.Token
       }
 
+      Minio = {
+        AccessToken = module.Vault.Minio.AccessToken
+      }
+
       HomeAssistant = {
         CA = module.Vault.HomeAssistant.TLS.CA
 
@@ -1034,18 +1058,30 @@ module "Nomad" {
     }
   }
 
-  #
-  # Netbox DCIM
-  #
-  Netbox = {
-    Database = module.NetboxDatabase.Database
 
-    Admin = {
-      Username = "kjones"
-      Email = "k@kristianjones.dev"
+  #
+  # Inventory
+  #
+
+  Inventory = {
+    #
+    # Netbox DCIM
+    #
+    Netbox = {
+      Database = module.NetboxDatabase.Database
+
+      Admin = {
+        Username = "kjones"
+        Email = "k@kristianjones.dev"
+      }
+
+      Token = module.Vault.Netbox.Token
     }
 
-    Token = module.Vault.Netbox.Token
+
+    MeshCentral = {
+      Database = module.MeshCentralDatabase.Database
+    }
   }
 
 

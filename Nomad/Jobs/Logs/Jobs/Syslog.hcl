@@ -29,13 +29,13 @@ job "logs" {
     }
 
     service {
-      name = "vector-api"
+      name = "vector"
       port = "api"
 
       task = "vector"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "api"]
 
       check {
         port = "api"
@@ -56,6 +56,26 @@ job "logs" {
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+
+      check {
+        port = "api"
+        address_mode = "alloc"
+
+        type = "http"
+        path = "/health"
+        interval = "30s"
+        timeout = "5s"
+      }
+    }
+
+    service {
+      name = "vector"
+      port = "syslog"
+
+      task = "vector"
+      address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "syslog"]
 
       check {
         port = "api"

@@ -323,15 +323,33 @@ module "Tracing" {
   Tempo = var.Tracing.Tempo
 }
 
+#
+# Inventory
+#
+
+
+#
+# DCIM
+#
 
 module "NetboxJob" {
   source = "./Jobs/Inventory/DCIM/Netbox"
 
-  Database = var.Netbox.Database
+  Database = var.Inventory.Netbox.Database
 
-  Admin = var.Netbox.Admin
+  Admin = var.Inventory.Netbox.Admin
 
-  Token = var.Netbox.Token
+  Token = var.Inventory.Netbox.Token
+}
+
+#
+# Mesh Central Mobility Management
+#
+
+module "MeshCentral" {
+  source = "./Jobs/Inventory/Machines"
+
+  Database = var.Inventory.MeshCentral.Database
 }
 
 #

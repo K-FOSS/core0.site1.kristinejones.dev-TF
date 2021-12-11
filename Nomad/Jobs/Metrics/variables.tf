@@ -96,6 +96,10 @@ variable "Prometheus" {
       Token = string
     })
 
+    Minio = object({
+      AccessToken = string
+    })
+
     HomeAssistant = object({
       AccessToken = string
 

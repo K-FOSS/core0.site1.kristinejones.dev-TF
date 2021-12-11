@@ -4,12 +4,21 @@
     "*.hcl": "hcl",
     "**/Hosts/Networking/Configs/CNI/*.conflist": "json"
   },
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/prometheus.json": ["**/Nomad/Jobs/**/Prometheus.yaml"]
+  },
   "json.schemas": [
     {
       "fileMatch": [
         "**/Nomad/Jobs/**/Caddyfile.json"
       ],
       "url": ".vscode/caddy_schema.json"
+    },
+    {
+      "fileMatch": [
+        "**/Nomad/Jobs/**/MeshCentral.json"
+      ],
+      "url": ".vscode/mesh.json"
     }
   ]
 }

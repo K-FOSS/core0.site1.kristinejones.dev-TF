@@ -257,6 +257,16 @@ scrape_configs:
   # TODO: GitLab
   #
 
+  #
+  # Storage
+  #
+  - job_name: minio-job
+    bearer_token: ${Minio.AccessToken}
+    metrics_path: /minio/v2/metrics/cluster
+    scheme: http
+    static_configs:
+      - targets: ['172.16.20.21:9000']
+
 
 
 remote_write:
