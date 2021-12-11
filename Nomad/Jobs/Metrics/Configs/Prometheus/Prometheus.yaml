@@ -268,6 +268,12 @@ scrape_configs:
     static_configs:
       - targets: ['172.16.20.21:9000', '172.31.241.2:9000']
 
+  - job_name: infra-nodes
+    scrape_interval: 2m
+    scheme: http
+    static_configs:
+      - targets: ['10.2.2.21:9100', '10.1.2.21:9100']
+
 
 
 remote_write:
