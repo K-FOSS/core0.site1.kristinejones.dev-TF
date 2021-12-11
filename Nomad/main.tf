@@ -375,7 +375,7 @@ module "DNS" {
     Hostname = "netbox-http-cont.service.kjdev"
     Port = 8080
 
-    Token = var.Netbox.Token
+    Token = var.Inventory.Netbox.Token
   }
 
   Consul = var.DNS.Consul
