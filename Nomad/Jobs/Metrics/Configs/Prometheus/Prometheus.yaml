@@ -261,11 +261,12 @@ scrape_configs:
   # Storage
   #
   - job_name: minio-job
+    scrape_interval: 5m
     bearer_token: ${Minio.AccessToken}
     metrics_path: /minio/v2/metrics/cluster
     scheme: http
     static_configs:
-      - targets: ['172.16.20.21:9000']
+      - targets: ['172.16.20.21:9000', '172.31.241.2:9000']
 
 
 
