@@ -185,7 +185,7 @@ ingester_client:
     # How quickly a dead client will be removed after it has been detected
     # to disappear. Set this to a value to allow time for a secondary
     # health check to recover the missing client.
-    remotetimeout: 60s
+    #remotetimeout: 60s
 
 
   # The remote request timeout on the client side.
