@@ -5,7 +5,7 @@ job "loki-distributor" {
   # Loki Distributor
   #
   group "loki-distributor" {
-    count = 1
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
