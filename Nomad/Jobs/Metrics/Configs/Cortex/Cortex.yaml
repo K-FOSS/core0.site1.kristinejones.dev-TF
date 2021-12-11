@@ -366,7 +366,6 @@ store_gateway:
     # Address
     #
     instance_id: {{ env "NOMAD_ALLOC_NAME" }}
-    instance_port: 8091
     instance_addr: {{ env "NOMAD_ALLOC_INDEX" }}.http.{{ env "NOMAD_META_TARGET" }}.cortex.service.dc1.kjdev
     kvstore:
       store: multi
