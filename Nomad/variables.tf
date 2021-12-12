@@ -8,6 +8,21 @@ variable "GitHub" {
 }
 
 #
+# AAA
+#
+
+variable "AAA" {
+  type = object({
+    Teleport = object({
+      OpenID = object({
+        ClientID = string
+        ClientSecret = string
+      })
+    })
+  })
+}
+
+#
 # Bitwarden
 # 
 

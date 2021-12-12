@@ -22,6 +22,13 @@ output "AAA" {
         AuthentikToken = data.vault_generic_secret.LDAP.data["AuthentikToken"]
       }
     }
+
+    Teleport = {
+      OpenID = {
+        ClientID = data.vault_generic_secret.Teleport.data["OpenIDClient"]
+        ClientSecret = data.vault_generic_secret.Teleport.data["OpenIDClient"]
+      }
+    }
   }
 }
 

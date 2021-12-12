@@ -823,6 +823,12 @@ module "Nomad" {
   # AAA
   #
 
+  AAA = {
+    Teleport = {
+      OpenID = module.Vault.AAA.Teleport.OpenID
+    }
+  }
+
   #
   # Authentik
   #

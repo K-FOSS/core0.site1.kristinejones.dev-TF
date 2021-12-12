@@ -1,7 +1,7 @@
-job "aaa-teleport-auth" {
+job "aaa-teleport-proxys" {
   datacenters = ["core0site1"]
 
-  group "teleport-auth" {
+  group "teleport-proxy" {
     count = 1
 
     spread {
@@ -43,10 +43,10 @@ job "aaa-teleport-auth" {
       task = "teleport-auth-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.auth"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.proxy"]
     }
 
-    task "teleport-auth-server" {
+    task "teleport-proxy-server" {
       driver = "docker"
 
       config {
@@ -79,14 +79,6 @@ ${Teleport.YAMLConfig}
 EOF
 
         destination = "local/Teleport.yaml"
-      }
-
-      template {
-        data = <<EOF
-${Teleport.SSOConfig}
-EOF
-
-        destination = "local/github.yaml"
       }
     }
   }

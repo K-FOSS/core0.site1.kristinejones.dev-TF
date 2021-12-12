@@ -50,8 +50,11 @@ locals {
   Teleport = {
     Repo = "registry.kristianjones.dev/teleport/teleport"
 
-    YAMLConfig = templatefile("${path.module}/Configs/Teleport/Teleport.yaml", {
-      
+    YAMLConfig = templatefile("${path.module}/Configs/Teleport/TeleportAuth.yaml", {
+    })
+
+    SSOConfig = templatefile("${path.module}/Configs/Teleport/Authentik.yaml", {
+      OpenID = var.OpenID
     })
 
     Version = "8.0.0"
@@ -73,8 +76,8 @@ resource "nomad_job" "TeleportAuthJobFile" {
 #
 
 # resource "nomad_job" "TeleportProxyJobFile" {
-#   jobspec = templatefile("${path.module}/Jobs/TempoDistributor.hcl", {
-#     Tempo = local.Tempo
+#   jobspec = templatefile("${path.module}/Jobs/TeleportProxy.hcl", {
+#     Teleport = local.Teleport
 #   })
 # }
  

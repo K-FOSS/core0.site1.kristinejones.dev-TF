@@ -162,6 +162,23 @@ module "Authentik" {
   SMTP = var.Authentik.SMTP
 }
 
+#
+# Boundary
+#
+
+#
+# Teleport
+#
+
+module "Teleport" {
+  source = "./Jobs/AAA/Teleport"
+
+  OpenID = var.AAA.Teleport.OpenID
+}
+
+#
+# Wiretrustee
+#
 
 
 
