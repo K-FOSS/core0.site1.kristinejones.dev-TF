@@ -46,6 +46,15 @@ terraform {
   }
 }
 
+#
+# Join Pins
+#
+
+resource "random_password" "TeleportJoinPin" {
+  length = 16
+  special = false
+}
+
 locals {
   Teleport = {
     Repo = "registry.kristianjones.dev/teleport/teleport"
@@ -53,6 +62,9 @@ locals {
     TLS = var.TLS
 
     YAMLConfig = templatefile("${path.module}/Configs/Teleport/Teleport.yaml", {
+      Secrets = {
+        JoinPin = random_password.TeleportJoinPin.result
+      }
     })
 
     SSOConfig = templatefile("${path.module}/Configs/Teleport/Authentik.yaml", {

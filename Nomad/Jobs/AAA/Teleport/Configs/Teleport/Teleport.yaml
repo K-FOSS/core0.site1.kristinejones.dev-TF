@@ -9,6 +9,8 @@ teleport:
 
   advertise_ip: https.{{ env "NOMAD_META_Service" }}.teleport.service.dc1.kjdev
 
+  auth_token: ${Secrets.JoinPin}
+
   auth_servers:
     - 0.https.auth.teleport.service.dc1.kjdev:3025
     - 1.https.auth.teleport.service.dc1.kjdev:3025
@@ -64,6 +66,9 @@ auth_service:
 
   authentication:
     type: github
+  
+  tokens:
+    - 'proxy,node,auth:${Secrets.JoinPin}'
 
 ssh_service:
   enabled: '{{ $Service := env "NOMAD_META_Service" }}{{ if eq $Service "Proxy" }}yes{{ else }}no{{ end }}'
