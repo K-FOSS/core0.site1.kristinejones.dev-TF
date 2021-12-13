@@ -96,15 +96,12 @@
                               ]
                             },
                             "tls": {
-                              "server_name": "https.authenticate.pomerium.service.kjdev",
-                              "root_ca_pem_files": [
-                                "/local/PomeriumCA.pem"
-                              ]
+                              "insecure_skip_verify": true
                             }
                           },
                           "upstreams": [
                             {
-                              "lookup_srv": "https.authenticate.pomerium.service.dc1.kjdev"
+                              "lookup_srv": "https.auth.teleport.service.dc1.kjdev"
                             }
                           ]
                         }
