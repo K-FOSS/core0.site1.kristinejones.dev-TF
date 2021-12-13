@@ -83,7 +83,7 @@ job "cache-teleport-etcd" {
         ETCD_TRUSTED_CA_FILE = "/local/CA.pem"
         
         ETCD_CERT_FILE = "/secrets/ETCD.pem"
-        ETCD_KEY_FILE = "/secrets/ETCD.pem"
+        ETCD_KEY_FILE = "/secrets/ETCD.key"
 
         #
         # Peer
