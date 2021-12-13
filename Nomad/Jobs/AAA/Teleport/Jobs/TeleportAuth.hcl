@@ -52,7 +52,7 @@ job "aaa-teleport-auth" {
       config {
         image = "${Teleport.Repo}:${Teleport.Version}"
 
-        args = ["start", "--config", "/local/Teleport.yaml"]
+        args = ["start", "--config", "/local/Teleport.yaml", "-d"]
 
         logging {
           type = "loki"
@@ -65,6 +65,7 @@ job "aaa-teleport-auth" {
       }
 
       env {
+        SSL_CERT_DIR = "/local"
       }
 
       resources {
