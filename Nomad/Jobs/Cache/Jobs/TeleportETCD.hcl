@@ -45,7 +45,7 @@ job "cache-teleport-etcd" {
       driver = "docker"
 
       config {
-        image = "redis:latest"
+        image = "gcr.io/etcd-development/etcd:v3.5.0"
       }
 
       env {
