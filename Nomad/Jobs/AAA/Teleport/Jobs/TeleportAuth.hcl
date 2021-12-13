@@ -24,7 +24,7 @@ job "aaa-teleport-auth" {
     network {
       mode = "cni/nomadcore1"
 
-      port "http" { 
+      port "https" { 
         to = 443
       }
 
