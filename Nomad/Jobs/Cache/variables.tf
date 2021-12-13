@@ -1,3 +1,23 @@
+#
+# AAA
+#
+
+variable "AAA" {
+  type = object({
+    Teleport = object({
+      CA = string
+    
+      ETCD = object({
+        CA = string
+
+        Cert = string
+        Key = string
+      })
+    })
+  })
+}
+
+
 # variable "GitHub" {
 #   type = object({
 #     Credentials = object({

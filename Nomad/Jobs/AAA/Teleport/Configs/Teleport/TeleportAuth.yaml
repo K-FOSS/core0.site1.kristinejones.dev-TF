@@ -6,6 +6,43 @@ teleport:
     severity: INFO
   ca_pin: ''
 
+  #
+  # Cluster Storage
+  #
+  storage:
+    type: etcd
+
+    # List of etcd peers to connect to:
+    peers: ["https://0.etcd.teleport.service.dc1.kjdev:2379", "https://1.etcd.teleport.service.dc1.kjdev:2379", "https://2.etcd.teleport.service.dc1.kjdev:2379"]
+
+    # Required path to TLS client certificate and key files to connect to etcd.
+    tls_cert_file: /secrets/AuthServerCert.pem
+    tls_key_file: /secrets/AuthServerCert.key
+
+    # Optional file with trusted CA authority
+    tls_ca_file: /local/TeleportETCDCA.pem
+
+
+    # etcd key (location) where teleport will be storing its state under.
+    # make sure it ends with a '/'!
+    prefix: /teleport/
+
+    # NOT RECOMMENDED: enables insecure etcd mode in which self-signed
+    # certificate will be accepted
+    insecure: false
+
+    # Optionally sets the limit on the client message size.
+    # This is usually used to increase the default which is 2MiB
+    # (1.5MiB server's default + gRPC overhead bytes).
+    # Make sure this does not exceed the value for the etcd
+    # server specified with `--max-request-bytes` (1.5MiB by default).
+    # Keep the two values in sync.
+    #
+    # See https://etcd.io/docs/v3.4.0/dev-guide/limit/ for details
+    #
+    # This bumps the size to 15MiB as an example:
+    etcd_max_client_msg_size_bytes: 15728640
+
 
 auth_service:
   enabled: 'yes'

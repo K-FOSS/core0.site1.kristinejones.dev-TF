@@ -826,6 +826,8 @@ module "Nomad" {
   AAA = {
     Teleport = {
       OpenID = module.Vault.AAA.Teleport.OpenID
+
+      TLS = module.Vault.AAA.Teleport.TLS
     }
   }
 

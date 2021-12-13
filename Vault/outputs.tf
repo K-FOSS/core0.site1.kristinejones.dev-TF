@@ -28,6 +28,31 @@ output "AAA" {
         ClientID = data.vault_generic_secret.Teleport.data["OpenIDClient"]
         ClientSecret = data.vault_generic_secret.Teleport.data["OpenIDClient"]
       }
+
+      TLS = {
+        CA = vault_pki_secret_backend_cert.TeleportProxyCert.ca_chain
+
+        ETCD = {
+          CA = vault_pki_secret_backend_cert.TeleportETCDCert.ca_chain
+
+          Cert = vault_pki_secret_backend_cert.TeleportETCDCert.certificate
+          Key = vault_pki_secret_backend_cert.TeleportETCDCert.private_key
+        }
+
+        Proxy = {
+          CA = vault_pki_secret_backend_cert.TeleportProxyCert.ca_chain
+
+          Cert = vault_pki_secret_backend_cert.TeleportProxyCert.certificate
+          Key = vault_pki_secret_backend_cert.TeleportProxyCert.private_key
+        }
+
+        Auth = {
+          CA = vault_pki_secret_backend_cert.TeleportAuthCert.ca_chain
+
+          Cert = vault_pki_secret_backend_cert.TeleportAuthCert.certificate
+          Key = vault_pki_secret_backend_cert.TeleportAuthCert.private_key
+        }
+      }
     }
   }
 }

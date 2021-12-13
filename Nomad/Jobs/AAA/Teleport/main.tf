@@ -50,6 +50,8 @@ locals {
   Teleport = {
     Repo = "registry.kristianjones.dev/teleport/teleport"
 
+    TLS = var.TLS
+
     YAMLConfig = templatefile("${path.module}/Configs/Teleport/TeleportAuth.yaml", {
     })
 

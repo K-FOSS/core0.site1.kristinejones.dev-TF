@@ -95,8 +95,12 @@
                                 "172.16.0.13:8600"
                               ]
                             },
+                            "compression": true,
                             "tls": {
-                              "insecure_skip_verify": true
+                              "server_name": "auth.access.kristianjones.dev",
+                              "root_ca_pem_files": [
+                                "/local/TeleportCA.pem"
+                              ]
                             }
                           },
                           "upstreams": [

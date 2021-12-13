@@ -174,6 +174,8 @@ module "Teleport" {
   source = "./Jobs/AAA/Teleport"
 
   OpenID = var.AAA.Teleport.OpenID
+
+  TLS = var.AAA.Teleport.TLS
 }
 
 #
@@ -565,6 +567,14 @@ module "Cache" {
   source = "./Jobs/Cache"
 
   Pomerium = var.Cache.Pomerium
+
+  AAA = {
+    Teleport = {
+      CA = var.AAA.Teleport.TLS.CA
+
+      ETCD = var.AAA.Teleport.TLS.ETCD
+    }
+  }
 }
 
 #

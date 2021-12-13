@@ -24,20 +24,56 @@ terraform {
   }
 }
 
+#######
+# AAA #
+#######
 
-resource "nomad_job" "CacheWebJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/CacheWeb.hcl", {
-    Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", {
+#
+# Authentik Cache
+#
 
-    })
+resource "nomad_job" "AuthentikCacheJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/AuthentikRedis.hcl", {
+    
   })
 }
 
-resource "nomad_job" "GitHubCacheJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/GitHubCache.hcl", {
+#
+# Teleport
+#
+# TODO: Figure out if Teleport still uses ETCD or can use Redis and/or Memcached
+#
 
+resource "random_password" "TeleportETCDClusterKey" {
+  length = 16
+  special = false
+}
+
+resource "nomad_job" "TeleportETCDJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/TeleportETCD.hcl", {
+    Teleport = var.AAA.Teleport
+
+    Secrets = {
+      TeleportClusterKey = random_password.TeleportETCDClusterKey.result
+    }
   })
 }
+
+###########
+# Backups #
+###########
+
+#
+# TODO: Tasks/Cron Queueing
+#
+
+#
+# TODO: PSQL Backups
+#
+
+############
+# Business #
+############
 
 #
 # NextCloud
@@ -60,98 +96,11 @@ resource "nomad_job" "OpenProjectRedisJobFile" {
 }
 
 #
-# Grafana Loki Cache
+# Outline
 #
 
-module "LokiMemcache" {
-  source = "./Templates/Memcached"
-
-  Service = {
-    Name = "Loki"
-
-    Consul = {
-      ServiceName = "loki"
-    }
-  }
-}
-
-#
-# Tempo
-#
-
-module "TempoMemcache" {
-  source = "./Templates/Memcached"
-
-  Service = {
-    Name = "Tempo"
-
-    Consul = {
-      ServiceName = "tempo"
-    }
-  }
-}
-
-#
-# Cortex
-#
-
-module "CortexMemcache" {
-  source = "./Templates/Memcached"
-
-  Service = {
-    Name = "Cortex"
-
-    Consul = {
-      ServiceName = "cortex"
-    }
-  }
-}
-
-
-#
-# Recursive DNS Cache
-#
-
-# resource "nomad_job" "DNSCacheJobFile" {
-#   jobspec = templatefile("${path.module}/Jobs/DNSCache.hcl", {
-
-#   })
-# }
-
-#
-# Authentik Cache
-#
-
-resource "nomad_job" "AuthentikCacheJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/AuthentikRedis.hcl", {
-    
-  })
-}
-
-#
-# Pomerium
-#
-
-resource "nomad_job" "PomeriumCacheJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/PomeriumCache.hcl", var.Pomerium.RedisCache)
-}
-
-#
-# GitLab
-#
-
-resource "nomad_job" "GitLabJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/GitLab.hcl", {
-
-  })
-}
-
-#
-# DrawIO
-#
-
-resource "nomad_job" "DrawIOJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/DrawIO.hcl", {
+resource "nomad_job" "OutlineJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/Outline.hcl", {
 
   })
 }
@@ -176,12 +125,263 @@ resource "nomad_job" "ZammadJobFile" {
   })
 }
 
-#
-# Outline
-#
 
-resource "nomad_job" "OutlineJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/Outline.hcl", {
+
+
+
+#########
+# Cache #
+#########
+
+
+resource "nomad_job" "CacheWebJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/CacheWeb.hcl", {
+    Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", {
+
+    })
+  })
+}
+
+resource "nomad_job" "GitHubCacheJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/GitHubCache.hcl", {
 
   })
+}
+
+
+
+
+##################
+# Communications #
+##################
+
+#
+# TODO: Mattermost
+#
+
+#
+# TODO: Matrix
+#
+
+############
+# Database #
+############
+
+#
+# TODO: PGBouncer
+#
+
+#
+# TODO: PGAdmin
+#
+
+#
+# TODO: Get MongoDB Postgresql interface online
+#
+
+#
+# TODO: Smart AI based PSQL caching proxy, ideally with Consul based gossip and routing of end DB traffic
+#
+
+
+
+
+###############
+# Development #
+###############
+
+#
+# GitLab
+#
+
+resource "nomad_job" "GitLabJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/GitLab.hcl", {
+
+  })
+}
+
+
+
+
+
+########
+# Draw #
+########
+
+#
+# DrawIO
+#
+
+resource "nomad_job" "DrawIOJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/DrawIO.hcl", {
+
+  })
+}
+
+###########
+# Grafana #
+###########
+
+#
+# TODO: Move Grafana Redis & Memcached here
+#
+
+########
+# Home #
+########
+
+#
+# TODO: HomeAssistant MQTT Cache, and Stuff
+#
+
+
+
+
+###########
+# Ingress #
+###########
+
+#
+# TODO: Ingress Cache
+#
+
+
+
+#############
+# Inventory #
+#############
+
+#
+# MeshCentral
+#
+
+#
+# Netbox
+#
+
+
+
+########
+# Logs #
+########
+
+
+#
+# Grafana Loki
+#
+
+module "LokiMemcache" {
+  source = "./Templates/Memcached"
+
+  Service = {
+    Name = "Loki"
+
+    Consul = {
+      ServiceName = "loki"
+    }
+  }
+}
+
+
+
+##################
+# Machine Static #
+##################
+
+#
+# TODO: S3, TFTP, FTP, SCP, SFTP Proxies/Cache/CDN Network
+#
+
+
+
+
+
+
+###########
+# Metrics #
+###########
+
+
+##########
+# Cortex #
+##########
+
+module "CortexMemcache" {
+  source = "./Templates/Memcached"
+
+  Service = {
+    Name = "Cortex"
+
+    Consul = {
+      ServiceName = "cortex"
+    }
+  }
+}
+
+
+
+########
+# Misc #
+########
+
+#
+# TODO: ShareX Compat Server with OpenID SSO/Auth, LDAP Sync, and S3 Storage, with NextCloud & PhotoPrism Integration
+#
+
+
+###########
+# Network #
+###########
+
+
+
+
+
+###########
+# Tracing #
+###########
+
+#
+# Tempo
+#
+
+module "TempoMemcache" {
+  source = "./Templates/Memcached"
+
+  Service = {
+    Name = "Tempo"
+
+    Consul = {
+      ServiceName = "tempo"
+    }
+  }
+}
+
+###########
+# Network #
+###########
+
+#
+# DNS
+#
+
+
+#
+# Recursive DNS Cache
+#
+
+# resource "nomad_job" "DNSCacheJobFile" {
+#   jobspec = templatefile("${path.module}/Jobs/DNSCache.hcl", {
+
+#   })
+# }
+
+
+
+#
+# Pomerium
+#
+
+resource "nomad_job" "PomeriumCacheJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/PomeriumCache.hcl", var.Pomerium.RedisCache)
 }

@@ -80,6 +80,44 @@ EOF
 
         destination = "local/Teleport.yaml"
       }
+
+      #
+      # TLS
+      #
+
+      template {
+        data = <<EOF
+${Teleport.TLS.CA}
+EOF
+
+        destination = "local/TeleportCA.pem"
+      }
+
+      # ETCD
+      template {
+        data = <<EOF
+${Teleport.TLS.ETCD.CA}
+EOF
+
+        destination = "local/TeleportETCDCA.pem"
+      }
+
+
+      template {
+        data = <<EOF
+${Teleport.TLS.Proxy.CA}
+EOF
+
+        destination = "local/TeleportProxyCA.pem"
+      }
+
+      template {
+        data = <<EOF
+${Teleport.TLS.Auth.CA}
+EOF
+
+        destination = "local/TeleportAuthCA.pem"
+      }
     }
   }
 }

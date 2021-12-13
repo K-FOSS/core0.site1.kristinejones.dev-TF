@@ -130,6 +130,14 @@ EOF
 
       template {
         data = <<EOF
+${AAA.Teleport.CA}
+EOF
+
+        destination = "local/TeleportCA.pem"
+      }
+
+      template {
+        data = <<EOF
 ${Harbor.CA}
 EOF
 

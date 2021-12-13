@@ -1,3 +1,13 @@
+variable "AAA" {
+  type = object({
+    Teleport = object({
+      CA = string
+    })
+  })
+  description = "(optional) describe your variable"
+}
+
+
 variable "Consul" {
   type = object({
     Token = string

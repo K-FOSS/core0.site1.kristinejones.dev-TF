@@ -71,6 +71,8 @@ resource "nomad_job" "JobFile" {
       CA = var.Bitwarden.CA
     }
 
+    AAA = var.AAA
+
     Caddyfile = templatefile("${path.module}/Configs/Caddyfile.json", { 
       Cloudflare = var.CloudFlare
 

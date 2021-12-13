@@ -286,6 +286,61 @@ data "vault_generic_secret" "Outline" {
   path = "${vault_mount.Terraform.path}/Outline"
 }
 
+#
+# TLS Certificates
+#
+
+#
+# AAA
+#
+
+#
+# Teleport
+#
+
+module "Teleport" {
+  source = "./TLS/Template"
+}
+
+#
+# Teleport ETCD
+#
+
+resource "vault_pki_secret_backend_cert" "TeleportETCDCert" {
+  backend = module.Teleport.TLS.Mount.path
+  name = module.Teleport.TLS.Role.name
+
+  common_name = "etcd.teleport.service.dc1.kjdev"
+
+  alt_names = ["etcd.teleport.service.kjdev", "etcd.teleport.service.dc1.kjdev", "*.etcd.teleport.service.dc1.kjdev", "*.etcd.teleport.service.kjdev", "*.peer.etcd.teleport.service.dc1.kjdev", "*.peer.etcd.teleport.service.kjdev"]
+}
+
+#
+# Teleport Proxy
+#
+
+resource "vault_pki_secret_backend_cert" "TeleportProxyCert" {
+  backend = module.Teleport.TLS.Mount.path
+  name = module.Teleport.TLS.Role.name
+
+  common_name = "https.proxy.teleport.service.dc1.kjdev"
+
+  alt_names = ["proxy.access.kristianjones.dev", "https.proxy.teleport.service.kjdev"]
+}
+
+#
+# Pomerium Auth
+# 
+
+resource "vault_pki_secret_backend_cert" "TeleportAuthCert" {
+  backend = module.Teleport.TLS.Mount.path
+  name = module.Teleport.TLS.Role.name
+
+  common_name = "https.auth.teleport.service.dc1.kjdev"
+
+  alt_names = ["auth.access.kristianjones.dev", "https.auth.teleport.service.kjdev"]
+}
+
 
 resource "vault_pki_secret_backend_cert" "TinkCert" {
   backend = module.TinkerbellPKI.TLS.Mount.path
