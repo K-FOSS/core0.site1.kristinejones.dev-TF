@@ -2,7 +2,7 @@ job "aaa-teleport-auth" {
   datacenters = ["core0site1"]
 
   group "teleport-auth" {
-    count = 1
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"
@@ -54,6 +54,13 @@ job "aaa-teleport-auth" {
 
         args = ["start", "--config", "/local/Teleport.yaml", "-d"]
 
+        mount {
+          type = "bind"
+          target = "/etc/ssl/certs/Teleport.pem"
+          source = "local/TeleportCA.pem"
+          readonly = false
+        }
+
         logging {
           type = "loki"
           config {
@@ -62,10 +69,6 @@ job "aaa-teleport-auth" {
             loki-external-labels = "job=teleport,service=auth"
           }
         }
-      }
-
-      env {
-        SSL_CERT_DIR = "/local"
       }
 
       resources {
