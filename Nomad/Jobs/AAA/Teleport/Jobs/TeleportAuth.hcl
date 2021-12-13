@@ -25,7 +25,7 @@ job "aaa-teleport-auth" {
       mode = "cni/nomadcore1"
 
       port "https" { 
-        to = 3080
+        to = 3025
       }
 
       dns {
@@ -43,7 +43,7 @@ job "aaa-teleport-auth" {
       task = "teleport-auth-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.auth"]
+      tags = ["coredns.enabled", "https.auth", "$${NOMAD_ALLOC_INDEX}.https.auth"]
     }
 
     task "teleport-auth-server" {

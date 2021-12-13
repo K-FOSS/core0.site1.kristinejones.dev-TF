@@ -7,6 +7,13 @@ teleport:
     severity: INFO
   ca_pin: ''
 
+  advertise_ip: https.{{ env "NOMAD_META_Service" }}.teleport.service.dc1.kjdev
+
+  auth_servers:
+    - 0.https.auth.teleport.service.dc1.kjdev:3025
+    - 1.https.auth.teleport.service.dc1.kjdev:3025
+    - 2.https.auth.teleport.service.dc1.kjdev:3025
+
   #
   # Cluster Storage
   #
@@ -49,7 +56,7 @@ auth_service:
   enabled: '{{ $Service := env "NOMAD_META_Service" }}{{ if eq $Service "Auth" }}yes{{ else }}no{{ end }}'
 
   listen_addr: 0.0.0.0:3025
-  #public_addr: auth.access.kristianjones.dev:3025
+  public_addr: {{ env "NOMAD_META_TARGET" }}.https.auth.teleport.service.dc1.kjdev:3025
 
   cluster_name: dc1.kristianjones.dev
 

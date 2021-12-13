@@ -25,7 +25,7 @@ job "aaa-teleport-proxys" {
       mode = "cni/nomadcore1"
 
       port "https" { 
-        to = 443
+        to = 3080
       }
 
       dns {
