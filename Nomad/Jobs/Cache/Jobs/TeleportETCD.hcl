@@ -46,6 +46,15 @@ job "cache-teleport-etcd" {
 
       config {
         image = "gcr.io/etcd-development/etcd:v3.5.0"
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=teleport,service=etcd"
+          }
+        }
       }
 
       env {
