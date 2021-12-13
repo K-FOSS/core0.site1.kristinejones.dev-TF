@@ -195,6 +195,12 @@ module "Web" {
 
   CloudFlare = var.Web.Cloudflare
 
+  AAA = {
+    Teleport = {
+      CA = var.AAA.Teleport.TLS.CA
+    }
+  }
+
   Pomerium = {
     CA = var.Pomerium.TLS.CA
   }
