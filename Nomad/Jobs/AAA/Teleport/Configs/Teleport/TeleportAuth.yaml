@@ -1,6 +1,7 @@
 teleport:
-  nodename: localhost
+  nodename: TeleportAuth{{ env "NOMAD_META_TARGET" }}
   data_dir: /var/lib/teleport
+
   log:
     output: stderr
     severity: INFO
