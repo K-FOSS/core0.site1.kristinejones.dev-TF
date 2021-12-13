@@ -66,7 +66,7 @@ job "cache-teleport-etcd" {
         ETCD_ADVERTISE_CLIENT_URLS = "https://$${NOMAD_ALLOC_INDEX}.etcd.teleport.service.dc1.kjdev:2379"
         ETCD_INITIAL_CLUSTER = "etcd1=https://0.peer.etcd.teleport.service.dc1.kjdev:2380,etcd2=https://1.peer.etcd.teleport.service.dc1.kjdev:2380,etcd3=https://2.peer.etcd.teleport.service.dc1.kjdev:2380"
         ETCD_INITIAL_CLUSTER_STATE = "new"
-        ETCD_INITIAL_CLUSTER_TOKEN = "${Secrets.TeleportETCDClusterKey}"
+        ETCD_INITIAL_CLUSTER_TOKEN = "${Secrets.TeleportClusterKey}"
 
         #
         # mTLS
