@@ -1,5 +1,5 @@
 teleport:
-  nodename: TeleportAuth{{ env "NOMAD_META_TARGET" }}
+  nodename: Teleport{{ env "NOMAD_META_Service" }}{{ env "NOMAD_META_TARGET" }}
   data_dir: /var/lib/teleport
 
   log:
@@ -46,7 +46,7 @@ teleport:
 
 
 auth_service:
-  enabled: 'yes'
+  enabled: '{{ $Service := env "NOMAD_META_Service" }}{{ if eq $Service "Auth" }}yes{{ else }}no{{ end }}'
 
   listen_addr: 0.0.0.0:3025
   #public_addr: auth.access.kristianjones.dev:3025
@@ -59,7 +59,7 @@ auth_service:
     type: github
 
 ssh_service:
-  enabled: 'yes'
+  enabled: '{{ $Service := env "NOMAD_META_Service" }}{{ if eq $Service "Proxy" }}yes{{ else }}no{{ end }}'
   labels:
     env: example
   commands:
@@ -69,7 +69,7 @@ ssh_service:
 
 
 proxy_service:
-  enabled: 'yes'
+  enabled: '{{ $Service := env "NOMAD_META_Service" }}{{ if eq $Service "Proxy" }}yes{{ else }}no{{ end }}'
 
   # The HTTPS listen address to serve the Web UI and also to authenticate the
   # command line (CLI) users via password+HOTP

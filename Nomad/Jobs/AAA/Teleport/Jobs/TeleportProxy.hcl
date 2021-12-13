@@ -2,7 +2,7 @@ job "aaa-teleport-proxys" {
   datacenters = ["core0site1"]
 
   group "teleport-proxy" {
-    count = 1
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
@@ -24,7 +24,7 @@ job "aaa-teleport-proxys" {
     network {
       mode = "cni/nomadcore1"
 
-      port "http" { 
+      port "https" { 
         to = 443
       }
 
@@ -52,7 +52,14 @@ job "aaa-teleport-proxys" {
       config {
         image = "${Teleport.Repo}:${Teleport.Version}"
 
-        args = ["start", "--config", "/local/Teleport.yaml"]
+        args = ["start", "--config", "/local/Teleport.yaml", "-d"]
+
+        mount {
+          type = "bind"
+          target = "/etc/ssl/certs/Teleport.pem"
+          source = "local/TeleportCA.pem"
+          readonly = false
+        }
 
         logging {
           type = "loki"
@@ -64,7 +71,8 @@ job "aaa-teleport-proxys" {
         }
       }
 
-      env {
+      meta {
+        Service = "Proxy"
       }
 
       resources {
@@ -79,6 +87,14 @@ ${Teleport.YAMLConfig}
 EOF
 
         destination = "local/Teleport.yaml"
+      }
+
+      template {
+        data = <<EOF
+${Teleport.SSOConfig}
+EOF
+
+        destination = "local/github.yaml"
       }
 
       #
@@ -117,6 +133,41 @@ ${Teleport.TLS.Auth.CA}
 EOF
 
         destination = "local/TeleportAuthCA.pem"
+      }
+      
+      template {
+        data = <<EOF
+${Teleport.TLS.Auth.Cert}
+EOF
+
+        destination = "secrets/AuthServerCert.pem"
+      }
+
+      template {
+        data = <<EOF
+${Teleport.TLS.Auth.Key}
+EOF
+
+        destination = "secrets/AuthServerCert.key"
+      }
+
+      #
+      # Proxy
+      #
+      template {
+        data = <<EOF
+${Teleport.TLS.Proxy.Cert}
+EOF
+
+        destination = "secrets/ProxyServerCert.pem"
+      }
+
+      template {
+        data = <<EOF
+${Teleport.TLS.Proxy.Key}
+EOF
+
+        destination = "secrets/ProxyServerCert.key"
       }
     }
   }

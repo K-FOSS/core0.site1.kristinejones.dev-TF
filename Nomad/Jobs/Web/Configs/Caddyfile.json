@@ -76,40 +76,26 @@
               ],
               "handle": [
                 {
-                  "handler": "subroute",
-                  "routes": [
-                    {
-                      "match": [
-                        {
-                          "host": ["auth.access.kristianjones.dev"]
-                        }
-                      ],
-                      "handle": [
-                        {
-                          "handler": "reverse_proxy",
-                          "transport": {
-                            "protocol": "http",
-                            "resolver": {
-                              "addresses": [
-                                "172.16.0.10:8600",
-                                "172.16.0.13:8600"
-                              ]
-                            },
-                            "compression": true,
-                            "tls": {
-                              "server_name": "auth.access.kristianjones.dev",
-                              "root_ca_pem_files": [
-                                "/local/TeleportCA.pem"
-                              ]
-                            }
-                          },
-                          "upstreams": [
-                            {
-                              "lookup_srv": "https.auth.teleport.service.dc1.kjdev"
-                            }
-                          ]
-                        }
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http",
+                    "resolver": {
+                      "addresses": [
+                        "172.16.0.10:8600",
+                        "172.16.0.13:8600"
                       ]
+                    },
+                    "compression": true,
+                    "tls": {
+                      "server_name": "auth.access.kristianjones.dev",
+                      "root_ca_pem_files": [
+                        "/local/TeleportCA.pem"
+                      ]
+                    }
+                  },
+                  "upstreams": [
+                    {
+                      "lookup_srv": "https.proxy.teleport.service.dc1.kjdev"
                     }
                   ]
                 }

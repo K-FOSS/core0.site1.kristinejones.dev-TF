@@ -52,7 +52,7 @@ locals {
 
     TLS = var.TLS
 
-    YAMLConfig = templatefile("${path.module}/Configs/Teleport/TeleportAuth.yaml", {
+    YAMLConfig = templatefile("${path.module}/Configs/Teleport/Teleport.yaml", {
     })
 
     SSOConfig = templatefile("${path.module}/Configs/Teleport/Authentik.yaml", {
@@ -77,9 +77,9 @@ resource "nomad_job" "TeleportAuthJobFile" {
 # Proxy Service
 #
 
-# resource "nomad_job" "TeleportProxyJobFile" {
-#   jobspec = templatefile("${path.module}/Jobs/TeleportProxy.hcl", {
-#     Teleport = local.Teleport
-#   })
-# }
+resource "nomad_job" "TeleportProxyJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/TeleportProxy.hcl", {
+    Teleport = local.Teleport
+  })
+}
  

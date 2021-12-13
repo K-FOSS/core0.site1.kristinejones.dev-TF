@@ -71,6 +71,10 @@ job "aaa-teleport-auth" {
         }
       }
 
+      meta {
+        Service = "Auth"
+      }
+
       resources {
         cpu = 256
 
