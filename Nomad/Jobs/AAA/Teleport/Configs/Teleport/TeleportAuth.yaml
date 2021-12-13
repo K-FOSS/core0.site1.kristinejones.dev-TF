@@ -46,7 +46,13 @@ teleport:
 
 auth_service:
   enabled: 'yes'
+
   listen_addr: 0.0.0.0:3025
+  #public_addr: auth.access.kristianjones.dev:3025
+
+  cluster_name: dc1.kristianjones.dev
+
+  proxy_listener_mode: multiplex
 
   authentication:
     type: github
@@ -63,6 +69,37 @@ ssh_service:
 
 proxy_service:
   enabled: 'yes'
+
+  # SSH forwarding/proxy address. Command line (CLI) clients always begin their
+  # SSH sessions by connecting to this port
   listen_addr: 0.0.0.0:3023
-  https_keypairs: []
-  acme: {}
+
+  https_keypairs:
+    #
+    # Proxy Service
+    #
+    - key_file: /secrets/ProxyServerCert.key
+      cert_file: /secrets/ProxyServerCert.pem
+
+    #
+    # Auth Server
+    #
+    - key_file: /secrets/AuthServerCert.key
+      cert_file: /secrets/AuthServerCert.pem
+
+  # ProxyProtocol enables support for HAProxy proxy protocol version 1 when it is turned 'on'.
+  # Verify whether the service is in front of a trusted load balancer.
+  # The default value is 'on'.
+  #proxy_protocol: on
+
+
+  # Reverse tunnel listening address. An auth server (CA) can establish an
+  # outbound (from behind the firewall) connection to this address.
+  # This will allow users of the outside CA to connect to behind-the-firewall
+  # nodes.
+  tunnel_listen_addr: 0.0.0.0:3024
+
+  # The HTTPS listen address to serve the Web UI and also to authenticate the
+  # command line (CLI) users via password+HOTP
+  # Also handles the PostgreSQL proxy if database access is enabled.
+  web_listen_addr: 0.0.0.0:3080

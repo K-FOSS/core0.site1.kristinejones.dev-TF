@@ -143,6 +143,25 @@ EOF
         destination = "secrets/AuthServerCert.key"
       }
 
+      #
+      # Proxy
+      #
+      template {
+        data = <<EOF
+${Teleport.TLS.Proxy.Cert}
+EOF
+
+        destination = "secrets/ProxyServerCert.pem"
+      }
+
+      template {
+        data = <<EOF
+${Teleport.TLS.Proxy.Key}
+EOF
+
+        destination = "secrets/ProxyServerCert.key"
+      }
+
     }
   }
 }
