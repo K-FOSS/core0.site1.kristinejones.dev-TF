@@ -93,7 +93,7 @@ job "loki-ingester" {
 
         args = ["-config.file=/local/Loki.yaml"]
 
-        memory_hard_limit = 128
+        memory_hard_limit = 256
       }
 
       meta {
@@ -104,8 +104,8 @@ job "loki-ingester" {
 
       resources {
         cpu = 64
-        memory = 128
-        memory_max = 128
+        memory = 256
+        memory_max = 256
       }
 
       template {
