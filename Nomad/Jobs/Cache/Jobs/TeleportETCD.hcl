@@ -82,8 +82,8 @@ job "cache-teleport-etcd" {
         # TODO: move this to dedicated everything
         #
         ETCD_PEER_TRUSTED_CA_FILE = "/local/ETCDCA.pem"
-        ETCD_PEER_CERT_FILE = "/secrets/AuthServerCert.pem"
-        ETCD_PEER_KEY_FILE = "/secrets/AuthServerCert.pem"
+        ETCD_PEER_CERT_FILE = "/secrets/ETCD.pem"
+        ETCD_PEER_KEY_FILE = "/secrets/ETCD.key"
         ETCD_PEER_CLIENT_CERT_AUTH = "true"
       }
 
@@ -111,15 +111,15 @@ EOF
 ${Teleport.ETCD.Cert}
 EOF
 
-        destination = "secrets/AuthServerCert.pem"
+        destination = "secrets/ETCD.pem"
       }
 
       template {
         data = <<EOF
-${Teleport.ETCD.Cert}
+${Teleport.ETCD.Key}
 EOF
 
-        destination = "secrets/AuthServerCert.pem"
+        destination = "secrets/ETCD.key"
       }
     }
   }
