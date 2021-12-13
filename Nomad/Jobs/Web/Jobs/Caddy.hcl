@@ -22,14 +22,6 @@ job "ingress" {
         host_network = "https"
       }
 
-      port "http" {
-        to = 80
-
-        static = 80
-
-        host_network = "https"
-      }
-
       port "http_alt" {
         to = 8080
       }
