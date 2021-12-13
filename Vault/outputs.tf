@@ -26,7 +26,7 @@ output "AAA" {
     Teleport = {
       OpenID = {
         ClientID = data.vault_generic_secret.Teleport.data["OpenIDClient"]
-        ClientSecret = data.vault_generic_secret.Teleport.data["OpenIDClient"]
+        ClientSecret = data.vault_generic_secret.Teleport.data["OpenIDClientSecret"]
       }
 
       TLS = {
