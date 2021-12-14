@@ -81,15 +81,6 @@ default_upstream_timeout: 5m
 # https://pomerium.com/reference/#routes
 routes:
   #
-  # NetBox
-  #
-  - from: https://netbox.int.site1.kristianjones.dev
-    to: http://netbox-http-cont.service.kjdev:8080
-    allowed_domains:
-      - kristianjones.dev
-    pass_identity_headers: true
-
-  #
   # Draw 
   #
   - from: https://drawio.int.site1.kristianjones.dev
@@ -137,18 +128,6 @@ routes:
 
   - from: https://hass-code.int.site1.kristianjones.dev
     to: http://home1-hass-home-assistant-codeserver.ix-home1-hass.svc.cluster.local:12321
-    allowed_domains:
-      - kristianjones.dev
-    pass_identity_headers: true
-    allow_websockets: true
-    cors_allow_preflight: true
-
-  #
-  # OpenProject
-  #
-  - from: https://openproject.int.site1.kristianjones.dev
-    to: http://proxy.openproject.service.dc1.kjdev:80
-    preserve_host_header: true
     allowed_domains:
       - kristianjones.dev
     pass_identity_headers: true
@@ -228,9 +207,44 @@ routes:
     allow_websockets: true
     cors_allow_preflight: true
 
+  #
+  # Network
+  #
+
+  - from: https://ns.int.site1.kristianjones.dev
+    to: http://http.admin.powerdns.service.kjdev
+    preserve_host_header: true
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true
+    cors_allow_preflight: true
+
   - from: https://unifi.int.site1.kristianjones.dev
     to: https://kjdev-unifi.ix-kjdev-unifi.svc.cluster.local:8443
     tls_skip_verify: true
+    preserve_host_header: true
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+    allow_websockets: true
+    cors_allow_preflight: true
+
+  #
+  # NetBox
+  #
+  - from: https://netbox.int.site1.kristianjones.dev
+    to: http://netbox-http-cont.service.kjdev:8080
+    allowed_domains:
+      - kristianjones.dev
+    pass_identity_headers: true
+
+  #
+  # Servers
+  #
+
+  - from: https://nomad.int.site1.kristianjones.dev
+    to: http://http.NomadServer.service.dc1.kjdev:4646
     preserve_host_header: true
     allowed_domains:
       - kristianjones.dev
@@ -256,18 +270,6 @@ routes:
     allow_websockets: true
     cors_allow_preflight: true
 
-  #
-  # Network
-  #
-
-  - from: https://ns.int.site1.kristianjones.dev
-    to: http://http.admin.powerdns.service.kjdev
-    preserve_host_header: true
-    allowed_domains:
-      - kristianjones.dev
-    pass_identity_headers: true
-    allow_websockets: true
-    cors_allow_preflight: true
 #
 # Tracing
 #
