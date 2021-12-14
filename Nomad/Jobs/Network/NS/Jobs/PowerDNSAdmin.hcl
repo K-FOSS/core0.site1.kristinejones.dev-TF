@@ -13,7 +13,7 @@ job "network-ns-admin" {
       mode = "cni/nomadcore1"
 
       port "http" {
-        to = 8080
+        to = 80
       }
     }
 
@@ -47,7 +47,7 @@ job "network-ns-admin" {
         #
         # Server
         #
-        PORT = "8080"
+        PORT = "80"
 
         #
         # Gunicorn
@@ -61,6 +61,11 @@ job "network-ns-admin" {
         # Misc
         #
         OFFLINE_MODE = "False"
+
+        PDNS_PROTO = "http"
+        PDNS_PORT = "8080"
+        PDNS_HOST = "http.api.powerdns.service.kjdev"
+        PDNS_API_KEY = "${PowerDNS.APIKey}"
       }
 
       #
@@ -68,6 +73,7 @@ job "network-ns-admin" {
       #
       template {
         data = <<EOH
+SQLALCHEMY_DATABASE_URI="postgresql://${PowerDNSAdmin.Database.Username}:${PowerDNSAdmin.Database.Password}@${PowerDNSAdmin.Database.Hostname}:${PowerDNSAdmin.Database.Port}/${PowerDNSAdmin.Database.Database}"
 #
 # Database
 #
