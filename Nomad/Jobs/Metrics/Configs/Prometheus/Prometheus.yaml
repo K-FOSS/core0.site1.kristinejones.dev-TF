@@ -58,7 +58,6 @@ scrape_configs:
           - grafana-cont.service.kjdev
 
   - job_name: loki
-    scrape_interval: 60s
     dns_sd_configs:
       - names:
           - http.distributor.loki.service.kjdev
@@ -69,7 +68,6 @@ scrape_configs:
           - http.query-scheduler.loki.service.kjdev
 
   - job_name: cortex
-    scrape_interval: 60s
     dns_sd_configs:
       - names: 
           - http.cortex-purger.service.kjdev
@@ -198,8 +196,6 @@ scrape_configs:
   # cAdvisor
   #
   - job_name: cadvisor
-    scrape_interval: 5m
-    scrape_timeout: 300s
     dns_sd_configs:
       - names: 
           - metrics.cadvisor.service.dc1.kjdev
@@ -260,8 +256,6 @@ scrape_configs:
   # Storage
   #
   - job_name: minio-job
-    scrape_interval: 5m
-    scrape_timeout: 60s
     bearer_token: ${Minio.AccessToken}
     metrics_path: /minio/v2/metrics/cluster
     scheme: http
@@ -269,7 +263,6 @@ scrape_configs:
       - targets: ['172.16.20.21:9000', '172.31.241.2:9000', '10.1.1.10:9000', '10.1.1.13:9000']
 
   - job_name: infra-nodes
-    scrape_interval: 30s
     scheme: http
     static_configs:
       - targets: ['10.1.1.10:9100', '10.1.1.13:9100', '10.2.2.21:9100', '10.1.2.21:9100']
