@@ -52,7 +52,7 @@ job "aaa-teleport-proxys" {
       config {
         image = "${Teleport.Repo}:${Teleport.Version}"
 
-        args = ["start", "--config", "/local/Teleport.yaml", "-d"]
+        args = ["start", "--config", "/local/Teleport.yaml", "--roles=proxy", "-d"]
 
         mount {
           type = "bind"

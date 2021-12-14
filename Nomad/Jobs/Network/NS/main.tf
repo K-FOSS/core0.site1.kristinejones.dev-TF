@@ -50,6 +50,19 @@ data "http" "PSQLFile" {
   url = "https://raw.githubusercontent.com/PowerDNS/pdns/rel/auth-4.5.x/modules/gpgsqlbackend/schema.pgsql.sql"
 }
 
+#
+# Secrets
+#
+
+resource "random_password" "PowerDNSAPISecret" {
+  length = 20
+  special = false
+}
+
+#
+# PowerDNS
+#
+
 resource "nomad_job" "PowerDNSNSJobFile" {
   jobspec = templatefile("${path.module}/Jobs/PowerDNS.hcl", {
     PowerDNS = {
@@ -58,7 +71,27 @@ resource "nomad_job" "PowerDNSNSJobFile" {
 
       Config = templatefile("${path.module}/Configs/PowerDNS/pdns.conf", {
         Database = var.PowerDNS.Database
+
+        Secrets = {
+          APIKey = random_password.PowerDNSAPISecret.result
+        }
       })
+    }
+  })
+}
+
+#
+# PowerDNS Admin
+#
+
+resource "nomad_job" "PowerDNSAdminobFile" {
+  jobspec = templatefile("${path.module}/Jobs/PowerDNSAdmin.hcl", {
+    PowerDNSAdmin = {
+      Database = var.PowerDNSAdmin.Database
+    }
+
+    PowerDNS = {
+      APIKey = random_password.PowerDNSAPISecret.result
     }
   })
 }

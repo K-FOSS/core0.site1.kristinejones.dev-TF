@@ -52,7 +52,7 @@ job "aaa-teleport-auth" {
       config {
         image = "${Teleport.Repo}:${Teleport.Version}"
 
-        args = ["start", "--config", "/local/Teleport.yaml", "-d"]
+        args = ["start", "--config", "/local/Teleport.yaml", "--roles=auth", "-d"]
 
         mount {
           type = "bind"

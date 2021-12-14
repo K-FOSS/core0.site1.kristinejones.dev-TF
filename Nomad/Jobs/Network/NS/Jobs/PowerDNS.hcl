@@ -19,6 +19,10 @@ job "ns" {
 
         host_network = "ns"
       }
+
+      port "api" {
+        to = 8080
+      }
     }
 
     service {
@@ -29,6 +33,16 @@ job "ns" {
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "dns"]
+    }
+
+    service {
+      name = "powerdns"
+      port = "api"
+
+      task = "powerdns-server"
+      address_mode = "alloc"
+
+      tags = ["http.api"]
     }
 
     task "powerdns-db" {
@@ -49,9 +63,9 @@ job "ns" {
         logging {
           type = "loki"
           config {
-            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
 
-            loki-external-labels = "job=openproject,service=proxy"
+            loki-external-labels = "job=powerdns,service=ns"
           }
         }
       }

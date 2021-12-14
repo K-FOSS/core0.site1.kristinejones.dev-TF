@@ -1,3 +1,5 @@
+version: v2
+
 teleport:
   nodename: Teleport{{ env "NOMAD_META_Service" }}{{ env "NOMAD_ALLOC_INDEX" }}
   data_dir: /var/lib/teleport

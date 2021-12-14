@@ -1,8 +1,8 @@
-job "ns" {
+job "network-ns-admin" {
   datacenters = ["core0site1"]
 
-  group "powerdns" {
-    count = 2
+  group "powerdns-admin" {
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
@@ -19,7 +19,7 @@ job "ns" {
 
     service {
       name = "powerdns"
-      port = "dns"
+      port = "http"
 
       task = "powerdns-admin-server"
       address_mode = "alloc"
@@ -27,54 +27,20 @@ job "ns" {
       tags = ["$${NOMAD_ALLOC_INDEX}", "http.admin"]
     }
 
-    task "powerdns-admin-db" {
-      lifecycle {
-        hook = "prestart"
-        sidecar = false
-      }
-
-      driver = "docker"
-
-      config {
-        image = "postgres:alpine3.14"
-
-        command = "/usr/local/bin/psql"
-
-        args = ["--file=/local/dns.psql", "--host=${PowerDNS.Database.Hostname}", "--username=${PowerDNS.Database.Username}", "--port=${PowerDNS.Database.Port}", "${PowerDNS.Database.Database}"]
-      }
-
-      env {
-        PGPASSFILE = "/secrets/.pgpass"
-      }
-
-      template {
-        data = <<EOH
-${PowerDNS.PSQL}
-EOH
-
-        destination = "local/dns.psql"
-      }
-
-      template {
-        data = <<EOH
-${PowerDNS.Database.Hostname}:${PowerDNS.Database.Port}:${PowerDNS.Database.Database}:${PowerDNS.Database.Username}:${PowerDNS.Database.Password}
-EOH
-
-        perms = "600"
-
-        destination = "secrets/.pgpass"
-      }
-    }
-
     task "powerdns-admin-server" {
       driver = "docker"
 
       config {
-        image = "powerdns/pdns-auth-master"
+        image = "ngoduykhanh/powerdns-admin:latest"
 
-        ports = ["dns"]
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
 
-        args = ["--config-dir=/local/"]
+            loki-external-labels = "job=powerdns,service=admin"
+          }
+        }
       }
 
       env {
@@ -82,14 +48,41 @@ EOH
         # Server
         #
         PORT = "8080"
+
+        #
+        # Gunicorn
+        #
+        GUNICORN_TIMEOUT = "60"
+        GUNICORN_WORKERS = "2"
+
+        GUNICORN_LOGLEVEL = "DEBUG"
+
+        #
+        # Misc
+        #
+        OFFLINE_MODE = "False"
       }
 
+      #
+      # Secrets
+      #
       template {
         data = <<EOH
-${PowerDNS.Config}
+#
+# Database
+#
+SQLA_DB_HOST="${PowerDNSAdmin.Database.Hostname}"
+SQLA_DB_PORT="${PowerDNSAdmin.Database.Port}"
+
+SQLA_DB_NAME="${PowerDNSAdmin.Database.Database}"
+
+SQLA_DB_USER="${PowerDNSAdmin.Database.Username}"
+SQLA_DB_PASSWORD="${PowerDNSAdmin.Database.Password}"
+
 EOH
 
-        destination = "local/pdns.conf"
+        destination = "secrets/file.env"
+        env = true
       }
     }
   }
