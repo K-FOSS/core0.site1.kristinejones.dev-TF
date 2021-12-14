@@ -23,7 +23,6 @@ scrape_configs:
     static_configs:
       - targets:
           - 172.16.0.1:9100
-          - 172.16.0.2:9100
 
   # - job_name: patroni
   #   dns_sd_configs:
@@ -270,7 +269,7 @@ scrape_configs:
       - targets: ['172.16.20.21:9000', '172.31.241.2:9000', '10.1.1.10:9000', '10.1.1.13:9000']
 
   - job_name: infra-nodes
-    scrape_interval: 2m
+    scrape_interval: 30s
     scheme: http
     static_configs:
       - targets: ['10.1.1.10:9100', '10.1.1.13:9100', '10.2.2.21:9100', '10.1.2.21:9100']
