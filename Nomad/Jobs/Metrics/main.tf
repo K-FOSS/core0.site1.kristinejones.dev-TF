@@ -334,6 +334,14 @@ resource "nomad_job" "PrometheusJob" {
   })
 }
 
+resource "nomad_job" "PrometheusNomadJob" {
+  jobspec = templatefile("${path.module}/Jobs/PrometheusNomad.hcl", {
+    Prometheus = {
+      Version = "v2.32.0-rc.0"
+    }
+  })
+}
+
 #
 # StarLink Exporter
 #
