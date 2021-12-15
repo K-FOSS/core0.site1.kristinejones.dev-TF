@@ -20,6 +20,14 @@ job "network-dns-rns" {
         host_network = "dns"
       }
 
+      port "dnsnode" {
+        to = 8053
+
+        static = 53
+
+        host_network = "node"
+      }
+
       port "health" {
         to = 8080
       }
@@ -90,6 +98,8 @@ job "network-dns-rns" {
 
       config {
         image = "kristianfjones/coredns-docker:core0"
+
+        ports = ["dns", "dnsnode"]
 
         args = ["-conf=/local/Corefile"]
       }
