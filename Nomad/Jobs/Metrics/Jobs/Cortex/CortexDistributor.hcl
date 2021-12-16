@@ -96,8 +96,6 @@ job "cortex-distributor" {
 
       kill_timeout = "120s"
 
-
-
       config {
         image = "cortexproject/cortex:${Cortex.Version}"
 
@@ -135,7 +133,7 @@ job "cortex-distributor" {
       }
 
       resources {
-        cpu = 128
+        cpu = 512
         memory = 256
         memory_max = 256
       }
