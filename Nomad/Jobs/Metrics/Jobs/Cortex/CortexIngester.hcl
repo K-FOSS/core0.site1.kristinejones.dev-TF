@@ -36,7 +36,7 @@ job "cortex-ingester" {
     }
 
     service {
-      name = "cortex-ingester"
+      name = "cortex"
       port = "http"
 
       task = "cortex-ingester"
@@ -65,24 +65,24 @@ job "cortex-ingester" {
     }
 
     service {
-      name = "cortex-ingester"
+      name = "cortex"
       port = "grpc"
 
       task = "cortex-ingester"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "grpc", "$${NOMAD_ALLOC_INDEX}.grpc", "_grpclb._tcp.grpc.ingester"]
+      tags = ["coredns.enabled", "grpc.ingester", "$${NOMAD_ALLOC_INDEX}.grpc.ingester", "_grpclb._tcp.grpc.ingester"]
     }
 
     service {
-      name = "cortex-ingester"
+      name = "cortex"
       
       port = "gossip"
       address_mode = "alloc"
 
       task = "cortex-ingester"
 
-      tags = ["coredns.enabled", "gossip", "$${NOMAD_ALLOC_INDEX}.gossip"]
+      tags = ["coredns.enabled", "gossip.ingester", "$${NOMAD_ALLOC_INDEX}.gossip.ingester"]
     }
 
     task "cortex-ingester" {
@@ -95,8 +95,6 @@ job "cortex-ingester" {
       }
 
       kill_timeout = "120s"
-
-
 
       config {
         image = "cortexproject/cortex:${Cortex.Version}"
