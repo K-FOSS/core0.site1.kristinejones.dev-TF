@@ -3,6 +3,8 @@ job "ingress" {
 
   type = "service"
 
+  priority = 100
+
   group "proxies" {
     count = 2
 

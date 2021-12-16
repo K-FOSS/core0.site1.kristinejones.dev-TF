@@ -1,6 +1,8 @@
 job "network-dns-rns" {
   datacenters = ["core0site1"]
 
+  priority = 100
+
   group "rns-coredns-server" {
     count = 2
 
