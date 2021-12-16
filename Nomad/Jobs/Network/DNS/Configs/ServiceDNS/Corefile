@@ -9,7 +9,7 @@
     client_server
   }
 
-  fanout . 172.16.51.10:8600 172.16.52.10:8600 172.16.51.13:8600 172.16.52.13:8600 {
+  fanout . 10.1.1.10:8600 10.1.1.13:8600 {
     except net.kjdev *.net.kjdev in-addr.arpa *.in-addr.arpa arpa *.arpa
 
     worker-count 8
