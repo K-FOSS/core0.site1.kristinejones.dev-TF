@@ -24,6 +24,43 @@ job "pomerium-authenticate" {
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.authenticate"]
+
+      #
+      # Liveness check
+      #
+      check {
+        port = "https"
+        address_mode = "alloc"
+
+        type = "http"
+        protocol = "https"
+        tls_skip_verify = true
+
+        path = "/ping"
+        interval = "15s"
+        timeout  = "30s"
+
+        check_restart {
+          limit = 10
+          grace = "60s"
+        }
+      }
+
+      #
+      # Readyness
+      #
+      check {
+        port = "https"
+        address_mode = "alloc"
+
+        type = "http"
+        protocol = "https"
+        tls_skip_verify = true
+
+        path = "/ping"
+        interval = "10s"
+        timeout  = "1s"
+      }
     }
 
     task "pomerium-authenticate-server" {

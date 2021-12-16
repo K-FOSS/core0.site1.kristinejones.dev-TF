@@ -13,13 +13,13 @@ job "ejabberd-mqtt" {
     }
 
     service {
-      name = "ejabberd-redis"
+      name = "ejabberd"
       port = "redis"
 
       task = "redis"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled"]
+      tags = ["coredns.enabled", "redis"]
     }
 
     task "redis" {
@@ -70,7 +70,7 @@ EOF
   }
 
   group "ejabberd-mqtt-server" {
-    count = 1
+    count = 3
 
     network {
       mode = "cni/nomadcore1"
@@ -81,13 +81,13 @@ EOF
     }
 
     service {
-      name = "ejabberd-mqtt-cont"
+      name = "ejabberd"
       port = "mqtt"
 
       task = "ejabberd"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled"]
+      tags = ["coredns.enabled", "mqtt"]
     }
 
     task "ejabberd-db" {

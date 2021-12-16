@@ -73,7 +73,7 @@ resource "nomad_job" "eJabberDMQTTJobFile" {
         Database = var.Database
 
         Redis = {
-          Hostname = "ejabberd-redis.service.kjdev"
+          Hostname = "redis.ejabberd.service.kjdev"
           Port = "6379"
 
           Password = random_password.RedisPassword.result
