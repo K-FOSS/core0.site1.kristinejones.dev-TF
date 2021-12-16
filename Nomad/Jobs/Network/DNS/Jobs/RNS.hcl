@@ -123,9 +123,9 @@ EOF
       }
 
       resources {
-        cpu = 64
-        memory = 128
-        memory_max = 128
+        cpu = 256
+        memory = 512
+        memory_max = 512
       }
     }
   }
