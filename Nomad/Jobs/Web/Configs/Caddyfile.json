@@ -890,6 +890,38 @@
             }
           ]
         },
+        "Unifi": {
+          "listen": [
+            ":8085"
+          ],
+          "automatic_https": {
+            "disable": true
+          },
+          "experimental_http3": false,
+          "routes": [
+            {
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http",
+                    "resolver": {
+                      "addresses": [
+                        "172.17.0.10:53"
+                      ]
+                    }
+                  },
+                  "upstreams": [
+                    {
+                      "lookup_srv": "kjdev-unifi-comm.ix-kjdev-unifi.svc.cluster.local"
+                    }
+                  ]
+                }
+              ],
+              "terminal": true
+            }
+          ]
+        },
         "Loki": {
           "listen": [
             ":8080"
