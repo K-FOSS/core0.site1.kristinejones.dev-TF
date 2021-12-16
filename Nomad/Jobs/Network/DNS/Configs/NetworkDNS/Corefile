@@ -14,7 +14,7 @@
     localCacheDuration 5m
   }
 
-  secondary kristianjones.dev in-addr.arpa 241.31.172.in-addr.arpa {
+  secondary kristianjones.dev in-addr.arpa 241.31.172.in-addr.arpa kjmedia.stream mylogin.space trackmy.finance ksit.services {
     transfer from 10.1.1.153:53
   }
 }
