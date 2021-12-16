@@ -37,6 +37,12 @@ job "network-dns-rns" {
       port "redis" { 
         to = 6379
       }
+
+      dns {
+        servers = [
+          "172.16.0.1"
+        ]
+      }
     }
 
     service {
