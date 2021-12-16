@@ -28,14 +28,6 @@ job "ingress" {
         to = 8080
       }
 
-      port "unifi" {
-        to = 8085
-
-        static = 8080
-
-        host_network = "https"
-      }
-
       port "cortex" {
         to = 9000
       }
