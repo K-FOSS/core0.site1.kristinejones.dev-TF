@@ -13,6 +13,10 @@
     client_server
   }
 
+  secondary kristianjones.dev in-addr.arpa 241.31.172.in-addr.arpa kjmedia.stream mylogin.space trackmy.finance ksit.services {
+    transfer from 10.1.1.153:53
+  }
+
   fanout . 10.1.1.53:8055 10.1.1.53:8060 1.1.1.1:53 1.0.0.1:53 172.17.0.10:53 172.18.0.10:53 {
     worker-count 4
   }
