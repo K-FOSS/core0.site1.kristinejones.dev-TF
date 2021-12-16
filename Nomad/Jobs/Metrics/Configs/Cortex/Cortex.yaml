@@ -231,11 +231,11 @@ limits:
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#frontend_worker_config
 #
 frontend_worker:
-  #frontend_address: "cortex-query-frontend-grpc-cont.service.kjdev:{{ env "NOMAD_PORT_queryfrontend_grpc" }}"
+  #frontend_address: "grpc.query-frontend.cortex.service.kjdev:{{ env "NOMAD_PORT_queryfrontend_grpc" }}"
   match_max_concurrent: true
 
   # By setting scheduler_address, querier worker would use scheduler instead of frontend.
-  scheduler_address: grpc.cortex-query-scheduler.service.dc1.kjdev:8085
+  scheduler_address: grpc.query-scheduler.cortex.service.dc1.kjdev:8085
   
   # Querier ID, sent to frontend service to identify requests from the same
   # querier. Defaults to hostname.
@@ -248,7 +248,7 @@ frontend_worker:
 #
 frontend:
   query_stats_enabled: true
-  scheduler_address: grpc.cortex-query-scheduler.service.dc1.kjdev:8085
+  scheduler_address: grpc.query-scheduler.cortex.service.dc1.kjdev:8085
 
 
 #
@@ -422,7 +422,7 @@ ruler:
   #
   query_stats_enabled: true
 
-  external_url: http://http.cortex-ruler.service.kjdev:8080
+  external_url: http://http.ruler.cortex.service.kjdev:8080
 
   ring:
     heartbeat_period: 5s
@@ -450,7 +450,7 @@ ruler:
         host: ${Consul.Hostname}:${Consul.Port}
         acl_token: ${Consul.Token}
 
-  alertmanager_url: http://http.cortex-alertmanager.service.dc1.kjdev:8080/alertmanager
+  alertmanager_url: http://http.alertmanager.cortex.service.dc1.kjdev:8080/alertmanager
   enable_alertmanager_v2: true
   enable_alertmanager_discovery: false
 
@@ -490,7 +490,7 @@ alertmanager:
   # CLI flag: -experimental.alertmanager.enable-api
   enable_api: true
 
-  external_url: http://http.cortex-alertmanager.service.dc1.kjdev:8080/alertmanager
+  external_url: http://http.alertmanager.cortex.service.dc1.kjdev:8080/alertmanager
 
   # Shard tenants across multiple alertmanager instances.
   # CLI flag: -alertmanager.sharding-enabled
@@ -525,9 +525,9 @@ alertmanager:
   cluster:
     listen_address: 0.0.0.0:9094
 
-    advertise_address: {{ env "NOMAD_ALLOC_INDEX" }}.ha.cortex-alertmanager.service.dc1.kjdev
+    advertise_address: {{ env "NOMAD_ALLOC_INDEX" }}.ha.alertmanager.cortex.service.dc1.kjdev
 
-    peers: 0.ha.cortex-alertmanager.service.dc1.kjdev:9094,1.ha.cortex-alertmanager.service.dc1.kjdev:9094,2.ha.cortex-alertmanager.service.dc1.kjdev:9094
+    peers: 0.ha.alertmanager.cortex.service.dc1.kjdev:9094,1.ha.alertmanager.cortex.service.dc1.kjdev:9094,2.ha.alertmanager.cortex.service.dc1.kjdev:9094
 
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#alertmanager_storage_config
@@ -565,16 +565,16 @@ memberlist:
   advertise_port: 8090
   join_members:
     # Distributor
-    - dnssrv+gossip.cortex-distributor.service.dc1.kjdev
+    - dnssrv+gossip.distributor.cortex.service.dc1.kjdev
 
     # Querier
-    - dnssrv+gossip.cortex-querier.service.dc1.kjdev
+    - dnssrv+gossip.querier.cortex.service.dc1.kjdev
 
     # Ingester
-    - dnssrv+gossip.cortex-ingester.service.dc1.kjdev
+    - dnssrv+gossip.ingester.cortex.service.dc1.kjdev
 
     # Query Frontend
-    - dnssrv+gossip.cortex-query-frontend.service.dc1.kjdev
+    - dnssrv+gossip.query-frontend.cortex.service.dc1.kjdev
 
     # Store Gateway
     - dnssrv+gossip.store-gateway.cortex.service.dc1.kjdev
@@ -583,17 +583,17 @@ memberlist:
     - dnssrv+gossip.compactor.cortex.service.dc1.kjdev
 
     # Ruler
-    - dnssrv+gossip.cortex-ruler.service.dc1.kjdev
+    - dnssrv+gossip.ruler.cortex.service.dc1.kjdev
 
     # Configs
-    - dnssrv+gossip.cortex-configs.service.dc1.kjdev
+    - dnssrv+gossip.configs.cortex.service.dc1.kjdev
 
     # Alert Manager
-    - dnssrv+gossip.cortex-alertmanager.service.dc1.kjdev
+    - dnssrv+gossip.alertmanager.cortex.service.dc1.kjdev
 
     # Query Scheduler
 
-    - dnssrv+gossip.cortex-query-scheduler.service.dc1.kjdev
+    - dnssrv+gossip.query-scheduler.cortex.service.dc1.kjdev
 
 
 

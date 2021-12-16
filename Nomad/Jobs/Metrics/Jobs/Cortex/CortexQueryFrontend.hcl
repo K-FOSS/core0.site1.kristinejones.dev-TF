@@ -36,13 +36,13 @@ job "cortex-queryfrontend" {
     }
 
     service {
-      name = "cortex-query-frontend"
+      name = "cortex"
       port = "http"
 
       task = "cortex-query-frontend"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
+      tags = ["coredns.enabled", "http.query-frontend", "$${NOMAD_ALLOC_INDEX}.http.query-frontend"]
 
       #
       # Liveness check
@@ -65,24 +65,24 @@ job "cortex-queryfrontend" {
     }
 
     service {
-      name = "cortex-query-frontend"
+      name = "cortex"
       port = "grpc"
 
       task = "cortex-query-frontend"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc", "$${NOMAD_ALLOC_INDEX}.grpc"]
+      tags = ["coredns.enabled", "grpc.query-frontend", "$${NOMAD_ALLOC_INDEX}.grpc.query-frontend", "_grpclb._tcp.grpc.query-frontend"]
     }
 
     service {
-      name = "cortex-query-frontend"
+      name = "cortex"
       
       port = "gossip"
       address_mode = "alloc"
 
       task = "cortex-query-frontend"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "gossip", "$${NOMAD_ALLOC_INDEX}.gossip"]
+      tags = ["coredns.enabled", "gossip.query-frontend", "$${NOMAD_ALLOC_INDEX}.gossip.query-frontend"]
     }
 
     task "cortex-query-frontend" {
@@ -95,8 +95,6 @@ job "cortex-queryfrontend" {
       }
 
       kill_timeout = "120s"
-
-
 
       config {
         image = "cortexproject/cortex:${Cortex.Version}"

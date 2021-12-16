@@ -36,13 +36,13 @@ job "cortex-distributor" {
     }
 
     service {
-      name = "cortex-distributor"
+      name = "cortex"
       port = "http"
 
       task = "cortex-distributor"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
+      tags = ["coredns.enabled", "http.distributor", "$${NOMAD_ALLOC_INDEX}.http.distributor"]
 
       #
       # Liveness check
@@ -65,24 +65,24 @@ job "cortex-distributor" {
     }
 
     service {
-      name = "cortex-distributor"
+      name = "cortex"
       port = "grpc"
 
       task = "cortex-distributor"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc", "$${NOMAD_ALLOC_INDEX}.grpc"]
+      tags = ["coredns.enabled", "grpc.distributor", "$${NOMAD_ALLOC_INDEX}.grpc.distributor", "_grpclb._tcp.grpc.distributor"]
     }
 
     service {
-      name = "cortex-distributor"
+      name = "cortex"
       
       port = "gossip"
       address_mode = "alloc"
 
       task = "cortex-distributor"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "gossip", "$${NOMAD_ALLOC_INDEX}.gossip"]
+      tags = ["coredns.enabled", "gossip.distributor", "$${NOMAD_ALLOC_INDEX}.gossip.distributor"]
     }
 
     task "cortex-distributor" {

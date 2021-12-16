@@ -42,7 +42,7 @@ job "cortex-compactor" {
       task = "cortex-compactor"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.compactor"]
+      tags = ["coredns.enabled", "http.compactor", "$${NOMAD_ALLOC_INDEX}.http.compactor"]
 
       #
       # Liveness check
@@ -68,10 +68,10 @@ job "cortex-compactor" {
       name = "cortex"
       port = "grpc"
 
-      task = "cortex-distributor"
+      task = "cortex-compactor"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.compactor", "$${NOMAD_ALLOC_INDEX}.grpc.compactor"]
+      tags = ["coredns.enabled", "grpc.compactor", "$${NOMAD_ALLOC_INDEX}.grpc.compactor", "_grpclb._tcp.grpc.compactor"]
     }
 
     service {
@@ -82,7 +82,7 @@ job "cortex-compactor" {
 
       task = "cortex-compactor"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "gossip.compactor", "$${NOMAD_ALLOC_INDEX}.gossip.compactor"]
+      tags = ["coredns.enabled", "gossip.compactor", "$${NOMAD_ALLOC_INDEX}.gossip.compactor"]
     }
 
     task "cortex-compactor" {

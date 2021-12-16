@@ -70,14 +70,14 @@ scrape_configs:
   - job_name: cortex
     dns_sd_configs:
       - names: 
-          - http.cortex-purger.service.kjdev
-          - http.cortex-alertmanager.service.kjdev
-          - http.cortex-store-gateway.service.kjdev
-          - http.cortex-distributor.service.kjdev
-          - http.cortex-ingester.service.kjdev
-          - http.cortex-query-frontend.service.kjdev
-          - http.cortex-query-scheduler.service.kjdev
-          - http.cortex-ruler.service.kjdev
+          - http.purger.cortex.service.kjdev
+          - http.alertmanager.cortex.service.kjdev
+          - http.store-gateway.cortex.service.kjdev
+          - http.distributor.cortex.service.kjdev
+          - http.ingester.cortex.service.kjdev
+          - http.query-frontend.cortex.service.kjdev
+          - http.query-scheduler.cortex.service.kjdev
+          - http.ruler.cortex.service.kjdev
 
   #
   # Hashicorp
@@ -268,7 +268,7 @@ scrape_configs:
       - targets: ['10.1.1.10:9100', '10.1.1.13:9100', '10.2.2.21:9100', '10.1.2.21:9100']
 
 remote_write:
-  - url: http://http.cortex-distributor.service.kjdev:8080/api/v1/push
+  - url: http://http.distributor.cortex.service.kjdev:8080/api/v1/push
     send_exemplars: true
     remote_timeout: 60s
 

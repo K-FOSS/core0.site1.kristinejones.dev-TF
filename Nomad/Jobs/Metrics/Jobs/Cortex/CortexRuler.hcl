@@ -35,24 +35,6 @@ job "cortex-ruler" {
       }
     }
 
-    task "wait-for-configs" {
-      lifecycle {
-        hook = "prestart"
-        sidecar = false
-      }
-
-      driver = "exec"
-      config {
-        command = "sh"
-        args = ["-c", "while ! nc -z http.cortex-configs.service.dc1.kjdev 8080; do sleep 1; done"]
-      }
-
-      resources {
-        cpu = 16
-        memory = 16
-      }
-    }
-
     task "wait-for-memcached" {
       lifecycle {
         hook = "prestart"
@@ -73,13 +55,13 @@ job "cortex-ruler" {
     }
 
     service {
-      name = "cortex-ruler"
+      name = "cortex"
       port = "http"
 
       task = "cortex-ruler"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
+      tags = ["coredns.enabled", "http.ruler", "$${NOMAD_ALLOC_INDEX}.http.ruler"]
 
       #
       # Liveness check
@@ -102,24 +84,24 @@ job "cortex-ruler" {
     }
 
     service {
-      name = "cortex-ruler"
+      name = "cortex"
       port = "grpc"
 
       task = "cortex-ruler"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc", "$${NOMAD_ALLOC_INDEX}.grpc"]
+      tags = ["coredns.enabled", "grpc.ruler", "$${NOMAD_ALLOC_INDEX}.grpc.ruler", "_grpclb._tcp.grpc.ruler"]
     }
 
     service {
-      name = "cortex-ruler"
+      name = "cortex"
       
       port = "gossip"
       address_mode = "alloc"
 
       task = "cortex-ruler"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "gossip", "$${NOMAD_ALLOC_INDEX}.gossip"]
+      tags = ["coredns.enabled", "gossip.ruler", "$${NOMAD_ALLOC_INDEX}.gossip.ruler"]
     }
 
     task "cortex-ruler" {
@@ -132,8 +114,6 @@ job "cortex-ruler" {
       }
 
       kill_timeout = "120s"
-
-
 
       config {
         image = "cortexproject/cortex:${Cortex.Version}"

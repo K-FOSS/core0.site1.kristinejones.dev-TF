@@ -1073,7 +1073,7 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "http.cortex-distributor.service.kjdev"
+                      "lookup_srv": "http.distributor.cortex.service.kjdev"
                     }
                   ]
                 }
@@ -1106,7 +1106,7 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "http.cortex-alertmanager.service.kjdev"
+                      "lookup_srv": "http.alertmanager.cortex.service.kjdev"
                     }
                   ]
                 }
@@ -1146,7 +1146,7 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "http.cortex-ruler.service.kjdev"
+                      "lookup_srv": "http.ruler.cortex.service.kjdev"
                     }
                   ]
                 }
@@ -1188,7 +1188,7 @@
                   },
                   "upstreams": [
                     {
-                      "lookup_srv": "http.cortex-query-frontend.service.dc1.kjdev"
+                      "lookup_srv": "http.query-frontend.cortex.service.dc1.kjdev"
                     }
                   ]
                 }

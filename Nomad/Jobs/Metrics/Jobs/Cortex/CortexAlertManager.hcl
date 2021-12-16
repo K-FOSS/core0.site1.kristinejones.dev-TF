@@ -39,32 +39,14 @@ job "cortex-alertmanager" {
       }
     }
 
-    task "wait-for-configs" {
-      lifecycle {
-        hook = "prestart"
-        sidecar = false
-      }
-
-      driver = "exec"
-      config {
-        command = "sh"
-        args = ["-c", "while ! nc -z http.cortex-configs.service.dc1.kjdev 8080; do sleep 1; done"]
-      }
-
-      resources {
-        cpu = 16
-        memory = 16
-      }
-    }
-
     service {
-      name = "cortex-alertmanager"
+      name = "cortex"
       port = "http"
 
       task = "cortex-alertmanager"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
+      tags = ["coredns.enabled", "http.alertmanager", "$${NOMAD_ALLOC_INDEX}.http.alertmanager"]
 
       #
       # Liveness check
@@ -87,35 +69,35 @@ job "cortex-alertmanager" {
     }
 
     service {
-      name = "cortex-alertmanager"
+      name = "cortex"
       port = "grpc"
 
       task = "cortex-alertmanager"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc", "$${NOMAD_ALLOC_INDEX}.grpc"]
+      tags = ["coredns.enabled", "grpc.alertmanager", "$${NOMAD_ALLOC_INDEX}.grpc.alertmanager", "_grpclb._tcp.grpc.alertmanager"]
     }
 
     service {
-      name = "cortex-alertmanager"
+      name = "cortex"
       
       port = "gossip"
       address_mode = "alloc"
 
       task = "cortex-alertmanager"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "gossip", "$${NOMAD_ALLOC_INDEX}.gossip"]
+      tags = ["coredns.enabled", "gossip.alertmanager", "$${NOMAD_ALLOC_INDEX}.gossip.alertmanager"]
     }
 
     service {
-      name = "cortex-alertmanager"
+      name = "cortex"
       
       port = "alertmanagerha"
       address_mode = "alloc"
 
       task = "cortex-alertmanager"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "ha", "$${NOMAD_ALLOC_INDEX}.ha"]
+      tags = ["coredns.enabled", "ha.alertmanager", "$${NOMAD_ALLOC_INDEX}.ha.alertmanager"]
     }
 
     task "cortex-alertmanager" {

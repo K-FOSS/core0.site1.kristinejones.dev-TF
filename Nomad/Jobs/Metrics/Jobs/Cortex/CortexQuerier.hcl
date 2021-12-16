@@ -55,13 +55,13 @@ job "cortex-querier" {
     }
 
     service {
-      name = "cortex-querier"
+      name = "cortex"
       port = "http"
 
       task = "cortex-querier"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
+      tags = ["coredns.enabled", "http.querier", "$${NOMAD_ALLOC_INDEX}.http.querier"]
 
       #
       # Liveness check
@@ -84,24 +84,24 @@ job "cortex-querier" {
     }
 
     service {
-      name = "cortex-querier"
+      name = "cortex"
       port = "grpc"
 
       task = "cortex-querier"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc", "$${NOMAD_ALLOC_INDEX}.grpc"]
+      tags = ["coredns.enabled", "grpc.querier", "$${NOMAD_ALLOC_INDEX}.grpc.querier", "_grpclb._tcp.grpc.querier"]
     }
 
     service {
-      name = "cortex-querier"
+      name = "cortex"
       
       port = "gossip"
       address_mode = "alloc"
 
       task = "cortex-querier"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "gossip", "$${NOMAD_ALLOC_INDEX}.gossip"]
+      tags = ["coredns.enabled", "gossip.querier", "$${NOMAD_ALLOC_INDEX}.gossip.querier"]
     }
 
     task "cortex-querier" {

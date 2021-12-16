@@ -42,7 +42,7 @@ job "cortex-ingester" {
       task = "cortex-ingester"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
+      tags = ["coredns.enabled", "http.ingester", "$${NOMAD_ALLOC_INDEX}.http.ingester"]
 
       #
       # Liveness check
@@ -71,7 +71,7 @@ job "cortex-ingester" {
       task = "cortex-ingester"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc", "$${NOMAD_ALLOC_INDEX}.grpc"]
+      tags = ["coredns.enabled", "grpc", "$${NOMAD_ALLOC_INDEX}.grpc", "_grpclb._tcp.grpc.ingester"]
     }
 
     service {
@@ -82,7 +82,7 @@ job "cortex-ingester" {
 
       task = "cortex-ingester"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "gossip", "$${NOMAD_ALLOC_INDEX}.gossip"]
+      tags = ["coredns.enabled", "gossip", "$${NOMAD_ALLOC_INDEX}.gossip"]
     }
 
     task "cortex-ingester" {

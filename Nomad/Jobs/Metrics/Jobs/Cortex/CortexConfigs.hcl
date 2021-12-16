@@ -36,13 +36,13 @@ job "cortex-configs" {
     }
 
     service {
-      name = "cortex-configs"
+      name = "cortex"
       port = "http"
 
       task = "cortex-configs"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
+      tags = ["coredns.enabled", "http.configs", "$${NOMAD_ALLOC_INDEX}.http.configs"]
 
       #
       # Liveness check
@@ -65,24 +65,24 @@ job "cortex-configs" {
     }
 
     service {
-      name = "cortex-configs"
+      name = "cortex"
       port = "grpc"
 
       task = "cortex-configs"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc", "$${NOMAD_ALLOC_INDEX}.grpc"]
+      tags = ["coredns.enabled", "grpc", "$${NOMAD_ALLOC_INDEX}.grpc", "_grpclb._tcp.grpc.configs"]
     }
 
     service {
-      name = "cortex-configs"
+      name = "cortex"
       
       port = "gossip"
       address_mode = "alloc"
 
       task = "cortex-configs"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "gossip", "$${NOMAD_ALLOC_INDEX}.gossip"]
+      tags = ["coredns.enabled", "gossip.configs", "$${NOMAD_ALLOC_INDEX}.gossip.configs"]
     }
 
     task "cortex-configs" {

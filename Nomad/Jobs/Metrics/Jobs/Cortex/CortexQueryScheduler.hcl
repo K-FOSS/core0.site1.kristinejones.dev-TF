@@ -36,13 +36,13 @@ job "cortex-queryscheduler" {
     }
 
     service {
-      name = "cortex-query-scheduler"
+      name = "cortex"
       port = "http"
 
       task = "cortex-query-scheduler"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http"]
+      tags = ["coredns.enabled", "http.query-scheduler", "$${NOMAD_ALLOC_INDEX}.http.query-scheduler"]
 
       #
       # Liveness check
@@ -65,24 +65,24 @@ job "cortex-queryscheduler" {
     }
 
     service {
-      name = "cortex-query-scheduler"
+      name = "cortex"
       port = "grpc"
 
       task = "cortex-query-scheduler"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc", "$${NOMAD_ALLOC_INDEX}.grpc", "_grpclb._tcp.grpc"]
+      tags = ["coredns.enabled", "grpc.query-scheduler", "$${NOMAD_ALLOC_INDEX}.grpc.query-scheduler", "_grpclb._tcp.grpc.query-scheduler"]
     }
 
     service {
-      name = "cortex-query-scheduler"
+      name = "cortex"
       
       port = "gossip"
       address_mode = "alloc"
 
       task = "cortex-query-scheduler"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "gossip", "$${NOMAD_ALLOC_INDEX}.gossip"]
+      tags = ["coredns.enabled", "gossip.query-scheduler", "$${NOMAD_ALLOC_INDEX}.gossip.query-scheduler"]
     }
 
     task "cortex-query-scheduler" {

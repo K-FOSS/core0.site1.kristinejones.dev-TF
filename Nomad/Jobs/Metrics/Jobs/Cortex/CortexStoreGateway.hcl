@@ -42,7 +42,7 @@ job "cortex-storegateway" {
       task = "cortex-store-gateway"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.store-gateway", "$${NOMAD_ALLOC_INDEX}.http.store-gateway"]
+      tags = ["coredns.enabled", "http.store-gateway", "$${NOMAD_ALLOC_INDEX}.http.store-gateway"]
     }
 
     service {
@@ -52,7 +52,7 @@ job "cortex-storegateway" {
       task = "cortex-store-gateway"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.store-gateway", "$${NOMAD_ALLOC_INDEX}.grpc.store-gateway"]
+      tags = ["coredns.enabled", "grpc.store-gateway", "$${NOMAD_ALLOC_INDEX}.grpc.store-gateway", "_grpclb._tcp.grpc.store-gateway"]
     }
 
     service {
@@ -63,7 +63,7 @@ job "cortex-storegateway" {
 
       task = "cortex-store-gateway"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "gossip.store-gateway", "$${NOMAD_ALLOC_INDEX}.gossip.store-gateway"]
+      tags = ["coredns.enabled", "gossip.store-gateway", "$${NOMAD_ALLOC_INDEX}.gossip.store-gateway"]
     }
 
     task "cortex-store-gateway" {

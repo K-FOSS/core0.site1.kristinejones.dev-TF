@@ -93,7 +93,7 @@ scrape_configs:
       format: ['prometheus']
 
 remote_write:
-  - url: http://http.cortex-distributor.service.kjdev:8080/api/v1/push
+  - url: http://http.distributor.cortex.service.kjdev:8080/api/v1/push
     send_exemplars: true
     remote_timeout: 60s
 EOH
