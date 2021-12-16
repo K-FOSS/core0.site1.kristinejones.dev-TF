@@ -28,6 +28,10 @@ job "aaa-teleport-proxys" {
         to = 3080
       }
 
+      port "diag" {
+        to = 3000
+      }
+
       dns {
         servers = [
           "10.1.1.53",
@@ -40,10 +44,39 @@ job "aaa-teleport-proxys" {
       name = "teleport"
       port = "https"
 
-      task = "teleport-auth-server"
+      task = "teleport-proxy-server"
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.proxy"]
+
+      #
+      # Liveness check
+      #
+      check {
+        port = "diag"
+        address_mode = "alloc"
+
+        type = "http"
+
+        path = "/healthz"
+        interval = "5s"
+        timeout  = "3s"
+
+        check_restart {
+          limit = 6
+          grace = "30s"
+        }
+      }
+    }
+
+    service {
+      name = "teleport"
+      port = "diag"
+
+      task = "teleport-proxy-server"
+      address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "diag.proxy"]
     }
 
     task "teleport-proxy-server" {
@@ -52,7 +85,7 @@ job "aaa-teleport-proxys" {
       config {
         image = "${Teleport.Repo}:${Teleport.Version}"
 
-        args = ["start", "--config", "/local/Teleport.yaml", "--roles=proxy", "-d"]
+        args = ["start", "--diag-addr=0.0.0.0:3000", "--config", "/local/Teleport.yaml", "--roles=proxy", "-d"]
 
         mount {
           type = "bind"

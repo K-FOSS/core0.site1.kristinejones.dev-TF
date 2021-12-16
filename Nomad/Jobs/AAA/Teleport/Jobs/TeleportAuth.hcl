@@ -28,6 +28,10 @@ job "aaa-teleport-auth" {
         to = 3025
       }
 
+      port "diag" { 
+        to = 3000
+      }
+
       dns {
         servers = [
           "10.1.1.53",
@@ -44,6 +48,35 @@ job "aaa-teleport-auth" {
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "https.auth", "$${NOMAD_ALLOC_INDEX}.https.auth"]
+
+      #
+      # Liveness check
+      #
+      check {
+        port = "diag"
+        address_mode = "alloc"
+
+        type = "http"
+
+        path = "/healthz"
+        interval = "5s"
+        timeout  = "3s"
+
+        check_restart {
+          limit = 6
+          grace = "30s"
+        }
+      }
+    }
+
+    service {
+      name = "teleport"
+      port = "diag"
+
+      task = "teleport-auth-server"
+      address_mode = "alloc"
+
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "diag.auth"]
     }
 
     task "teleport-auth-server" {
@@ -52,7 +85,7 @@ job "aaa-teleport-auth" {
       config {
         image = "${Teleport.Repo}:${Teleport.Version}"
 
-        args = ["start", "--config", "/local/Teleport.yaml", "--roles=auth", "-d"]
+        args = ["start", "--diag-addr=0.0.0.0:3000", "--config", "/local/Teleport.yaml", "--roles=auth", "-d"]
 
         mount {
           type = "bind"
