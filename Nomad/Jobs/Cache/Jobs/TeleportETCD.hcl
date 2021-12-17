@@ -19,6 +19,14 @@ job "cache-teleport-etcd" {
       port "peers" { 
         to = 2380
       }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "10.1.1.10",
+          "10.1.1.13"
+        ]
+      }
     }
 
     service {
@@ -65,7 +73,7 @@ job "cache-teleport-etcd" {
         #
         # https://etcd.io/docs/v3.4.0/op-guide/configuration/#--data-dir
         #
-        ETCD_DATA_DIR = "/alloc"
+        #ETCD_DATA_DIR = "/alloc"
 
         # https://etcd.io/docs/v3.4.0/op-guide/configuration/#--initial-advertise-peer-urls
         ETCD_INITIAL_ADVERTISE_PEER_URLS = "https://$${NOMAD_ALLOC_INDEX}.peer.etcd.teleport.service.dc1.kjdev:2380"
@@ -94,6 +102,23 @@ job "cache-teleport-etcd" {
         ETCD_PEER_CERT_FILE = "/secrets/ETCD.pem"
         ETCD_PEER_KEY_FILE = "/secrets/ETCD.key"
         ETCD_PEER_CLIENT_CERT_AUTH = "true"
+
+        #
+        # Observability
+        #
+
+        # Logging
+        ETCD_LOG_OUTPUTS = "stdout"
+        ETCD_LOG_LEVEL = "warn"
+
+        # Tracing
+        ETCD_EXPERIMENTAL_ENABLE_DISTRIBUTED_TRACING = "true"
+        ETCD_EXPERIMENTAL_DISTRIBUTED_TRACING_ADDRESS = "grpc.otel.tempo.service.kjdev:4317"
+        ETCD_EXPERIMENTAL_DISTRIBUTED_TRACING_SERVICE_NAME = "TeleportETCD"
+        ETCD_EXPERIMENTAL_DISTRIBUTED_TRACING_INSTANCE_ID = "$${NOMAD_ALLOC_NAME}"
+        #experimental-enable-distributed-tracing
+
+        
       }
 
       #
