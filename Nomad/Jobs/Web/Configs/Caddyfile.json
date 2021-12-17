@@ -281,6 +281,36 @@
               "match": [
                 {
                   "host": [
+                    "mylogin.space",
+                    "writemy.codes",
+                    "outoftheworld.space",
+                    "trackmy.finance",
+                    "ksit.services",
+                    "accessmyporn.download"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "subroute",
+                  "routes": [
+                    {
+                      "handle": [
+                        {
+                          "handler": "static_response",
+                          "status_code": "200",
+                          "body": "TODO: Deploy stuff <me@kristianjones.dev>"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "match": [
+                {
+                  "host": [
                     "gitlab.kristianjones.dev",
                     "*.gitlab.kristianjones.dev"
                   ]
