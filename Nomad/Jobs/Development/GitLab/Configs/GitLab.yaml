@@ -441,7 +441,7 @@ production: &base
         #
         # If you are using "uid: 'userPrincipalName'" on ActiveDirectory you need to
         # disable this setting, because the userPrincipalName contains an '@'.
-        allow_username_or_email_login: yes
+        allow_username_or_email_login: false
 
         # To maintain tight control over the number of active users on your GitLab installation,
         # enable this setting to keep new users blocked until they have been cleared by the admin
@@ -464,7 +464,7 @@ production: &base
         #   Example for getting only specific users:
         #   '(&(objectclass=user)(|(samaccountname=momo)(samaccountname=toto)))'
         #
-        user_filter: '(memberOf=cn=Developers,ou=groups,dc=ldap,dc=kristianjones,dc=dev)'
+        user_filter: ''
 
         # Base where we can search for groups
         #
@@ -650,8 +650,8 @@ production: &base
   # yourself, and then update the values here.
   # https://docs.gitlab.com/ee/administration/monitoring/prometheus/
   prometheus:
-    # enabled: true
-    # server_address: 'localhost:9090'
+    enabled: true
+    server_address: 'ingress-webproxy.service.dc1.kjdev:9090'
 
   ## Consul settings
   consul:
