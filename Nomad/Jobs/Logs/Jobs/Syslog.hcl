@@ -2,7 +2,7 @@ job "logs" {
   datacenters = ["core0site1"]
 
   group "vector" {
-    count = 3
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"
@@ -21,6 +21,10 @@ job "logs" {
 
       port "syslog" {
         to = 514
+
+        static = 514
+
+        host_network = "node"
       }
 
       port "api" {

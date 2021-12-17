@@ -16,10 +16,16 @@ sources:
     address: 0.0.0.0:514
     mode: tcp
 
+  udplogs:
+    type: syslog
+    address: 0.0.0.0:514
+    mode: tcp
+
 sinks:
   loki:
     inputs:
       - logs
+      - udplogs
     type: loki
     endpoint: http://http.distributor.loki.service.kjdev:8080
     encoding:
