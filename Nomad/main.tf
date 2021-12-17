@@ -407,6 +407,19 @@ module "DNS" {
 }
 
 #
+# ENMS
+#
+
+
+#
+# LookingGLass
+#
+
+module "LookingGlass" {
+  source = "./Jobs/Network/LookingGlass"
+}
+ 
+#
 # NS
 #
 

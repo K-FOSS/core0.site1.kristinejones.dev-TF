@@ -1,0 +1,134 @@
+<?php
+
+/*
+ * Main configuration file example.
+ *
+ * DO NOT EDIT NOR RENAME, please copy to 'config.php' and edit the new file!
+ */
+
+// People to contact
+// Set both to null to not display any contact information
+$config['contact']['name'] = 'Kristian Jones';
+$config['contact']['mail'] = 'support@example.com';
+
+// Frontpage configuration
+
+// Title of the page
+$config['frontpage']['title'] = 'Looking Glass';
+// Logo to display (remove it to not display any logo)
+$config['frontpage']['image'] = 'logo.png';
+// Disclaimer to inform people using the looking glass
+// Set it to null to not display a disclaimer
+$config['frontpage']['disclaimer'] = 'This is a disclaimer!';
+
+// Things to remove from the output (PHP compatible regex)
+$config['filters']['output'][] = '/(client1|client2)/';
+$config['filters']['output'][] = '/^NotToShow/';
+// Matched patterns can also replaced inline
+$config['filters']['output'][] = ['/replacethis/', 'withthis'];
+
+// If telnet is used in combination with extreme_netiron, uncomment the following filter
+//$config['filters']['output'][] = '/([^\x20-\x7E]|User|Please|Disable|telnet|^\s*$)/';
+
+// Google reCaptcha integration
+$config['recaptcha']['enabled'] = false;
+$config['recaptcha']['apikey'] = 'foobar';
+$config['recaptcha']['secret'] = 'foobar';
+
+// Routers definitions
+
+// Authentication based on SSH or Telnet with password
+// The hostname or the IP address
+$config['routers']['router1']['host'] = 'r1.example.net';
+// The user to use to connect to the router
+$config['routers']['router1']['user'] = 'readonlyuser';
+// The password of the given user
+$config['routers']['router1']['pass'] = 'readonlypassword';
+// The authentication mechanism to use (can be ssh-password or telnet)
+$config['routers']['router1']['auth'] = 'ssh-password';
+// The router type (can be cisco, ios, juniper or junos)
+$config['routers']['router1']['type'] = 'juniper';
+// The router source interface to be used
+$config['routers']['router1']['source-interface-id'] = 'lo0';
+// The router description to be displayed in the router list
+$config['routers']['router1']['desc'] = 'Example\'s Router 1';
+
+// Authentication based on SSH with key
+// The hostname or the IP address
+$config['routers']['router2']['host'] = 'r2.example.net';
+// The user to use to connect to the router
+$config['routers']['router2']['user'] = 'readonlyuser';
+// The public key of the given user
+$config['routers']['router2']['private_key'] = '/home/user/.ssh/key';
+// The passphrase of the key (optional if the key has no passphrase)
+$config['routers']['router2']['pass'] = 'mypassphrase';
+// The authentication mechanism to use (ssh-key for SSH based on keys)
+$config['routers']['router2']['auth'] = 'ssh-key';
+// The router type (can be cisco, ios, juniper or junos)
+$config['routers']['router2']['type'] = 'juniper';
+// The router source interface to be used
+$config['routers']['router2']['source-interface-id'] = 'lo0';
+// The router description to be displayed in the router list
+$config['routers']['router2']['desc'] = 'Example\'s Router 2';
+
+// Router based on BIRD
+// The hostname or the IP address
+$config['routers']['router3']['host'] = 'r3.example.net';
+// The user to use to connect to the router
+$config['routers']['router3']['user'] = 'birduser';
+// The password of the given user
+$config['routers']['router3']['pass'] = 'birduserpassword';
+// The authentication mechanism to use (can be ssh-password or ssh-key)
+$config['routers']['router3']['auth'] = 'ssh-password';
+// The router type (can only be bird)
+$config['routers']['router3']['type'] = 'bird';
+// The router source address to be used
+$config['routers']['router3']['source-interface-id'] = '192.168.1.1';
+// The router description to be displayed in the router list
+$config['routers']['router3']['desc'] = 'Example\'s Router 3';
+
+// Router based on OpenBGPd
+// The hostname or the IP address
+$config['routers']['router4']['host'] = 'r4.example.net';
+// The user to use to connect to the router
+$config['routers']['router4']['user'] = 'openbgpduser';
+// The password of the given user
+$config['routers']['router4']['pass'] = 'openbgpduserpassword';
+// The authentication mechanism to use (can be ssh-password or ssh-key)
+$config['routers']['router4']['auth'] = 'ssh-password';
+// The router type (can only be openbgpd)
+$config['routers']['router4']['type'] = 'openbgpd';
+// The router source address to be used
+$config['routers']['router4']['source-interface-id']['ipv4'] = '192.168.1.1';
+$config['routers']['router4']['source-interface-id']['ipv6'] = '2001:db8::1';
+// The router description to be displayed in the router list
+$config['routers']['router4']['desc'] = 'OpenBGPd Router';
+
+// Router based on Extreme NetIron
+// The hostname or the IP address
+$config['routers']['router5']['host'] = 'r5.example.net';
+// The user to use to connect to the router
+$config['routers']['router5']['user'] = 'readonlyuser';
+// The password of the given user
+$config['routers']['router5']['pass'] = 'readonlypassword';
+// The authentication mechanism to use (must be telnet)
+$config['routers']['router5']['auth'] = 'telnet';
+// The router type (can only be extreme_netiron)
+$config['routers']['router5']['type'] = 'extreme_netiron';
+// The router source interface to be used
+$config['routers']['router5']['source-interface-id']['ipv4'] = '192.168.1.1';
+$config['routers']['router5']['source-interface-id']['ipv6'] = '2001:db8::1';
+// The router description to be displayed in the router list
+$config['routers']['router5']['desc'] = 'Example\'s router 5';
+// Display BGP detail output for this router, defaults to false
+$config['routers']['router5']['bgp_detail'] = true;
+
+// If running on *BSD, disable '-A' which is non-existent
+$config['tools']['ping_options'] = '-c 5';
+// If running on *BSD, disable '-N' which is non-existent
+$config['tools']['traceroute_options'] = '-A -q1 -w2 -m15';
+// If running on *BSD, there is no '-4' or '-6'
+$config['tools']['traceroute6'] = 'traceroute6';
+$config['tools']['traceroute4'] = 'traceroute';
+
+// End of config.php
