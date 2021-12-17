@@ -179,6 +179,8 @@ production: &base
   # Periodically executed jobs, to self-heal GitLab, do external synchronizations, etc.
   # Please read here for more information: https://github.com/ondrejbartas/sidekiq-cron#adding-cron-job
   cron_jobs:
+    ldap_sync_worker_cron:
+      cron: "0 */12 * * *"
     # Flag stuck CI jobs as failed
     stuck_ci_jobs_worker:
       cron: '0 * * * *'
@@ -322,7 +324,7 @@ production: &base
     #
     # Warning: if you set this value too low, every click in GitLab will be a
     # "slow click" for all of your LDAP users.
-    # sync_time: 3600
+    sync_time: 300
 
     servers:
       ##########################################################################
@@ -439,7 +441,7 @@ production: &base
         #
         # If you are using "uid: 'userPrincipalName'" on ActiveDirectory you need to
         # disable this setting, because the userPrincipalName contains an '@'.
-        allow_username_or_email_login: false
+        allow_username_or_email_login: yes
 
         # To maintain tight control over the number of active users on your GitLab installation,
         # enable this setting to keep new users blocked until they have been cleared by the admin
@@ -462,7 +464,7 @@ production: &base
         #   Example for getting only specific users:
         #   '(&(objectclass=user)(|(samaccountname=momo)(samaccountname=toto)))'
         #
-        user_filter: 'o=users,dc=ldap,dc=kristianjones,dc=dev'
+        user_filter: '(memberOf=cn=Developers,ou=groups,dc=ldap,dc=kristianjones,dc=dev)'
 
         # Base where we can search for groups
         #
@@ -474,7 +476,7 @@ production: &base
         #
         #   Ex. GLAdmins
         #
-        admin_group: 'memberOf=cn=authentik Admins,ou=groups,dc=ldap,dc=kristianjones,dc=dev'
+        admin_group: 'authentik Admins'
 
         # LDAP group of users who should be marked as external users in GitLab
         #
