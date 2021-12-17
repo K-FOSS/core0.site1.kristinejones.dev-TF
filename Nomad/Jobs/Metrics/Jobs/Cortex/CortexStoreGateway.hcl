@@ -97,7 +97,7 @@ job "cortex-storegateway" {
       meta {
         TARGET = "store-gateway"
 
-        REPLICAS = "2"
+        REPLICAS = "3"
       }
 
       env {

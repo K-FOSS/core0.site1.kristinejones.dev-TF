@@ -97,8 +97,7 @@ distributor:
 
   # Distribute samples based on all labels, as opposed to solely by user and
   # metric name.
-  shard_by_all_labels: true
-
+  shard_by_all_labels: false
 
   ring:
     instance_id: {{ env "NOMAD_ALLOC_NAME" }}
@@ -195,7 +194,7 @@ ingester:
           host: ${Consul.Hostname}:${Consul.Port}
           acl_token: ${Consul.Token}
 
-      replication_factor: 3
+      replication_factor: 2
 
 
 #
@@ -353,7 +352,7 @@ compactor:
 store_gateway:
   sharding_enabled: true
   sharding_ring:
-    replication_factor: 1
+    replication_factor: 2
     heartbeat_period: 5s
     heartbeat_timeout: 15s
 
@@ -496,7 +495,7 @@ alertmanager:
   # CLI flag: -alertmanager.sharding-enabled
   sharding_enabled: true
   sharding_ring:
-    replication_factor: 3
+    replication_factor: 2
     heartbeat_period: 5s
     heartbeat_timeout: 15s
     kvstore:
