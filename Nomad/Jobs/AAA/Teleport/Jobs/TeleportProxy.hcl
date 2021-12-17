@@ -9,18 +9,6 @@ job "aaa-teleport-proxys" {
       weight = 100
     }
 
-    update {
-      max_parallel = 1
-
-      health_check = "checks"
-      
-      min_healthy_time = "30s"
-
-      healthy_deadline = "3m"
-
-      progress_deadline = "8m"
-    }
-
     network {
       mode = "cni/nomadcore1"
 
