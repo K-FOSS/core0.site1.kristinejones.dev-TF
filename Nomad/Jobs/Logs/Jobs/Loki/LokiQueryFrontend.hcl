@@ -35,7 +35,7 @@ job "loki-query-frontend" {
       task = "loki-query-frontend"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.query-frontend"]
+      tags = ["coredns.enabled", "http.query-frontend"]
 
       #
       # Liveness check
@@ -64,7 +64,7 @@ job "loki-query-frontend" {
       task = "loki-query-frontend"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.query-frontend"]
+      tags = ["coredns.enabled", "grpc.query-frontend", "$${NOMAD_ALLOC_INDEX}.grpc.query-frontend"]
     }
 
     service {

@@ -64,7 +64,7 @@ job "loki-ingester" {
       task = "loki-ingester"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.ingester"]
+      tags = ["coredns.enabled", "grpc.ingester", "$${NOMAD_ALLOC_INDEX}.grpc.ingester"]
     }
 
     service {

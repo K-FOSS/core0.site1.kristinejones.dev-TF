@@ -23,6 +23,24 @@ server:
   grpc_listen_port: 8085
 
   #
+  # Logs
+  #
+  # Output log messages in the given format. Valid formats: [logfmt, json]
+  # CLI flag: -log.format
+  log_format: json
+
+  # Log only messages with the given severity or above. Supported values [debug,
+  # info, warn, error]
+  # CLI flag: -log.level
+  log_level: warn
+
+  #
+  # Observability
+  #
+  register_instrumentation: true
+
+
+  #
   # GRPC Options
   #
   grpc_server_max_concurrent_streams: 1000
@@ -40,11 +58,6 @@ server:
   # Cleanly Shutdown
   # 
   graceful_shutdown_timeout: 60s
-
-  # Log only messages with the given severity or above. Supported values [debug,
-  # info, warn, error]
-  # CLI flag: -log.level
-  log_level: warn
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#distributor_config
@@ -394,8 +407,9 @@ common:
     # Minio S3
     #
     s3:
-      endpoint: ${S3.Connection.Endpoint}
+      s3: http://${S3.Connection.Endpoint}
       bucketnames: ${S3.Bucket}
+      endpoint: ${S3.Connection.Endpoint}
       access_key_id: '${S3.Credentials.AccessKey}'
       secret_access_key: '${S3.Credentials.SecretKey}'
       s3forcepathstyle: true
@@ -433,3 +447,5 @@ common:
         secondary: consul
 
         mirror_enabled: true
+    instance_id: {{ env "NOMAD_ALLOC_NAME" }}
+    instance_addr: {{ env "NOMAD_ALLOC_INDEX" }}.grpc.{{ env "NOMAD_META_TARGET" }}.loki.service.dc1.kjdev

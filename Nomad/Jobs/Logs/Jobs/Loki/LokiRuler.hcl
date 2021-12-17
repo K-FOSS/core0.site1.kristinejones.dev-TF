@@ -35,7 +35,7 @@ job "loki-ruler" {
       task = "loki-ruler"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.ruler"]
+      tags = ["coredns.enabled", "http.ruler"]
 
       #
       # Liveness check
@@ -64,7 +64,7 @@ job "loki-ruler" {
       task = "loki-ruler"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.ruler"]
+      tags = ["coredns.enabled", "grpc.ruler", "$${NOMAD_ALLOC_INDEX}.grpc.ruler"]
     }
 
     service {

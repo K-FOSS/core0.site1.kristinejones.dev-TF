@@ -35,7 +35,7 @@ job "loki-querier" {
       task = "loki-querier"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.querier"]
+      tags = ["coredns.enabled", "http.querier"]
 
       #
       # Liveness check
@@ -64,7 +64,7 @@ job "loki-querier" {
       task = "loki-querier"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.querier"]
+      tags = ["coredns.enabled", "grpc.querier", "$${NOMAD_ALLOC_INDEX}.grpc.querier"]
     }
 
     service {

@@ -35,7 +35,7 @@ job "loki-query-scheduler" {
       task = "loki-query-scheduler"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.query-scheduler"]
+      tags = ["coredns.enabled", "http.query-scheduler"]
 
       #
       # Liveness check
@@ -64,7 +64,7 @@ job "loki-query-scheduler" {
       task = "loki-query-scheduler"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.query-scheduler"]
+      tags = ["coredns.enabled", "grpc.query-scheduler", "$${NOMAD_ALLOC_INDEX}.grpc.query-scheduler"]
     }
 
     service {
