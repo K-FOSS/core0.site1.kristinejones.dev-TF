@@ -465,7 +465,7 @@ resource "vault_pki_secret_backend_cert" "eJabberDMQTTServerCert" {
   backend = module.eJabberD.TLS.Mount.path
   name = module.eJabberD.TLS.Role.name
 
-  common_name = "ejabberd-mqtt-cont.service.kjdev"
+  common_name = "mqtt.ejabberd.service.kjdev"
 
   alt_names = ["mq.kristianjones.dev"]
 }
@@ -474,7 +474,7 @@ resource "vault_pki_secret_backend_cert" "eJabberDRedisCert" {
   backend = module.eJabberD.TLS.Mount.path
   name = module.eJabberD.TLS.Role.name
 
-  common_name = "ejabberd-redis.service.kjdev"
+  common_name = "redis.ejabberd.service.kjdev"
 
   alt_names = []
 }
