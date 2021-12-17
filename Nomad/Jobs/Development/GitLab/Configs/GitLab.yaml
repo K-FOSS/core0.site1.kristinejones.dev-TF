@@ -344,9 +344,9 @@ production: &base
         label: 'KJDev'
 
         # Example: 'ldap.mydomain.com'
-        host: '_your_ldap_server'
+        host: 'ldap.ldap.authentik.service.dc1.kjdev'
         # This port is an example, it is sometimes different but it is always an integer and not a string
-        port: 389 # usually 636 for SSL
+        port: 3389 # usually 636 for SSL
         uid: 'sAMAccountName' # This should be the attribute, not the value that maps to uid.
 
         # Examples: 'america\\momo' or 'CN=Gitlab Git,CN=Users,DC=mydomain,DC=com'
