@@ -248,6 +248,39 @@
               "match": [
                 {
                   "host": [
+                    "network.glass",
+                    "ipaddr.network"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "subroute",
+                  "routes": [
+                    {
+                      "match": [
+                        {
+                          "host": [
+                            "network.glass"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "static_response",
+                          "status_code": "200",
+                          "body": "TODO: Deploy loooking glass KJones <me@kristianjones.dev>"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "match": [
+                {
+                  "host": [
                     "gitlab.kristianjones.dev",
                     "*.gitlab.kristianjones.dev"
                   ]
@@ -1210,6 +1243,14 @@
               "*.int.site1.kristianjones.dev",
               "hass.home1.kristianjones.dev",
               "kjmedia.stream",
+              "network.glass",
+              "ipaddr.network",
+              "mylogin.space",
+              "writemy.codes",
+              "outoftheworld.space",
+              "trackmy.finance",
+              "ksit.services",
+              "accessmyporn.download",
               "*.kjmedia.stream",
               "sabnzbd.kjmedia.stream",
               "jellyfin.kjmedia.stream",
