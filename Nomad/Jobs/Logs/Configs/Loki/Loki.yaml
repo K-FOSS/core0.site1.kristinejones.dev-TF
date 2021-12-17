@@ -9,6 +9,8 @@ auth_enabled: false
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#server_config
 #
+# Code Reference: https://github.com/weaveworks/common/blob/master/server/server.go
+#
 server:
   #
   # HTTP Server
