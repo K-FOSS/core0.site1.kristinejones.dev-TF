@@ -43,7 +43,7 @@ job "cache-teleport-etcd" {
       name = "teleport"
       port = "peers"
 
-      task = "github-redis-cache"
+      task = "teleport-etcd"
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "etcd", "$${NOMAD_ALLOC_INDEX}.peer.etcd", "_etcd-server._tcp.etcd"]
