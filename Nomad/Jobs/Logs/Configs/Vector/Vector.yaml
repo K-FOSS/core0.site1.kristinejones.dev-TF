@@ -19,7 +19,7 @@ sources:
   udplogs:
     type: syslog
     address: 0.0.0.0:514
-    mode: tcp
+    mode: udp
 
 sinks:
   loki:
