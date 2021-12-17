@@ -536,6 +536,7 @@ production: &base
     allow_single_sign_on: ["openid_connect"]
     block_auto_created_users: false
     auto_link_user: true
+    auto_link_ldap_user: true
     providers:
       - { name: 'openid_connect',
           label: 'Authentik',
