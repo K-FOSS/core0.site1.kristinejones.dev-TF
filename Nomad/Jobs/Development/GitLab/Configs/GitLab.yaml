@@ -415,7 +415,7 @@ production: &base
         #   Example for getting only specific users:
         #   '(&(objectclass=user)(|(samaccountname=momo)(samaccountname=toto)))'
         #
-        user_filter: '(memberOf=cn=Media Consumers,ou=groups,dc=ldap,dc=kristianjones,dc=dev)'
+        user_filter: ''
 
         # Base where we can search for groups
         #
