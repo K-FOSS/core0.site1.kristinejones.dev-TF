@@ -403,7 +403,7 @@ production: &base
         #
         #   Ex. 'ou=People,dc=gitlab,dc=example' or 'DC=mydomain,DC=com'
         #
-        base: 'o=users,dc=ldap,dc=kristianjones,dc=dev'
+        base: 'ou=users,dc=ldap,dc=kristianjones,dc=dev'
 
         # Filter LDAP users
         #
@@ -415,7 +415,7 @@ production: &base
         #   Example for getting only specific users:
         #   '(&(objectclass=user)(|(samaccountname=momo)(samaccountname=toto)))'
         #
-        user_filter: '(objectclass=user)'
+        user_filter: '(memberOf=cn=Developers,ou=groups,dc=ldap,dc=kristianjones,dc=dev)'
 
         # Base where we can search for groups
         #
