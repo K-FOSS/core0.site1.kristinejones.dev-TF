@@ -258,18 +258,19 @@
                   "handler": "subroute",
                   "routes": [
                     {
-                      "match": [
-                        {
-                          "host": [
-                            "network.glass"
+                      "handler": "reverse_proxy",
+                      "transport": {
+                        "protocol": "http",
+                        "resolver": {
+                          "addresses": [
+                            "10.1.1.10:8600",
+                            "10.1.1.13:8600"
                           ]
                         }
-                      ],
-                      "handle": [
+                      },
+                      "upstreams": [
                         {
-                          "handler": "static_response",
-                          "status_code": "200",
-                          "body": "TODO: Deploy loooking glass KJones <me@kristianjones.dev>"
+                          "lookup_srv": "http.lookingglass.service.dc1.kjdev"
                         }
                       ]
                     }
