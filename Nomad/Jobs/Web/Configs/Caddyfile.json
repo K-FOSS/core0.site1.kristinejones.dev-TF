@@ -255,24 +255,19 @@
               ],
               "handle": [
                 {
-                  "handler": "subroute",
-                  "routes": [
-                    {
-                      "handler": "reverse_proxy",
-                      "transport": {
-                        "protocol": "http",
-                        "resolver": {
-                          "addresses": [
-                            "10.1.1.10:8600",
-                            "10.1.1.13:8600"
-                          ]
-                        }
-                      },
-                      "upstreams": [
-                        {
-                          "lookup_srv": "http.lookingglass.service.dc1.kjdev"
-                        }
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http",
+                    "resolver": {
+                      "addresses": [
+                        "10.1.1.10:8600",
+                        "10.1.1.13:8600"
                       ]
+                    }
+                  },
+                  "upstreams": [
+                    {
+                      "lookup_srv": "http.lookingglass.service.dc1.kjdev"
                     }
                   ]
                 }
