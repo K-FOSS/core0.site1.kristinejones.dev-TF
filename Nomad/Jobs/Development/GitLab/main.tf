@@ -112,6 +112,8 @@ locals {
       GitLab = templatefile("${path.module}/Configs/GitLab.yaml", {
         OpenID = var.OpenID
 
+        LDAP = var.LDAP
+
         SMTP = var.SMTP
 
         S3 = var.S3

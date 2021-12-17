@@ -70,6 +70,14 @@ data "vault_generic_secret" "LDAP" {
 }
 
 #
+# Bitwarden
+#
+
+data "vault_generic_secret" "BitwardenCore" {
+  path = "${vault_mount.Terraform.path}/Bitwarden"
+}
+
+#
 # Teleport
 #
 

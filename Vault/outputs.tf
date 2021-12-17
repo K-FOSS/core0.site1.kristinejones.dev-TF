@@ -449,6 +449,11 @@ output "Bitwarden" {
       Password = data.vault_generic_secret.Bitwarden.data["password"]
     }
 
+    LDAP = {
+      Username = data.vault_generic_secret.BitwardenCore.data["LDAPUsername"]
+      Password = data.vault_generic_secret.BitwardenCore.data["LDAPPassword"]
+    }
+
     TLS = {
       CA = vault_pki_secret_backend_cert.BitwardenServerCert.ca_chain
 
@@ -521,6 +526,11 @@ output "GitLab" {
 
     Secrets = {
       OpenIDSigningKey = tls_private_key.GitLabOpenIDSigningKey.private_key_pem
+    }
+
+    LDAP = {
+      Username = data.vault_generic_secret.GitLab.data["LDAPUsername"]
+      Password = data.vault_generic_secret.GitLab.data["LDAPPassword"]
     }
 
     TLS = {

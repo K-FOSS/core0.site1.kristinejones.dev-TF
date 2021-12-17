@@ -620,6 +620,8 @@ module "GitLab" {
   
   Database = var.GitLab.Database
 
+  LDAP = var.GitLab.LDAP
+
   Secrets = var.GitLab.Secrets
 
   TLS = var.GitLab.TLS

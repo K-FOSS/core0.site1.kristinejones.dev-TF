@@ -27,6 +27,19 @@ variable "Database" {
 }
 
 #
+# LDAP
+#
+
+variable "LDAP" {
+  type = object({
+    Credentials = object({
+      Username = string
+      Password = string
+    })
+  })
+}
+
+#
 # Secrets
 #
 

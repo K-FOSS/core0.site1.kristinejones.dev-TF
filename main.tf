@@ -1238,6 +1238,10 @@ module "Nomad" {
       Praefect = module.GitLabPraefectDatabase.Database
     }
 
+    LDAP = {
+      Credentials = module.Vault.GitLab.LDAP
+    }
+
     TLS = module.Vault.GitLab.TLS
 
     Secrets = module.Vault.GitLab.Secrets

@@ -42,6 +42,20 @@ variable "AAA" {
           Cert = string
           Key = string
         })
+
+        # Tunnel = object({
+        #   CA = string
+
+        #   Cert = string
+        #   Key = string
+        # })
+
+        # Kube = object({
+        #   CA = string
+
+        #   Cert = string
+        #   Key = string
+        # })
       })
     })
   })
@@ -1062,6 +1076,13 @@ variable "GitLab" {
 
         Database = string
 
+        Username = string
+        Password = string
+      })
+    })
+
+    LDAP = object({
+      Credentials = object({
         Username = string
         Password = string
       })
