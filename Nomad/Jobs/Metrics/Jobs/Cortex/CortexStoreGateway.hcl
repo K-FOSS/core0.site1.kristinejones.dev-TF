@@ -30,7 +30,8 @@ job "cortex-storegateway" {
       dns {
         servers = [
           "10.1.1.53",
-          "172.16.0.1"
+          "10.1.1.10",
+          "10.1.1.13"
         ]
       }
     }
@@ -82,7 +83,7 @@ job "cortex-storegateway" {
 
         args = ["-config.file=/local/Cortex.yaml"]
 
-        memory_hard_limit = 256
+        memory_hard_limit = 892
 
         logging {
           type = "loki"
@@ -115,8 +116,8 @@ job "cortex-storegateway" {
 
       resources {
         cpu = 512
-        memory = 256
-        memory_max = 256
+        memory = 892
+        memory_max = 892
       }
 
       template {
