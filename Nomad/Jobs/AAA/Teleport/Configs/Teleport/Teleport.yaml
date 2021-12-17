@@ -25,7 +25,7 @@ teleport:
     type: etcd
 
     # List of etcd peers to connect to:
-    peers: ["https://0.etcd.teleport.service.dc1.kjdev:2379", "https://1.etcd.teleport.service.dc1.kjdev:2379", "https://2.etcd.teleport.service.dc1.kjdev:2379"]
+    peers: ["https://0.etcd.teleport.service.dc1.kjdev:2379", "https://1.etcd.teleport.service.dc1.kjdev:2379"]
 
     # Required path to TLS client certificate and key files to connect to etcd.
     tls_cert_file: /secrets/AuthServerCert.pem
