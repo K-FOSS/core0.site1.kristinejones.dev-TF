@@ -23,6 +23,10 @@ job "tempo-distributor" {
       port "gossip" { 
         to = 8090
       }
+      
+      port "otel_grpc" {
+        to = 4317
+      }
     }
 
     service {
@@ -54,6 +58,17 @@ job "tempo-distributor" {
       task = "tempo-distributor"
 
       tags = ["coredns.enabled", "gossip.distributor", "$${NOMAD_ALLOC_INDEX}.gossip.distributor"]
+    }
+
+    service {
+      name = "tempo"
+      
+      port = "otel_grpc"
+      address_mode = "alloc"
+
+      task = "tempo-distributor"
+
+      tags = ["coredns.enabled", "grpc.otel"]
     }
 
     task "tempo-distributor" {

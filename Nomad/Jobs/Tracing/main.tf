@@ -54,7 +54,7 @@ locals {
   Tempo = {
     YAMLConfig = templatefile("${path.module}/Configs/Tempo/Tempo.yaml", var.Tempo)
     
-    Version = "main-a2d8715"
+    Version = "main-9f0a021"
   }
 }
 
