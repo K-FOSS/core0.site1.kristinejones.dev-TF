@@ -349,7 +349,7 @@ production: &base
         host: 'ldap.ldap.authentik.service.dc1.kjdev'
         # This port is an example, it is sometimes different but it is always an integer and not a string
         port: 3389 # usually 636 for SSL
-        uid: 'sAMAccountName' # This should be the attribute, not the value that maps to uid.
+        uid: 'cn' # This should be the attribute, not the value that maps to uid.
 
         # Examples: 'america\\momo' or 'CN=Gitlab Git,CN=Users,DC=mydomain,DC=com'
         bind_dn: 'cn=${LDAP.Credentials.Username},ou=users,dc=ldap,dc=kristianjones,dc=dev'
@@ -415,7 +415,7 @@ production: &base
         #   Example for getting only specific users:
         #   '(&(objectclass=user)(|(samaccountname=momo)(samaccountname=toto)))'
         #
-        user_filter: ''
+        user_filter: '(memberOf=cn=Media Consumers,ou=groups,dc=ldap,dc=kristianjones,dc=dev)'
 
         # Base where we can search for groups
         #
@@ -457,13 +457,13 @@ production: &base
           # them in issues, merge request and comments (like `@username`).
           # If the attribute specified for `username` contains an email address,
           # the GitLab username will be the part of the email address before the '@'.
-          username: ['uid', 'sAMAccountName']
+          username: ['uid', 'cn', 'sAMAccountName']
           email:    ['mail']
 
           # If no full name could be found at the attribute specified for `name`,
           # the full name is determined using the attributes specified for
           # `first_name` and `last_name`.
-          name:       'cn'
+          name: 'cn'
           first_name: 'givenName'
           last_name:  'sn'
 
