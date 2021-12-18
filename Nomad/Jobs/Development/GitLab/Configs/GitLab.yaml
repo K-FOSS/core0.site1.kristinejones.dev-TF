@@ -376,7 +376,7 @@ production: &base
         #
         #   Ex. 'ou=People,dc=gitlab,dc=example' or 'DC=mydomain,DC=com'
         #
-        base: 'ou=users,dc=ldap,dc=kristianjones,dc=dev'
+        base: 'dc=ldap,dc=kristianjones,dc=dev'
 
         # Filter LDAP users
         #
