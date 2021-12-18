@@ -46,16 +46,6 @@ terraform {
   }
 }
 
-data "github_repository" "Repo" {
-  full_name = "goauthentik/authentik"
-}
-
-data "github_release" "Release" {
-  repository  = data.github_repository.Repo.name
-  owner = split("/", data.github_repository.Repo.full_name)[0]
-  retrieve_by = "latest"
-}
-
 #
 # Authentik Server
 #
