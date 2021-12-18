@@ -142,16 +142,6 @@ job "registry-harbor-chartmuseum" {
 
         entrypoint = ["/local/entry.sh"]
 
-        mount {
-          type = "bind"
-          target = "/etc/core/private_key.pem"
-          source = "local/Secrets/Key.pem"
-          readonly = true
-          bind_options {
-            propagation = "rshared"
-          }
-        }
-
         logging {
           type = "loki"
           config {
