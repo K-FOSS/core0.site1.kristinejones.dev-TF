@@ -46,6 +46,48 @@ job "development-gitlab-webservice" {
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "https.webservice"]
+
+      #
+      # Liveness check
+      #
+      check {
+        name = "HTTP Check"
+        type = "http"
+
+        address_mode = "alloc"
+        port = "https"
+
+        path = "/-/liveness"
+        interval = "10s"
+        timeout  = "3s"
+
+        check_restart {
+          limit = 12
+          grace = "60s"
+          ignore_warnings = false
+        }
+      }
+
+      #
+      # Readiness
+      #
+      check {
+        name = "HTTP Check"
+        type = "http"
+
+        address_mode = "alloc"
+        port = "https"
+
+        path = "/-/readiness"
+        interval = "10s"
+        timeout  = "3s"
+
+        check_restart {
+          limit = 12
+          grace = "60s"
+          ignore_warnings = false
+        }
+      }
     }
 
     task "gitlab-webservice-server" {
