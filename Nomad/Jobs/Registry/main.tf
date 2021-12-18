@@ -174,7 +174,7 @@ resource "nomad_job" "HarborRegistryJobFile" {
 
       Registry = {
         Config = templatefile("${path.module}/Configs/HarborRegistry/Config.yaml", {
-          S3 = var.Harbor.S3
+          S3 = var.Harbor.S3.Images
         })
 
         TLS = {
@@ -187,7 +187,7 @@ resource "nomad_job" "HarborRegistryJobFile" {
 
       RegistryCTL = {
         Config = templatefile("${path.module}/Configs/HarborRegistry/CTLConfig.yaml", {
-          S3 = var.Harbor.S3
+          S3 = var.Harbor.S3.Images
         })
 
         TLS = {
@@ -240,6 +240,8 @@ resource "nomad_job" "HarborChartMuseumJobFile" {
 
     ChartMuseum = {
       Secrets = local.Harbor.Secrets
+
+      S3 = var.Harbor.S3.Charts
 
       Database = var.Harbor.Database
 

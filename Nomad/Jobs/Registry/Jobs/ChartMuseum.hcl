@@ -175,22 +175,47 @@ job "registry-harbor-chartmuseum" {
         PORT = "8443"
 
         EXT_ENDPOINT = "https://registry.kristianjones.dev"
+        
+        #
+        # TODO: What dis do?
+        #
+        #CHART_URL = ""
+
+        #
+        # Security
+        #
+        AUTH_ANONYMOUS_GET = "false"
+        ALLOW_OVERWRITE = "true"
+        MAX_STORAGE_OBJECTS = "0"
+        MAX_UPLOAD_SIZE = "20971520"
+
+        #
+        # Form Settings
+        #
+        CHART_POST_FORM_FIELD_NAME = "chart"
+        PROV_POST_FORM_FIELD_NAME = "prov"
+
 
         #
         # Secrets
         #
         KEY_PATH = "/secrets/KEY"
 
-        #
-        # Internal TLS
-        #
-        INTERNAL_TLS_ENABLED = "true"
+        BASIC_AUTH_USER = "chart_controller"
 
         #
         # Internal Certs
         #
-        INTERNAL_TLS_KEY_PATH = "/secrets/TLS/Cert.key"
-        INTERNAL_TLS_CERT_PATH = "/secrets/TLS/Cert.pem"
+        TLS_CERT = "/secrets/TLS/Cert.key"
+        TLS_KEY = "/secrets/TLS/Cert.pem"
+
+
+        #
+        # Cache
+        #
+        CACHE = "redis"
+        CACHE_REDIS_ADDR = "redis.chartmuseum.harbor.service.kjdev"
+        CACHE_REDIS_DB = "0"
 
         #
         # Trusted CA
@@ -198,91 +223,23 @@ job "registry-harbor-chartmuseum" {
         INTERNAL_TLS_TRUST_CA_PATH = "/local/CA.pem"
 
         #
-        # Config
-        # 
-        CONFIG_PATH = "/local/Harbor/app.conf"
-
+        # Storage
         #
-        # Database
-        #
-        POSTGRESQL_SSLMODE = "disable"
-
-        #
-        # Service Connections
-        #
-        CORE_URL = "https://http.core.harbor.service.dc1.kjdev"
-        JOBSERVICE_URL = "https://http.jobservice.harbor.service.dc1.kjdev:8443"
-        REGISTRY_URL = "https://https.registry.harbor.service.dc1.kjdev:5443"
-        REGISTRY_CONTROLLER_URL = "https://https.registry.harbor.service.dc1.kjdev:8443"
-
-        TOKEN_SERVICE_URL = "https://http.core.harbor.service.dc1.kjdev:8443/service/token"
-
-        CORE_LOCAL_URL = "https://127.0.0.1:8443"
-
-        PORTAL_URL = "https://http.portal.harbor.service.dc1.kjdev:8443"
-
-        #
-        # Notary
-        # 
-        # TODO: Get Notary online?
-        #
-        WITH_NOTARY = "false"
-
-        #
-        # NOTARY_URL = ""
-        #
-
-        #
-        # Trivy
-        #
-        # TODO: Learn more about this?
-        #
-        WITH_TRIVY = "false"
-        # TRIVY_ADAPTER_URL = ""
-
-        #
-        # Registry Proxy Cache
-        # 
-        PERMITTED_REGISTRY_TYPES_FOR_PROXY_CACHE = "docker-hub,harbor,azure-acr,aws-ecr,google-gcr,quay,docker-registry"
-
-        #
-        # Registry
-        # 
-        REGISTRY_STORAGE_PROVIDER_NAME = "s3"
-
-        #
-        # ChartMusuem
-        #
-        # TODO: Determine if this or 
-        # GitLab or a mix of the both is worthwhile
-        #
-        WITH_CHARTMUSEUM = "false"
-        #CHART_REPOSITORY_URL = ""
-
-        #
-        # Misc
-        #
-        LOG_LEVEL = "DEBUG"
-
-        #
-        # Cache
-        #
-        CHART_CACHE_DRIVER = "redis"
-
-        _REDIS_URL_CORE = "redis://redis.core.harbor.service.dc1.kjdev:6379"
-        _REDIS_URL_REG = "redis://redis.registry.harbor.service.dc1.kjdev:6379"
-
-        #
-        # Metrics
-        #
-        METRIC_ENABLE = "true"
-
-        METRIC_NAMESPACE = "harbor"
-        METRIC_SUBSYSTEM = "core"
+        STORAGE = "amazon"
+        STORAGE_TIMESTAMP_TOLERANCE = "1s"
 
         #
         # Tracing
         #
+
+        #
+        # Logs
+        #
+        LOG_JSON = "true"
+        DISABLE_METRICS = "false"
+        DISABLE_API = "false"
+        DISABLE_STATEFILES = "false"
+
         # TODO: Determine if I can export to Tempo
         #
         #
@@ -361,6 +318,16 @@ POSTGRESQL_PASSWORD="${ChartMuseum.Database.Password}"
 # Misc
 #
 CSRF_KEY="${ChartMuseum.Secrets.CSRFKey}"
+
+#
+# Storage
+#
+STORAGE_AMAZON_BUCKET="${S3.Bucket}"
+STORAGE_AMAZON_REGION="us-east-1"
+
+STORAGE_AMAZON_ENDPOINT="http://${S3.Connection.Endpoint}"
+AWS_ACCESS_KEY_ID="${S3.Credentials.AccessKey}"
+AWS_SECRET_ACCESS_KEY="${S3.Credentials.SecretKey}"
 EOH
 
         destination = "secrets/file.env"
