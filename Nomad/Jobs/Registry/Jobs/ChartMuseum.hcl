@@ -292,7 +292,7 @@ EOF
 
       template {
         data = <<EOF
-${ChartMuseum.TLS.Key}
+${ChartMuseum.TLS.Cert}
 EOF
 
         destination = "local/Secrets/Key.pem"
