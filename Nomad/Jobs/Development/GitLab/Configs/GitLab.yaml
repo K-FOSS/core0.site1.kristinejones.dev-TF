@@ -310,17 +310,6 @@ production: &base
   ldap:
     enabled: true
     prevent_ldap_sign_in: false
-
-    # File location to read encrypted secrets from
-    # secret_file: /mnt/gitlab/ldap.yaml.enc # Default: shared/encrypted_settings/ldap.yaml.enc
-
-    # This setting controls the number of seconds between LDAP permission checks
-    # for each user. After this time has expired for a given user, their next
-    # interaction with GitLab (a click in the web UI, a git pull, etc.) will be
-    # slower because the LDAP permission check is being performed. How much
-    # slower depends on your LDAP setup, but it is not uncommon for this check
-    # to add seconds of waiting time. The default value is to have a "slow
-    # click" once every 3600 seconds (i.e., once per hour).
     #
     # Warning: if you set this value too low, every click in GitLab will be a
     # "slow click" for all of your LDAP users.
@@ -337,42 +326,22 @@ production: &base
       #
       ##########################################################################
       main: # 'main' is the GitLab 'provider ID' of this LDAP server
-        ## label
-        #
-        # A human-friendly name for your LDAP server. It is OK to change the label later,
-        # for instance if you find out it is too large to fit on the web page.
-        #
-        # Example: 'Paris' or 'Acme, Ltd.'
         label: 'KJDev'
-
-        # Example: 'ldap.mydomain.com'
         host: 'ldap.ldap.authentik.service.dc1.kjdev'
         # This port is an example, it is sometimes different but it is always an integer and not a string
         port: 3389 # usually 636 for SSL
-        uid: 'cn' # This should be the attribute, not the value that maps to uid.
+        uid: 'sAMAccountName' # This should be the attribute, not the value that maps to uid.
 
         # Examples: 'america\\momo' or 'CN=Gitlab Git,CN=Users,DC=mydomain,DC=com'
         bind_dn: 'cn=${LDAP.Credentials.Username},ou=users,dc=ldap,dc=kristianjones,dc=dev'
         password: '${LDAP.Credentials.Password}'
-
-        # Encryption method. The "method" key is deprecated in favor of
-        # "encryption".
-        #
-        #   Examples: "start_tls" or "simple_tls" or "plain"
-        #
-        #   Deprecated values: "tls" was replaced with "start_tls" and "ssl" was
-        #   replaced with "simple_tls".
-        #
         encryption: 'plain'
-
-        # Enables SSL certificate verification if encryption method is
-        # "start_tls" or "simple_tls". Defaults to true.
         verify_certificates: false
 
         # Set a timeout, in seconds, for LDAP queries. This helps avoid blocking
         # a request if the LDAP server becomes unresponsive.
         # A value of 0 means there is no timeout.
-        timeout: 10
+        timeout: 0
 
         # Enable smartcard authentication against the LDAP server. Valid values
         # are "false", "optional", and "required".
@@ -427,7 +396,7 @@ production: &base
         #
         #   Ex. GLAdmins
         #
-        admin_group: 'authentik Admins'
+        admin_group: ''
 
         # LDAP group of users who should be marked as external users in GitLab
         #
@@ -457,8 +426,8 @@ production: &base
           # them in issues, merge request and comments (like `@username`).
           # If the attribute specified for `username` contains an email address,
           # the GitLab username will be the part of the email address before the '@'.
-          username: ['uid', 'cn', 'sAMAccountName']
-          email:    ['mail']
+          username: ['cn', 'sAMAccountName']
+          email: ['mail']
 
           # If no full name could be found at the attribute specified for `name`,
           # the full name is determined using the attributes specified for
@@ -468,15 +437,7 @@ production: &base
           last_name:  'sn'
 
         # If lowercase_usernames is enabled, GitLab will lower case the username.
-        lowercase_usernames: true
-
-      # GitLab EE only: add more LDAP servers
-      # Choose an ID made of a-z and 0-9 . This ID will be stored in the database
-      # so that GitLab can remember which LDAP server a user belongs to.
-      # uswest2:
-      #   label:
-      #   host:
-      #   ....
+        lowercase_usernames: false
 
   kerberos:
     enabled: false

@@ -4,6 +4,16 @@ job "authentik-ldap" {
   group "auth-ldap-server" {
     count = 3
 
+    update {
+      max_parallel = 1
+
+      min_healthy_time = "45s"
+
+      healthy_deadline = "3m"
+
+      progress_deadline = "5m"
+    }
+
     spread {
       attribute = "$${node.unique.id}"
       weight = 100
@@ -36,6 +46,13 @@ job "authentik-ldap" {
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "ldap.ldap"]
+
+      check {
+        type = "tcp"
+        port = "ldap"
+        interval = "10s"
+        timeout = "2s"
+      }
     }
 
     service {
