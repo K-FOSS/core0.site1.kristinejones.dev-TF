@@ -5,7 +5,7 @@ job "gitlab-praefect" {
   # GitLab Gitaly
   #
   group "gitlab-praefect" {
-    count = 1
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
@@ -32,6 +32,26 @@ job "gitlab-praefect" {
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "http.praefect"]
+
+      check {
+        name = "tcp_validate"
+
+        type = "tcp"
+
+        port = "http"
+        address_mode = "alloc"
+
+        initial_status = "passing"
+
+        interval = "30s"
+        timeout  = "10s"
+
+        check_restart {
+          limit = 6
+          grace = "120s"
+          ignore_warnings = true
+        }
+      }
     }
 
     task "gitlab-praefect-server" {

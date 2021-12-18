@@ -5,7 +5,7 @@ job "development-gitlab-sidekiq" {
   # GitLab Sidekiq
   #
   group "gitlab-sidekiq" {
-    count = 1
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
