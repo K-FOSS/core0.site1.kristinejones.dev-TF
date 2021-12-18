@@ -32,6 +32,23 @@ job "development-gitlab-sidekiq" {
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "http.sidekiq"]
+
+      #
+      # Liveness check
+      #
+      check {
+        type = "script"
+        command = "/scripts/healthcheck"
+
+        interval = "10s"
+        timeout  = "3s"
+
+        check_restart {
+          limit = 12
+          grace = "60s"
+          ignore_warnings = false
+        }
+      }
     }
 
     task "gitlab-sidekiq-server" {
