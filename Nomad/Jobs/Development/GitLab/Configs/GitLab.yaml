@@ -365,7 +365,7 @@ production: &base
         #
         # If you are using "uid: 'userPrincipalName'" on ActiveDirectory you need to
         # disable this setting, because the userPrincipalName contains an '@'.
-        allow_username_or_email_login: true
+        allow_username_or_email_login: false
 
         # To maintain tight control over the number of active users on your GitLab installation,
         # enable this setting to keep new users blocked until they have been cleared by the admin
@@ -376,7 +376,7 @@ production: &base
         #
         #   Ex. 'ou=People,dc=gitlab,dc=example' or 'DC=mydomain,DC=com'
         #
-        base: 'dc=ldap,dc=kristianjones,dc=dev'
+        base: 'ou=users,dc=ldap,dc=kristianjones,dc=dev'
 
         # Filter LDAP users
         #
