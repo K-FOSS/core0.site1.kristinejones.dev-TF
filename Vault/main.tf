@@ -638,9 +638,9 @@ resource "vault_pki_secret_backend_cert" "HarborPortalServerCert" {
   backend = module.Harbor.TLS.Mount.path
   name = module.Harbor.TLS.Role.name
 
-  common_name = "http.portal.harbor.service.kjdev"
+  common_name = "https.portal.harbor.service.kjdev"
 
-  alt_names = ["http.portal.harbor.service.dc1.kjdev"]
+  alt_names = ["https.portal.harbor.service.dc1.kjdev", "http.portal.harbor.service.kjdev", "http.portal.harbor.service.dc1.kjdev"]
 }
 
 resource "vault_pki_secret_backend_cert" "HarborRegistryServerCert" {
@@ -668,6 +668,15 @@ resource "vault_pki_secret_backend_cert" "HarborExporterServerCert" {
   common_name = "https.exporter.harbor.service.kjdev"
 
   alt_names = ["https.exporter.harbor.service.dc1.kjdev"]
+}
+
+resource "vault_pki_secret_backend_cert" "HarborChartMuseumServerCert" {
+  backend = module.Harbor.TLS.Mount.path
+  name = module.Harbor.TLS.Role.name
+
+  common_name = "https.chartmuseum.harbor.service.kjdev"
+
+  alt_names = ["https.chartmuseum.harbor.service.dc1.kjdev", "https.charts.harbor.service.dc1.kjdev", "charts.registry.kristianjones.dev"]
 }
 
 #

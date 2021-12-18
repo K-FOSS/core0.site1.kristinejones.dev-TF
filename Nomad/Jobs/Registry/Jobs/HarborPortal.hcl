@@ -2,7 +2,7 @@ job "registry-harbor-portal" {
   datacenters = ["core0site1"]
 
   group "harbor-registry-portal" {
-    count = 2
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
@@ -12,7 +12,7 @@ job "registry-harbor-portal" {
     network {
       mode = "cni/nomadcore1"
 
-      port "http" {
+      port "https" {
         to = 8443
       }
 
@@ -41,12 +41,33 @@ job "registry-harbor-portal" {
 
     service {
       name = "harbor"
-      port = "http"
+      port = "https"
 
       task = "harbor-portal-server"
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.portal"]
+
+      #
+      # Liveness check
+      #
+      check {
+        port = "https"
+        address_mode = "alloc"
+
+        type = "http"
+        protocol = "https"
+        tls_skip_verify = true
+
+        path = "/"
+        interval = "10s"
+        timeout  = "30s"
+
+        check_restart {
+          limit = 10
+          grace = "60s"
+        }
+      }
     }
 
 
@@ -86,7 +107,6 @@ job "registry-harbor-portal" {
         # Trusted CA
         #
         INTERNAL_TLS_TRUST_CA_PATH = "/local/CA.pem"
-
       }
 
       template {

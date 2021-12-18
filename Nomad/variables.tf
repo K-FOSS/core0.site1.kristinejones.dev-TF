@@ -1365,6 +1365,13 @@ variable "Registry" {
 
           Key = string
         })
+
+        ChartMuseum = object({
+          CA = string
+
+          Cert = string
+          Key = string
+        })
       })
     })
   })

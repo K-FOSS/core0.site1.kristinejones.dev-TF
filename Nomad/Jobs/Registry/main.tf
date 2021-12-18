@@ -92,6 +92,8 @@ locals {
 
       CSRFKey = random_password.HarborCSRFKeySecret.result
     }
+
+    Version = "v2.4.0-dev"
   }
 }
 
@@ -116,7 +118,7 @@ resource "nomad_job" "HarborCoreJobFile" {
       Config =  templatefile("${path.module}/Configs/HarborCore/app.conf", {
       })
 
-      Version = "v2.4.0-dev"
+      Version = local.Harbor.Version
     }
   })
 }
@@ -138,7 +140,7 @@ resource "nomad_job" "HarborJobServiceJobFile" {
       Config =  templatefile("${path.module}/Configs/HarborJobService/Config.yaml", {
       })
 
-      Version = "v2.4.0-dev"
+      Version = local.Harbor.Version
     }
   })
 }
@@ -158,7 +160,7 @@ resource "nomad_job" "HarborPortalJobFile" {
       Config =  templatefile("${path.module}/Configs/HarborPortal/NGINX.conf", {
       })
 
-      Version = "v2.4.0-dev"
+      Version = local.Harbor.Version
     }
   })
 }
@@ -198,7 +200,7 @@ resource "nomad_job" "HarborRegistryJobFile" {
         EntryScript = file("${path.module}/Configs/HarborRegistry/CTLEntry.sh")
       }
 
-      Version = "v2.4.0-dev"
+      Version = local.Harbor.Version
     }
   })
 }
@@ -223,7 +225,32 @@ resource "nomad_job" "HarborExporterJobFile" {
         Key = var.Harbor.TLS.Exporter.Key
       }
 
-      Version = "v2.4.0-dev"
+      Version = local.Harbor.Version
+    }
+  })
+}
+
+#
+# ChartMuseum
+#
+
+resource "nomad_job" "HarborChartMuseumJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/ChartMuseum.hcl", {
+    EntryScript = file("${path.module}/Configs/ChartMuseum/Entry.sh")
+
+    ChartMuseum = {
+      Secrets = local.Harbor.Secrets
+
+      Database = var.Harbor.Database
+
+      TLS = {
+        CA = var.Harbor.TLS.CA
+
+        Cert = var.Harbor.TLS.ChartMuseum.Cert
+        Key = var.Harbor.TLS.ChartMuseum.Key
+      }
+
+      Version = local.Harbor.Version
     }
   })
 }

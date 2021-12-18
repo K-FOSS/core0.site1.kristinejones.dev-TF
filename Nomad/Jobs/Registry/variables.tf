@@ -77,6 +77,13 @@ variable "Harbor" {
 
         Key = string
       })
+
+      ChartMuseum = object({
+        CA = string
+
+        Cert = string
+        Key = string
+      })
     })
   })
 }

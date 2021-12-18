@@ -613,6 +613,12 @@ output "Registry" {
           Key = vault_pki_secret_backend_cert.HarborExporterServerCert.private_key
         }
 
+        ChartMuseum = {
+          CA = vault_pki_secret_backend_cert.HarborChartMuseumServerCert.ca_chain
+          Cert = vault_pki_secret_backend_cert.HarborChartMuseumServerCert.certificate
+          Key = vault_pki_secret_backend_cert.HarborChartMuseumServerCert.private_key
+        }
+
       }
     }
   }
