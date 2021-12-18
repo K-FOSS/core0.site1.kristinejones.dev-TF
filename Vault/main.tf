@@ -652,6 +652,24 @@ resource "vault_pki_secret_backend_cert" "HarborRegistryServerCert" {
   alt_names = ["https.registry.harbor.service.dc1.kjdev"]
 }
 
+resource "vault_pki_secret_backend_cert" "HarborGitLabRegistryServerCert" {
+  backend = module.Harbor.TLS.Mount.path
+  name = module.Harbor.TLS.Role.name
+
+  common_name = "https.gitlabregistry.harbor.service.kjdev"
+
+  alt_names = ["https.gitlabregistry.harbor.service.dc1.kjdev"]
+}
+
+resource "vault_pki_secret_backend_cert" "HarborGitLabRegistryCTLServerCert" {
+  backend = module.Harbor.TLS.Mount.path
+  name = module.Harbor.TLS.Role.name
+
+  common_name = "https.gitlabregistrycontroller.harbor.service.kjdev"
+
+  alt_names = ["https.gitlabregistrycontroller.harbor.service.dc1.kjdev"]
+}
+
 resource "vault_pki_secret_backend_cert" "HarborRegistryCTLServerCert" {
   backend = module.Harbor.TLS.Mount.path
   name = module.Harbor.TLS.Role.name

@@ -224,8 +224,8 @@ resource "nomad_job" "HarborGitLabRegistryJobFile" {
         TLS = {
           CA = var.Harbor.TLS.CA
 
-          Cert = var.Harbor.TLS.Registry.Cert
-          Key = var.Harbor.TLS.Registry.Key
+          Cert = var.Harbor.TLS.GitLabRegistry.Cert
+          Key = var.Harbor.TLS.GitLabRegistry.Key
         }
       }
 
@@ -237,8 +237,8 @@ resource "nomad_job" "HarborGitLabRegistryJobFile" {
         TLS = {
           CA = var.Harbor.TLS.CA
 
-          Cert = var.Harbor.TLS.RegistryCTL.Cert
-          Key = var.Harbor.TLS.RegistryCTL.Key
+          Cert = var.Harbor.TLS.GitLabRegistryCTL.Cert
+          Key = var.Harbor.TLS.GitLabRegistryCTL.Key
         }
 
         EntryScript = file("${path.module}/Configs/HarborRegistry/CTLEntry.sh")

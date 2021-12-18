@@ -1373,6 +1373,18 @@ variable "Registry" {
           Key = string
         })
 
+        GitLabRegistry = object({
+          Cert = string
+
+          Key = string
+        })
+
+        GitLabRegistryCTL = object({
+          Cert = string
+
+          Key = string
+        })
+
         RegistryCTL = object({
           Cert = string
 

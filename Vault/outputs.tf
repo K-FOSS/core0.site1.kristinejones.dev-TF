@@ -551,8 +551,8 @@ output "GitLab" {
       Registry = {
         CA = vault_pki_secret_backend_cert.HarborCoreServerCert.ca_chain
 
-        Cert = vault_pki_secret_backend_cert.HarborRegistryServerCert.certificate
-        Key = vault_pki_secret_backend_cert.HarborRegistryServerCert.private_key
+        Cert = vault_pki_secret_backend_cert.HarborGitLabRegistryServerCert.certificate
+        Key = vault_pki_secret_backend_cert.HarborGitLabRegistryServerCert.private_key
       }
     }
   }
@@ -601,6 +601,16 @@ output "Registry" {
         Registry = {
           Cert = vault_pki_secret_backend_cert.HarborRegistryServerCert.certificate
           Key = vault_pki_secret_backend_cert.HarborRegistryServerCert.private_key
+        }
+
+        GitLabRegistry = {
+          Cert = vault_pki_secret_backend_cert.HarborGitLabRegistryServerCert.certificate
+          Key = vault_pki_secret_backend_cert.HarborGitLabRegistryServerCert.private_key
+        } 
+
+        GitLabRegistryCTL = {
+          Cert = vault_pki_secret_backend_cert.HarborGitLabRegistryCTLServerCert.certificate
+          Key = vault_pki_secret_backend_cert.HarborGitLabRegistryCTLServerCert.private_key
         }
 
         RegistryCTL = {

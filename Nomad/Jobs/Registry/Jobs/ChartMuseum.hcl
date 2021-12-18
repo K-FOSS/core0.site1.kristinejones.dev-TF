@@ -157,7 +157,7 @@ job "registry-harbor-chartmuseum" {
           config {
             loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
 
-            loki-external-labels = "job=harbor,service=core"
+            loki-external-labels = "job=harbor,service=chartmuseum"
           }
         }
       }
