@@ -330,7 +330,7 @@ production: &base
         host: 'ldap.ldap.authentik.service.dc1.kjdev'
         # This port is an example, it is sometimes different but it is always an integer and not a string
         port: 3389 # usually 636 for SSL
-        uid: 'sAMAccountName' # This should be the attribute, not the value that maps to uid.
+        uid: 'uid' # This should be the attribute, not the value that maps to uid.
 
         # Examples: 'america\\momo' or 'CN=Gitlab Git,CN=Users,DC=mydomain,DC=com'
         bind_dn: 'cn=${LDAP.Credentials.Username},ou=users,dc=ldap,dc=kristianjones,dc=dev'
@@ -350,7 +350,7 @@ production: &base
         # This setting specifies if LDAP server is Active Directory LDAP server.
         # For non AD servers it skips the AD specific queries.
         # If your LDAP server is not AD, set this to false.
-        active_directory: false
+        #active_directory: true
 
         # If allow_username_or_email_login is enabled, GitLab will ignore everything
         # after the first '@' in the LDAP username submitted by the user on login.
@@ -384,7 +384,7 @@ production: &base
         #   Example for getting only specific users:
         #   '(&(objectclass=user)(|(samaccountname=momo)(samaccountname=toto)))'
         #
-        user_filter: '(memberOf=cn=Media Consumers,ou=groups,dc=ldap,dc=kristianjones,dc=dev)'
+        user_filter: '(objectClass=user)'
 
         # Base where we can search for groups
         #
@@ -437,7 +437,7 @@ production: &base
           last_name:  'sn'
 
         # If lowercase_usernames is enabled, GitLab will lower case the username.
-        lowercase_usernames: false
+        #lowercase_usernames: false
 
   kerberos:
     enabled: false
