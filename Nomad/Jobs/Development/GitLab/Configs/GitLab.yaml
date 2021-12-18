@@ -230,11 +230,6 @@ production: &base
     ci_platform_metrics_update_cron_worker:
       cron: '47 9 * * *'
 
-    ldap_sync_worker:
-      cron: "30 1 * * *"
-    ldap_group_sync_worker:
-      cron: "0 * * * *"
-
 
   #
   # TODO: Hook into Harbor
