@@ -97,7 +97,7 @@ job "registry-harbor-chartmuseum" {
       task = "harbor-chartmuseum-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.chartmuseum"]
+      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.chartmuseum"]
 
       #
       # Liveness check
