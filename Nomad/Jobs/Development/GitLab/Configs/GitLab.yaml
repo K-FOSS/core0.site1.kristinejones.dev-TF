@@ -430,8 +430,8 @@ production: &base
           # them in issues, merge request and comments (like `@username`).
           # If the attribute specified for `username` contains an email address,
           # the GitLab username will be the part of the email address before the '@'.
-          username: ['cn', 'sAMAccountName']
-          email: ['mail']
+          username: 'cn'
+          email: 'mail'
 
           # If no full name could be found at the attribute specified for `name`,
           # the full name is determined using the attributes specified for
