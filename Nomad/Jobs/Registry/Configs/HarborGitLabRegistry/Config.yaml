@@ -1,0 +1,58 @@
+version: 0.1
+
+log:
+  level: debug
+  fields:
+    service: registry
+
+storage:
+  s3:
+    region: us-east-1
+    bucket: ${S3.Bucket}
+    accesskey: ${S3.Credentials.AccessKey}
+    secretkey: ${S3.Credentials.SecretKey}
+    regionendpoint: ${S3.Connection.Endpoint}
+    secure: false
+    v4auth: true
+  cache:
+    layerinfo: redis
+  maintenance:
+    uploadpurging:
+      enabled: false
+  redirect:
+    disable: true
+
+redis:
+  addr: redis.registry.harbor.service.dc1.kjdev:6379
+  db: 0
+  pool:
+    maxidle: 100
+    maxactive: 500
+    idletimeout: 60s
+
+http:
+  addr: 0.0.0.0:5443
+  secret: helloworld
+  tls:
+    certificate: /secrets/TLS/Cert.pem
+    key: /secrets/TLS/Cert.key
+    minimumtls: tls1.2
+  debug:
+    addr: 0.0.0.0:9090
+    prometheus:
+      enabled: true
+      path: /metrics
+
+auth:
+  token:
+    issuer: gitlab-issuer
+    realm: https://gitlab.kristianjones.dev/jwt/auth
+    service: container_registry
+    rootcertbundle: /local/CA.pem
+
+validation:
+  disabled: true
+
+compatibility:
+  schema1:
+    enabled: false

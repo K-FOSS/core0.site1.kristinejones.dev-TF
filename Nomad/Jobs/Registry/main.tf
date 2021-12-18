@@ -205,6 +205,50 @@ resource "nomad_job" "HarborRegistryJobFile" {
   })
 }
 
+
+#
+# GitLab Registry API
+#
+resource "nomad_job" "HarborGitLabRegistryJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/HarborGitLabRegistry.hcl", {
+    EntryScript = file("${path.module}/Configs/HarborRegistry/Entry.sh")
+
+    Harbor = {
+      Secrets = local.Harbor.Secrets
+
+      Registry = {
+        Config = templatefile("${path.module}/Configs/HarborGitLabRegistry/Config.yaml", {
+          S3 = var.Harbor.S3.Images
+        })
+
+        TLS = {
+          CA = var.Harbor.TLS.CA
+
+          Cert = var.Harbor.TLS.Registry.Cert
+          Key = var.Harbor.TLS.Registry.Key
+        }
+      }
+
+      RegistryCTL = {
+        Config = templatefile("${path.module}/Configs/HarborRegistry/CTLConfig.yaml", {
+          S3 = var.Harbor.S3.Images
+        })
+
+        TLS = {
+          CA = var.Harbor.TLS.CA
+
+          Cert = var.Harbor.TLS.RegistryCTL.Cert
+          Key = var.Harbor.TLS.RegistryCTL.Key
+        }
+
+        EntryScript = file("${path.module}/Configs/HarborRegistry/CTLEntry.sh")
+      }
+
+      Version = local.Harbor.Version
+    }
+  })
+}
+
 #
 # Exporter
 #

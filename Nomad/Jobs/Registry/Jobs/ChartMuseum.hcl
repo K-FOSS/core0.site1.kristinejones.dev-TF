@@ -322,12 +322,12 @@ CSRF_KEY="${ChartMuseum.Secrets.CSRFKey}"
 #
 # Storage
 #
-STORAGE_AMAZON_BUCKET="${S3.Bucket}"
+STORAGE_AMAZON_BUCKET="${ChartMuseum.S3.Bucket}"
 STORAGE_AMAZON_REGION="us-east-1"
 
-STORAGE_AMAZON_ENDPOINT="http://${S3.Connection.Endpoint}"
-AWS_ACCESS_KEY_ID="${S3.Credentials.AccessKey}"
-AWS_SECRET_ACCESS_KEY="${S3.Credentials.SecretKey}"
+STORAGE_AMAZON_ENDPOINT="http://${ChartMuseum.S3.Connection.Endpoint}"
+AWS_ACCESS_KEY_ID="${ChartMuseum.S3.Credentials.AccessKey}"
+AWS_SECRET_ACCESS_KEY="${ChartMuseum.S3.Credentials.SecretKey}"
 EOH
 
         destination = "secrets/file.env"
