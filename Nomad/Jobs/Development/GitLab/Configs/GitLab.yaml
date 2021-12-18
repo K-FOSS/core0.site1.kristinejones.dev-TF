@@ -241,7 +241,7 @@ production: &base
     api_url: https://https.gitlabregistry.harbor.service.kjdev:5443 # internal address to the registry, will be used by GitLab to directly communicate with API
     key: /secrets/TLS/Registry.key
     # #path: shared/registry
-    # issuer: gitlab-issuer
+    issuer: gitlab-issuer
     #notification_secret: '' # only set it when you use Geo replication feature without built-in Registry
 
     # Add notification settings if you plan to use Geo Replication for the registry
