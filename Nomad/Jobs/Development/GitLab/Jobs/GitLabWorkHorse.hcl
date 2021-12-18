@@ -64,6 +64,20 @@ job "development-gitlab-workhorse" {
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "https.workhorse"]
+
+      check {
+        type = "script"
+        command = "/scripts/healthcheck"
+
+        interval = "10s"
+        timeout  = "3s"
+
+        check_restart {
+          limit = 12
+          grace = "60s"
+          ignore_warnings = false
+        }
+      }
     }
 
     task "gitlab-workhorse-server" {
