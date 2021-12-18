@@ -59,6 +59,15 @@ job "authentik-worker" {
         image = "ghcr.io/goauthentik/server:${Version}"
 
         args = ["worker"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=authentik,service=worker"
+          }
+        }
       }
 
       env {

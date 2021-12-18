@@ -115,7 +115,7 @@ job "authentik-server" {
           config {
             loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
 
-            loki-external-labels = "job=cache,service=web"
+            loki-external-labels = "job=authentik,service=server"
           }
         }
       }
