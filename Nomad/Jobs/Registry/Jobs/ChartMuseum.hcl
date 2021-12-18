@@ -214,7 +214,7 @@ job "registry-harbor-chartmuseum" {
         # Cache
         #
         CACHE = "redis"
-        CACHE_REDIS_ADDR = "redis.chartmuseum.harbor.service.kjdev"
+        CACHE_REDIS_ADDR = "redis.chartmuseum.harbor.service.kjdev:6379"
         CACHE_REDIS_DB = "0"
 
         #
