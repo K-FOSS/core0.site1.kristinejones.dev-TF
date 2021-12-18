@@ -1,20 +1,37 @@
 variable "Harbor" {
   type = object({
     S3 = object({
-      Connection = object({
-        Hostname = string
-        Port = number
+      Images = object({
+        Connection = object({
+          Hostname = string
+          Port = number
 
-        Endpoint = string
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
+        Bucket = string
       })
 
-      Credentials = object({
-        AccessKey = string
-        SecretKey = string
+      Charts = object({
+        Connection = object({
+          Hostname = string
+          Port = number
+
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
+
+
+        Bucket = string
       })
-
-
-      Bucket = string
     })
 
     Database = object({

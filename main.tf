@@ -377,6 +377,17 @@ module "HarborRegistryBucket" {
   Credentials = module.Vault.Minio
 }
 
+module "HarborChartsBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "node2.core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
 
 #
 # Databases
@@ -1288,7 +1299,10 @@ module "Nomad" {
     # Harbor Registry
     #
     Harbor = {
-      S3 = module.HarborRegistryBucket
+      S3 = {
+        Images = module.HarborRegistryBucket
+        Charts = module.HarborChartsBucket
+      }
 
       Database = module.HarborRegistryDatabase.Database
 
