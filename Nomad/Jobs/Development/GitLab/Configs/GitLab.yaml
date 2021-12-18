@@ -384,7 +384,7 @@ production: &base
         #   Example for getting only specific users:
         #   '(&(objectclass=user)(|(samaccountname=momo)(samaccountname=toto)))'
         #
-        user_filter: ''
+        user_filter: '(memberOf=cn=Media Consumers,ou=groups,dc=ldap,dc=kristianjones,dc=dev)'
 
         # Base where we can search for groups
         #
@@ -433,7 +433,7 @@ production: &base
           # the full name is determined using the attributes specified for
           # `first_name` and `last_name`.
           name: 'cn'
-          first_name: 'givenName'
+          first_name: 'displayName'
           last_name:  'sn'
 
         # If lowercase_usernames is enabled, GitLab will lower case the username.
