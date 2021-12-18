@@ -433,13 +433,6 @@ production: &base
           username: 'cn'
           email: 'mail'
 
-          # If no full name could be found at the attribute specified for `name`,
-          # the full name is determined using the attributes specified for
-          # `first_name` and `last_name`.
-          name: 'name'
-          first_name: 'displayName'
-          last_name: 'name'
-
         # If lowercase_usernames is enabled, GitLab will lower case the username.
         #lowercase_usernames: false
 
@@ -560,6 +553,11 @@ production: &base
     web_exporter:
     #  enabled: true
     #  address: localhost
+
+    sidekiq_health_checks:
+      enabled: true
+      address: 0.0.0.0
+      port: 9100
 
   ## Prometheus settings
   # Do not modify these settings here. They should be modified in /etc/gitlab/gitlab.rb

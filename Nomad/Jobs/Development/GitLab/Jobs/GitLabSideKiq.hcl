@@ -18,6 +18,10 @@ job "development-gitlab-sidekiq" {
       port "http" { 
         to = 8080
       }
+
+      port "healthchecks" {
+        to = 9100
+      }
     }
 
     service {
@@ -28,6 +32,27 @@ job "development-gitlab-sidekiq" {
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "http.sidekiq"]
+
+      #
+      # Liveness check
+      #
+      check {
+        name = "HTTP Check"
+        type = "http"
+
+        address_mode = "alloc"
+        port = "healthchecks"
+
+        path = "/liveness"
+        interval = "10s"
+        timeout  = "3s"
+
+        check_restart {
+          limit = 12
+          grace = "60s"
+          ignore_warnings = false
+        }
+      }
     }
 
     task "gitlab-sidekiq-server" {
