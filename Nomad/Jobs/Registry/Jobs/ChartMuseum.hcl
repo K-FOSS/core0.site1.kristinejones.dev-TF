@@ -117,7 +117,7 @@ job "registry-harbor-chartmuseum" {
       user = "root"
 
       config {
-        image = "goharbor/chartmuseum-photon:${Harbor.Version}"
+        image = "goharbor/chartmuseum-photon:${ChartMuseum.Version}"
 
         entrypoint = ["/local/entry.sh"]
 
@@ -283,7 +283,7 @@ EOF
       }
 
       template {
-        data = "${Harbor.Secrets.CoreSecretKey}"
+        data = "${ChartMuseum.Secrets.CoreSecretKey}"
 
         destination = "secrets/KEY"
       }
