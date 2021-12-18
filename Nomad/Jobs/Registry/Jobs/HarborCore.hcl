@@ -235,8 +235,8 @@ job "registry-harbor-core" {
         # TODO: Determine if this or 
         # GitLab or a mix of the both is worthwhile
         #
-        WITH_CHARTMUSEUM = "false"
-        #CHART_REPOSITORY_URL = ""
+        WITH_CHARTMUSEUM = "true"
+        CHART_REPOSITORY_URL = "https://https.chartmuseum.harbor.service.kjdev:8443"
 
         #
         # Misc

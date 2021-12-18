@@ -206,8 +206,8 @@ job "registry-harbor-chartmuseum" {
         #
         # Internal Certs
         #
-        TLS_CERT = "/secrets/TLS/Cert.key"
-        TLS_KEY = "/secrets/TLS/Cert.pem"
+        TLS_CERT = "/secrets/TLS/Cert.pem"
+        TLS_KEY = "/secrets/TLS/Cert.key"
 
 
         #
@@ -288,14 +288,6 @@ ${ChartMuseum.TLS.Key}
 EOF
 
         destination = "secrets/TLS/Cert.key"
-      }
-
-      template {
-        data = <<EOF
-${ChartMuseum.TLS.Cert}
-EOF
-
-        destination = "local/Secrets/Key.pem"
       }
 
       template {
