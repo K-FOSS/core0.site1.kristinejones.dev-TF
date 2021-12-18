@@ -354,7 +354,7 @@ production: &base
         # This setting specifies if LDAP server is Active Directory LDAP server.
         # For non AD servers it skips the AD specific queries.
         # If your LDAP server is not AD, set this to false.
-        #active_directory: true
+        active_directory: false
 
         # If allow_username_or_email_login is enabled, GitLab will ignore everything
         # after the first '@' in the LDAP username submitted by the user on login.
@@ -376,7 +376,7 @@ production: &base
         #
         #   Ex. 'ou=People,dc=gitlab,dc=example' or 'DC=mydomain,DC=com'
         #
-        base: 'ou=users,dc=ldap,dc=kristianjones,dc=dev'
+        base: 'dc=ldap,dc=kristianjones,dc=dev'
 
         # Filter LDAP users
         #
@@ -388,7 +388,7 @@ production: &base
         #   Example for getting only specific users:
         #   '(&(objectclass=user)(|(samaccountname=momo)(samaccountname=toto)))'
         #
-        user_filter: ''
+        user_filter: '(memberOf=cn=Media Consumers,ou=groups,dc=ldap,dc=kristianjones,dc=dev)'
 
         # Base where we can search for groups
         #
@@ -436,9 +436,9 @@ production: &base
           # If no full name could be found at the attribute specified for `name`,
           # the full name is determined using the attributes specified for
           # `first_name` and `last_name`.
-          name: 'cn'
+          name: 'name'
           first_name: 'displayName'
-          last_name:  'sn'
+          last_name: 'name'
 
         # If lowercase_usernames is enabled, GitLab will lower case the username.
         #lowercase_usernames: false
