@@ -6,7 +6,7 @@ job "development-gitlab-shell" {
   # GitLab Shell
   #
   group "gitlab-shell" {
-    count = 1
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
@@ -29,6 +29,23 @@ job "development-gitlab-shell" {
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "http.shell"]
+
+      #
+      # Liveness check
+      #
+      check {
+        type = "script"
+        command = "/scripts/healthcheck"
+
+        interval = "10s"
+        timeout  = "3s"
+
+        check_restart {
+          limit = 12
+          grace = "60s"
+          ignore_warnings = false
+        }
+      }
     }
 
     task "gitlab-shell-server" {
