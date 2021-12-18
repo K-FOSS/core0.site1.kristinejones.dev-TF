@@ -62,7 +62,7 @@ job "registry-harbor-chartmuseum" {
     network {
       mode = "cni/nomadcore1"
 
-      port "http" {
+      port "https" {
         to = 8443
       }
 
@@ -92,12 +92,33 @@ job "registry-harbor-chartmuseum" {
 
     service {
       name = "harbor"
-      port = "http"
+      port = "https"
 
       task = "harbor-chartmuseum-server"
       address_mode = "alloc"
 
       tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.chartmuseum"]
+
+      #
+      # Liveness check
+      #
+      check {
+        port = "https"
+        address_mode = "alloc"
+
+        type = "http"
+        protocol = "https"
+        tls_skip_verify = true
+
+        path = "/"
+        interval = "10s"
+        timeout  = "30s"
+
+        check_restart {
+          limit = 10
+          grace = "60s"
+        }
+      }
     }
 
     service {
@@ -286,14 +307,6 @@ EOF
         data = "${ChartMuseum.Secrets.CoreSecretKey}"
 
         destination = "secrets/KEY"
-      }
-
-      template {
-        data = <<EOF
-${ChartMuseum.Config}
-EOF
-
-        destination = "local/Harbor/app.conf"
       }
 
       template {
