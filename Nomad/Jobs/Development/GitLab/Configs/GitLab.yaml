@@ -546,6 +546,8 @@ production: &base
     # IP whitelist to access monitoring endpoints
     ip_whitelist:
       - 127.0.0.0/8
+      - 10.0.0.0/8
+      - 172.16.0.0/12
 
     # Sidekiq exporter is webserver built in to Sidekiq to expose Prometheus metrics
     sidekiq_exporter:
