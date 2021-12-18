@@ -230,6 +230,12 @@ production: &base
     ci_platform_metrics_update_cron_worker:
       cron: '47 9 * * *'
 
+    ldap_sync_worker:
+      cron: "30 1 * * *"
+    ldap_group_sync_worker:
+      cron: "0 * * * *"
+
+
   #
   # TODO: Hook into Harbor
   #
@@ -382,7 +388,7 @@ production: &base
         #   Example for getting only specific users:
         #   '(&(objectclass=user)(|(samaccountname=momo)(samaccountname=toto)))'
         #
-        user_filter: '(objectClass=user)'
+        user_filter: ''
 
         # Base where we can search for groups
         #
