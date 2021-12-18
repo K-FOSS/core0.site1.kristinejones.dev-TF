@@ -349,7 +349,7 @@ production: &base
         # This setting specifies if LDAP server is Active Directory LDAP server.
         # For non AD servers it skips the AD specific queries.
         # If your LDAP server is not AD, set this to false.
-        active_directory: false
+        active_directory: true
 
         # If allow_username_or_email_login is enabled, GitLab will ignore everything
         # after the first '@' in the LDAP username submitted by the user on login.
@@ -414,19 +414,6 @@ production: &base
         #
         #   Ex. [80]
         # retry_empty_result_with_codes: []
-
-        # LDAP attributes that GitLab will use to create an account for the LDAP user.
-        # The specified attribute can either be the attribute name as a string (e.g. 'mail'),
-        # or an array of attribute names to try in order (e.g. ['mail', 'email']).
-        # Note that the user's LDAP login will always be the attribute specified as `uid` above.
-        attributes:
-          # The username will be used in paths for the user's own projects
-          # (like `gitlab.example.com/username/project`) and when mentioning
-          # them in issues, merge request and comments (like `@username`).
-          # If the attribute specified for `username` contains an email address,
-          # the GitLab username will be the part of the email address before the '@'.
-          username: 'cn'
-          email: 'mail'
 
         # If lowercase_usernames is enabled, GitLab will lower case the username.
         #lowercase_usernames: false
