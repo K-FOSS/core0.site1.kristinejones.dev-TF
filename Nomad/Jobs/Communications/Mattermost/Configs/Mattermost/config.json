@@ -1,7 +1,7 @@
 {
   "ServiceSettings": {
     "SiteURL": "https://mattermost.int.site1.kristianjones.dev",
-    "WebsocketURL": "wss://mattermost-ws.int.site1.kristianjones.dev",
+    "WebsocketURL": "wss://mattermost.int.site1.kristianjones.dev",
     "LicenseFileLocation": "",
     "ListenAddress": ":8080",
     "ConnectionSecurity": "",
