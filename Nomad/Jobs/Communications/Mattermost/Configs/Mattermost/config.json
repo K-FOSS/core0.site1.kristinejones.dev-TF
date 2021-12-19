@@ -285,10 +285,10 @@
     "Secret": "${GitLab.ClientSecret}",
     "Id": "${GitLab.ClientID}",
     "Scope": "openid email profile",
-    "AuthEndpoint": "https://gitlab.kristianjones.dev/api/v4/user",
+    "AuthEndpoint": "https://gitlab.kristianjones.dev/oauth/authorize",
     "TokenEndpoint": "https://gitlab.kristianjones.dev/oauth/token",
     "UserAPIEndpoint": "https://gitlab.kristianjones.dev/api/v4/user",
-    "DiscoveryEndpoint": "https://gitlab.kristianjones.dev",
+    "DiscoveryEndpoint": "https://gitlab.kristianjones.dev/.well-known/openid-configuration",
     "ButtonText": "Authentik",
     "ButtonColor": ""
   },

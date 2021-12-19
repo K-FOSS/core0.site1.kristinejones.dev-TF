@@ -25,12 +25,14 @@ job "communications-mattermost-leader" {
     task "mattermost-server" {
       driver = "docker"
 
-      user = "101"
+      user = "0"
 
       config {
         image = "mattermost/mattermost-team-edition:${Mattermost.Version}"
 
-        args = ["mattermost", "server", "-c", "/local/config.json"]
+        entrypoint = ["/mattermost/bin/mattermost"]
+
+        args = ["server", "-c", "/local/config.json"]
       }
     
       env {
