@@ -64,6 +64,10 @@ locals {
     Config = templatefile("${path.module}/Configs/OpenSearch/Config.yaml", {
       S3 = var.OpenSearch.S3
     })
+
+    JVMOptions = file("${path.module}/Configs/OpenSearch/jvm.options")
+
+    Log4JConfig = file("${path.module}/Configs/OpenSearch/log4j2.properties")
   }
 
   Unigraph = {

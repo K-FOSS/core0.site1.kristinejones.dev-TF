@@ -82,6 +82,22 @@ EOF
         destination = "local/OpenSearch/opensearch.yml"
       }
 
+      template {
+        data = <<EOF
+${OpenSearch.JVMOptions}
+EOF
+
+        destination = "local/OpenSearch/jvm.options"
+      }
+
+      template {
+        data = <<EOF
+${OpenSearch.Log4JConfig}
+EOF
+
+        destination = "local/OpenSearch/log4j2.properties"
+      }
+
       #
       # TLS
       #
