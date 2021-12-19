@@ -30,7 +30,7 @@ job "pomerium-proxy" {
       task = "pomerium-proxy-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.proxy"]
+      tags = ["coredns.enabled", "https.proxy"]
 
       #
       # Liveness check
@@ -77,7 +77,7 @@ job "pomerium-proxy" {
       task = "pomerium-proxy-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "metrics.proxy"]
+      tags = ["coredns.enabled", "metrics.proxy"]
     }
 
     task "pomerium-proxy-server" {
@@ -85,11 +85,11 @@ job "pomerium-proxy" {
 
       restart {
         attempts = 5
-        delay    = "60s"
+        delay = "60s"
       }
 
       config {
-        image = "pomerium/pomerium:${Version}"
+        image = "${Pomerium.Image.Repo}:${Pomerium.Image.Tag}"
 
         args = ["-config=/local/Pomerium.yaml"]
 
@@ -101,6 +101,10 @@ job "pomerium-proxy" {
 
       meta {
         SERVICE = "proxy"
+      }
+
+      env {
+        ROUTES = "${Pomerium.Routes}"
       }
 
       template {

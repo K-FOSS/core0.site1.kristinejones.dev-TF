@@ -41,7 +41,7 @@ job "pomerium-databroker" {
       task = "pomerium-databroker-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.databroker"]
+      tags = ["coredns.enabled", "https.databroker"]
     }
 
     task "pomerium-databroker-server" {
@@ -53,7 +53,7 @@ job "pomerium-databroker" {
       }
 
       config {
-        image = "pomerium/pomerium:${Version}"
+        image = "${Pomerium.Image.Repo}:${Pomerium.Image.Tag}"
 
         args = ["-config=/local/Pomerium.yaml"]
 
@@ -65,6 +65,10 @@ job "pomerium-databroker" {
 
       meta {
         SERVICE = "databroker"
+      }
+
+      env {
+        ROUTES = "${Pomerium.Routes}"
       }
 
       template {

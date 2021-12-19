@@ -23,7 +23,7 @@ job "pomerium-authenticate" {
       task = "pomerium-authenticate-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.authenticate"]
+      tags = ["coredns.enabled", "https.authenticate"]
 
       #
       # Liveness check
@@ -72,7 +72,7 @@ job "pomerium-authenticate" {
       }
 
       config {
-        image = "pomerium/pomerium:${Version}"
+        image = "${Pomerium.Image.Repo}:${Pomerium.Image.Tag}"
 
         args = ["-config=/local/Pomerium.yaml"]
 
@@ -84,6 +84,10 @@ job "pomerium-authenticate" {
 
       meta {
         SERVICE = "authenticate"
+      }
+
+      env {
+        ROUTES = "${Pomerium.Routes}"
       }
 
       template {

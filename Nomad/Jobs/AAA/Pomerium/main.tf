@@ -58,8 +58,19 @@ terraform {
 
 locals {
   LogLevel = "DEBUG"
+  
 
-  Version = "v0.15.6"
+  Pomerium = {
+    Routes = base64encode(templatefile("${path.module}/Configs/Pomerium/Routes.yaml", {}))
+    
+    Image = {
+      Repo = "registry.kristianjones.dev/cache/"
+
+      Tag = "v0.15.6"
+    }
+  }
+
+  
 
   Tracing = {
     SampleRate = "0.20"
@@ -72,6 +83,8 @@ locals {
 
 resource "nomad_job" "PomeriumAuthenticateJobFile" {
   jobspec = templatefile("${path.module}/Jobs/PomeriumAuthenticate.hcl", {
+    Pomerium = local.Pomerium
+
     TLS = {
       Redis = var.TLS.Redis
 
@@ -88,8 +101,6 @@ resource "nomad_job" "PomeriumAuthenticateJobFile" {
       Secrets = var.Secrets
       OpenID = var.OpenID
     })
-
-    Version = local.Version
   })
 }
 
@@ -99,6 +110,8 @@ resource "nomad_job" "PomeriumAuthenticateJobFile" {
 
 resource "nomad_job" "PomeriumAuthorizeJobFile" {
   jobspec = templatefile("${path.module}/Jobs/PomeriumAuthorize.hcl", {
+    Pomerium = local.Pomerium
+
     TLS = {
       Redis = var.TLS.Redis
 
@@ -115,8 +128,6 @@ resource "nomad_job" "PomeriumAuthorizeJobFile" {
       Secrets = var.Secrets
       OpenID = var.OpenID
     })
-
-    Version = local.Version
   })
 }
 
@@ -126,6 +137,8 @@ resource "nomad_job" "PomeriumAuthorizeJobFile" {
 
 resource "nomad_job" "PomeriumDataBrokerJobFile" {
   jobspec = templatefile("${path.module}/Jobs/PomeriumDataBroker.hcl", {
+    Pomerium = local.Pomerium
+
     TLS = {
       Redis = var.TLS.Redis
 
@@ -142,8 +155,6 @@ resource "nomad_job" "PomeriumDataBrokerJobFile" {
       Secrets = var.Secrets
       OpenID = var.OpenID
     })
-
-    Version = local.Version
   })
 }
 
@@ -154,6 +165,8 @@ resource "nomad_job" "PomeriumDataBrokerJobFile" {
 
 resource "nomad_job" "PomeriumProxyJobFile" {
   jobspec = templatefile("${path.module}/Jobs/PomeriumProxy.hcl", {
+    Pomerium = local.Pomerium
+
     TLS = {
       Redis = var.TLS.Redis
 
@@ -170,7 +183,5 @@ resource "nomad_job" "PomeriumProxyJobFile" {
       Secrets = var.Secrets
       OpenID = var.OpenID
     })
-
-    Version = local.Version
   })
 }
