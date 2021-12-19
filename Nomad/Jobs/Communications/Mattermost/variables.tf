@@ -18,8 +18,6 @@ variable "GitLab" {
   type = object({
     ClientID = string
     ClientSecret = string
-
-    URL = string
   })
 }
 
