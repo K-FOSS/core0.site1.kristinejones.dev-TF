@@ -387,7 +387,7 @@ module "HarborRegistryBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node3.core0.site1.kristianjones.dev"
+    Hostname = "node2.core0.site1.kristianjones.dev"
     Port = 9000
   }
 
