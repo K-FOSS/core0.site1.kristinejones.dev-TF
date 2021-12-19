@@ -209,7 +209,7 @@
   "EmailSettings": {
     "EnableSignUpWithEmail": false,
     "EnableSignInWithEmail": false,
-    "EnableSignInWithUsername": true,
+    "EnableSignInWithUsername": false,
     "SendEmailNotifications": false,
     "UseChannelInEmailNotifications": false,
     "RequireEmailVerification": false,
