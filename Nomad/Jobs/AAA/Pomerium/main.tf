@@ -62,6 +62,10 @@ locals {
 
   Pomerium = {
     Routes = base64encode(templatefile("${path.module}/Configs/Pomerium/Routes.yaml", {}))
+
+    ServiceAccount = base64encode(jsonencode({
+      test = true
+    }))
     
     Image = {
       Repo = "registry.kristianjones.dev/cache/pomerium/pomerium"
