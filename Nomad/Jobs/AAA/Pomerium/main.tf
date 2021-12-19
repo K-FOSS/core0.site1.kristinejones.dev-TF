@@ -68,7 +68,7 @@ locals {
     Image = {
       Repo = "registry.kristianjones.dev/cache/pomerium/pomerium"
 
-      Tag = "master"
+      Tag = "v0.15.6"
     }
   }
 
