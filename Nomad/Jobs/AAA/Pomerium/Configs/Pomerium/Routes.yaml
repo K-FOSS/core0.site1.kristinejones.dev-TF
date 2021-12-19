@@ -35,16 +35,18 @@
   to: https://home1-hass-home-assistant.ix-home1-hass.svc.cluster.local:8123
   tls_custom_ca_file: /secrets/TLS/HomeAssistantCA.pem
   tls_server_name: hass.int.site1.kristianjones.dev
-  allowed_groups:
-    - authentik Admins
+  allowed_idp_claims:
+    groups:
+      - authentik Admins
   pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
 
 - from: https://hass-code.int.site1.kristianjones.dev
   to: http://home1-hass-home-assistant-codeserver.ix-home1-hass.svc.cluster.local:12321
-  allowed_groups:
-    - authentik Admins
+  allowed_idp_claims:
+    groups:
+      - authentik Admins
   pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
@@ -55,8 +57,9 @@
 - from: https://sabnzbd.kjmedia.stream
   to: http://kjmedia-sabnzbd.ix-kjmedia-sabnzbd.svc.cluster.local:8080
   preserve_host_header: true
-  allowed_groups:
-    - Media Admins
+  allowed_idp_claims:
+    groups:
+      - Media Admins
   pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
@@ -67,8 +70,9 @@
 - from: https://radarr.kjmedia.stream
   to: http://kjmedia-radarr.ix-kjmedia-radarr.svc.cluster.local:8080
   preserve_host_header: true
-  allowed_groups:
-    - Media Admins
+  allowed_idp_claims:
+    groups:
+      - Media Admins
   pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
@@ -79,8 +83,9 @@
 - from: https://sonarr.kjmedia.stream
   to: http://kjmedia-sonarr.ix-kjmedia-sonarr.svc.cluster.local:8080
   preserve_host_header: true
-  allowed_groups:
-    - Media Admins
+  allowed_idp_claims:
+    groups:
+      - Media Admins
   pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
@@ -91,8 +96,9 @@
 - from: https://prowlarr.kjmedia.stream
   to: http://kjmedia-prowlarr.ix-kjmedia-prowlarr.svc.cluster.local:8080
   preserve_host_header: true
-  allowed_groups:
-    - Media Admins
+  allowed_idp_claims:
+    groups:
+      - Media Admins
   pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
@@ -103,8 +109,7 @@
 - from: https://cyberchef.int.site1.kristianjones.dev
   to: http://http.cyberchef.service.dc1.kjdev:8000
   preserve_host_header: true
-  allowed_groups:
-    - kristianjones.dev
+  allow_any_authenticated_user: true
   pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
@@ -115,8 +120,9 @@
 - from: https://sharex.int.site1.kristianjones.dev
   to: http://http.cyberchef.service.dc1.kjdev:8000
   preserve_host_header: true
-  allowed_groups:
-    - Media Admins
+  allowed_idp_claims:
+    groups:
+      - Media Admins
   pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
@@ -128,9 +134,10 @@
 - from: https://ns.int.site1.kristianjones.dev
   to: http://http.admin.powerdns.service.kjdev
   preserve_host_header: true
-  allowed_groups:
-    - Servers
-    - Network
+  allowed_idp_claims:
+    groups:
+      - Servers
+      - Network
   pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
@@ -139,9 +146,10 @@
   to: https://kjdev-unifi.ix-kjdev-unifi.svc.cluster.local:8443
   tls_skip_verify: true
   preserve_host_header: true
-  allowed_groups:
-    - Servers
-    - Network
+  allowed_idp_claims:
+    groups:
+      - Servers
+      - Network
   pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
@@ -151,9 +159,10 @@
 #
 - from: https://netbox.int.site1.kristianjones.dev
   to: http://netbox-http-cont.service.kjdev:8080
-  allowed_groups:
-    - Servers
-    - Network
+  allowed_idp_claims:
+    groups:
+      - Servers
+      - Network
   pass_identity_headers: true
 
 #
@@ -163,8 +172,9 @@
 - from: https://nomad.int.site1.kristianjones.dev
   to: http://http.NomadServer.service.dc1.kjdev:4646
   preserve_host_header: true
-  allowed_groups:
-    - Servers
+  allowed_idp_claims:
+    groups:
+      - Servers
   pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
