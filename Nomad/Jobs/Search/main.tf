@@ -54,6 +54,8 @@ locals {
       Tag = "1.2.0"
     }
 
+    CA = var.OpenSearch.TLS.CA
+
     TLS = {
       for Key, Item in var.OpenSearch.TLS : Key => Item
       if Key != "CA" 

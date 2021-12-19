@@ -96,7 +96,7 @@ EOF
 
       template {
         data = <<EOF
-${OpenSearch.TLS.CA}
+${OpenSearch.CA}
 EOF
 
         destination = "local/CA.pem"
