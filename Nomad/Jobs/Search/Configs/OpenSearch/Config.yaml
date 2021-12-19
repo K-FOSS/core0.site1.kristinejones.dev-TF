@@ -1,4 +1,20 @@
-cluster.name: opensearch-cluster
+#
+# Cluster
+#
+
+cluster.name: CoreOpenSearch
+
+#
+# Node
+#
+node.name: 'OpenSearch{{ env "NOMAD_META_NodeType" }}{{  }}'
+
+node.master: '{{ $Service := env "NOMAD_META_NodeType" }}{{ if eq $Service "Master" }}true{{ else }}false{{ end }}'
+node.data: '{{ $Service := env "NOMAD_META_NodeType" }}{{ if eq $Service "Data" }}true{{ else }}false{{ end }}'
+node.ingest: '{{ $Service := env "NOMAD_META_NodeType" }}{{ if eq $Service "Ingest" }}true{{ else }}false{{ end }}'
+
+#discovery.seed_hosts: 
+#  - 
 
 network.host: 0.0.0.0
 
@@ -6,14 +22,14 @@ plugins:
   security:
     ssl:
       transport:
-        pemcert_filepath: /secrets/TLS/Server{{ env "NOMAD_ALLOC_INDEX" }}.pem
-        pemkey_filepath: /secrets/TLS/Server{{ env "NOMAD_ALLOC_INDEX" }}.key
+        pemcert_filepath: /secrets/TLS/{{ $Service := env "NOMAD_META_NodeType" }}/Server{{ env "NOMAD_ALLOC_INDEX" }}.pem
+        pemkey_filepath: /secrets/TLS/{{ $Service := env "NOMAD_META_NodeType" }}/Server{{ env "NOMAD_ALLOC_INDEX" }}.key
         pemtrustedcas_filepath: /local/CA.pem
         enforce_hostname_verification: true
       http:
         enabled: true
-        pemcert_filepath: /secrets/TLS/Server{{ env "NOMAD_ALLOC_INDEX" }}.pem
-        pemkey_filepath: /secrets/TLS/Server{{ env "NOMAD_ALLOC_INDEX" }}.key
+        pemcert_filepath: /secrets/TLS/{{ $Service := env "NOMAD_META_NodeType" }}/Server{{ env "NOMAD_ALLOC_INDEX" }}.pem
+        pemkey_filepath: /secrets/TLS/{{ $Service := env "NOMAD_META_NodeType" }}/Server{{ env "NOMAD_ALLOC_INDEX" }}.key
         pemtrustedcas_filepath: /local/CA.pem
     allow_unsafe_democertificates: false
     allow_default_init_securityindex: true

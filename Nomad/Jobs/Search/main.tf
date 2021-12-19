@@ -54,7 +54,10 @@ locals {
       Tag = "1.2.0"
     }
 
-    TLS = var.OpenSearch.TLS
+    TLS = {
+      for Key, Item in var.OpenSearch.TLS : Key => Item
+      if Key != "CA" 
+    }
 
     Config = templatefile("${path.module}/Configs/OpenSearch/Config.yaml", {
       S3 = var.OpenSearch.S3
@@ -66,8 +69,8 @@ locals {
   }
 }
 
-resource "nomad_job" "UnigraphJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/OpenSearchServer.hcl", {
+resource "nomad_job" "OpenSearchCoordinatorJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/OpenSearchCoordinator.hcl", {
     OpenSearch = local.OpenSearch
   })
 }

@@ -662,18 +662,115 @@ output "Search" {
       TLS = {
         CA = vault_pki_secret_backend_cert.OpenSearch0Cert.ca_chain
 
-        OpenSearch0 = {
-          CA = vault_pki_secret_backend_cert.OpenSearch0Cert.ca_chain
+        Coordinator = {
+          Coordinator0 = {
+            CA = vault_pki_secret_backend_cert.OpenSearchCoordinator0Cert.ca_chain
+            Cert = vault_pki_secret_backend_cert.OpenSearchCoordinator0Cert.certificate
+            Key = vault_pki_secret_backend_cert.OpenSearchCoordinator0Cert.private_key
+          }
 
-          Cert = vault_pki_secret_backend_cert.OpenSearch0Cert.certificate
-          Key = vault_pki_secret_backend_cert.OpenSearch0Cert.private_key
+          Coordinator1 = {
+            CA = vault_pki_secret_backend_cert.OpenSearchCoordinator1Cert.ca_chain
+            Cert = vault_pki_secret_backend_cert.OpenSearchCoordinator1Cert.certificate
+            Key = vault_pki_secret_backend_cert.OpenSearchCoordinator1Cert.private_key
+            
+          }
+    
+          Coordinator2 = {
+            CA = vault_pki_secret_backend_cert.OpenSearchCoordinator2Cert.ca_chain
+            Cert = vault_pki_secret_backend_cert.OpenSearchCoordinator2Cert.certificate
+            Key = vault_pki_secret_backend_cert.OpenSearchCoordinator2Cert.private_key
+            
+          }
         }
 
-        OpenSearch1 = {
-          CA = vault_pki_secret_backend_cert.OpenSearch1Cert.ca_chain
+        Ingest = {
+          Ingest0 = {
+            CA = vault_pki_secret_backend_cert.OpenSearchIngest0Cert.ca_chain
+            Cert = vault_pki_secret_backend_cert.OpenSearchIngest0Cert.certificate
+            Key = vault_pki_secret_backend_cert.OpenSearchIngest0Cert.private_key
 
-          Cert = vault_pki_secret_backend_cert.OpenSearch1Cert.certificate
-          Key = vault_pki_secret_backend_cert.OpenSearch1Cert.private_key
+          }
+
+          Ingest1 = {
+            CA = vault_pki_secret_backend_cert.OpenSearchIngest1Cert.ca_chain
+            Cert = vault_pki_secret_backend_cert.OpenSearchIngest1Cert.certificate
+            Key = vault_pki_secret_backend_cert.OpenSearchIngest1Cert.private_key
+
+          }
+
+          Ingest2 = {
+            CA = vault_pki_secret_backend_cert.OpenSearchIngest2Cert.ca_chain
+            Cert = vault_pki_secret_backend_cert.OpenSearchIngest2Cert.certificate
+            Key = vault_pki_secret_backend_cert.OpenSearchIngest2Cert.private_key
+
+          }
+        }
+
+        Main = {
+          Main0 = {
+            CA = vault_pki_secret_backend_cert.OpenSearchMain0Cert.ca_chain
+            Cert = vault_pki_secret_backend_cert.OpenSearchMain0Cert.certificate
+            Key = vault_pki_secret_backend_cert.OpenSearchMain0Cert.private_key
+
+          }
+
+          Main1 = {
+            CA = vault_pki_secret_backend_cert.OpenSearchMain1Cert.ca_chain
+            Cert = vault_pki_secret_backend_cert.OpenSearchMain1Cert.certificate
+            Key = vault_pki_secret_backend_cert.OpenSearchMain1Cert.private_key
+
+          }
+
+          Main2 = {
+            CA = vault_pki_secret_backend_cert.OpenSearchMain2Cert.ca_chain
+            Cert = vault_pki_secret_backend_cert.OpenSearchMain2Cert.certificate
+            Key = vault_pki_secret_backend_cert.OpenSearchMain2Cert.private_key
+
+          }
+        }
+
+        Data = {
+          Data0 = {
+            CA = vault_pki_secret_backend_cert.OpenSearchData0Cert.ca_chain
+            Cert = vault_pki_secret_backend_cert.OpenSearchData0Cert.certificate
+            Key = vault_pki_secret_backend_cert.OpenSearchData0Cert.private_key
+
+          }
+
+          Data1 = {
+            CA = vault_pki_secret_backend_cert.OpenSearchData1Cert.ca_chain
+            Cert = vault_pki_secret_backend_cert.OpenSearchData1Cert.certificate
+            Key = vault_pki_secret_backend_cert.OpenSearchData1Cert.private_key
+
+          }
+
+          Data2 = {
+            CA = vault_pki_secret_backend_cert.OpenSearchData2Cert.ca_chain
+            Cert = vault_pki_secret_backend_cert.OpenSearchData2Cert.certificate
+            Key = vault_pki_secret_backend_cert.OpenSearchData2Cert.private_key
+
+          }
+
+          Data3 = {
+            CA = vault_pki_secret_backend_cert.OpenSearchData3Cert.ca_chain
+            Cert = vault_pki_secret_backend_cert.OpenSearchData3Cert.certificate
+            Key = vault_pki_secret_backend_cert.OpenSearchData3Cert.private_key
+
+          }
+
+          Data4 = {
+            CA = vault_pki_secret_backend_cert.OpenSearchData4Cert.ca_chain
+            Cert = vault_pki_secret_backend_cert.OpenSearchData4Cert.certificate
+            Key = vault_pki_secret_backend_cert.OpenSearchData4Cert.private_key
+
+          }
+
+          Data5 = {
+            CA = vault_pki_secret_backend_cert.OpenSearchData5Cert.ca_chain
+            Cert = vault_pki_secret_backend_cert.OpenSearchData5Cert.certificate
+            Key = vault_pki_secret_backend_cert.OpenSearchData5Cert.private_key
+          }
         }
       }
     }

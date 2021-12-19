@@ -1,7 +1,7 @@
-job "search-opensearch-server" {
+job "search-opensearch-coordinator" {
   datacenters = ["core0site1"]
 
-  group "opensearch-server" {
+  group "opensearch-coordinator-server" {
     count = 2
 
     spread {
@@ -33,13 +33,13 @@ job "search-opensearch-server" {
       name = "opensearch"
       port = "https"
 
-      task = "opensearch-server"
+      task = "opensearch-coordinator-server"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "https.server", "$${NOMAD_ALLOC_INDEX}.https.server"]
+      tags = ["coredns.enabled", "https.coordinator", "$${NOMAD_ALLOC_INDEX}.https.coordinator"]
     }
 
-    task "opensearch-server" {
+    task "opensearch-coordinator-server" {
       driver = "docker"
 
       config {
@@ -56,6 +56,10 @@ job "search-opensearch-server" {
             loki-external-labels = "job=opensearch,service=server$${NOMAD_ALLOC_INDEX}"
           }
         }
+      }
+
+      meta {
+        NodeType = "Coordinator"
       }
 
       resources {
@@ -98,56 +102,29 @@ EOF
         destination = "local/CA.pem"
       }
 
-      
-      # Server0
+%{ for NodeType, Certs in OpenSearch.TLS ~}
+  #
+  # ${NodeType}
+  #
+%{ for NodeName, TLS in Certs ~}
       template {
         data = <<EOF
-${OpenSearch.TLS.OpenSearch0.CA}
+${TLS.Cert}
 EOF
 
-        destination = "secrets/TLS/Server0CA.pem"
+        destination = "secrets/TLS/${NodeType}/${NodeName}.pem"
       }
 
       template {
         data = <<EOF
-${OpenSearch.TLS.OpenSearch0.Cert}
+${TLS.Key}
 EOF
 
-        destination = "secrets/TLS/Server0.pem"
+        destination = "secrets/TLS/${NodeType}/${NodeName}.key"
       }
+%{ endfor ~}
 
-      template {
-        data = <<EOF
-${OpenSearch.TLS.OpenSearch0.Key}
-EOF
-
-        destination = "secrets/TLS/Server0.key"
-      }
-
-      # OpenSearch1
-      template {
-        data = <<EOF
-${OpenSearch.TLS.OpenSearch1.CA}
-EOF
-
-        destination = "secrets/TLS/Server1CA.pem"
-      }
-
-      template {
-        data = <<EOF
-${OpenSearch.TLS.OpenSearch1.Cert}
-EOF
-
-        destination = "secrets/TLS/Server1.pem"
-      }
-
-      template {
-        data = <<EOF
-${OpenSearch.TLS.OpenSearch1.Key}
-EOF
-
-        destination = "secrets/TLS/Server1.key"
-      }
+%{ endfor ~}
     }
   }
 }

@@ -1423,18 +1423,117 @@ variable "Search" {
       TLS = object({
         CA = string
 
-        OpenSearch0 = object({
-          CA = string
+        Coordinator = object({
+          Coordinator0 = object({
+            CA = string
 
-          Cert = string
-          Key = string
+            Cert = string
+            Key = string
+          })
+
+          Coordinator1 = object({
+            CA = string
+
+            Cert = string
+            Key = string
+          })
+
+          Coordinator2 = object({
+            CA = string
+
+            Cert = string
+            Key = string
+          })
         })
 
-        OpenSearch1 = object({
-          CA = string
+        Ingest = object({
+          Ingest0 = object({
+            CA = string
 
-          Cert = string
-          Key = string
+            Cert = string
+            Key = string
+          })
+
+          Ingest1 = object({
+            CA = string
+
+            Cert = string
+            Key = string
+          })
+
+          Ingest2 = object({
+            CA = string
+
+            Cert = string
+            Key = string
+          })
+        })
+
+        Main = object({
+          Main0 = object({
+            CA = string
+
+            Cert = string
+            Key = string
+          })
+
+          Main1 = object({
+            CA = string
+
+            Cert = string
+            Key = string
+          })
+
+          Main2 = object({
+            CA = string
+
+            Cert = string
+            Key = string
+          })
+        })
+
+        Data = object({
+          Data0 = object({
+            CA = string
+
+            Cert = string
+            Key = string
+          })
+
+          Data1 = object({
+            CA = string
+
+            Cert = string
+            Key = string
+          })
+
+          Data2 = object({
+            CA = string
+
+            Cert = string
+            Key = string
+          })
+
+          Data3 = object({
+            CA = string
+
+            Cert = string
+            Key = string
+          })
+
+          Data4 = object({
+            CA = string
+
+            Cert = string
+            Key = string
+          })
+
+          Data5 = object({
+            CA = string
+
+            Cert = string
+            Key = string
+          })
         })
       })
 

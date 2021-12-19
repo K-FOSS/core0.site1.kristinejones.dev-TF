@@ -733,22 +733,176 @@ module "OpenSearch" {
   source = "./TLS/Template"
 }
 
-resource "vault_pki_secret_backend_cert" "OpenSearch0Cert" {
+#
+# TODO: Automate this, along with cert files, and configs for OpenSearch cluster generation
+#
+
+#
+# Coordinator
+#
+
+# Coordinator0
+resource "vault_pki_secret_backend_cert" "OpenSearchCoordinator0Cert" {
   backend = module.OpenSearch.TLS.Mount.path
   name = module.OpenSearch.TLS.Role.name
 
-  common_name = "0.https.server.opensearch.service.kjdev"
+  common_name = "0.https.coordinator.opensearch.service.kjdev"
 
-  alt_names = ["0.https.server.opensearch.service.dc1.kjdev"]
+  alt_names = ["0.https.coordinator.opensearch.service.dc1.kjdev"]
 }
 
-resource "vault_pki_secret_backend_cert" "OpenSearch1Cert" {
+
+# Coordinator1
+resource "vault_pki_secret_backend_cert" "OpenSearchCoordinator1Cert" {
   backend = module.OpenSearch.TLS.Mount.path
   name = module.OpenSearch.TLS.Role.name
 
-  common_name = "1.https.server.opensearch.service.kjdev"
+  common_name = "1.https.coordinator.opensearch.service.kjdev"
 
-  alt_names = ["1.https.server.opensearch.service.dc1.kjdev"]
+  alt_names = ["1.https.coordinator.opensearch.service.dc1.kjdev"]
+}
+
+# Coordinator2
+resource "vault_pki_secret_backend_cert" "OpenSearchCoordinator2Cert" {
+  backend = module.OpenSearch.TLS.Mount.path
+  name = module.OpenSearch.TLS.Role.name
+
+  common_name = "2.https.coordinator.opensearch.service.kjdev"
+
+  alt_names = ["2.https.coordinator.opensearch.service.dc1.kjdev"]
+}
+
+#
+# Ingest
+#
+
+# Ingest0
+resource "vault_pki_secret_backend_cert" "OpenSearchIngest0Cert" {
+  backend = module.OpenSearch.TLS.Mount.path
+  name = module.OpenSearch.TLS.Role.name
+
+  common_name = "0.https.ingest.opensearch.service.kjdev"
+
+  alt_names = ["0.https.ingest.opensearch.service.dc1.kjdev"]
+}
+
+# Ingest1
+resource "vault_pki_secret_backend_cert" "OpenSearchIngest1Cert" {
+  backend = module.OpenSearch.TLS.Mount.path
+  name = module.OpenSearch.TLS.Role.name
+
+  common_name = "1.https.ingest.opensearch.service.kjdev"
+
+  alt_names = ["1.https.ingest.opensearch.service.dc1.kjdev"]
+}
+
+# Ingest2
+resource "vault_pki_secret_backend_cert" "OpenSearchIngest2Cert" {
+  backend = module.OpenSearch.TLS.Mount.path
+  name = module.OpenSearch.TLS.Role.name
+
+  common_name = "2.https.ingest.opensearch.service.kjdev"
+
+  alt_names = ["2.https.ingest.opensearch.service.dc1.kjdev"]
+}
+
+#
+# Main
+#
+
+# Main0
+resource "vault_pki_secret_backend_cert" "OpenSearchMain0Cert" {
+  backend = module.OpenSearch.TLS.Mount.path
+  name = module.OpenSearch.TLS.Role.name
+
+  common_name = "0.https.main.opensearch.service.kjdev"
+
+  alt_names = ["0.https.main.opensearch.service.dc1.kjdev"]
+}
+
+# Main1
+resource "vault_pki_secret_backend_cert" "OpenSearchMain1Cert" {
+  backend = module.OpenSearch.TLS.Mount.path
+  name = module.OpenSearch.TLS.Role.name
+
+  common_name = "1.https.main.opensearch.service.kjdev"
+
+  alt_names = ["1.https.main.opensearch.service.dc1.kjdev"]
+}
+
+# Main2
+resource "vault_pki_secret_backend_cert" "OpenSearchMain2Cert" {
+  backend = module.OpenSearch.TLS.Mount.path
+  name = module.OpenSearch.TLS.Role.name
+
+  common_name = "2.https.main.opensearch.service.kjdev"
+
+  alt_names = ["2.https.main.opensearch.service.dc1.kjdev"]
+}
+
+#
+# Data
+#
+
+# Data0
+resource "vault_pki_secret_backend_cert" "OpenSearchData0Cert" {
+  backend = module.OpenSearch.TLS.Mount.path
+  name = module.OpenSearch.TLS.Role.name
+
+  common_name = "0.https.data.opensearch.service.kjdev"
+
+  alt_names = ["0.https.data.opensearch.service.dc1.kjdev"]
+}
+
+# Data1
+resource "vault_pki_secret_backend_cert" "OpenSearchData1Cert" {
+  backend = module.OpenSearch.TLS.Mount.path
+  name = module.OpenSearch.TLS.Role.name
+
+  common_name = "1.https.data.opensearch.service.kjdev"
+
+  alt_names = ["1.https.data.opensearch.service.dc1.kjdev"]
+}
+
+
+# Data2
+resource "vault_pki_secret_backend_cert" "OpenSearchData2Cert" {
+  backend = module.OpenSearch.TLS.Mount.path
+  name = module.OpenSearch.TLS.Role.name
+
+  common_name = "2.https.data.opensearch.service.kjdev"
+
+  alt_names = ["2.https.data.opensearch.service.dc1.kjdev"]
+}
+
+# Data3
+resource "vault_pki_secret_backend_cert" "OpenSearchData3Cert" {
+  backend = module.OpenSearch.TLS.Mount.path
+  name = module.OpenSearch.TLS.Role.name
+
+  common_name = "3.https.data.opensearch.service.kjdev"
+
+  alt_names = ["3.https.data.opensearch.service.dc1.kjdev"]
+}
+
+# Data4
+resource "vault_pki_secret_backend_cert" "OpenSearchData4Cert" {
+  backend = module.OpenSearch.TLS.Mount.path
+  name = module.OpenSearch.TLS.Role.name
+
+  common_name = "4.https.data.opensearch.service.kjdev"
+
+  alt_names = ["4.https.data.opensearch.service.dc1.kjdev"]
+}
+
+# Data5
+resource "vault_pki_secret_backend_cert" "OpenSearchData5Cert" {
+  backend = module.OpenSearch.TLS.Mount.path
+  name = module.OpenSearch.TLS.Role.name
+
+  common_name = "5.https.data.opensearch.service.kjdev"
+
+  alt_names = ["5.https.data.opensearch.service.dc1.kjdev"]
 }
 
 
