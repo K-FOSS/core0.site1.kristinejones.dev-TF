@@ -465,8 +465,17 @@ module "NATPunch" {
 }
 
 #
-# Mattermsot
+# MatterBridge
 #
+
+module "MatterBridge" {
+  source = "./Jobs/Communications/MatterBridge"
+}
+
+#
+# Mattermost
+#
+
 module "Mattermost" {
   source = "./Jobs/Communications/Mattermost"
 

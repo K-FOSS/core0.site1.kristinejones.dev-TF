@@ -46,39 +46,20 @@ terraform {
   }
 }
 
-resource "random_id" "MattermostAtRestKey" {
-  byte_length = 32
-}
-
 locals {
-  Mattermost = {
-    Config = templatefile("${path.module}/Configs/Mattermost/config.json", {
-      Database = var.Database
+  MatterBridge = {
+    Image = {
+      Repo = "registry.kristianjones.dev/cache/42wim/matterbridge"
 
-      SMTP = var.SMTP
+      Tag = "master"
+    }
 
-      S3 = var.S3
-
-      Secrets = {
-        EncryptionKey = random_id.MattermostAtRestKey.hex
-      }
-
-      GitLab = {
-        ClientID = var.GitLab.ClientID
-        ClientSecret = var.GitLab.ClientSecret
-
-        URL = "https://gitlab.kristianjones.dev"
-      }
-
-    })
-
-    Version = "release-6.2"
+    Config = templatefile("${path.module}/Configs/MatterBridge/Config.toml")
   }
-
 }
 
-resource "nomad_job" "Mattermost" {
-  jobspec = templatefile("${path.module}/Jobs/MattermostLeader.hcl", {
-    Mattermost = local.Mattermost
+resource "nomad_job" "MatterBridgeJob" {
+  jobspec = templatefile("${path.module}/Jobs/MatterBridge.hcl", {
+    MatterBridge = local.MatterBridge
   })
 }

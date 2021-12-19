@@ -648,6 +648,48 @@ resource "vault_pki_secret_backend_cert" "BitwardenServerCert" {
 }
 
 #
+# Performance
+#
+
+#
+# Sentry
+#
+
+module "Sentry" {
+  source = "./TLS/Template"
+}
+
+#
+# Sentry Redis
+#
+
+resource "vault_pki_secret_backend_cert" "SentryRedisCert" {
+  backend = module.Sentry.TLS.Mount.path
+  name = module.Sentry.TLS.Role.name
+
+  common_name = "redis.sentry.service.kjdev"
+
+  alt_names = ["redis.sentry.service.dc1.kjdev"]
+}
+
+#
+# Sentry Server
+#
+
+resource "vault_pki_secret_backend_cert" "SentryServerCert" {
+  backend = module.Sentry.TLS.Mount.path
+  name = module.Sentry.TLS.Role.name
+
+  common_name = "https.server.sentry.service.kjdev"
+
+  alt_names = ["https.server.sentry.service.dc1.kjdev"]
+}
+
+#
+# Registry
+#
+
+#
 # Harbor
 #
 
@@ -739,7 +781,6 @@ resource "vault_pki_secret_backend_cert" "HarborChartMuseumServerCert" {
 #
 # Search
 #
-
 
 module "OpenSearch" {
   source = "./TLS/Template"
@@ -916,6 +957,10 @@ resource "vault_pki_secret_backend_cert" "OpenSearchData5Cert" {
 
   alt_names = ["5.https.data.opensearch.service.dc1.kjdev"]
 }
+
+#
+# Security
+#
 
 
 

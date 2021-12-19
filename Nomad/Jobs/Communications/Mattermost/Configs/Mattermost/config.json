@@ -80,7 +80,7 @@
     "ExperimentalStrictCSRFEnforcement": false,
     "EnableEmailInvitations": false,
     "DisableBotsWhenOwnerIsDeactivated": true,
-    "EnableBotAccountCreation": false,
+    "EnableBotAccountCreation": true,
     "EnableSVGs": true,
     "EnableLatex": false,
     "EnableInlineLatex": true,
@@ -135,7 +135,7 @@
     "ConnMaxIdleTimeMilliseconds": 300000,
     "MaxOpenConns": 300,
     "Trace": false,
-    "AtRestEncryptKey": "",
+    "AtRestEncryptKey": "${Secrets.EncryptionKey}",
     "QueryTimeout": 30,
     "DisableDatabaseSearch": false,
     "ReplicaLagSettings": []
@@ -193,7 +193,7 @@
     "EnablePublicLink": false,
     "ExtractContent": true,
     "ArchiveRecursion": false,
-    "PublicLinkSalt": "",
+    "PublicLinkSalt": "${Secrets.EncryptionKey}",
     "InitialFont": "nunito-bold.ttf",
     "AmazonS3AccessKeyId": "${S3.Credentials.AccessKey}",
     "AmazonS3SecretAccessKey": "${S3.Credentials.SecretKey}",
@@ -220,7 +220,7 @@
     "EnableSMTPAuth": false,
     "SMTPUsername": "",
     "SMTPPassword": "",
-    "SMTPServer": "",
+    "SMTPServer": "localhost",
     "SMTPPort": "10025",
     "SMTPServerTimeout": 10,
     "ConnectionSecurity": "",
@@ -522,8 +522,26 @@
     "EnableHealthCheck": true,
     "Directory": "./plugins",
     "ClientDirectory": "./client/plugins",
-    "Plugins": {},
+    "Plugins": {
+      "com.github.manland.mattermost-plugin-gitlab": {
+        "enableprivaterepo": true,
+        "encryptionkey": "${Secrets.EncryptionKey}",
+        "gitlabgroup": null,
+        "gitlaboauthclientid": "${GitLab.ClientID}",
+        "gitlaboauthclientsecret": "${GitLab.ClientSecret}",
+        "gitlaburl": "https://gitlab.kristianjones.dev",
+        "usepreregisteredapplication": false,
+        "webhooksecret": "${Secrets.EncryptionKey}"
+      },
+      "playbooks": {
+        "BotUserID": "7qkfc8349pbdmyyrg45nfgawso",
+        "enableexperimentalfeatures": true
+      }
+    },
     "PluginStates": {
+      "com.github.manland.mattermost-plugin-gitlab": {
+        "Enable": true
+      },
       "com.mattermost.nps": {
         "Enable": true
       },
@@ -561,29 +579,6 @@
   "CloudSettings": {
     "CWSURL": "https://customers.mattermost.com",
     "CWSAPIURL": "https://portal.internal.prod.cloud.mattermost.com"
-  },
-  "FeatureFlags": {
-    "TestFeature": "off",
-    "TestBoolFeature": false,
-    "CloudDelinquentEmailJobsEnabled": false,
-    "CollapsedThreads": true,
-    "EnableRemoteClusterService": false,
-    "AppsEnabled": false,
-    "AppBarEnabled": false,
-    "PluginPlaybooks": "",
-    "PluginApps": "",
-    "PluginFocalboard": "",
-    "PermalinkPreviews": true,
-    "GlobalHeader": true,
-    "AddChannelButton": "by_team_name",
-    "NewAccountNoisy": false,
-    "BoardsUnfurl": true,
-    "CallsMobile": false,
-    "AutoTour": "none",
-    "BoardsFeatureFlags": "",
-    "AddMembersToChannel": "top",
-    "ResendInviteEmailInterval": "",
-    "InviteToTeam": "none"
   },
   "ImportSettings": {
     "Directory": "./import",

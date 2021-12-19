@@ -41,6 +41,12 @@ job "communications-mattermost-leader" {
         APP_PORT_NUMBER = "8080"
       }
 
+      resources {
+        cpu = 256
+        memory = 512
+        memory_max = 512
+      }
+
       template {
         data = <<EOF
 ${Mattermost.Config}
