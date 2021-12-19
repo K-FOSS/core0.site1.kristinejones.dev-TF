@@ -43,7 +43,7 @@ job "search-opensearch-server" {
       driver = "docker"
 
       config {
-        image = "${OpenSearch.Image.Repo}/opensearch:${OpenSearch.Image.Version}"
+        image = "${OpenSearch.Image.Repo}/opensearch:${OpenSearch.Image.Tag}"
 
         entrypoint = ["/usr/share/opensearch/bin/opensearch"]
         args = []
