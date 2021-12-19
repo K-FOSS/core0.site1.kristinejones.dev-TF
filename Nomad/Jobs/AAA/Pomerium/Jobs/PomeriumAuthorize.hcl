@@ -29,37 +29,23 @@ job "pomerium-authorize" {
       # Liveness check
       #
       check {
+        name = "tcp_validate"
+
+        type = "tcp"
+
         port = "https"
         address_mode = "alloc"
 
-        type = "http"
-        protocol = "https"
-        tls_skip_verify = true
+        initial_status = "passing"
 
-        path = "/ping"
-        interval = "15s"
-        timeout  = "30s"
+        interval = "30s"
+        timeout  = "10s"
 
         check_restart {
-          limit = 10
-          grace = "60s"
+          limit = 6
+          grace = "120s"
+          ignore_warnings = true
         }
-      }
-
-      #
-      # Readyness
-      #
-      check {
-        port = "https"
-        address_mode = "alloc"
-
-        type = "http"
-        protocol = "https"
-        tls_skip_verify = true
-
-        path = "/ping"
-        interval = "10s"
-        timeout  = "1s"
       }
     }
 
