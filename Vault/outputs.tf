@@ -72,6 +72,21 @@ output "AAA" {
 }
 
 #
+# Communications
+#
+
+output "Communications" {
+  value = {
+    Mattermost = {
+      GitLab = {
+        ClientID = data.vault_generic_secret.Mattermost.data["GitLabClientID"]
+        ClientSecret = data.vault_generic_secret.Mattermost.data["GitLabClientSecret"]
+      }
+    }
+  }
+}
+
+#
 # Caddy
 #
 

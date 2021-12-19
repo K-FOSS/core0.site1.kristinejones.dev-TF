@@ -46,20 +46,41 @@ terraform {
   }
 }
 
-data "github_repository" "Repo" {
-  full_name = "mattermost/mattermost-server"
-}
+# data "github_repository" "Repo" {
+#   full_name = "mattermost/mattermost-server"
+# }
 
-data "github_release" "Release" {
-  repository  = data.github_repository.Repo.name
-  owner       = split("/", data.github_repository.Repo.full_name)[0]
-  retrieve_by = "latest"
+# data "github_release" "Release" {
+#   repository  = data.github_repository.Repo.name
+#   owner       = split("/", data.github_repository.Repo.full_name)[0]
+#   retrieve_by = "latest"
+# }
+
+locals {
+  Mattermost = {
+    Config = templatefile("${path.module}/Configs/Mattermost/config.json", {
+      Database = var.Database
+
+      SMTP = var.SMTP
+
+      S3 = var.S3
+
+      GitLab = {
+        ClientID = var.GitLab.ClientID
+        ClientSecret = var.GitLab.ClientSecret
+
+        URL = "https://gitlab.kristianjones.dev"
+      }
+
+    })
+
+    Version = "release-6.2"
+  }
+
 }
 
 resource "nomad_job" "Mattermost" {
   jobspec = templatefile("${path.module}/Jobs/MattermostLeader.hcl", {
-    Database = var.Database
-
-    Version = "master"
+    Mattermost = local.Mattermost
   })
 }

@@ -470,7 +470,13 @@ module "NATPunch" {
 module "Mattermost" {
   source = "./Jobs/Communications/Mattermost"
 
-  Database = var.Mattermost.Database
+  Database = var.Communications.Mattermost.Database
+
+  S3 = var.Communications.Mattermost.S3
+
+  GitLab = var.Communications.Mattermost.GitLab
+
+  SMTP = var.OpenProject.SMTP
 }
 
 #

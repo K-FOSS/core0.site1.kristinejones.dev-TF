@@ -754,20 +754,45 @@ variable "ENMS" {
 }
 
 #
-# Mattermost
+# Communications
 #
 
-variable "Mattermost" {
+variable "Communications" {
   type = object({
-    Database = object({
-      Hostname = string
-      Port = number
+    Mattermost = object({
+      Database = object({
+        Hostname = string
+        Port = number
 
-      Database = string
+        Database = string
 
-      Username = string
-      Password = string
+        Username = string
+        Password = string
+      })
+
+      GitLab = object({
+        ClientID = string
+        ClientSecret = string
+      })
+
+      S3 = object({
+        Connection = object({
+          Hostname = string
+          Port = number
+
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
+
+
+        Bucket = string
+      })
     })
+
   })
 }
 

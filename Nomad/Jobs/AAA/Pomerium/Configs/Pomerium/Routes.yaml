@@ -11,7 +11,15 @@
 # Mattermost
 #
 - from: https://mattermost.int.site1.kristianjones.dev
-  to: http://mattermost-leader-http-cont.service.dc1.kjdev:8065
+  to: http://mattermost-leader-http-cont.service.dc1.kjdev:8080
+  preserve_host_header: true
+  allow_any_authenticated_user: true
+  pass_identity_headers: true
+  allow_websockets: true
+
+- from: https://mattermost-ws.int.site1.kristianjones.dev
+  to: http://mattermost-leader-http-cont.service.dc1.kjdev:80
+  preserve_host_header: true
   allow_any_authenticated_user: true
   pass_identity_headers: true
   allow_websockets: true

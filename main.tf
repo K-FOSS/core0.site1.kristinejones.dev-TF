@@ -1182,13 +1182,19 @@ module "Nomad" {
     Repo = module.Vault.ENMS.Repo
   }
 
+  Communications = {
+    #
+    # Mattermost
+    #
+    Mattermost = {
+      Database = module.Mattermost.Database
 
-  #
-  # Mattermost
-  #
-  Mattermost = {
-    Database = module.Mattermost.Database
+      GitLab = module.Vault.Communications.Mattermost.GitLab
+
+      S3 = module.MattermostBucket
+    }
   }
+
   
   #
   # Tinkerbell

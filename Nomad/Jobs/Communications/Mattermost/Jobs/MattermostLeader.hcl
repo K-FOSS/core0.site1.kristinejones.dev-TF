@@ -1,4 +1,4 @@
-job "vommunications-mattermost" {
+job "communications-mattermost-leader" {
   datacenters = ["core0site1"]
 
   group "mattermost-leader" {
@@ -35,26 +35,18 @@ job "vommunications-mattermost" {
     
       env {
         RUN_SERVER_IN_BACKGROUND = "false"
-        MM_SQLSETTINGS_DRIVERNAME = "postgres"
-        MM_CLUSTERSETTINGS_ENABLE = "true"
         MM_NO_DOCKER = "true"
-        MM_CLUSTERSETTINGS_CLUSTERNAME = "kjdev"
-
         APP_PORT_NUMBER = "8080"
       }
 
       template {
-        data = <<EOH
-#
-# Database
-#
-MM_SQLSETTINGS_DATASOURCE="postgres://${Database.Username}:${Database.Password}@${Database.Hostname}:${Database.Port}/${Database.Database}?sslmode=disable&connect_timeout=10"
-DB_HOST="${Database.Hostname}"
-DB_PORT_NUMBER="${Database.Port}"
-EOH
+        data = <<EOF
+${Mattermost.Config}
+EOF
 
-        destination = "secrets/file.env"
-        env         = true
+        destination = "local/config.json"
+
+        change_mode = "noop"
       }
     }
   }

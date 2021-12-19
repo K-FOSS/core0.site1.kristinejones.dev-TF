@@ -86,6 +86,18 @@ data "vault_generic_secret" "Teleport" {
 }
 
 #
+# Communications
+#
+
+#
+# Mattermost
+#
+
+data "vault_generic_secret" "Mattermost" {
+  path = "${vault_mount.Terraform.path}/Mattermost"
+}
+
+#
 # Cloudflare
 # 
 data "vault_generic_secret" "Cloudflare" {
