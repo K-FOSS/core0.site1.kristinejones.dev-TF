@@ -28,6 +28,7 @@ autocert_must_staple: false
 # mTLS
 #
 certificate_authority_file: /local/ServerCA.pem
+override_certificate_name: https.proxy.pomerium.service.kjdev
 
 certificates:
   - cert: /secrets/TLS/Server.pem
