@@ -43,19 +43,19 @@ variable "AAA" {
           Key = string
         })
 
-        # Tunnel = object({
-        #   CA = string
+        Tunnel = object({
+          CA = string
 
-        #   Cert = string
-        #   Key = string
-        # })
+          Cert = string
+          Key = string
+        })
 
-        # Kube = object({
-        #   CA = string
+        Kube = object({
+          CA = string
 
-        #   Cert = string
-        #   Key = string
-        # })
+          Cert = string
+          Key = string
+        })
       })
     })
   })
@@ -1402,6 +1402,57 @@ variable "Registry" {
 
           Cert = string
           Key = string
+        })
+      })
+    })
+  })
+}
+
+#
+# Search
+#
+
+variable "Search" {
+  type = object({
+    OpenSearch = object({
+      OpenID = object({
+        ClientID = string
+        ClientSecret = string
+      })
+
+      TLS = object({
+        CA = string
+
+        OpenSearch0 = object({
+          CA = string
+
+          Cert = string
+          Key = string
+        })
+
+        OpenSearch1 = object({
+          CA = string
+
+          Cert = string
+          Key = string
+        })
+      })
+
+      S3 = object({
+        CoreRepo = object({
+          Connection = object({
+            Hostname = string
+            Port = number
+
+            Endpoint = string
+          })
+
+          Credentials = object({
+            AccessKey = string
+            SecretKey = string
+          })
+
+          Bucket = string
         })
       })
     })

@@ -52,6 +52,20 @@ output "AAA" {
           Cert = vault_pki_secret_backend_cert.TeleportAuthCert.certificate
           Key = vault_pki_secret_backend_cert.TeleportAuthCert.private_key
         }
+
+        Tunnel = {
+          CA = vault_pki_secret_backend_cert.TeleportTunnelCert.ca_chain
+
+          Cert = vault_pki_secret_backend_cert.TeleportTunnelCert.certificate
+          Key = vault_pki_secret_backend_cert.TeleportTunnelCert.private_key
+        }
+
+        Kube = {
+          CA = vault_pki_secret_backend_cert.TeleportKubeCert.ca_chain
+
+          Cert = vault_pki_secret_backend_cert.TeleportKubeCert.certificate
+          Key = vault_pki_secret_backend_cert.TeleportKubeCert.private_key
+        }
       }
     }
   }
@@ -629,6 +643,38 @@ output "Registry" {
           Key = vault_pki_secret_backend_cert.HarborChartMuseumServerCert.private_key
         }
 
+      }
+    }
+  }
+}
+
+#
+# Search
+#
+output "Search" {
+  value = {
+    OpenSearch = {
+      OpenID = {
+        ClientID = ""
+        ClientSecret = ""
+      }
+
+      TLS = {
+        CA = vault_pki_secret_backend_cert.OpenSearch0Cert.ca_chain
+
+        OpenSearch0 = {
+          CA = vault_pki_secret_backend_cert.OpenSearch0Cert.ca_chain
+
+          Cert = vault_pki_secret_backend_cert.OpenSearch0Cert.certificate
+          Key = vault_pki_secret_backend_cert.OpenSearch0Cert.private_key
+        }
+
+        OpenSearch1 = {
+          CA = vault_pki_secret_backend_cert.OpenSearch1Cert.ca_chain
+
+          Cert = vault_pki_secret_backend_cert.OpenSearch1Cert.certificate
+          Key = vault_pki_secret_backend_cert.OpenSearch1Cert.private_key
+        }
       }
     }
   }

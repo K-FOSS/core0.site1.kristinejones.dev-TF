@@ -216,6 +216,23 @@ module "ConsulBackupsBucket" {
 }
 
 #
+# Communications
+#
+
+module "MattermostBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "node2.core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+
+
+#
 # Development
 #
 
@@ -378,6 +395,25 @@ module "HarborRegistryBucket" {
 }
 
 module "HarborChartsBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "node2.core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+#
+# Search
+#
+
+#
+# OpenSearch
+#
+
+module "OpenSearchRepoBucket" {
   source = "./Minio"
 
   Connection = {
@@ -1307,6 +1343,24 @@ module "Nomad" {
       Database = module.HarborRegistryDatabase.Database
 
       TLS = module.Vault.Registry.Harbor.TLS
+    }
+  }
+
+  #
+  # Search
+  #
+  Search = {
+    OpenSearch = {
+      OpenID = {
+        ClientID = ""
+        ClientSecret = ""
+      }
+
+      TLS = module.Vault.Search.OpenSearch.TLS
+
+      S3 = {
+        CoreRepo = module.OpenSearchRepoBucket
+      }
     }
   }
 

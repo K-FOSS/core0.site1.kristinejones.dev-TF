@@ -653,6 +653,15 @@ module "Registry" {
 }
 
 #
+# Search
+#
+module "Search" {
+  source = "./Jobs/Search"
+
+  OpenSearch = var.Search.OpenSearch
+}
+
+#
 # Misc
 #
 

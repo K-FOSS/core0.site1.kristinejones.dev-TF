@@ -337,7 +337,7 @@ resource "vault_pki_secret_backend_cert" "TeleportProxyCert" {
 }
 
 #
-# Pomerium Auth
+# Teleport Auth
 # 
 
 resource "vault_pki_secret_backend_cert" "TeleportAuthCert" {
@@ -348,6 +348,33 @@ resource "vault_pki_secret_backend_cert" "TeleportAuthCert" {
 
   alt_names = ["auth.access.kristianjones.dev", "https.auth.teleport.service.kjdev"]
 }
+
+#
+# Teleport Tunnel
+#
+
+resource "vault_pki_secret_backend_cert" "TeleportTunnelCert" {
+  backend = module.Teleport.TLS.Mount.path
+  name = module.Teleport.TLS.Role.name
+
+  common_name = "https.tunnel.teleport.service.dc1.kjdev"
+
+  alt_names = ["tunnel.access.kristianjones.dev", "https.tunnel.teleport.service.kjdev"]
+}
+
+#
+# Teleport Kube
+#
+
+resource "vault_pki_secret_backend_cert" "TeleportKubeCert" {
+  backend = module.Teleport.TLS.Mount.path
+  name = module.Teleport.TLS.Role.name
+
+  common_name = "https.kube.teleport.service.dc1.kjdev"
+
+  alt_names = ["kube.access.kristianjones.dev", "https.kube.teleport.service.kjdev"]
+}
+
 
 
 resource "vault_pki_secret_backend_cert" "TinkCert" {
@@ -696,6 +723,35 @@ resource "vault_pki_secret_backend_cert" "HarborChartMuseumServerCert" {
 
   alt_names = ["https.chartmuseum.harbor.service.dc1.kjdev", "https.charts.harbor.service.dc1.kjdev", "charts.registry.kristianjones.dev"]
 }
+
+#
+# Search
+#
+
+
+module "OpenSearch" {
+  source = "./TLS/Template"
+}
+
+resource "vault_pki_secret_backend_cert" "OpenSearch0Cert" {
+  backend = module.OpenSearch.TLS.Mount.path
+  name = module.OpenSearch.TLS.Role.name
+
+  common_name = "0.https.server.opensearch.service.kjdev"
+
+  alt_names = ["0.https.server.opensearch.service.dc1.kjdev"]
+}
+
+resource "vault_pki_secret_backend_cert" "OpenSearch1Cert" {
+  backend = module.OpenSearch.TLS.Mount.path
+  name = module.OpenSearch.TLS.Role.name
+
+  common_name = "1.https.server.opensearch.service.kjdev"
+
+  alt_names = ["1.https.server.opensearch.service.dc1.kjdev"]
+}
+
+
 
 #
 # Prometheus
