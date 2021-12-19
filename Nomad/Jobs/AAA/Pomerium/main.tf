@@ -102,6 +102,8 @@ resource "nomad_job" "PomeriumAuthenticateJobFile" {
     Config = templatefile("${path.module}/Configs/Pomerium/PomeriumAuthenticate.yaml", {
       Secrets = var.Secrets
       OpenID = var.OpenID
+
+      ServiceAccount = base64encode(var.OpenID.ClientSecret)
     })
   })
 }
@@ -129,6 +131,8 @@ resource "nomad_job" "PomeriumAuthorizeJobFile" {
     Config = templatefile("${path.module}/Configs/Pomerium/PomeriumAuthorize.yaml", {
       Secrets = var.Secrets
       OpenID = var.OpenID
+
+      ServiceAccount = base64encode(var.OpenID.ClientSecret)
     })
   })
 }
@@ -156,6 +160,8 @@ resource "nomad_job" "PomeriumDataBrokerJobFile" {
     Config = templatefile("${path.module}/Configs/Pomerium/PomeriumDataBroker.yaml", {
       Secrets = var.Secrets
       OpenID = var.OpenID
+
+      ServiceAccount = base64encode(var.OpenID.ClientSecret)
     })
   })
 }
@@ -184,6 +190,8 @@ resource "nomad_job" "PomeriumProxyJobFile" {
     Config = templatefile("${path.module}/Configs/Pomerium/PomeriumProxy.yaml", {
       Secrets = var.Secrets
       OpenID = var.OpenID
+
+      ServiceAccount = base64encode(var.OpenID.ClientSecret)
     })
   })
 }
