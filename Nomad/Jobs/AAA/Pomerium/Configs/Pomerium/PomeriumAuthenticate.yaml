@@ -42,7 +42,7 @@ authenticate_service_url: https://auth.int.site1.kristianjones.dev
 
 idp_provider: oidc
 idp_provider_url: https://auth.kristianjones.dev/application/o/pomeriumproxy-auth/
-idp_service_account: '${ServiceAccount}'
+idp_service_account: ''
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
 
