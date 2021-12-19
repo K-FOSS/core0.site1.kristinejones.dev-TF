@@ -7,7 +7,7 @@ cluster.name: CoreOpenSearch
 #
 # Node
 #
-node.name: 'OpenSearch{{ env "NOMAD_META_NodeType" }}{{  }}'
+node.name: 'OpenSearch{{ env "NOMAD_META_NodeType" }}{{ env "NOMAD_ALLOC_INDEX" }}'
 
 node.master: '{{ $Service := env "NOMAD_META_NodeType" }}{{ if eq $Service "Master" }}true{{ else }}false{{ end }}'
 node.data: '{{ $Service := env "NOMAD_META_NodeType" }}{{ if eq $Service "Data" }}true{{ else }}false{{ end }}'
