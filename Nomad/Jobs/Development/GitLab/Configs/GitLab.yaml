@@ -156,7 +156,7 @@ production: &base
   ## Mattermost
   ## For enabling Add to Mattermost button
   mattermost:
-    enabled: false
+    enabled: true
     host: 'https://mattermost.kristianjones.dev'
 
   ## Gravatar

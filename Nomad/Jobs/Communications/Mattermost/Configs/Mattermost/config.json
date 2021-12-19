@@ -207,8 +207,8 @@
     "AmazonS3Trace": false
   },
   "EmailSettings": {
-    "EnableSignUpWithEmail": true,
-    "EnableSignInWithEmail": true,
+    "EnableSignUpWithEmail": false,
+    "EnableSignInWithEmail": false,
     "EnableSignInWithUsername": true,
     "SendEmailNotifications": false,
     "UseChannelInEmailNotifications": false,
