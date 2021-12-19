@@ -48,6 +48,15 @@ job "search-opensearch-coordinator" {
         entrypoint = ["/usr/share/opensearch/bin/opensearch"]
         args = []
 
+        mount {
+          type = "tmpfs"
+          target = "/app/tmp"
+          readonly = false
+          tmpfs_options = {
+            size = 100000
+          }
+        }
+
         logging {
           type = "loki"
           config {
@@ -115,7 +124,7 @@ EOF
 ${OpenSearch.CA}
 EOF
 
-        destination = "local/CA.pem"
+        destination = "local/OpenSearch/CA.pem"
       }
 
 %{ for NodeType, Certs in OpenSearch.TLS ~}
@@ -128,7 +137,7 @@ EOF
 ${TLS.Cert}
 EOF
 
-        destination = "secrets/TLS/${NodeType}/${NodeName}.pem"
+        destination = "local/OpenSearch/${NodeType}/${NodeName}.pem"
       }
 
       template {
@@ -136,7 +145,7 @@ EOF
 ${TLS.Key}
 EOF
 
-        destination = "secrets/TLS/${NodeType}/${NodeName}.key"
+        destination = "local/OpenSearch/${NodeType}/${NodeName}.key"
       }
 %{ endfor ~}
 

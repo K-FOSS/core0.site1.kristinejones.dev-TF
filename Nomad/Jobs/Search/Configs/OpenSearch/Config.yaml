@@ -22,15 +22,15 @@ plugins:
   security:
     ssl:
       transport:
-        pemcert_filepath: /secrets/TLS/{{ $Service := env "NOMAD_META_NodeType" }}/Server{{ env "NOMAD_ALLOC_INDEX" }}.pem
-        pemkey_filepath: /secrets/TLS/{{ $Service := env "NOMAD_META_NodeType" }}/Server{{ env "NOMAD_ALLOC_INDEX" }}.key
-        pemtrustedcas_filepath: /local/CA.pem
+        pemcert_filepath: {{ $Service := env "NOMAD_META_NodeType" }}/Server{{ env "NOMAD_ALLOC_INDEX" }}.pem
+        pemkey_filepath: {{ $Service := env "NOMAD_META_NodeType" }}/Server{{ env "NOMAD_ALLOC_INDEX" }}.key
+        pemtrustedcas_filepath: CA.pem
         enforce_hostname_verification: true
       http:
         enabled: true
-        pemcert_filepath: /secrets/TLS/{{ $Service := env "NOMAD_META_NodeType" }}/Server{{ env "NOMAD_ALLOC_INDEX" }}.pem
-        pemkey_filepath: /secrets/TLS/{{ $Service := env "NOMAD_META_NodeType" }}/Server{{ env "NOMAD_ALLOC_INDEX" }}.key
-        pemtrustedcas_filepath: /local/CA.pem
+        pemcert_filepath: {{ $Service := env "NOMAD_META_NodeType" }}/Server{{ env "NOMAD_ALLOC_INDEX" }}.pem
+        pemkey_filepath: {{ $Service := env "NOMAD_META_NodeType" }}/Server{{ env "NOMAD_ALLOC_INDEX" }}.key
+        pemtrustedcas_filepath: CA.pem
     allow_unsafe_democertificates: false
     allow_default_init_securityindex: true
     authcz:
