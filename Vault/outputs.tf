@@ -660,7 +660,7 @@ output "Search" {
       }
 
       TLS = {
-        CA = vault_pki_secret_backend_cert.OpenSearch0Cert.ca_chain
+        CA = vault_pki_secret_backend_cert.OpenSearchCoordinator0Cert.ca_chain
 
         Coordinator = {
           Coordinator0 = {
