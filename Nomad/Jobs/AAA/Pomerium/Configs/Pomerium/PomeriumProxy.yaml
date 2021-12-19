@@ -28,8 +28,10 @@ autocert_must_staple: false
 # mTLS
 #
 certificate_authority_file: /local/ServerCA.pem
-certificate_file: /secrets/TLS/Server.pem
-certificate_key_file: /secrets/TLS/Server.key
+
+certificates:
+  - cert: /secrets/TLS/Server.pem
+    key: /secrets/TLS/Server.key
 
 #
 # Authenticate Service
