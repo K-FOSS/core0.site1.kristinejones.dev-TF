@@ -64,9 +64,9 @@ locals {
     Routes = base64encode(templatefile("${path.module}/Configs/Pomerium/Routes.yaml", {}))
     
     Image = {
-      Repo = "registry.kristianjones.dev/cache/"
+      Repo = "registry.kristianjones.dev/cache/pomerium/pomerium"
 
-      Tag = "v0.15.6"
+      Tag = "latest"
     }
   }
 
