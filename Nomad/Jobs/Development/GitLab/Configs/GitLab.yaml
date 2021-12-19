@@ -371,7 +371,7 @@ production: &base
         #
         #   Ex. 'ou=People,dc=gitlab,dc=example' or 'DC=mydomain,DC=com'
         #
-        base: 'dc=ldap,dc=kristianjones,dc=dev'
+        base: 'ou=users,dc=ldap,dc=kristianjones,dc=dev'
 
         # Filter LDAP users
         #
@@ -389,26 +389,7 @@ production: &base
         #
         #   Ex. ou=Groups,dc=gitlab,dc=example
         #
-        group_base: ''
-
-        # LDAP group of users who should be admins in GitLab
-        #
-        #   Ex. GLAdmins
-        #
-        admin_group: ''
-
-        # LDAP group of users who should be marked as external users in GitLab
-        #
-        #   Ex. ['Contractors', 'Interns']
-        #
-        external_groups: []
-
-        # Name of attribute which holds a ssh public key of the user object.
-        # If false or nil, SSH key syncronisation will be disabled.
-        #
-        #   Ex. sshpublickey
-        #
-        sync_ssh_keys: false
+        group_base: 'ou=groups,dc=ldap,dc=kristianjones,dc=dev'
 
         # Retry ldap search connection if got empty results with specified response code(s)
         #
@@ -417,6 +398,13 @@ production: &base
 
         # If lowercase_usernames is enabled, GitLab will lower case the username.
         #lowercase_usernames: false
+
+        attributes:
+          username: 'cn'
+          email: 'mail'
+          name: 'cn'
+          first_name: 'cn'
+          last_name: 'name'
 
   kerberos:
     enabled: false
