@@ -100,7 +100,7 @@ module "Meshery" {
 #
 
 module "Pomerium" {
-  source = "./Jobs/Pomerium"
+  source = "./Jobs/AAA/Pomerium"
 
   OpenID = var.Pomerium.OpenID
 
