@@ -54,7 +54,9 @@ locals {
       Tag = "master"
     }
 
-    Config = templatefile("${path.module}/Configs/MatterBridge/Config.toml")
+    Config = templatefile("${path.module}/Configs/MatterBridge/Config.toml", {
+      
+    })
   }
 }
 
