@@ -421,7 +421,7 @@ resource "vault_pki_secret_backend_cert" "PomeriumProxyCert" {
 
   common_name = "https.proxy.pomerium.service.kjdev"
 
-  alt_names = ["*.kristianjones.dev", "https.proxy.pomerium.service.dc1.kjdev"]
+  alt_names = ["*.kristianjones.dev", "*.int.site1.kristianjones.dev", "kjmedia.stream", "*.kjmedia.stream", "https.proxy.pomerium.service.dc1.kjdev"]
 }
 
 
