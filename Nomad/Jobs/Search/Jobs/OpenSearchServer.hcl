@@ -77,6 +77,77 @@ EOF
 
         destination = "local/Config.yaml"
       }
+
+      #
+      # TLS
+      #
+
+      #
+      # mTLS
+      #
+
+      #
+      # TODO: Loop over OpenSearch.TLS Object
+      #
+
+      template {
+        data = <<EOF
+${OpenSearch.TLS.CA}
+EOF
+
+        destination = "local/CA.pem"
+      }
+
+      
+      # Server0
+      template {
+        data = <<EOF
+${OpenSearch.TLS.OpenSearch0.CA}
+EOF
+
+        destination = "secrets/TLS/Server0CA.pem"
+      }
+
+      template {
+        data = <<EOF
+${OpenSearch.TLS.OpenSearch0.Cert}
+EOF
+
+        destination = "secrets/TLS/Server0.pem"
+      }
+
+      template {
+        data = <<EOF
+${OpenSearch.TLS.OpenSearch0.Key}
+EOF
+
+        destination = "secrets/TLS/Server0.key"
+      }
+
+      # OpenSearch1
+      template {
+        data = <<EOF
+${OpenSearch.TLS.OpenSearch1.CA}
+EOF
+
+        destination = "secrets/TLS/Server1CA.pem"
+      }
+
+      template {
+        data = <<EOF
+${OpenSearch.TLS.OpenSearch1.Cert}
+EOF
+
+        destination = "secrets/TLS/Server1.pem"
+      }
+
+      template {
+        data = <<EOF
+${OpenSearch.TLS.OpenSearch1.Key}
+EOF
+
+        destination = "secrets/TLS/Server1.key"
+      }
     }
   }
 }

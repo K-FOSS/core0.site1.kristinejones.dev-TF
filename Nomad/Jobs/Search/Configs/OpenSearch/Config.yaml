@@ -6,15 +6,15 @@ plugins:
   security:
     ssl:
       transport:
-        pemcert_filepath: esnode.pem
-        pemkey_filepath: esnode-key.pem
-        pemtrustedcas_filepath: root-ca.pem
-        enforce_hostname_verification: false
+        pemcert_filepath: /secrets/TLS/Server{{ env "NOMAD_ALLOC_INDEX" }}.pem
+        pemkey_filepath: /secrets/TLS/Server{{ env "NOMAD_ALLOC_INDEX" }}.key
+        pemtrustedcas_filepath: /local/CA.pem
+        enforce_hostname_verification: true
       http:
         enabled: true
-        pemcert_filepath: esnode.pem
-        pemkey_filepath: esnode-key.pem
-        pemtrustedcas_filepath: root-ca.pem
+        pemcert_filepath: /secrets/TLS/Server{{ env "NOMAD_ALLOC_INDEX" }}.pem
+        pemkey_filepath: /secrets/TLS/Server{{ env "NOMAD_ALLOC_INDEX" }}.key
+        pemtrustedcas_filepath: /local/CA.pem
     allow_unsafe_democertificates: false
     allow_default_init_securityindex: true
     authcz:
