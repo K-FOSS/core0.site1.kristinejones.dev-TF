@@ -322,7 +322,7 @@ EOF
 
       template {
         data = <<EOF
-${Harbor.TLS.Cert}
+${Harbor.TLS.Key}
 EOF
 
         destination = "local/Secrets/Key.pem"
