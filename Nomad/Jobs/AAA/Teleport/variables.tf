@@ -36,5 +36,19 @@ variable "TLS" {
       Cert = string
       Key = string
     })
+
+    Tunnel = object({
+      CA = string
+
+      Cert = string
+      Key = string
+    })
+
+    Kube = object({
+      CA = string
+
+      Cert = string
+      Key = string
+    })
   })
 }
