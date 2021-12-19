@@ -66,6 +66,15 @@ job "pomerium-authorize" {
           job = "pomerium"
           service = "authorize"
         }
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=pomerium,service=authorize"
+          }
+        }
       }
 
       meta {
