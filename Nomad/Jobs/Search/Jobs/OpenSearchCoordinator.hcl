@@ -71,7 +71,7 @@ job "search-opensearch-coordinator" {
       env {
         OPENSEARCH_JAVA_OPTS = "-Xms512m -Xmx512m"
 
-        OPENSEARCH_PATH_CONF = "/local/Config.yaml"
+        OPENSEARCH_PATH_CONF = "/local/OpenSearch"
       }
 
       template {
@@ -79,7 +79,7 @@ job "search-opensearch-coordinator" {
 ${OpenSearch.Config}
 EOF
 
-        destination = "local/Config.yaml"
+        destination = "local/OpenSearch/opensearch.yml"
       }
 
       #
