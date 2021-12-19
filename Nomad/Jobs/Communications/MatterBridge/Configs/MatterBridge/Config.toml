@@ -1,8 +1,8 @@
 [mattermost]
-    [mattermost.]
+    [mattermost.core]
     Server="mattermost.int.site1.kristianjones.dev"
     Team="yourteam"
-    Login="${MatterBridge.Bot.Token}"
+    Login="test"
     Password="yourpass"
     PrefixMessagesWithNick=true
     RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
