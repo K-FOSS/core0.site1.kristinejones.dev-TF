@@ -3,7 +3,7 @@ version: 0.1
 log:
   level: debug
   fields:
-    service: registry
+    service: gitlabregistry
 
 storage:
   s3:
@@ -36,7 +36,6 @@ http:
   tls:
     certificate: /secrets/TLS/Cert.pem
     key: /secrets/TLS/Cert.key
-    minimumtls: tls1.2
   debug:
     addr: 0.0.0.0:9090
     prometheus:
@@ -55,4 +54,4 @@ validation:
 
 compatibility:
   schema1:
-    enabled: false
+    enabled: true

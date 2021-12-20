@@ -93,7 +93,7 @@ locals {
       CSRFKey = random_password.HarborCSRFKeySecret.result
     }
 
-    Version = "v2.4.0-dev"
+    Version = "v2.4.1"
   }
 }
 

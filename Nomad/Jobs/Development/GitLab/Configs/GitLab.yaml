@@ -237,10 +237,10 @@ production: &base
   registry:
     enabled: true
     host: registry.kristianjones.dev
-    port: 443
-    api_url: https://https.gitlabregistry.harbor.service.kjdev:5443 # internal address to the registry, will be used by GitLab to directly communicate with API
+    port: 8443
+    api_url: https://https.gitlabregistry.harbor.service.kjdev:5443/ # internal address to the registry, will be used by GitLab to directly communicate with API
     key: /secrets/TLS/Registry.key
-    # #path: shared/registry
+    #path: shared/registry
     issuer: gitlab-issuer
     #notification_secret: '' # only set it when you use Geo replication feature without built-in Registry
 

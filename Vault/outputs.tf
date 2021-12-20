@@ -578,7 +578,7 @@ output "GitLab" {
       }
 
       Registry = {
-        CA = vault_pki_secret_backend_cert.HarborGitLabRegistryServerCert.ca_chain
+        CA = vault_pki_secret_backend_cert.HarborCoreServerCert.ca_chain
 
         Cert = vault_pki_secret_backend_cert.HarborGitLabRegistryServerCert.certificate
         Key = vault_pki_secret_backend_cert.HarborGitLabRegistryServerCert.private_key
