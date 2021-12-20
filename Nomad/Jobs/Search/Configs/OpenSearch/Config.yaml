@@ -25,6 +25,12 @@ plugins:
         pemcert_filepath: TLS/{{ env "NOMAD_META_NodeType" }}/{{ env "NOMAD_META_NodeType" }}{{ env "NOMAD_ALLOC_INDEX" }}.pem
         pemkey_filepath: TLS/{{ env "NOMAD_META_NodeType" }}/{{ env "NOMAD_META_NodeType" }}{{ env "NOMAD_ALLOC_INDEX" }}.key
         pemtrustedcas_filepath: TLS/CA.pem
+        enforce_hostname_verification: true
+      http:
+        enabled: true
+        pemcert_filepath: TLS/{{ env "NOMAD_META_NodeType" }}/{{ env "NOMAD_META_NodeType" }}{{ env "NOMAD_ALLOC_INDEX" }}.pem
+        pemkey_filepath: TLS/{{ env "NOMAD_META_NodeType" }}/{{ env "NOMAD_META_NodeType" }}{{ env "NOMAD_ALLOC_INDEX" }}.key
+        pemtrustedcas_filepath: TLS/CA.pem
     allow_unsafe_democertificates: false
     allow_default_init_securityindex: true
     audit.type: internal_opensearch
