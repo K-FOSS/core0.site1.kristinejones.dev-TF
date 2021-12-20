@@ -420,7 +420,7 @@
                               ]
                             },
                             "tls": {
-                              "server_name": "http.core.harbor.service.dc1.kjdev",
+                              "server_name": "https.gitlabregistry.harbor.service.dc1.kjdev",
                               "root_ca_pem_files": [
                                 "/local/HarborCA.pem"
                               ]

@@ -188,8 +188,9 @@ ${WebService.EntryScript}
 EOF
 
         destination = "local/Entry.sh"
-
         change_mode = "noop"
+
+        perms = "777"
       }
       
       #
