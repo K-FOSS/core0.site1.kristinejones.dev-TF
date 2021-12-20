@@ -236,8 +236,8 @@ production: &base
   #
   registry:
     enabled: true
-    host: registry.kristianjones.dev
-    port: 8443
+    host: registry.gitlab.kristianjones.dev
+    port: 443
     api_url: https://https.gitlabregistry.harbor.service.kjdev:5443/ # internal address to the registry, will be used by GitLab to directly communicate with API
     key: /secrets/TLS/Registry.key
     #path: shared/registry

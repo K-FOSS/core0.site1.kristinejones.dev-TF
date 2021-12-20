@@ -176,8 +176,8 @@
                             "protocol": "http",
                             "resolver": {
                               "addresses": [
-                                "172.16.0.10:8600",
-                                "172.16.0.13:8600"
+                                "10.1.1.10:8600",
+                                "10.1.1.13:8600"
                               ]
                             },
                             "tls": {
@@ -399,6 +399,34 @@
                           ]
                         }
                       ]
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
+                            "registry.gitlab.kristianjones.dev"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "resolver": {
+                              "addresses": [
+                                "10.1.1.10:8600",
+                                "10.1.1.13:8600"
+                              ]
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "https.gitlabregistry.harbor.service.dc1.kjdev"
+                            }
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }
@@ -612,10 +640,15 @@
                       ],
                       "handle": [
                         {
+                          "handler": "encode",
+                          "encodings": {
+                            "gzip": {}
+                          }
+                        },
+                        {
                           "handler": "reverse_proxy",
                           "transport": {
                             "protocol": "http",
-                            "compression": true,
                             "resolver": {
                               "addresses": [
                                 "172.18.0.10:53"
