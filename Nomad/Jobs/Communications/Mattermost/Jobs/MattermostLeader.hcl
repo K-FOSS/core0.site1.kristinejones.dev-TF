@@ -33,6 +33,15 @@ job "communications-mattermost-leader" {
         entrypoint = ["/mattermost/bin/mattermost"]
 
         args = ["server", "-c", "/local/config.json"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=mattermost,service=coreserver"
+          }
+        }
       }
     
       env {
