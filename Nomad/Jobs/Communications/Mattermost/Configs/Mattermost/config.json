@@ -525,7 +525,7 @@
     "Plugins": {
       "com.github.manland.mattermost-plugin-gitlab": {
         "enableprivaterepo": true,
-        "encryptionkey": "${Secrets.EncryptionKey}",
+        "encryptionkey": "${Secrets.GitLab}",
         "gitlabgroup": null,
         "gitlaboauthclientid": "${GitLab.ClientID}",
         "gitlaboauthclientsecret": "${GitLab.ClientSecret}",

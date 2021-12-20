@@ -57,7 +57,7 @@ job "search-opensearch-coordinator" {
 
         mount {
           type = "bind"
-          target = "/usr/share/opensearch/TLS"
+          target = "/usr/share/opensearch/config/TLS"
           source = "local/TLS"
           readonly = false
         }

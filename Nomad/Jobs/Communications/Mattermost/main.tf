@@ -50,6 +50,12 @@ resource "random_id" "MattermostAtRestKey" {
   byte_length = 32
 }
 
+resource "random_id" "MattermostGitLabKey" {
+  byte_length = 32
+}
+
+
+
 locals {
   Mattermost = {
     Config = templatefile("${path.module}/Configs/Mattermost/config.json", {
@@ -61,6 +67,7 @@ locals {
 
       Secrets = {
         EncryptionKey = random_id.MattermostAtRestKey.hex
+        GitLab = random_id.MattermostAtRestKey.dec
       }
 
       GitLab = {
