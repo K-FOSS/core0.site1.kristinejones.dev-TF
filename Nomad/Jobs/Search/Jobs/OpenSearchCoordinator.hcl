@@ -49,12 +49,17 @@ job "search-opensearch-coordinator" {
         args = []
 
         mount {
-          type = "tmpfs"
-          target = "/app/tmp"
+          type = "bind"
+          target = "/usr/share/opensearch/config/opensearch.yml"
+          source = "local/opensearch.yml"
+          readonly = true
+        }
+
+        mount {
+          type = "bind"
+          target = "/usr/share/opensearch/TLS"
+          source = "local/TLS"
           readonly = false
-          tmpfs_options = {
-            size = 100000
-          }
         }
 
         logging {
@@ -80,7 +85,9 @@ job "search-opensearch-coordinator" {
       env {
         OPENSEARCH_JAVA_OPTS = "-Xms512m -Xmx512m"
 
-        OPENSEARCH_PATH_CONF = "/local/OpenSearch"
+        OPENSEARCH_HOME = "/usr/share/opensearch"
+
+        OPENSEARCH_PATH_CONF = "/usr/share/opensearch/config"
       }
 
       template {
@@ -88,23 +95,7 @@ job "search-opensearch-coordinator" {
 ${OpenSearch.Config}
 EOF
 
-        destination = "local/OpenSearch/opensearch.yml"
-      }
-
-      template {
-        data = <<EOF
-${OpenSearch.JVMOptions}
-EOF
-
-        destination = "local/OpenSearch/jvm.options"
-      }
-
-      template {
-        data = <<EOF
-${OpenSearch.Log4JConfig}
-EOF
-
-        destination = "local/OpenSearch/log4j2.properties"
+        destination = "local/opensearch.yml"
       }
 
       #
@@ -124,7 +115,7 @@ EOF
 ${OpenSearch.CA}
 EOF
 
-        destination = "local/OpenSearch/CA.pem"
+        destination = "local/TLS/CA.pem"
       }
 
 %{ for NodeType, Certs in OpenSearch.TLS ~}
@@ -137,7 +128,7 @@ EOF
 ${TLS.Cert}
 EOF
 
-        destination = "local/OpenSearch/${NodeType}/${NodeName}.pem"
+        destination = "local/TLS/${NodeType}/${NodeName}.pem"
       }
 
       template {
@@ -145,7 +136,7 @@ EOF
 ${TLS.Key}
 EOF
 
-        destination = "local/OpenSearch/${NodeType}/${NodeName}.key"
+        destination = "local/TLS/${NodeType}/${NodeName}.key"
       }
 %{ endfor ~}
 
