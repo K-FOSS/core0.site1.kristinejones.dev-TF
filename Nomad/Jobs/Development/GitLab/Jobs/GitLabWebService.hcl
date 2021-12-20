@@ -98,6 +98,9 @@ job "development-gitlab-webservice" {
       config {
         image = "${Image.Repo}/gitlab-webservice-ce:${Image.Tag}"
 
+        entrypoint = ["/local/Entry.sh"]
+        args = []
+
         mount {
           type = "bind"
           target = "/opt/gitlab/embedded/ssl/certs/gitlab.pem"
@@ -178,6 +181,16 @@ job "development-gitlab-webservice" {
       #
       # Configs
       #
+
+      template {
+        data = <<EOF
+${WebService.EntryScript}
+EOF
+
+        destination = "local/Entry.sh"
+
+        change_mode = "noop"
+      }
       
       #
       # GitLab YAML
