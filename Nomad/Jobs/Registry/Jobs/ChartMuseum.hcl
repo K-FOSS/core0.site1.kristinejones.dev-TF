@@ -120,6 +120,7 @@ job "registry-harbor-chartmuseum" {
         # TODO: What dis do?
         #
         #CHART_URL = ""
+        DEPTH = "1"
 
         #
         # Security
