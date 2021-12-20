@@ -218,6 +218,16 @@ resource "nomad_job" "DrawIOJobFile" {
   })
 }
 
+############
+# eJabberD #
+############
+
+# resource "nomad_job" "eJabberDJobFile" {
+#   jobspec = templatefile("${path.module}/Jobs/eJabberD.hcl", {
+
+#   })
+# }
+
 ###########
 # Grafana #
 ###########
@@ -384,4 +394,14 @@ module "TempoMemcache" {
 
 resource "nomad_job" "PomeriumCacheJobFile" {
   jobspec = templatefile("${path.module}/Jobs/PomeriumCache.hcl", var.Pomerium.RedisCache)
+}
+
+#
+# Registry
+#
+
+resource "nomad_job" "RegistryRedisJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/RegistryRedis.hcl", {
+
+  })
 }

@@ -1,56 +1,6 @@
 job "registry-harbor-chartmuseum" {
   datacenters = ["core0site1"]
 
-  group "harbor-chartmuseum-redis" {
-    count = 1
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "redis" { 
-        to = 6379
-      }
-    }
-
-    service {
-      name = "harbor"
-      port = "redis"
-
-      task = "harbor-chartmuseum-cache"
-      address_mode = "alloc"
-
-      tags = ["coredns.enabled", "redis.chartmuseum"]
-
-      check {
-        name = "tcp_validate"
-
-        type = "tcp"
-
-        port = "redis"
-        address_mode = "alloc"
-
-        initial_status = "passing"
-
-        interval = "30s"
-        timeout  = "10s"
-
-        check_restart {
-          limit = 6
-          grace = "120s"
-          ignore_warnings = true
-        }
-      }
-    }
-
-    task "harbor-chartmuseum-cache" {
-      driver = "docker"
-
-      config {
-        image = "redis:latest"
-      }
-    }
-  }
-
   group "harbor-registry-chartmuseum-server" {
     count = 1
 
@@ -71,7 +21,7 @@ job "registry-harbor-chartmuseum" {
       }
     }
 
-    task "wait-for-harbor-chartmuseum-redis" {
+    task "wait-for-harbor-redis" {
       lifecycle {
         hook = "prestart"
         sidecar = false
@@ -80,7 +30,7 @@ job "registry-harbor-chartmuseum" {
       driver = "exec"
       config {
         command = "sh"
-        args = ["-c", "while ! nc -z redis.chartmuseum.harbor.service.dc1.kjdev 6379; do sleep 1; done"]
+        args = ["-c", "while ! nc -z redis.harbor.service.dc1.kjdev 6379; do sleep 1; done"]
       }
 
       resources {
@@ -204,8 +154,8 @@ job "registry-harbor-chartmuseum" {
         # Cache
         #
         CACHE = "redis"
-        CACHE_REDIS_ADDR = "redis.chartmuseum.harbor.service.kjdev:6379"
-        CACHE_REDIS_DB = "0"
+        CACHE_REDIS_ADDR = "redis.harbor.service.kjdev:6379"
+        CACHE_REDIS_DB = "2"
 
         #
         # Trusted CA

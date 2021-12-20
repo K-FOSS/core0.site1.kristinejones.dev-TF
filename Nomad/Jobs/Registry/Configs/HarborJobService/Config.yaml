@@ -9,7 +9,7 @@ worker_pool:
   workers: 3
   backend: redis
   redis_pool:
-    redis_url: redis://redis.jobservice.harbor.service.dc1.kjdev
+    redis_url: redis://redis.harbor.service.dc1.kjdev?db=1
     namespace: harbor_job_service_namespace
     idle_timeout_second: 3600
 

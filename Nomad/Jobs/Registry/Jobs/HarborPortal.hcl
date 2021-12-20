@@ -21,7 +21,7 @@ job "registry-harbor-portal" {
       }
     }
 
-    task "wait-for-harbor-core-redis" {
+    task "wait-for-harbor-core" {
       lifecycle {
         hook = "prestart"
         sidecar = false

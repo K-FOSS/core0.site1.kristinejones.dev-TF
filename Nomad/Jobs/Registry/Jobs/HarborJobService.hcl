@@ -1,62 +1,6 @@
 job "registry-harbor-jobservice" {
   datacenters = ["core0site1"]
 
-  group "harbor-redis" {
-    count = 1
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "redis" { 
-        to = 6379
-      }
-    }
-
-    service {
-      name = "harbor"
-      port = "redis"
-
-      task = "harbor"
-      address_mode = "alloc"
-
-      tags = ["coredns.enabled", "redis.jobservice"]
-
-      check {
-        name = "tcp_validate"
-
-        type = "tcp"
-
-        port = "redis"
-        address_mode = "alloc"
-
-        initial_status = "passing"
-
-        interval = "30s"
-        timeout  = "10s"
-
-        check_restart {
-          limit = 6
-          grace = "120s"
-          ignore_warnings = true
-        }
-      }
-    }
-
-    task "harbor-cache" {
-      driver = "docker"
-
-      config {
-        image = "redis:latest"
-      }
-
-      resources {
-        cpu = 128
-        memory = 32
-        memory_max = 64
-      }
-    }
-  }
-
   group "harbor-registry-jobservice" {
     count = 2
 
@@ -77,7 +21,7 @@ job "registry-harbor-jobservice" {
       }
     }
 
-    task "wait-for-harbor-jobservice-redis" {
+    task "wait-for-harbor-redis" {
       lifecycle {
         hook = "prestart"
         sidecar = false
@@ -86,7 +30,7 @@ job "registry-harbor-jobservice" {
       driver = "exec"
       config {
         command = "sh"
-        args = ["-c", "while ! nc -z redis.jobservice.harbor.service.dc1.kjdev 6379; do sleep 1; done"]
+        args = ["-c", "while ! nc -z redis.harbor.service.dc1.kjdev 6379; do sleep 1; done"]
       }
 
       resources {
