@@ -25,7 +25,11 @@ teleport:
     type: etcd
 
     # List of etcd peers to connect to:
-    peers: ["https://0.etcd.teleport.service.dc1.kjdev:2379", "https://1.etcd.teleport.service.dc1.kjdev:2379"]
+    peers:
+      [
+        'https://0.etcd.teleport.service.dc1.kjdev:2379',
+        'https://1.etcd.teleport.service.dc1.kjdev:2379',
+      ]
 
     # Required path to TLS client certificate and key files to connect to etcd.
     tls_cert_file: /secrets/AuthServerCert.pem
@@ -33,7 +37,6 @@ teleport:
 
     # Optional file with trusted CA authority
     tls_ca_file: /local/TeleportETCDCA.pem
-
 
     # etcd key (location) where teleport will be storing its state under.
     # make sure it ends with a '/'!
@@ -61,20 +64,35 @@ teleport:
     region: us-east-1
     audit_sessions_uri: 's3://${S3.Bucket}?endpoint=${S3.Connection.Endpoint}&insecure=true&disablesse=true'
 
-
 auth_service:
   enabled: '{{ $Service := env "NOMAD_META_Service" }}{{ if eq $Service "Auth" }}yes{{ else }}no{{ end }}'
 
   listen_addr: 0.0.0.0:3025
-  public_addr: {{ env "NOMAD_ALLOC_INDEX" }}.https.auth.teleport.service.dc1.kjdev:3025
+  public_addr: '{{ env "NOMAD_ALLOC_INDEX" }}.https.auth.teleport.service.dc1.kjdev:3025'
 
   cluster_name: dc1.kristianjones.dev
 
   proxy_listener_mode: multiplex
 
+  # Optional setting for configuring session recording. Possible values are:
+  #    "node"  : sessions will be recorded on the node level  (the default)
+  #    "proxy" : recording on the proxy level, see "Recording Proxy Mode"
+  #              (https://goteleport.com/docs/architecture/proxy/#recording-proxy-mode).
+  #    "off"   : session recording is turned off
+  #
+  # EXPERIMENTAL *-sync modes
+  # Proxy and node send logs directly to S3 or other storage without
+  # storing the records on disk at all. *-sync requires all nodes to be
+  # upgraded to 4.4.
+  #
+  #    "node-sync" : session recordings will be streamed from node -> auth -> storage service
+  #    "proxy-sync : session recordings will be streamed from proxy -> auth -> storage service
+  #
+  session_recording: 'proxy-sync'
+
   authentication:
     type: github
-  
+
   tokens:
     - 'proxy,node,auth:${Secrets.JoinPin}'
 
@@ -83,10 +101,9 @@ ssh_service:
   labels:
     env: example
   commands:
-  - name: hostname
-    command: [hostname]
-    period: 1m0s
-
+    - name: hostname
+      command: [hostname]
+      period: 1m0s
 
 proxy_service:
   enabled: '{{ $Service := env "NOMAD_META_Service" }}{{ if eq $Service "Proxy" }}yes{{ else }}no{{ end }}'
