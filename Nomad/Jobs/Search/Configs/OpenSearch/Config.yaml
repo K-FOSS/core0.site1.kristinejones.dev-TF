@@ -7,14 +7,18 @@ cluster.name: CoreOpenSearch
 #
 # Discovery
 #
-discovery.seed_hosts: []
+
+cluster.initial_master_nodes:
+  - 0.https.master.opensearch.service.kjdev
+  - 1.https.master.opensearch.service.kjdev
+  - 2.https.master.opensearch.service.kjdev
 
 node.roles: ['{{ env "NOMAD_META_NodeType" | toLower  }}']
 
 #
 # Node
 #
-node.name: 'OpenSearch{{ env "NOMAD_META_NodeType" }}{{ env "NOMAD_ALLOC_INDEX" }}'
+node.name: '{{ env "NOMAD_ALLOC_INDEX" }}.https.{{ env "NOMAD_META_NodeType" | toLower }}.opensearch.service.kjdev'
 
 #
 # Misc

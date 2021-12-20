@@ -36,7 +36,7 @@ job "search-opensearch-main" {
       task = "opensearch-main-server"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "https.main", "$${NOMAD_ALLOC_INDEX}.https.main"]
+      tags = ["coredns.enabled", "https.master", "$${NOMAD_ALLOC_INDEX}.https.master"]
     }
 
     task "opensearch-main-server" {
@@ -77,7 +77,7 @@ job "search-opensearch-main" {
       }
 
       meta {
-        NodeType = "Main"
+        NodeType = "Master"
       }
 
       resources {
