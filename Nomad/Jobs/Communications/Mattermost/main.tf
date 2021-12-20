@@ -67,7 +67,7 @@ locals {
 
       Secrets = {
         EncryptionKey = random_id.MattermostAtRestKey.hex
-        GitLab = random_id.MattermostAtRestKey.hex
+        GitLab = random_id.MattermostGitLabKey.hex
       }
 
       GitLab = {
