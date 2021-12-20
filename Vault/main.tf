@@ -874,9 +874,9 @@ resource "vault_pki_secret_backend_cert" "OpenSearchMain0Cert" {
   backend = module.OpenSearch.TLS.Mount.path
   name = module.OpenSearch.TLS.Role.name
 
-  common_name = "0.https.main.opensearch.service.kjdev"
+  common_name = "0.https.master.opensearch.service.kjdev"
 
-  alt_names = ["0.https.main.opensearch.service.dc1.kjdev"]
+  alt_names = ["0.https.master.opensearch.service.dc1.kjdev"]
 }
 
 # Main1
@@ -884,9 +884,9 @@ resource "vault_pki_secret_backend_cert" "OpenSearchMain1Cert" {
   backend = module.OpenSearch.TLS.Mount.path
   name = module.OpenSearch.TLS.Role.name
 
-  common_name = "1.https.main.opensearch.service.kjdev"
+  common_name = "1.https.master.opensearch.service.kjdev"
 
-  alt_names = ["1.https.main.opensearch.service.dc1.kjdev"]
+  alt_names = ["1.https.master.opensearch.service.dc1.kjdev"]
 }
 
 # Main2
@@ -894,9 +894,9 @@ resource "vault_pki_secret_backend_cert" "OpenSearchMain2Cert" {
   backend = module.OpenSearch.TLS.Mount.path
   name = module.OpenSearch.TLS.Role.name
 
-  common_name = "2.https.main.opensearch.service.kjdev"
+  common_name = "2.https.master.opensearch.service.kjdev"
 
-  alt_names = ["2.https.main.opensearch.service.dc1.kjdev"]
+  alt_names = ["2.https.master.opensearch.service.dc1.kjdev"]
 }
 
 #

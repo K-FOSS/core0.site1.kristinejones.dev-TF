@@ -98,7 +98,7 @@ job "registry-harbor-gitlab-registry" {
         # Metrics
         #
         METRIC_NAMESPACE = "harbor"
-        METRIC_SUBSYSTEM = "registry"
+        METRIC_SUBSYSTEM = "gitlabregistry"
 
         #
         # Tracing
@@ -189,7 +189,7 @@ EOH
           config {
             loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
 
-            loki-external-labels = "job=harbor,service=registry"
+            loki-external-labels = "job=harbor,service=gitlabregistry"
           }
         }
       }
@@ -226,7 +226,7 @@ EOH
         # Metrics
         #
         METRIC_NAMESPACE = "harbor"
-        METRIC_SUBSYSTEM = "registryctl"
+        METRIC_SUBSYSTEM = "gitlabregistryctl"
         TRACE_ENABLED = "true"
         TRACE_SAMPLE_RATE = "1"
         TRACE_JAEGER_ENDPOINT = "http://http.distributor.tempo.service.kjdev:14268/api/traces"
