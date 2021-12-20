@@ -802,6 +802,8 @@ resource "vault_pki_secret_backend_cert" "OpenSearchCoordinator0Cert" {
   common_name = "0.https.coordinator.opensearch.service.kjdev"
 
   alt_names = ["0.https.coordinator.opensearch.service.dc1.kjdev"]
+
+  private_key_format = "pkcs8"
 }
 
 
@@ -813,6 +815,8 @@ resource "vault_pki_secret_backend_cert" "OpenSearchCoordinator1Cert" {
   common_name = "1.https.coordinator.opensearch.service.kjdev"
 
   alt_names = ["1.https.coordinator.opensearch.service.dc1.kjdev"]
+
+  private_key_format = "pkcs8"
 }
 
 # Coordinator2
@@ -823,6 +827,8 @@ resource "vault_pki_secret_backend_cert" "OpenSearchCoordinator2Cert" {
   common_name = "2.https.coordinator.opensearch.service.kjdev"
 
   alt_names = ["2.https.coordinator.opensearch.service.dc1.kjdev"]
+
+  private_key_format = "pkcs8"
 }
 
 #
