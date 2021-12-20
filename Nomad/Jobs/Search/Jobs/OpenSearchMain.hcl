@@ -1,7 +1,7 @@
-job "search-opensearch-coordinator" {
+job "search-opensearch-main" {
   datacenters = ["core0site1"]
 
-  group "opensearch-coordinator-server" {
+  group "opensearch-main-server" {
     count = 2
 
     spread {
@@ -33,13 +33,13 @@ job "search-opensearch-coordinator" {
       name = "opensearch"
       port = "https"
 
-      task = "opensearch-coordinator-server"
+      task = "opensearch-main-server"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "https.coordinator", "$${NOMAD_ALLOC_INDEX}.https.coordinator"]
+      tags = ["coredns.enabled", "https.main", "$${NOMAD_ALLOC_INDEX}.https.main"]
     }
 
-    task "opensearch-coordinator-server" {
+    task "opensearch-main-server" {
       driver = "docker"
 
       config {
@@ -47,6 +47,10 @@ job "search-opensearch-coordinator" {
 
         entrypoint = ["/usr/share/opensearch/bin/opensearch"]
         args = []
+
+        ulimit {
+          nofile = "65536:65536"
+        }
 
         mount {
           type = "bind"
@@ -67,13 +71,13 @@ job "search-opensearch-coordinator" {
           config {
             loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
 
-            loki-external-labels = "job=opensearch,service=server$${NOMAD_ALLOC_INDEX}"
+            loki-external-labels = "job=opensearch,service=$${NOMAD_META_NodeType}$${NOMAD_ALLOC_INDEX}"
           }
         }
       }
 
       meta {
-        NodeType = "Coordinator"
+        NodeType = "Main"
       }
 
       resources {

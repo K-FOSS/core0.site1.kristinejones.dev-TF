@@ -75,8 +75,8 @@ locals {
   }
 }
 
-resource "nomad_job" "OpenSearchCoordinatorJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/OpenSearchCoordinator.hcl", {
+resource "nomad_job" "OpenSearchMainJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/OpenSearchMain.hcl", {
     OpenSearch = local.OpenSearch
   })
 }

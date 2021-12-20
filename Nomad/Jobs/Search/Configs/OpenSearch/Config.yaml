@@ -5,13 +5,21 @@
 cluster.name: CoreOpenSearch
 
 #
+# Discovery
+#
+discovery.seed_hosts: []
+
+node.roles: ['{{ env "NOMAD_META_NodeType" | toLower  }}']
+
+#
 # Node
 #
 node.name: 'OpenSearch{{ env "NOMAD_META_NodeType" }}{{ env "NOMAD_ALLOC_INDEX" }}'
 
-node.master: '{{ $Service := env "NOMAD_META_NodeType" }}{{ if eq $Service "Master" }}true{{ else }}false{{ end }}'
-node.data: '{{ $Service := env "NOMAD_META_NodeType" }}{{ if eq $Service "Data" }}true{{ else }}false{{ end }}'
-node.ingest: '{{ $Service := env "NOMAD_META_NodeType" }}{{ if eq $Service "Ingest" }}true{{ else }}false{{ end }}'
+#
+# Misc
+#
+bootstrap.memory_lock: true
 
 #discovery.seed_hosts: 
 #  - 
