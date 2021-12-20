@@ -18,3 +18,5 @@ spec:
       # maps octocats/admins to teleport role access
       logins:
         - access
+        - auditor
+        - editor

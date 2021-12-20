@@ -136,6 +136,8 @@ job "development-gitlab-webservice" {
 
         INTERNAL_PORT = "443"
 
+        prometheus_multiproc_dir = "/tmp"
+
 
         #
         # Configs
