@@ -13,7 +13,7 @@ job "cache-registry-redis" {
     }
 
     service {
-      name = "registry"
+      name = "harbor"
       port = "redis"
 
       task = "registry-redis-server"
