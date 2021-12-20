@@ -418,6 +418,12 @@
                                 "10.1.1.10:8600",
                                 "10.1.1.13:8600"
                               ]
+                            },
+                            "tls": {
+                              "server_name": "http.core.harbor.service.dc1.kjdev",
+                              "root_ca_pem_files": [
+                                "/local/HarborCA.pem"
+                              ]
                             }
                           },
                           "upstreams": [
