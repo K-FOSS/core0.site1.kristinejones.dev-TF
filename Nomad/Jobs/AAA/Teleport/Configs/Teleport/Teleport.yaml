@@ -55,6 +55,12 @@ teleport:
     # This bumps the size to 15MiB as an example:
     etcd_max_client_msg_size_bytes: 15728640
 
+    #
+    # S3 Audit Storage
+    #
+    region: us-east-1
+    audit_sessions_uri: 's3://${S3.Bucket}?endpoint=${S3.Connection.Endpoint}&insecure=true&disablesse=true'
+
 
 auth_service:
   enabled: '{{ $Service := env "NOMAD_META_Service" }}{{ if eq $Service "Auth" }}yes{{ else }}no{{ end }}'

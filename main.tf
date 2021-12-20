@@ -86,6 +86,39 @@ module "Consul" {
 #
 
 #
+# AAA
+#
+
+#
+# Authentik
+#
+
+module "AuthentikBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "node2.core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+#
+# Teleport Audit Storage
+#
+module "TeleportAuditBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "node2.core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+#
 # Grafana Cortex
 #
 
@@ -873,6 +906,8 @@ module "Nomad" {
   AAA = {
     Teleport = {
       OpenID = module.Vault.AAA.Teleport.OpenID
+
+      S3 = module.TeleportAuditBucket
 
       TLS = module.Vault.AAA.Teleport.TLS
     }

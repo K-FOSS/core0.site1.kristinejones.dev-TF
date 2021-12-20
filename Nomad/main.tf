@@ -175,6 +175,8 @@ module "Teleport" {
 
   OpenID = var.AAA.Teleport.OpenID
 
+  S3 = var.AAA.Teleport.S3
+
   TLS = var.AAA.Teleport.TLS
 }
 

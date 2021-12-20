@@ -61,7 +61,11 @@ locals {
 
     TLS = var.TLS
 
+    S3 = var.S3
+
     YAMLConfig = templatefile("${path.module}/Configs/Teleport/Teleport.yaml", {
+      S3 = var.S3
+
       Secrets = {
         JoinPin = random_password.TeleportJoinPin.result
       }

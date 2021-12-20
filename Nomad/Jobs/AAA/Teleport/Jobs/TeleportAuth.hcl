@@ -192,6 +192,21 @@ EOF
         destination = "secrets/ProxyServerCert.key"
       }
 
+      #
+      # ENVs
+      # 
+      template {
+        data = <<EOH
+#
+# Storage
+#
+AWS_ACCESS_KEY_ID="${Teleport.S3.Credentials.AccessKey}"
+AWS_SECRET_ACCESS_KEY="${Teleport.S3.Credentials.SecretKey}"
+EOH
+
+        destination = "secrets/file.env"
+        env = true
+      }
     }
   }
 }

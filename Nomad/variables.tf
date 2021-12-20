@@ -19,6 +19,23 @@ variable "AAA" {
         ClientSecret = string
       })
 
+      S3 = object({
+        Connection = object({
+          Hostname = string
+          Port = number
+
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
+
+
+        Bucket = string
+      })
+
       TLS = object({
         CA = string
 
