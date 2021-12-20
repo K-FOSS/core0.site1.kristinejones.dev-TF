@@ -198,8 +198,8 @@ job "registry-harbor-core" {
         #
         CHART_CACHE_DRIVER = "redis"
 
-        _REDIS_URL_CORE = "redis://redis.core.harbor.service.dc1.kjdev:6379"
-        _REDIS_URL_REG = "redis://redis.registry.harbor.service.dc1.kjdev:6379"
+        _REDIS_URL_CORE = "redis://redis.harbor.service.dc1.kjdev:6379?db=4"
+        _REDIS_URL_REG = "redis://redis.harbor.service.dc1.kjdev:6379?db=0"
 
         #
         # Metrics

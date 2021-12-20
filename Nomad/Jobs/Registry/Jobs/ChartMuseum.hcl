@@ -139,7 +139,6 @@ job "registry-harbor-chartmuseum" {
         #
         # Secrets
         #
-        KEY_PATH = "/secrets/KEY"
 
         BASIC_AUTH_USER = "chart_controller"
 
