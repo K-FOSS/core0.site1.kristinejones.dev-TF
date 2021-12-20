@@ -51,7 +51,7 @@ resource "random_id" "MattermostAtRestKey" {
 }
 
 resource "random_id" "MattermostGitLabKey" {
-  byte_length = 32
+  byte_length = 16
 }
 
 
@@ -67,7 +67,7 @@ locals {
 
       Secrets = {
         EncryptionKey = random_id.MattermostAtRestKey.hex
-        GitLab = random_id.MattermostAtRestKey.dec
+        GitLab = random_id.MattermostAtRestKey.hex
       }
 
       GitLab = {
