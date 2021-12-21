@@ -663,7 +663,7 @@
                           },
                           "upstreams": [
                             {
-                              "lookup_srv": "kjdev-nextcloud-custom-app.ix-kjdev-nextcloud.svc.cluster.local"
+                              "dial": "172.16.20.21:80"
                             }
                           ]
                         }
