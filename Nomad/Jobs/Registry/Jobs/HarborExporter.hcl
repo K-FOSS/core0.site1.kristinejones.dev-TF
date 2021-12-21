@@ -17,7 +17,7 @@ job "registry-harbor-exporter" {
       }
     }
 
-    task "wait-for-harbor-core-redis" {
+    task "wait-for-harbor-core" {
       lifecycle {
         hook = "prestart"
         sidecar = false
@@ -95,7 +95,7 @@ job "registry-harbor-exporter" {
         #
         # Redis
         #
-        HARBOR_REDIS_URL = "redis://redis.core.harbor.service.dc1.kjdev:6379"
+        HARBOR_REDIS_URL = "redis://redis.harbor.service.dc1.kjdev:6379"
         HARBOR_REDIS_NAMESPACE = "harbor_job_service_namespace"
         HARBOR_REDIS_TIMEOUT = "3600"
 
@@ -126,7 +126,6 @@ job "registry-harbor-exporter" {
         TRACE_ENABLED = "true"
         TRACE_SAMPLE_RATE = "1"
         TRACE_JAEGER_ENDPOINT = "http://http.distributor.tempo.service.kjdev:14268/api/traces"
-
       }
 
       template {
