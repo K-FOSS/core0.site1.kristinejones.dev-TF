@@ -168,7 +168,10 @@
                             "sabnzbd.kjmedia.stream",
                             "prowlarr.kjmedia.stream",
                             "radarr.kjmedia.stream",
-                            "sonarr.kjmedia.stream"
+                            "sonarr.kjmedia.stream",
+                            "kogma.kjmedia.stream",
+                            "readarr.kjmedia.stream",
+                            "lazylibrarian.kjmedia.stream"
                           ]
                         }
                       ],
