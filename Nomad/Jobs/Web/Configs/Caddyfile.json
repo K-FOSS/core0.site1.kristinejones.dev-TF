@@ -110,7 +110,7 @@
                     "prowlarr.kjmedia.stream",
                     "radarr.kjmedia.stream",
                     "sonarr.kjmedia.stream",
-                    "kogma.kjmedia.stream",
+                    "komga.kjmedia.stream",
                     "readarr.kjmedia.stream",
                     "lazylibrarian.kjmedia.stream"
                   ]
@@ -169,7 +169,7 @@
                             "prowlarr.kjmedia.stream",
                             "radarr.kjmedia.stream",
                             "sonarr.kjmedia.stream",
-                            "kogma.kjmedia.stream",
+                            "komga.kjmedia.stream",
                             "readarr.kjmedia.stream",
                             "lazylibrarian.kjmedia.stream"
                           ]
@@ -1329,7 +1329,7 @@
               "radarr.kjmedia.stream",
               "sonarr.kjmedia.stream",
               "readarr.kjmedia.stream",
-              "kogma.kjmedia.stream",
+              "komga.kjmedia.stream",
               "lazylibrarian.kjmedia.stream",
               "todo.kristianjones.dev",
               "projects.kristianjones.dev",
