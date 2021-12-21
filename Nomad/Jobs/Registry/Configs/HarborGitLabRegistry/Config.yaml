@@ -47,7 +47,7 @@ auth:
     issuer: gitlab-issuer
     realm: https://gitlab.kristianjones.dev/jwt/auth
     service: container_registry
-    rootcertbundle: /local/CA.pem
+    rootcertbundle: /secrets/TLS/Cert.pem
 
 validation:
   disabled: true
