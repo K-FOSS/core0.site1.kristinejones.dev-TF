@@ -1,7 +1,7 @@
 .:8053 {
   health 0.0.0.0:8080
 
-  bufsize 1400
+  bufsize 600
 
   metadata .
 
@@ -23,7 +23,7 @@
 }
 
 .:8021 {
-  bufsize 1400
+  bufsize 600
 
   fanout cluster.local 172.17.0.10:53 172.18.0.10:53 {
     worker-count 2

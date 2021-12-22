@@ -3,7 +3,7 @@
 
   metadata .
 
-  bufsize 1400
+  bufsize 600
 
   trace zipkin http://http.distributor.tempo.service.kjdev:9411 {
     every 100

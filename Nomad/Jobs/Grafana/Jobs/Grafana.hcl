@@ -180,7 +180,8 @@ EOF
       }
 
       resources {
-        cpu = 128
+        cpu = 256
+
         memory = 256
         memory_max = 256
       }
