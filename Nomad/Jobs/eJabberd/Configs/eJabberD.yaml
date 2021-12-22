@@ -42,6 +42,7 @@ ldap_password: '${LDAP.Credentials.Password}'
 #
 ldap_base: 'dc=home1,dc=kristianjones,dc=dev'
 ldap_filter: '(memberOf=cn=MQTT Users,ou=groups,dc=ldap,dc=kristianjones,dc=dev)'
+ldap_uids: [cn]
 
 auth_method:
   - sql
