@@ -8,9 +8,7 @@ job "prometheus-nomad" {
       mode = "cni/nomadcore1"
 
       port "prometheus_ui" {
-        static = 9090
-
-        host_network = "node"
+        to = 9090
       }
 
       dns {
@@ -41,7 +39,7 @@ job "prometheus-nomad" {
 
         args = ["--config.file=/local/prometheus.yaml", "--enable-feature=exemplar-storage"]
 
-        ports = ["prometheus_ui"]
+        memory_hard_limit = 1024
       }
 
       service {
@@ -60,8 +58,7 @@ job "prometheus-nomad" {
 
       resources {
         cpu = 892
-        memory = 2048
-        memory_max = 2048
+        memory = 256
       }
 
       template {
