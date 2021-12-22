@@ -88,6 +88,8 @@ locals {
     Config = templatefile("${path.module}/Configs/eJabberD.yaml", {
       Database = var.Database
 
+      LDAP = var.LDAP
+
       Redis = {
         Hostname = "redis.ejabberd.service.kjdev"
         Port = "6379"
