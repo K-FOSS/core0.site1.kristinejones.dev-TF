@@ -94,16 +94,6 @@ job "container-metrics" {
             propagation = "rshared"
           }
         }
-
-        mount {
-          type = "bind"
-          target = "/cgroup"
-          source = "/cgroup"
-          readonly = true
-          bind_options {
-            propagation = "rshared"
-          }
-        }
       }
 
       resources {
