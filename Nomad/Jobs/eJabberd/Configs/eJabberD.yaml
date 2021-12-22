@@ -1,19 +1,57 @@
 hosts:
   - mq.kristianjones.dev
 
+#
+# AAA
+#
+
+#
+# Database
+#
+
 sql_type: pgsql
 sql_server: ${Database.Hostname}
 sql_port: ${Database.Port}
 sql_database: ${Database.Database}
 sql_username: ${Database.Username}
 sql_password: ${Database.Password}
+
+#
+# Authentication
+#
+
+#
+# LDAP
+#
+
+ldap_servers:
+  - ldap.ldap.authentik.service.dc1.kjdev
+
+#
+# LDAP Bind
+#
+
+ldap_rootdn: 'cn=${LDAP.Credentials.Username},ou=users,dc=home1,dc=kristianjones,dc=dev'
+ldap_password: '${LDAP.Credentials.Password}'
+
+#
+# LDAP Searching
+#
+ldap_base: 'dc=home1,dc=kristianjones,dc=dev'
+ldap_filter: '(memberOf=cn=MQTT Users,ou=groups,dc=ldap,dc=kristianjones,dc=dev)'
+
 auth_method:
   - sql
+  - ldap
 new_sql_schema: true
+
+#
+# Authorization
+#
 
 acl:
   local:
-    user_regexp: ""
+    user_regexp: ''
   loopback:
     ip:
       - 127.0.0.0/8
@@ -21,7 +59,7 @@ acl:
       - ::FFFF:127.0.0.1/128
   admin:
     user:
-      - "admin@mq.kristianjones.dev"
+      - admin@mq.kristianjones.dev
 
 access_rules:
   local:
@@ -41,48 +79,51 @@ access_rules:
     allow: loopback
 
 api_permissions:
-  "console commands":
+  'console commands':
     from:
       - ejabberd_ctl
     who: all
-    what: "*"
-  "admin access":
+    what: '*'
+  'admin access':
     who:
       access:
         allow:
-          acl: loopback
+          #acl: loopback
           acl: admin
       oauth:
-        scope: "ejabberd:admin"
+        scope: 'ejabberd:admin'
         access:
           allow:
-            acl: loopback
+            #acl: loopback
             acl: admin
     what:
-      - "*"
-      - "!stop"
-      - "!start"
-  "public commands":
+      - '*'
+      - '!stop'
+      - '!start'
+  'public commands':
     who:
       ip: 127.0.0.1/8
     what:
       - status
       - connected_users_number
 
+#
+# Auditing
+#
 
 listen:
   - port: 5443
-    ip: "::"
+    ip: '::'
     module: ejabberd_http
     tls: true
     request_handlers:
-      "/admin": ejabberd_web_admin
-      "/api": mod_http_api
-      "/bosh": mod_bosh
-      "/captcha": ejabberd_captcha
-      "/upload": mod_http_upload
-      "/ws": ejabberd_http_ws
-      "/oauth": ejabberd_oauth
+      '/admin': ejabberd_web_admin
+      '/api': mod_http_api
+      '/bosh': mod_bosh
+      '/captcha': ejabberd_captcha
+      '/upload': mod_http_upload
+      '/ws': ejabberd_http_ws
+      '/oauth': ejabberd_oauth
 
   - port: 1883
     ip: '::'
@@ -96,14 +137,13 @@ certfiles:
   - /local/cert.pem
   - /local/cert.key
 
-
-language: "en"
+language: 'en'
 
 sm_db_type: redis
 redis_pool_size: 5
 redis_server: ${Redis.Hostname}
 redis_port: ${Redis.Port}
-redis_password: "${Redis.Password}"
+redis_password: '${Redis.Password}'
 
 modules:
   mod_adhoc: {}
@@ -141,7 +181,7 @@ modules:
     access_mam:
       - allow
     default_room_options:
-      allow_subscription: true  # enable MucSub
+      allow_subscription: true # enable MucSub
       mam: false
   mod_muc_admin: {}
   mod_offline:
@@ -181,4 +221,3 @@ modules:
   mod_vcard_xupdate: {}
   mod_version:
     show_os: false
-

@@ -1282,6 +1282,8 @@ module "Nomad" {
     #
     OpenID = module.Vault.eJabberD.OpenID
 
+    LDAP = module.Vault.eJabberD.LDAP
+
     Database = module.eJabberDDatabase.Database
 
     TLS = module.Vault.eJabberD.TLS

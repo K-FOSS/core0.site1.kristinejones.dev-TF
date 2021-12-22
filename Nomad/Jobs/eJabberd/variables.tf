@@ -31,9 +31,22 @@ variable "Database" {
   })
 }
 
+#
+# AAA
+#
+
 variable "OpenID" {
   type = object({
     ClientID = string
     ClientSecret = string
+  })
+}
+
+variable "LDAP" {
+  type = object({
+    Credentials = object({
+      Username = string
+      Password = string
+    })
   })
 }

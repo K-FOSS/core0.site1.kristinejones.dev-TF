@@ -50,7 +50,7 @@ terraform {
 # Database
 #
 data "http" "PSQLFile" {
-  url = "https://raw.githubusercontent.com/processone/ejabberd/21.07/sql/pg.new.sql"
+  url = "https://raw.githubusercontent.com/processone/ejabberd/${local.eJabberD.Image.Tag}/sql/pg.new.sql"
 }
 
 #
@@ -62,31 +62,44 @@ resource "random_password" "RedisPassword" {
   special = true
 }
 
-resource "nomad_job" "eJabberDMQTTJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/MQTT.hcl", {
-    PSQL_INIT = data.http.PSQLFile.body
+resource "random_password" "eJabberDCookie" {
+  length = 32
+  special = true
+}
+
+locals {
+  eJabberD = {
+    Image = {
+      Repo = ""
+      
+      Tag = "21.07"
+    }
 
     Database = var.Database
 
-    eJabberD = {
-      Config = templatefile("${path.module}/Configs/eJabberD.yaml", {
-        Database = var.Database
-
-        Redis = {
-          Hostname = "redis.ejabberd.service.kjdev"
-          Port = "6379"
-
-          Password = random_password.RedisPassword.result
-        }
-      })
-    }
+    DatabaseInit = data.http.PSQLFile.body
 
     TLS = var.TLS
 
-    Redis = {
-      Password = random_password.RedisPassword.result
+    Secrets = {
+      eJabberDCookie = random_password.eJabberDCookie.result
     }
 
-    Version = "21.07"
+    Config = templatefile("${path.module}/Configs/eJabberD.yaml", {
+      Database = var.Database
+
+      Redis = {
+        Hostname = "redis.ejabberd.service.kjdev"
+        Port = "6379"
+
+        Password = random_password.RedisPassword.result
+      }
+    })
+  }
+}
+
+resource "nomad_job" "eJabberDMQTTJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/MQTT.hcl", {
+    eJabberD = local.eJabberD
   })
 }

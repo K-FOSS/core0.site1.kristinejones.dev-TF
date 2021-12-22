@@ -222,11 +222,11 @@ resource "nomad_job" "DrawIOJobFile" {
 # eJabberD #
 ############
 
-# resource "nomad_job" "eJabberDJobFile" {
-#   jobspec = templatefile("${path.module}/Jobs/eJabberD.hcl", {
-
-#   })
-# }
+resource "nomad_job" "eJabberDJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/eJabberD.hcl", {
+    Redis = var.eJabberD.Redis
+  })
+}
 
 ###########
 # Grafana #

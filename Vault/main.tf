@@ -234,6 +234,12 @@ data "vault_generic_secret" "GitLab" {
   path = "${vault_mount.Terraform.path}/GitLab"
 }
 
+#
+# eJabberD
+#
+data "vault_generic_secret" "eJabberD" {
+  path = "${vault_mount.Terraform.path}/eJabberD"
+}
 
 #
 # Misc

@@ -400,8 +400,13 @@ output "eJabberD" {
     }
 
     OpenID = {
-      ClientID = data.vault_generic_secret.eJabberDOID.data["ClientID"]
-      ClientSecret = data.vault_generic_secret.eJabberDOID.data["ClientSecret"]
+      ClientID = data.vault_generic_secret.eJabberD.data["OpenIDClientID"]
+      ClientSecret = data.vault_generic_secret.eJabberD.data["OpenIDClientSecret"]
+    }
+
+    LDAP = {
+      Username = data.vault_generic_secret.eJabberD.data["LDAPUsername"]
+      Password = data.vault_generic_secret.eJabberD.data["LDAPPassword"]
     }
   }
 }

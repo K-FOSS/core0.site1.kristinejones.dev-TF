@@ -941,6 +941,12 @@ variable "eJabberD" {
       Password = string
     })
 
+    LDAP = object({
+      Username = string
+
+      Password = string
+    })
+
     TLS = object({
       CA = string
 

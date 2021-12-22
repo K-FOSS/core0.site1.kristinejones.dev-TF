@@ -80,5 +80,13 @@ variable "Pomerium" {
 }
 
 #
-# GitLab
+# eJabberD
 #
+
+variable "eJabberD" {
+  type = object({
+    Redis = object({
+      Password = string
+    })
+  })
+}

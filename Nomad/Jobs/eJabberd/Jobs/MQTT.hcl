@@ -1,74 +1,6 @@
 job "ejabberd-mqtt" {
   datacenters = ["core0site1"]
 
-  group "ejabberd-redis" {
-    count = 1
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "redis" { 
-        to = 6379
-      }
-    }
-
-    service {
-      name = "ejabberd"
-      port = "redis"
-
-      task = "redis"
-      address_mode = "alloc"
-
-      tags = ["coredns.enabled", "redis"]
-    }
-
-    task "redis" {
-      driver = "docker"
-
-      config {
-        image = "redis:6-alpine3.14"
-
-        command = "redis-server"
-
-        args = ["/local/redis.conf"]
-      }
-
-      template {
-        data = <<EOF
-port 6379
-
-requirepass "${Redis.Password}"
-EOF
-
-        destination = "local/redis.conf"
-      }
-
-      template {
-        data = <<EOF
-${TLS.CA}
-EOF
-
-        destination = "local/ca.pem"
-      }
-
-      template {
-        data = <<EOF
-${TLS.Redis.Cert}
-EOF
-
-        destination = "local/cert.pem"
-      }
-
-      template {
-        data = <<EOF
-${TLS.Redis.Key}
-EOF
-
-        destination = "local/cert.key"
-      }
-    }
-  }
-
   group "ejabberd-mqtt-server" {
     count = 3
 
@@ -103,7 +35,7 @@ EOF
 
         command = "/usr/local/bin/psql"
 
-        args = ["--file=/local/init.psql", "--host=${Database.Hostname}", "--username=${Database.Username}", "--port=${Database.Port}", "${Database.Database}"]
+        args = ["--file=/local/init.psql", "--host=${eJabberD.Database.Hostname}", "--username=${eJabberD.Database.Username}", "--port=${eJabberD.Database.Port}", "${eJabberD.Database.Database}"]
       }
 
       env {
@@ -112,7 +44,7 @@ EOF
 
       template {
         data = <<EOH
-${PSQL_INIT}
+${eJabberD.DatabaseInit}
 EOH
 
         destination = "local/init.psql"
@@ -120,7 +52,7 @@ EOH
 
       template {
         data = <<EOH
-${Database.Hostname}:${Database.Port}:${Database.Database}:${Database.Username}:${Database.Password}
+${eJabberD.Database.Hostname}:${eJabberD.Database.Port}:${eJabberD.Database.Database}:${eJabberD.Database.Username}:${eJabberD.Database.Password}
 EOH
 
         perms = "600"
@@ -133,9 +65,9 @@ EOH
       driver = "docker"
 
       config {
-        image = "ejabberd/ecs:${Version}"
+        image = "ejabberd/ecs:${eJabberD.Image.Tag}"
 
-        args = ["--config", "/local/eJabberD.yaml", "foreground"]
+        args = ["--config", "/local/eJabberD.yaml", "foreground", "-setcookie=${eJabberD.Secrets.eJabberDCookie}"]
       }
 
       template {
@@ -148,7 +80,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.CA}
+${eJabberD.TLS.CA}
 EOF
 
         destination = "local/ca.pem"
@@ -156,7 +88,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.MQTT.Cert}
+${eJabberD.TLS.MQTT.Cert}
 EOF
 
         destination = "local/cert.pem"
@@ -164,7 +96,7 @@ EOF
 
       template {
         data = <<EOF
-${TLS.MQTT.Key}
+${eJabberD.TLS.MQTT.Key}
 EOF
 
         destination = "local/cert.key"
@@ -172,7 +104,8 @@ EOF
 
       resources {
         cpu = 128
-        memory = 128
+        memory = 64
+        memory_max = 128
       }
     }
   }

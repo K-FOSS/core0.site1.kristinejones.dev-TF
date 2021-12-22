@@ -566,6 +566,8 @@ module "eJabberD" {
 
   Database = var.eJabberD.Database
 
+  LDAP = var.eJabberD.LDAP
+
   OpenID = var.eJabberD.OpenID
 
   TLS = var.eJabberD.TLS
@@ -607,6 +609,10 @@ module "Cache" {
   source = "./Jobs/Cache"
 
   Pomerium = var.Cache.Pomerium
+
+  eJabberD = {
+    Redis = module.eJabberD.Redis
+  }
 
   AAA = {
     Teleport = {
