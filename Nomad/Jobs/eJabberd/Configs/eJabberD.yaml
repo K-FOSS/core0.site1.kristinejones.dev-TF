@@ -40,8 +40,8 @@ ldap_password: '${LDAP.Credentials.Password}'
 #
 # LDAP Searching
 #
-ldap_base: 'dc=home1,dc=kristianjones,dc=dev'
-ldap_filter: '(memberOf=cn=MQTT Users,ou=groups,dc=ldap,dc=kristianjones,dc=dev)'
+ldap_base: 'ou=users,dc=home1,dc=kristianjones,dc=dev'
+ldap_filter: '(memberOf=cn=HomeAutomation Services,ou=groups,dc=home1,dc=kristianjones,dc=dev)'
 ldap_uids: [cn]
 
 auth_method:
