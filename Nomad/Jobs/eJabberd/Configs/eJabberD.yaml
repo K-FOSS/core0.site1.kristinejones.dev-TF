@@ -27,6 +27,9 @@ sql_password: ${Database.Password}
 ldap_servers:
   - ldap.ldap.authentik.service.dc1.kjdev
 
+ldap_port: 3389
+
+
 #
 # LDAP Bind
 #
