@@ -20,7 +20,7 @@ job "network-dns-servicedns" {
         host_network = "dns"
       }
 
-      port "dns" {
+      port "dnsnode" {
         to = 8060
 
         static = 8060
@@ -86,7 +86,8 @@ EOF
       }
 
       resources {
-        cpu = 64
+        cpu = 128
+
         memory = 64
         memory_max = 128
       }
