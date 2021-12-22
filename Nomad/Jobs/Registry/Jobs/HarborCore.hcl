@@ -71,6 +71,8 @@ job "registry-harbor-core" {
 
         entrypoint = ["/local/entry.sh"]
 
+        memory_hard_limit = 512
+
         mount {
           type = "bind"
           target = "/etc/core/private_key.pem"
@@ -93,8 +95,9 @@ job "registry-harbor-core" {
 
       resources {
         cpu = 512
-        memory = 256
-        memory_max = 256
+
+        memory = 128
+        memory_max = 512
       }
 
       env {

@@ -71,6 +71,8 @@ job "registry-harbor-jobservice" {
 
         entrypoint = ["/local/entry.sh"]
 
+        memory_hard_limit = 256
+
         logging {
           type = "loki"
           config {
@@ -125,6 +127,13 @@ job "registry-harbor-jobservice" {
         TRACE_ENABLED = "true"
         TRACE_SAMPLE_RATE = "1"
         TRACE_JAEGER_ENDPOINT = "http://http.distributor.tempo.service.kjdev:14268/api/traces"
+      }
+
+      resources {
+        cpu = 256
+
+        memory = 64
+        memory_max = 256
       }
 
       template {

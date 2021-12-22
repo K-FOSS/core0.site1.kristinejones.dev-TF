@@ -81,6 +81,8 @@ job "registry-harbor-portal" {
 
         entrypoint = ["/local/entry.sh"]
 
+        memory_hard_limit = 256
+
         logging {
           type = "loki"
           config {
@@ -107,6 +109,13 @@ job "registry-harbor-portal" {
         # Trusted CA
         #
         INTERNAL_TLS_TRUST_CA_PATH = "/local/CA.pem"
+      }
+
+      resources {
+        cpu = 256
+
+        memory = 64
+        memory_max = 256
       }
 
       template {
