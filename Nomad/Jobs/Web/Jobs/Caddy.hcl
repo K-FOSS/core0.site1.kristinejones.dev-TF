@@ -93,10 +93,11 @@ job "ingress" {
 
       config {
         image = "kristianfjones/caddy-core-docker:vps1"
+        ports = ["https"]
       
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
 
-        ports = ["https"]
+        memory_hard_limit = 256
 
         logging {
           type = "loki"
@@ -112,6 +113,13 @@ job "ingress" {
         CADDY_CLUSTERING_CONSUL_AESKEY = "${Consul.EncryptionKey}"
 
         JAEGER_SAMPLER_PARAM = "1"
+      }
+
+      resources {
+        cpu = 256
+
+        memory = 32
+        memory_max = 256
       }
 
       template {
@@ -160,13 +168,6 @@ ${Bitwarden.CA}
 EOF
 
         destination = "local/Bitwarden.pem"
-      }
-
-      resources {
-        cpu = 300
-
-        memory = 100
-        memory_max = 256
       }
     }
   }

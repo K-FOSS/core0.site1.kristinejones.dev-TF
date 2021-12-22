@@ -29,6 +29,15 @@ job "starlink" {
         image = "ghcr.io/danopstech/starlink_exporter:${StarLink.Version}"
 
         args = ["-address=${StarLink.IPAddress}:${StarLink.Port}"]
+
+        memory_hard_limit = 64
+      }
+
+      resources {
+        cpu = 64
+
+        memory = 16
+        memory_max = 64
       }
     }
   }
