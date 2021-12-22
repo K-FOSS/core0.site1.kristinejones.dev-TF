@@ -173,7 +173,7 @@ AUTHENTIK_SECRET_KEY="${Authentik.Secrets.SecretKey}"
 AUTHENTIK_EMAIL__HOST="${Authentik.SMTP.Server}"
 AUTHENTIK_EMAIL__PORT="${Authentik.SMTP.Port}"
 
-AUTHENTIK_EMAIL__FROM="${SMTP.Username}"
+AUTHENTIK_EMAIL__FROM="${Authentik.SMTP.Username}"
 AUTHENTIK_EMAIL__USERNAME="${Authentik.SMTP.Username}"
 AUTHENTIK_EMAIL__PASSWORD="${Authentik.SMTP.Password}"
 
