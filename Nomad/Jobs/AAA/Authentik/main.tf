@@ -60,7 +60,7 @@ resource "nomad_job" "AuthentikServerJobFile" {
 
     SMTP = var.SMTP
 
-    Version = "2021.12.2"
+    Version = "2021.12.3"
   })
 }
 

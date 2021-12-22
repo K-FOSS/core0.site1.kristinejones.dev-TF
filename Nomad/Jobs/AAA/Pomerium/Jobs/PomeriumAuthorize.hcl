@@ -67,6 +67,15 @@ job "pomerium-authorize" {
           service = "authorize"
         }
 
+        mount {
+          type = "tmpfs"
+          target = "/root/.cache/pomerium"
+          readonly = false
+          tmpfs_options = {
+            size = 124000000
+          }
+        }
+
         logging {
           type = "loki"
           config {

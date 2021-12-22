@@ -5,8 +5,8 @@ job "container-metrics" {
     count = 2
 
     constraint {
-      operator  = "distinct_hosts"
-      value     = "true"
+      operator = "distinct_hosts"
+      value = "true"
     }
 
     network {
@@ -35,7 +35,7 @@ job "container-metrics" {
 
         privileged = true
 
-        memory_hard_limit = 2048
+        memory_hard_limit = 1024
         
         devices = [
           {
@@ -107,9 +107,9 @@ job "container-metrics" {
       }
 
       resources {
-        cpu = 1024
-        memory = 512
-        memory_max = 512
+        cpu = 64
+        memory = 64
+        memory_max = 1024
       }
     }
   }

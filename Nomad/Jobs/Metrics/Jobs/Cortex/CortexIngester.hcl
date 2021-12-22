@@ -105,10 +105,10 @@ job "cortex-ingester" {
 
         mount {
           type = "tmpfs"
-          target = "/var/tempo/wal"
+          target = "/tsdb"
           readonly = false
           tmpfs_options = {
-            size = 1000000000
+            size = 124000000
           }
         }
 
