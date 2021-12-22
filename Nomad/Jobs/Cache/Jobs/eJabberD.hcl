@@ -26,7 +26,11 @@ job "cache-ejabberd" {
       driver = "docker"
 
       config {
-        image = "redis:latest"
+        image = "redis:6-alpine3.14"
+        
+        command = "redis-server"
+
+        args = ["/local/redis.conf"]
       }
 
       resources {

@@ -68,6 +68,8 @@ EOH
         image = "ejabberd/ecs:${eJabberD.Image.Tag}"
 
         args = ["--config", "/local/eJabberD.yaml", "foreground", "-setcookie=${eJabberD.Secrets.eJabberDCookie}"]
+
+        memory_hard_limit = 512
       }
 
       template {
@@ -104,8 +106,8 @@ EOF
 
       resources {
         cpu = 128
-        memory = 64
-        memory_max = 128
+        memory = 128
+        memory_max = 512
       }
     }
   }
