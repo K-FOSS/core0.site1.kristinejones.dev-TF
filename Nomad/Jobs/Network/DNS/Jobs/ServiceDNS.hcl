@@ -20,6 +20,14 @@ job "network-dns-servicedns" {
         host_network = "dns"
       }
 
+      port "dns" {
+        to = 8060
+
+        static = 8060
+
+        host_network = "node"
+      }
+
       port "health" {
         to = 8080
       }
