@@ -242,7 +242,7 @@ auth:
       # The name of the provider as it will appear in the frontend.
       - name: Authentik
         # The auth url to send users to if they want to authenticate using OpenID Connect.
-        authurl: https://auth.kristianjones.dev/application/o/Vikunja/
+        authurl: https://mylogin.space/application/o/Vikunja/
         # The client ID used to authenticate Vikunja at the OpenID Connect provider.
         clientid: vikunja
         # The client secret used to authenticate Vikunja at the OpenID Connect provider.

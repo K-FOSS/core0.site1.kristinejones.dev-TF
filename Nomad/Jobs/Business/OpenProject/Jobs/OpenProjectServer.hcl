@@ -113,12 +113,12 @@ job "openproject-server" {
         #
         # Auth
         #
-        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_ISSUER = "https://auth.kristianjones.dev/application/o/OpenProject/"
+        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_ISSUER = "https://mylogin.space/application/o/OpenProject/"
         OPENPROJECT_OPENID__CONNECT_KEYCLOAK_SCOPE = "openid email profile"
 
-        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_TOKEN__ENDPOINT = "https://auth.kristianjones.dev/application/o/token/"
-        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_USERINFO__ENDPOINT = "https://auth.kristianjones.dev/application/o/userinfo/"
-        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_AUTHORIZATION__ENDPOINT = "https://auth.kristianjones.dev/application/o/authorize/"
+        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_TOKEN__ENDPOINT = "https://mylogin.space/application/o/token/"
+        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_USERINFO__ENDPOINT = "https://mylogin.space/application/o/userinfo/"
+        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_AUTHORIZATION__ENDPOINT = "https://mylogin.space/application/o/authorize/"
 
         
         
@@ -126,7 +126,7 @@ job "openproject-server" {
         OPENPROJECT_OPENID__CONNECT_KEYCLOAK_DISCOVERY = "true"
 
         OPENPROJECT_OPENID__CONNECT_KEYCLOAK_DISPLAY__NAME = "KJDev"
-        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_HOST = "auth.kristianjones.dev"
+        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_HOST = "mylogin.space"
       }
 
       template {
