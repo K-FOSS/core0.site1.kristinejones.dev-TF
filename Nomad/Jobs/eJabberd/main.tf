@@ -50,7 +50,7 @@ terraform {
 # Database
 #
 data "http" "PSQLFile" {
-  url = "https://raw.githubusercontent.com/processone/ejabberd/${local.eJabberD.Image.Tag}/sql/pg.new.sql"
+  url = "https://raw.githubusercontent.com/processone/ejabberd/21.07/sql/pg.new.sql"
 }
 
 #
