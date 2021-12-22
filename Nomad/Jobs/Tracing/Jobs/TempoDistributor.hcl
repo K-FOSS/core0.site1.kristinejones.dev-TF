@@ -113,7 +113,7 @@ job "tempo-distributor" {
         cpu = 128
 
         memory = 64
-        max_memory = 256
+        memory_max = 256
       }
 
       template {

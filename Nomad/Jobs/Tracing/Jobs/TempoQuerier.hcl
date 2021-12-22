@@ -89,7 +89,7 @@ job "tempo-querier" {
         cpu = 128
 
         memory = 64
-        max_memory = 128
+        memory_max = 128
       }
 
       template {

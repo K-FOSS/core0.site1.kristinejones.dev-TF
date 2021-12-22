@@ -134,7 +134,8 @@ job "cortex-compactor" {
       }
 
       resources {
-        cpu = 128
+        cpu = 256
+
         memory = 128
         memory_max = 512
       }
