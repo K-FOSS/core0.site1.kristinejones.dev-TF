@@ -45,8 +45,7 @@ job "search-opensearch-main" {
       config {
         image = "${OpenSearch.Image.Repo}/opensearch:${OpenSearch.Image.Tag}"
 
-        entrypoint = ["/usr/share/opensearch/bin/opensearch"]
-        args = []
+        memory_hard_limit = 1024
 
         ulimit {
           nofile = "65536:65536"
@@ -81,9 +80,10 @@ job "search-opensearch-main" {
       }
 
       resources {
-        cpu = 1024
+        cpu = 256
 
-        memory = 1024
+        memory = 512
+        memory_max = 1024
       }
 
       env {
