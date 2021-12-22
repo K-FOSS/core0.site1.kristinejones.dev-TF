@@ -69,6 +69,8 @@ job "tempo-ingester" {
 
         args = ["-search.enabled=true", "-config.file=/local/Tempo.yaml"]
 
+        memory_hard_limit = 256
+
         mount {
           type = "tmpfs"
           target = "/var/tempo/wal"
@@ -93,8 +95,10 @@ job "tempo-ingester" {
       }
 
       resources {
-        cpu = 64
-        memory = 128
+        cpu = 128
+
+        memory = 64
+        memory_max = 256
       }
 
       template {

@@ -2,7 +2,7 @@ job "tempo-compactor" {
   datacenters = ["core0site1"]
 
   group "tempo-compactor" {
-    count = 1
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
@@ -87,7 +87,8 @@ job "tempo-compactor" {
     
       resources {
         cpu = 128
-        memory = 128
+
+        memory = 64
         memory_max = 512
       }
       

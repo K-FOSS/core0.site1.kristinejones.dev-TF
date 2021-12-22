@@ -84,7 +84,7 @@ job "tempo-distributor" {
 
         args = ["-search.enabled=true", "-config.file=/local/Tempo.yaml"]
 
-        memory_hard_limit = 512
+        memory_hard_limit = 256
 
         mount {
           type = "tmpfs"
@@ -111,7 +111,9 @@ job "tempo-distributor" {
 
       resources {
         cpu = 128
-        memory = 128
+
+        memory = 64
+        max_memory = 256
       }
 
       template {

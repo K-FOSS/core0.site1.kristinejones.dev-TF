@@ -133,7 +133,8 @@ job "cortex-queryfrontend" {
       }
 
       resources {
-        cpu = 128
+        cpu = 256
+
         memory = 64
         memory_max = 256
       }

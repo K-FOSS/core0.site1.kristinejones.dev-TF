@@ -133,7 +133,7 @@ job "cortex-queryscheduler" {
       }
 
       resources {
-        cpu = 128
+        cpu = 256
         memory = 32
         memory_max = 256
       }

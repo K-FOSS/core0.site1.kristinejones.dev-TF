@@ -5,7 +5,7 @@ job "cortex-compactor" {
   # Cortex Distributor
   #
   group "cortex-compactor" {
-    count = 3
+    count = 6
 
     spread {
       attribute = "$${node.unique.id}"
@@ -101,7 +101,7 @@ job "cortex-compactor" {
 
         args = ["-config.file=/local/Cortex.yaml"]
 
-        memory_hard_limit = 1024
+        memory_hard_limit = 512
 
         logging {
           type = "loki"
@@ -134,9 +134,9 @@ job "cortex-compactor" {
       }
 
       resources {
-        cpu = 64
+        cpu = 128
         memory = 128
-        memory_max = 1024
+        memory_max = 512
       }
 
       template {

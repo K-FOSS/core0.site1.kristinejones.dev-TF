@@ -69,6 +69,8 @@ job "tempo-querier" {
 
         args = ["-search.enabled=true", "-config.file=/local/Tempo.yaml"]
 
+        memory_hard_limit = 256
+
         logging {
           type = "loki"
           config {
@@ -85,7 +87,9 @@ job "tempo-querier" {
 
       resources {
         cpu = 128
-        memory = 256
+
+        memory = 64
+        max_memory = 128
       }
 
       template {

@@ -152,7 +152,7 @@ job "cortex-querier" {
       }
 
       resources {
-        cpu = 512
+        cpu = 256
         memory = 64
         memory_max = 512
       }
