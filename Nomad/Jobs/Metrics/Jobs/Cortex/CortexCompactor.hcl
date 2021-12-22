@@ -103,6 +103,15 @@ job "cortex-compactor" {
 
         memory_hard_limit = 512
 
+        mount {
+          type = "tmpfs"
+          target = "/tsdb"
+          readonly = false
+          tmpfs_options = {
+            size = 124000000
+          }
+        }
+
         logging {
           type = "loki"
           config {

@@ -85,6 +85,15 @@ job "cortex-storegateway" {
 
         memory_hard_limit = 1024
 
+        mount {
+          type = "tmpfs"
+          target = "/tsdb"
+          readonly = false
+          tmpfs_options = {
+            size = 124000000
+          }
+        }
+
         logging {
           type = "loki"
           config {
