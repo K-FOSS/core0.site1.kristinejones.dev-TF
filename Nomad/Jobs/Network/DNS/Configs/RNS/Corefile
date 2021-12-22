@@ -1,12 +1,7 @@
 .:8053 {
   health 0.0.0.0:8080
 
-  bufsize 512
-  log
-
-  fanout . 127.0.0.1:8021 127.0.0.1:8022 10.1.1.10:8060 10.1.1.13:8060 1.1.1.1:53 1.0.0.1:53 8.8.8.8:53 8.8.4.4:53 {
-    network UDP
-  }
+  metadata .
 
   cache 30
   redisc 40 {
@@ -21,17 +16,12 @@
   secondary kristianjones.dev in-addr.arpa 241.31.172.in-addr.arpa kjmedia.stream mylogin.space trackmy.finance ksit.services {
     transfer from 10.1.1.153:53
   }
+
+  fanout . 127.0.0.1:8021 10.1.1.10:8600 10.1.1.13:8600 172.16.51.10:8600 172.16.52.10:8600 172.16.51.13:8600 172.16.52.13:8600 1.1.1.1:53 1.0.0.1:53
 }
 
 .:8021 {
   fanout cluster.local 172.17.0.10:53 172.18.0.10:53 {
     worker-count 2
   }
-}
-
-.:8022 {
-  bufsize 512
-  log
-
-  forward kjdev 10.1.1.10:8600 10.1.1.13:8600 172.16.51.10:8600 172.16.52.10:8600
 }
