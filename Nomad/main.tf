@@ -566,7 +566,9 @@ module "eJabberD" {
 
   Database = var.eJabberD.Database
 
-  LDAP = var.eJabberD.LDAP
+  LDAP = {
+    Credentials = var.eJabberD.LDAP
+  }
 
   OpenID = var.eJabberD.OpenID
 
