@@ -135,8 +135,13 @@ querier:
 
   query_store_after: 12h
 
+  query_store_for_labels_enabled: true
+
+  # Enable the @ modifier in PromQL.
+  at_modifier_enabled: true
+
   # Used when the blocks sharding is disabled.
-  store_gateway_addresses: grpc.store-gateway.cortex.service.dc1.kjdev:8085
+  #store_gateway_addresses: grpc.store-gateway.cortex.service.dc1.kjdev:8085
 
 
 #
@@ -559,7 +564,7 @@ memberlist:
   randomize_node_name: false
   
   compression_enabled: true
-  abort_if_cluster_join_fails: false
+  abort_if_cluster_join_fails: true
 
   advertise_port: 8090
   join_members:
