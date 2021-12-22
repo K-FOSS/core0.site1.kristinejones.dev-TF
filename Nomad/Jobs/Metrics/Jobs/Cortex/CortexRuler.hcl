@@ -152,8 +152,8 @@ job "cortex-ruler" {
       }
 
       resources {
-        cpu = 256
-        memory = 256
+        cpu = 64
+        memory = 64
         memory_max = 256
       }
 

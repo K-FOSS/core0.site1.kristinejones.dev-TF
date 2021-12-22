@@ -60,6 +60,8 @@ job "gitlab-praefect" {
       config {
         image = "${Image.Repo}/gitaly:${Image.Tag}"
 
+        memory_hard_limit = 512
+
         #
         # TODO: Fine tune this?
         #
@@ -90,9 +92,9 @@ job "gitlab-praefect" {
       }
 
       resources {
-        cpu = 100
-        memory = 256
-        memory_max = 256
+        cpu = 256
+        memory = 64
+        memory_max = 512
       }
 
       template {

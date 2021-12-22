@@ -101,7 +101,7 @@ job "cortex-configs" {
 
         args = ["-config.file=/local/Cortex.yaml"]
 
-        memory_hard_limit = 256
+        memory_hard_limit = 64
       }
 
       meta {
@@ -111,9 +111,9 @@ job "cortex-configs" {
       }
 
       resources {
-        cpu = 128
-        memory = 256
-        memory_max = 256
+        cpu = 32
+        memory = 32
+        memory_max = 64
       }
 
       template {

@@ -2,7 +2,7 @@ job "authentik-worker" {
   datacenters = ["core0site1"]
 
   group "auth-workers" {
-    count = 1
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"
@@ -60,6 +60,8 @@ job "authentik-worker" {
 
         args = ["worker"]
 
+        memory_hard_limit = 1024
+
         logging {
           type = "loki"
           config {
@@ -113,14 +115,14 @@ AUTHENTIK_EMAIL__PASSWORD="${SMTP.Password}"
 EOH
 
         destination = "secrets/file.env"
-        env         = true
+        env = true
       }
 
       resources {
-        cpu = 124
+        cpu = 256
 
-        memory = 812
-        memory_max = 812
+        memory = 256
+        memory_max = 1024
       }
     }
   }

@@ -110,6 +110,8 @@ job "authentik-server" {
 
         args = ["server"]
 
+        memory_hard_limit = 1024
+
         logging {
           type = "loki"
           config {
@@ -118,6 +120,13 @@ job "authentik-server" {
             loki-external-labels = "job=authentik,service=server"
           }
         }
+      }
+
+      resources {
+        cpu = 256
+
+        memory = 512
+        memory_max = 1024
       }
 
       env {
@@ -166,12 +175,6 @@ EOH
 
         destination = "secrets/file.env"
         env = true
-      }
-
-      resources {
-        cpu = 256
-
-        memory = 1024
       }
     }
   }

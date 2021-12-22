@@ -103,6 +103,15 @@ job "cortex-ingester" {
 
         memory_hard_limit = 1024
 
+        mount {
+          type = "tmpfs"
+          target = "/var/tempo/wal"
+          readonly = false
+          tmpfs_options = {
+            size = 1000000000
+          }
+        }
+
         logging {
           type = "loki"
           config {

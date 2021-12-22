@@ -83,7 +83,7 @@ job "cortex-storegateway" {
 
         args = ["-config.file=/local/Cortex.yaml"]
 
-        memory_hard_limit = 892
+        memory_hard_limit = 1024
 
         logging {
           type = "loki"
@@ -115,9 +115,9 @@ job "cortex-storegateway" {
       }
 
       resources {
-        cpu = 512
-        memory = 892
-        memory_max = 892
+        cpu = 128
+        memory = 256
+        memory_max = 1024
       }
 
       template {

@@ -5,7 +5,7 @@ job "development-gitlab-sidekiq" {
   # GitLab Sidekiq
   #
   group "gitlab-sidekiq" {
-    count = 3
+    count = 4
 
     spread {
       attribute = "$${node.unique.id}"
@@ -59,6 +59,8 @@ job "development-gitlab-sidekiq" {
       config {
         image = "${Image.Repo}/gitlab-sidekiq-ce:${Image.Tag}"
 
+        memory_hard_limit = 1024
+
         mount {
           type = "bind"
           target = "/opt/gitlab/embedded/ssl/certs/registry.pem"
@@ -77,8 +79,8 @@ job "development-gitlab-sidekiq" {
       }
 
       resources {
-        cpu = 900
-        memory = 1024
+        cpu = 256
+        memory = 256
         memory_max = 1024
       }
 

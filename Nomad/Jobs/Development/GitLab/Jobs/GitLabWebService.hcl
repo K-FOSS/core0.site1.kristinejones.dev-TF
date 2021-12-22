@@ -101,6 +101,8 @@ job "development-gitlab-webservice" {
         entrypoint = ["/local/Entry.sh"]
         args = []
 
+        memory_hard_limit = 4096
+
         mount {
           type = "bind"
           target = "/opt/gitlab/embedded/ssl/certs/gitlab.pem"
@@ -126,8 +128,8 @@ job "development-gitlab-webservice" {
       }
 
       resources {
-        cpu = 812
-        memory = 4096
+        cpu = 1024
+        memory = 512
         memory_max = 4096
       }
 

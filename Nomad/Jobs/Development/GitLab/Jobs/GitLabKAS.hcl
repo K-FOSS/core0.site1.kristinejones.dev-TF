@@ -81,6 +81,8 @@ job "development-gitlab-kas" {
 
         args = ["--configuration-file=/local/Config.yaml"]
 
+        memory_hard_limit = 64
+
         logging {
           type = "loki"
           config {
@@ -92,9 +94,9 @@ job "development-gitlab-kas" {
       }
 
       resources {
-        cpu = 256
-        memory = 512
-        memory_max = 512
+        cpu = 32
+        memory = 32
+        memory_max = 64
       }
 
       env {

@@ -2,7 +2,7 @@ job "authentik-ldap" {
   datacenters = ["core0site1"]
 
   group "auth-ldap-server" {
-    count = 3
+    count = 4
 
     update {
       max_parallel = 1
@@ -71,6 +71,8 @@ job "authentik-ldap" {
       config {
         image = "goauthentik.io/ldap:${Version}"
 
+        memory_hard_limit = 256
+
         logging {
           type = "loki"
           config {
@@ -115,13 +117,14 @@ AUTHENTIK_TOKEN="${LDAP.AuthentikToken}"
 EOH
 
         destination = "secrets/file.env"
-        env         = true
+        env = true
       }
 
       resources {
-        cpu = 200
+        cpu = 64
 
-        memory = 800
+        memory = 32
+        memory_max = 256
       }
     }
   }

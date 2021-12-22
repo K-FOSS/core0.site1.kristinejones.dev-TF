@@ -99,6 +99,8 @@ job "development-gitlab-workhorse" {
           "-config", "/local/configtemplates/workhorse-config.toml"
         ]
 
+        memory_hard_limit = 512
+
         mount {
           type = "bind"
           target = "/opt/gitlab/embedded/ssl/certs/registry.pem"
@@ -118,7 +120,7 @@ job "development-gitlab-workhorse" {
 
       resources {
         cpu = 256
-        memory = 512
+        memory = 64
         memory_max = 512
       }
 

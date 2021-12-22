@@ -101,7 +101,7 @@ job "cortex-compactor" {
 
         args = ["-config.file=/local/Cortex.yaml"]
 
-        memory_hard_limit = 256
+        memory_hard_limit = 512
 
         logging {
           type = "loki"
@@ -134,9 +134,9 @@ job "cortex-compactor" {
       }
 
       resources {
-        cpu = 128
-        memory = 256
-        memory_max = 256
+        cpu = 64
+        memory = 32
+        memory_max = 512
       }
 
       template {
