@@ -1,6 +1,10 @@
 .:8053 {
   health 0.0.0.0:8080
 
+  fanout . 127.0.0.1:8021 127.0.0.1:8022 10.1.1.10:8060 10.1.1.13:8060 1.1.1.1:53 1.0.0.1:53 8.8.8.8:53 8.8.4.4:53 {
+    network UDP
+  }
+
   cache 30
   redisc 40 {
     endpoint 127.0.0.1:6379
@@ -13,10 +17,6 @@
 
   secondary kristianjones.dev in-addr.arpa 241.31.172.in-addr.arpa kjmedia.stream mylogin.space trackmy.finance ksit.services {
     transfer from 10.1.1.153:53
-  }
-
-  fanout . 127.0.0.1:8021 127.0.0.1:8022 1.1.1.1:53 1.0.0.1:53 8.8.8.8:53 8.8.4.4:53 {
-    worker-count 4
   }
 }
 
