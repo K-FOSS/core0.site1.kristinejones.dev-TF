@@ -160,7 +160,7 @@ AUTHENTIK_POSTGRESQL__NAME="${Authentik.Database.Database}"
 
 # Database Credentials
 AUTHENTIK_POSTGRESQL__USER="${Authentik.Database.Username}"
-AUTHENTIK_POSTGRESQL__PASSWORD="${AuthentikDatabase.Password}"
+AUTHENTIK_POSTGRESQL__PASSWORD="${Authentik.Database.Password}"
 
 #
 # Secrets
