@@ -47,7 +47,7 @@ job "authentik-server" {
       task = "authentik-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "metrics.server"]
+      tags = ["coredns.enabled", "metrics.server"]
 
       #
       # Liveness check
@@ -78,7 +78,7 @@ job "authentik-server" {
       task = "authentik-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.server"]
+      tags = ["coredns.enabled", "http.server"]
 
       #
       # Liveness check
@@ -106,7 +106,7 @@ job "authentik-server" {
       driver = "docker"
 
       config {
-        image = "ghcr.io/goauthentik/server:${Version}"
+        image = "${Authentik.Image.Repo}/server:${Authentik.Image.Tag}"
 
         args = ["server"]
 
@@ -133,12 +133,17 @@ job "authentik-server" {
         #
         # Database
         #
-        AUTHENTIK_POSTGRESQL__HOST = "${Database.Hostname}"
-        AUTHENTIK_POSTGRESQL__PORT = "${Database.Port}"
+        AUTHENTIK_POSTGRESQL__HOST = "${Authentik.Database.Hostname}"
+        AUTHENTIK_POSTGRESQL__PORT = "${Authentik.Database.Port}"
 
-        AUTHENTIK_COOKIE_DOMAIN = "auth.kristianjones.dev"
+        AUTHENTIK_COOKIE_DOMAIN = "mylogin.space"
 
         AUTHENTIK_EMAIL__USE_TLS = "true"
+
+        #
+        # Backups
+        #
+        AUTHENTIK_POSTGRESQL__S3_BACKUP__REGION = "us-east-1"
       }
 
       template {
@@ -151,26 +156,35 @@ AUTHENTIK_REDIS__HOST="redis.authentik.service.dc1.kjdev"
 #
 # Database
 #
-AUTHENTIK_POSTGRESQL__NAME="${Database.Database}"
+AUTHENTIK_POSTGRESQL__NAME="${Authentik.Database.Database}"
 
 # Database Credentials
-AUTHENTIK_POSTGRESQL__USER="${Database.Username}"
-AUTHENTIK_POSTGRESQL__PASSWORD="${Database.Password}"
+AUTHENTIK_POSTGRESQL__USER="${Authentik.Database.Username}"
+AUTHENTIK_POSTGRESQL__PASSWORD="${AuthentikDatabase.Password}"
 
 #
 # Secrets
 #
-AUTHENTIK_SECRET_KEY="${Authentik.SecretKey}"
+AUTHENTIK_SECRET_KEY="${Authentik.Secrets.SecretKey}"
 
 #
 # Email
 #
-AUTHENTIK_EMAIL__HOST="${SMTP.Server}"
-AUTHENTIK_EMAIL__PORT="${SMTP.Port}"
+AUTHENTIK_EMAIL__HOST="${Authentik.SMTP.Server}"
+AUTHENTIK_EMAIL__PORT="${Authentik.SMTP.Port}"
 
 AUTHENTIK_EMAIL__FROM="${SMTP.Username}"
-AUTHENTIK_EMAIL__USERNAME="${SMTP.Username}"
-AUTHENTIK_EMAIL__PASSWORD="${SMTP.Password}"
+AUTHENTIK_EMAIL__USERNAME="${Authentik.SMTP.Username}"
+AUTHENTIK_EMAIL__PASSWORD="${Authentik.SMTP.Password}"
+
+#
+# Backups
+#
+AUTHENTIK_POSTGRESQL__S3_BACKUP__BUCKET="${Authentik.S3.Bucket}"
+AUTHENTIK_POSTGRESQL__S3_BACKUP__HOST="http://${Authentik.S3.Connection.Endpoint}"
+AUTHENTIK_POSTGRESQL__S3_BACKUP__INSECURE_SKIP_VERIFY="true"
+AUTHENTIK_POSTGRESQL__S3_BACKUP__ACCESS_KEY="${Authentik.S3.Credentials.AccessKey}"
+AUTHENTIK_POSTGRESQL__S3_BACKUP__SECRET_KEY="${Authentik.S3.Credentials.SecretKey}"
 EOH
 
         destination = "secrets/file.env"

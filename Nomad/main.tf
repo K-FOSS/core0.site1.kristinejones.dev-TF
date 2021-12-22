@@ -151,6 +151,10 @@ resource "random_string" "AuthentikSecretKey" {
 module "Authentik" {
   source = "./Jobs/AAA/Authentik"
 
+  Domain = var.AAA.Authentik.Domain
+
+  S3 = var.AAA.Authentik.Backups.S3
+
   Database = var.Authentik.Database
 
   Secrets = {

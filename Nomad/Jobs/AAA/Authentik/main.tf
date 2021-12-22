@@ -46,21 +46,35 @@ terraform {
   }
 }
 
+locals {
+  Authentik = {
+    Image = {
+      Repo = "ghcr.io/goauthentik"
+
+      Tag = "2021.12.3"
+    }
+
+    Secrets = {
+      SecretKey = var.Secrets.SecretKey
+    }
+
+    Domain = var.Domain
+
+    S3 = var.S3
+
+    Database = var.Database
+
+    SMTP = var.SMTP
+  }
+}
+
 #
 # Authentik Server
 #
 
 resource "nomad_job" "AuthentikServerJobFile" {
   jobspec = templatefile("${path.module}/Jobs/AuthentikServer.hcl", {
-    Authentik = {
-      SecretKey = var.Secrets.SecretKey
-    }
-
-    Database = var.Database
-
-    SMTP = var.SMTP
-
-    Version = "2021.12.3"
+    Authentik = local.Authentik
   })
 }
 

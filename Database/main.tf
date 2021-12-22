@@ -54,13 +54,13 @@ provider "postgresql" {
 # Database Name
 #
 resource "random_string" "Name" {
-  length           = 10
-  special          = false
+  length = 10
+  special = false
 }
 
 resource "random_password" "RolePassword" {
-  length           = 20
-  special          = false
+  length = 20
+  special = false
 }
 
 resource "postgresql_role" "User" {

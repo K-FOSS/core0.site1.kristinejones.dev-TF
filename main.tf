@@ -904,6 +904,14 @@ module "Nomad" {
   #
 
   AAA = {
+    Authentik = {
+      Domain = "mylogin.space"
+
+      Backups = {
+        S3 = module.AuthentikBucket
+      }
+    }
+
     Teleport = {
       OpenID = module.Vault.AAA.Teleport.OpenID
 
