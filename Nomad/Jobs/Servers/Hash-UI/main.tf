@@ -23,3 +23,21 @@ terraform {
     }
   }
 }
+
+locals {
+  HashUI = {
+    Image = {
+      Repo = ""
+
+      Tag = ""
+    }
+
+
+  }
+}
+
+resource "nomad_job" "HashUIJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/Hash-UI.hcl", {
+    HashUI = local.HashUI
+  })
+}
