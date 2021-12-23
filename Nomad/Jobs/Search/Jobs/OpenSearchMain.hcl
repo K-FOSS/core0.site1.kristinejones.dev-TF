@@ -133,6 +133,8 @@ ${TLS.Cert}
 EOF
 
         destination = "local/TLS/${NodeType}/${NodeName}.pem"
+
+        perms = "600"
       }
 
       template {
@@ -141,6 +143,8 @@ ${TLS.Key}
 EOF
 
         destination = "local/TLS/${NodeType}/${NodeName}.key"
+
+        perms = "600"
       }
 %{ endfor ~}
 
