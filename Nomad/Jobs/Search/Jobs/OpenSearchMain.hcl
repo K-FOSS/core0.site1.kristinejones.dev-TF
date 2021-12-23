@@ -42,6 +42,8 @@ job "search-opensearch-main" {
     task "opensearch-main-server" {
       driver = "docker"
 
+      user = "root"
+
       config {
         image = "${OpenSearch.Image.Repo}/opensearch:${OpenSearch.Image.Tag}"
 
