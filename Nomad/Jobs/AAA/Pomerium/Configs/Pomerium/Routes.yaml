@@ -230,7 +230,7 @@
   cors_allow_preflight: true
 
 - from: https://hashui.int.site1.kristianjones.dev
-  to: http://http.hashui.service.dc1.kjdev:8080
+  to: http://http.hashui.service.dc1.kjdev:8000
   preserve_host_header: true
   allowed_idp_claims:
     groups:
