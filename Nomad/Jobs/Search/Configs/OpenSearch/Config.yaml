@@ -13,28 +13,21 @@ cluster.initial_master_nodes:
   - 1.https.master.opensearch.service.kjdev
   - 2.https.master.opensearch.service.kjdev
 
-discovery.seed_hosts:
-  - 0.https.master.opensearch.service.kjdev
-  - 1.https.master.opensearch.service.kjdev
-  - 2.https.master.opensearch.service.kjdev
-  - 0.https.ingest.opensearch.service.kjdev
-  - 1.https.ingest.opensearch.service.kjdev
-  - 2.https.ingest.opensearch.service.kjdev
-  - kjdev-opensearch-data0-custom-app.ix-kjdev-opensearch-data0.svc.cluster.local
+discovery.seed_hosts: ['0.https.master.opensearch.service.kjdev', '1.https.master.opensearch.service.kjdev', '2.https.master.opensearch.service.kjdev', '0.https.ingest.opensearch.service.kjdev', '1.https.ingest.opensearch.service.kjdev', '2.https.ingest.opensearch.service.kjdev', 'kjdev-opensearch-data0-custom-app.ix-kjdev-opensearch-data0.svc.cluster.local', 'kjdev-opensearch-data0-custom-app.ix-kjdev-opensearch-data1.svc.cluster.local']
 
 node.roles: ['{{ env "NOMAD_META_NodeType" | toLower  }}']
 
 #
 # Node
 #
-node.name: '{{ env "NOMAD_ALLOC_INDEX" }}.https.{{ env "NOMAD_META_NodeType" | toLower }}.opensearch.service.kjdev'
+node.name: {{ env "NOMAD_ALLOC_INDEX" }}.https.{{ env "NOMAD_META_NodeType" | toLower }}.opensearch.service.kjdev
 
 #
 # Misc
 #
 bootstrap.memory_lock: true
-#network.host: '{{ env "NOMAD_ALLOC_INDEX" }}.https.{{ env "NOMAD_META_NodeType" | toLower }}.opensearch.service.kjdev'
-network.publish_host: '{{ env "NOMAD_ALLOC_INDEX" }}.https.{{ env "NOMAD_META_NodeType" | toLower }}.opensearch.service.kjdev'
+network.host: 0.0.0.0
+network.publish_host: {{ env "NOMAD_ALLOC_INDEX" }}.https.{{ env "NOMAD_META_NodeType" | toLower }}.opensearch.service.kjdev
 
 
 
