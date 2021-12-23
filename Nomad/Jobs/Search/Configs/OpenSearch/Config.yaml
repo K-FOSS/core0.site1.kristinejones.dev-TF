@@ -29,11 +29,12 @@ node.name: '{{ env "NOMAD_ALLOC_INDEX" }}.https.{{ env "NOMAD_META_NodeType" | t
 # Misc
 #
 bootstrap.memory_lock: true
+#network.host: '{{ env "NOMAD_ALLOC_INDEX" }}.https.{{ env "NOMAD_META_NodeType" | toLower }}.opensearch.service.kjdev'
+network.publish_host: '{{ env "NOMAD_ALLOC_INDEX" }}.https.{{ env "NOMAD_META_NodeType" | toLower }}.opensearch.service.kjdev'
 
 {{ $NodeType := env "NOMAD_META_NodeType" }}
 {{ if eq $NodeType "Master" }}
 discovery.type: single-node
-network.host: 0.0.0.0
 {{ end }}
 
 
