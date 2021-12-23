@@ -2,7 +2,7 @@ job "search-opensearch-main" {
   datacenters = ["core0site1"]
 
   group "opensearch-main-server" {
-    count = 2
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"

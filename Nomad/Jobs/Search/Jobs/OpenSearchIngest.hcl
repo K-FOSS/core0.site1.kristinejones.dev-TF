@@ -2,7 +2,7 @@ job "search-opensearch-ingest" {
   datacenters = ["core0site1"]
 
   group "opensearch-ingest-server" {
-    count = 2
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
