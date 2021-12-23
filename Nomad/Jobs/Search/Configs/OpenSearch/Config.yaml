@@ -6,12 +6,12 @@ cluster.name: CoreOpenSearch
 
 #
 # Discovery
-#
+# #
 
-cluster.initial_master_nodes:
-  - 0.https.master.opensearch.service.kjdev
-  - 1.https.master.opensearch.service.kjdev
-  - 2.https.master.opensearch.service.kjdev
+# cluster.initial_master_nodes:
+#   - 0.https.master.opensearch.service.kjdev
+#   - 1.https.master.opensearch.service.kjdev
+#   - 2.https.master.opensearch.service.kjdev
 
 node.roles: ['{{ env "NOMAD_META_NodeType" | toLower  }}']
 
