@@ -8,7 +8,7 @@ cluster.name: CoreOpenSearch
 # Discovery
 # #
 
-discovery.seed_hosts: 
+cluster.initial_master_nodes:
   - 0.https.master.opensearch.service.kjdev
   - 1.https.master.opensearch.service.kjdev
   - 2.https.master.opensearch.service.kjdev
@@ -26,16 +26,6 @@ node.name: '{{ env "NOMAD_ALLOC_INDEX" }}.https.{{ env "NOMAD_META_NodeType" | t
 bootstrap.memory_lock: true
 #network.host: '{{ env "NOMAD_ALLOC_INDEX" }}.https.{{ env "NOMAD_META_NodeType" | toLower }}.opensearch.service.kjdev'
 network.publish_host: '{{ env "NOMAD_ALLOC_INDEX" }}.https.{{ env "NOMAD_META_NodeType" | toLower }}.opensearch.service.kjdev'
-
-{{ $NodeType := env "NOMAD_META_NodeType" }}
-{{ if eq $NodeType "Master" }}
-#discovery.type: single-node
-{{ else }}
-cluster.initial_master_nodes:
-  - 0.https.master.opensearch.service.kjdev
-  - 1.https.master.opensearch.service.kjdev
-  - 2.https.master.opensearch.service.kjdev
-{{ end }}
 
 
 
