@@ -940,7 +940,7 @@ resource "vault_pki_secret_backend_cert" "OpenSearchData0Cert" {
 
   common_name = "0.https.data.opensearch.service.kjdev"
 
-  alt_names = ["0.https.data.opensearch.service.dc1.kjdev"]
+  alt_names = ["0.https.data.opensearch.service.dc1.kjdev", "kjdev-opensearch-data0-custom-app.ix-kjdev-opensearch-data0.svc.cluster.local"]
 
   private_key_format = "pkcs8"
 }
@@ -952,7 +952,7 @@ resource "vault_pki_secret_backend_cert" "OpenSearchData1Cert" {
 
   common_name = "1.https.data.opensearch.service.kjdev"
 
-  alt_names = ["1.https.data.opensearch.service.dc1.kjdev"]
+  alt_names = ["1.https.data.opensearch.service.dc1.kjdev", "kjdev-opensearch-data1-custom-app.ix-kjdev-opensearch-data1.svc.cluster.local"]
 
   private_key_format = "pkcs8"
 }
@@ -965,7 +965,7 @@ resource "vault_pki_secret_backend_cert" "OpenSearchData2Cert" {
 
   common_name = "2.https.data.opensearch.service.kjdev"
 
-  alt_names = ["2.https.data.opensearch.service.dc1.kjdev"]
+  alt_names = ["2.https.data.opensearch.service.dc1.kjdev", "kjdev-opensearch-data2-custom-app.ix-kjdev-opensearch-data2.svc.cluster.local"]
 
   private_key_format = "pkcs8"
 }
@@ -977,7 +977,7 @@ resource "vault_pki_secret_backend_cert" "OpenSearchData3Cert" {
 
   common_name = "3.https.data.opensearch.service.kjdev"
 
-  alt_names = ["3.https.data.opensearch.service.dc1.kjdev"]
+  alt_names = ["3.https.data.opensearch.service.dc1.kjdev", "kjdev-opensearch-data3-custom-app.ix-kjdev-opensearch-data3.svc.cluster.local"]
 
   private_key_format = "pkcs8"
 }
@@ -989,7 +989,7 @@ resource "vault_pki_secret_backend_cert" "OpenSearchData4Cert" {
 
   common_name = "4.https.data.opensearch.service.kjdev"
 
-  alt_names = ["4.https.data.opensearch.service.dc1.kjdev"]
+  alt_names = ["4.https.data.opensearch.service.dc1.kjdev", "kjdev-opensearch-data4-custom-app.ix-kjdev-opensearch-data4.svc.cluster.local"]
 
   private_key_format = "pkcs8"
 }
@@ -1001,7 +1001,7 @@ resource "vault_pki_secret_backend_cert" "OpenSearchData5Cert" {
 
   common_name = "5.https.data.opensearch.service.kjdev"
 
-  alt_names = ["5.https.data.opensearch.service.dc1.kjdev"]
+  alt_names = ["5.https.data.opensearch.service.dc1.kjdev", "kjdev-opensearch-data5-custom-app.ix-kjdev-opensearch-data5.svc.cluster.local"]
 
   private_key_format = "pkcs8"
 }
