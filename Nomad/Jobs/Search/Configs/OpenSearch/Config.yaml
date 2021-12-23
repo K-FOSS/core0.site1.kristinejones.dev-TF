@@ -51,7 +51,6 @@ plugins:
         pemcert_filepath: TLS/{{ env "NOMAD_META_NodeType" }}/{{ env "NOMAD_META_NodeType" }}{{ env "NOMAD_ALLOC_INDEX" }}.pem
         pemkey_filepath: TLS/{{ env "NOMAD_META_NodeType" }}/{{ env "NOMAD_META_NodeType" }}{{ env "NOMAD_ALLOC_INDEX" }}.key
         pemtrustedcas_filepath: TLS/CA.pem
-        enforce_hostname_verification: true
     nodes_dn:
       - CN=0.https.master.opensearch.service.kjdev
       - CN=1.https.master.opensearch.service.kjdev
