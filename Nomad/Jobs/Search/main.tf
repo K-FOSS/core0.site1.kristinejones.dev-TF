@@ -56,6 +56,8 @@ locals {
 
     CA = var.OpenSearch.TLS.CA
 
+    EntryScript = file("${path.module}/Configs/OpenSearch/Entry.sh")
+
     TLS = {
       for Key, Item in var.OpenSearch.TLS : Key => Item
       if Key != "CA" 

@@ -1572,22 +1572,22 @@ variable "Search" {
           })
         })
 
-        Main = object({
-          Main0 = object({
+        Master = object({
+          Master0 = object({
             CA = string
 
             Cert = string
             Key = string
           })
 
-          Main1 = object({
+          Master1 = object({
             CA = string
 
             Cert = string
             Key = string
           })
 
-          Main2 = object({
+          Master2 = object({
             CA = string
 
             Cert = string

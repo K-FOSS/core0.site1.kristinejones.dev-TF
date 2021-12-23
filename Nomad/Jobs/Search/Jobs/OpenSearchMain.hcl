@@ -47,6 +47,8 @@ job "search-opensearch-main" {
 
         memory_hard_limit = 1024
 
+        entrypoint = ["/local/Entry.sh"]
+
         ulimit {
           nofile = "65536:65536"
         }
@@ -60,7 +62,7 @@ job "search-opensearch-main" {
 
         mount {
           type = "bind"
-          target = "/usr/share/opensearch/config/TLS"
+          target = "/usr/share/opensearch/config/TLS/"
           source = "local/TLS"
           readonly = false
         }
@@ -92,6 +94,15 @@ job "search-opensearch-main" {
         OPENSEARCH_HOME = "/usr/share/opensearch"
 
         OPENSEARCH_PATH_CONF = "/usr/share/opensearch/config"
+      }
+
+      template {
+        data = <<EOF
+${OpenSearch.EntryScript}
+EOF
+
+        destination = "local/Entry.sh"
+        perms = "777"
       }
 
       template {

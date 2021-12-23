@@ -759,22 +759,22 @@ output "Search" {
           }
         }
 
-        Main = {
-          Main0 = {
+        Master = {
+          Master0 = {
             CA = vault_pki_secret_backend_cert.OpenSearchMain0Cert.ca_chain
             Cert = vault_pki_secret_backend_cert.OpenSearchMain0Cert.certificate
             Key = vault_pki_secret_backend_cert.OpenSearchMain0Cert.private_key
 
           }
 
-          Main1 = {
+          Master1 = {
             CA = vault_pki_secret_backend_cert.OpenSearchMain1Cert.ca_chain
             Cert = vault_pki_secret_backend_cert.OpenSearchMain1Cert.certificate
             Key = vault_pki_secret_backend_cert.OpenSearchMain1Cert.private_key
 
           }
 
-          Main2 = {
+          Master2 = {
             CA = vault_pki_secret_backend_cert.OpenSearchMain2Cert.ca_chain
             Cert = vault_pki_secret_backend_cert.OpenSearchMain2Cert.certificate
             Key = vault_pki_secret_backend_cert.OpenSearchMain2Cert.private_key
