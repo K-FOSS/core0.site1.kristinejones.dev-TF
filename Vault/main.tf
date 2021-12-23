@@ -861,6 +861,8 @@ resource "vault_pki_secret_backend_cert" "OpenSearchIngest0Cert" {
   common_name = "0.https.ingest.opensearch.service.kjdev"
 
   alt_names = ["0.https.ingest.opensearch.service.dc1.kjdev"]
+
+  private_key_format = "pkcs8"
 }
 
 # Ingest1
@@ -871,6 +873,8 @@ resource "vault_pki_secret_backend_cert" "OpenSearchIngest1Cert" {
   common_name = "1.https.ingest.opensearch.service.kjdev"
 
   alt_names = ["1.https.ingest.opensearch.service.dc1.kjdev"]
+
+  private_key_format = "pkcs8"
 }
 
 # Ingest2
@@ -881,6 +885,8 @@ resource "vault_pki_secret_backend_cert" "OpenSearchIngest2Cert" {
   common_name = "2.https.ingest.opensearch.service.kjdev"
 
   alt_names = ["2.https.ingest.opensearch.service.dc1.kjdev"]
+
+  private_key_format = "pkcs8"
 }
 
 #
@@ -895,6 +901,8 @@ resource "vault_pki_secret_backend_cert" "OpenSearchMain0Cert" {
   common_name = "0.https.master.opensearch.service.kjdev"
 
   alt_names = ["0.https.master.opensearch.service.dc1.kjdev"]
+
+  private_key_format = "pkcs8"
 }
 
 # Main1
@@ -905,6 +913,8 @@ resource "vault_pki_secret_backend_cert" "OpenSearchMain1Cert" {
   common_name = "1.https.master.opensearch.service.kjdev"
 
   alt_names = ["1.https.master.opensearch.service.dc1.kjdev"]
+
+  private_key_format = "pkcs8"
 }
 
 # Main2
@@ -915,6 +925,8 @@ resource "vault_pki_secret_backend_cert" "OpenSearchMain2Cert" {
   common_name = "2.https.master.opensearch.service.kjdev"
 
   alt_names = ["2.https.master.opensearch.service.dc1.kjdev"]
+
+  private_key_format = "pkcs8"
 }
 
 #
@@ -929,6 +941,8 @@ resource "vault_pki_secret_backend_cert" "OpenSearchData0Cert" {
   common_name = "0.https.data.opensearch.service.kjdev"
 
   alt_names = ["0.https.data.opensearch.service.dc1.kjdev"]
+
+  private_key_format = "pkcs8"
 }
 
 # Data1
@@ -939,6 +953,8 @@ resource "vault_pki_secret_backend_cert" "OpenSearchData1Cert" {
   common_name = "1.https.data.opensearch.service.kjdev"
 
   alt_names = ["1.https.data.opensearch.service.dc1.kjdev"]
+
+  private_key_format = "pkcs8"
 }
 
 
@@ -950,6 +966,8 @@ resource "vault_pki_secret_backend_cert" "OpenSearchData2Cert" {
   common_name = "2.https.data.opensearch.service.kjdev"
 
   alt_names = ["2.https.data.opensearch.service.dc1.kjdev"]
+
+  private_key_format = "pkcs8"
 }
 
 # Data3
@@ -960,6 +978,8 @@ resource "vault_pki_secret_backend_cert" "OpenSearchData3Cert" {
   common_name = "3.https.data.opensearch.service.kjdev"
 
   alt_names = ["3.https.data.opensearch.service.dc1.kjdev"]
+
+  private_key_format = "pkcs8"
 }
 
 # Data4
@@ -970,6 +990,8 @@ resource "vault_pki_secret_backend_cert" "OpenSearchData4Cert" {
   common_name = "4.https.data.opensearch.service.kjdev"
 
   alt_names = ["4.https.data.opensearch.service.dc1.kjdev"]
+
+  private_key_format = "pkcs8"
 }
 
 # Data5
@@ -980,6 +1002,8 @@ resource "vault_pki_secret_backend_cert" "OpenSearchData5Cert" {
   common_name = "5.https.data.opensearch.service.kjdev"
 
   alt_names = ["5.https.data.opensearch.service.dc1.kjdev"]
+
+  private_key_format = "pkcs8"
 }
 
 #
