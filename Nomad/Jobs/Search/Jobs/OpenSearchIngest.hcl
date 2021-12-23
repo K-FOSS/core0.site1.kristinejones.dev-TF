@@ -113,6 +113,7 @@ ${OpenSearch.Config}
 EOF
 
         destination = "local/opensearch.yml"
+        perms = "600"
       }
 
       #
@@ -133,6 +134,7 @@ ${OpenSearch.CA}
 EOF
 
         destination = "local/TLS/CA.pem"
+        perms = "600"
       }
 
 %{ for NodeType, Certs in OpenSearch.TLS ~}
