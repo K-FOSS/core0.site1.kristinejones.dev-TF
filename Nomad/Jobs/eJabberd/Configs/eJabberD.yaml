@@ -15,6 +15,7 @@ sql_port: ${Database.Port}
 sql_database: ${Database.Database}
 sql_username: ${Database.Username}
 sql_password: ${Database.Password}
+new_sql_schema: true
 
 #
 # Authentication
@@ -47,7 +48,6 @@ ldap_uids: [cn]
 auth_method:
   - sql
   - ldap
-new_sql_schema: true
 
 #
 # Authorization
