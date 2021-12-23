@@ -25,8 +25,16 @@ node.name: '{{ env "NOMAD_ALLOC_INDEX" }}.https.{{ env "NOMAD_META_NodeType" | t
 #
 bootstrap.memory_lock: true
 
-#discovery.seed_hosts: 
-#  - 
+discovery.seed_hosts: 
+  - 0.https.master.opensearch.service.kjdev
+  - 1.https.master.opensearch.service.kjdev
+  - 2.https.master.opensearch.service.kjdev
+  - 0.https.ingest.opensearch.service.kjdev
+  - 1.https.ingest.opensearch.service.kjdev
+  - 2.https.ingest.opensearch.service.kjdev
+
+discovery.type: single-node
+
 
 network.host: 0.0.0.0
 

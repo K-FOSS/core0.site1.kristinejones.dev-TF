@@ -96,6 +96,8 @@ job "search-opensearch-main" {
         OPENSEARCH_HOME = "/usr/share/opensearch"
 
         OPENSEARCH_PATH_CONF = "/usr/share/opensearch/config"
+
+        DISABLE_INSTALL_DEMO_CONFIG = "true"
       }
 
       template {
