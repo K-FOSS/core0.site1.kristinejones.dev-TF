@@ -82,7 +82,7 @@ plugins:
           ".opendistro-asynchronous-search-response*",
         ]
 
-# s3.client.default.protocol: http
-# s3.client.default.endpoint: ${S3.CoreRepo.Connection.Endpoint}
-# s3.client.default.access_key: ${S3.CoreRepo.Credentials.AccessKey}
-# s3.client.default.secret_key: ${S3.CoreRepo.Credentials.SecretKey}
+s3.client.default.protocol: http
+s3.client.default.endpoint: ${S3.CoreRepo.Connection.Endpoint}
+s3.client.default.access_key: ${S3.CoreRepo.Credentials.AccessKey}
+s3.client.default.secret_key: ${S3.CoreRepo.Credentials.SecretKey}
