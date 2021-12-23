@@ -1,7 +1,6 @@
 #!/bin/sh
-
-chown -R 1000:1000 /usr/share/opensearch/config/TLS
-chown 1000:1000 /usr/share/opensearch/config/TLS /usr/share/opensearch/config/TLS/Coordinator /usr/share/opensearch/config/TLS/Data /usr/share/opensearch/config/TLS/Ingest /usr/share/opensearch/config/TLS/Master /usr/share/opensearch/config/opensearch.yml
+chown -R 1000:1000 /usr/share/opensearch/config
+chown 1000:1000 /usr/share/opensearch/config
 chmod 0700 /usr/share/opensearch/config/TLS /usr/share/opensearch/config/TLS/Coordinator /usr/share/opensearch/config/TLS/Data /usr/share/opensearch/config/TLS/Ingest /usr/share/opensearch/config/TLS/Master  
 
 yum install -y util-linux
