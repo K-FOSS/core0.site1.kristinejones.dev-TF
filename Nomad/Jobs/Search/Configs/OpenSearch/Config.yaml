@@ -25,7 +25,7 @@ node.name: {{ env "NOMAD_ALLOC_INDEX" }}.https.{{ env "NOMAD_META_NodeType" | to
 #
 # Misc
 #
-bootstrap.memory_lock: true
+bootstrap.memory_lock: false
 network.host: 0.0.0.0
 network.publish_host: {{ env "NOMAD_ALLOC_INDEX" }}.https.{{ env "NOMAD_META_NodeType" | toLower }}.opensearch.service.kjdev
 
