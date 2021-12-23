@@ -8,10 +8,19 @@ cluster.name: CoreOpenSearch
 # Discovery
 # #
 
-cluster.initial_master_nodes:
+cluster.initial_master_nodes: 
   - 0.https.master.opensearch.service.kjdev
   - 1.https.master.opensearch.service.kjdev
   - 2.https.master.opensearch.service.kjdev
+
+discovery.seed_hosts:
+  - 0.https.master.opensearch.service.kjdev
+  - 1.https.master.opensearch.service.kjdev
+  - 2.https.master.opensearch.service.kjdev
+  - 0.https.ingest.opensearch.service.kjdev
+  - 1.https.ingest.opensearch.service.kjdev
+  - 2.https.ingest.opensearch.service.kjdev
+  - kjdev-opensearch-data0-custom-app.ix-kjdev-opensearch-data0.svc.cluster.local
 
 node.roles: ['{{ env "NOMAD_META_NodeType" | toLower  }}']
 
