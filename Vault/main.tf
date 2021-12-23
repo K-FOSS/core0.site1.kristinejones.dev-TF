@@ -313,6 +313,18 @@ data "vault_generic_secret" "Outline" {
 }
 
 #
+# Servers
+#
+
+data "vault_generic_secret" "Rancher" {
+  path = "${vault_mount.Terraform.path}/Rancher"
+}
+
+data "vault_generic_secret" "HashUI" {
+  path = "${vault_mount.Terraform.path}/HashUI"
+}
+
+#
 # TLS Certificates
 #
 

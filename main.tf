@@ -1238,6 +1238,23 @@ module "Nomad" {
     }
   }
 
+  #
+  # Servers
+  #
+  Servers = {
+    Rancher = {
+      OpenID = module.Vault.Servers.Rancher.OpenID
+
+      LDAP = module.Vault.Servers.Rancher.LDAP
+    }
+
+    HashUI = {
+      OpenID = module.Vault.Servers.HashUI.OpenID
+
+      LDAP = module.Vault.Servers.HashUI.LDAP
+    }
+  }
+
   
   #
   # Tinkerbell

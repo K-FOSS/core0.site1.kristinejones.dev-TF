@@ -252,6 +252,38 @@ output "Business" {
   }
 }
 
+#
+# Servers
+#
+
+output "Servers" {
+  value = {
+    Rancher = {
+      OpenID = {
+        ClientID = data.vault_generic_secret.Rancher.data["OpenIDClientID"]
+        ClientSecret = data.vault_generic_secret.Rancher.data["OpenIDClientSecret"]
+      }
+
+      LDAP = {
+        Username = data.vault_generic_secret.Rancher.data["LDAPUsername"]
+        Password = data.vault_generic_secret.Rancher.data["LDAPPassword"]
+      }
+    }
+
+    HashUI = {
+      OpenID = {
+        ClientID = data.vault_generic_secret.HashUI.data["OpenIDClientID"]
+        ClientSecret = data.vault_generic_secret.HashUI.data["OpenIDClientSecret"]
+      }
+
+      LDAP = {
+        Username = data.vault_generic_secret.HashUI.data["LDAPUsername"]
+        Password = data.vault_generic_secret.HashUI.data["LDAPPassword"]
+      }
+    }
+  }
+}
+
 
 #
 # Tinkerbell

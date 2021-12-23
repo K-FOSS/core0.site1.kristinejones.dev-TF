@@ -495,6 +495,32 @@ module "Mattermost" {
 }
 
 #
+# Servers
+#
+
+#
+# Hash-UI
+#
+module "HashUI" {
+  source = "./Jobs/Servers/Hash-UI"
+
+  OpenID = var.Servers.HashUI.OpenID
+
+  LDAP = var.Servers.HashUI.LDAP
+}
+
+#
+# Rancher
+#
+module "Rancher" {
+  source = "./Jobs/Servers/Rancher"
+
+  OpenID = var.Servers.Rancher.OpenID
+
+  LDAP = var.Servers.Rancher.LDAP
+}
+
+#
 # Tinkerbell
 #
 

@@ -837,6 +837,38 @@ variable "Communications" {
 }
 
 #
+# Servers
+#
+
+variable "Servers" {
+  type = object({
+    Rancher = object({
+      OpenID = object({
+        ClientID = string
+        ClientSecret = string
+      })
+
+      LDAP = object({
+        Username = string
+        Password = string
+      })
+    })
+
+    HashUI = object({
+      OpenID = object({
+        ClientID = string
+        ClientSecret = string
+      })
+
+      LDAP = object({
+        Username = string
+        Password = string
+      })
+    })
+  })
+}
+
+#
 # Tinkerbell
 #
 
