@@ -51,7 +51,21 @@ plugins:
         pemcert_filepath: TLS/{{ env "NOMAD_META_NodeType" }}/{{ env "NOMAD_META_NodeType" }}{{ env "NOMAD_ALLOC_INDEX" }}.pem
         pemkey_filepath: TLS/{{ env "NOMAD_META_NodeType" }}/{{ env "NOMAD_META_NodeType" }}{{ env "NOMAD_ALLOC_INDEX" }}.key
         pemtrustedcas_filepath: TLS/CA.pem
-    allow_unsafe_democertificates: true
+        enforce_hostname_verification: true
+    nodes_dn:
+      - CN=0.https.master.opensearch.service.kjdev
+      - CN=1.https.master.opensearch.service.kjdev
+      - CN=2.https.master.opensearch.service.kjdev
+      - CN=0.https.ingest.opensearch.service.kjdev
+      - CN=1.https.ingest.opensearch.service.kjdev
+      - CN=2.https.ingest.opensearch.service.kjdev
+      - CN=0.https.data.opensearch.service.kjdev
+      - CN=1.https.data.opensearch.service.kjdev
+      - CN=2.https.data.opensearch.service.kjdev
+      - CN=3.https.data.opensearch.service.kjdev
+      - CN=4.https.data.opensearch.service.kjdev
+      - CN=5.https.data.opensearch.service.kjdev
+
     allow_default_init_securityindex: true
     audit.type: internal_opensearch
     enable_snapshot_restore_privilege: true
