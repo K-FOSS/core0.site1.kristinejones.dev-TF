@@ -89,6 +89,15 @@ resource "nomad_job" "OpenSearchIngestJobFile" {
   })
 }
 
+#
+# Dashboard
+#
+resource "nomad_job" "OpenSearchDashboardrdJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/OpenSearchDashboard.hcl", {
+    OpenSearch = local.OpenSearch
+  })
+}
+
 # resource "nomad_job" "UnigraphJobFile" {
 #   jobspec = templatefile("${path.module}/Jobs/GoBetween.hcl", {
 #     Consul = var.GoBetween.Consul
