@@ -8,7 +8,10 @@ default:
 
 variables:
   TF_ROOT: ${CI_PROJECT_DIR}
-  TF_ADDRESS: ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/example-production
+  CONSUL_HTTP_TOKEN: ${CONSUL_HTTP_TOKEN}
+  VAULT_TOKEN: ${VAULT_TOKEN}
+  VAULT_ADDR: 'http://10.1.1.13:8100'
+  TF_ADDRESS: ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/kjdev-prod
 
 before_script:
   - cd ${TF_ROOT}
