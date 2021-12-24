@@ -4,7 +4,7 @@ job "backups-psql-wal-g" {
   type = "batch"
 
   periodic {
-    cron = "*/15 * * * * *"
+    cron = "*/45 * * * * *"
     prohibit_overlap = true
     time_zone = "America/Winnipeg"
   }
