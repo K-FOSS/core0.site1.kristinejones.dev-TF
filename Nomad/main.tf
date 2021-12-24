@@ -639,7 +639,7 @@ module "ConsulBackups" {
 module "PSQLBackups" {
   source = "./Jobs/Backups/PSQL"
 
-  S3 = var.Backups.Consul.S3
+  S3 = var.Backups.PSQL.S3
 
   Database = var.Backups.PSQL.Database
 }
