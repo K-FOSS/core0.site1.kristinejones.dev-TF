@@ -38,7 +38,7 @@ job "search-opensearch-dashboard" {
           config {
             loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
 
-            loki-external-labels = "job=opensearch,service=$${NOMAD_META_NodeType}$${NOMAD_ALLOC_INDEX}"
+            loki-external-labels = "job=opensearch,service=dashboard"
           }
         }
       }
