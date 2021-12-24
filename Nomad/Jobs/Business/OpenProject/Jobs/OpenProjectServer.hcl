@@ -2,7 +2,7 @@ job "openproject-server" {
   datacenters = ["core0site1"]
 
   group "openproject-server" {
-    count = 1
+    count = 3
 
     network {
       mode = "cni/nomadcore1"
@@ -48,6 +48,8 @@ job "openproject-server" {
 
         args = ["./docker/prod/web"]
 
+        memory_hard_limit = 1024
+
         mount {
           type = "tmpfs"
           target = "/app/tmp"
@@ -70,7 +72,8 @@ job "openproject-server" {
       resources {
         cpu = 256
 
-        memory = 1024
+        memory = 256
+        memory_max = 1024
       }
     
       env {

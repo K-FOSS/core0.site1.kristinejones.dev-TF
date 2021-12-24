@@ -142,6 +142,8 @@ EOH
 
         args = ["./docker/prod/worker"]
 
+        memory_hard_limit = 512
+
         logging {
           type = "loki"
           config {
@@ -200,6 +202,12 @@ EOH
         SMTP_DOMAIN = "kristianjones.dev"
         SMTP_AUTHENTICATION = "login"
         SMTP_ENABLE_STARTTLS_AUTO = "true"
+      }
+
+      resources {
+        cpu = 256
+        memory = 128
+        memory_max = 512
       }
 
 

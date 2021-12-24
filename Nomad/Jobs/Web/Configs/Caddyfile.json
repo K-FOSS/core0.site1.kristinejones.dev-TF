@@ -843,12 +843,6 @@
                             {
                               "handle": [
                                 {
-                                  "handler": "encode",
-                                  "encodings": {
-                                    "gzip": {}
-                                  }
-                                },
-                                {
                                   "handler": "reverse_proxy",
                                   "transport": {
                                     "protocol": "http",
@@ -868,7 +862,8 @@
                             }
                           ]
                         }
-                      ]
+                      ],
+                      "terminal": true
                     },
                     {
                       "match": [
