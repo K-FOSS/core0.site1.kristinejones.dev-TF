@@ -1605,7 +1605,7 @@ module "Nomad" {
     }
 
     SourceGraph = {
-      Database = var.SourceGraphDatabase.Database
+      Database = module.SourceGraphDatabase.Database
     }
   }
 
