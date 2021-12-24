@@ -102,6 +102,67 @@ variable "AAA" {
 }
 
 #
+# Backups
+#
+
+variable "Backups" {
+  type = object({
+    Consul = object({
+      Consul = object({
+        Hostname = string
+        Port = number
+    
+        Token = string
+      })
+
+      S3 = object({
+        Connection = object({
+          Hostname = string
+          Port = number
+
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
+
+        Bucket = string
+      })
+    })
+
+    PSQL = object({
+      S3 = object({
+        Connection = object({
+          Hostname = string
+          Port = number
+
+          Endpoint = string
+        })
+
+        Credentials = object({
+          AccessKey = string
+          SecretKey = string
+        })
+
+        Bucket = string
+      })
+
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
+      })
+    })
+  })
+}
+
+#
 # Bitwarden
 # 
 
@@ -1100,36 +1161,6 @@ variable "HomeAssistant" {
         Cert = string
         Key = string
       })
-    })
-  })
-}
-
-#
-# Backups
-#
-variable "ConsulBackups" {
-  type = object({
-    Consul = object({
-      Hostname = string
-      Port = number
-  
-      Token = string
-    })
-
-    S3 = object({
-      Connection = object({
-        Hostname = string
-        Port = number
-
-        Endpoint = string
-      })
-
-      Credentials = object({
-        AccessKey = string
-        SecretKey = string
-      })
-
-      Bucket = string
     })
   })
 }

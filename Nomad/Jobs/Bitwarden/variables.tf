@@ -1,3 +1,7 @@
+#
+# Data
+#
+
 variable "Database" {
   type = object({
     Hostname = string
@@ -9,6 +13,10 @@ variable "Database" {
     Password = string
   })
 }
+
+#
+# Security/mTLS
+#
 
 variable "TLS" {
   type = object({

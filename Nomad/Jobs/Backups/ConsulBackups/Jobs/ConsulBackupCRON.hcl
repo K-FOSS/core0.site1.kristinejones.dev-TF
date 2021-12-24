@@ -1,4 +1,4 @@
-job "backups" {
+job "backups-consul-backinator" {
   datacenters = ["core0site1"]
 
   type = "batch"

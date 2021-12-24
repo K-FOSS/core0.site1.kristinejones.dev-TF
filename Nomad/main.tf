@@ -618,15 +618,30 @@ module "HomeAssistant" {
   Secrets = var.HomeAssistant.Secrets
 }
 
+###########
+# Backups #
+###########
+
 #
-# Backups
-# 
+# Consul Backups
+#
 module "ConsulBackups" {
   source = "./Jobs/Backups/ConsulBackups"
 
-  Consul = var.ConsulBackups.Consul
+  Consul = var.Backups.Consul.Consul
 
-  S3 = var.ConsulBackups.S3
+  S3 = var.Backups.Consul.S3
+}
+
+#
+# PSQL Backups
+#
+module "PSQLBackups" {
+  source = "./Jobs/Backups/PSQL"
+
+  S3 = var.Backups.Consul.S3
+
+  Database = var.Backups.PSQL.Database
 }
 
 #

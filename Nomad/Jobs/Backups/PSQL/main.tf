@@ -46,14 +46,16 @@ terraform {
   }
 }
 
-resource "nomad_job" "JobFile" {
-  jobspec = templatefile("${path.module}/Jobs/ConsulBackupCRON.hcl", {
-    Consul = var.Consul
-
+locals {
+  WalG = {
     S3 = var.S3
 
-    EntryScript =  templatefile("${path.module}/Configs/entry.sh", {
-      S3 = var.S3
-    })
+    Database = var.Database
+  }
+}
+
+resource "nomad_job" "PSQLWalGBackupJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/PSQLWal-G.hcl", {
+    WalG = local.WalG
   })
 }

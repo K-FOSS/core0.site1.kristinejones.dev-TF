@@ -24,9 +24,13 @@ terraform {
   }
 }
 
-#
-# Hashicorp Vault
-#
+#########################
+#      Core Services    #
+#########################
+
+###################
+# Hashicorp Vault #
+###################
 
 module "Vault" {
   source = "./Vault"
@@ -42,9 +46,9 @@ module "Vault" {
   }
 }
 
-#
-# Hashicorp Consul
-#
+#################### 
+# Hashicorp Consul #
+####################
 
 module "Consul" {
   source = "./Consul"
@@ -85,9 +89,13 @@ module "Consul" {
 # Minio S3 Storage Modules
 #
 
-#
-# AAA
-#
+####################
+#      Buckets     #
+####################
+
+########
+# AAA #
+#######
 
 #
 # Authentik
@@ -118,6 +126,44 @@ module "TeleportAuditBucket" {
   Credentials = module.Vault.Minio
 }
 
+###########
+# Backups #
+###########
+
+#
+# Consul Backups
+#
+
+module "ConsulBackupsBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "node2.core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+#
+# PSQL
+#
+
+module "PSQLBackupsBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "node2.core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+###########
+# Metrics #
+###########
+
 #
 # Grafana Cortex
 #
@@ -144,6 +190,10 @@ module "AlertManagerBucket" {
   Credentials = module.Vault.Minio
 }
 
+########
+# Logs #
+########
+
 #
 # Grafana Loki
 #
@@ -158,6 +208,10 @@ module "LokiBucket" {
 
   Credentials = module.Vault.Minio
 }
+
+###########
+# Tracing #
+###########
 
 #
 # Grafana Tempo
@@ -174,9 +228,14 @@ module "TempoBucket" {
   Credentials = module.Vault.Minio
 }
 
+############
+# Business #
+############
+
 #
 # NextCloud
-# 
+#
+
 module "NextCloud" {
   source = "./Minio"
 
@@ -233,24 +292,11 @@ module "OutlineBucket" {
 # Zammad
 #
 
-#
-# Consul Backups
-#
 
-module "ConsulBackupsBucket" {
-  source = "./Minio"
 
-  Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
-    Port = 9000
-  }
-
-  Credentials = module.Vault.Minio
-}
-
-#
-# Communications
-#
+##################
+# Communications #
+##################
 
 module "MattermostBucket" {
   source = "./Minio"
@@ -265,9 +311,9 @@ module "MattermostBucket" {
 
 
 
-#
-# Development
-#
+###############
+# Development #
+###############
 
 #
 # GitLab
@@ -438,9 +484,9 @@ module "HarborChartsBucket" {
   Credentials = module.Vault.Minio
 }
 
-#
-# Search
-#
+##########
+# Search #
+##########
 
 #
 # OpenSearch
@@ -462,9 +508,9 @@ module "OpenSearchRepoBucket" {
 #
 
 
-#
-# Security
-#
+############
+# Security #
+############
 
 #
 # IntelOwl
@@ -489,9 +535,9 @@ module "ThreatMapperBucket" {
   Credentials = module.Vault.Minio
 }
 
-#
-# Databases
-#
+###########################
+#         Databases       #
+###########################
 
 
 #
@@ -504,9 +550,9 @@ module "GrafanaDatabase" {
   Credentials = module.Vault.Database
 }
 
-#
-# AAA
-#
+#######
+# AAA #
+#######
 
 #
 # Authentik Database
@@ -538,9 +584,9 @@ module "CoTurnDatabase" {
   Credentials = module.Vault.Database
 }
 
-#
-# Inventory
-#
+############# 
+# Inventory #
+#############
 
 #
 # Netbox
@@ -565,7 +611,9 @@ module "MeshCentralDatabase" {
   Credentials = module.Vault.Database
 }
 
-
+########### 
+# Network #
+###########
 
 #
 # DHCP Database
@@ -604,15 +652,21 @@ module "PowerDNSAdminDatabase" {
 # ENMS Database
 #
 
+
+#
+# TODO: ENMS
+#
+
 module "ENMSDatabase" {
   source = "./Database"
 
   Credentials = module.Vault.Database
 }
 
-#
-# TODO: ENMS
-#
+
+############
+# Business #
+############
 
 #
 # NextCloud
@@ -658,6 +712,10 @@ module "Tinkerbell" {
   Credentials = module.Vault.Database
 }
 
+##################
+# Communications #
+##################
+
 #
 # Mattermost
 #
@@ -691,6 +749,10 @@ module "HomeAssistantDatabase" {
 # Observability Stacks
 #
 
+###########
+# Metrics #
+###########
+
 #
 # Grafana Cortex Config Database
 #
@@ -701,9 +763,9 @@ module "CortexConfigDatabase" {
   Credentials = module.Vault.Database
 }
 
-#
-# Misc
-#
+########
+# Misc #
+########
 
 #
 # Ivatar
@@ -715,6 +777,10 @@ module "IvatarDatabase" {
   Credentials = module.Vault.Database
 }
 
+########
+# Logs #
+########
+
 #
 # Grafana Loki Database
 #
@@ -725,9 +791,9 @@ module "GrafanaLokiConfigDatabase" {
   Credentials = module.Vault.Database
 }
 
-#
-# Development
-#
+###############
+# Development #
+###############
 
 #
 # Gitea
@@ -761,9 +827,9 @@ module "GitLabPraefectDatabase" {
   Credentials = module.Vault.Database
 }
 
-#
-# Registry
-#
+############
+# Registry #
+############
 
 module "HarborRegistryDatabase" {
   source = "./Database"
@@ -771,9 +837,9 @@ module "HarborRegistryDatabase" {
   Credentials = module.Vault.Database
 }
 
-#
-# Search
-#
+##########
+# Search #
+##########
 
 #
 # SourceGraph
@@ -785,9 +851,9 @@ module "SourceGraphDatabase" {
   Credentials = module.Vault.Database
 }
 
-#
-# Security
-#
+############
+# Security #
+############
 
 #
 # Argus
@@ -823,9 +889,9 @@ module "ThreatMapperDatabase" {
 # Zeek
 #
 
-#
-# Business Databases
-#
+############
+# Business #
+############
 
 #
 # Task System
@@ -931,6 +997,63 @@ module "Nomad" {
   source = "./Nomad"
 
   #
+  # AAA
+  # 
+  # TODO: Move all AAA
+  #
+
+  AAA = {
+    Authentik = {
+      Domain = "mylogin.space"
+
+      #
+      # TODO: move Users to ERPNext & Terraform
+      #
+
+      Backups = {
+        S3 = module.AuthentikBucket
+      }
+    }
+
+    Teleport = {
+      OpenID = module.Vault.AAA.Teleport.OpenID
+
+      S3 = module.TeleportAuditBucket
+
+      TLS = module.Vault.AAA.Teleport.TLS
+    }
+
+    #
+    # TODO: Move Pomerium Here
+    #
+  }
+
+  #
+  # Backups
+  #
+  Backups = {
+    Consul = {
+      Consul = module.Consul.Backups
+
+      S3 = module.ConsulBackupsBucket
+    }
+
+    PSQL = {
+      S3 = module.PSQLBackupsBucket
+
+      Database = {
+        Hostname = module.Vault.Database.Hostname
+        Port = module.Vault.Database.Port
+
+        Username = module.Vault.Database.Username
+        Password = module.Vault.Database.Password
+
+        Database = "postgres"
+      }
+    }
+  }
+
+  #
   # GitHub Token
   #
   GitHub = {
@@ -943,8 +1066,8 @@ module "Nomad" {
 
   Bitwarden = {
     Database = {
-      Hostname = "172.31.241.66"
-      Port = 36009
+      Hostname = module.Vault.Database.Hostname
+      Port = module.Vault.Database.Port
 
       Username = module.Vault.Bitwarden.Database.Username
       Password = module.Vault.Bitwarden.Database.Password
@@ -980,28 +1103,6 @@ module "Nomad" {
     Database = module.GrafanaDatabase.Database
 
     TLS = module.Vault.Grafana.TLS
-  }
-
-  #
-  # AAA
-  #
-
-  AAA = {
-    Authentik = {
-      Domain = "mylogin.space"
-
-      Backups = {
-        S3 = module.AuthentikBucket
-      }
-    }
-
-    Teleport = {
-      OpenID = module.Vault.AAA.Teleport.OpenID
-
-      S3 = module.TeleportAuditBucket
-
-      TLS = module.Vault.AAA.Teleport.TLS
-    }
   }
 
   #
@@ -1281,8 +1382,6 @@ module "Nomad" {
   #
   DNS = {
     Consul = module.Consul.DNS
-
-
   }
 
   #
@@ -1402,15 +1501,6 @@ module "Nomad" {
     TLS = module.Vault.HomeAssistant.TLS
 
     Secrets = module.Vault.HomeAssistant.Secrets
-  }
-
-  #
-  # Consul Backups
-  #
-  ConsulBackups = {
-    Consul = module.Consul.Backups
-
-    S3 = module.ConsulBackupsBucket
   }
 
   #
