@@ -13,7 +13,7 @@ job "container-metrics" {
       mode = "cni/nomadcore1"
 
       port "metrics" {
-        to = 8080
+        to = 9100
       }
     }
 
@@ -32,6 +32,8 @@ job "container-metrics" {
 
       config {
         image = "gcr.io/cadvisor/cadvisor:${cAdvisor.Version}"
+
+        args = ["-enable_load_reader", "-enable_metrics=advtcp,app,cpu,cpuLoad,cpu_topology,cpuset,disk,diskIO,memory,memory_numa,network,network,oom_event,percpu,perf_event,process,referenced_memory,resctrl,sched,sched,tcp,udp", "-store_container_labels=false"]
 
         privileged = true
 

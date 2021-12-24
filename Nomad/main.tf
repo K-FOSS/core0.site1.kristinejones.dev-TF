@@ -717,6 +717,44 @@ module "Search" {
 }
 
 #
+# Security
+#
+
+#
+# Argus
+#
+
+#
+# IntelOwl
+#
+
+#
+# IVRE
+#
+
+#
+# MISP
+#
+
+#
+# nProbe
+#
+
+#
+# ThreatMapper
+#
+
+module "ThreatMapper" {
+  source = "./Jobs/Security/ThreatMapper"
+
+  OpenSearch = var.Search.OpenSearch
+}
+
+#
+# Zeek
+#
+
+#
 # Misc
 #
 

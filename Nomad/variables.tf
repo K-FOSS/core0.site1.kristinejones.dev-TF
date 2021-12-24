@@ -1658,6 +1658,18 @@ variable "Search" {
         })
       })
     })
+
+    SourceGraph = object({
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
+      })
+    })
   })
 }
 
@@ -1678,6 +1690,26 @@ variable "Search" {
 #   })
   
 # }
+
+#
+# Security
+#
+
+variable "Security" {
+  type = object({
+    ThreatMapper = object({
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
+      })
+    })
+  })
+}
 
 #
 # Business

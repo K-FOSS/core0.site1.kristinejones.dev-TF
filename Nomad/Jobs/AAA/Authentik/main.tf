@@ -51,7 +51,7 @@ locals {
     Image = {
       Repo = "ghcr.io/goauthentik"
 
-      Tag = "2021.12.3"
+      Tag = "2021.12.4"
     }
 
     Secrets = {
@@ -112,6 +112,6 @@ resource "nomad_job" "AuthentikLDAPOutpostJobFile" {
 
     SMTP = var.SMTP
 
-    Version = "2021.12.2"
+    Version = "2021.12.3"
   })
 }

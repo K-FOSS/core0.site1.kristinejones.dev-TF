@@ -457,6 +457,37 @@ module "OpenSearchRepoBucket" {
   Credentials = module.Vault.Minio
 }
 
+#
+# SourceGraph
+#
+
+
+#
+# Security
+#
+
+#
+# IntelOwl
+#
+
+#
+# MISP
+#
+
+#
+# ThreatMapper
+#
+
+module "ThreatMapperBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "node2.core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
 
 #
 # Databases
@@ -741,6 +772,58 @@ module "HarborRegistryDatabase" {
 }
 
 #
+# Search
+#
+
+#
+# SourceGraph
+#
+
+module "SourceGraphDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# Security
+#
+
+#
+# Argus
+#
+
+#
+# IntelOwl
+#
+
+#
+# IVRE
+#
+
+#
+# MISP
+#
+
+#
+# nProbe
+#
+
+#
+# ThreatMapper
+#
+
+module "ThreatMapperDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# Zeek
+#
+
+#
 # Business Databases
 #
 
@@ -860,7 +943,7 @@ module "Nomad" {
 
   Bitwarden = {
     Database = {
-      Hostname = "172.16.20.21"
+      Hostname = "172.31.241.66"
       Port = 36009
 
       Username = module.Vault.Bitwarden.Database.Username
@@ -1429,6 +1512,20 @@ module "Nomad" {
       S3 = {
         CoreRepo = module.OpenSearchRepoBucket
       }
+    }
+
+    SourceGraph = {
+      Database = var.SourceGraphDatabase.Database
+    }
+  }
+
+  #
+  # Security
+  #
+
+  Security = {
+    ThreatMapper = {
+      Database = module.ThreatMapperDatabase.Database
     }
   }
 

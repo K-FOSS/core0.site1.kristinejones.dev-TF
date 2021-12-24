@@ -1,3 +1,7 @@
+#
+# Database
+#
+
 variable "Database" {
   type = object({
     Hostname = string
@@ -20,26 +24,12 @@ variable "Database" {
 
 #
 # OpenID
+# 
+
+#
+# LDAP?
 #
 
 #
-# LDAP
+# Notifications
 #
-
-#
-# Email
-#
-
-#
-# SMTP
-#
-
-variable "SMTP" {
-  type = object({
-    Server = string
-    Port = string
-
-    Username = string
-    Password = string
-  })
-}

@@ -100,7 +100,7 @@ output "Caddy" {
 
 output "Database" {
   value = {
-    Hostname = "172.16.20.21"
+    Hostname = "172.31.241.66"
     Port = 36009
 
     Username = data.vault_generic_secret.Database.data["USERNAME"]
