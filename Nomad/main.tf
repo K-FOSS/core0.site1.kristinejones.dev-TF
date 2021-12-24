@@ -762,7 +762,7 @@ module "Search" {
 module "ThreatMapper" {
   source = "./Jobs/Security/ThreatMapper"
 
-  OpenSearch = var.Search.OpenSearch
+  Database = var.Security.ThreatMapper.Database
 }
 
 #
