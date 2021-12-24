@@ -2,7 +2,7 @@ default:
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
 
   cache:
-    key: example-production
+    key: kjdev-prod
     paths:
       - ${TF_ROOT}/.terraform
 
