@@ -62,15 +62,7 @@ resource "nomad_job" "ExcalidrawJobFile" {
   })
 }
 
-data "github_repository" "DrawIORepo" {
-  full_name = "jgraph/drawio"
-}
 
-data "github_release" "DrawIORelease" {
-  repository  = data.github_repository.DrawIORepo.name
-  owner       = split("/", data.github_repository.DrawIORepo.full_name)[0]
-  retrieve_by = "latest"
-}
 
 #
 # DrawIO
@@ -78,7 +70,7 @@ data "github_release" "DrawIORelease" {
 
 resource "nomad_job" "DrawIOJobFile" {
   jobspec = templatefile("${path.module}/Jobs/DrawIO.hcl", {
-    Version = split("v", data.github_release.DrawIORelease.release_tag)[1]
+    Version = "1.0.0"
   })
 }
 

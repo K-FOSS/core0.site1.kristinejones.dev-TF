@@ -1,11 +1,4 @@
 terraform {
-  backend "consul" {
-    address = "consul.service.dc1.kjdev:8500"
-    scheme = "http"
-    path = "consul-terraform-sync/terraform-env:core0-site1"
-    datacenter = "dc1"
-  }
-
   required_providers {
     #
     # Hashicorp Consul
