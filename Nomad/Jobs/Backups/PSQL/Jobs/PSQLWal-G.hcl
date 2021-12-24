@@ -68,7 +68,7 @@ EOH
 #
 AWS_ACCESS_KEY_ID="${WalG.S3.Credentials.AccessKey}"
 AWS_SECRET_ACCESS_KEY="${WalG.S3.Credentials.SecretKey}"
-AWS_ENDPOINT="http${WalG.S3.Connection.Endpoint}"
+AWS_ENDPOINT="http://${WalG.S3.Connection.Endpoint}"
 WALG_S3_PREFIX="s3://${WalG.S3.Bucket}/wal-g"
 EOH
 
