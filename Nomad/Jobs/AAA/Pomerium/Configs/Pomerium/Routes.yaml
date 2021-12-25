@@ -45,7 +45,7 @@
   tls_server_name: hass.int.site1.kristianjones.dev
   allowed_idp_claims:
     groups:
-      - authentik Admins
+      - Home Users
   pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
@@ -54,7 +54,7 @@
   to: http://home1-hass-home-assistant-codeserver.ix-home1-hass.svc.cluster.local:12321
   allowed_idp_claims:
     groups:
-      - authentik Admins
+      - Home Admins
   pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
@@ -119,19 +119,6 @@
   preserve_host_header: true
   pass_identity_headers: true
   allow_public_unauthenticated_access: true
-  allow_websockets: true
-  cors_allow_preflight: true
-
-#
-# lazyLibrarian
-#
-- from: https://lazylibrarian.kjmedia.stream
-  to: http://kjmedia-lazylibrarian.ix-kjmedia-lazylibrarian.svc.cluster.local:8080
-  preserve_host_header: true
-  allowed_idp_claims:
-    groups:
-      - Media Consumers
-  pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
 
