@@ -405,13 +405,13 @@ resource "nomad_job" "iDRACJobFile" {
 # cAdvisor
 #
 
-# resource "nomad_job" "cAdvisorJobFile" {
-#   jobspec = templatefile("${path.module}/Jobs/cAdvisor.hcl", {
-#     cAdvisor = {
-#       Version = "v0.43.0"
-#     }
-#   })
-# }
+resource "nomad_job" "cAdvisorJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/cAdvisor.hcl", {
+    cAdvisor = {
+      Version = "v0.43.0"
+    }
+  })
+}
 
 #
 # Alerts and Notification Systems
