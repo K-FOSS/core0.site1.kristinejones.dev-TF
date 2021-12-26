@@ -20,7 +20,7 @@ stages:
   - prepare
   - validate
   - build
-#  - deploy
+  - deploy
 
 init:
   stage: prepare
@@ -44,14 +44,14 @@ plan:
     reports:
       terraform: ${TF_ROOT}/plan.json
 
-# apply:
-#   stage: deploy
-#   environment:
-#     name: production
-#   script:
-#     - gitlab-terraform apply
-#   dependencies:
-#     - plan
-#   when: manual
-#   only:
-#     - master
+apply:
+  stage: deploy
+  environment:
+    name: production
+  script:
+    - gitlab-terraform apply
+  dependencies:
+   - plan
+  when: manual
+  only:
+    - main
