@@ -1061,3 +1061,20 @@ resource "vault_pki_secret_backend_cert" "GitLabWorkHorseCert" {
 
   alt_names = ["https.workhorse.gitlab.service.dc1.kjdev"]
 }
+
+#######################
+#     Education       #
+#######################
+
+module "MoodleEducation" {
+  source = "./TLS/Template"
+}
+
+resource "vault_pki_secret_backend_cert" "MoodleCoreServer" {
+  backend = module.MoodleEducation.TLS.Mount.path
+  name = module.MoodleEducation.TLS.Role.name
+
+  common_name = "https.core.moodle.service.kjdev"
+
+  alt_names = ["https.core.moodle.service.dc1.kjdev"]
+}

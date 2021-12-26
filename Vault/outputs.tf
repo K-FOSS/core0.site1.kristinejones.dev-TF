@@ -625,6 +625,32 @@ output "GitLab" {
 }
 
 #
+# Education
+#
+
+output "Education" {
+  value = {
+    Moodle = {
+      OpenID = {
+        ClientID = ""
+        ClientSecret = ""
+      }
+
+      TLS = {
+        CA = vault_pki_secret_backend_cert.MoodleCoreServer.ca_chain
+
+        CoreServer = {
+          CA = vault_pki_secret_backend_cert.MoodleCoreServer.ca_chain
+    
+          Cert = vault_pki_secret_backend_cert.MoodleCoreServer.certificate
+          Key = vault_pki_secret_backend_cert.MoodleCoreServer.private_key
+        }
+      }
+    }
+  }
+}
+
+#
 # Misc
 #
 

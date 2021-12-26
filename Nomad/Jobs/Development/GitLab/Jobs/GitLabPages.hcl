@@ -36,6 +36,8 @@ job "development-gitlab-pages" {
       config {
         image = "${Image.Repo}/gitlab-pages:${Image.Tag}"
 
+        memory_hard_limit = 256
+
         mount {
           type = "tmpfs"
           target = "/local/pages"
@@ -56,9 +58,10 @@ job "development-gitlab-pages" {
       }
 
       resources {
-        cpu = 256
-        memory = 512
-        memory_max = 512
+        cpu = 64
+
+        memory = 64
+        memory_max = 256
       }
 
       env {

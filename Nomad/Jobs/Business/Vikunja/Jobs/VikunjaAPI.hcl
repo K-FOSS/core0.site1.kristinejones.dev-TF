@@ -29,8 +29,9 @@ job "business-vikunja-api" {
         image = "vikunja/api"
 
         entrypoint = ["/app/vikunja/vikunja"]
-
         args = ["web"]
+
+        memory_hard_limit = 128
 
         work_dir = "/local"
       }

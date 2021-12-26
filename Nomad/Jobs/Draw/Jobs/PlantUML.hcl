@@ -2,7 +2,7 @@ job "plantuml" {
   datacenters = ["core0site1"]
 
   group "plantuml-server" {
-    count = 1
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"
@@ -32,12 +32,15 @@ job "plantuml" {
 
       config {
         image = "registry.kristianjones.dev/cache/plantuml/plantuml-server:tomcat"
+
+        memory_hard_limit = 256
       }
 
       resources {
-        cpu = 512
-        memory = 812
-        memory_max = 812
+        cpu = 64
+
+        memory = 64
+        memory_max = 256
       }
 
       env {

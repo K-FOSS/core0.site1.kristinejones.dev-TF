@@ -55,9 +55,297 @@ provider "github" {
   #base_url = "http://github-cache-server.service.kjdev:8080/"
 }
 
+#######
+# AAA #
+#######
+
+#########################################
+#             Authentik                 #
+#                                       #
+# Website: https://goauthentik.io/      #
+# Docs: goauthentik.io/docs/            #
+# Purpose: Identity Provider            #
+#########################################
+
+resource "random_string" "AuthentikSecretKey" {
+  length = 10
+  special = false
+}
+
+module "Authentik" {
+  source = "./Jobs/AAA/Authentik"
+
+  Domain = var.AAA.Authentik.Domain
+
+  S3 = var.AAA.Authentik.Backups.S3
+
+  Database = var.Authentik.Database
+
+  Secrets = {
+    SecretKey = random_string.AuthentikSecretKey.result
+  }
+
+  LDAP = var.Authentik.LDAP
+
+  SMTP = var.Authentik.SMTP
+}
+
+#############################################
+#          Hashicorp Boundary               # 
+#                                           #
+# Website: https://www.boundaryproject.io/  #
+#                                           #
+#############################################
+
+#########################################
+#                Teleport               #
+#                                       #
+# Website: https://goteleport.com/      #
+# Docs: https://goteleport.com/docs/    #
+#                                       #
+#########################################
+
+module "Teleport" {
+  source = "./Jobs/AAA/Teleport"
+
+  OpenID = var.AAA.Teleport.OpenID
+
+  S3 = var.AAA.Teleport.S3
+
+  TLS = var.AAA.Teleport.TLS
+}
+
+
+####################################
+#            Pomerium              #
+####################################
+
+module "Pomerium" {
+  source = "./Jobs/AAA/Pomerium"
+
+  OpenID = var.Pomerium.OpenID
+
+  TLS = var.Pomerium.TLS
+
+  Secrets = var.Pomerium.Secrets
+}
+
+##############################
+#         Wiretrustee        #
+#                            #
+#                            #
+##############################
+
+
+##############################
+#          HeadScale         #
+#                            #
+#                            #
+#                            #
+##############################
+
+
+
+
+###################
+#                 #
+#                 #
+#     Backups     #
+#                 #
+#                 #
+###################
+
+###########
+# Backups #
+###########
+
+module "ConsulBackups" {
+  source = "./Jobs/Backups/ConsulBackups"
+
+  Consul = var.Backups.Consul.Consul
+
+  S3 = var.Backups.Consul.S3
+}
+
 #
-# Mesh
+# PSQL Backups
 #
+module "PSQLBackups" {
+  source = "./Jobs/Backups/PSQL"
+
+  S3 = var.Backups.PSQL.S3
+
+  Database = var.Backups.PSQL.Database
+}
+
+
+
+##################################
+#            Business            #
+##################################
+
+###############################################
+#               OpenProject                   #
+#                                             #
+# Website: https://www.openproject.org/       #
+# Docs: https://www.openproject.org/docs/     #
+#                                             #
+################################################
+
+
+module "OpenProject" {
+  source = "./Jobs/Business/OpenProject"
+
+  Database = var.OpenProject.Database
+
+  OpenID = var.OpenProject.OpenID
+
+  S3 = var.OpenProject.S3
+
+  SMTP = var.OpenProject.SMTP
+
+  Admin = {
+    Username = "kjones"
+    Email = "k@kristianjones.dev"
+  }
+}
+
+
+#############################################
+#                Zammad                     #
+#                                           #
+# Website: https://zammad.org/              #
+# Docs: https://zammad.org/documentation    #
+# Helm Chart: TODO                          #
+#                                           #
+#############################################
+
+module "Zammad" {
+  source = "./Jobs/Business/Zammad"
+
+  Database = var.Business.Zammad.Database
+
+  SMTP = var.Business.Zammad.SMTP
+}
+
+
+#
+# NextCloud
+#
+
+module "NextCloud" {
+  source = "./Jobs/NextCloud"
+
+  Database = var.NextCloud.Database
+
+  S3 = var.NextCloud.S3
+
+  Credentials = var.NextCloud.Credentials
+}
+
+#
+# Task System
+#
+
+module "Vikunja" {
+  source = "./Jobs/Business/Vikunja"
+
+  Database = var.Business.Vikunja.Database
+
+  OpenID = var.Business.Vikunja.OpenID
+
+  SMTP = var.Business.Vikunja.SMTP
+}
+
+
+
+#
+# Notes
+#
+
+#
+# Outline
+#
+
+module "Outline" {
+  source = "./Jobs/Business/Outline"
+
+  Database = var.Business.Outline.Database
+
+  OpenID = var.Business.Outline.OpenID
+
+  S3 = var.Business.Outline.S3
+
+  SMTP = var.Business.Outline.SMTP
+}
+
+#
+# ReadFlow
+#
+
+module "ReadFlow" {
+  source = "./Jobs/Business/ReadFlow"
+
+  Database = var.Business.ReadFlow.Database
+}
+
+#####################
+#        Caches     #
+#####################
+
+module "Cache" {
+  source = "./Jobs/Cache"
+
+  Pomerium = var.Cache.Pomerium
+
+  eJabberD = {
+    Redis = module.eJabberD.Redis
+  }
+
+  AAA = {
+    Teleport = {
+      CA = var.AAA.Teleport.TLS.CA
+
+      ETCD = var.AAA.Teleport.TLS.ETCD
+    }
+  }
+}
+
+
+#################################
+#          Communications       #
+#################################
+##
+
+#
+# MatterBridge
+#
+
+module "MatterBridge" {
+  source = "./Jobs/Communications/MatterBridge"
+}
+
+#
+# Mattermost
+#
+
+module "Mattermost" {
+  source = "./Jobs/Communications/Mattermost"
+
+  Database = var.Communications.Mattermost.Database
+
+  S3 = var.Communications.Mattermost.S3
+
+  GitLab = var.Communications.Mattermost.GitLab
+
+  SMTP = var.OpenProject.SMTP
+}
+
+
+
+########
+# Mesh #
+########
 
 #
 # Consul Core Server
@@ -96,23 +384,9 @@ module "Meshery" {
 # }
 
 #
-# Pomerium
-#
-
-module "Pomerium" {
-  source = "./Jobs/AAA/Pomerium"
-
-  OpenID = var.Pomerium.OpenID
-
-  TLS = var.Pomerium.TLS
-
-  Secrets = var.Pomerium.Secrets
-}
-
-
-#
 # Bitwarden
 #
+
 module "Bitwarden" {
   source = "./Jobs/Bitwarden"
 
@@ -122,6 +396,10 @@ module "Bitwarden" {
 
   SMTP = var.Bitwarden.SMTP
 }
+
+##############
+# Dashboards #
+##############
 
 #
 # Grafana
@@ -134,59 +412,6 @@ module "Grafana" {
 
   TLS = var.Grafana.TLS
 }
-
-#
-# AAA
-#
-
-#
-# Authentik
-#
-
-resource "random_string" "AuthentikSecretKey" {
-  length = 10
-  special = false
-}
-
-module "Authentik" {
-  source = "./Jobs/AAA/Authentik"
-
-  Domain = var.AAA.Authentik.Domain
-
-  S3 = var.AAA.Authentik.Backups.S3
-
-  Database = var.Authentik.Database
-
-  Secrets = {
-    SecretKey = random_string.AuthentikSecretKey.result
-  }
-
-  LDAP = var.Authentik.LDAP
-
-  SMTP = var.Authentik.SMTP
-}
-
-#
-# Boundary
-#
-
-#
-# Teleport
-#
-
-module "Teleport" {
-  source = "./Jobs/AAA/Teleport"
-
-  OpenID = var.AAA.Teleport.OpenID
-
-  S3 = var.AAA.Teleport.S3
-
-  TLS = var.AAA.Teleport.TLS
-}
-
-#
-# Wiretrustee
-#
 
 
 
@@ -383,6 +608,12 @@ module "MeshCentral" {
   Database = var.Inventory.MeshCentral.Database
 }
 
+########################################
+#               Network                #
+########################################
+
+
+
 #
 # DHCP
 #
@@ -411,11 +642,6 @@ module "DNS" {
 
   Consul = var.DNS.Consul
 }
-
-#
-# ENMS
-#
-
 
 #
 # LookingGLass
@@ -452,6 +678,7 @@ module "ENMS" {
 #
 # Office
 #
+
 module "Office" {
   source = "./Jobs/Office"
 }
@@ -470,33 +697,11 @@ module "NATPunch" {
   }
 }
 
-#
-# MatterBridge
-#
 
-module "MatterBridge" {
-  source = "./Jobs/Communications/MatterBridge"
-}
 
-#
-# Mattermost
-#
-
-module "Mattermost" {
-  source = "./Jobs/Communications/Mattermost"
-
-  Database = var.Communications.Mattermost.Database
-
-  S3 = var.Communications.Mattermost.S3
-
-  GitLab = var.Communications.Mattermost.GitLab
-
-  SMTP = var.OpenProject.SMTP
-}
-
-#
-# Servers
-#
+#################################
+#           Servers             #
+#################################
 
 #
 # Hash-UI
@@ -512,6 +717,7 @@ module "HashUI" {
 #
 # Rancher
 #
+
 module "Rancher" {
   source = "./Jobs/Servers/Rancher"
 
@@ -537,6 +743,7 @@ module "Tinkerbell" {
 #
 # Machine Static
 #
+
 module "MachineStatic" {
   source = "./Jobs/MachineStatic"
 }
@@ -549,39 +756,9 @@ module "TrueCommand" {
   source = "./Jobs/TrueCommand"
 }
 
-#
-# NextCloud
-#
 
-module "NextCloud" {
-  source = "./Jobs/NextCloud"
 
-  Database = var.NextCloud.Database
 
-  S3 = var.NextCloud.S3
-
-  Credentials = var.NextCloud.Credentials
-}
-
-#
-# OpenProject
-#
-module "OpenProject" {
-  source = "./Jobs/Business/OpenProject"
-
-  Database = var.OpenProject.Database
-
-  OpenID = var.OpenProject.OpenID
-
-  S3 = var.OpenProject.S3
-
-  SMTP = var.OpenProject.SMTP
-
-  Admin = {
-    Username = "kjones"
-    Email = "k@kristianjones.dev"
-  }
-}
 
 
 #
@@ -601,9 +778,10 @@ module "eJabberD" {
   TLS = var.eJabberD.TLS
 }
 
-#
-# HomeAssistant
-#
+######################
+#    HomeAssistant   #
+######################
+
 module "HomeAssistant" {
   source = "./Jobs/HomeAssistant"
 
@@ -618,53 +796,9 @@ module "HomeAssistant" {
   Secrets = var.HomeAssistant.Secrets
 }
 
-###########
-# Backups #
-###########
 
-#
-# Consul Backups
-#
-module "ConsulBackups" {
-  source = "./Jobs/Backups/ConsulBackups"
 
-  Consul = var.Backups.Consul.Consul
 
-  S3 = var.Backups.Consul.S3
-}
-
-#
-# PSQL Backups
-#
-module "PSQLBackups" {
-  source = "./Jobs/Backups/PSQL"
-
-  S3 = var.Backups.PSQL.S3
-
-  Database = var.Backups.PSQL.Database
-}
-
-#
-# Caches 
-#
-
-module "Cache" {
-  source = "./Jobs/Cache"
-
-  Pomerium = var.Cache.Pomerium
-
-  eJabberD = {
-    Redis = module.eJabberD.Redis
-  }
-
-  AAA = {
-    Teleport = {
-      CA = var.AAA.Teleport.TLS.CA
-
-      ETCD = var.AAA.Teleport.TLS.ETCD
-    }
-  }
-}
 
 #
 # Draw
@@ -673,9 +807,9 @@ module "Draw" {
   source = "./Jobs/Draw"
 }
 
-#
-# Development
-#
+#########################
+#      Development      #
+#########################
 
 #
 # Gitea
@@ -703,18 +837,42 @@ module "GitLab" {
   SMTP = var.GitLab.SMTP
 }
 
-#
-# Ingress
-#
+####################################
+#           Documentation/Docs     #
+####################################
+
+
+####################################
+#           Education              #
+####################################
+
+###################################
+#           Moodle                #
+#                                 #
+# Website: https://moodle.org/    #
+#                                 #
+###################################
+
+module "Moodle" {
+  source = "./Jobs/Education/Moodle"
+}
+
+
+
+
+#######################
+#        Ingress      #
+#######################
+
 module "Ingress" {
   source = "./Jobs/Ingress"
 
   GoBetween = var.Ingress.GoBetween
 }
 
-#
-# Registry
-#
+############################
+#        Registry          #
+############################
 
 module "Registry" {
   source = "./Jobs/Registry"
@@ -722,9 +880,10 @@ module "Registry" {
   Harbor = var.Registry.Harbor
 }
 
-#
-# Search
-#
+#########################
+#         Search        #
+#########################
+
 module "Search" {
   source = "./Jobs/Search"
 
@@ -779,61 +938,6 @@ module "Misc" {
   Ivatar = var.Misc.Ivatar
 }
 
-#
-# Business
-# 
-
-#
-# Task System
-#
-
-module "Vikunja" {
-  source = "./Jobs/Business/Vikunja"
-
-  Database = var.Business.Vikunja.Database
-
-  OpenID = var.Business.Vikunja.OpenID
-
-  SMTP = var.Business.Vikunja.SMTP
-}
-
-#
-# Notes
-#
-
-#
-# Outline
-#
-
-module "Outline" {
-  source = "./Jobs/Business/Outline"
-
-  Database = var.Business.Outline.Database
-
-  OpenID = var.Business.Outline.OpenID
-
-  S3 = var.Business.Outline.S3
-
-  SMTP = var.Business.Outline.SMTP
-}
-
-#
-# ReadFlow
-#
-
-module "ReadFlow" {
-  source = "./Jobs/Business/ReadFlow"
-
-  Database = var.Business.ReadFlow.Database
-}
-
-module "Zammad" {
-  source = "./Jobs/Business/Zammad"
-
-  Database = var.Business.Zammad.Database
-
-  SMTP = var.Business.Zammad.SMTP
-}
 
 #
 # N8N

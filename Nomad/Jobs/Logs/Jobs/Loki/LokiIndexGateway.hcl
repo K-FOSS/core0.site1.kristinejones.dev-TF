@@ -91,7 +91,7 @@ job "loki-index-gateway" {
 
         args = ["-config.file=/local/Loki.yaml"]
 
-        memory_hard_limit = 128
+        memory_hard_limit = 1024
       }
 
       meta {
@@ -102,8 +102,9 @@ job "loki-index-gateway" {
 
       resources {
         cpu = 64
-        memory = 128
-        memory_max = 128
+
+        memory = 64
+        memory_max = 1024
       }
 
       template {

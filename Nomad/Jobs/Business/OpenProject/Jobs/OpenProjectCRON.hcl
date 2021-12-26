@@ -46,6 +46,8 @@ job "openproject-cron" {
 
         command = "./docker/prod/cron"
 
+        memory_hard_limit = 1024
+
         logging {
           type = "loki"
           config {

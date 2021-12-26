@@ -1,12 +1,11 @@
 job "business-zammad-scheduler" {
   datacenters = ["core0site1"]
 
-  group "zammad-railsserver" {
+  group "zammad-scheduler" {
     count = 1
 
     network {
       mode = "cni/nomadcore1"
-
     }
 
     task "vikunja-scheduler-server" {
@@ -27,15 +26,13 @@ job "business-zammad-scheduler" {
         #
         # Redis
         #
-        REDIS_PASSWORD = ""
-        REDIS_URL = ""
+        #REDIS_PASSWORD = ""
+        REDIS_URL = "redis://redis.zammad.service.kjdev/0"
 
         #
         # Memcached
         #
-        MEMCACHE_SERVERS = ""
-
-        MEMCACHED_HOST = ""
+        MEMCACHE_SERVERS = "memcached.zammad.service.kjdev"
 
         #
         # Database
@@ -48,11 +45,13 @@ job "business-zammad-scheduler" {
         POSTGRESQL_USER = "${Database.Username}"
         POSTGRESQL_PASS = "${Database.Password}"
 
+        POSTGRESQL_DB_CREATE = "true"
+
 
         #
         # Rails
         #
-        ZAMMAD_RAILSSERVER_HOST = "http.railserver.zammad.service.kjdev"
+        ZAMMAD_RAILSSERVER_HOST = "http.railsserver.zammad.service.kjdev"
         ZAMMAD_RAILSSERVER_PORT = "8080"
 
         #

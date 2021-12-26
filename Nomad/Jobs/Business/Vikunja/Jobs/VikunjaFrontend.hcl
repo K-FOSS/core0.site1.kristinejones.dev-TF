@@ -27,10 +27,13 @@ job "business-vikunja-frontend" {
 
       config {
         image = "vikunja/frontend"
+
+        memory_hard_limit = 128
       }
 
       resources {
-        cpu = 128
+        cpu = 32
+
         memory = 64
         memory_max = 128
       }

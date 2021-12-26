@@ -75,6 +75,8 @@ job "aaa-teleport-proxys" {
 
         args = ["start", "--diag-addr=0.0.0.0:3000", "--config", "/local/Teleport.yaml", "--roles=proxy", "-d"]
 
+        memory_hard_limit = 128
+
         mount {
           type = "bind"
           target = "/etc/ssl/certs/Teleport.pem"
@@ -97,9 +99,10 @@ job "aaa-teleport-proxys" {
       }
 
       resources {
-        cpu = 256
+        cpu = 64
 
-        memory = 256
+        memory = 64
+        memory_max = 128
       }
 
       template {

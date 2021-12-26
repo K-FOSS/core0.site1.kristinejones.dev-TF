@@ -6,7 +6,7 @@ job "development-gitlab-kas" {
   # GitLab Kubernetes Agent Server
   #
   group "gitlab-kas" {
-    count = 1
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
@@ -81,7 +81,7 @@ job "development-gitlab-kas" {
 
         args = ["--configuration-file=/local/Config.yaml"]
 
-        memory_hard_limit = 64
+        memory_hard_limit = 256
 
         logging {
           type = "loki"
@@ -94,9 +94,10 @@ job "development-gitlab-kas" {
       }
 
       resources {
-        cpu = 32
-        memory = 32
-        memory_max = 64
+        cpu = 64
+
+        memory = 64
+        memory_max = 256
       }
 
       env {

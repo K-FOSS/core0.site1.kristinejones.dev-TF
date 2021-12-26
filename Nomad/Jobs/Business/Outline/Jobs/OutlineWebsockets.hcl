@@ -27,15 +27,12 @@ job "business-outline-api" {
 
       config {
         image = "outlinewiki/outline:${Outline.Version}"
-
-        memory_hard_limit = 512
       }
 
       resources {
-        cpu = 64
-
-        memory = 64
-        memory_max = 512
+        cpu = 256
+        memory = 1024
+        memory_max = 1024
       }
 
       env {

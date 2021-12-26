@@ -22,6 +22,8 @@ job "backups-consul-backinator" {
       config {
         image = "myena/consul-backinator"
 
+        memory_hard_limit = 128
+
         entrypoint = ["/bin/sh"]
         tty = true
         command = "/local/entry.sh"

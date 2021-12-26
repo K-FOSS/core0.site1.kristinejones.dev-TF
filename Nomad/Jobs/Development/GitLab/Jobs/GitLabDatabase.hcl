@@ -47,6 +47,8 @@ job "gitlab-database" {
 
         command = "/scripts/db-migrate"
 
+        memory_hard_limit = 2048
+
         logging {
           type = "loki"
           config {
@@ -58,8 +60,9 @@ job "gitlab-database" {
       }
 
       resources {
-        cpu = 1024
-        memory = 2048
+        cpu = 128
+
+        memory = 512
         memory_max = 2048
       }
 

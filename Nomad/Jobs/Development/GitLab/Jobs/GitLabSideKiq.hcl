@@ -5,7 +5,7 @@ job "development-gitlab-sidekiq" {
   # GitLab Sidekiq
   #
   group "gitlab-sidekiq" {
-    count = 4
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
@@ -59,7 +59,7 @@ job "development-gitlab-sidekiq" {
       config {
         image = "${Image.Repo}/gitlab-sidekiq-ce:${Image.Tag}"
 
-        memory_hard_limit = 1024
+        memory_hard_limit = 512
 
         mount {
           type = "bind"
@@ -79,9 +79,10 @@ job "development-gitlab-sidekiq" {
       }
 
       resources {
-        cpu = 256
-        memory = 256
-        memory_max = 1024
+        cpu = 64
+
+        memory = 128
+        memory_max = 512
       }
 
       env {

@@ -31,8 +31,9 @@ job "communications-mattermost-leader" {
         image = "mattermost/mattermost-team-edition:${Mattermost.Version}"
 
         entrypoint = ["/mattermost/bin/mattermost"]
-
         args = ["server", "-c", "/local/config.json"]
+
+        memory_hard_limit = 512
 
         logging {
           type = "loki"
@@ -51,8 +52,9 @@ job "communications-mattermost-leader" {
       }
 
       resources {
-        cpu = 256
-        memory = 512
+        cpu = 64
+
+        memory = 64
         memory_max = 512
       }
 

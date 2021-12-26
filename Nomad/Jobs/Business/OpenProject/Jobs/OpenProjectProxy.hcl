@@ -56,6 +56,8 @@ job "openproject-proxy" {
 
         command = "./docker/prod/proxy"
 
+        memory_hard_limit = 128
+
         logging {
           type = "loki"
           config {

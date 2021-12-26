@@ -30,7 +30,7 @@ job "misc-cyberchef" {
       }
 
       resources {
-        cpu = 64
+        cpu = 32
         memory = 32
         memory_max = 32
       }

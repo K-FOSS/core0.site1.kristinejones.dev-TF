@@ -101,7 +101,7 @@ job "development-gitlab-webservice" {
         entrypoint = ["/local/Entry.sh"]
         args = []
 
-        memory_hard_limit = 4096
+        memory_hard_limit = 2048
 
         mount {
           type = "bind"
@@ -128,9 +128,10 @@ job "development-gitlab-webservice" {
       }
 
       resources {
-        cpu = 1024
-        memory = 512
-        memory_max = 4096
+        cpu = 256
+
+        memory = 256
+        memory_max = 2048
       }
 
       env {

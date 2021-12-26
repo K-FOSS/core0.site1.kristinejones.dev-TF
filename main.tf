@@ -484,6 +484,29 @@ module "HarborChartsBucket" {
   Credentials = module.Vault.Minio
 }
 
+######################
+# Documentation/Docs #
+######################
+
+#############
+# Education #
+#############
+
+#
+# Moodle
+#
+
+module "MoodleRepositoryBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "node2.core0.site1.kristianjones.dev"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
 ##########
 # Search #
 ##########
@@ -573,6 +596,85 @@ module "TeleportDatabase" {
 
   Credentials = module.Vault.Database
 }
+
+############
+# Business #
+############
+
+#
+# NextCloud
+#
+module "NextCloudDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+
+module "NextCloudNewDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# OpenProject
+#
+module "OpenProjectDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# Task System
+#
+
+module "VikunjaDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# Notes
+#
+
+module "OutlineDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# Feeds/ReadFlow
+#
+
+module "ReadFlowDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+
+#
+# Ticket System
+#
+
+#
+# Zammad
+#
+
+module "ZammadDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+
+##################
+# Communications #
+##################
 
 #
 # CoTurn
@@ -664,35 +766,6 @@ module "ENMSDatabase" {
 }
 
 
-############
-# Business #
-############
-
-#
-# NextCloud
-#
-module "NextCloudDatabase" {
-  source = "./Database"
-
-  Credentials = module.Vault.Database
-}
-
-
-module "NextCloudNewDatabase" {
-  source = "./Database"
-
-  Credentials = module.Vault.Database
-}
-
-#
-# OpenProject
-#
-module "OpenProjectDatabase" {
-  source = "./Database"
-
-  Credentials = module.Vault.Database
-}
-
 #
 # Tinkerbell
 #
@@ -734,6 +807,11 @@ module "eJabberDDatabase" {
   Credentials = module.Vault.Database
 }
 
+# 
+# Smart Home
+#
+
+
 #
 # HomeAssistant
 #
@@ -743,6 +821,60 @@ module "HomeAssistantDatabase" {
   Credentials = module.Vault.Database
 }
 
+###############
+# Development #
+###############
+
+#
+# Gitea
+#
+
+module "GiteaDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# GitLab
+#
+
+module "GitLabDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+module "GitLabNewDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+module "GitLabPraefectDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+######################
+# Documentation/Docs #
+######################
+
+
+######################
+#      Education     #
+######################
+
+#
+# Moodle
+#
+
+module "MoodleDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
 
 
 #
@@ -786,42 +918,6 @@ module "IvatarDatabase" {
 #
 
 module "GrafanaLokiConfigDatabase" {
-  source = "./Database"
-
-  Credentials = module.Vault.Database
-}
-
-###############
-# Development #
-###############
-
-#
-# Gitea
-#
-
-module "GiteaDatabase" {
-  source = "./Database"
-
-  Credentials = module.Vault.Database
-}
-
-#
-# GitLab
-#
-
-module "GitLabDatabase" {
-  source = "./Database"
-
-  Credentials = module.Vault.Database
-}
-
-module "GitLabNewDatabase" {
-  source = "./Database"
-
-  Credentials = module.Vault.Database
-}
-
-module "GitLabPraefectDatabase" {
   source = "./Database"
 
   Credentials = module.Vault.Database
@@ -888,57 +984,6 @@ module "ThreatMapperDatabase" {
 #
 # Zeek
 #
-
-############
-# Business #
-############
-
-#
-# Task System
-#
-
-module "VikunjaDatabase" {
-  source = "./Database"
-
-  Credentials = module.Vault.Database
-}
-
-#
-# Notes
-#
-
-module "OutlineDatabase" {
-  source = "./Database"
-
-  Credentials = module.Vault.Database
-}
-
-#
-# Feeds/ReadFlow
-#
-
-module "ReadFlowDatabase" {
-  source = "./Database"
-
-  Credentials = module.Vault.Database
-}
-
-
-#
-# Ticket System
-#
-
-#
-# Zammad
-#
-
-module "ZammadDatabase" {
-  source = "./Database"
-
-  Credentials = module.Vault.Database
-}
-
-
 
  
 #
@@ -1557,6 +1602,25 @@ module "Nomad" {
     OpenID = module.Vault.GitLab.OpenID
 
     SMTP = module.Vault.SMTP
+  }
+
+  #############
+  # Education #
+  #############
+
+  Education = {
+    Moodle = {
+      Database = module.MoodleDatabase.Database
+
+      OpenID = {
+        ClientID = ""
+        ClientSecret = ""
+      }
+
+      S3 = {
+        Repository = module.MoodleRepositoryBucket
+      }
+    }
   }
 
   #

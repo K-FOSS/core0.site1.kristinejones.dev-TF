@@ -92,7 +92,8 @@ job "gitlab-praefect" {
       }
 
       resources {
-        cpu = 256
+        cpu = 64
+
         memory = 64
         memory_max = 512
       }

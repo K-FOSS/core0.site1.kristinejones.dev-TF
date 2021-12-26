@@ -142,7 +142,7 @@ EOH
 
         args = ["./docker/prod/worker"]
 
-        memory_hard_limit = 512
+        memory_hard_limit = 256
 
         logging {
           type = "loki"
@@ -205,9 +205,10 @@ EOH
       }
 
       resources {
-        cpu = 256
-        memory = 128
-        memory_max = 512
+        cpu = 64
+
+        memory = 64
+        memory_max = 256
       }
 
 

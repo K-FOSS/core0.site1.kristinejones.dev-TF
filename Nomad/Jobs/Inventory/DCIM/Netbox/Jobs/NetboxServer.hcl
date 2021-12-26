@@ -97,8 +97,9 @@ job "netbox" {
         image = "netboxcommunity/netbox:${Version}"
 
         command = "/opt/netbox/venv/bin/python"
-
         args = ["/opt/netbox/netbox/manage.py", "rqworker"]
+
+        memory_hard_limit = 256
       }
 
       env {
@@ -167,10 +168,10 @@ EOH
       }
 
       resources {
-        cpu = 256
+        cpu = 128
 
-        memory = 512
-        memory_max = 512
+        memory = 64
+        memory_max = 256
       }
     }
   
@@ -194,7 +195,8 @@ EOH
       dns {
         servers = [
           "10.1.1.53",
-          "172.16.0.1"
+          "10.1.1.10",
+          "10.1.1.13"
         ]
       }
     }
@@ -216,6 +218,8 @@ EOH
 
       config {
         image = "netboxcommunity/netbox:${Version}"
+
+        memory_hard_limit = 256
       }
     
       env {
@@ -287,9 +291,10 @@ EOH
       }
 
       resources {
-        cpu = 200
-        memory = 812
-        memory_max = 812
+        cpu = 64
+
+        memory = 32
+        memory_max = 256
       }
     }
   }

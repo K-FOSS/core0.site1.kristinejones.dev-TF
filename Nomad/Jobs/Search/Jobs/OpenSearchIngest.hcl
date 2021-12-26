@@ -84,9 +84,9 @@ job "search-opensearch-ingest" {
       }
 
       resources {
-        cpu = 256
+        cpu = 64
 
-        memory = 512
+        memory = 128
         memory_max = 1024
       }
 

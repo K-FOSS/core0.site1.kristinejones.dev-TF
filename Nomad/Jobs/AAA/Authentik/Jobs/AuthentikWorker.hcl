@@ -2,7 +2,7 @@ job "authentik-worker" {
   datacenters = ["core0site1"]
 
   group "auth-workers" {
-    count = 2
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
@@ -60,7 +60,7 @@ job "authentik-worker" {
 
         args = ["worker"]
 
-        memory_hard_limit = 1024
+        memory_hard_limit = 512
 
         logging {
           type = "loki"
@@ -119,10 +119,10 @@ EOH
       }
 
       resources {
-        cpu = 256
+        cpu = 128
 
-        memory = 256
-        memory_max = 1024
+        memory = 128
+        memory_max = 512
       }
     }
   }

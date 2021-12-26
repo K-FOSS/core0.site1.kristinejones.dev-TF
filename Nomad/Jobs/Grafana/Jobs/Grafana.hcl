@@ -125,6 +125,8 @@ job "grafana" {
         image = "grafana/grafana-oss:${Version}"
 
         args = ["-config=/local/grafana.ini"]
+
+        memory_hard_limit = 256
       }
 
       env {
@@ -182,7 +184,7 @@ EOF
       resources {
         cpu = 256
 
-        memory = 256
+        memory = 32
         memory_max = 256
       }
     }

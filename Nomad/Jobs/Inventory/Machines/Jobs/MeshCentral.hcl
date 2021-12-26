@@ -19,7 +19,8 @@ job "inventory-meshcentral-ldap" {
       dns {
         servers = [
           "10.1.1.53",
-          "172.16.0.1"
+          "10.1.1.10",
+          "10.1.1.13"
         ]
       }
     }
@@ -39,6 +40,8 @@ job "inventory-meshcentral-ldap" {
 
       config {
         image = "goauthentik.io/ldap:${Version}"
+
+        memory_hard_limit = 256
       }
 
       env {
@@ -79,9 +82,10 @@ EOH
       }
 
       resources {
-        cpu = 200
+        cpu = 32
 
-        memory = 800
+        memory = 64
+        memory_max = 256
       }
     }
   }

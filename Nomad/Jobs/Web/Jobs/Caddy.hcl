@@ -35,10 +35,8 @@ job "ingress" {
       dns {
         servers = [
           "10.1.1.53",
-          "172.16.100.25",
-          "172.17.0.10",
-          "172.18.0.10",
-          "172.16.0.1"
+          "10.1.1.10",
+          "10.1.1.13"
         ]
       }
     }
@@ -97,7 +95,7 @@ job "ingress" {
       
         args = ["caddy", "run", "--config", "/local/caddyfile.json"]
 
-        memory_hard_limit = 256
+        memory_hard_limit = 512
 
         logging {
           type = "loki"
@@ -116,10 +114,10 @@ job "ingress" {
       }
 
       resources {
-        cpu = 256
+        cpu = 128
 
-        memory = 32
-        memory_max = 256
+        memory = 64
+        memory_max = 512
       }
 
       template {

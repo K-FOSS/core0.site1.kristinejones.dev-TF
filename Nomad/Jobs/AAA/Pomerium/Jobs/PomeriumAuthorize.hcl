@@ -62,6 +62,8 @@ job "pomerium-authorize" {
 
         args = ["-config=/local/Pomerium.yaml"]
 
+        memory_hard_limit = 256
+
         labels {
           job = "pomerium"
           service = "authorize"
@@ -208,8 +210,10 @@ EOF
       }
 
       resources {
-        cpu = 800
-        memory = 256
+        cpu = 64
+
+        memory = 64
+        memory_max = 256
       }
     }
   }

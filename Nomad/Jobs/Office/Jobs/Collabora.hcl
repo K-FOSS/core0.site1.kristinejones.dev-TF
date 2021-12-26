@@ -32,12 +32,15 @@ job "collabora" {
 
       config {
         image = "collabora/code:latest"
+
+        memory_hard_limit = 256
       }
 
       resources {
-        cpu = 1024
-        memory = 1024
-        memory_max = 1024
+        cpu = 64
+
+        memory = 32
+        memory_max = 256
       }
 
       env {

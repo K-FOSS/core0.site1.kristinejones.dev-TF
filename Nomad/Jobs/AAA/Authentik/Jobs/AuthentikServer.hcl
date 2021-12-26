@@ -123,9 +123,9 @@ job "authentik-server" {
       }
 
       resources {
-        cpu = 256
+        cpu = 128
 
-        memory = 512
+        memory = 256
         memory_max = 1024
       }
 

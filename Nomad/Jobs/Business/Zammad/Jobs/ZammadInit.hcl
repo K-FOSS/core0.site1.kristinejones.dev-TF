@@ -7,7 +7,7 @@ job "business-zammad-init" {
     network {
       mode = "cni/nomadcore1"
 
-      port "https" {
+      port "http" {
         to = 8080
       }
     }
@@ -16,10 +16,10 @@ job "business-zammad-init" {
       name = "zammad"
       port = "https"
 
-      task = "vikunja-api-server"
+      task = "zammad-init"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "https.api"]
+      tags = ["coredns.enabled", "http.api"]
     }
 
     task "vikunja-api-server" {
@@ -44,15 +44,15 @@ job "business-zammad-init" {
         #
         # Redis
         #
-        REDIS_PASSWORD = ""
-        REDIS_URL = ""
+        #REDIS_PASSWORD = ""
+        REDIS_URL = "redis://redis.zammad.service.kjdev/0"
 
         #
         # Memcached
         #
-        MEMCACHE_SERVERS = ""
+        MEMCACHE_SERVERS = "memcached.zammad.service.kjdev"
 
-        MEMCACHED_HOST = ""
+        #MEMCACHED_HOST = ""
 
         #
         # Database
@@ -69,7 +69,7 @@ job "business-zammad-init" {
         #
         # Rails
         #
-        ZAMMAD_RAILSSERVER_HOST = "http.railserver.zammad.service.kjdev"
+        ZAMMAD_RAILSSERVER_HOST = "http.railsserver.zammad.service.kjdev"
         ZAMMAD_RAILSSERVER_PORT = "8080"
 
         #

@@ -91,7 +91,7 @@ job "loki-distributor" {
 
         args = ["-config.file=/local/Loki.yaml"]
 
-        memory_hard_limit = 128
+        memory_hard_limit = 256
       }
 
       meta {
@@ -102,8 +102,9 @@ job "loki-distributor" {
 
       resources {
         cpu = 64
-        memory = 128
-        memory_max = 128
+
+        memory = 64
+        memory_max = 256
       }
 
       template {

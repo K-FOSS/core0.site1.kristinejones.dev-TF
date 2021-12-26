@@ -108,7 +108,7 @@ job "cortex-ingester" {
           target = "/tsdb"
           readonly = false
           tmpfs_options = {
-            size = 124000000
+            size = 10240000000
           }
         }
 
@@ -129,8 +129,9 @@ job "cortex-ingester" {
       }
 
       resources {
-        cpu = 256
-        memory = 256
+        cpu = 128
+
+        memory = 128
         memory_max = 1024
       }
 

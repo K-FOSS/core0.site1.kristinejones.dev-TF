@@ -77,6 +77,7 @@ job "development-gitlab-shell" {
 
       resources {
         cpu = 32
+
         memory = 32
         memory_max = 64
       }

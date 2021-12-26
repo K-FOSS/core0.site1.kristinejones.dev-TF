@@ -69,7 +69,7 @@ job "registry-harbor-registry" {
       }
 
       resources {
-        cpu = 512
+        cpu = 64
 
         memory = 64
         memory_max = 512

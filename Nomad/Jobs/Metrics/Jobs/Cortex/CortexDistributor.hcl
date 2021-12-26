@@ -101,7 +101,7 @@ job "cortex-distributor" {
 
         args = ["-config.file=/local/Cortex.yaml"]
 
-        memory_hard_limit = 512
+        memory_hard_limit = 1024
 
         logging {
           type = "loki"
@@ -133,9 +133,10 @@ job "cortex-distributor" {
       }
 
       resources {
-        cpu = 512
-        memory = 64
-        memory_max = 512
+        cpu = 128
+
+        memory = 128
+        memory_max = 1024
       }
 
       template {

@@ -124,9 +124,9 @@ job "cortex-storegateway" {
       }
 
       resources {
-        cpu = 256
+        cpu = 64
 
-        memory = 256
+        memory = 128
         memory_max = 1024
       }
 

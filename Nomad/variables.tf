@@ -7,9 +7,9 @@ variable "GitHub" {
   })
 }
 
-#
-# AAA
-#
+##################
+#      AAA       #
+##################
 
 variable "AAA" {
   type = object({
@@ -101,9 +101,44 @@ variable "AAA" {
   })
 }
 
-#
-# Backups
-#
+#####################
+#     Bitwarden     #
+#####################
+
+variable "Bitwarden" {
+  type = object({
+    Database = object({
+      Hostname = string
+      Port = number
+
+      Database = string
+
+      Username = string
+      Password = string
+    })
+
+    TLS = object({
+      CA = string
+
+      Server = object({
+        Cert = string
+        Key = string
+      })
+    })
+
+    SMTP = object({
+      Server = string
+      Port = string
+
+      Username = string
+      Password = string
+    })
+  })
+}
+
+###################
+#     Backups     #
+###################
 
 variable "Backups" {
   type = object({
@@ -162,44 +197,9 @@ variable "Backups" {
   })
 }
 
-#
-# Bitwarden
-# 
-
-variable "Bitwarden" {
-  type = object({
-    Database = object({
-      Hostname = string
-      Port = number
-
-      Database = string
-
-      Username = string
-      Password = string
-    })
-
-    TLS = object({
-      CA = string
-
-      Server = object({
-        Cert = string
-        Key = string
-      })
-    })
-
-    SMTP = object({
-      Server = string
-      Port = string
-
-      Username = string
-      Password = string
-    })
-  })
-}
-
-#
-# Caddy Web Ingress
-#
+#####################
+# Caddy Web Ingress #
+#####################
 
 variable "Web" {
   type = object({
@@ -1407,6 +1407,61 @@ variable "GitLab" {
 
       Username = string
       Password = string
+    })
+  })
+}
+
+###########################
+#        Education        #
+###########################
+
+variable "Education" {
+  type = object({
+    Moodle = object({
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
+      })
+
+      OpenID = object({
+        ClientID = string
+        ClientSecret = string
+      })
+
+      S3 = object({
+        Repository = object({
+          Connection = object({
+            Hostname = string
+            Port = number
+
+            Endpoint = string
+          })
+
+          Credentials = object({
+            AccessKey = string
+            SecretKey = string
+          })
+
+
+          Bucket = string
+        })
+      })
+
+      TLS = object({
+        CA = string
+
+        CoreServer = object({
+          CA = string
+
+          Cert = string
+          Key = string
+        })
+      })
     })
   })
 }

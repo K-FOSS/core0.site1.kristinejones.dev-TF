@@ -119,7 +119,8 @@ job "development-gitlab-workhorse" {
       }
 
       resources {
-        cpu = 256
+        cpu = 128
+
         memory = 64
         memory_max = 512
       }

@@ -97,6 +97,8 @@ job "logs" {
 
       config {
         image = "timberio/vector:${Vector.Version}-alpine"
+
+        memory_hard_limit = 512
       }
 
       env {
@@ -104,8 +106,10 @@ job "logs" {
       }
 
       resources {
-        cpu = 100
-        memory = 256
+        cpu = 64
+
+        memory = 128
+        memory_max = 512
       }
 
       template {

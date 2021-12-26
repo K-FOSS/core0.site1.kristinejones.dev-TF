@@ -331,6 +331,55 @@
               "match": [
                 {
                   "host": [
+                    "edu.ksit.services",
+                    "*.edu.ksit.services"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "subroute",
+                  "routes": [
+                    {
+                      "match": [
+                        {
+                          "host": ["edu.ksit.services"]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "compression": true,
+                            "resolver": {
+                              "addresses": [
+                                "172.18.0.10:53"
+                              ]
+                            },
+                            "tls": {
+                              "server_name": "https.core.moodle.service.kjdev",
+                              "root_ca_pem_files": [
+                                "/local/PomeriumCA.pem"
+                              ]
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "https.core.moodle.service.kjdev"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "match": [
+                {
+                  "host": [
                     "resolvemy.host",
                     "syncmy.date"
                   ]
@@ -1463,6 +1512,8 @@
               "outoftheworld.space",
               "trackmy.finance",
               "ksit.services",
+              "edu.ksit.services",
+              "*.edu.ksit.services",
               "syncmy.date",
               "resolvemy.host",
               "accessmyporn.download",

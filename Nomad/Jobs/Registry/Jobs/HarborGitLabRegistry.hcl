@@ -56,6 +56,8 @@ job "registry-harbor-gitlab-registry" {
 
         entrypoint = ["/local/entry.sh"]
 
+        memory_hard_limit = 256
+
         logging {
           type = "loki"
           config {
@@ -67,8 +69,9 @@ job "registry-harbor-gitlab-registry" {
       }
 
       resources {
-        cpu = 256
-        memory = 256
+        cpu = 64
+
+        memory = 64
         memory_max = 256
       }
 

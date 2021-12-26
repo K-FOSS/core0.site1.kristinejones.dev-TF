@@ -16,13 +16,13 @@ job "business-zammad-websocket" {
       name = "zammad"
       port = "http"
 
-      task = "vikunja-websocket-server"
+      task = "zammad-websocket-server"
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "http.websocket"]
     }
 
-    task "vikunja-websocket-server" {
+    task "zammad-websocket-server" {
       driver = "docker"
 
       config {
@@ -40,15 +40,15 @@ job "business-zammad-websocket" {
         #
         # Redis
         #
-        REDIS_PASSWORD = ""
-        REDIS_URL = ""
+        #REDIS_PASSWORD = ""
+        REDIS_URL = "redis://redis.zammad.service.kjdev/0"
 
         #
         # Memcached
         #
-        MEMCACHE_SERVERS = ""
+        MEMCACHE_SERVERS = "memcached.zammad.service.kjdev"
 
-        MEMCACHED_HOST = ""
+        #MEMCACHED_HOST = ""
 
         #
         # Database
@@ -65,7 +65,7 @@ job "business-zammad-websocket" {
         #
         # Rails
         #
-        ZAMMAD_RAILSSERVER_HOST = "http.railserver.zammad.service.kjdev"
+        ZAMMAD_RAILSSERVER_HOST = "http.railsserver.zammad.service.kjdev"
         ZAMMAD_RAILSSERVER_PORT = "8080"
 
         #

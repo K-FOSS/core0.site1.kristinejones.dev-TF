@@ -41,6 +41,8 @@ job "bitwarden" {
 
       config {
         image = "vaultwarden/server:alpine"
+
+        memory_hard_limit = 128
       }
 
       env {
@@ -63,7 +65,8 @@ job "bitwarden" {
       }
 
       resources {
-        cpu = 128
+        cpu = 64
+
         memory = 64
         memory_max = 128
       }
