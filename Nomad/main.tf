@@ -853,9 +853,9 @@ module "GitLab" {
 #                                 #
 ###################################
 
-module "Moodle" {
-  source = "./Jobs/Education/Moodle"
-}
+# module "Moodle" {
+#   source = "./Jobs/Education/Moodle"
+# }
 
 
 
