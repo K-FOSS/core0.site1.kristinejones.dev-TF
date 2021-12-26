@@ -1622,6 +1622,8 @@ module "Nomad" {
       S3 = {
         Repository = module.MoodleRepositoryBucket
       }
+
+      TLS = module.Vault.Education.Moodle
     }
   }
 
