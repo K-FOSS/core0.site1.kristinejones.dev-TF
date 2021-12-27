@@ -48,6 +48,12 @@ server:
   # CLI flag: -server.log-source-ips-regex
   #log_source_ips_regex: ''
 
+  #
+  # GRPC
+  #
+  grpc_server_max_recv_msg_size: 15000000
+  grpc_server_max_send_msg_size: 15000000
+
 distributor:
   search_tags_deny_list:
     - "instance"
@@ -93,9 +99,6 @@ query_frontend:
 #
 ingester_client:
   grpc_client_config:
-    # Configure the client to allow messages up to 100MB.
-    max_recv_msg_size: 104857600
-    max_send_msg_size: 104857600
     grpc_compression: gzip
 
 ingester:

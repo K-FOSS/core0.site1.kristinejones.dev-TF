@@ -70,6 +70,15 @@ server:
   # CLI flag: -server.log-source-ips-regex
   log_source_ips_regex: ''
 
+  #
+  # GRPC
+  #
+  grpc_server_max_recv_msg_size: 15000000
+
+  grpc_server_max_send_msg_size: 15000000
+
+  grpc_server_max_concurrent_streams: 0
+
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#distributor_config
 #
@@ -149,9 +158,8 @@ querier:
 #
 ingester_client:
   grpc_client_config:
-    # Configure the client to allow messages up to 100MB.
-    max_recv_msg_size: 104857600
-    max_send_msg_size: 104857600
+    max_recv_msg_size: 15000000
+    max_send_msg_size: 2400000
     grpc_compression: gzip
 
 #
@@ -244,6 +252,11 @@ frontend_worker:
   # Querier ID, sent to frontend service to identify requests from the same
   # querier. Defaults to hostname.
   id: {{ env "NOMAD_ALLOC_NAME" }}
+
+  grpc_client_config:
+    max_recv_msg_size: 15000000
+    max_send_msg_size: 2400000
+    grpc_compression: 'gzip'
   
 
 
@@ -253,6 +266,11 @@ frontend_worker:
 frontend:
   query_stats_enabled: true
   scheduler_address: grpc.query-scheduler.cortex.service.dc1.kjdev:8085
+
+  grpc_client_config:
+    max_recv_msg_size: 15000000
+    max_send_msg_size: 2400000
+    
 
 
 #
@@ -427,6 +445,11 @@ ruler:
   query_stats_enabled: true
 
   external_url: http://http.ruler.cortex.service.kjdev:8080
+
+  ruler_client:
+    max_recv_msg_size: 15000000
+    max_send_msg_size: 2400000
+    grpc_compression: 'gzip'
 
   ring:
     heartbeat_period: 5s
@@ -606,4 +629,6 @@ memberlist:
 #
 query_scheduler:
   grpc_client_config:
+    max_recv_msg_size: 15000000
+    max_send_msg_size: 2400000
     grpc_compression: gzip

@@ -45,9 +45,9 @@ server:
   #
   # GRPC Options
   #
-  grpc_server_max_concurrent_streams: 1000
-  grpc_server_max_recv_msg_size: 1.048576e+08
-  grpc_server_max_send_msg_size: 1.048576e+08
+  grpc_server_max_concurrent_streams: 0
+  grpc_server_max_recv_msg_size: 15000000
+  grpc_server_max_send_msg_size: 15000000
 
   http_server_idle_timeout: 120s
   http_server_write_timeout: 6m
@@ -72,9 +72,6 @@ distributor:
     kvstore:
       store: memberlist
       prefix: ${Consul.Prefix}/collectors/
-
-
-
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#querier_config
@@ -249,6 +246,7 @@ storage_config:
     secret_access_key: '${S3.Credentials.SecretKey}'
     s3forcepathstyle: true
     insecure: true
+
   # Configures storing index in an Object Store(GCS/S3/Azure/Swift/Filesystem) in the form of boltdb files.
   boltdb_shipper:
     # Directory where ingesters would write boltdb files which would then be

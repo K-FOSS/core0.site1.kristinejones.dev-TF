@@ -1623,7 +1623,7 @@ module "Nomad" {
         Repository = module.MoodleRepositoryBucket
       }
 
-      TLS = module.Vault.Education.Moodle
+      TLS = module.Vault.Education.Moodle.TLS
     }
   }
 
