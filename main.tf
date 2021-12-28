@@ -107,7 +107,7 @@ module "AuthentikBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -121,7 +121,7 @@ module "TeleportAuditBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -140,7 +140,7 @@ module "ConsulBackupsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -155,7 +155,7 @@ module "PSQLBackupsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -174,7 +174,7 @@ module "CortexBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -185,7 +185,7 @@ module "AlertManagerBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -204,7 +204,7 @@ module "LokiBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -223,7 +223,7 @@ module "TempoBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -242,7 +242,7 @@ module "NextCloud" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -257,7 +257,7 @@ module "OpenProjectBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -268,7 +268,7 @@ module "OpenProjectNewBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -283,7 +283,7 @@ module "OutlineBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -304,7 +304,7 @@ module "MattermostBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -329,7 +329,7 @@ module "GitLabRepoBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -344,7 +344,7 @@ module "GitLabArtifactsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -359,7 +359,7 @@ module "GitLabExternalDiffsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -374,7 +374,7 @@ module "GitLabLFSBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -389,7 +389,7 @@ module "GitLabUploadsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -404,7 +404,7 @@ module "GitLabPackagesBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -419,7 +419,7 @@ module "GitLabDependencyProxyBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -434,7 +434,7 @@ module "GitLabTerraformStateBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -449,7 +449,7 @@ module "GitLabPagesBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -468,7 +468,7 @@ module "HarborRegistryBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -479,7 +479,7 @@ module "HarborChartsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -502,7 +502,7 @@ module "MoodleRepositoryBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -521,7 +521,7 @@ module "OpenSearchRepoBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
@@ -553,7 +553,7 @@ module "ThreatMapperBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "node2.core0.site1.kristianjones.dev"
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
     Port = 9000
   }
 
