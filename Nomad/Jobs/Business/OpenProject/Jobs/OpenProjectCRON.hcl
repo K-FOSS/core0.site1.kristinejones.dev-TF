@@ -46,7 +46,7 @@ job "openproject-cron" {
 
         command = "./docker/prod/cron"
 
-        memory_hard_limit = 1024
+        memory_hard_limit = 256
 
         logging {
           type = "loki"
@@ -92,6 +92,13 @@ job "openproject-cron" {
         SMTP_DOMAIN = "kristianjones.dev"
         SMTP_AUTHENTICATION = "login"
         SMTP_ENABLE_STARTTLS_AUTO = "true"
+      }
+
+      resources {
+        cpu = 64
+
+        memory = 64
+        memory_max = 256
       }
 
       template {

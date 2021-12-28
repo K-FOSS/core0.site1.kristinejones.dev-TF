@@ -56,7 +56,7 @@ job "openproject-proxy" {
 
         command = "./docker/prod/proxy"
 
-        memory_hard_limit = 128
+        memory_hard_limit = 256
 
         logging {
           type = "loki"
@@ -66,6 +66,12 @@ job "openproject-proxy" {
             loki-external-labels = "job=openproject,service=proxy"
           }
         }
+      }
+
+      resources {
+        cpu = 64
+        memory = 128
+        memory_max = 256
       }
 
       env {
