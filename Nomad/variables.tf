@@ -760,7 +760,7 @@ variable "Inventory" {
 #       Network        #
 ########################
 
-variables "Network" {
+variable "Network" {
   type = object({
     Monitoring = object({
       OpenNMS = object({
