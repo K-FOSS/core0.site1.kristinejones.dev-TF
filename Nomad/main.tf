@@ -750,7 +750,7 @@ module "Rancher" {
 #
 
 module "Tinkerbell" {
-  source = "./Jobs/Tinkerbell"
+  source = "./Jobs/Servers/Tinkerbell"
 
   Database = var.Servers.Tinkerbell.Database
 
