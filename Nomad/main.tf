@@ -341,6 +341,18 @@ module "Mattermost" {
   SMTP = var.OpenProject.SMTP
 }
 
+##############################
+#           Databases        #
+##############################
+
+#
+# MongoDB
+#
+module "MongoDB" {
+  source = "./Jobs/Databases/MongoDB"
+
+  Database = var.Databases.MongoDB.Database
+}
 
 
 ########

@@ -688,6 +688,20 @@ module "CoTurnDatabase" {
   Credentials = module.Vault.Database
 }
 
+############
+# Database #
+############
+
+#
+# MongoDB
+# 
+
+module "FerretDBDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
 ############# 
 # Inventory #
 #############
@@ -1490,6 +1504,15 @@ module "Nomad" {
       GitLab = module.Vault.Communications.Mattermost.GitLab
 
       S3 = module.MattermostBucket
+    }
+  }
+
+  #
+  # Databases
+  #
+  Databases = {
+    MongoDB = {
+      Database = module.FerretDBDatabase.Database
     }
   }
 

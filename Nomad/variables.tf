@@ -933,6 +933,26 @@ variable "Communications" {
 }
 
 #
+# Databases
+# 
+
+variable "Databases" {
+  type = object({
+    MongoDB = object({
+      Database = object({
+        Hostname = string
+        Port = number
+
+        Database = string
+
+        Username = string
+        Password = string
+      })
+    })
+  })
+}
+
+#
 # Servers
 #
 
