@@ -19,8 +19,6 @@ before_script:
 stages:
   - prepare
   - validate
-  - build
-  - deploy
 
 init:
   stage: prepare
@@ -32,26 +30,26 @@ validate:
   script:
     - gitlab-terraform validate
 
-plan:
-  stage: build
-  script:
-    - gitlab-terraform plan
-    - gitlab-terraform plan-json
-  artifacts:
-    name: plan
-    paths:
-      - ${TF_ROOT}/plan.cache
-    reports:
-      terraform: ${TF_ROOT}/plan.json
+# plan:
+#   stage: build
+#   script:
+#     - gitlab-terraform plan
+#     - gitlab-terraform plan-json
+#   artifacts:
+#     name: plan
+#     paths:
+#       - ${TF_ROOT}/plan.cache
+#     reports:
+#       terraform: ${TF_ROOT}/plan.json
 
-apply:
-  stage: deploy
-  environment:
-    name: production
-  script:
-    - gitlab-terraform apply
-  dependencies:
-   - plan
-  when: manual
-  only:
-    - main
+# apply:
+#   stage: deploy
+#   environment:
+#     name: production
+#   script:
+#     - gitlab-terraform apply
+#   dependencies:
+#    - plan
+#   when: manual
+#   only:
+#     - main
