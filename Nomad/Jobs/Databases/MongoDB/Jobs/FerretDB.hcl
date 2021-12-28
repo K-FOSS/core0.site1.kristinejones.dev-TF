@@ -32,7 +32,9 @@ job "databases-mongodb-ferretdb" {
       driver = "docker"
 
       config {
-        image = "ghcr.io/ferretdb/ferretdb:latest"
+        image = "ghcr.io/ferretdb/ferretdb:0.0.4"
+
+        entrypoint = ["/ferretdb"]
 
         args = ["-listen-addr=:27017", "-postgresql-url=postgres://${FerrtDB.Database.Username}:${FerrtDB.Database.Password}@${FerrtDB.Database.Hostname}:${FerrtDB.Database.Port}/${FerrtDB.Database.Database}"]
 
