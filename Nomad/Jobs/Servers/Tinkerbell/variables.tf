@@ -33,9 +33,9 @@ variable "TLS" {
 
 variable "Boots" {
   type = object({
-    DockerHub = object({
+    Registry = object({
       Username = string
-      Token = string
+      Password = string
     })
   })
 }

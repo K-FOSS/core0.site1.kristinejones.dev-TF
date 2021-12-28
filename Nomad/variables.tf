@@ -756,6 +756,41 @@ variable "Inventory" {
   })
 }
 
+########################
+#       Network        #
+########################
+
+variables "Network" {
+  type = object({
+    Monitoring = object({
+      OpenNMS = object({
+        Database = object({
+          Hostname = string
+          Port = number
+
+          Database = string
+
+          Username = string
+          Password = string
+        })
+      })
+
+      # Oxidized = object({
+      #   Git = object({
+      #     Repo = object({
+      #       URI = string
+      #     })
+
+      #     Credentials = object({
+      #       Username = string
+      #       Password = string
+      #     })
+      #   })
+      # })
+    })
+  })
+}
+
 #
 # DHCP
 #
@@ -926,48 +961,42 @@ variable "Servers" {
         Password = string
       })
     })
-  })
-}
 
-#
-# Tinkerbell
-#
+    Tinkerbell = object({
+      Database = object({
+        Hostname = string
+        Port = number
 
-variable "Tinkerbell" {
-  type = object({
-    Database = object({
-      Hostname = string
-      Port = number
+        Database = string
 
-      Database = string
-
-      Username = string
-      Password = string
-    })
-
-    TLS = object({
-      CA = string
-
-      Tink = object({
-        Cert = string
-        Key = string
-      })
-
-      Hegel = object({
-        Cert = string
-        Key = string
-      })
-    
-      Registry = object({
-        Cert = string
-        Key = string
-      })
-    })
-
-    Boots = object({
-      DockerHub = object({
         Username = string
-        Token = string
+        Password = string
+      })
+
+      TLS = object({
+        CA = string
+
+        Tink = object({
+          Cert = string
+          Key = string
+        })
+
+        Hegel = object({
+          Cert = string
+          Key = string
+        })
+      
+        Registry = object({
+          Cert = string
+          Key = string
+        })
+      })
+
+      Boots = object({
+        Registry = object({
+          Username = string
+          Password = string
+        })
       })
     })
   })

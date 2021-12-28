@@ -787,6 +787,21 @@ module "Tinkerbell" {
   Credentials = module.Vault.Database
 }
 
+#
+# Monitoring
+#
+
+#
+# OpenNMS
+#
+
+module "OpenNMSDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+
 ##################
 # Communications #
 ##################
@@ -1413,6 +1428,17 @@ module "Nomad" {
     }
   }
 
+  #
+  # Networking
+  #
+  Network = {
+    Monitoring = {
+      OpenNMS = {
+        Database = module.OpenNMSDatabase.Database
+      }
+    }
+  }
+
 
   #
   # ISC Kea DHCP
@@ -1482,19 +1508,18 @@ module "Nomad" {
 
       LDAP = module.Vault.Servers.HashUI.LDAP
     }
-  }
 
-  
-  #
-  # Tinkerbell
-  #
-  Tinkerbell = {
-    Database = module.TinkerbellDatabase.Database
+    #
+    # Tinkerbell
+    #
+    Tinkerbell = {
+      Database = module.TinkerbellDatabase.Database
 
-    TLS = module.Vault.Tinkerbell
+      TLS = module.Vault.Tinkerbell
 
-    Boots = {
-      DockerHub = module.Vault.DockerHub
+      Boots = {
+        Registry = module.Vault.Registry.Credentials
+      }
     }
   }
 

@@ -253,6 +253,10 @@ output "Business" {
 }
 
 #
+# Registry
+#
+
+#
 # Servers
 #
 
@@ -671,6 +675,11 @@ output "Misc" {
 
 output "Registry" {
   value = {
+    Credentials = {
+      Username = data.vault_generic_secret.Registry.data["Username"]
+      Password = data.vault_generic_secret.Registry.data["Password"]
+    }
+
     Harbor = {
       TLS = {
         CA = vault_pki_secret_backend_cert.HarborCoreServerCert.ca_chain

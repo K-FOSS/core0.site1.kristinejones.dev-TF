@@ -644,6 +644,25 @@ module "DNS" {
 }
 
 #
+# OpenNMS
+#
+module "OpenNMS" {
+  source = "./Jobs/Network/Monitoring/OpenNMS"
+
+  Database = var.Network.Monitoring.OpenNMS.Database
+}
+
+#
+# Oxidized
+#
+
+# module "Oxidized" {
+#   source = "./Jobs/Network/Monitoring/Oxidized"
+
+#   Git = var.Network.Monitoring.Oxidized.Git
+# }
+
+#
 # LookingGLass
 #
 
@@ -733,11 +752,11 @@ module "Rancher" {
 module "Tinkerbell" {
   source = "./Jobs/Tinkerbell"
 
-  Database = var.Tinkerbell.Database
+  Database = var.Servers.Tinkerbell.Database
 
-  TLS = var.Tinkerbell.TLS
+  TLS = var.Servers.Tinkerbell.TLS
 
-  Boots = var.Tinkerbell.Boots
+  Boots = var.Servers.Tinkerbell.Boots
 }
 
 #

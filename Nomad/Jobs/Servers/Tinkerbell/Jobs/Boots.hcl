@@ -129,9 +129,9 @@ job "tinkerbell-boots" {
         #
         # Container Registry Mirror
         #
-        DOCKER_REGISTRY = "tink-registry.service.dc1.kjdev:443"
-        REGISTRY_USERNAME = "testuser"
-        REGISTRY_PASSWORD = "testpassword"
+        DOCKER_REGISTRY = "registry.kristianjones.dev:443"
+        REGISTRY_USERNAME = "${Boots.Registry.Username}"
+        REGISTRY_PASSWORD = "${Boots.Registry.Password}"
 
 
         PUBLIC_FQDN = "boots.service.dc1.kjdev"
