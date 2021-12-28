@@ -100,8 +100,8 @@ output "Caddy" {
 
 output "Database" {
   value = {
-    Hostname = "172.31.241.66"
-    Port = 36009
+    Hostname = "kjdev-psql-core1-postgresql.ix-kjdev-psql-core1.svc.cluster.local"
+    Port = 5432
 
     Username = data.vault_generic_secret.Database.data["USERNAME"]
     Password = data.vault_generic_secret.Database.data["PASSWORD"]
