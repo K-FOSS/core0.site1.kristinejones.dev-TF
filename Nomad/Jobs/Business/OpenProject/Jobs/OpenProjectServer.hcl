@@ -48,7 +48,7 @@ job "openproject-server" {
 
         args = ["./docker/prod/web"]
 
-        memory_hard_limit = 512
+        memory_hard_limit = 1024
 
         mount {
           type = "tmpfs"
@@ -70,10 +70,10 @@ job "openproject-server" {
       }
 
       resources {
-        cpu = 64
+        cpu = 128
 
-        memory = 128
-        memory_max = 512
+        memory = 256
+        memory_max = 1024
       }
     
       env {
