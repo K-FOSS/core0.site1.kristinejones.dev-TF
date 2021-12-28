@@ -235,7 +235,7 @@
       "name": "${Database.Database}",
       "host": "${Database.Hostname}",
       "user": "${Database.Username}",
-      "port": 36009,
+      "port": ${Database.Port},
       "password": "${Database.Password}",
       "reconnect-wait-time": 3000, // expressed in ms
       "max-reconnect-tries": 3,
