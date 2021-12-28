@@ -165,7 +165,7 @@ resource "nomad_job" "GitLabDatabaseJob" {
     Image = {
       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
-      Tag = "v14.5.2"
+      Tag = "v14.6.0"
     }
 
     Secrets = local.GitLab.Secrets
@@ -257,7 +257,7 @@ resource "nomad_job" "GitLabSideKiqJob" {
     Image = {
       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
-      Tag = "v14.5.2"
+      Tag = "v14.6.0"
     }
 
     Secrets = local.GitLab.Secrets
@@ -286,7 +286,7 @@ resource "nomad_job" "GitLabWebServcieJob" {
     Image = {
       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
-      Tag = "v14.5.2"
+      Tag = "v14.6.0"
     }
 
     Secrets = local.GitLab.Secrets
@@ -314,7 +314,7 @@ resource "nomad_job" "GitLabWorkHorseJob" {
     Image = {
       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
-      Tag = "v14.5.2"
+      Tag = "v14.6.0"
     }
 
     Secrets = local.GitLab.Secrets
@@ -344,7 +344,7 @@ resource "nomad_job" "GitLabKASJob" {
     Image = {
       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/cluster-integration/gitlab-agent"
 
-      Tag = "v14.5.2"
+      Tag = "v14.6.0"
     }
 
     Secrets = local.GitLab.Secrets
@@ -372,7 +372,7 @@ resource "nomad_job" "GitLabPraefectJob" {
     Image = {
       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/build/cng"
 
-      Tag = "v14.5.2"
+      Tag = "v14.6.0"
     }
 
     Secrets = local.GitLab.Secrets

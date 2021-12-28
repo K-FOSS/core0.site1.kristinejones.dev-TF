@@ -81,6 +81,8 @@ job "loki-query-frontend" {
     task "loki-query-frontend" {
       driver = "docker"
 
+      kill_timeout = 120
+
       restart {
         attempts = 5
         delay = "60s"

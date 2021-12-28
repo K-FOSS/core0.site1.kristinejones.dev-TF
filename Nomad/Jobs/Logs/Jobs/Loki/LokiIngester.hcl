@@ -81,6 +81,8 @@ job "loki-ingester" {
     task "loki-ingester" {
       driver = "docker"
 
+      kill_timeout = 120
+
       user = "root"
 
       restart {

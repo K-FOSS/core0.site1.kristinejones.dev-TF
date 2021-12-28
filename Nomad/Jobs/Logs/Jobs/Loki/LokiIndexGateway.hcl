@@ -81,6 +81,8 @@ job "loki-index-gateway" {
     task "loki-index-gateway" {
       driver = "docker"
 
+      kill_timeout = 120
+
       restart {
         attempts = 5
         delay = "60s"
