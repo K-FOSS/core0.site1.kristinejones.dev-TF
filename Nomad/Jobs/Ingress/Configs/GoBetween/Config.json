@@ -17,6 +17,43 @@
         "srv_lookup_server": "172.17.0.10:53",
         "srv_lookup_pattern": "kjdev-unifi-comm.ix-kjdev-unifi.svc.cluster.local."
       }
+    },
+    "https-tcp": {
+      "bind": "0.0.0.0:443",
+      "protocol": "tcp",
+      "discovery": {
+        "kind": "consul",
+        "consul_host": "${Consul.Hostname}:${Consul.Port}",
+        "consul_acl_token": "${Consul.Token}",
+        "consul_service_name": "web",
+        "consul_service_tag": "https"
+      }
+    },
+    "https-udp": {
+      "bind": "0.0.0.0:443",
+      "protocol": "udp",
+      "backend_idle_timeout": "5s",
+      "udp": {
+        "max_requests": 32
+      },
+      "discovery": {
+        "kind": "consul",
+        "consul_host": "${Consul.Hostname}:${Consul.Port}",
+        "consul_acl_token": "${Consul.Token}",
+        "consul_service_name": "web",
+        "consul_service_tag": "https"
+      }
+    },
+    "http-tcp": {
+      "bind": "0.0.0.0:80",
+      "protocol": "tcp",
+      "discovery": {
+        "kind": "consul",
+        "consul_host": "${Consul.Hostname}:${Consul.Port}",
+        "consul_acl_token": "${Consul.Token}",
+        "consul_service_name": "web",
+        "consul_service_tag": "http"
+      }
     }
   }
 }

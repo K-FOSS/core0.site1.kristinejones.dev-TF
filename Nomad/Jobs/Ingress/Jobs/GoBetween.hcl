@@ -1,6 +1,8 @@
 job "ingress-gobetween" {
   datacenters = ["core0site1"]
 
+  priority = 100
+
   group "gobetween-server" {
     count = 2
 
@@ -11,6 +13,22 @@ job "ingress-gobetween" {
 
     network {
       mode = "cni/nomadcore1"
+
+      port "https" {
+        to = 443
+
+        static = 443
+
+        host_network = "https"
+      }
+
+      port "http" {
+        to = 80
+
+        static = 80
+
+        host_network = "https"
+      }
 
       port "api" {
         to = 8888
@@ -26,6 +44,14 @@ job "ingress-gobetween" {
         static = 8080
 
         host_network = "https"
+      }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "10.1.1.10",
+          "10.1.1.13"
+        ]
       }
     }
 

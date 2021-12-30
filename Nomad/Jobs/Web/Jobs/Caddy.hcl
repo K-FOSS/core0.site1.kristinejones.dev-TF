@@ -1,4 +1,4 @@
-job "ingress" {
+job "web-caddy" {
   datacenters = ["core0site1"]
 
   type = "service"
@@ -6,7 +6,7 @@ job "ingress" {
   priority = 100
 
   group "proxies" {
-    count = 2
+    count = 4
 
     spread {
       attribute = "$${node.unique.id}"
@@ -18,18 +18,10 @@ job "ingress" {
 
       port "https" {
         to = 443
-
-        static = 443
-
-        host_network = "https"
       }
 
       port "http" {
         to = 80
-
-        static = 80
-
-        host_network = "https"
       }
 
       port "http_alt" {
@@ -71,7 +63,18 @@ job "ingress" {
 
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https"]
+      tags = ["coredns.enabled", "https"]
+    }
+
+    service {
+      name = "web"
+      port = "http"
+
+      task = "web"
+
+      address_mode = "alloc"
+
+      tags = ["coredns.enabled", "http"]
     }
 
     service {
@@ -122,9 +125,9 @@ job "ingress" {
       }
 
       resources {
-        cpu = 128
+        cpu = 312
 
-        memory = 64
+        memory = 128
         memory_max = 512
       }
 
