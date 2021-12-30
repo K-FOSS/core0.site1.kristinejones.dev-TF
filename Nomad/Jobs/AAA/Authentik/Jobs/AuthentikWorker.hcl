@@ -61,7 +61,7 @@ job "authentik-worker" {
 
         args = ["worker"]
 
-        memory_hard_limit = 512
+        memory_hard_limit = 1024
 
         logging {
           type = "loki"
@@ -122,8 +122,8 @@ EOH
       resources {
         cpu = 128
 
-        memory = 128
-        memory_max = 512
+        memory = 256
+        memory_max = 1024
       }
     }
   }
