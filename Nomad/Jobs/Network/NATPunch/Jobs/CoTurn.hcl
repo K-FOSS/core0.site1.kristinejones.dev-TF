@@ -51,7 +51,9 @@ job "coturn" {
         host_network = "https"
       }
 
-      port "stun" { }
+      port "stun" {
+        to = 3480
+      }
 
       port "cli" { }
     }

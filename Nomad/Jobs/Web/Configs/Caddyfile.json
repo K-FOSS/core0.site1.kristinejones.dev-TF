@@ -1505,9 +1505,9 @@
               "handle": [
                 {
                   "handler": "proxy",
-                  "proxy_protocol": "2",
+                  "proxy_protocol": "v2",
                   "upstreams": [{
-                    "dial": ["stun.coturn.service.kjdev:83478"]
+                    "dial": ["stun.coturn.service.kjdev:3480"]
                   }]
                 }
               ] 
