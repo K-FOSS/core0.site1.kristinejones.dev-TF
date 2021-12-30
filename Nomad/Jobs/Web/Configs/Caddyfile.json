@@ -1495,13 +1495,6 @@
           "listen": ["tcp/0.0.0.0:3478"],
           "routes": [
             {
-              "match": [
-                {
-                  "tls": {
-                    "sni": ["nat.mylogin.space"]
-                  }
-                }
-              ],
               "handle": [
                 {
                   "handler": "proxy",
