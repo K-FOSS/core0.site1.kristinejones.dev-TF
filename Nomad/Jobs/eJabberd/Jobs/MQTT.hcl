@@ -2,7 +2,7 @@ job "ejabberd-mqtt" {
   datacenters = ["core0site1"]
 
   group "ejabberd-mqtt-server" {
-    count = 3
+    count = 1
 
     network {
       mode = "cni/nomadcore1"
