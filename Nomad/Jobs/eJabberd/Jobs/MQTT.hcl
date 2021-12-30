@@ -85,8 +85,8 @@ EOH
 
       template {
         data = <<EOH
-{{ $Count := env "NOMAD_ALLOC_INDEX" }}{{ if ne $Count "0" }}"join_cluster ejabberd@0.ejabberd.service.kjdev"{{ end }}
-CTL_ON_CREATE 
+{{ $Count := env "NOMAD_ALLOC_INDEX" }}{{ if ne $Count "0" }}CTL_ON_CREATE="join_cluster ejabberd@0.ejabberd.service.kjdev"{{ end }}
+HELLO="TEST"
 EOH
 
         destination = "secrets/file.env"
