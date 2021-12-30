@@ -70,9 +70,9 @@ resource "random_password" "eJabberDCookie" {
 locals {
   eJabberD = {
     Image = {
-      Repo = ""
+      Repo = "ejabberd/ecs"
       
-      Tag = "21.07"
+      Tag = "21.12"
     }
 
     Database = var.Database

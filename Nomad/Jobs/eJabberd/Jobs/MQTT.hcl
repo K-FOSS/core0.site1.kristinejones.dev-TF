@@ -2,7 +2,7 @@ job "ejabberd-mqtt" {
   datacenters = ["core0site1"]
 
   group "ejabberd-mqtt-server" {
-    count = 1
+    count = 3
 
     network {
       mode = "cni/nomadcore1"
@@ -19,7 +19,7 @@ job "ejabberd-mqtt" {
       task = "ejabberd"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "mqtt"]
+      tags = ["coredns.enabled", "mqtt", "$${NOMAD_ALLOC_INDEX}"]
     }
 
     task "ejabberd-db" {
@@ -65,11 +65,32 @@ EOH
       driver = "docker"
 
       config {
-        image = "ejabberd/ecs:${eJabberD.Image.Tag}"
+        image = "${eJabberD.Image.Repo}:${eJabberD.Image.Tag}"
 
-        args = ["--config", "/local/eJabberD.yaml", "foreground", "-setcookie=${eJabberD.Secrets.eJabberDCookie}"]
+        args = ["foreground"]
 
         memory_hard_limit = 256
+      }
+
+      env {
+        #
+        # Clustering
+        #
+        ERLANG_COOKIE = "${eJabberD.Secrets.eJabberDCookie}"
+
+        EJABBERD_CONFIG_PATH = "/local/eJabberD.yaml"
+
+        
+      }
+
+      template {
+        data = <<EOH
+{{ $Count := env "NOMAD_ALLOC_INDEX" }}{{ if ne $Count "0" }}"join_cluster ejabberd@0.ejabberd.service.kjdev"{{ end }}
+CTL_ON_CREATE 
+EOH
+
+        destination = "secrets/file.env"
+        env = true
       }
 
       template {
