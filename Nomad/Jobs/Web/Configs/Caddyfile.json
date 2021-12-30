@@ -1489,43 +1489,6 @@
         }
       }
     },
-    "layer4": {
-      "servers": {
-        "CoTurn": {
-          "listen": ["tcp/0.0.0.0:3478"],
-          "routes": [
-            {
-              "match": [
-                {
-                  "tls": {
-                    "sni": ["nat.mylogin.space"]
-                  }
-                }
-              ],
-              "handle": [
-                {
-                  "handler": "proxy",
-                  "upstreams": [{
-                    "dial": ["stun.coturn.service.kjdev:3490"]
-                  }]
-                }
-              ]
-            },
-            {
-              "handle": [
-                {
-                  "handler": "proxy",
-                  "proxy_protocol": "v2",
-                  "upstreams": [{
-                    "dial": ["stun.coturn.service.kjdev:3480"]
-                  }]
-                }
-              ] 
-            }
-          ]
-        }
-      }
-    },
     "tls": {
       "automation": {
         "policies": [
