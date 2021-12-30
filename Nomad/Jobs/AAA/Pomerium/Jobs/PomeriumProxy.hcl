@@ -94,7 +94,7 @@ job "pomerium-proxy" {
 
         args = ["-config=/local/Pomerium.yaml"]
 
-        memory_hard_limit = 256
+        memory_hard_limit = 512
 
         labels {
           job = "pomerium"
@@ -242,10 +242,10 @@ EOF
       }
 
       resources {
-        cpu = 64
+        cpu = 256
 
-        memory = 128
-        memory_max = 256
+        memory = 256
+        memory_max = 512
       }
     }
   }
