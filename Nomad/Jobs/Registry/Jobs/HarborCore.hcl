@@ -19,6 +19,14 @@ job "registry-harbor-core" {
       port "metrics" {
         to = 9090
       }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "10.1.1.10",
+          "10.1.1.13"
+        ]
+      }
     }
 
     task "wait-for-harbor-core-redis" {
@@ -94,9 +102,9 @@ job "registry-harbor-core" {
       }
 
       resources {
-        cpu = 64
+        cpu = 256
 
-        memory = 128
+        memory = 256
         memory_max = 512
       }
 

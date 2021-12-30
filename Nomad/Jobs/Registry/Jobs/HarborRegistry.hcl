@@ -23,6 +23,14 @@ job "registry-harbor-registry" {
       port "registryctlhttps" {
         to = 8443
       }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "10.1.1.10",
+          "10.1.1.13"
+        ]
+      }
     }
 
     service {
@@ -198,9 +206,9 @@ EOH
       }
 
       resources {
-        cpu = 256
-        memory = 256
-        memory_max = 256
+        cpu = 512
+        memory = 128
+        memory_max = 512
       }
 
       env {

@@ -19,6 +19,14 @@ job "registry-harbor-jobservice" {
       port "metrics" {
         to = 9090
       }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "10.1.1.10",
+          "10.1.1.13"
+        ]
+      }
     }
 
     task "wait-for-harbor-redis" {

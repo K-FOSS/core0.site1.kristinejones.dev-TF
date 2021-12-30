@@ -19,6 +19,14 @@ job "registry-harbor-portal" {
       port "metrics" {
         to = 9284
       }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "10.1.1.10",
+          "10.1.1.13"
+        ]
+      }
     }
 
     task "wait-for-harbor-core" {
@@ -112,9 +120,9 @@ job "registry-harbor-portal" {
       }
 
       resources {
-        cpu = 128
+        cpu = 256
 
-        memory = 64
+        memory = 128
         memory_max = 256
       }
 
