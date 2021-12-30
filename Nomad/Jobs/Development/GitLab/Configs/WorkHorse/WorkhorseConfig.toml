@@ -7,13 +7,13 @@ URL = "tcp://redis.gitlab.service.dc1.kjdev:6379"
   max_scaler_procs = 100
   max_filesize = 250000
 
-# [object_storage]
-#   provider = "AWS" # Allowed options: AWS, AzureRM
+[object_storage]
+  provider = "AWS" # Allowed options: AWS, AzureRM
 
-# [object_storage.s3]
-#   region = "us-east-1"
-#   bucket = "${S3.RepoBucket.Credentials.AccessKey}"
-#   aws_access_key_id = "${S3.RepoBucket.Bucket}"
-#   aws_secret_access_key = "${S3.RepoBucket.Credentials.SecretKey}"
-#   endpoint = "${S3.RepoBucket.Connection.Endpoint}"
-#   path_style = "true"
+[object_storage.s3]
+  region = "us-east-1"
+  bucket = "${S3.RepoBucket.Credentials.AccessKey}"
+  aws_access_key_id = "${S3.RepoBucket.Bucket}"
+  aws_secret_access_key = "${S3.RepoBucket.Credentials.SecretKey}"
+  endpoint = "${S3.RepoBucket.Connection.Endpoint}"
+  path_style = "true"
