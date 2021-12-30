@@ -92,6 +92,8 @@ job "registry-harbor-chartmuseum" {
 
         entrypoint = ["/local/entry.sh"]
 
+        memory_hard_limit = 128
+
         logging {
           type = "loki"
           config {
@@ -103,9 +105,9 @@ job "registry-harbor-chartmuseum" {
       }
 
       resources {
-        cpu = 512
-        memory = 256
-        memory_max = 256
+        cpu = 64
+        memory = 32
+        memory_max = 128
       }
 
       env {
