@@ -344,7 +344,7 @@ resource "nomad_job" "GitLabKASJob" {
     Image = {
       Repo = "registry.kristianjones.dev/gitlab/gitlab-org/cluster-integration/gitlab-agent"
 
-      Tag = "v14.6.0"
+      Tag = "v14.5.0"
     }
 
     Secrets = local.GitLab.Secrets
