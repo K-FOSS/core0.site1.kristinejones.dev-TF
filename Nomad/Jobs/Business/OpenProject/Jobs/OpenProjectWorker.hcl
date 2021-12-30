@@ -21,6 +21,8 @@ job "openproject-worker" {
 
         args = ["./docker/prod/seeder"]
 
+        memory_hard_limit = 128
+
         logging {
           type = "loki"
           config {
@@ -29,6 +31,11 @@ job "openproject-worker" {
             loki-external-labels = "job=openproject,service=dbseed"
           }
         }
+      }
+
+      resources {
+        cpu = 64
+        memory = 128
       }
 
       env {
@@ -110,7 +117,7 @@ EOH
   }
 
   group "workers" {
-    count = 3
+    count = 2
 
     network {
       mode = "cni/nomadcore1"
@@ -142,7 +149,7 @@ EOH
 
         args = ["./docker/prod/worker"]
 
-        memory_hard_limit = 256
+        memory_hard_limit = 512
 
         logging {
           type = "loki"
@@ -205,10 +212,10 @@ EOH
       }
 
       resources {
-        cpu = 64
+        cpu = 128
 
-        memory = 64
-        memory_max = 256
+        memory = 256
+        memory_max = 512
       }
 
 
