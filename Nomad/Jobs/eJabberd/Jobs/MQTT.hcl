@@ -14,8 +14,6 @@ job "ejabberd-mqtt" {
       port "s2s" {
         to = 5269
       }
-
-      hostname = "$${NOMAD_ALLOC_INDEX}.ejabberd.service.kjdev"
     }
 
     service {
