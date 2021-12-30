@@ -6,7 +6,7 @@ job "development-gitlab-shell" {
   # GitLab Shell
   #
   group "gitlab-shell" {
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
@@ -54,7 +54,7 @@ job "development-gitlab-shell" {
       config {
         image = "${Image.Repo}/gitlab-shell:${Image.Tag}"
 
-        memory_hard_limit = 64
+        memory_hard_limit = 512
 
         mount {
           type = "tmpfs"
@@ -76,10 +76,10 @@ job "development-gitlab-shell" {
       }
 
       resources {
-        cpu = 32
+        cpu = 256
 
-        memory = 32
-        memory_max = 64
+        memory = 256
+        memory_max = 512
       }
 
       env {
