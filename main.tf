@@ -614,6 +614,26 @@ module "TeleportDatabase" {
   Credentials = module.Vault.Database
 }
 
+#
+# HeadScale
+#
+
+module "HeadScaleDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# NetMaker
+#
+
+module "NetMakerDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
 ############
 # Business #
 ############
