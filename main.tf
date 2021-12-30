@@ -486,6 +486,21 @@ module "HarborChartsBucket" {
   Credentials = module.Vault.Minio
 }
 
+#
+# OpenVSX
+# 
+
+module "OpenVSXBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
+    Port = 9000
+  }
+
+  Credentials = module.Vault.Minio
+}
+
 ######################
 # Documentation/Docs #
 ######################
