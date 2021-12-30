@@ -5,7 +5,7 @@ job "development-gitlab-workhorse" {
   # GitLab WorkHorse
   #
   group "gitlab-workhorse" {
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
@@ -88,6 +88,15 @@ job "development-gitlab-workhorse" {
 
         entrypoint = ["/usr/local/bin/gitlab-workhorse"]
 
+        mount {
+          type = "tmpfs"
+          target = "/tmp"
+          readonly = false
+          tmpfs_options = {
+            size = 512000000
+          }
+        }
+
         args = [
           "-logFormat", "json",
           "-propagateCorrelationID",
@@ -119,9 +128,9 @@ job "development-gitlab-workhorse" {
       }
 
       resources {
-        cpu = 128
+        cpu = 256
 
-        memory = 64
+        memory = 256
         memory_max = 512
       }
 
