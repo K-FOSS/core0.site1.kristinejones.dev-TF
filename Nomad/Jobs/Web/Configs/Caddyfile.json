@@ -1489,6 +1489,33 @@
         }
       }
     },
+    "layer4": {
+      "servers": {
+        "CoTurn": {
+          "listen": ["tcp/0.0.0.0:3478"],
+          "routes": [
+            {
+              "match": [
+                {
+                  "tls": {
+                    "sni": ["nat.mylogin.space"]
+                  }
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "proxy",
+                  "proxy_protocol": "2",
+                  "upstreams": [{
+                    "dial": ["stun.coturn.service.kjdev:83478"]
+                  }]
+                }
+              ] 
+            }
+          ]
+        }
+      }
+    },
     "tls": {
       "automation": {
         "policies": [
@@ -1501,6 +1528,7 @@
               "unifi.site1.kristianjones.dev",
               "*.int.site1.kristianjones.dev",
               "hass.home1.kristianjones.dev",
+              "nat.mylogin.space",
               "kjmedia.stream",
               "network.glass",
               "ipaddr.network",
