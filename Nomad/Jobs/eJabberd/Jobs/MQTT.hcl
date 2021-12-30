@@ -79,14 +79,12 @@ EOH
         ERLANG_COOKIE = "${eJabberD.Secrets.eJabberDCookie}"
 
         EJABBERD_CONFIG_PATH = "/local/eJabberD.yaml"
-
-        
       }
 
       template {
         data = <<EOH
 {{ $Count := env "NOMAD_ALLOC_INDEX" }}{{ if ne $Count "0" }}CTL_ON_CREATE="join_cluster ejabberd@0.ejabberd.service.kjdev"{{ end }}
-HELLO="TEST"
+ERLANG_NODE="{{ env "NOMAD_ALLOC_INDEX" }}.ejabberd.service.kjdev"
 EOH
 
         destination = "secrets/file.env"
