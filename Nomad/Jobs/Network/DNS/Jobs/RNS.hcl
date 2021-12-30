@@ -109,6 +109,8 @@ job "network-dns-rns" {
 
         ports = ["dns", "dnsnode"]
 
+        memory_hard_limit = 256
+
         args = ["-conf=/local/Corefile"]
       }
 
@@ -129,9 +131,9 @@ EOF
       }
 
       resources {
-        cpu = 300
-        memory = 512
-        memory_max = 512
+        cpu = 32
+        memory = 128
+        memory_max = 256
       }
     }
   }
