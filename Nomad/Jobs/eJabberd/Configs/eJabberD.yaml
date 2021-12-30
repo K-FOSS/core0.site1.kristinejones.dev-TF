@@ -116,6 +116,15 @@ api_permissions:
 #
 
 listen:
+  - port: 5222
+    ip: '::'
+    module: ejabberd_c2s
+
+  - port: 5269
+    ip: '::'
+    module: ejabberd_s2s_in
+    transport: tcp
+
   - port: 5443
     ip: '::'
     module: ejabberd_http
@@ -217,7 +226,11 @@ modules:
   mod_roster:
     versioning: true
   mod_sip: {}
-  mod_s2s_dialback: {}
+  mod_s2s_dialback:
+    access:
+      allow:
+        server: {{ env "NOMAD_ALLOC_INDEX" }}.ejabberd.service.kjdev
+      deny: all
   mod_shared_roster: {}
   mod_stream_mgmt:
     resend_on_timeout: if_offline

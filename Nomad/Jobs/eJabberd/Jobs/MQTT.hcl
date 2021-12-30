@@ -10,6 +10,20 @@ job "ejabberd-mqtt" {
       port "mqtt" { 
         to = 1883
       }
+
+      port "s2s" {
+        to = 5269
+      }
+    }
+
+    service {
+      name = "ejabberd"
+      port = "s2s"
+
+      task = "ejabberd"
+      address_mode = "alloc"
+
+      tags = ["coredns.enabled", "$${NOMAD_ALLOC_INDEX}"]
     }
 
     service {
@@ -19,7 +33,7 @@ job "ejabberd-mqtt" {
       task = "ejabberd"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "mqtt", "$${NOMAD_ALLOC_INDEX}"]
+      tags = ["coredns.enabled", "mqtt"]
     }
 
     task "ejabberd-db" {
