@@ -30,18 +30,6 @@ ldap_servers:
 
 ldap_port: 3389
 
-fqdn: {{ env "NOMAD_ALLOC_INDEX" }}.ejabberd.service.kjdev
-#extauth_pool_name:  {{ env "NOMAD_ALLOC_INDEX" }}.ejabberd.service.kjdev
-
-{{ $Count := env "NOMAD_ALLOC_INDEX" }}
-{{ if ne $Count "0" }}
-cluster_nodes:
-  - 0.ejabberd.service.kjdev
-{{ end }}
-
-
-
-
 #
 # LDAP Bind
 #

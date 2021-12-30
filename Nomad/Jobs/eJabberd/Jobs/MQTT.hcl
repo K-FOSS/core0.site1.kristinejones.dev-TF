@@ -14,6 +14,8 @@ job "ejabberd-mqtt" {
       port "s2s" {
         to = 5269
       }
+
+      hostname = "$${NOMAD_ALLOC_INDEX}.ejabberd.service.kjdev"
     }
 
     service {
@@ -34,45 +36,6 @@ job "ejabberd-mqtt" {
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "mqtt"]
-    }
-
-    task "ejabberd-db" {
-      lifecycle {
-        hook = "prestart"
-        sidecar = false
-      }
-
-      driver = "docker"
-
-      config {
-        image = "postgres:alpine3.14"
-
-        command = "/usr/local/bin/psql"
-
-        args = ["--file=/local/init.psql", "--host=${eJabberD.Database.Hostname}", "--username=${eJabberD.Database.Username}", "--port=${eJabberD.Database.Port}", "${eJabberD.Database.Database}"]
-      }
-
-      env {
-        PGPASSFILE = "/secrets/.pgpass"
-      }
-
-      template {
-        data = <<EOH
-${eJabberD.DatabaseInit}
-EOH
-
-        destination = "local/init.psql"
-      }
-
-      template {
-        data = <<EOH
-${eJabberD.Database.Hostname}:${eJabberD.Database.Port}:${eJabberD.Database.Database}:${eJabberD.Database.Username}:${eJabberD.Database.Password}
-EOH
-
-        perms = "600"
-
-        destination = "secrets/.pgpass"
-      }
     }
 
     task "ejabberd" {
