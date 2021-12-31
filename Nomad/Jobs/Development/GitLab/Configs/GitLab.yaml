@@ -1,6 +1,6 @@
 production: &base
   gitlab:
-    host: gitlab.kristianjones.dev
+    host: git.writemy.codes
     https: true # Set to true if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
     trusted_proxies:
       - 172.16.0.0/12
@@ -236,7 +236,7 @@ production: &base
   #
   registry:
     enabled: true
-    host: registry.gitlab.kristianjones.dev
+    host: registry.git.writemy.codes
     port: 443
     api_url: https://https.gitlabregistry.harbor.service.kjdev:5443/ # internal address to the registry, will be used by GitLab to directly communicate with API
     key: /secrets/TLS/Registry.key
@@ -432,7 +432,7 @@ production: &base
             client_options: {
               identifier: '${OpenID.ClientID}',
               secret: '${OpenID.ClientSecret}',
-              redirect_uri: 'https://gitlab.kristianjones.dev/users/auth/openid_connect/callback'
+              redirect_uri: 'https://git.writemy.codes/users/auth/openid_connect/callback'
             }
           }
         }
@@ -486,7 +486,7 @@ production: &base
     secret_file: /secrets/.gitlab_kas_secret
     external_url: ws://http.agent.kas.gitlab.service.dc1.kjdev:8085
     internal_url: grpc://http.api.kas.gitlab.service.dc1.kjdev:8080
-    external_k8s_proxy_url: https://kube.gitlab.kristianjones.dev
+    external_k8s_proxy_url: https://kube.git.writemy.codes
 
   ## Git settings
   # CAUTION!
