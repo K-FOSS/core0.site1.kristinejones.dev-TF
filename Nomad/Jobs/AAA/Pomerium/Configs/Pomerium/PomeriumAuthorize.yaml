@@ -36,7 +36,7 @@ certificate_key_file: /secrets/TLS/Server.key
 # Authenticate Service
 #
 
-authenticate_service_url: https://auth.int.site1.kristianjones.dev
+authenticate_service_url: https://auth.int.mylogin.space
 #authenticate_internal_service_url: https://https.authorize.pomerium.service.dc1.kjdev:443
 
 idp_provider: oidc

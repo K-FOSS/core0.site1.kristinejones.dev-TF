@@ -36,6 +36,15 @@
   pass_identity_headers: true
   allow_websockets: true
 
+- from: https://grafana.int.mylogin.space
+  to: https://grafana-cont.service.kjdev:443
+  tls_custom_ca_file: /secrets/TLS/GrafanaCA.pem
+  tls_server_name: grafana.int.site1.kristianjones.dev
+  timeout: 30s
+  allow_any_authenticated_user: true
+  pass_identity_headers: true
+  allow_websockets: true
+
 #
 # HomeAssistant
 #
@@ -50,7 +59,18 @@
   allow_websockets: true
   cors_allow_preflight: true
 
-- from: https://hass-code.int.site1.kristianjones.dev
+- from: https://hass.int.mylogin.space
+  to: https://home1-hass-home-assistant.ix-home1-hass.svc.cluster.local:8123
+  tls_custom_ca_file: /secrets/TLS/HomeAssistantCA.pem
+  tls_server_name: hass.int.site1.kristianjones.dev
+  allowed_idp_claims:
+    groups:
+      - Home Users
+  pass_identity_headers: true
+  allow_websockets: true
+  cors_allow_preflight: true
+
+- from: https://hass-code.int.mylogin.space
   to: http://home1-hass-home-assistant-codeserver.ix-home1-hass.svc.cluster.local:12321
   allowed_idp_claims:
     groups:
@@ -151,6 +171,14 @@
   allow_websockets: true
   cors_allow_preflight: true
 
+- from: https://cyberchef.int.mylogin.space
+  to: http://http.cyberchef.service.dc1.kjdev:8000
+  preserve_host_header: true
+  allow_any_authenticated_user: true
+  pass_identity_headers: true
+  allow_websockets: true
+  cors_allow_preflight: true
+
 #
 # ShareX
 #
@@ -179,7 +207,18 @@
   allow_websockets: true
   cors_allow_preflight: true
 
-- from: https://unifi.int.site1.kristianjones.dev
+- from: https://ns.int.mylogin.space
+  to: http://http.admin.powerdns.service.kjdev
+  preserve_host_header: true
+  allowed_idp_claims:
+    groups:
+      - Servers
+      - Network
+  pass_identity_headers: true
+  allow_websockets: true
+  cors_allow_preflight: true
+
+- from: https://unifi.int.mylogin.space
   to: https://kjdev-unifi.ix-kjdev-unifi.svc.cluster.local:8443
   tls_skip_verify: true
   preserve_host_header: true
@@ -202,11 +241,19 @@
       - Network
   pass_identity_headers: true
 
+- from: https://netbox.int.mylogin.space
+  to: http://netbox-http-cont.service.kjdev:8080
+  allowed_idp_claims:
+    groups:
+      - Servers
+      - Network
+  pass_identity_headers: true
+
 #
 # Servers
 #
 
-- from: https://nomad.int.site1.kristianjones.dev
+- from: https://nomad.int.mylogin.space
   to: http://http.NomadServer.service.dc1.kjdev:4646
   preserve_host_header: true
   allowed_idp_claims:
@@ -216,7 +263,7 @@
   allow_websockets: true
   cors_allow_preflight: true
 
-- from: https://hashui.int.site1.kristianjones.dev
+- from: https://hashui.int.mylogin.space
   to: http://http.hashui.service.dc1.kjdev:8000
   preserve_host_header: true
   allowed_idp_claims:
