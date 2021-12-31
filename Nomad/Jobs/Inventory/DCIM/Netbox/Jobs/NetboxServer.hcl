@@ -122,7 +122,7 @@ job "netbox" {
         #
         # Misc
         #
-        ALLOWED_HOSTS = "netbox.int.site1.kristianjones.dev netbox-http-cont.service.kjdev"
+        ALLOWED_HOSTS = "netbox.int.mylogin.space netbox-http-cont.service.kjdev"
         TIME_ZONE = "America/Winnipeg"
 
         #
@@ -244,7 +244,7 @@ EOH
         #
         # Misc
         #
-        ALLOWED_HOSTS = "netbox.int.site1.kristianjones.dev netbox-http-cont.service.kjdev netbox-http-cont.service.dc1.kjdev"
+        ALLOWED_HOSTS = "netbox.int.mylogin.space netbox-http-cont.service.kjdev netbox-http-cont.service.dc1.kjdev"
         TIME_ZONE = "America/Winnipeg"
 
         #
