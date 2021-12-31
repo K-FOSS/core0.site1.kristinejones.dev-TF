@@ -15,3 +15,21 @@ variable "Consul" {
     Token = string
   })
 }
+
+#
+# NS
+#
+
+variable "PowerDNS" {
+  type = object({
+    Database = object({
+      Hostname = string
+      Port = number
+
+      Database = string
+
+      Username = string
+      Password = string
+    })
+  })
+}

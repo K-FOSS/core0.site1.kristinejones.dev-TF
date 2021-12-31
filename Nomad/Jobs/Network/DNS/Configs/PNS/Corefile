@@ -1,0 +1,15 @@
+.:8070 {
+  health 0.0.0.0:8080
+
+  metadata .
+
+  bufsize 600
+
+  trace zipkin http://http.distributor.tempo.service.kjdev:9411 {
+    every 100
+    client_server
+  }
+
+  pdsql postgresql "host=${Database.Hostname} port=${Database.Port} user=${Database.Username} password=${Database.Password} dbname=${Database.Database} sslmode=disable"
+}
+

@@ -92,6 +92,7 @@ resource "nomad_job" "ServiceDNSJobFile" {
 #
 # Network DNS
 #
+
 resource "nomad_job" "NetworkDNSJobFile" {
   jobspec = templatefile("${path.module}/Jobs/NetworkDNS.hcl", {
     #Version = split("v", data.github_release.Release.release_tag)[1]
@@ -100,6 +101,22 @@ resource "nomad_job" "NetworkDNSJobFile" {
       Netbox = var.Netbox
 
       Consul = var.Consul
+    })
+
+    PluginsConfig = templatefile("${path.module}/Configs/plugin.cfg", {})
+  })
+}
+
+#
+# Public NS
+#
+
+resource "nomad_job" "PublicNSJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/PublicNS.hcl", {
+    #Version = split("v", data.github_release.Release.release_tag)[1]
+
+    CoreFile = templatefile("${path.module}/Configs/PNS/Corefile", {
+      Database = var.PowerDNS.Database
     })
 
     PluginsConfig = templatefile("${path.module}/Configs/plugin.cfg", {})

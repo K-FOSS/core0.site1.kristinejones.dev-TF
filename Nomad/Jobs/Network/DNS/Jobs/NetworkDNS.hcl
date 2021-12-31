@@ -32,7 +32,7 @@ job "network-dns-networkdns" {
       task = "networkdns-coredns-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "dns.network"]
+      tags = ["dns.network"]
 
       check {
         name = "CoreDNS DNS healthcheck"
