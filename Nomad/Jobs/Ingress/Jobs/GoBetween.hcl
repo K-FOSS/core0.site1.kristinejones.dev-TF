@@ -38,6 +38,14 @@ job "ingress-gobetween" {
         host_network = "node"
       }
 
+      port "nodeminio" {
+        to = 9080
+
+        static = 9080
+
+        host_network = "https"
+      }
+
       port "api" {
         to = 8888
       }

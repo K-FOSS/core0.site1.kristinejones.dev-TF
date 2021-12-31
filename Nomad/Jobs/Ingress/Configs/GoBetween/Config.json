@@ -48,6 +48,15 @@
         "srv_lookup_server": "{{ env "NOMAD_IP_nodehttps" }}:8600",
         "srv_lookup_pattern": "http.web.service.kjdev."
       }
+    },
+    "http-minio": {
+      "bind": "0.0.0.0:9080",
+      "protocol": "tcp",
+      "discovery": {
+        "kind": "srv",
+        "srv_lookup_server": "{{ env "NOMAD_IP_nodehttps" }}:8600",
+        "srv_lookup_pattern": "http.minio.web.service.kjdev."
+      }
     }
   }
 }

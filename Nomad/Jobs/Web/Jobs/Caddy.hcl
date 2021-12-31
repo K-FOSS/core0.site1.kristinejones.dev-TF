@@ -32,6 +32,10 @@ job "web-caddy" {
         to = 9000
       }
 
+      port "minio" {
+        to = 9080
+      }
+
       dns {
         servers = [
           "10.1.1.53",
@@ -75,6 +79,17 @@ job "web-caddy" {
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "http"]
+    }
+
+    service {
+      name = "web"
+      port = "minio"
+
+      task = "web"
+
+      address_mode = "alloc"
+
+      tags = ["coredns.enabled", "http.minio"]
     }
 
     service {

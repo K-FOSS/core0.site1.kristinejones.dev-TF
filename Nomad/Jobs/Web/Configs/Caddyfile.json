@@ -1492,6 +1492,47 @@
               ]
             }
           ]
+        },
+        "Minio": {
+          "listen": [
+            ":9080"
+          ],
+          "automatic_https": {
+            "disable": true
+          },
+          "experimental_http3": false,
+          "routes": [
+            {
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "health_checks": {
+                    "active": {
+                      "path": "/minio/health/live",
+                      "expect_status": 200
+                    }
+                  },
+                  "transport": {
+                    "protocol": "http"
+                  },
+                  "upstreams": [
+                    {
+                      "dial": "node0.core0.dc1.kristianjones.dev:9000"
+                    },
+                    {
+                      "dial": "node1.core0.dc1.kristianjones.dev:9000"
+                    },
+                    {
+                      "dial": "kjdev-minio.ix-kjdev-minio.svc.cluster.local:9000"
+                    },
+                    {
+                      "dial": "node3.core0.dc1.kristianjones.dev:9000"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       }
     },
