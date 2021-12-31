@@ -105,7 +105,7 @@ job "development-gitlab-kas" {
         #
         # Misc
         #
-        GITLAB_HOST = "https://gitlab.kristianjones.dev"
+        GITLAB_HOST = "https://git.writemy.codes"
         GITLAB_PORT = "443"
         
         OWN_PRIVATE_API_URL = "grpc://http.kas.kas.gitlab.service.dc1.kjdev:8155"

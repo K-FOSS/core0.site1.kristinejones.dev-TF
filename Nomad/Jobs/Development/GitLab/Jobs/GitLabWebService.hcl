@@ -151,9 +151,9 @@ job "development-gitlab-webservice" {
         CONFIG_TEMPLATE_DIRECTORY = "/local/configtemplates"
         CONFIG_DIRECTORY = "/srv/gitlab/config"
 
-        EXTERNAL_URL = "https://gitlab.kristianjones.dev"
+        EXTERNAL_URL = "https://git.writemy.codes"
 
-        GITLAB_HOST = "https://gitlab.kristianjones.dev"
+        GITLAB_HOST = "https://git.writemy.codes"
         GITLAB_PORT = "443"
         GITLAB_SSH_PORT = "2222"
 
