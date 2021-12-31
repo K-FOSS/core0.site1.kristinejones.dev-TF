@@ -430,7 +430,9 @@
                 {
                   "host": [
                     "gitlab.kristianjones.dev",
-                    "*.gitlab.kristianjones.dev"
+                    "*.gitlab.kristianjones.dev",
+                    "git.writemy.codes",
+                    "*.git.writemy.codes"
                   ]
                 }
               ],
@@ -442,7 +444,8 @@
                       "match": [
                         {
                           "host": [
-                            "gitlab.kristianjones.dev"
+                            "gitlab.kristianjones.dev",
+                            "git.writemy.codes"
                           ]
                         }
                       ],
@@ -470,7 +473,8 @@
                       "match": [
                         {
                           "host": [
-                            "kas.gitlab.kristianjones.dev"
+                            "kas.gitlab.kristianjones.dev",
+                            "kas.git.writemy.codes"
                           ]
                         }
                       ],
@@ -498,7 +502,8 @@
                       "match": [
                         {
                           "host": [
-                            "kube.gitlab.kristianjones.dev"
+                            "kube.gitlab.kristianjones.dev",
+                            "kube.git.writemy.codes"
                           ]
                         }
                       ],
@@ -526,7 +531,8 @@
                       "match": [
                         {
                           "host": [
-                            "registry.gitlab.kristianjones.dev"
+                            "registry.gitlab.kristianjones.dev",
+                            "registry.git.writemy.codes"
                           ]
                         }
                       ],
@@ -1510,6 +1516,8 @@
               "*.access.mylogin.space",
               "*.int.mylogin.space",
               "writemy.codes",
+              "git.writemy.codes",
+              "*.git.writemy.codes",
               "outoftheworld.space",
               "trackmy.finance",
               "ksit.services",
