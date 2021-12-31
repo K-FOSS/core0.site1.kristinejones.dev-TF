@@ -15,12 +15,14 @@ job "coturn" {
     }
 
     service {
-      name = "coturn-redis-cont"
+      name = "coturn"
       port = "redis"
 
       task = "redis"
 
       address_mode = "alloc"
+
+      tags = ["coredns.enabled", "redis"]
     }
 
     task "redis" {
@@ -33,11 +35,11 @@ job "coturn" {
   }
 
   group "coturn" {
-    count = 2
+    count = 4
 
     spread {
       attribute = "$${node.unique.id}"
-      weight    = 100
+      weight = 100
     }
 
     network {
@@ -45,10 +47,6 @@ job "coturn" {
 
       port "turn" {
         to = 3478
-        
-        static = 3478
-
-        host_network = "https"
       }
 
       port "stun" {
@@ -99,7 +97,7 @@ EOF
 
       resources {
         cpu = 128
-        memory = 256
+        memory = 64
         memory_max = 256
       }
     }
