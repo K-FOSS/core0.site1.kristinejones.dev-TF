@@ -22,11 +22,9 @@
       "bind": "0.0.0.0:443",
       "protocol": "tcp",
       "discovery": {
-        "kind": "consul",
-        "consul_host": "${Consul.Hostname}:${Consul.Port}",
-        "consul_acl_token": "${Consul.Token}",
-        "consul_service_name": "web",
-        "consul_service_tag": "https"
+        "kind": "srv",
+        "srv_lookup_server": "{{ env "NOMAD_IP_nodehttps" }}:8600",
+        "srv_lookup_pattern": "https.web.service.kjdev."
       }
     },
     "https-udp": {
@@ -37,22 +35,18 @@
         "max_requests": 32
       },
       "discovery": {
-        "kind": "consul",
-        "consul_host": "${Consul.Hostname}:${Consul.Port}",
-        "consul_acl_token": "${Consul.Token}",
-        "consul_service_name": "web",
-        "consul_service_tag": "https"
+        "kind": "srv",
+        "srv_lookup_server": "{{ env "NOMAD_IP_nodehttps" }}:8600",
+        "srv_lookup_pattern": "https.web.service.kjdev."
       }
     },
     "http-tcp": {
       "bind": "0.0.0.0:80",
       "protocol": "tcp",
       "discovery": {
-        "kind": "consul",
-        "consul_host": "${Consul.Hostname}:${Consul.Port}",
-        "consul_acl_token": "${Consul.Token}",
-        "consul_service_name": "web",
-        "consul_service_tag": "http"
+        "kind": "srv",
+        "srv_lookup_server": "{{ env "NOMAD_IP_nodehttps" }}:8600",
+        "srv_lookup_pattern": "http.web.service.kjdev."
       }
     }
   }

@@ -30,6 +30,14 @@ job "ingress-gobetween" {
         host_network = "https"
       }
 
+      port "nodehttps" {
+        to = 443
+
+        static = 443
+
+        host_network = "node"
+      }
+
       port "api" {
         to = 8888
       }
