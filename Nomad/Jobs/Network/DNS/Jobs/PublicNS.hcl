@@ -67,6 +67,15 @@ job "network-dns-pns" {
         image = "kristianfjones/coredns-docker:core0"
 
         args = ["-conf=/local/Corefile"]
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=dns,service=publicns"
+          }
+        }
       }
 
       template {
