@@ -107,8 +107,8 @@ module "AuthentikBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
-    Port = 9000
+    Hostname = "http.minio.web.service.kjdev"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -121,7 +121,7 @@ module "TeleportAuditBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -242,8 +242,8 @@ module "NextCloud" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
-    Port = 9000
+    Hostname = "http.minio.web.service.kjdev"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -517,8 +517,8 @@ module "MoodleRepositoryBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
-    Port = 9000
+    Hostname = "http.minio.web.service.kjdev"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -536,8 +536,8 @@ module "OpenSearchRepoBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
-    Port = 9000
+    Hostname = "http.minio.web.service.kjdev"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -568,8 +568,8 @@ module "ThreatMapperBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
-    Port = 9000
+    Hostname = "http.minio.web.service.kjdev"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
