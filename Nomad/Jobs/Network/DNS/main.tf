@@ -85,6 +85,8 @@ resource "nomad_job" "ServiceDNSJobFile" {
       Netbox = var.Netbox
 
       Consul = var.Consul
+
+      Database = var.PowerDNS.Database
     })
 
     PluginsConfig = templatefile("${path.module}/Configs/plugin.cfg", {})
