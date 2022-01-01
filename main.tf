@@ -121,8 +121,8 @@ module "TeleportAuditBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -140,8 +140,8 @@ module "ConsulBackupsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -155,8 +155,8 @@ module "PSQLBackupsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -174,8 +174,8 @@ module "CortexBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -185,8 +185,8 @@ module "AlertManagerBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -204,8 +204,8 @@ module "LokiBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -223,8 +223,8 @@ module "TempoBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -304,8 +304,8 @@ module "MattermostBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -329,8 +329,8 @@ module "GitLabRepoBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -344,8 +344,8 @@ module "GitLabArtifactsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -359,8 +359,8 @@ module "GitLabExternalDiffsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -374,8 +374,8 @@ module "GitLabLFSBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -389,8 +389,8 @@ module "GitLabUploadsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -404,8 +404,8 @@ module "GitLabPackagesBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -419,8 +419,8 @@ module "GitLabDependencyProxyBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -434,8 +434,8 @@ module "GitLabTerraformStateBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -449,8 +449,8 @@ module "GitLabPagesBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -468,8 +468,8 @@ module "HarborRegistryBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -479,8 +479,8 @@ module "HarborChartsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.13"
-    Port = 9000
+    Hostname = "10.1.1.80"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
