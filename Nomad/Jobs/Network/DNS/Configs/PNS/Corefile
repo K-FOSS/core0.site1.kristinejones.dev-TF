@@ -10,8 +10,12 @@
     client_server
   }
 
-  secondary kristianjones.dev in-addr.arpa 241.31.172.in-addr.arpa kjmedia.stream mylogin.space trackmy.finance ksit.services writemy.codes {
+  secondary {
     transfer from 10.1.1.153:53
+  }
+
+  transfer {
+    to 10.1.1.10:53 10.1.1.13:53
   }
 
   pdsql postgres "host=${Database.Hostname} port=${Database.Port} user=${Database.Username} password=${Database.Password} dbname=${Database.Database} sslmode=disable"
