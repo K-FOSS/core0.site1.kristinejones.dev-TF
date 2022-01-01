@@ -15,7 +15,7 @@ job "network-dns-rns" {
       mode = "cni/nomadcore1"
 
       port "dns" {
-        to = 8053
+        to = 53
 
         static = 53
 
@@ -23,7 +23,7 @@ job "network-dns-rns" {
       }
 
       port "dnsnode" {
-        to = 8053
+        to = 53
 
         static = 53
 
