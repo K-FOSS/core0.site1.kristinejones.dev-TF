@@ -10,7 +10,7 @@
     client_server
   }
 
-  secondary {
+  secondary kristianjones.dev in-addr.arpa 241.31.172.in-addr.arpa kjmedia.stream mylogin.space trackmy.finance ksit.services writemy.codes {
     transfer from 10.1.1.153:53
   }
 
