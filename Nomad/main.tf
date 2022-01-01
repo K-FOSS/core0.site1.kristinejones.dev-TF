@@ -789,7 +789,15 @@ module "TrueCommand" {
   source = "./Jobs/TrueCommand"
 }
 
+#
+# Minio
+#
 
+module "Minio" {
+  source = "./Jobs/Storage/Minio"
+
+  Minio = var.Storage.Minio
+}
 
 
 

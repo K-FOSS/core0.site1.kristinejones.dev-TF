@@ -1449,6 +1449,8 @@ module "Nomad" {
 
       Password = module.Vault.NAS.Password
     }
+
+    Minio = module.Vault.Minio
   }
 
 

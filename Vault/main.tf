@@ -372,7 +372,7 @@ resource "vault_pki_secret_backend_cert" "TeleportProxyCert" {
 
   common_name = "https.proxy.teleport.service.dc1.kjdev"
 
-  alt_names = ["proxy.access.kristianjones.dev", "https.proxy.teleport.service.kjdev"]
+  alt_names = ["proxy.access.kristianjones.dev", "https.proxy.teleport.service.kjdev", "*.int.kristianjones.dev", "*.int.site1.kristianjones.dev", "*.int.mylogin.space"]
 }
 
 #

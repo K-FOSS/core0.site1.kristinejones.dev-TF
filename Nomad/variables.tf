@@ -706,6 +706,13 @@ variable "Storage" {
       Password = string
 
     })
+
+    Minio = object({
+      AccessKey = string
+      SecretKey = string
+
+      AccessToken = string
+    })
   })
 }
 
