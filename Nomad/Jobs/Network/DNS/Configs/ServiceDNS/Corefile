@@ -9,9 +9,9 @@
     client_server
   }
 
-  secondary kristianjones.dev in-addr.arpa 241.31.172.in-addr.arpa kjmedia.stream mylogin.space trackmy.finance ksit.services writemy.codes {
-    transfer from 10.1.1.153:53
-  }
+  pdsql postgres "host=${Database.Hostname} port=${Database.Port} user=${Database.Username} password=${Database.Password} dbname=${Database.Database} sslmode=disable"
 
   forward kjdev 10.1.1.10:8600 10.1.1.13:8600 172.16.0.10:8600 172.16.0.13:8600
+
+  alias
 }
