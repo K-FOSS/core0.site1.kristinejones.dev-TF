@@ -140,7 +140,7 @@ module "ConsulBackupsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -155,7 +155,7 @@ module "PSQLBackupsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -174,7 +174,7 @@ module "CortexBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -185,7 +185,7 @@ module "AlertManagerBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -204,7 +204,7 @@ module "LokiBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -223,7 +223,7 @@ module "TempoBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -257,8 +257,8 @@ module "OpenProjectBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
-    Port = 9000
+    Hostname = "http.minio.web.service.kjdev"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -268,8 +268,8 @@ module "OpenProjectNewBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
-    Port = 9000
+    Hostname = "http.minio.web.service.kjdev"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -283,8 +283,8 @@ module "OutlineBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
-    Port = 9000
+    Hostname = "http.minio.web.service.kjdev"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
@@ -304,7 +304,7 @@ module "MattermostBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -329,7 +329,7 @@ module "GitLabRepoBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -344,7 +344,7 @@ module "GitLabArtifactsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -359,7 +359,7 @@ module "GitLabExternalDiffsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -374,7 +374,7 @@ module "GitLabLFSBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -389,7 +389,7 @@ module "GitLabUploadsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -404,7 +404,7 @@ module "GitLabPackagesBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -419,7 +419,7 @@ module "GitLabDependencyProxyBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -434,7 +434,7 @@ module "GitLabTerraformStateBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -449,7 +449,7 @@ module "GitLabPagesBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -468,7 +468,7 @@ module "HarborRegistryBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -479,7 +479,7 @@ module "HarborChartsBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "10.1.1.80"
+    Hostname = "http.minio.web.service.kjdev"
     Port = 9080
   }
 
@@ -494,8 +494,8 @@ module "OpenVSXBucket" {
   source = "./Minio"
 
   Connection = {
-    Hostname = "kjdev-minio.ix-kjdev-minio.svc.cluster.local"
-    Port = 9000
+    Hostname = "http.minio.web.service.kjdev"
+    Port = 9080
   }
 
   Credentials = module.Vault.Minio
