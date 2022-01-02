@@ -1518,6 +1518,9 @@
                   },
                   "upstreams": [
                     {
+                      "dial": "node0.core0.dc1.kristianjones.dev:9000"
+                    },
+                    {
                       "dial": "node1.core0.dc1.kristianjones.dev:9000"
                     },
                     {
