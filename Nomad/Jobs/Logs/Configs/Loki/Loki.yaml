@@ -69,9 +69,6 @@ distributor:
     # The heartbeat timeout after which ingesters are skipped for
     # reading and writing.
     heartbeat_timeout: 1m
-    kvstore:
-      store: memberlist
-      prefix: ${Consul.Prefix}/collectors/
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#querier_config
@@ -172,19 +169,6 @@ ruler:
 
   enable_api: true
   enable_sharding: true
-  ring:
-    heartbeat_period: 5s
-    heartbeat_timeout: 15s
-    kvstore:
-      store: consul
-      prefix: ${Consul.Prefix}/rulers/
-
-      #
-      # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
-      #
-      consul:
-        host: ${Consul.Hostname}:${Consul.Port}
-        acl_token: ${Consul.Token}
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#ingester_client_config
 #
@@ -227,19 +211,6 @@ ingester:
     join_after: 0
     final_sleep: 0s
     num_tokens: 512
-
-    ring:
-      replication_factor: 2
-      kvstore:
-        store: consul
-        prefix: ${Consul.Prefix}/collectors/
-        # 
-        # Docs: https://grafana.com/docs/loki/latest/configuration/#consul_config
-        #
-        # The consul_config configures the consul client.
-        consul:
-          host: ${Consul.Hostname}:${Consul.Port}
-          acl_token: ${Consul.Token}
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#storage_config
