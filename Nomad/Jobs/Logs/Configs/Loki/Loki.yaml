@@ -112,7 +112,7 @@ frontend:
   # TODO: Figure this out
   # tail_proxy_url
 
-  #scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
+  scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
 
 
 #
