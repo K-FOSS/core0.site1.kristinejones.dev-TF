@@ -63,6 +63,8 @@ job "security-threatmapper-fetcher" {
       config {
         image = "${ThreatMapper.Image.Repo}/deepfence_fetcher_ce:${ThreatMapper.Image.Tag}"
 
+        memory_hard_limit = 2048
+
         mount {
           type = "tmpfs"
           target = "/tmp"
@@ -151,8 +153,8 @@ EOH
       resources {
         cpu = 128
 
-        memory = 256
-        memory_max = 1024
+        memory = 512
+        memory_max = 2048
       }
     }
   }
