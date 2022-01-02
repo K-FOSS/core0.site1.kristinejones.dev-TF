@@ -73,10 +73,6 @@ server:
   #
   # GRPC
   #
-  grpc_server_max_recv_msg_size: 15000000
-
-  grpc_server_max_send_msg_size: 15000000
-
   grpc_server_max_concurrent_streams: 0
 
 #
@@ -158,8 +154,6 @@ querier:
 #
 ingester_client:
   grpc_client_config:
-    max_recv_msg_size: 15000000
-    max_send_msg_size: 2400000
     grpc_compression: gzip
 
 #
@@ -254,8 +248,6 @@ frontend_worker:
   id: {{ env "NOMAD_ALLOC_NAME" }}
 
   grpc_client_config:
-    max_recv_msg_size: 15000000
-    max_send_msg_size: 2400000
     grpc_compression: 'gzip'
   
 
@@ -268,8 +260,7 @@ frontend:
   scheduler_address: grpc.query-scheduler.cortex.service.dc1.kjdev:8085
 
   grpc_client_config:
-    max_recv_msg_size: 15000000
-    max_send_msg_size: 2400000
+    grpc_compression: 'gzip'
     
 
 
@@ -448,8 +439,6 @@ ruler:
   external_url: http://http.ruler.cortex.service.kjdev:8080
 
   ruler_client:
-    max_recv_msg_size: 15000000
-    max_send_msg_size: 2400000
     grpc_compression: 'gzip'
 
   ring:
@@ -630,6 +619,4 @@ memberlist:
 #
 query_scheduler:
   grpc_client_config:
-    max_recv_msg_size: 15000000
-    max_send_msg_size: 2400000
     grpc_compression: gzip
