@@ -61,6 +61,12 @@ resource "nomad_job" "RDNSJobFile" {
   jobspec = templatefile("${path.module}/Jobs/RNS.hcl", {
     #Version = split("v", data.github_release.Release.release_tag)[1]
 
+    PowerDNS = {
+      Config = templatefile("${path.module}/Configs/RNS/pdns.conf", {
+        Database = var.PowerDNS.Database
+      })
+    }
+
     CoreFile = templatefile("${path.module}/Configs/RNS/Corefile", {
       Netbox = var.Netbox
 

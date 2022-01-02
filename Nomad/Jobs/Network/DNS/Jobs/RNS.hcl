@@ -101,6 +101,30 @@ job "network-dns-rns" {
       }
     }
 
+    task "rns-pdns-server" {
+      driver = "docker"
+
+      config {
+        image = "powerdns/pdns-auth-master"
+
+        args = ["--config-dir=/local/"]
+      }
+
+      resources {
+        cpu = 32
+        memory = 128
+        memory_max = 256
+      }
+
+      template {
+        data = <<EOH
+${PowerDNS.Config}
+EOH
+
+        destination = "local/pdns.conf"
+      }
+    }
+
     task "rns-coredns-server" {
       driver = "docker"
 
