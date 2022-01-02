@@ -112,24 +112,6 @@ job "openproject-server" {
         SMTP_DOMAIN = "kristianjones.dev"
         SMTP_AUTHENTICATION = "login"
         SMTP_ENABLE_STARTTLS_AUTO = "true"
-
-        #
-        # Auth
-        #
-        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_ISSUER = "https://mylogin.space/application/o/OpenProject/"
-        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_SCOPE = "openid email profile"
-
-        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_TOKEN__ENDPOINT = "https://mylogin.space/application/o/token/"
-        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_USERINFO__ENDPOINT = "https://mylogin.space/application/o/userinfo/"
-        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_AUTHORIZATION__ENDPOINT = "https://mylogin.space/application/o/authorize/"
-
-        
-        
-        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_SSO = "true"
-        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_DISCOVERY = "true"
-
-        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_DISPLAY__NAME = "KJDev"
-        OPENPROJECT_OPENID__CONNECT_KEYCLOAK_HOST = "mylogin.space"
       }
 
       template {
@@ -151,12 +133,6 @@ OPENPROJECT_FOG_CREDENTIALS_AWS__SECRET__ACCESS__KEY="${S3.Credentials.SecretKey
 
 SMTP_USER_NAME="${SMTP.Username}"
 SMTP_PASSWORD="${SMTP.Password}"
-
-#
-# OpenID
-#
-OPENPROJECT_OPENID__CONNECT_KEYCLOAK_IDENTIFIER="${OpenID.ClientID}"
-OPENPROJECT_OPENID__CONNECT_KEYCLOAK_SECRET="${OpenID.ClientSecret}"
 EOH
 
         destination = "secrets/file.env"

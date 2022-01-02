@@ -28,7 +28,7 @@ job "openproject-proxy" {
       driver = "exec"
       config {
         command = "sh"
-        args = ["-c", "while ! nc -z https.server.openproject.service.dc1.kjdev 8080; do sleep 1; done"]
+        args = ["-c", "while ! nc -z https.server.openproject.service.kjdev 8080; do sleep 1; done"]
       }
 
       resources {
@@ -79,12 +79,12 @@ job "openproject-proxy" {
         # Cache
         #
         RAILS_CACHE_STORE = "memcache"
-        OPENPROJECT_CACHE__MEMCACHE__SERVER = "memcache.openproject.service.dc1.kjdev:11211"
+        OPENPROJECT_CACHE__MEMCACHE__SERVER = "memcache.openproject.service.kjdev:11211"
 
-        APP_HOST = "https.server.openproject.service.dc1.kjdev"
+        APP_HOST = "https.server.openproject.service.kjdev"
 
         OPENPROJECT_RAILS__RELATIVE__URL__ROOT = ""
-        SERVER_NAME = "openproject.kristianjones.dev"
+        SERVER_NAME = "projects.mylogin.space"
 
         #
         #

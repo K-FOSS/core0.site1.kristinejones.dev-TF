@@ -21,7 +21,7 @@ job "openproject-worker" {
 
         args = ["./docker/prod/seeder"]
 
-        memory_hard_limit = 128
+        memory_hard_limit = 512
 
         logging {
           type = "loki"
@@ -36,6 +36,7 @@ job "openproject-worker" {
       resources {
         cpu = 64
         memory = 128
+        memory_max = 512
       }
 
       env {
