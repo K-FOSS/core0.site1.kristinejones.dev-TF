@@ -89,6 +89,12 @@ querier:
     #max_look_back_period: 30s
 
 #
+# Docs: https://grafana.com/docs/loki/next/configuration/#query_scheduler
+#
+query_scheduler:
+  use_scheduler_ring: true
+
+#
 # Docs: https://grafana.com/docs/loki/latest/configuration/#query_frontend_config
 #
 frontend:

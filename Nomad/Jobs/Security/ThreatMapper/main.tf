@@ -99,21 +99,21 @@ resource "nomad_job" "ThreatMapperCeleryJobFile" {
 # ThreatMapper Dianosis
 #
 
-resource "nomad_job" "ThreatMapperDianosisJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/ThreatMapperDianosis.hcl", {
-    ThreatMapper = local.ThreatMapper
-  })
-}
+# resource "nomad_job" "ThreatMapperDianosisJobFile" {
+#   jobspec = templatefile("${path.module}/Jobs/ThreatMapperDianosis.hcl", {
+#     ThreatMapper = local.ThreatMapper
+#   })
+# }
 
 #
 # ThreatMapper Discovery
 # 
 
-resource "nomad_job" "ThreatMapperDiscoveryJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/ThreatMapperDiscovery.hcl", {
-    ThreatMapper = local.ThreatMapper
-  })
-}
+# resource "nomad_job" "ThreatMapperDiscoveryJobFile" {
+#   jobspec = templatefile("${path.module}/Jobs/ThreatMapperDiscovery.hcl", {
+#     ThreatMapper = local.ThreatMapper
+#   })
+# }
 
 
 
@@ -131,18 +131,18 @@ resource "nomad_job" "ThreatMapperFetcherJobFile" {
 # ThreatMapper Router
 #
 
-resource "nomad_job" "ThreatMapperRouterJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/ThreatMapperRouter.hcl", {
-    ThreatMapper = local.ThreatMapper
-  })
-}
+# resource "nomad_job" "ThreatMapperRouterJobFile" {
+#   jobspec = templatefile("${path.module}/Jobs/ThreatMapperRouter.hcl", {
+#     ThreatMapper = local.ThreatMapper
+#   })
+# }
 
 #
 # ThreatMapper UI
 #
 
-resource "nomad_job" "ThreatMapperUIJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/ThreatMapperUI.hcl", {
-    ThreatMapper = local.ThreatMapper
-  })
-}
+# resource "nomad_job" "ThreatMapperUIJobFile" {
+#   jobspec = templatefile("${path.module}/Jobs/ThreatMapperUI.hcl", {
+#     ThreatMapper = local.ThreatMapper
+#   })
+# }
