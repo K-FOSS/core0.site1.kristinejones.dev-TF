@@ -93,15 +93,15 @@ job "security-threatmapper-backend" {
         # PSQL Fetcher
         #
 
-        POSTGRES_FETCHER_DB_HOST = "${Database.Fetcher.Hostname}"
-        POSTGRES_FETCHER_DB_PORT = "${Database.Fetcher.Port}"
+        POSTGRES_FETCHER_DB_HOST = "${ThreatMapper.Database.Fetcher.Hostname}"
+        POSTGRES_FETCHER_DB_PORT = "${ThreatMapper.Database.Fetcher.Port}"
 
-        POSTGRES_FETCHER_DB_SSLMODE = "disabled"
+        POSTGRES_FETCHER_DB_SSLMODE = "disable"
 
-        POSTGRES_FETCHER_DB_NAME = "${Database.Fetcher.Database}"
+        POSTGRES_FETCHER_DB_NAME = "${ThreatMapper.Database.Fetcher.Database}"
 
-        POSTGRES_FETCHER_DB_USER = "${Database.Fetcher.Username}"
-        POSTGRES_FETCHER_DB_PASSWORD = "${Database.Fetcher.Password}"
+        POSTGRES_FETCHER_DB_USER = "${ThreatMapper.Database.Fetcher.Username}"
+        POSTGRES_FETCHER_DB_PASSWORD = "${ThreatMapper.Database.Fetcher.Password}"
 
 
 
@@ -109,16 +109,16 @@ job "security-threatmapper-backend" {
         # PSQL User
         #
 
-        POSTGRES_USER_DB_HOST = "${Database.User.Hostname}"
-        POSTGRES_USER_DB_PORT = "${Database.User.Port}"
+        POSTGRES_USER_DB_HOST = "${ThreatMapper.Database.User.Hostname}"
+        POSTGRES_USER_DB_PORT = "${ThreatMapper.Database.User.Port}"
 
-        POSTGRES_USER_DB_SSLMODE = "disabled"
+        POSTGRES_USER_DB_SSLMODE = "disable"
 
-        POSTGRES_USER_DB_NAME = "${Database.User.Database}"
+        POSTGRES_USER_DB_NAME = "${ThreatMapper.Database.User.Database}"
 
 
-        POSTGRES_USER_DB_USER = "${Database.User.Username}"
-        POSTGRES_USER_DB_PASSWORD = "${Database.User.Password}"
+        POSTGRES_USER_DB_USER = "${ThreatMapper.Database.User.Username}"
+        POSTGRES_USER_DB_PASSWORD = "${ThreatMapper.Database.User.Password}"
 
         #
         # ElasticSearch
