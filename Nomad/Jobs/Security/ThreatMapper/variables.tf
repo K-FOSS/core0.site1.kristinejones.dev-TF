@@ -34,12 +34,12 @@ variable "TLS" {
   type = object({
     CA = string
 
-    UI = {
+    UI = object({
       CA = string
 
       Cert = string
       Key = string
-    }
+    })
   })
 }
 
