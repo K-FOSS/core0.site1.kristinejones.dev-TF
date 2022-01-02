@@ -46,8 +46,6 @@ server:
   # GRPC Options
   #
   grpc_server_max_concurrent_streams: 1000
-  grpc_server_max_recv_msg_size: 1.048576e+08
-  grpc_server_max_send_msg_size: 1.048576e+08
 
   http_server_idle_timeout: 120s
   http_server_write_timeout: 6m
@@ -90,6 +88,8 @@ querier:
 #
 query_scheduler:
   use_scheduler_ring: true
+  grpc_client_config:
+    grpc_compression: 'gzip'
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#query_frontend_config
@@ -198,7 +198,8 @@ ingester_client:
   #
   # Configures how the gRPC connection to ingesters work as a client
   grpc_client_config:
-    max_recv_msg_size: 6.7108864e+07
+    grpc_compression: 'gzip'
+
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#ingester_config
@@ -304,7 +305,7 @@ limits_config:
 #
 frontend_worker:
   grpc_client_config:
-    max_send_msg_size: 1.048576e+08
+    grpc_compression: 'gzip'
   parallelism: 6
   scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
 
@@ -330,6 +331,12 @@ memberlist:
   node_name: {{ env "NOMAD_ALLOC_NAME" }}
   bind_port: 8090
   randomize_node_name: false
+
+  abort_if_cluster_join_fails: false
+
+  max_join_backoff: 1m
+  max_join_retries: 10
+  min_join_backoff: 1s
 
   advertise_port: 8090
   
