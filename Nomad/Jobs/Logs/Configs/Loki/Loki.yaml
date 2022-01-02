@@ -34,7 +34,7 @@ server:
   # Log only messages with the given severity or above. Supported values [debug,
   # info, warn, error]
   # CLI flag: -log.level
-  log_level: warn
+  log_level: debug
 
   #
   # Observability
@@ -112,7 +112,7 @@ frontend:
   # TODO: Figure this out
   # tail_proxy_url
 
-  scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
+  #scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
 
 
 #
@@ -306,7 +306,7 @@ frontend_worker:
   # grpc_client_config:
   #   max_send_msg_size: 1.048576e+08
   parallelism: 6
-  scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
+  #scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
 
 
 #
