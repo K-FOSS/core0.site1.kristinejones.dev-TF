@@ -33,14 +33,14 @@ job "plantuml" {
       config {
         image = "registry.kristianjones.dev/cache/plantuml/plantuml-server:tomcat"
 
-        memory_hard_limit = 256
+        memory_hard_limit = 512
       }
 
       resources {
         cpu = 64
 
-        memory = 64
-        memory_max = 256
+        memory = 128
+        memory_max = 512
       }
 
       env {
