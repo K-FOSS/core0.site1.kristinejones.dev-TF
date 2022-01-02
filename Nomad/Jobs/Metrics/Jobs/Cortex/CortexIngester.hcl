@@ -102,7 +102,7 @@ job "cortex-ingester" {
 
         args = ["-config.file=/local/Cortex.yaml"]
 
-        memory_hard_limit = 1024
+        memory_hard_limit = 2048
 
         mount {
           type = "tmpfs"
@@ -130,10 +130,10 @@ job "cortex-ingester" {
       }
 
       resources {
-        cpu = 128
+        cpu = 256
 
-        memory = 128
-        memory_max = 1024
+        memory = 512
+        memory_max = 2048
       }
 
       template {
