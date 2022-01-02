@@ -1,6 +1,8 @@
 .:53 {
   health 0.0.0.0:8080
 
+  bufsize 600
+
   metadata .
 
   cache 30
