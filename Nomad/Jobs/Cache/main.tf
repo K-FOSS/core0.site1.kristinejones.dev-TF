@@ -405,3 +405,13 @@ resource "nomad_job" "RegistryRedisJobFile" {
 
   })
 }
+
+#
+# Security
+#
+
+resource "nomad_job" "RegistryRedisJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/ThreatMapperRedis.hcl", {
+
+  })
+}

@@ -4,13 +4,25 @@
 
 variable "Database" {
   type = object({
-    Hostname = string
-    Port = number
+    Fetcher = object({
+      Hostname = string
+      Port = number
 
-    Database = string
+      Database = string
 
-    Username = string
-    Password = string
+      Username = string
+      Password = string
+    })
+
+    User = object({
+      Hostname = string
+      Port = number
+
+      Database = string
+
+      Username = string
+      Password = string
+    })
   })
 }
 

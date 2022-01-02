@@ -1041,6 +1041,12 @@ module "SourceGraphDatabase" {
 # ThreatMapper
 #
 
+module "ThreatMapperFetcherDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
 module "ThreatMapperDatabase" {
   source = "./Database"
 
@@ -1768,7 +1774,10 @@ module "Nomad" {
 
   Security = {
     ThreatMapper = {
-      Database = module.ThreatMapperDatabase.Database
+      Database = {
+        Fetcher = module.ThreatMapperFetcherDatabase.Database
+        User = module.ThreatMapperDatabase.Database
+      }
     }
   }
 
