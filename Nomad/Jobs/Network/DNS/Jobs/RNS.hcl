@@ -34,6 +34,10 @@ job "network-dns-rns" {
         to = 8080
       }
 
+      port "pdns" {
+        to = 9053
+      }
+
       port "redis" { 
         to = 6379
       }
@@ -104,6 +108,17 @@ job "network-dns-rns" {
       }
     }
 
+    service {
+      name = "dns"
+      port = "pdns"
+
+      task = "rns-pdns-server"
+      address_mode = "alloc"
+
+      tags = ["coredns.enabled", "pdns.rns"]
+    }
+
+
     task "rns-pdns-server" {
       driver = "docker"
 
@@ -113,7 +128,9 @@ job "network-dns-rns" {
       }
 
       config {
-        image = "powerdns/pdns-auth-master"
+        image = "powerdns/pdns-auth-master:latest"
+
+        ports = ["pdns"]
 
         args = ["--config-dir=/local/"]
       }
