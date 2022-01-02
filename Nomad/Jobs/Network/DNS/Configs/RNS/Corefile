@@ -15,10 +15,6 @@
     client_server
   }
 
-  acl {
-    allow type * net *
-  }
-
   secondary kristianjones.dev in-addr.arpa 241.31.172.in-addr.arpa kjmedia.stream mylogin.space trackmy.finance ksit.services writemy.codes {
     transfer from 127.0.0.1:9053
   }
