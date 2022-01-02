@@ -54,8 +54,8 @@ locals {
   }
 }
 
-resource "nomad_job" "PSQLWalGBackupJobFile" {
-  jobspec = templatefile("${path.module}/Jobs/PSQLWal-G.hcl", {
-    WalG = local.WalG
-  })
-}
+# resource "nomad_job" "PSQLWalGBackupJobFile" {
+#   jobspec = templatefile("${path.module}/Jobs/PSQLWal-G.hcl", {
+#     WalG = local.WalG
+#   })
+# }

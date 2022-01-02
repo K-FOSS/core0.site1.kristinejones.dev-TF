@@ -122,6 +122,10 @@ ${Tempo.YAMLConfig}
 EOF
 
         destination = "local/Tempo.yaml"
+
+        # Config Replacement
+        change_mode = "signal"
+        change_signal = "SIGHUP"
       }
     }
   }
