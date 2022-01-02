@@ -2,7 +2,7 @@ job "security-threatmapper-ui" {
   datacenters = ["core0site1"]
 
   group "threatmapper-ui-server" {
-    count = 1
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
@@ -12,7 +12,7 @@ job "security-threatmapper-ui" {
     network {
       mode = "cni/nomadcore1"
 
-      port "https" { 
+      port "http" { 
         to = 4042
       }
 
@@ -52,7 +52,7 @@ job "security-threatmapper-ui" {
       driver = "exec"
       config {
         command = "sh"
-        args = ["-c", "while ! nc -z https.topology.threatmapper.service.kjdev 6379; do sleep 1; done"]
+        args = ["-c", "while ! nc -z https.topology.threatmapper.service.kjdev 8004; do sleep 1; done"]
       }
 
       resources {
@@ -63,12 +63,12 @@ job "security-threatmapper-ui" {
 
     service {
       name = "threatmapper"
-      port = "https"
+      port = "http"
 
       task = "threatmapper-ui-server"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "https.ui"]
+      tags = ["coredns.enabled", "http.ui"]
 
       meta {
         meta = "for your service"
@@ -106,6 +106,8 @@ job "security-threatmapper-ui" {
 
         router_service = "https.router.threatmapper.service.kjdev:443"
         VULNERABILITY_SCAN_CONCURRENCY = "10"
+
+        BACKEND_HOST = ""
       }
 
       template {

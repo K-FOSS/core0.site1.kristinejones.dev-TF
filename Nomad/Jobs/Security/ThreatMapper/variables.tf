@@ -27,6 +27,23 @@ variable "Database" {
 }
 
 #
+# TLS
+#
+
+variable "TLS" {
+  type = object({
+    CA = string
+
+    UI = {
+      CA = string
+
+      Cert = string
+      Key = string
+    }
+  })
+}
+
+#
 # Storage
 #
 

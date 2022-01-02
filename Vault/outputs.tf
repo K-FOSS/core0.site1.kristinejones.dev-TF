@@ -864,6 +864,31 @@ output "Search" {
   }
 }
 
+#
+# Security
+#
+
+output "Security" {
+  value = {
+    ThreatMapper = {
+      OpenID = {
+        ClientID = ""
+        ClientSecret = ""
+      }
+
+      TLS = {
+        CA = vault_pki_secret_backend_cert.ThreatMapperUICert.ca_chain
+
+        UI = {
+            CA = vault_pki_secret_backend_cert.ThreatMapperUICert.ca_chain
+            Cert = vault_pki_secret_backend_cert.ThreatMapperUICert.certificate
+            Key = vault_pki_secret_backend_cert.ThreatMapperUICert.private_key
+        }
+      }
+    }
+  }
+}
+
 
 #
 # Prometheus

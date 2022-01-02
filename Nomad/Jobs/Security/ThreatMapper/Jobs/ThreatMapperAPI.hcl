@@ -65,25 +65,10 @@ job "security-threatmapper-api" {
 
         entrypoint = ["/app/code/dockerify/api/entrypoint.sh"]
 
-        mount {
-          type = "bind"
-          target = "/var/run"
-          source = "/var/run"
-          readonly = true
-          bind_options {
-            propagation = "rshared"
-          }
-        }
-
-        mount {
-          type = "bind"
-          target = "/var/run"
-          source = "/var/run"
-          readonly = true
-          bind_options {
-            propagation = "rshared"
-          }
-        }
+        volumes = [
+          "/var/run/docker.sock:/var/run/docker.sock",
+          "/run/containerd/containerd.sock:/run/containerd/containerd.sock"
+        ]
 
         mount {
           type = "tmpfs"

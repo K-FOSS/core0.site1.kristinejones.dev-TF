@@ -1861,6 +1861,17 @@ variable "Security" {
           Password = string
         })
       })
+
+      TLS = object({
+        CA = string
+
+        UI = object({
+          CA = string
+
+          Cert = string
+          Key = string
+        })
+      })
     })
   })
 }

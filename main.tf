@@ -1778,6 +1778,8 @@ module "Nomad" {
         Fetcher = module.ThreatMapperFetcherDatabase.Database
         User = module.ThreatMapperDatabase.Database
       }
+
+      TLS = module.Vault.Security.ThreatMapper.TLS
     }
   }
 

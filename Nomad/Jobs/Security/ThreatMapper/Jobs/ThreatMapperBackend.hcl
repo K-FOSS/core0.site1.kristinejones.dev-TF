@@ -12,7 +12,7 @@ job "security-threatmapper-backend" {
     network {
       mode = "cni/nomadcore1"
 
-      port "https" { 
+      port "http" { 
         to = 4041
       }
 
@@ -45,16 +45,12 @@ job "security-threatmapper-backend" {
 
     service {
       name = "threatmapper"
-      port = "https"
+      port = "http"
 
       task = "threatmapper-backend-server"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "https.backend"]
-
-      meta {
-        meta = "for your service"
-      }
+      tags = ["coredns.enabled", "http.backend"]
     }
 
     task "threatmapper-backend-server" {

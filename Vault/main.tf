@@ -1019,6 +1019,24 @@ resource "vault_pki_secret_backend_cert" "OpenSearchData5Cert" {
 # Security
 #
 
+#
+# ThreatMapper
+#
+
+module "ThreatMapperTLS" {
+  source = "./TLS/Template"
+}
+
+resource "vault_pki_secret_backend_cert" "ThreatMapperUICert" {
+  backend = module.ThreatMapperTLS.TLS.Mount.path
+  name = module.ThreatMapperTLS.TLS.Role.name
+
+  common_name = "https.router.threatmapper.service.kjdev"
+
+  alt_names = ["https.router.threatmapper.service.dc1.kjdev", "threatmapper.int.mylogin.space"]
+
+  private_key_format = "pkcs8"
+}
 
 
 #

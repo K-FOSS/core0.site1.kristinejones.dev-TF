@@ -963,6 +963,8 @@ module "ThreatMapper" {
   source = "./Jobs/Security/ThreatMapper"
 
   Database = var.Security.ThreatMapper.Database
+
+  TLS = var.Security.ThreatMapper.TLS
 }
 
 #
