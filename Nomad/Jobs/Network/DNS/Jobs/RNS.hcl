@@ -107,6 +107,11 @@ job "network-dns-rns" {
     task "rns-pdns-server" {
       driver = "docker"
 
+      lifecycle {
+        hook = "prestart"
+        sidecar = true
+      }
+
       config {
         image = "powerdns/pdns-auth-master"
 
