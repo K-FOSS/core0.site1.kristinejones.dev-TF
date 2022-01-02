@@ -14,6 +14,7 @@
       "protocol": "tcp",
       "discovery": {
         "kind": "srv",
+        "interval": "10s",
         "srv_lookup_server": "172.17.0.10:53",
         "srv_lookup_pattern": "kjdev-unifi-comm.ix-kjdev-unifi.svc.cluster.local."
       }
@@ -23,6 +24,7 @@
       "protocol": "tcp",
       "discovery": {
         "kind": "srv",
+        "interval": "10s",
         "srv_lookup_server": "{{ env "NOMAD_IP_nodehttps" }}:8600",
         "srv_lookup_pattern": "https.web.service.kjdev."
       }
@@ -36,6 +38,8 @@
       },
       "discovery": {
         "kind": "srv",
+        "interval": "10s",
+        "interval": "10s",
         "srv_lookup_server": "{{ env "NOMAD_IP_nodehttps" }}:8600",
         "srv_lookup_pattern": "https.web.service.kjdev."
       }
@@ -45,6 +49,7 @@
       "protocol": "tcp",
       "discovery": {
         "kind": "srv",
+        "interval": "10s",
         "srv_lookup_server": "{{ env "NOMAD_IP_nodehttps" }}:8600",
         "srv_lookup_pattern": "http.web.service.kjdev."
       }
@@ -54,6 +59,7 @@
       "protocol": "tcp",
       "discovery": {
         "kind": "srv",
+        "interval": "10s",
         "srv_lookup_server": "{{ env "NOMAD_IP_nodehttps" }}:8600",
         "srv_lookup_pattern": "http.minio.web.service.kjdev."
       }
