@@ -64,26 +64,6 @@ job "security-threatmapper-fetcher" {
         image = "${ThreatMapper.Image.Repo}/deepfence_fetcher_ce:${ThreatMapper.Image.Tag}"
 
         mount {
-          type = "bind"
-          target = "/var/run"
-          source = "/var/run"
-          readonly = true
-          bind_options {
-            propagation = "rshared"
-          }
-        }
-
-        mount {
-          type = "bind"
-          target = "/var/run"
-          source = "/var/run"
-          readonly = true
-          bind_options {
-            propagation = "rshared"
-          }
-        }
-
-        mount {
           type = "tmpfs"
           target = "/tmp"
           readonly = false

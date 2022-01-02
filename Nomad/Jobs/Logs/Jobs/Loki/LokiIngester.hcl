@@ -117,6 +117,10 @@ ${Loki.YAMLConfig}
 EOF
 
         destination = "local/Loki.yaml"
+
+        # Config Replacement
+        change_mode = "signal"
+        change_signal = "SIGHUP"
       }
     }
   }
