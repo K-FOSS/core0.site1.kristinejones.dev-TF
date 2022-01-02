@@ -410,7 +410,7 @@ resource "nomad_job" "RegistryRedisJobFile" {
 # Security
 #
 
-resource "nomad_job" "RegistryRedisJobFile" {
+resource "nomad_job" "ThreatMapperRedisJobFile" {
   jobspec = templatefile("${path.module}/Jobs/ThreatMapperRedis.hcl", {
 
   })
