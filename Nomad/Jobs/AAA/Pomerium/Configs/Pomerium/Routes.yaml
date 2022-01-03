@@ -10,14 +10,14 @@
 #
 # Mattermost
 #
-- from: https://chat.int.mylogin.space
+- from: https://teams.int.mylogin.space
   to: http://http.mattermost.service.kjdev:8080
   preserve_host_header: true
   allow_public_unauthenticated_access: true
   pass_identity_headers: true
   allow_websockets: true
 
-- from: https://chat-ws.int.mylogin.space
+- from: https://teams-ws.int.mylogin.space
   to: http://http.mattermost.service.kjdev:80
   preserve_host_header: true
   allow_public_unauthenticated_access: true
