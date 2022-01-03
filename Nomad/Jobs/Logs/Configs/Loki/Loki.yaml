@@ -95,26 +95,7 @@ query_scheduler:
 # Docs: https://grafana.com/docs/loki/latest/configuration/#query_frontend_config
 #
 frontend:
-  # Maximum number of outstanding requests per tenant per frontend; requests
-  # beyond this error with HTTP 429.
-  #
-  # TODO: Some intelligence with AlertManager/Cortex/Prometheus for tracing speific 429 errors with this config
-  max_outstanding_per_tenant: 512
-
-  # Compress HTTP responses.
-  compress_responses: true
-
-  # Log queries that are slower than the specified duration. Set to 0 to disable.
-  # Set to < 0 to enable on all queries.
-  log_queries_longer_than: 5s
-
-  # URL of querier for tail proxy.
-  # TODO: Figure this out
-  # tail_proxy_url
-
-  grpc_client_config:
-    grpc_compression: 'gzip'
-
+  parallelism: 6
   scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
 
 
