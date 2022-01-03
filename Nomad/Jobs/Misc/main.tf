@@ -74,3 +74,21 @@ resource "nomad_job" "CyberChefJobFile" {
 #
 # TODO: Find a ShareX server with S3, OpenID, and Postgresql
 #
+
+locals {
+  ShareX = {
+    Image = {
+      Repo = "linuxserver/xbackbone"
+
+      Tag = "latest"
+    }
+
+    Config = templatefile("${path.module}/Configs/ShareX/config.php", var.ShareX)
+  }
+}
+
+resource "nomad_job" "ShareXJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/ShareX.hcl", {
+    ShareX = loca.ShareX
+  })
+}

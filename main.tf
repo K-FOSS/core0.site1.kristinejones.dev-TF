@@ -547,6 +547,21 @@ module "OpenSearchRepoBucket" {
 # SourceGraph
 #
 
+##############
+#    Misc    #
+##############
+
+module "ShareXBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "http.minio.web.service.kjdev"
+    Port = 9080
+  }
+
+  Credentials = module.Vault.Minio
+}
+
 
 ############
 # Security #
@@ -970,6 +985,16 @@ module "CortexConfigDatabase" {
 #
 
 module "IvatarDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+#
+# ShareX
+#
+
+module "ShareXDatabase" {
   source = "./Database"
 
   Credentials = module.Vault.Database
@@ -1409,6 +1434,16 @@ module "Nomad" {
       Database = module.IvatarDatabase.Database
 
       OpenID = module.Vault.Misc.Ivatar.OpenID
+    }
+
+    ShareX = {
+      Database = module.ShareXDatabase.Database
+
+      S3 = module.ShareXBucket
+
+      LDAP = {
+        Credentials = module.Vault.GitLab.LDAP
+      }
     }
   }
 

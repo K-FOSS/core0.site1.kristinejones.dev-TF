@@ -985,6 +985,8 @@ module "Misc" {
   source = "./Jobs/Misc"
 
   Ivatar = var.Misc.Ivatar
+
+  ShareX = var.Misc.ShareX
 }
 
 

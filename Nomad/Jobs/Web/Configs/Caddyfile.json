@@ -275,6 +275,34 @@
                       "match": [
                         {
                           "host": [
+                            "show.kjmedia.stream"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "compression": true,
+                            "resolver": {
+                              "addresses": [
+                                "172.18.0.10:53"
+                              ]
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "http.sharex.service.kjdev"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
                             "jellyfin.kjmedia.stream"
                           ]
                         }
