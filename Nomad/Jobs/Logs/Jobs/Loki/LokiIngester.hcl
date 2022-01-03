@@ -103,6 +103,15 @@ job "loki-ingester" {
 
         args = ["-config.file=/local/Loki.yaml"]
 
+        mount {
+          type = "tmpfs"
+          target = "/tmp/wal"
+          readonly = false
+          tmpfs_options = {
+            size = 10240000000
+          }
+        }
+
         memory_hard_limit = 512
       }
 

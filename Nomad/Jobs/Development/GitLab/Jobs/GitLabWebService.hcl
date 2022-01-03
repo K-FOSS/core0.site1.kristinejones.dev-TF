@@ -101,7 +101,7 @@ job "development-gitlab-webservice" {
         entrypoint = ["/local/Entry.sh"]
         args = []
 
-        memory_hard_limit = 2048
+        memory_hard_limit = 4096
 
         mount {
           type = "bind"
@@ -130,8 +130,8 @@ job "development-gitlab-webservice" {
       resources {
         cpu = 256
 
-        memory = 256
-        memory_max = 2048
+        memory = 512
+        memory_max = 4096
       }
 
       env {
@@ -172,7 +172,7 @@ job "development-gitlab-webservice" {
         #
         # Puma
         #
-        PUMA_WORKER_MAX_MEMORY = "2048"
+        PUMA_WORKER_MAX_MEMORY = "1024"
 
         GITLAB_TRACING = "opentracing://jaeger?http_endpoint=http%3A%2F%2Fhttp.distributor.tempo.service.kjdev%3A14268%2Fapi%2Ftraces&sampler=const&sampler_param=1"
 

@@ -211,13 +211,10 @@ ingester_client:
 # Docs: https://grafana.com/docs/loki/latest/configuration/#ingester_config
 #
 ingester:
-  # Configures how the lifecycle of the ingester will operate
-  # and where it will register for discovery.
-  lifecycler:
-    # We want to start immediately.
-    join_after: 0
-    final_sleep: 0s
-    num_tokens: 512
+  wal:
+    enabled: true
+    dir: /data/wal
+    flush_on_shutdown: true
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#storage_config
