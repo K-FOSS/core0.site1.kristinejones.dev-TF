@@ -45,7 +45,7 @@ server:
   #
   # GRPC Options
   #
-  grpc_server_max_concurrent_streams: 1000
+  #grpc_server_max_concurrent_streams: 1000
 
   http_server_idle_timeout: 120s
   http_server_write_timeout: 6m
@@ -112,7 +112,10 @@ frontend:
   # TODO: Figure this out
   # tail_proxy_url
 
-  scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
+  grpc_client_config:
+    grpc_compression: 'gzip'
+
+  #scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
 
 
 #
@@ -335,6 +338,8 @@ memberlist:
 
   abort_if_cluster_join_fails: false
 
+  
+
   max_join_backoff: 1m
   max_join_retries: 10
   min_join_backoff: 1s
@@ -433,4 +438,6 @@ common:
 
         mirror_enabled: true
     instance_id: {{ env "NOMAD_ALLOC_NAME" }}
-    instance_addr: {{ env "NOMAD_ALLOC_INDEX" }}.grpc.{{ env "NOMAD_META_TARGET" }}.loki.service.dc1.kjdev
+    instance_port: 8085
+
+    instance_addr: {{ env "NOMAD_ALLOC_INDEX" }}.grpc.{{ env "NOMAD_META_TARGET" }}.loki.service.kjdev
