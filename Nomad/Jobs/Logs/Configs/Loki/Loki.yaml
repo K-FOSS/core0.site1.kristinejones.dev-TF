@@ -415,7 +415,7 @@ common:
       s3forcepathstyle: true
       insecure: true
 
-  replication_factor: 2
+  replication_factor: 1
 
   # When true, the ingester, compactor, and query_scheduler ring tokens will be saved
   # to files in the path_prefix directory. Loki will error if you set this to true
