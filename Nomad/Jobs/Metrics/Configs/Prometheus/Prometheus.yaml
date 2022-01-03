@@ -32,7 +32,7 @@ scrape_configs:
   # - job_name: netbox
   #   dns_sd_configs:
   #     - names: 
-  #         - netbox-http-cont.service.kjdev
+  #         - http.netbox.service.kjdev
 
   - job_name: starlink
     dns_sd_configs:

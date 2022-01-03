@@ -90,3 +90,27 @@ variable "eJabberD" {
     })
   })
 }
+
+#
+# Inventory
+# 
+
+#
+# IPAM
+# 
+
+variable "IPAM" {
+  type = object({
+    Netbox = object({
+      Redis = object({
+        Cache = object({
+          Password = string
+        })
+
+        General = object({
+          Password = string
+        })
+      })
+    })
+  })
+}

@@ -269,6 +269,10 @@ resource "nomad_job" "eJabberDJobFile" {
 # Netbox
 #
 
+resource "nomad_job" "NetboxRedisJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/NetboxRedis.hcl", var.IPAM.Netbox)
+}
+
 
 
 ########

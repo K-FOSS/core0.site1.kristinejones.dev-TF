@@ -1,74 +1,6 @@
 job "netbox" {
   datacenters = ["core0site1"]
 
-  group "netbox-redis" {
-    count = 1
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "redis" { 
-        to = 6379
-      }
-    }
-
-    service {
-      name = "netbox-redis"
-      port = "redis"
-
-      task = "redis"
-      address_mode = "alloc"
-
-      tags = ["coredns.enabled"]
-    }
-
-    task "redis" {
-      driver = "docker"
-
-      config {
-        image = "redis:6-alpine"
-
-        command = "redis-server"
-
-        args = ["--requirepass", "${Redis.Password}"]
-      }
-    }
-  }
-
-  group "netbox-cache" {
-    count = 1
-
-    network {
-      mode = "cni/nomadcore1"
-
-      port "redis" { 
-        to = 6379
-      }
-    }
-
-    service {
-      name = "netbox-rediscache"
-      port = "redis"
-
-      task = "redis"
-      address_mode = "alloc"
-
-      tags = ["coredns.enabled"]
-    }
-
-    task "redis" {
-      driver = "docker"
-
-      config {
-        image = "redis:6-alpine"
-
-        command = "redis-server"
-
-        args = ["--requirepass", "${RedisCache.Password}"]
-      }
-    }
-  }
-
   group "netbox-worker" {
     count = 3
 
@@ -116,20 +48,20 @@ job "netbox" {
         # Redis Cache
         #
         REDIS_CACHE_DATABASE = "1"
-        REDIS_CACHE_HOST = "netbox-rediscache.service.kjdev"
+        REDIS_CACHE_HOST = "cache.netbox.service.kjdev"
         REDIS_CACHE_SSL = "0"
 
         #
         # Misc
         #
-        ALLOWED_HOSTS = "netbox.int.mylogin.space netbox-http-cont.service.kjdev"
+        ALLOWED_HOSTS = "netbox.int.mylogin.space ipam.ipaddr.network http.netbox.service.kjdev"
         TIME_ZONE = "America/Winnipeg"
 
         #
         # Redis
         #
         REDIS_DATABASE = "0"
-        REDIS_HOST = "netbox-redis.service.kjdev"
+        REDIS_HOST = "redis.netbox.service.kjdev"
         REDIS_SSL = "false"
       }
 
@@ -165,7 +97,7 @@ SUPERUSER_NAME="${Netbox.AdminUsername}"
 EOH
 
         destination = "secrets/file.env"
-        env         = true
+        env = true
       }
 
       resources {
@@ -203,13 +135,13 @@ EOH
     }
 
     service {
-      name = "netbox-http-cont"
+      name = "netbox"
       port = "http"
 
       task = "netbox"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled"]
+      tags = ["coredns.enabled", "http"]
     }
 
     task "netbox" {
@@ -231,20 +163,20 @@ EOH
         # Redis Cache
         #
         REDIS_CACHE_DATABASE = "1"
-        REDIS_CACHE_HOST = "netbox-rediscache.service.kjdev"
+        REDIS_CACHE_HOST = "cache.netbox.service.kjdev"
         REDIS_CACHE_SSL = "0"
 
         #
         # Redis
         #
         REDIS_DATABASE = "0"
-        REDIS_HOST = "netbox-redis.service.kjdev"
+        REDIS_HOST = "redis.netbox.service.kjdev"
         REDIS_SSL = "false"
 
         #
         # Misc
         #
-        ALLOWED_HOSTS = "netbox.int.mylogin.space netbox-http-cont.service.kjdev netbox-http-cont.service.dc1.kjdev"
+        ALLOWED_HOSTS = "netbox.int.mylogin.space ipam.ipaddr.network http.netbox.service.kjdev http.netbox.service.dc1.kjdev"
         TIME_ZONE = "America/Winnipeg"
 
         #

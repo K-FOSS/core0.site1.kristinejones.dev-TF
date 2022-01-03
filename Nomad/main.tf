@@ -309,6 +309,12 @@ module "Cache" {
       ETCD = var.AAA.Teleport.TLS.ETCD
     }
   }
+
+  IPAM = {
+    Netbox = {
+      Redis = module.NetboxJob.Redis
+    }
+  }
 }
 
 
@@ -646,7 +652,7 @@ module "DNS" {
   source = "./Jobs/Network/DNS"
 
   Netbox = {
-    Hostname = "netbox-http-cont.service.kjdev"
+    Hostname = "http.netbox.service.kjdev"
     Port = 8080
 
     Token = var.Inventory.Netbox.Token
