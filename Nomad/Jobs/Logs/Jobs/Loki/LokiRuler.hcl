@@ -5,7 +5,7 @@ job "loki-ruler" {
   # Loki Ruler
   #
   group "loki-ruler" {
-    count = 3
+    count = 4
 
     spread {
       attribute = "$${node.unique.id}"

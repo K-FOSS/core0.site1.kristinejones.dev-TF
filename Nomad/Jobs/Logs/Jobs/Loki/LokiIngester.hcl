@@ -5,7 +5,7 @@ job "loki-ingester" {
   # Loki Ingester
   #
   group "loki-ingester" {
-    count = 3
+    count = 4
 
     spread {
       attribute = "$${node.unique.id}"

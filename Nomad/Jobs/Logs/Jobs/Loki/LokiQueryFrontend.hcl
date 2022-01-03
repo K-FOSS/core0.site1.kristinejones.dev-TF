@@ -5,7 +5,7 @@ job "loki-query-frontend" {
   # Loki Query Frontend
   #
   group "loki-query-frontend" {
-    count = 3
+    count = 4
 
     spread {
       attribute = "$${node.unique.id}"

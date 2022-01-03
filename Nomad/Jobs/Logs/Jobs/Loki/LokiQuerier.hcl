@@ -5,7 +5,7 @@ job "loki-querier" {
   # Loki Querier
   #
   group "loki-querier" {
-    count = 3
+    count = 4
 
     spread {
       attribute = "$${node.unique.id}"

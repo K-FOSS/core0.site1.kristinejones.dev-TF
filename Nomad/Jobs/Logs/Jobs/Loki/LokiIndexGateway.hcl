@@ -5,7 +5,7 @@ job "loki-index-gateway" {
   # Loki Index Gateway
   #
   group "loki-index-gateway" {
-    count = 3
+    count = 4
 
     spread {
       attribute = "$${node.unique.id}"

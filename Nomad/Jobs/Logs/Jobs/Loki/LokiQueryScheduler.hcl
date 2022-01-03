@@ -5,7 +5,7 @@ job "loki-query-scheduler" {
   # Loki Query Scheduler
   #
   group "loki-query-scheduler" {
-    count = 3
+    count = 4
 
     spread {
       attribute = "$${node.unique.id}"
