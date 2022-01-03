@@ -27,6 +27,14 @@ job "tempo-distributor" {
       port "otel_grpc" {
         to = 4317
       }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "10.1.1.10",
+          "10.1.1.13"
+        ]
+      }
     }
 
     service {

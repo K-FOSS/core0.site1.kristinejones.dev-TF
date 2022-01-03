@@ -23,6 +23,14 @@ job "tempo-ingester" {
       port "gossip" { 
         to = 8090
       }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "10.1.1.10",
+          "10.1.1.13"
+        ]
+      }
     }
 
     service {
