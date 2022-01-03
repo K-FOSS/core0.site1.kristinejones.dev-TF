@@ -12,19 +12,19 @@ job "search-opensearch-dashboard" {
     network {
       mode = "cni/nomadcore1"
 
-      port "https" {
-        to = 9600
+      port "http" {
+        to = 5601
       }
     }
 
     service {
       name = "opensearch"
-      port = "https"
+      port = "http"
 
       task = "opensearch-dashboard-server"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "https.dashboard", "$${NOMAD_ALLOC_INDEX}.https.dashboard"]
+      tags = ["coredns.enabled", "http.dashboard", "$${NOMAD_ALLOC_INDEX}.http.dashboard"]
     }
 
     task "opensearch-dashboard-server" {

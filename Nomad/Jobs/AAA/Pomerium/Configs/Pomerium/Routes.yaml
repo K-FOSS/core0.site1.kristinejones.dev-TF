@@ -211,6 +211,18 @@
       - Network
   pass_identity_headers: true
 
+############
+#  Search  #
+############
+
+- from: https://opensearch.int.mylogin.space
+  to: http://https.dashboard.opensearch.service.kjdev:5601
+  allowed_idp_claims:
+    groups:
+      - Servers
+      - Network
+  pass_identity_headers: true
+
 #
 # Servers
 #

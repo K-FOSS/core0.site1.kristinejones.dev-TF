@@ -1,8 +1,8 @@
-job "inventory-meshcentral-ldap" {
+job "inventory-meshcentral-core" {
   datacenters = ["core0site1"]
 
-  group "auth-ldap-server" {
-    count = 3
+  group "meshcentral-core" {
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
@@ -29,13 +29,13 @@ job "inventory-meshcentral-ldap" {
       name = "meshcentral"
       port = "https"
 
-      task = "authentik-ldap-server"
+      task = "meshcentral-core-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.server"]
+      tags = ["coredns.enabled", "https.server"]
     }
 
-    task "authentik-ldap-server" {
+    task "meshcentral-core-server" {
       driver = "docker"
 
       config {
@@ -52,33 +52,11 @@ job "inventory-meshcentral-ldap" {
 
       template {
         data = <<EOH
-#
-# Cache
-#
-AUTHENTIK_REDIS__HOST="redis.authentik.service.dc1.kjdev"
 
-#
-# Database
-#
-AUTHENTIK_POSTGRESQL__NAME="${Database.Database}"
-
-# Database Credentials
-AUTHENTIK_POSTGRESQL__USER="${Database.Username}"
-AUTHENTIK_POSTGRESQL__PASSWORD="${Database.Password}"
-
-#
-# Secrets
-#
-AUTHENTIK_SECRET_KEY="${Authentik.SecretKey}"
-
-#
-# LDAP
-#
-AUTHENTIK_TOKEN="${LDAP.AuthentikToken}"
 EOH
 
         destination = "secrets/file.env"
-        env         = true
+        env = true
       }
 
       resources {
