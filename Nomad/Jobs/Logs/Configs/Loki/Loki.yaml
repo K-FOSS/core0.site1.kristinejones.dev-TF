@@ -115,7 +115,7 @@ frontend:
   grpc_client_config:
     grpc_compression: 'gzip'
 
-  #scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
+  scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
 
 
 #
