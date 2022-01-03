@@ -88,8 +88,6 @@ querier:
 #
 query_scheduler:
   use_scheduler_ring: true
-  grpc_client_config:
-    grpc_compression: 'gzip'
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#query_frontend_config
