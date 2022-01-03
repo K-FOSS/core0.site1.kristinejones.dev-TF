@@ -139,6 +139,7 @@
                   "host": [
                     "*.int.site1.kristianjones.dev",
                     "*.int.mylogin.space",
+                    "controlcenter.house",
                     "*.ipaddr.network",
                     "*.int.ipaddr.network",
                     "sabnzbd.kjmedia.stream",
@@ -202,6 +203,7 @@
                           "host": [
                             "*.int.site1.kristianjones.dev",
                             "*.int.mylogin.space",
+                            "controlcenter.house",
                             "*.ipaddr.network",
                             "*.int.ipaddr.network",
                             "sabnzbd.kjmedia.stream",
@@ -1591,6 +1593,7 @@
               "ipam.ipaddr.network",
               "*.int.ipaddr.network",
               "mylogin.space",
+              "controlcenter.house",
               "*.mylogin.space",
               "*.access.mylogin.space",
               "*.int.mylogin.space",

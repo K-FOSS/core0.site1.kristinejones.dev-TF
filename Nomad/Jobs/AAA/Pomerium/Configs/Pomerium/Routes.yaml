@@ -51,6 +51,17 @@
   allow_websockets: true
   cors_allow_preflight: true
 
+- from: https://controlcenter.house
+  to: https://home1-hass-home-assistant.ix-home1-hass.svc.cluster.local:8123
+  tls_custom_ca_file: /secrets/TLS/HomeAssistantCA.pem
+  tls_server_name: hass.int.site1.kristianjones.dev
+  allowed_idp_claims:
+    groups:
+      - Home Users
+  pass_identity_headers: true
+  allow_websockets: true
+  cors_allow_preflight: true
+
 - from: https://hass-code.int.mylogin.space
   to: http://home1-hass-home-assistant-codeserver.ix-home1-hass.svc.cluster.local:12321
   allowed_idp_claims:

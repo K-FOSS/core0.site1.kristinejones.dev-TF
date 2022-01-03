@@ -524,6 +524,21 @@ module "MoodleRepositoryBucket" {
   Credentials = module.Vault.Minio
 }
 
+###############
+# Performance #
+###############
+
+module "SentryBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "http.minio.web.service.kjdev"
+    Port = 9080
+  }
+
+  Credentials = module.Vault.Minio
+}
+
 ##########
 # Search #
 ##########
@@ -871,6 +886,21 @@ module "Tinkerbell" {
 #
 
 module "OpenNMSDatabase" {
+  source = "./Database"
+
+  Credentials = module.Vault.Database
+}
+
+###############
+# Performance #
+###############
+
+
+#
+# Sentry
+#
+
+module "SentryDatabase" {
   source = "./Database"
 
   Credentials = module.Vault.Database
