@@ -177,6 +177,11 @@ job "development-gitlab-webservice" {
         GITLAB_TRACING = "opentracing://jaeger?http_endpoint=http%3A%2F%2Fhttp.distributor.tempo.service.kjdev%3A14268%2Fapi%2Ftraces&sampler=const&sampler_param=1"
 
         #
+        # Workhorse
+        #
+        WORKHORSE_ARCHIVE_CACHE_DISABLED = "true"
+
+        #
         # TLS
         #SSL_CERT_FILE
       }
