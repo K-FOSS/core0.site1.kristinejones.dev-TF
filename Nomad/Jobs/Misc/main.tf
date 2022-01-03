@@ -89,6 +89,6 @@ locals {
 
 resource "nomad_job" "ShareXJobFile" {
   jobspec = templatefile("${path.module}/Jobs/ShareX.hcl", {
-    ShareX = loca.ShareX
+    ShareX = local.ShareX
   })
 }
