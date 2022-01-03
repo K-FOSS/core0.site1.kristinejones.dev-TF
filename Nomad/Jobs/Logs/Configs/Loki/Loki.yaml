@@ -152,6 +152,8 @@ query_range:
 
 
 
+
+
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#ruler_config
 #
