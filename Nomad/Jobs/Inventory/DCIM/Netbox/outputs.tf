@@ -1,4 +1,4 @@
-variable "Redis" {
+output "Redis" {
   value = {
     Cache = {
       Password = random_password.NetboxRedisCachePassword.result
