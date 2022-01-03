@@ -45,9 +45,7 @@ server:
   #
   # GRPC Options
   #
-  grpc_server_max_concurrent_streams: 0
-  grpc_server_max_recv_msg_size: 15000000
-  grpc_server_max_send_msg_size: 15000000
+  grpc_server_max_concurrent_streams: 1000
 
   http_server_idle_timeout: 120s
   http_server_write_timeout: 6m
@@ -69,9 +67,6 @@ distributor:
     # The heartbeat timeout after which ingesters are skipped for
     # reading and writing.
     heartbeat_timeout: 1m
-    kvstore:
-      store: memberlist
-      prefix: ${Consul.Prefix}/collectors/
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#querier_config
@@ -87,6 +82,14 @@ querier:
     # The maximum amount of time to look back for log lines. Only
     # applicable for instant log queries.
     #max_look_back_period: 30s
+
+#
+# Docs: https://grafana.com/docs/loki/next/configuration/#query_scheduler
+#
+query_scheduler:
+  use_scheduler_ring: true
+  grpc_client_config:
+    grpc_compression: 'gzip'
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#query_frontend_config
@@ -166,19 +169,7 @@ ruler:
 
   enable_api: true
   enable_sharding: true
-  ring:
-    heartbeat_period: 5s
-    heartbeat_timeout: 15s
-    kvstore:
-      store: consul
-      prefix: ${Consul.Prefix}/rulers/
 
-      #
-      # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
-      #
-      consul:
-        host: ${Consul.Hostname}:${Consul.Port}
-        acl_token: ${Consul.Token}
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#ingester_client_config
 #
@@ -207,8 +198,9 @@ ingester_client:
   # Docs: https://grafana.com/docs/loki/latest/configuration/#grpc_client_config
   #
   # Configures how the gRPC connection to ingesters work as a client
-  # grpc_client_config:
-  #   max_recv_msg_size: 6.7108864e+07
+  grpc_client_config:
+    grpc_compression: 'gzip'
+
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#ingester_config
@@ -221,19 +213,6 @@ ingester:
     join_after: 0
     final_sleep: 0s
     num_tokens: 512
-
-    ring:
-      replication_factor: 2
-      kvstore:
-        store: consul
-        prefix: ${Consul.Prefix}/collectors/
-        # 
-        # Docs: https://grafana.com/docs/loki/latest/configuration/#consul_config
-        #
-        # The consul_config configures the consul client.
-        consul:
-          host: ${Consul.Hostname}:${Consul.Port}
-          acl_token: ${Consul.Token}
 
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#storage_config
@@ -326,8 +305,8 @@ limits_config:
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#frontend_worker_config
 #
 frontend_worker:
-  # grpc_client_config:
-  #   max_send_msg_size: 1.048576e+08
+  grpc_client_config:
+    grpc_compression: 'gzip'
   parallelism: 6
   scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
 
@@ -353,6 +332,12 @@ memberlist:
   node_name: {{ env "NOMAD_ALLOC_NAME" }}
   bind_port: 8090
   randomize_node_name: false
+
+  abort_if_cluster_join_fails: false
+
+  max_join_backoff: 1m
+  max_join_retries: 10
+  min_join_backoff: 1s
 
   advertise_port: 8090
   
