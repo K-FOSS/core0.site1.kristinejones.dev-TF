@@ -551,7 +551,18 @@ module "OpenSearchRepoBucket" {
 #    Misc    #
 ##############
 
-module "ShareXBucket" {
+# module "ShareXBucket" {
+#   source = "./Minio"
+
+#   Connection = {
+#     Hostname = "http.minio.web.service.kjdev"
+#     Port = 9080
+#   }
+
+#   Credentials = module.Vault.Minio
+# }
+
+module "ShareXUploadBucket" {
   source = "./Minio"
 
   Connection = {
@@ -1439,7 +1450,7 @@ module "Nomad" {
     ShareX = {
       Database = module.ShareXDatabase.Database
 
-      S3 = module.ShareXBucket
+      S3 = module.ShareXUploadBucket
 
       LDAP = {
         Credentials = module.Vault.GitLab.LDAP
