@@ -92,6 +92,15 @@ querier:
     #max_look_back_period: 30s
 
 #
+# Docs: https://grafana.com/docs/loki/next/configuration/#query_scheduler
+#
+query_scheduler:
+  use_scheduler_ring: true
+  grpc_client_config:
+    grpc_compression: 'gzip'
+
+
+#
 # Docs: https://grafana.com/docs/loki/latest/configuration/#query_frontend_config
 #
 frontend:
@@ -328,7 +337,8 @@ limits_config:
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#frontend_worker_config
 #
 frontend_worker:
-  # grpc_client_config:
+  grpc_client_config:
+     grpc_compression: 'gzip'
   #   max_send_msg_size: 1.048576e+08
   parallelism: 6
   scheduler_address: grpc.query-scheduler.loki.service.kjdev:8085
