@@ -28,8 +28,11 @@ job "misc-sharex-xbackbone" {
       config {
         image = "${ShareX.Image.Repo}:${ShareX.Image.Tag}"
 
+        memory_hard_limit = 2048
+
         volumes = [
-          "local/config.php:/config/www/xbackbone/config.php"
+          "local/config.php:/config/www/xbackbone/config.php",
+          "local/php.ini:/config/php/php-local.ini"
         ]
       }
 
@@ -39,8 +42,8 @@ job "misc-sharex-xbackbone" {
 
       resources {
         cpu = 128
-        memory = 64
-        memory_max = 128
+        memory = 128
+        memory_max = 2048
       }
 
       template {
@@ -49,6 +52,15 @@ ${ShareX.Config}
 EOF
 
         destination = "local/config.php"
+      }
+
+      template {
+        data = <<EOF
+  upload_max_filesize = 1024M
+  post_max_size = 1024M
+EOF
+
+        destination = "local/php.ini"
       }
     }
   }
