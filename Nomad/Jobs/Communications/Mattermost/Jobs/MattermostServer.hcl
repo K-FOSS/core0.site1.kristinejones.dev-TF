@@ -10,16 +10,24 @@ job "communications-mattermost-leader" {
       port "http" { 
         to = 8080
       }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "10.1.1.10",
+          "10.1.1.13"
+        ]
+      }
     }
 
     service {
-      name = "mattermost-leader-http-cont"
+      name = "mattermost"
       port = "http"
 
       task = "mattermost-server"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled"]
+      tags = ["coredns.enabled", "http"]
     }
 
     task "mattermost-server" {
@@ -38,7 +46,7 @@ job "communications-mattermost-leader" {
         logging {
           type = "loki"
           config {
-            loki-url = "http://http.ingress-webproxy.service.dc1.kjdev:8080/loki/api/v1/push"
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
 
             loki-external-labels = "job=mattermost,service=coreserver"
           }
@@ -49,6 +57,17 @@ job "communications-mattermost-leader" {
         RUN_SERVER_IN_BACKGROUND = "false"
         MM_NO_DOCKER = "true"
         APP_PORT_NUMBER = "8080"
+
+        #
+        # Tracing
+        #
+        JAEGER_AGENT_HOST = "http.distributor.tempo.service.kjdev"
+        JAEGER_AGENT_PORT = "6831"
+
+        JAEGER_SAMPLER_TYPE = "const"
+        JAEGER_SAMPLER_PARAM = "1"
+
+        JAEGER_TAGS = "job=cortex,service=alert-manager"
       }
 
       resources {

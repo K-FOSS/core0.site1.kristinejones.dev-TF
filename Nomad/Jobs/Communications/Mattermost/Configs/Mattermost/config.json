@@ -1,7 +1,7 @@
 {
   "ServiceSettings": {
-    "SiteURL": "https://mattermost.int.site1.kristianjones.dev",
-    "WebsocketURL": "wss://mattermost.int.site1.kristianjones.dev",
+    "SiteURL": "https://teams.int.mylogin.space",
+    "WebsocketURL": "wss://teams.int.mylogin.space",
     "LicenseFileLocation": "",
     "ListenAddress": ":8080",
     "ConnectionSecurity": "",

@@ -74,7 +74,7 @@ locals {
         ClientID = var.GitLab.ClientID
         ClientSecret = var.GitLab.ClientSecret
 
-        URL = "https://gitlab.kristianjones.dev"
+        URL = "https://git.writemy.codes"
       }
 
     })
@@ -85,7 +85,7 @@ locals {
 }
 
 resource "nomad_job" "Mattermost" {
-  jobspec = templatefile("${path.module}/Jobs/MattermostLeader.hcl", {
+  jobspec = templatefile("${path.module}/Jobs/MattermostServer.hcl", {
     Mattermost = local.Mattermost
   })
 }
