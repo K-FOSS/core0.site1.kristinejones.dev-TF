@@ -266,5 +266,48 @@
   cors_allow_preflight: true
 
 #
+# Consul
+# 
+
+- from: https://consul.int.mylogin.space
+  to: http://consul.service.kjdev:8500
+  preserve_host_header: true
+  allowed_idp_claims:
+    groups:
+      - Server Admins
+  pass_identity_headers: true
+  allow_websockets: true
+  cors_allow_preflight: true
+
+#
+# Vault
+#
+
+- from: https://vault.int.mylogin.space
+  to: http://vault.service.kjdev:8100
+  preserve_host_header: true
+  allowed_idp_claims:
+    groups:
+      - Server Admins
+  pass_identity_headers: true
+  allow_websockets: true
+  cors_allow_preflight: true
+
+#
+# CoreVault
+#
+
+- from: https://corevault.int.mylogin.space
+  to: http://covault.service.kjdev:8200
+  preserve_host_header: true
+  allowed_idp_claims:
+    groups:
+      - Server Admins
+  pass_identity_headers: true
+  allow_websockets: true
+  cors_allow_preflight: true
+
+
+#
 # AAA
 #
