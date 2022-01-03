@@ -72,7 +72,7 @@ job "loki-query-frontend" {
       task = "loki-query-frontend"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "grpc.query-frontend", "$${NOMAD_ALLOC_INDEX}.grpc.query-frontend"]
+      tags = ["coredns.enabled", "grpc.query-frontend", "$${NOMAD_ALLOC_INDEX}.grpc.query-frontend", "_grpclb._tcp.grpc.query-frontend"]
     }
 
     service {

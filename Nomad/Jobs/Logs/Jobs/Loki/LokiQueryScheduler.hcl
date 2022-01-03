@@ -72,7 +72,7 @@ job "loki-query-scheduler" {
       task = "loki-query-scheduler"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "grpc.query-scheduler", "$${NOMAD_ALLOC_INDEX}.grpc.query-scheduler"]
+      tags = ["coredns.enabled", "grpc.query-scheduler", "$${NOMAD_ALLOC_INDEX}.grpc.query-scheduler", "_grpclb._tcp.grpc.query-scheduler"]
     }
 
     service {

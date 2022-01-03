@@ -72,7 +72,7 @@ job "loki-distributor" {
       task = "loki-distributor"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "grpc.distributor", "$${NOMAD_ALLOC_INDEX}.grpc.distributor"]
+      tags = ["coredns.enabled", "grpc.distributor", "$${NOMAD_ALLOC_INDEX}.grpc.distributor", "_grpclb._tcp.grpc.distributor"]
     }
 
     service {

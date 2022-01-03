@@ -72,7 +72,7 @@ job "loki-querier" {
       task = "loki-querier"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "grpc.querier", "$${NOMAD_ALLOC_INDEX}.grpc.querier"]
+      tags = ["coredns.enabled", "grpc.querier", "$${NOMAD_ALLOC_INDEX}.grpc.querier", "_grpclb._tcp.grpc.querier"]
     }
 
     service {

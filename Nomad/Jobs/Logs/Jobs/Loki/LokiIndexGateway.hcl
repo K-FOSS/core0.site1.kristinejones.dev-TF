@@ -72,7 +72,7 @@ job "loki-index-gateway" {
       task = "loki-index-gateway"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "grpc.index-gateway", "$${NOMAD_ALLOC_INDEX}.grpc.index-gateway"]
+      tags = ["coredns.enabled", "grpc.index-gateway", "$${NOMAD_ALLOC_INDEX}.grpc.index-gateway", "_grpclb._tcp.grpc.index-gateway"]
     }
 
     service {

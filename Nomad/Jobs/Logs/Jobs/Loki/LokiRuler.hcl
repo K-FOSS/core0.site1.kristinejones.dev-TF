@@ -64,7 +64,7 @@ job "loki-ruler" {
       task = "loki-ruler"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "grpc.ruler", "$${NOMAD_ALLOC_INDEX}.grpc.ruler"]
+      tags = ["coredns.enabled", "grpc.ruler", "$${NOMAD_ALLOC_INDEX}.grpc.ruler", "_grpclb._tcp.grpc.ruler"]
     }
 
     service {
