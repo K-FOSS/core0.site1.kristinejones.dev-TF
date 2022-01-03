@@ -39,16 +39,6 @@
 #
 # HomeAssistant
 #
-- from: https://hass.int.site1.kristianjones.dev
-  to: https://home1-hass-home-assistant.ix-home1-hass.svc.cluster.local:8123
-  tls_custom_ca_file: /secrets/TLS/HomeAssistantCA.pem
-  tls_server_name: hass.int.site1.kristianjones.dev
-  allowed_idp_claims:
-    groups:
-      - Home Users
-  pass_identity_headers: true
-  allow_websockets: true
-  cors_allow_preflight: true
 
 - from: https://hass.int.mylogin.space
   to: https://home1-hass-home-assistant.ix-home1-hass.svc.cluster.local:8123
@@ -154,31 +144,11 @@
 #
 # CyberChef
 #
-- from: https://cyberchef.int.site1.kristianjones.dev
-  to: http://http.cyberchef.service.dc1.kjdev:8000
-  preserve_host_header: true
-  allow_any_authenticated_user: true
-  pass_identity_headers: true
-  allow_websockets: true
-  cors_allow_preflight: true
 
 - from: https://cyberchef.int.mylogin.space
   to: http://http.cyberchef.service.dc1.kjdev:8000
   preserve_host_header: true
   allow_any_authenticated_user: true
-  pass_identity_headers: true
-  allow_websockets: true
-  cors_allow_preflight: true
-
-#
-# ShareX
-#
-- from: https://sharex.int.site1.kristianjones.dev
-  to: http://http.cyberchef.service.dc1.kjdev:8000
-  preserve_host_header: true
-  allowed_idp_claims:
-    groups:
-      - Media Admins
   pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
