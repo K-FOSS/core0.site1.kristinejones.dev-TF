@@ -233,7 +233,8 @@
 #
 # NetBox
 #
-- from: https://netbox.int.site1.kristianjones.dev
+
+- from: https://netbox.int.mylogin.space
   to: http://netbox-http-cont.service.kjdev:8080
   allowed_idp_claims:
     groups:
@@ -241,7 +242,7 @@
       - Network
   pass_identity_headers: true
 
-- from: https://netbox.int.mylogin.space
+- from: https://ipam.ipaddr.network
   to: http://netbox-http-cont.service.kjdev:8080
   allowed_idp_claims:
     groups:

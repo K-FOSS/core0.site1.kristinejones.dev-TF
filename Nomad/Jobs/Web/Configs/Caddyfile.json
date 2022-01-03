@@ -139,6 +139,8 @@
                   "host": [
                     "*.int.site1.kristianjones.dev",
                     "*.int.mylogin.space",
+                    "*.ipaddr.network",
+                    "*.int.ipaddr.network",
                     "sabnzbd.kjmedia.stream",
                     "prowlarr.kjmedia.stream",
                     "radarr.kjmedia.stream",
@@ -200,6 +202,8 @@
                           "host": [
                             "*.int.site1.kristianjones.dev",
                             "*.int.mylogin.space",
+                            "*.ipaddr.network",
+                            "*.int.ipaddr.network",
                             "sabnzbd.kjmedia.stream",
                             "prowlarr.kjmedia.stream",
                             "radarr.kjmedia.stream",
@@ -1555,6 +1559,9 @@
               "kjmedia.stream",
               "network.glass",
               "ipaddr.network",
+              "*.ipaddr.network",
+              "ipam.ipaddr.network",
+              "*.int.ipaddr.network",
               "mylogin.space",
               "*.mylogin.space",
               "*.access.mylogin.space",
