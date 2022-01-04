@@ -74,7 +74,7 @@ job "aaa-teleport-auth" {
       config {
         image = "${Teleport.Repo}:${Teleport.Version}"
 
-        args = ["start", "--diag-addr=0.0.0.0:3000", "--config", "/local/Teleport.yaml", "--roles=auth", "-d"]
+        args = ["start", "--diag-addr=0.0.0.0:3000", "--config", "/local/Teleport.yaml", "--roles=auth", "-d", "--bootstrap=/local/github.yaml"]
 
         memory_hard_limit = 256
 

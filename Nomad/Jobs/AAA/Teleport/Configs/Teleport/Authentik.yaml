@@ -11,7 +11,7 @@ spec:
   # Connector display name that will be shown on web UI login screen
   display: Github
   # Callback URL that will be called after successful authentication
-  redirect_url: https://auth.access.kristianjones.dev/v1/webapi/github/callback
+  redirect_url: https://auth.access.mylogin.space/v1/webapi/github/callback
   teams_to_logins:
     - organization: github # Github organization name
       team: justice-league # Github team name within that organization
