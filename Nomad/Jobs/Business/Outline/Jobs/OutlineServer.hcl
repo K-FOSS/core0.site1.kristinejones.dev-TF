@@ -44,7 +44,7 @@ job "business-outline-api" {
         #
         # Network
         #
-        URL = "https://notes.kristianjones.dev:443"
+        URL = "https://notes.mylogin.space:443"
         PORT = "8080"
 
         #
@@ -64,9 +64,9 @@ job "business-outline-api" {
         #
         # TODO: Urgent Get OpenID App/Provider and configure
         #
-        OIDC_AUTH_URI = "https://mylogin.space/application/o/authorize/"
-        OIDC_TOKEN_URI = "https://mylogin.space/application/o/token/"
-        OIDC_USERINFO_URI = "https://mylogin.space/application/o/userinfo/"
+        OIDC_AUTH_URI = "https://idp.mylogin.space/application/o/authorize/"
+        OIDC_TOKEN_URI = "https://idp.mylogin.space/application/o/token/"
+        OIDC_USERINFO_URI = "https://idp.mylogin.space/application/o/userinfo/"
 
         #
         # Storage

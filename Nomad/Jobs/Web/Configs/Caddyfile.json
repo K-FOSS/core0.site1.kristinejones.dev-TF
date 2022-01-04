@@ -29,7 +29,8 @@
                 {
                   "host": [
                     "hass.int.site1.kristianjones.dev",
-                    "hass.home1.kristianjones.dev"
+                    "hass.home1.kristianjones.dev",
+                    "hass.controlcenter.house"
                   ],
                   "path": [
                     "/api/google_assistant",
@@ -71,36 +72,6 @@
               "match": [
                 {
                   "host": [
-                    "projects.mylogin.space"
-                  ]
-                }
-              ],
-              "handle": [
-                {
-                  "handler": "reverse_proxy",
-                  "transport": {
-                    "protocol": "http",
-                    "resolver": {
-                      "addresses": [
-                        "10.1.1.10:53",
-                        "10.1.1.13:53",
-                        "10.1.1.53:53"
-                      ]
-                    }
-                  },
-                  "upstreams": [
-                    {
-                      "lookup_srv": "proxy.openproject.service.kjdev"
-                    }
-                  ]
-                }
-              ],
-              "terminal": true
-            },
-            {
-              "match": [
-                {
-                  "host": [
                     "*.access.kristianjones.dev",
                     "*.access.mylogin.space"
                   ]
@@ -131,7 +102,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "terminal": true
             },
             {
               "match": [
@@ -140,6 +112,7 @@
                     "*.int.site1.kristianjones.dev",
                     "*.int.mylogin.space",
                     "controlcenter.house",
+                    "*.int.controlcenter.house",
                     "*.ipaddr.network",
                     "*.int.ipaddr.network",
                     "sabnzbd.kjmedia.stream",
@@ -395,6 +368,49 @@
               "match": [
                 {
                   "host": [
+                    "*.contorlcenter.house"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "subroute",
+                  "routes": [
+                    {
+                      "match": [
+                        {
+                          "host": [
+                            "random.controlcenter.house"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "static_response",
+                          "status_code": "200",
+                          "body": "TODO: This is a test of stuff"
+                        }
+                      ],
+                      "terminal": true
+                    },
+                    {
+                      "handle": [
+                        {
+                          "handler": "static_response",
+                          "status_code": "200",
+                          "body": "TODO: Deploy stuff <me@kristianjones.dev>"
+                        }
+                      ],
+                      "terminal": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "match": [
+                {
+                  "host": [
                     "edu.ksit.services",
                     "*.edu.ksit.services"
                   ]
@@ -407,7 +423,9 @@
                     {
                       "match": [
                         {
-                          "host": ["edu.ksit.services"]
+                          "host": [
+                            "edu.ksit.services"
+                          ]
                         }
                       ],
                       "handle": [
@@ -493,8 +511,6 @@
               "match": [
                 {
                   "host": [
-                    "gitlab.kristianjones.dev",
-                    "*.gitlab.kristianjones.dev",
                     "git.writemy.codes",
                     "*.git.writemy.codes"
                   ]
@@ -508,7 +524,6 @@
                       "match": [
                         {
                           "host": [
-                            "gitlab.kristianjones.dev",
                             "git.writemy.codes"
                           ]
                         }
@@ -537,7 +552,6 @@
                       "match": [
                         {
                           "host": [
-                            "kas.gitlab.kristianjones.dev",
                             "kas.git.writemy.codes"
                           ]
                         }
@@ -566,7 +580,6 @@
                       "match": [
                         {
                           "host": [
-                            "kube.gitlab.kristianjones.dev",
                             "kube.git.writemy.codes"
                           ]
                         }
@@ -595,7 +608,6 @@
                       "match": [
                         {
                           "host": [
-                            "registry.gitlab.kristianjones.dev",
                             "registry.git.writemy.codes"
                           ]
                         }
@@ -635,114 +647,8 @@
               "match": [
                 {
                   "host": [
-                    "todo.kristianjones.dev"
-                  ]
-                }
-              ],
-              "handle": [
-                {
-                  "handler": "subroute",
-                  "routes": [
-                    {
-                      "match": [
-                        {
-                          "path": [
-                            "/api/*",
-                            "/.well-known/*",
-                            "/dav/*"
-                          ]
-                        }
-                      ],
-                      "handle": [
-                        {
-                          "handler": "reverse_proxy",
-                          "transport": {
-                            "protocol": "http",
-                            "compression": true,
-                            "resolver": {
-                              "addresses": [
-                                "172.16.0.10:8600",
-                                "172.16.0.13:8600"
-                              ]
-                            }
-                          },
-                          "upstreams": [
-                            {
-                              "lookup_srv": "https.api.vikunja.service.dc1.kjdev"
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "handle": [
-                        {
-                          "handler": "reverse_proxy",
-                          "transport": {
-                            "protocol": "http",
-                            "compression": true,
-                            "resolver": {
-                              "addresses": [
-                                "172.16.0.10:8600",
-                                "172.16.0.13:8600"
-                              ]
-                            }
-                          },
-                          "upstreams": [
-                            {
-                              "lookup_srv": "https.frontend.vikunja.service.dc1.kjdev"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "match": [
-                {
-                  "host": [
-                    "avatars.kristianjones.dev"
-                  ]
-                }
-              ],
-              "handle": [
-                {
-                  "handler": "subroute",
-                  "routes": [
-                    {
-                      "handle": [
-                        {
-                          "handler": "reverse_proxy",
-                          "transport": {
-                            "protocol": "http",
-                            "compression": true,
-                            "resolver": {
-                              "addresses": [
-                                "172.16.0.10:8600",
-                                "172.16.0.13:8600"
-                              ]
-                            }
-                          },
-                          "upstreams": [
-                            {
-                              "lookup_srv": "https.frontend.vikunja.service.dc1.kjdev"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "match": [
-                {
-                  "host": [
                     "mylogin.space",
+                    "idp.mylogin.space",
                     "auth.kristianjones.dev"
                   ]
                 }
@@ -808,6 +714,36 @@
                       "match": [
                         {
                           "host": [
+                            "avatars.mylogin.space"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "resolver": {
+                              "addresses": [
+                                "10.1.1.10:53",
+                                "10.1.1.13:53",
+                                "10.1.1.53:53"
+                              ]
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "https.api.outline.service.kjdev"
+                            }
+                          ]
+                        }
+                      ],
+                      "terminal": true
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
                             "tickets.mylogin.space"
                           ]
                         }
@@ -831,6 +767,136 @@
                           ]
                         }
                       ]
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
+                            "projects.mylogin.space"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "resolver": {
+                              "addresses": [
+                                "10.1.1.10:53",
+                                "10.1.1.13:53",
+                                "10.1.1.53:53"
+                              ]
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "proxy.openproject.service.kjdev"
+                            }
+                          ]
+                        }
+                      ],
+                      "terminal": true
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
+                            "tasks.mylogin.space"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "subroute",
+                          "routes": [
+                            {
+                              "match": [
+                                {
+                                  "path": [
+                                    "/api/*",
+                                    "/.well-known/*",
+                                    "/dav/*"
+                                  ]
+                                }
+                              ],
+                              "handle": [
+                                {
+                                  "handler": "reverse_proxy",
+                                  "transport": {
+                                    "protocol": "http",
+                                    "compression": true,
+                                    "resolver": {
+                                      "addresses": [
+                                        "172.16.0.10:8600",
+                                        "172.16.0.13:8600"
+                                      ]
+                                    }
+                                  },
+                                  "upstreams": [
+                                    {
+                                      "lookup_srv": "https.api.vikunja.service.dc1.kjdev"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "handle": [
+                                {
+                                  "handler": "reverse_proxy",
+                                  "transport": {
+                                    "protocol": "http",
+                                    "compression": true,
+                                    "resolver": {
+                                      "addresses": [
+                                        "172.16.0.10:8600",
+                                        "172.16.0.13:8600"
+                                      ]
+                                    }
+                                  },
+                                  "upstreams": [
+                                    {
+                                      "lookup_srv": "https.frontend.vikunja.service.dc1.kjdev"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "terminal": true
+                    },
+                    {
+                      "match": [
+                        {
+                          "host": [
+                            "notes.mylogin.space"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "protocol": "http",
+                            "resolver": {
+                              "addresses": [
+                                "10.1.1.10:53",
+                                "10.1.1.13:53",
+                                "10.1.1.53:53"
+                              ]
+                            }
+                          },
+                          "upstreams": [
+                            {
+                              "lookup_srv": "https.api.outline.service.kjdev"
+                            }
+                          ]
+                        }
+                      ],
+                      "terminal": true
                     }
                   ]
                 }
@@ -983,35 +1049,6 @@
                         }
                       ],
                       "terminal": true
-                    },
-                    {
-                      "match": [
-                        {
-                          "host": [
-                            "notes.kristianjones.dev"
-                          ]
-                        }
-                      ],
-                      "handle": [
-                        {
-                          "handler": "reverse_proxy",
-                          "transport": {
-                            "protocol": "http",
-                            "compression": true,
-                            "resolver": {
-                              "addresses": [
-                                "172.16.0.10:8600",
-                                "172.16.0.13:8600"
-                              ]
-                            }
-                          },
-                          "upstreams": [
-                            {
-                              "lookup_srv": "https.api.outline.service.kjdev"
-                            }
-                          ]
-                        }
-                      ]
                     },
                     {
                       "match": [
@@ -1594,6 +1631,8 @@
               "*.int.ipaddr.network",
               "mylogin.space",
               "controlcenter.house",
+              "*.controlcenter.house",
+              "*.int.controlcenter.house",
               "*.mylogin.space",
               "*.access.mylogin.space",
               "*.int.mylogin.space",
