@@ -113,6 +113,8 @@ proxy_service:
   # Also handles the PostgreSQL proxy if database access is enabled.
   web_listen_addr: 0.0.0.0:3080
 
+  tunnel_public_addr: https.proxy.teleport.service.kjdev:3080
+
   https_keypairs:
     #
     # Proxy Service
