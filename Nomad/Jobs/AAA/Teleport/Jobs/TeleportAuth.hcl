@@ -65,7 +65,7 @@ job "aaa-teleport-auth" {
       task = "teleport-auth-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "diag.auth"]
+      tags = ["coredns.enabled", "diag.auth"]
     }
 
     task "teleport-auth-server" {
@@ -73,6 +73,8 @@ job "aaa-teleport-auth" {
 
       config {
         image = "${Teleport.Repo}:${Teleport.Version}"
+
+        entrypoint = ["/usr/local/bin/teleport"]
 
         args = ["start", "--diag-addr=0.0.0.0:3000", "--config", "/local/Teleport.yaml", "--roles=auth", "-d", "--bootstrap=/local/github.yaml"]
 

@@ -36,7 +36,7 @@ job "aaa-teleport-proxys" {
       task = "teleport-proxy-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "https.proxy"]
+      tags = ["coredns.enabled", "https.proxy"]
 
       #
       # Liveness check
@@ -73,6 +73,8 @@ job "aaa-teleport-proxys" {
 
       config {
         image = "${Teleport.Repo}:${Teleport.Version}"
+
+        entrypoint = ["/usr/local/bin/teleport"]
 
         args = ["start", "--diag-addr=0.0.0.0:3000", "--config", "/local/Teleport.yaml", "--roles=proxy", "-d"]
 
