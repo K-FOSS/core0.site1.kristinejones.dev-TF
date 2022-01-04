@@ -4,6 +4,8 @@
 
 cluster.name: CoreOpenSearch
 
+plugins.security.disabled: true
+
 #
 # Discovery
 # #
