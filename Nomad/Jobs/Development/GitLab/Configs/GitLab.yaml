@@ -424,7 +424,7 @@ production: &base
             name: 'openid_connect',
             scope: ['openid','profile','email'],
             response_type: 'code',
-            issuer: 'https://mylogin.space/application/o/gitlab/',
+            issuer: 'https://idp.mylogin.space/application/o/gitlab/',
             discovery: true,
             client_auth_method: 'query',
             uid_field: 'preferred_username',

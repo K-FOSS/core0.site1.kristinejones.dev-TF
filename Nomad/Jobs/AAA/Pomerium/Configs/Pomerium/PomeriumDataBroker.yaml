@@ -39,7 +39,7 @@ authenticate_service_url: https://auth.int.mylogin.space
 #authenticate_internal_service_url: https://https.authorize.pomerium.service.dc1.kjdev:443
 
 idp_provider: oidc
-idp_provider_url: https://mylogin.space/application/o/pomeriumproxy-auth/
+idp_provider_url: https://idp.mylogin.space/application/o/pomeriumproxy-auth/
 idp_service_account: ''
 idp_client_id: ${OpenID.ClientID}
 idp_client_secret: ${OpenID.ClientSecret}
