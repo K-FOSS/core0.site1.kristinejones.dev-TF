@@ -368,7 +368,7 @@
               "match": [
                 {
                   "host": [
-                    "*.contorlcenter.house"
+                    "*.controlcenter.house"
                   ]
                 }
               ],
