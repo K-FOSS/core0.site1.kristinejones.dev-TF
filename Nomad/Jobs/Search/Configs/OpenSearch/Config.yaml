@@ -42,7 +42,7 @@ plugins:
         pemtrustedcas_filepath: TLS/CA.pem
         enforce_hostname_verification: true
       http:
-        enabled: true
+        enabled: false
         pemcert_filepath: TLS/{{ env "NOMAD_META_NodeType" }}/{{ env "NOMAD_META_NodeType" }}{{ env "NOMAD_ALLOC_INDEX" }}.pem
         pemkey_filepath: TLS/{{ env "NOMAD_META_NodeType" }}/{{ env "NOMAD_META_NodeType" }}{{ env "NOMAD_ALLOC_INDEX" }}.key
         pemtrustedcas_filepath: TLS/CA.pem
