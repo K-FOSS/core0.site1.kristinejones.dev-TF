@@ -157,3 +157,13 @@ resource "nomad_job" "ThreatMapperUIJobFile" {
     ThreatMapper = local.ThreatMapper
   })
 }
+
+#
+# Proxy
+#
+
+resource "nomad_job" "ThreatMapperCaddyJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/ThreatMapperCaddy.hcl", {
+    Caddyfile = file("${path.module}/Configs/ThreatMapper/Caddyfile.json")
+  })
+}
