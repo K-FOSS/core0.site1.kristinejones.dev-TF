@@ -138,6 +138,17 @@ resource "nomad_job" "ThreatMapperRouterJobFile" {
 }
 
 #
+# ThreatMapper Topology
+#
+
+resource "nomad_job" "ThreatMapperTopologyJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/ThreatMapperTopology.hcl", {
+    ThreatMapper = local.ThreatMapper
+  })
+}
+
+ 
+#
 # ThreatMapper UI
 #
 

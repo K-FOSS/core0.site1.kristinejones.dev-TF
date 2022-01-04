@@ -2,7 +2,7 @@ job "security-threatmapper-ui" {
   datacenters = ["core0site1"]
 
   group "threatmapper-ui-server" {
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
@@ -35,24 +35,6 @@ job "security-threatmapper-ui" {
       config {
         command = "sh"
         args = ["-c", "while ! nc -z redis.threatmapper.service.kjdev 6379; do sleep 1; done"]
-      }
-
-      resources {
-        cpu = 16
-        memory = 16
-      }
-    }
-
-    task "wait-for-threatmapper-topology" {
-      lifecycle {
-        hook = "prestart"
-        sidecar = false
-      }
-
-      driver = "exec"
-      config {
-        command = "sh"
-        args = ["-c", "while ! nc -z https.topology.threatmapper.service.kjdev 8004; do sleep 1; done"]
       }
 
       resources {
