@@ -64,6 +64,13 @@ job "search-opensearch-ingest" {
 
         mount {
           type = "bind"
+          target = "/usr/share/opensearch/plugins/opensearch-security/securityconfig/config.yml"
+          source = "local/security.yml"
+          readonly = true
+        }
+
+        mount {
+          type = "bind"
           target = "/usr/share/opensearch/config/TLS/"
           source = "local/TLS"
           readonly = false
@@ -115,6 +122,14 @@ ${OpenSearch.Config}
 EOF
 
         destination = "local/opensearch.yml"
+      }
+
+      template {
+        data = <<EOF
+${OpenSearch.SecurityConfig}
+EOF
+
+        destination = "local/security.yml"
       }
 
       #

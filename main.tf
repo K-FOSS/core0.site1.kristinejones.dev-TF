@@ -1828,8 +1828,8 @@ module "Nomad" {
   Search = {
     OpenSearch = {
       OpenID = {
-        ClientID = ""
-        ClientSecret = ""
+        ClientID = module.Vault.Search.OpenSearch.OpenID.ClientID
+        ClientSecret = module.Vault.Search.OpenSearch.OpenID.ClientSecret
       }
 
       TLS = module.Vault.Search.OpenSearch.TLS

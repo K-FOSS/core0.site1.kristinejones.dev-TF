@@ -332,6 +332,14 @@ data "vault_generic_secret" "HashUI" {
   path = "${vault_mount.Terraform.path}/HashUI"
 }
 
+#
+# OpenSearch
+# 
+
+data "vault_generic_secret" "OpenSearch" {
+  path = "${vault_mount.Terraform.path}/OpenSearch"
+}
+
 
 #
 # TLS Certificates

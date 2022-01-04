@@ -742,8 +742,8 @@ output "Search" {
   value = {
     OpenSearch = {
       OpenID = {
-        ClientID = ""
-        ClientSecret = ""
+        ClientID = data.vault_generic_secret.OpenSearch.data["OpenIDClient"]
+        ClientSecret = data.vault_generic_secret.OpenSearch.data["OpenIDClientSecret"]
       }
 
       TLS = {

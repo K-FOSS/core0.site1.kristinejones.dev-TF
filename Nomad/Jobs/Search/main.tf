@@ -67,6 +67,10 @@ locals {
       S3 = var.OpenSearch.S3
     })
 
+    SecurityConfig = templatefile("${path.module}/Configs/OpenSearch/SecurityConfig.yaml", {
+      OpenID = var.OpenSearch.OpenID
+    })
+
     JVMOptions = file("${path.module}/Configs/OpenSearch/jvm.options")
 
     Log4JConfig = file("${path.module}/Configs/OpenSearch/log4j2.properties")
