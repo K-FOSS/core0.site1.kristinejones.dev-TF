@@ -1580,7 +1580,7 @@
                   "handler": "reverse_proxy",
                   "health_checks": {
                     "active": {
-                      "path": "/minio/health/live",
+                      "path": "/minio/health/cluster",
                       "expect_status": 200
                     }
                   },
