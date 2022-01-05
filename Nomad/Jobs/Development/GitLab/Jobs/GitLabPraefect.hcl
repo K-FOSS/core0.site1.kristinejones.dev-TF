@@ -22,6 +22,15 @@ job "gitlab-praefect" {
       port "metrics" { 
         to = 9000
       }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "10.1.1.10",
+          "10.1.1.13",
+          "172.18.0.10"
+        ]
+      }
     }
 
     service {

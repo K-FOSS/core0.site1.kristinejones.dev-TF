@@ -5,7 +5,7 @@ job "development-gitlab-webservice" {
   # GitLab Web Service
   #
   group "gitlab-webservice" {
-    count = 4
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
@@ -17,6 +17,15 @@ job "development-gitlab-webservice" {
 
       port "https" { 
         to = 443
+      }
+
+      dns {
+        servers = [
+          "10.1.1.53",
+          "10.1.1.10",
+          "10.1.1.13",
+          "172.18.0.10"
+        ]
       }
     }
 
