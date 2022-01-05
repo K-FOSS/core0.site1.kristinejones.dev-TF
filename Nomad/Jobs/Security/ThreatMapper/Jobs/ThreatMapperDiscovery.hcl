@@ -71,37 +71,6 @@ job "security-threatmapper-discovery" {
           "/sys/kernel/debug:/sys/kernel/debug"
         ]
 
-        mount {
-          type = "bind"
-          target = "/var/run"
-          source = "/var/run"
-          readonly = true
-          bind_options {
-            propagation = "rshared"
-          }
-        }
-
-        mount {
-          type = "bind"
-          target = "/var/run"
-          source = "/var/run"
-          readonly = true
-          bind_options {
-            propagation = "rshared"
-          }
-        }
-
-
-        mount {
-          type = "bind"
-          target = "/var/run"
-          source = "/var/run"
-          readonly = true
-          bind_options {
-            propagation = "rshared"
-          }
-        }
-
         logging {
           type = "loki"
           config {
