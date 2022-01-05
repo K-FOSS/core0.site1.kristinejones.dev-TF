@@ -65,6 +65,8 @@ job "security-threatmapper-celery" {
 
         entrypoint = ["/app/code/dockerify/celery/entrypoint.sh"]
 
+        memory_hard_limit = 2048
+
         mount {
           type = "tmpfs"
           target = "/tmp"
@@ -158,8 +160,8 @@ EOH
       resources {
         cpu = 128
 
-        memory = 256
-        memory_max = 1024
+        memory = 512
+        memory_max = 2048
       }
     }
   }
