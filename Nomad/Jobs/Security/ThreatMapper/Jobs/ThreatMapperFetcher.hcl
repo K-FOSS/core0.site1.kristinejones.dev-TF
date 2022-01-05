@@ -12,8 +12,12 @@ job "security-threatmapper-fetcher" {
     network {
       mode = "cni/nomadcore1"
 
-      port "https" { 
-        to = 443
+      port "http" { 
+        to = 8001
+      }
+
+      port "api" {
+        to = 8006 
       }
 
       dns {
@@ -45,12 +49,26 @@ job "security-threatmapper-fetcher" {
 
     service {
       name = "threatmapper"
-      port = "https"
+      port = "http"
 
       task = "threatmapper-fetcher-server"
       address_mode = "alloc"
 
-      tags = ["coredns.enabled", "https.fetcher"]
+      tags = ["coredns.enabled", "http.fetcher"]
+
+      meta {
+        meta = "for your service"
+      }
+    }
+
+    service {
+      name = "threatmapper"
+      port = "api"
+
+      task = "threatmapper-fetcher-server"
+      address_mode = "alloc"
+
+      tags = ["coredns.enabled", "api.fetcher"]
 
       meta {
         meta = "for your service"

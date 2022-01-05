@@ -234,6 +234,21 @@
       - Network
   pass_identity_headers: true
 
+############
+# Security #
+############
+
+- from: https://threatmapper.int.mylogin.space
+  to: http://http.web.threatmapper.service.kjdev:8080
+  allowed_idp_claims:
+    groups:
+      - Servers
+  pass_identity_headers: true
+
+#
+# ThreatMapper
+#
+
 #
 # Servers
 #

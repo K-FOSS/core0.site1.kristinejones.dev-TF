@@ -37,6 +37,66 @@
               ]
             },
             {
+              "match": [
+                {
+                  "path": ["/topology-api/*"]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http"
+                  },
+                  "upstreams": [
+                    {
+                      "lookup_srv": "http.topology.threatmapper.service.kjdev"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "match": [
+                {
+                  "path": ["/df-api/*"]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http"
+                  },
+                  "upstreams": [
+                    {
+                      "lookup_srv": "api.fetcher.threatmapper.service.kjdev"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "match": [
+                {
+                  "path": ["/fetcher/*"]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http"
+                  },
+                  "upstreams": [
+                    {
+                      "lookup_srv": "http.fetcher.threatmapper.service.kjdev"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
               "handle": [
                 {
                   "handler": "reverse_proxy",
