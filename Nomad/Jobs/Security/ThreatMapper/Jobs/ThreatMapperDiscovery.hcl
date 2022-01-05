@@ -2,7 +2,7 @@ job "security-threatmapper-discovery" {
   datacenters = ["core0site1"]
 
   group "threatmapper-discovery-server" {
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"

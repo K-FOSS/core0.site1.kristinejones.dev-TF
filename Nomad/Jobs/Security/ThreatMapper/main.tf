@@ -99,21 +99,21 @@ resource "nomad_job" "ThreatMapperCeleryJobFile" {
 # ThreatMapper Dianosis
 #
 
-# resource "nomad_job" "ThreatMapperDianosisJobFile" {
-#   jobspec = templatefile("${path.module}/Jobs/ThreatMapperDianosis.hcl", {
-#     ThreatMapper = local.ThreatMapper
-#   })
-# }
+resource "nomad_job" "ThreatMapperDianosisJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/ThreatMapperDianosis.hcl", {
+    ThreatMapper = local.ThreatMapper
+  })
+}
 
 #
 # ThreatMapper Discovery
 # 
 
-# resource "nomad_job" "ThreatMapperDiscoveryJobFile" {
-#   jobspec = templatefile("${path.module}/Jobs/ThreatMapperDiscovery.hcl", {
-#     ThreatMapper = local.ThreatMapper
-#   })
-# }
+resource "nomad_job" "ThreatMapperDiscoveryJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/ThreatMapperDiscovery.hcl", {
+    ThreatMapper = local.ThreatMapper
+  })
+}
 
 
 
