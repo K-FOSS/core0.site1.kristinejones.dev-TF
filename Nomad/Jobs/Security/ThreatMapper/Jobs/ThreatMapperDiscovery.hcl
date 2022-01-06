@@ -98,7 +98,7 @@ job "security-threatmapper-discovery" {
       resources {
         cpu = 128
 
-        memory = 1050
+        memory = 512
         memory_max = 1024
       }
     }

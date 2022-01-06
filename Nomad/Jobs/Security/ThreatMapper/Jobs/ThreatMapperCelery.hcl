@@ -51,10 +51,6 @@ job "security-threatmapper-celery" {
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "http.celery"]
-
-      meta {
-        meta = "for your service"
-      }
     }
 
     task "threatmapper-celery-server" {
