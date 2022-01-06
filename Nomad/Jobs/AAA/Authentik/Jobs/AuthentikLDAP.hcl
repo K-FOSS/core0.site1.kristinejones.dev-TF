@@ -30,10 +30,15 @@ job "authentik-ldap" {
         to = 3389
       }
 
+      port "ldaps" { 
+        to = 6636
+      }
+
       dns {
         servers = [
-          "10.1.1.53",
           "10.1.1.10",
+          "10.1.1.13",
+          "172.18.0.10"
         ]
       }
     }
@@ -45,11 +50,28 @@ job "authentik-ldap" {
       task = "authentik-ldap-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "ldap.ldap"]
+      tags = ["coredns.enabled", "ldap.ldap"]
 
       check {
         type = "tcp"
         port = "ldap"
+        interval = "10s"
+        timeout = "2s"
+      }
+    }
+
+    service {
+      name = "authentik"
+      port = "ldaps"
+
+      task = "authentik-ldap-server"
+      address_mode = "alloc"
+
+      tags = ["coredns.enabled", "ldaps.ldap"]
+
+      check {
+        type = "tcp"
+        port = "ldaps"
         interval = "10s"
         timeout = "2s"
       }
@@ -62,7 +84,7 @@ job "authentik-ldap" {
       task = "authentik-ldap-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "metrics.ldap"]
+      tags = ["coredns.enabled", "metrics.ldap"]
     }
 
     task "authentik-ldap-server" {
