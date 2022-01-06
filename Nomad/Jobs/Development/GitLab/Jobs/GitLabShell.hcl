@@ -1,6 +1,7 @@
 job "development-gitlab-shell" {
   datacenters = ["core0site1"]
 
+  priority = 90
 
   #
   # GitLab Shell

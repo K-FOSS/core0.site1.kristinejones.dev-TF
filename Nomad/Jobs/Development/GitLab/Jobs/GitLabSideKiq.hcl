@@ -1,6 +1,8 @@
 job "development-gitlab-sidekiq" {
   datacenters = ["core0site1"]
 
+  priority = 90
+
   #
   # GitLab Sidekiq
   #

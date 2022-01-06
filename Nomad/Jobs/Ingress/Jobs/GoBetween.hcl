@@ -1,7 +1,7 @@
 job "ingress-gobetween" {
   datacenters = ["core0site1"]
 
-  priority = 100
+  priority = 85
 
   group "gobetween-server" {
     count = 2

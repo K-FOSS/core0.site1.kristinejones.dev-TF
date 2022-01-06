@@ -1,6 +1,8 @@
 job "registry-harbor-registry" {
   datacenters = ["core0site1"]
 
+  priority = 100
+
   group "harbor-registry-registry" {
     count = 2
 

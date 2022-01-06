@@ -6,6 +6,11 @@ job "network-dns-rns" {
   group "rns-coredns-server" {
     count = 2
 
+    restart {
+      attempts = 20
+      delay = "60s"
+    }
+
     spread {
       attribute = "$${node.unique.id}"
       weight = 100
@@ -94,7 +99,7 @@ job "network-dns-rns" {
         port = "health"
         type = "http"
         path = "/health"
-        interval = "20s"
+        interval = "30s"
         timeout  = "5s"
         
         check_restart {

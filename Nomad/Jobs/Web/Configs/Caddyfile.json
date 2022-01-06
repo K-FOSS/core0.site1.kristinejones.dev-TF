@@ -1565,6 +1565,28 @@
             }
           ]
         },
+        "Core": {
+          "listen": ["0.0.0.0:8085"],
+          "automatic_https": {
+            "disable": true
+          },
+          "routes": [
+            {
+              "match": [
+                {
+                  "path": ["/health"]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "static_response",
+                  "status_code": "200",
+                  "body": "OK"
+                }
+              ]
+            }
+          ]
+        },
         "Minio": {
           "listen": [
             ":9080"

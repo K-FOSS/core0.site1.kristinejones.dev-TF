@@ -1,6 +1,8 @@
 job "gitlab-praefect" {
   datacenters = ["core0site1"]
 
+  priority = 90
+
   #
   # GitLab Gitaly
   #

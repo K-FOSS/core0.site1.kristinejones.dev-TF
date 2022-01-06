@@ -1,11 +1,13 @@
 job "development-gitlab-workhorse" {
   datacenters = ["core0site1"]
 
+  priority = 90
+
   #
   # GitLab WorkHorse
   #
   group "gitlab-workhorse" {
-    count = 4
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"

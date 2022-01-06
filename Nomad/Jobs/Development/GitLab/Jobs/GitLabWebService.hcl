@@ -1,6 +1,9 @@
 job "development-gitlab-webservice" {
   datacenters = ["core0site1"]
 
+
+  priority = 90
+
  #
   # GitLab Web Service
   #

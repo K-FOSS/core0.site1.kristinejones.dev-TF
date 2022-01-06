@@ -28,6 +28,10 @@ job "web-caddy" {
         to = 8080
       }
 
+      port "health" {
+        to = 8085
+      }
+
       port "cortex" {
         to = 9000
       }
@@ -40,7 +44,8 @@ job "web-caddy" {
         servers = [
           "10.1.1.53",
           "10.1.1.10",
-          "10.1.1.13"
+          "10.1.1.13",
+          "172.18.0.10"
         ]
       }
     }
@@ -68,6 +73,18 @@ job "web-caddy" {
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "https"]
+
+      check {
+        name = "Ingress Web HealthCheck"
+
+        address_mode = "alloc"
+        port = "health"
+
+        type = "http"
+        path = "/health"
+        interval = "20s"
+        timeout  = "5s"
+      }
     }
 
     service {
@@ -79,6 +96,18 @@ job "web-caddy" {
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "http"]
+
+      check {
+        name = "Ingress Web HealthCheck"
+
+        address_mode = "alloc"
+        port = "health"
+
+        type = "http"
+        path = "/health"
+        interval = "20s"
+        timeout  = "5s"
+      }
     }
 
     service {
@@ -90,6 +119,18 @@ job "web-caddy" {
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "http.minio"]
+
+      check {
+        name = "IngressWeb Minio HealthCheck"
+
+        address_mode = "alloc"
+        port = "health"
+
+        type = "http"
+        path = "/health"
+        interval = "20s"
+        timeout  = "5s"
+      }
     }
 
     service {
