@@ -40,7 +40,7 @@ job "network-dns-servicedns" {
       task = "servicedns-coredns-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "dns.service"]
+      tags = ["dns.service"]
 
       check {
         name = "CoreDNS DNS healthcheck"
@@ -51,12 +51,6 @@ job "network-dns-servicedns" {
         path = "/health"
         interval = "20s"
         timeout  = "5s"
-        
-        check_restart {
-          limit = 3
-          grace = "60s"
-          ignore_warnings = false
-        }
       }
     }
 

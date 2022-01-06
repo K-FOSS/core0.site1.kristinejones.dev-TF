@@ -49,6 +49,8 @@ job "network-dns-rns" {
 
       dns {
         servers = [
+          "172.16.51.1",
+          "172.16.52.1",
           "172.18.0.10"
         ]
       }
@@ -126,7 +128,7 @@ job "network-dns-rns" {
 
       lifecycle {
         hook = "prestart"
-        sidecar = true
+        sidecar = false
       }
 
       config {

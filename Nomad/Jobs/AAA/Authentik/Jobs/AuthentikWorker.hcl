@@ -36,11 +36,7 @@ job "authentik-worker" {
       task = "authentik-worker"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.worker"]
-
-      meta {
-        meta = "for your service"
-      }
+      tags = ["coredns.enabled", "http.worker"]
     }
 
     service {
@@ -50,7 +46,7 @@ job "authentik-worker" {
       task = "authentik-worker"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "metrics.worker"]
+      tags = ["coredns.enabled", "metrics.worker"]
     }
 
     task "authentik-worker" {
