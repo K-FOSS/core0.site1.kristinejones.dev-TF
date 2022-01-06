@@ -2,7 +2,7 @@ job "authentik-worker" {
   datacenters = ["core0site1"]
 
   group "auth-workers" {
-    count = 3
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"

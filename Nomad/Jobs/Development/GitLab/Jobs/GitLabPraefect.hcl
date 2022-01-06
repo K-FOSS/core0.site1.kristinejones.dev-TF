@@ -7,7 +7,7 @@ job "gitlab-praefect" {
   # GitLab Gitaly
   #
   group "gitlab-praefect" {
-    count = 3
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"

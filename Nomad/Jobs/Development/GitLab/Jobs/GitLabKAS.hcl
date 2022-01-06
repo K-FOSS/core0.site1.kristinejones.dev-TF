@@ -6,7 +6,7 @@ job "development-gitlab-kas" {
   # GitLab Kubernetes Agent Server
   #
   group "gitlab-kas" {
-    count = 3
+    count = 2
 
     spread {
       attribute = "$${node.unique.id}"
