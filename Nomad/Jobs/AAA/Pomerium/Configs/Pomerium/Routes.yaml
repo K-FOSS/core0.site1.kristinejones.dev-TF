@@ -315,6 +315,19 @@
   allow_websockets: true
   cors_allow_preflight: true
 
+#
+# OpenNMS
+#
+- from: https://nms.int.mylogin.space
+  to: http://http.horizion.opennms.service.kjdev:8980
+  preserve_host_header: true
+  allowed_idp_claims:
+    groups:
+      - Server Admins
+  pass_identity_headers: true
+  allow_websockets: true
+  cors_allow_preflight: true
+
 
 #
 # AAA

@@ -2,7 +2,7 @@ job "network-monitoring-opennms-coreserver" {
   datacenters = ["core0site1"]
 
   group "opennms-core-server" {
-    count = 2
+    count = 1
 
     spread {
       attribute = "$${node.unique.id}"
