@@ -13,7 +13,7 @@
   -->
   <beans:bean id="headerPreAuthFilter" class="org.opennms.web.springframework.security.RequestHeaderPreAuthenticationProcessingFilter">
     <beans:property name="enabled" value="true" />
-    <beans:property name="failOnError" value="false" />
+    <beans:property name="failOnError" value="true" />
     <beans:property name="userHeader" value="X-Pomerium-Claim-email" />
     <beans:property name="credentialsHeader" value="" />
     <beans:property name="authenticationManager" ref="authenticationManager" />
