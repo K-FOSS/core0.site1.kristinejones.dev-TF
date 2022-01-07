@@ -38,6 +38,15 @@ job "network-monitoring-opennms-coreserver" {
         memory_hard_limit = 2048
 
         mount {
+          type = "tmpfs"
+          target = "/opt/opennms-overlay/etc"
+          readonly = false
+          tmpfs_options = {
+            size = 124000000
+          }
+        }
+
+        mount {
           type = "bind"
           target = "/opt/opennms-overlay/confd/horizon-config.yaml"
           source = "local/HorizionConfig.yaml"
