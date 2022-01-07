@@ -89,6 +89,16 @@ job "network-monitoring-opennms-coreserver" {
         }
 
         #
+        # Plugins
+        #
+        mount {
+          type = "bind"
+          target = "/opt/opennms/deploy/opennms-cortex-tss-plugin.kar"
+          source = "local/Plugins/opennms-cortex-tss-plugin.kar"
+          readonly = false
+        }
+
+        #
         # Auth
         #
         mount {
@@ -190,6 +200,13 @@ EOF
       artifact {
         source = "https://raw.githubusercontent.com/opennms-forge/stack-play/master/minimal-horizon-cortex/container-fs/horizon/opt/opennms/deploy/opennms-cortex-tss-plugin.kar"
         destination = "local/Artifacts"
+      }
+
+      template {
+        source = "local/Artifacts/opennms-cortex-tss-plugin.kar"
+        destination = "local/Plugins/opennms-cortex-tss-plugin.kar"
+
+        perms = "777"
       }
 
       #
