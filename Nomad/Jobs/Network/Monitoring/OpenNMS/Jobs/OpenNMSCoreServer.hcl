@@ -103,7 +103,7 @@ job "network-monitoring-opennms-coreserver" {
         #
         mount {
           type = "bind"
-          target = "/opt/opennms/jetty-webapps/opennms/WEB-INF/spring-security.d/header-preauth.xml"
+          target = "/opt/opennms-overlay/spring-security.d/header-preauth.xml"
           source = "local/Auth/header-preauth.xml"
           readonly = false
         }
