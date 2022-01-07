@@ -1,7 +1,7 @@
 postgres:
   host: ${Database.Hostname}
   port: ${Database.Port}
-  user: ${Database.User}
+  user: ${Database.Username}
   password: ${Database.Password}
 
 opennms:
