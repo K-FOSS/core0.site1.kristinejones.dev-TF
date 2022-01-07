@@ -59,7 +59,7 @@ locals {
     }
 
     Plugins = {
-      CortexPlugin = data.http.CortexPlugin.body
+      CortexPlugin = file("${path.module}/Configs/OpenNMS/Plugins/Cortex.kar")
     }
 
     Configs = {
