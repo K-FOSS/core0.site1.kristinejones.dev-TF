@@ -59,6 +59,10 @@ locals {
         Database = var.Database
       })
 
+      OpenNMSProperties = templatefile("${path.module}/Configs/OpenNMS/Properties/OpenNMS.properties", {
+        Database = var.Database
+      })
+
       CortexConfig = templatefile("${path.module}/Configs/OpenNMS/org.opennms.plugins.tss.cortex.cfg", {
 
       })

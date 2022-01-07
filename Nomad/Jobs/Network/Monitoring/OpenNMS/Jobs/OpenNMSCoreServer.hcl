@@ -62,8 +62,15 @@ job "network-monitoring-opennms-coreserver" {
 
         mount {
           type = "bind"
+          target = "/opt/opennms-overlay/etc/opennms.properties"
+          source = "local/OpenNMS.properties"
+          readonly = false
+        }
+
+        mount {
+          type = "bind"
           target = "/opt/opennms-overlay/etc/opennms.properties.d/cortex.properties"
-          source = "local/cortex.properties"
+          source = "local/opennms.properties.d/cortex.properties"
           readonly = false
         }
 
@@ -123,6 +130,26 @@ EOF
         perms = "777"
       }
 
+      #
+      # Configs
+      #
+
+      template {
+        data = <<EOF
+${OpenNMS.Configs.OpenNMSProperties}
+EOF
+
+        destination = "local/OpenNMS.properties"
+
+        perms = "777"
+      }
+
+
+
+      #
+      # Configs/opennms.properties.d
+      # 
+
       template {
         data = <<EOF
 org.opennms.timeseries.tin.metatags.tag.node=$${node:label}
@@ -131,7 +158,7 @@ org.opennms.timeseries.tin.metatags.tag.ifDescr=$${interface:if-description}
 org.opennms.timeseries.tin.metatags.tag.label=$${resource:label}
 EOF
 
-        destination = "local/cortex.properties"
+        destination = "local/opennms.properties.d/cortex.properties"
 
         perms = "777"
       }
