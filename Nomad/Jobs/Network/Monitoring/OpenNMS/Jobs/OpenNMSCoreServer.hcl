@@ -88,6 +88,16 @@ job "network-monitoring-opennms-coreserver" {
           readonly = false
         }
 
+        #
+        # Auth
+        #
+        mount {
+          type = "bind"
+          target = "/opt/opennms/jetty-webapps/opennms/WEB-INF/spring-security.d/header-preauth.xml"
+          source = "local/Auth/header-preauth.xml"
+          readonly = false
+        }
+
         sysctl = {
           "net.ipv4.ping_group_range" = "0 429496729"
         }
@@ -173,9 +183,27 @@ EOF
         perms = "777"
       }
 
+      #
+      # Plugins
+      #
+
       artifact {
         source = "https://raw.githubusercontent.com/opennms-forge/stack-play/master/minimal-horizon-cortex/container-fs/horizon/opt/opennms/deploy/opennms-cortex-tss-plugin.kar"
-        destination = "local/Artifacts/opennms-cortex-tss-plugin.kar"
+        destination = "local/Artifacts"
+      }
+
+      #
+      # Auth
+      # 
+
+      template {
+        data = <<EOF
+${OpenNMS.Configs.Auth.HeaderAuth}
+EOF
+
+        destination = "local/Auth/header-preauth.xml"
+
+        perms = "777"
       }
 
 

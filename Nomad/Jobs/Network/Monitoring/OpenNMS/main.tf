@@ -55,13 +55,15 @@ locals {
     }
 
     Configs = {
+      Auth = {
+        HeaderAuth = file("${path.module}/Configs/OpenNMS/Auth/HeaderAuth.xml")
+      }
+
       HorizionConfig = templatefile("${path.module}/Configs/OpenNMS/ConfD/Horizion.yaml", {
         Database = var.Database
       })
 
-      OpenNMSProperties = templatefile("${path.module}/Configs/OpenNMS/Properties/OpenNMS.properties", {
-        Database = var.Database
-      })
+      OpenNMSProperties = file("${path.module}/Configs/OpenNMS/Properties/OpenNMS.properties")
 
       CortexConfig = templatefile("${path.module}/Configs/OpenNMS/org.opennms.plugins.tss.cortex.cfg", {
 
