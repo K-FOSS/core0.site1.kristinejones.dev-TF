@@ -35,7 +35,7 @@ job "network-monitoring-opennms-coreserver" {
 
         args = ["-s"]
 
-        memory_hard_limit = 4096
+        memory_hard_limit = 8096
 
         mount {
           type = "tmpfs"
@@ -155,8 +155,8 @@ EOF
       resources {
         cpu = 512
 
-        memory = 2048
-        memory_max = 4096
+        memory = 4096
+        memory_max = 8096
       }
     }
   }
