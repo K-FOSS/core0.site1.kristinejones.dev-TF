@@ -96,6 +96,8 @@ ${OpenNMS.Configs.HorizionConfig}
 EOF
 
         destination = "local/HorizionConfig.yaml"
+
+        perms = "777"
       }
 
       template {
@@ -104,6 +106,8 @@ ${OpenNMS.Configs.CortexConfig}
 EOF
 
         destination = "local/CortexConfig.cfg"
+
+        perms = "777"
       }
 
       template {
@@ -115,6 +119,8 @@ org.opennms.timeseries.tin.metatags.tag.label=$${resource:label}
 EOF
 
         destination = "local/cortex.properties"
+
+        perms = "777"
       }
 
       template {
@@ -123,11 +129,20 @@ opennms-plugins-cortex-tss
 EOF
 
         destination = "local/featuresBoot.d/plugin-cortex-tss.boot"
+
+        perms = "777"
       }
 
       artifact {
         source = "https://raw.githubusercontent.com/opennms-forge/stack-play/master/minimal-horizon-cortex/container-fs/horizon/opt/opennms/deploy/opennms-cortex-tss-plugin.kar"
+        destination = "local/Artifacts/opennms-cortex-tss-plugin.kar"
+      }
+
+      template {
+        source = "local/Artifacts/opennms-cortex-tss-plugin.kar"
         destination = "local/Plugins/opennms-cortex-tss-plugin.kar"
+
+        perms = "777"
       }
 
       resources {
