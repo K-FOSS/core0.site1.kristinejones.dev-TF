@@ -278,14 +278,15 @@
 # 
 
 - from: https://consul.int.mylogin.space
-  to: http://consul.service.kjdev:8500
+  to: 
+    - http://agent1.node0.consul.dc1.kjdev.node.kjdev:8500
+    - http://agent1.node3.core0.consul.dc1.kjdev.node.kjdev:8500
   preserve_host_header: true
   allowed_idp_claims:
     groups:
       - Server Admins
   pass_identity_headers: true
   allow_websockets: true
-  cors_allow_preflight: true
 
 #
 # Vault
