@@ -1,0 +1,20 @@
+postgres:
+  host: ${Database.Hostname}
+  port: ${Database.Port}
+  user: ${Database.User}
+  password: ${Database.Password}
+
+opennms:
+  dbname: ${Database.Database}
+  dbuser: ${Database.Username}
+  dbpass: ${Database.Password}
+
+  timeseries:
+    strategy: integration
+
+  rrd:
+    storebyforeignsource: true
+    strategyclass: org.opennms.netmgt.rrd.rrdtool.MultithreadedJniRrdStrategy
+
+  library:
+    jrrd2: /usr/lib64/libjrrd2.so

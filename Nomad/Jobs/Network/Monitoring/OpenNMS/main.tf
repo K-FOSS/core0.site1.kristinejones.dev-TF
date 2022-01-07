@@ -46,14 +46,39 @@ terraform {
   }
 }
 
+data "http" "CortexPlugin" {
+  url = "https://raw.githubusercontent.com/opennms-forge/stack-play/master/minimal-horizon-cortex/container-fs/horizon/opt/opennms/deploy/opennms-cortex-tss-plugin.kar"
+}
+
+locals {
+  OpenNMS = {
+    Image = {
+      Repo = "registry.kristianjones.dev/cache/opennms"
+
+      Tag = "bleeding"
+    }
+
+    Plugins = {
+      CortexPlugin = data.http.CortexPlugin.body
+    }
+
+    Configs = {
+      HorizionConfig = templatefile("${path.module}/Configs/OpenNMS/org.opennms.plugins.tss.cortex.cfg", {
+        Database = var.Database
+      })
+
+      CortexConfig = templatefile("${path.module}/Configs/OpenNMS/org.opennms.plugins.tss.cortex.cfg", {
+
+      })
+    }
+  }
+}
+
 #
 # OpenNMS
 #
-# resource "nomad_job" "LookingGlassJobFile" {
-#   jobspec = templatefile("${path.module}/Jobs/LookingGlass.hcl", {
-#     LookingGlass = {
-#       Config = templatefile("${path.module}/Configs/LookingGlass/config.php", {
-#       })
-#     }
-#   })
-# }
+resource "nomad_job" "OpenNMSHorizionJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/OpenNMSCoreServer.hcl", {
+    OpenNMS = local.OpenNMS
+  })
+}
