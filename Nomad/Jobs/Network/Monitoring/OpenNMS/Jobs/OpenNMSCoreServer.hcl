@@ -76,8 +76,8 @@ job "network-monitoring-opennms-coreserver" {
 
         mount {
           type = "bind"
-          target = "/opt/opennms/deploy/opennms-cortex-tss-plugin.kar"
-          source = "local/Plugins/opennms-cortex-tss-plugin.kar"
+          target = "/etc/confd/confd.toml"
+          source = "local/HorizionConfig.toml"
           readonly = false
         }
 
@@ -96,6 +96,19 @@ ${OpenNMS.Configs.HorizionConfig}
 EOF
 
         destination = "local/HorizionConfig.yaml"
+
+        perms = "777"
+      }
+
+      template {
+        data = <<EOF
+confdir = "/etc/confd"
+backend = "file"
+file = [ "/opt/opennms-overlay/confd/horizon-config.yaml" ]
+log-level = "info"
+EOF
+
+        destination = "local/HorizionConfig.toml"
 
         perms = "777"
       }
@@ -138,12 +151,6 @@ EOF
         destination = "local/Artifacts/opennms-cortex-tss-plugin.kar"
       }
 
-      template {
-        source = "local/Artifacts/opennms-cortex-tss-plugin.kar"
-        destination = "local/Plugins/opennms-cortex-tss-plugin.kar"
-
-        perms = "777"
-      }
 
       resources {
         cpu = 512
