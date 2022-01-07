@@ -55,7 +55,7 @@ locals {
     }
 
     Configs = {
-      HorizionConfig = templatefile("${path.module}/Configs/OpenNMS/org.opennms.plugins.tss.cortex.cfg", {
+      HorizionConfig = templatefile("${path.module}/Configs/OpenNMS/ConfD/Horizion.yaml", {
         Database = var.Database
       })
 
