@@ -46,24 +46,12 @@ terraform {
   }
 }
 
-data "http" "CortexPlugin" {
-  url = "https://raw.githubusercontent.com/opennms-forge/stack-play/master/minimal-horizon-cortex/container-fs/horizon/opt/opennms/deploy/opennms-cortex-tss-plugin.kar"
-
-  request_headers = {
-    Accept = "audio/midi"
-  }
-}
-
 locals {
   OpenNMS = {
     Image = {
       Repo = "registry.kristianjones.dev/cache/opennms"
 
       Tag = "bleeding"
-    }
-
-    Plugins = {
-      CortexPlugin = data.http.CortexPlugin.body
     }
 
     Configs = {

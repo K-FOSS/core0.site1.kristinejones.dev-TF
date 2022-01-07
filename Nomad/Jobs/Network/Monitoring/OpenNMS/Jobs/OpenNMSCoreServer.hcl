@@ -116,11 +116,8 @@ EOF
         destination = "local/featuresBoot.d/plugin-cortex-tss.boot"
       }
 
-      template {
-        data = <<EOF
-${OpenNMS.Plugins.CortexPlugin}
-EOF
-
+      artifact {
+        source = "https://raw.githubusercontent.com/opennms-forge/stack-play/master/minimal-horizon-cortex/container-fs/horizon/opt/opennms/deploy/opennms-cortex-tss-plugin.kar"
         destination = "local/Plugins/opennms-cortex-tss-plugin.kar"
       }
 
