@@ -46,6 +46,14 @@ terraform {
   }
 }
 
+data "http" "CortexPlugin" {
+  url = "https://raw.githubusercontent.com/opennms-forge/stack-play/master/minimal-horizon-cortex/container-fs/horizon/opt/opennms/deploy/opennms-cortex-tss-plugin.kar"
+
+  request_headers = {
+    Accept = "audio/midi"
+  }
+}
+
 locals {
   OpenNMS = {
     Image = {
@@ -55,7 +63,7 @@ locals {
     }
 
     Plugins = {
-      CortexPlugin = file("${path.module}/Configs/OpenNMS/Plugins/Cortex.kar")
+      CortexPlugin = data.http.CortexPlugin.body
     }
 
     Configs = {
