@@ -46,10 +46,6 @@ terraform {
   }
 }
 
-data "http" "CortexPlugin" {
-  url = "https://raw.githubusercontent.com/opennms-forge/stack-play/master/minimal-horizon-cortex/container-fs/horizon/opt/opennms/deploy/opennms-cortex-tss-plugin.kar"
-}
-
 locals {
   OpenNMS = {
     Image = {
