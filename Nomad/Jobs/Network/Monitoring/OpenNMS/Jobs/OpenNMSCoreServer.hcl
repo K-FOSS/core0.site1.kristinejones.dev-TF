@@ -323,7 +323,7 @@ EOF
       #
 
       artifact {
-        source = "https://raw.githubusercontent.com/opennms-forge/stack-play/master/minimal-horizon-cortex/container-fs/horizon/opt/opennms/deploy/opennms-cortex-tss-plugin.kar"
+        source = "https://github.com/OpenNMS/opennms-cortex-tss-plugin/releases/download/v1.1.0-RC/opennms-cortex-tss-plugin.kar"
         destination = "local/Artifacts"
       }
 
