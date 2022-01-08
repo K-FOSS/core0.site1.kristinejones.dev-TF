@@ -23,7 +23,7 @@
   <beans:bean id="authenticationSource" class="org.springframework.ldap.authentication.DefaultValuesAuthenticationSourceDecorator">
     <beans:property name="target" ref="springSecurityAuthenticationSource"/>
     <!-- Specify the DN of an unprivileged user for initial binding to the directory -->
-    <beans:property name="defaultUser" value="CN=${LDAP.Credentials.Username}"/>
+    <beans:property name="defaultUser" value="cn=${LDAP.Credentials.Username}"/>
     <!-- Specify the unprivileged bind user's password here -->
     <beans:property name="defaultPassword" value="${LDAP.Credentials.Password}"/>
   </beans:bean>
@@ -80,7 +80,7 @@
         </beans:entry>
         <beans:entry>
           <!-- Name of the LDAP group for OpenNMS administrators -->
-          <beans:key><beans:value></beans:value></beans:key>
+          <beans:key><beans:value>Network Admins</beans:value></beans:key>
           <beans:list>
             <beans:value>ROLE_USER</beans:value>
             <beans:value>ROLE_ADMIN</beans:value>
