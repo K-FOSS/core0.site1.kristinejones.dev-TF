@@ -229,6 +229,8 @@ limits:
   
   reject_old_samples_max_age: 4w
 
+  store_gateway_tenant_shard_size: 2
+
 #
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#frontend_worker_config
 #
@@ -304,6 +306,11 @@ blocks_storage:
 
   bucket_store:
     consistency_delay: 5s
+
+    bucket_index:
+      enabled: true
+
+    index_header_lazy_loading_enabled: true
 
     index_cache:
       backend: memcached
