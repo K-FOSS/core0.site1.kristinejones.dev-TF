@@ -305,11 +305,6 @@ blocks_storage:
   bucket_store:
     consistency_delay: 5s
 
-    bucket_index:
-      enabled: true
-
-    index_header_lazy_loading_enabled: true
-
     index_cache:
       backend: memcached
       memcached:
