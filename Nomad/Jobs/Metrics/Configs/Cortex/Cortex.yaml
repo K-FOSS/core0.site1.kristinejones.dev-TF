@@ -295,8 +295,8 @@ blocks_storage:
   s3:
     endpoint: ${S3.Connection.Endpoint}
     bucket_name: ${S3.Bucket}
-    access_key_id: ${S3.Credentials.AccessKey}
-    secret_access_key: ${S3.Credentials.SecretKey}
+    access_key_id: '${S3.Credentials.AccessKey}'
+    secret_access_key: '${S3.Credentials.SecretKey}'
     insecure: true
 
   tsdb:
@@ -474,8 +474,8 @@ ruler_storage:
   s3:
     bucket_name: ${S3.Bucket}
     endpoint: ${S3.Connection.Endpoint}
-    access_key_id: ${S3.Credentials.AccessKey}
-    secret_access_key: ${S3.Credentials.SecretKey}
+    access_key_id: '${S3.Credentials.AccessKey}'
+    secret_access_key: '${S3.Credentials.SecretKey}'
     insecure: true
 
 #
