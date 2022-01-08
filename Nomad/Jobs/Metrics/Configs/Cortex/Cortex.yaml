@@ -52,7 +52,7 @@ server:
 
   # Only log messages with the given severity or above. Valid levels: [debug, info, warn, error]
   # CLI flag: -log.level
-  log_level: warn
+  log_level: debug
 
   # Optionally log the source IPs.
   # CLI flag: -server.log-source-ips-enabled
@@ -146,7 +146,7 @@ querier:
   at_modifier_enabled: true
 
   # Used when the blocks sharding is disabled.
-  #store_gateway_addresses: grpc.store-gateway.cortex.service.dc1.kjdev:8085
+  store_gateway_addresses: grpc.store-gateway.cortex.service.dc1.kjdev:8085
 
 
 #
