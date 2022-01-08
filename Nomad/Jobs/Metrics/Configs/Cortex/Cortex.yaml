@@ -302,6 +302,12 @@ blocks_storage:
     max_exemplars: 5000
     wal_compression_enabled: true
 
+  bucket_index:
+    enabled: true
+
+  index_header_lazy_loading_enabled: true
+    
+
   bucket_store:
     consistency_delay: 5s
 
@@ -358,9 +364,9 @@ compactor:
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#store_gateway_config
 #
 store_gateway:
-  sharding_enabled: false
+  sharding_enabled: true
   sharding_ring:
-    replication_factor: 0
+    replication_factor: 2
 
     #
     # Address
