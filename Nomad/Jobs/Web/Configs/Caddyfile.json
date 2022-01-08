@@ -28,8 +28,6 @@
               "match": [
                 {
                   "host": [
-                    "hass.int.site1.kristianjones.dev",
-                    "hass.home1.kristianjones.dev",
                     "hass.controlcenter.house"
                   ],
                   "path": [
@@ -1667,7 +1665,6 @@
               "*.site1.kristianjones.dev",
               "unifi.site1.kristianjones.dev",
               "*.int.site1.kristianjones.dev",
-              "hass.home1.kristianjones.dev",
               "nat.mylogin.space",
               "punch.ipaddr.network",
               "projects.mylogin.space",
