@@ -136,7 +136,7 @@ job "network-monitoring-opennms-coreserver" {
         mount {
           type = "bind"
           target = "/opt/opennms/deploy/opennms-cortex-tss-plugin.kar"
-          source = "local/Plugins/opennms-cortex-tss-plugin.kar"
+          source = "local/Artifacts/opennms-cortex-tss-plugin.kar"
           readonly = false
         }
 
@@ -325,13 +325,6 @@ EOF
       artifact {
         source = "https://github.com/OpenNMS/opennms-cortex-tss-plugin/releases/download/v1.1.0-RC/opennms-cortex-tss-plugin.kar"
         destination = "local/Artifacts"
-      }
-
-      template {
-        source = "local/Artifacts/opennms-cortex-tss-plugin.kar"
-        destination = "local/Plugins/opennms-cortex-tss-plugin.kar"
-
-        perms = "777"
       }
 
       #
