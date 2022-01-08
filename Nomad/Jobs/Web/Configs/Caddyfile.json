@@ -4,7 +4,7 @@
   },
   "storage": {
     "module": "consul",
-    "address": "consul.service.dc1.kjdev:8500",
+    "address": "{{ env "NOMAD_IP_https" }}:8500",
     "prefix": "caddytls",
     "token": "${Consul.Token}",
     "aes_key": "${Consul.EncryptionKey}"
@@ -1699,7 +1699,7 @@
             ],
             "storage": {
               "module": "consul",
-              "address": "consul.service.kjdev:8500",
+              "address": "{{ env "NOMAD_IP_https" }}:8500",
               "prefix": "caddytls",
               "token": "${Consul.Token}",
               "aes_key": "${Consul.EncryptionKey}"

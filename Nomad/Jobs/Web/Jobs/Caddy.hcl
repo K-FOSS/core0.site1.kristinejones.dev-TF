@@ -18,6 +18,8 @@ job "web-caddy" {
 
       port "https" {
         to = 443
+
+        host_network = "node"
       }
 
       port "http" {

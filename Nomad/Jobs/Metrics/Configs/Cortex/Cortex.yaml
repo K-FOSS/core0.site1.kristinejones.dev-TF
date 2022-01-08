@@ -364,7 +364,7 @@ compactor:
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#store_gateway_config
 #
 store_gateway:
-  sharding_enabled: true
+  sharding_enabled: false
   sharding_ring:
     replication_factor: 2
     heartbeat_period: 5s
@@ -379,7 +379,6 @@ store_gateway:
     # Address
     #
     instance_id: {{ env "NOMAD_ALLOC_NAME" }}
-    instance_port: 8090
     instance_addr: {{ env "NOMAD_ALLOC_INDEX" }}.http.{{ env "NOMAD_META_TARGET" }}.cortex.service.dc1.kjdev
     kvstore:
       store: multi
@@ -403,7 +402,7 @@ store_gateway:
       # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
       #
       consul:
-        host: ${Consul.Hostname}:${Consul.Port}
+        host: {{ env "NOMAD_IP_http" }}:${Consul.Port}
         acl_token: ${Consul.Token}
 
 #

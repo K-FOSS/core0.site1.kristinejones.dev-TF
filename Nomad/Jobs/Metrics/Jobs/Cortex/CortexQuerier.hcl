@@ -17,6 +17,8 @@ job "cortex-querier" {
 
       port "http" {
         to = 8080
+
+        host_network = "node"
       }
 
       port "grpc" {
@@ -29,7 +31,6 @@ job "cortex-querier" {
 
       dns {
         servers = [
-          "10.1.1.53",
           "10.1.1.10",
           "10.1.1.13"
         ]
