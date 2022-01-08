@@ -57,6 +57,12 @@ locals {
     Configs = {
       Auth = {
         HeaderAuth = file("${path.module}/Configs/OpenNMS/Auth/HeaderAuth.xml")
+
+        LDAP = templatefile("${path.module}/Configs/OpenNMS/Auth/LDAP.xml", {
+          LDAP = var.LDAP
+        })
+
+        SpringContext = file("${path.module}/Configs/OpenNMS/Auth/applicationContext-spring-security.xml")
       }
 
       HorizionConfig = templatefile("${path.module}/Configs/OpenNMS/ConfD/Horizion.yaml", {
@@ -70,6 +76,10 @@ locals {
       PollerConfig = file("${path.module}/Configs/OpenNMS/PollerConfiguration.xml")
 
       SNMPPollerConfig = file("${path.module}/Configs/OpenNMS/SNMPInterfacePoller.xml")
+
+      SNMPConfig = templatefile("${path.module}/Configs/OpenNMS/SNMPConfig.xml", {
+
+      })
 
       OpenNMSProperties = file("${path.module}/Configs/OpenNMS/Properties/OpenNMS.properties")
 

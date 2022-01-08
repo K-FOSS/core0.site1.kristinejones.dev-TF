@@ -240,7 +240,7 @@
     <!-- To enable external (e.g. LDAP, RADIUS) authentication, uncomment the following.
          You must also rename and customize exactly ONE of the example files in the
          spring-security.d subdirectory. -->
-    <!-- <authentication-provider ref="externalAuthenticationProvider" /> -->
+    <authentication-provider ref="externalAuthenticationProvider" />
   </authentication-manager>
 
   <!-- ===================== USER DAO AUTHENTICATION ==================== -->

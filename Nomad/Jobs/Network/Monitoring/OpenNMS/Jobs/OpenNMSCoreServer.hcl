@@ -97,6 +97,13 @@ job "network-monitoring-opennms-coreserver" {
 
         mount {
           type = "bind"
+          target = "/opt/opennms-overlay/etc/snmp-config.xml"
+          source = "local/snmp-config.xml"
+          readonly = false
+        }
+
+        mount {
+          type = "bind"
           target = "/opt/opennms-overlay/etc/opennms.properties.d/cortex.properties"
           source = "local/opennms.properties.d/cortex.properties"
           readonly = false
@@ -133,6 +140,20 @@ job "network-monitoring-opennms-coreserver" {
           type = "bind"
           target = "/opt/opennms-jetty-webinf-overlay/spring-security.d/header-preauth.xml"
           source = "local/Auth/header-preauth.xml"
+          readonly = false
+        }
+
+        mount {
+          type = "bind"
+          target = "/opt/opennms-jetty-webinf-overlay/spring-security.d/ldap.xml"
+          source = "local/Auth/ldap.xml"
+          readonly = false
+        }
+
+        mount {
+          type = "bind"
+          target = "/opt/opennms-jetty-webinf-overlay/applicationContext-spring-security.xml"
+          source = "local/Auth/applicationContext-spring-security.xml"
           readonly = false
         }
 
@@ -232,6 +253,15 @@ EOF
         perms = "777"
       }
 
+      template {
+        data = <<EOF
+${OpenNMS.Configs.SNMPConfig}
+EOF
+
+        destination = "local/snmp-config.xml"
+
+        perms = "777"
+      }
 
 
       #
@@ -287,6 +317,26 @@ ${OpenNMS.Configs.Auth.HeaderAuth}
 EOF
 
         destination = "local/Auth/header-preauth.xml"
+
+        perms = "777"
+      }
+
+      template {
+        data = <<EOF
+${OpenNMS.Configs.Auth.SpringContext}
+EOF
+
+        destination = "local/Auth/applicationContext-spring-security.xml"
+
+        perms = "777"
+      }
+
+      template {
+        data = <<EOF
+${OpenNMS.Configs.Auth.LDAP}
+EOF
+
+        destination = "local/Auth/ldap.xml"
 
         perms = "777"
       }
