@@ -45,25 +45,6 @@ job "cortex-compactor" {
       address_mode = "alloc"
 
       tags = ["coredns.enabled", "http.compactor", "$${NOMAD_ALLOC_INDEX}.http.compactor"]
-
-      #
-      # Liveness check
-      #
-      check {
-        port = "http"
-        address_mode = "alloc"
-
-        type = "http"
-
-        path = "/ready"
-        interval = "15s"
-        timeout  = "3s"
-
-        check_restart {
-          limit = 10
-          grace = "10m"
-        }
-      }
     }
 
     service {
