@@ -13,7 +13,7 @@
          <role>ROLE_ADMIN</role>
       </user>
       <user>
-         <user-id>k@kristianjones.dev</user-id>
+         <user-id>kjones</user-id>
          <password salt="true">gU2wmSW7k9v1xg4/MrAsaI+VyddBAhJJt4zPX5SGG0BK+qiASGnJsqM8JOug/aEL</password>
          <contact type="email"/>
          <contact type="pagerEmail"/>
