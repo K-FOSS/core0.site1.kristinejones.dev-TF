@@ -65,7 +65,7 @@ locals {
 
       Users = file("${path.module}/Configs/OpenNMS/users.xml")
 
-      ServiceConfiguration = file("${path.module}/Configs/OpenNMS/users.xml")
+      ServiceConfiguration = file("${path.module}/Configs/OpenNMS/ServiceConfiguration.xml")
 
       OpenNMSProperties = file("${path.module}/Configs/OpenNMS/Properties/OpenNMS.properties")
 
