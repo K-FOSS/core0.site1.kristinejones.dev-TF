@@ -1609,6 +1609,9 @@
                   },
                   "upstreams": [
                     {
+                      "dial": "node0.core0.dc1.kristianjones.dev:9000"
+                    },
+                    {
                       "dial": "kjdev-minio.ix-kjdev-minio.svc.cluster.local:9000"
                     },
                     {

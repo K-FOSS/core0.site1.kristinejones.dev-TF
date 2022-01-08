@@ -181,6 +181,17 @@ module "CortexBucket" {
   Credentials = module.Vault.Minio
 }
 
+module "CortexNewBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "http.minio.web.service.kjdev"
+    Port = 9080
+  }
+
+  Credentials = module.Vault.Minio
+}
+
 module "AlertManagerBucket" {
   source = "./Minio"
 
@@ -1407,7 +1418,7 @@ module "Nomad" {
 
       Targets = module.Cortex.Targets
 
-      S3 = module.CortexBucket
+      S3 = module.CortexNewBucket
 
       AlertManagerBucket = module.AlertManagerBucket
     }
