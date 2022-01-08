@@ -151,13 +151,6 @@ job "network-monitoring-opennms-coreserver" {
           readonly = false
         }
 
-        mount {
-          type = "bind"
-          target = "/opt/opennms-overlay/etc/featuresBoot.d/jaeger.boot"
-          source = "local/Plugins/jaeger.boot"
-          readonly = false
-        }
-
         #
         # Auth
         #
