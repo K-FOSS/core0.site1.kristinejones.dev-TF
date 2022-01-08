@@ -670,6 +670,8 @@ module "OpenNMS" {
   source = "./Jobs/Network/Monitoring/OpenNMS"
 
   Database = var.Network.Monitoring.OpenNMS.Database
+
+  LDAP = var.Network.Monitoring.OpenNMS.LDAP
 }
 
 #

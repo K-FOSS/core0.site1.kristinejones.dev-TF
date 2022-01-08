@@ -1568,6 +1568,10 @@ module "Nomad" {
     Monitoring = {
       OpenNMS = {
         Database = module.OpenNMSDatabase.Database
+      
+        LDAP = {
+          Credentials = module.Vault.GitLab.LDAP
+        }
       }
     }
   }

@@ -816,6 +816,13 @@ variable "Network" {
           Username = string
           Password = string
         })
+
+        LDAP = object({
+          Credentials = object({
+            Username = string
+            Password = string
+          })
+        })
       })
 
       # Oxidized = object({
