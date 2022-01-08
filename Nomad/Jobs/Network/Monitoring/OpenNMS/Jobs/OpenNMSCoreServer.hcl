@@ -104,6 +104,13 @@ job "network-monitoring-opennms-coreserver" {
 
         mount {
           type = "bind"
+          target = "/opt/opennms-overlay/etc/opennms.properties.d/jaeger.properties"
+          source = "local/opennms.properties.d/jaeger.properties"
+          readonly = false
+        }
+
+        mount {
+          type = "bind"
           target = "/opt/opennms-overlay/etc/opennms.properties.d/cortex.properties"
           source = "local/opennms.properties.d/cortex.properties"
           readonly = false
@@ -130,6 +137,24 @@ job "network-monitoring-opennms-coreserver" {
           type = "bind"
           target = "/opt/opennms/deploy/opennms-cortex-tss-plugin.kar"
           source = "local/Plugins/opennms-cortex-tss-plugin.kar"
+          readonly = false
+        }
+
+        #
+        # Features
+        #
+
+        mount {
+          type = "bind"
+          target = "/opt/opennms-overlay/etc/featuresBoot.d/jaeger.boot"
+          source = "local/Plugins/jaeger.boot"
+          readonly = false
+        }
+
+        mount {
+          type = "bind"
+          target = "/opt/opennms-overlay/etc/featuresBoot.d/jaeger.boot"
+          source = "local/Plugins/jaeger.boot"
           readonly = false
         }
 
@@ -337,6 +362,24 @@ ${OpenNMS.Configs.Auth.LDAP}
 EOF
 
         destination = "local/Auth/ldap.xml"
+
+        perms = "777"
+      }
+
+      template {
+        data = "opennms-core-tracing-jaeger"
+
+        destination = "local/Plugins/jaeger.boot"
+
+        perms = "777"
+      }
+
+      template {
+        data = <<EOF
+${OpenNMS.Configs.JaegerConfig}
+EOF
+
+        destination = "local/opennms.properties.d/jaeger.properties"
 
         perms = "777"
       }

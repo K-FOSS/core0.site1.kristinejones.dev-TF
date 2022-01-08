@@ -86,6 +86,8 @@ locals {
       CortexConfig = templatefile("${path.module}/Configs/OpenNMS/org.opennms.plugins.tss.cortex.cfg", {
 
       })
+
+      JaegerConfig = file("${path.module}/Configs/OpenNMS/Properties/Jaeger.properties")
     }
   }
 }
