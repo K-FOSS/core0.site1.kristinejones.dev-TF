@@ -5,7 +5,7 @@ job "cortex-compactor" {
   # Cortex Distributor
   #
   group "cortex-compactor" {
-    count = 3
+    count = 6
 
     spread {
       attribute = "$${node.unique.id}"
