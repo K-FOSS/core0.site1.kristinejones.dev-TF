@@ -69,6 +69,20 @@ job "network-monitoring-opennms-coreserver" {
 
         mount {
           type = "bind"
+          target = "/opt/opennms-overlay/etc/users.xml"
+          source = "local/users.xml"
+          readonly = false
+        }
+
+        mount {
+          type = "bind"
+          target = "/opt/opennms-overlay/etc/service-configuration.xml"
+          source = "local/service-configuration.xml"
+          readonly = false
+        }
+
+        mount {
+          type = "bind"
           target = "/opt/opennms-overlay/etc/opennms.properties.d/cortex.properties"
           source = "local/opennms.properties.d/cortex.properties"
           readonly = false
@@ -160,6 +174,26 @@ ${OpenNMS.Configs.OpenNMSProperties}
 EOF
 
         destination = "local/OpenNMS.properties"
+
+        perms = "777"
+      }
+
+      template {
+        data = <<EOF
+${OpenNMS.Configs.Users}
+EOF
+
+        destination = "local/users.xml"
+
+        perms = "777"
+      }
+
+      template {
+        data = <<EOF
+${OpenNMS.Configs.ServiceConfiguration}
+EOF
+
+        destination = "local/service-configuration.xml"
 
         perms = "777"
       }

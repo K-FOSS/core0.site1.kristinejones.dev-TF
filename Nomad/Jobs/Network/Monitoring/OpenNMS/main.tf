@@ -63,6 +63,10 @@ locals {
         Database = var.Database
       })
 
+      Users = file("${path.module}/Configs/OpenNMS/users.xml")
+
+      ServiceConfiguration = file("${path.module}/Configs/OpenNMS/users.xml")
+
       OpenNMSProperties = file("${path.module}/Configs/OpenNMS/Properties/OpenNMS.properties")
 
       CortexConfig = templatefile("${path.module}/Configs/OpenNMS/org.opennms.plugins.tss.cortex.cfg", {
