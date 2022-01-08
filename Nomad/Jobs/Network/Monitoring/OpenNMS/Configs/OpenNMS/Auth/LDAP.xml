@@ -58,7 +58,7 @@
     <beans:property name="searchSubtree" value="true" />
     <beans:property name="convertToUpperCase" value="true" />
     <beans:property name="groupRoleAttribute" value="cn" />
-    <beans:property name="groupSearchFilter" value="member={0}" />
+    <beans:property name="groupSearchFilter" value="memberOf={0}" />
     <beans:property name="groupToRoleMap">
       <beans:map>
         <!-- If the is an empty string, the roles are applied to all users -->
