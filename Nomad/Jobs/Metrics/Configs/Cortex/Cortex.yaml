@@ -424,7 +424,7 @@ ruler:
   # Report the wall time for ruler queries to complete as a per user metric and as
   # an info level log message.
   #
-  query_stats_enabled: true
+  query_stats_enabled: false
 
   external_url: http://http.ruler.cortex.service.kjdev:8080
 
