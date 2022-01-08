@@ -136,10 +136,6 @@ distributor:
 # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#querier_config
 #
 querier:
-  query_ingesters_within: 13h
-
-  query_store_after: 12h
-
   query_store_for_labels_enabled: true
 
   # Enable the @ modifier in PromQL.
