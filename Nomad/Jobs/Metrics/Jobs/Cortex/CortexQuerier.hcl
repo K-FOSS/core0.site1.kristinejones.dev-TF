@@ -122,7 +122,7 @@ job "cortex-querier" {
 
         args = ["-config.file=/local/Cortex.yaml"]
 
-        memory_hard_limit = 512
+        memory_hard_limit = 2048
 
         logging {
           type = "loki"
@@ -156,8 +156,8 @@ job "cortex-querier" {
       resources {
         cpu = 64
 
-        memory = 64
-        memory_max = 512
+        memory = 256
+        memory_max = 2048
       }
 
       template {

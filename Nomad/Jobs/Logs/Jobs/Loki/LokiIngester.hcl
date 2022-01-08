@@ -112,7 +112,7 @@ job "loki-ingester" {
           }
         }
 
-        memory_hard_limit = 512
+        memory_hard_limit = 2048
       }
 
       meta {
@@ -124,8 +124,8 @@ job "loki-ingester" {
       resources {
         cpu = 64
 
-        memory = 128
-        memory_max = 512
+        memory = 256
+        memory_max = 2048
       }
 
       template {
