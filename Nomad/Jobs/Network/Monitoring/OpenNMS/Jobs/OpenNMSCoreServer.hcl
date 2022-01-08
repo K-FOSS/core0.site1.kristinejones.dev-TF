@@ -178,6 +178,15 @@ job "network-monitoring-opennms-coreserver" {
         sysctl = {
           "net.ipv4.ping_group_range" = "0 429496729"
         }
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=opennms,service=coreserver"
+          }
+        }
       }
 
       env {
