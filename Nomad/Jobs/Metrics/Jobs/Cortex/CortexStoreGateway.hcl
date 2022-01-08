@@ -5,7 +5,7 @@ job "cortex-storegateway" {
   # Cortex Store Gateway
   #
   group "cortex-store-gateway" {
-    count = 4
+    count = 6
 
     spread {
       attribute = "$${node.unique.id}"
