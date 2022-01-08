@@ -1,0 +1,5 @@
+<snmp-config xmlns="http://xmlns.opennms.org/xsd/config/snmp" version="v2c" read-community="public" timeout="1800" retry="1">
+   <definition write-community="kjdev" read-community="kjdev" location="Default">
+      <range begin="66.165.222.97" end="66.165.222.128"/>
+   </definition>
+</snmp-config>
