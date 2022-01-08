@@ -84,7 +84,7 @@ job "cortex-compactor" {
 
         args = ["-config.file=/local/Cortex.yaml"]
 
-        memory_hard_limit = 512
+        memory_hard_limit = 2048
 
         mount {
           type = "tmpfs"
@@ -128,8 +128,8 @@ job "cortex-compactor" {
       resources {
         cpu = 256
 
-        memory = 128
-        memory_max = 512
+        memory = 256
+        memory_max = 2048
       }
 
       template {
