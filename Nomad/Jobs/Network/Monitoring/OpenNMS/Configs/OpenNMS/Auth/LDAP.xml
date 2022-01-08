@@ -46,7 +46,7 @@
     <beans:constructor-arg index="0" value="ou=users" />
 
     <!-- More complex filters are possible depending on the layout of your directory -->
-    <beans:constructor-arg index="1" value="(uid={0})" />
+    <beans:constructor-arg index="1" value="(cn={0})" />
     <beans:constructor-arg index="2" ref="contextSource" />
     <beans:property name="searchSubtree" value="true" />
   </beans:bean>
