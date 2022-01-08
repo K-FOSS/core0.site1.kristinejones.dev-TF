@@ -1627,6 +1627,32 @@
               ]
             }
           ]
+        },
+        "Consul": {
+          "listen": ["0.0.0.0:8500"],
+          "automatic_https": {
+            "disable": true
+          },
+          "routes": [
+            {
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "transport": {
+                    "protocol": "http"
+                  },
+                  "upstreams": [
+                    {
+                      "dial": "agent1.node0.consul.dc1.kjdev.node.kjdev:8500"
+                    },
+                    {
+                      "dial": "agent1.node3.core0.consul.dc1.kjdev.node.kjdev:8500"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       }
     },
