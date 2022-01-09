@@ -51,7 +51,7 @@ locals {
     Image = {
       Repo = "registry.kristianjones.dev/cache/opennms"
 
-      Tag = "bleeding"
+      Tag = "release-29.x"
     }
 
     Configs = {
