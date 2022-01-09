@@ -56,7 +56,7 @@ job "network-monitoring-opennms-coreserver" {
         mount {
           type = "bind"
           target = "/opt/opennms-overlay/etc/org.opennms.plugins.tss.cortex.cfg"
-          source = "local/CortexConfig.cfg"
+          source = "local/etc/org.opennms.plugins.tss.cortex.cfg"
           readonly = false
         }
 
@@ -118,8 +118,8 @@ job "network-monitoring-opennms-coreserver" {
 
         mount {
           type = "bind"
-          target = "/opt/opennms-overlay/etc/featuresBoot.d/plugin-cortex-tss.boot"
-          source = "local/featuresBoot.d/plugin-cortex-tss.boot"
+          target = "/opt/opennms-overlay/etc/featuresBoot.d/cortex.boot"
+          source = "local/featuresBoot.d/cortex.boot"
           readonly = false
         }
 
@@ -221,7 +221,7 @@ EOF
 ${OpenNMS.Configs.CortexConfig}
 EOF
 
-        destination = "local/CortexConfig.cfg"
+        destination = "local/etc/org.opennms.plugins.tss.cortex.cfg"
 
         perms = "777"
       }
@@ -297,8 +297,10 @@ EOF
 
       template {
         data = <<EOF
+org.opennms.timeseries.strategy=integration
 org.opennms.timeseries.tin.metatags.tag.node=$${node:label}
 org.opennms.timeseries.tin.metatags.tag.location=$${node:location}
+org.opennms.timeseries.tin.metatags.tag.geohash=$${node:geohash}
 org.opennms.timeseries.tin.metatags.tag.ifDescr=$${interface:if-description}
 org.opennms.timeseries.tin.metatags.tag.label=$${resource:label}
 EOF
@@ -309,11 +311,9 @@ EOF
       }
 
       template {
-        data = <<EOF
-opennms-plugins-cortex-tss
-EOF
+        data = "opennms-plugins-cortex-tss wait-for-kar=opennms-cortex-tss-plugin"
 
-        destination = "local/featuresBoot.d/plugin-cortex-tss.boot"
+        destination = "local/featuresBoot.d/cortex.boot"
 
         perms = "777"
       }
@@ -323,7 +323,7 @@ EOF
       #
 
       artifact {
-        source = "https://github.com/OpenNMS/opennms-cortex-tss-plugin/releases/download/v1.1.0-RC/opennms-cortex-tss-plugin.kar"
+        source = "https://github.com/OpenNMS/opennms-cortex-tss-plugin/releases/download/v1.0.0/opennms-cortex-tss-plugin.kar"
         destination = "local/Artifacts"
       }
 
