@@ -65,29 +65,62 @@ locals {
         SpringContext = file("${path.module}/Configs/OpenNMS/Auth/applicationContext-spring-security.xml")
       }
 
+      Deploy = tomap({
+        DataChoices = {
+          Path = "etc/org.opennms.features.datachoices.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/DataChoices.cfg")
+        },
+        Users = {
+          Path = "etc/users.xml"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/Users.xml")
+        },
+        PollerConfig = {
+          Path = "etc/poller-configuration.xml"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/PollerConfiguration.xml")
+        },
+        Cortex = {
+          Path = "etc/org.opennms.plugins.tss.cortex.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/Cortex.cfg")
+        },
+        ServiceConfig = {
+          Path = "etc/service-configuration.xml"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/ServiceConfiguration.xml")
+        },
+        SNMP = {
+          Path = "etc/snmp-config.xml"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/SNMPConfig.xml")
+        },
+        SNMPInterfacePoller = {
+          Path = "etc/snmp-interface-poller-configuration.xml"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/SNMPInterfacePoller.xml")
+        },
+        Jaeger = {
+          Path = "etc/opennms.properties.d/jaeger.properties"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/Jaeger.properties")
+        },
+        TimeSeries = {
+          Path = "etc/opennms.properties.d/timeseries.properties"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/TimeSeries.properties")
+        },
+        WebUI = {
+          Path = "etc/opennms.properties.d/webui.properties"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/WebUI.properties")
+        }
+      })
+
       HorizionConfig = templatefile("${path.module}/Configs/OpenNMS/ConfD/Horizion.yaml", {
         Database = var.Database
       })
-
-      Users = file("${path.module}/Configs/OpenNMS/users.xml")
-
-      ServiceConfiguration = file("${path.module}/Configs/OpenNMS/ServiceConfiguration.xml")
-
-      PollerConfig = file("${path.module}/Configs/OpenNMS/PollerConfiguration.xml")
-
-      SNMPPollerConfig = file("${path.module}/Configs/OpenNMS/SNMPInterfacePoller.xml")
-
-      SNMPConfig = templatefile("${path.module}/Configs/OpenNMS/SNMPConfig.xml", {
-
-      })
-
-      OpenNMSProperties = file("${path.module}/Configs/OpenNMS/Properties/OpenNMS.properties")
-
-      CortexConfig = templatefile("${path.module}/Configs/OpenNMS/org.opennms.plugins.tss.cortex.cfg", {
-
-      })
-
-      JaegerConfig = file("${path.module}/Configs/OpenNMS/Properties/Jaeger.properties")
     }
   }
 }

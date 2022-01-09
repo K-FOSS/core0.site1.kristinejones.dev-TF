@@ -53,75 +53,15 @@ job "network-monitoring-opennms-coreserver" {
           readonly = false
         }
 
+%{ for DeployFile in OpenNMS.Configs.Deploy ~}
         mount {
           type = "bind"
-          target = "/opt/opennms-overlay/etc/org.opennms.plugins.tss.cortex.cfg"
-          source = "local/etc/org.opennms.plugins.tss.cortex.cfg"
+          target = "/opt/opennms-overlay/${DeployFile.Path}"
+          source = "local/deploy/${DeployFile.Path}"
           readonly = false
         }
+%{ endfor ~}
 
-        mount {
-          type = "bind"
-          target = "/opt/opennms-overlay/etc/opennms.properties"
-          source = "local/OpenNMS.properties"
-          readonly = false
-        }
-
-        mount {
-          type = "bind"
-          target = "/opt/opennms-overlay/etc/users.xml"
-          source = "local/users.xml"
-          readonly = false
-        }
-
-        mount {
-          type = "bind"
-          target = "/opt/opennms-overlay/etc/service-configuration.xml"
-          source = "local/service-configuration.xml"
-          readonly = false
-        }
-
-        mount {
-          type = "bind"
-          target = "/opt/opennms-overlay/etc/poller-configuration.xml"
-          source = "local/poller-configuration.xml"
-          readonly = false
-        }
-
-        mount {
-          type = "bind"
-          target = "/opt/opennms-overlay/etc/snmp-interface-poller-configuration.xml"
-          source = "local/snmp-interface-poller-configuration.xml"
-          readonly = false
-        }
-
-        mount {
-          type = "bind"
-          target = "/opt/opennms-overlay/etc/snmp-config.xml"
-          source = "local/snmp-config.xml"
-          readonly = false
-        }
-
-        mount {
-          type = "bind"
-          target = "/opt/opennms-overlay/etc/opennms.properties.d/jaeger.properties"
-          source = "local/opennms.properties.d/jaeger.properties"
-          readonly = false
-        }
-
-        mount {
-          type = "bind"
-          target = "/opt/opennms-overlay/etc/opennms.properties.d/cortex.properties"
-          source = "local/opennms.properties.d/cortex.properties"
-          readonly = false
-        }
-
-        mount {
-          type = "bind"
-          target = "/opt/opennms-overlay/etc/featuresBoot.d/cortex.boot"
-          source = "local/featuresBoot.d/cortex.boot"
-          readonly = false
-        }
 
         mount {
           type = "bind"
@@ -148,6 +88,13 @@ job "network-monitoring-opennms-coreserver" {
           type = "bind"
           target = "/opt/opennms-overlay/etc/featuresBoot.d/jaeger.boot"
           source = "local/Plugins/jaeger.boot"
+          readonly = false
+        }
+
+        mount {
+          type = "bind"
+          target = "/opt/opennms-overlay/etc/featuresBoot.d/cortex.boot"
+          source = "local/Plugins/cortex.boot"
           readonly = false
         }
 
@@ -216,114 +163,12 @@ EOF
         perms = "777"
       }
 
-      template {
-        data = <<EOF
-${OpenNMS.Configs.CortexConfig}
-EOF
-
-        destination = "local/etc/org.opennms.plugins.tss.cortex.cfg"
-
-        perms = "777"
-      }
-
-      #
-      # Configs
-      #
-
-      template {
-        data = <<EOF
-${OpenNMS.Configs.OpenNMSProperties}
-EOF
-
-        destination = "local/OpenNMS.properties"
-
-        perms = "777"
-      }
-
-      template {
-        data = <<EOF
-${OpenNMS.Configs.Users}
-EOF
-
-        destination = "local/users.xml"
-
-        perms = "777"
-      }
-
-      template {
-        data = <<EOF
-${OpenNMS.Configs.ServiceConfiguration}
-EOF
-
-        destination = "local/service-configuration.xml"
-
-        perms = "777"
-      }
-
-      template {
-        data = <<EOF
-${OpenNMS.Configs.PollerConfig}
-EOF
-
-        destination = "local/poller-configuration.xml"
-
-        perms = "777"
-      }
-
-      template {
-        data = <<EOF
-${OpenNMS.Configs.SNMPPollerConfig}
-EOF
-
-        destination = "local/snmp-interface-poller-configuration.xml"
-
-        perms = "777"
-      }
-
-      template {
-        data = <<EOF
-${OpenNMS.Configs.SNMPConfig}
-EOF
-
-        destination = "local/snmp-config.xml"
-
-        perms = "777"
-      }
-
-
-      #
-      # Configs/opennms.properties.d
-      # 
-
-      template {
-        data = <<EOF
-org.opennms.timeseries.strategy=integration
-org.opennms.timeseries.tin.metatags.tag.node=$${node:label}
-org.opennms.timeseries.tin.metatags.tag.location=$${node:location}
-org.opennms.timeseries.tin.metatags.tag.geohash=$${node:geohash}
-org.opennms.timeseries.tin.metatags.tag.ifDescr=$${interface:if-description}
-org.opennms.timeseries.tin.metatags.tag.label=$${resource:label}
-EOF
-
-        destination = "local/opennms.properties.d/cortex.properties"
-
-        perms = "777"
-      }
-
-      template {
-        data = "opennms-plugins-cortex-tss wait-for-kar=opennms-cortex-tss-plugin"
-
-        destination = "local/featuresBoot.d/cortex.boot"
-
-        perms = "777"
-      }
-
       #
       # Plugins
       #
 
       artifact {
-        source = "https://github.com/OpenNMS/opennms-cortex-tss-plugin/releases/download/v1.0.0/opennms-cortex-tss-plugin.kar"
+        source = "https://github.com/OpenNMS/opennms-cortex-tss-plugin/releases/download/v1.1.0-RC/opennms-cortex-tss-plugin.kar"
         destination = "local/Artifacts"
       }
 
@@ -370,14 +215,24 @@ EOF
       }
 
       template {
-        data = <<EOF
-${OpenNMS.Configs.JaegerConfig}
-EOF
+        data = "opennms-plugins-cortex-tss wait-for-kar=opennms-cortex-tss-plugin"
 
-        destination = "local/opennms.properties.d/jaeger.properties"
+        destination = "local/Plugins/cortex.boot"
 
         perms = "777"
       }
+
+%{ for DeployFile in OpenNMS.Configs.Deploy ~}
+      template {
+        data = <<EOF
+${DeployFile.File}
+EOF
+
+        destination = "local/deploy/${DeployFile.Path}"
+
+        perms = "777"
+      }
+%{ endfor ~}
 
 
       resources {
