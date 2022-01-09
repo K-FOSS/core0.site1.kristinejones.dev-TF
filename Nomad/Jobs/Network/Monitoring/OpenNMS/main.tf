@@ -51,7 +51,7 @@ locals {
     Image = {
       Repo = "registry.kristianjones.dev/cache/opennms"
 
-      Tag = "release-29.x"
+      Tag = "bleeding"
     }
 
     Configs = {
@@ -107,7 +107,7 @@ locals {
           File = file("${path.module}/Configs/OpenNMS/Deploy/Jaeger.properties")
         },
         TimeSeries = {
-          Path = "etc/opennms.properties.d/timeseries.properties"
+          Path = "etc/opennms.properties.d/cortex.properties"
 
           File = file("${path.module}/Configs/OpenNMS/Deploy/TimeSeries.properties")
         },
@@ -123,6 +123,10 @@ locals {
             Database = var.Database
           })
         }
+      })
+
+      HorizionConfig = templatefile("${path.module}/Configs/OpenNMS/ConfD/Horizion.yaml", {
+        Database = var.Database
       })
     }
   }

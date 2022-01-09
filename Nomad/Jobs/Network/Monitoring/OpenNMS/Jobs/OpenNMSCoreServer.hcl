@@ -46,6 +46,20 @@ job "network-monitoring-opennms-coreserver" {
           }
         }
 
+        mount {
+          type = "bind"
+          target = "/opt/opennms-overlay/confd/horizon-config.yaml"
+          source = "local/HorizionConfig.yaml"
+          readonly = false
+        }
+
+        mount {
+          type = "bind"
+          target = "/etc/confd/confd.toml"
+          source = "local/HorizionConfig.toml"
+          readonly = false
+        }
+
 %{ for DeployFile in OpenNMS.Configs.Deploy ~}
         mount {
           type = "bind"
@@ -78,7 +92,7 @@ job "network-monitoring-opennms-coreserver" {
 
         mount {
           type = "bind"
-          target = "/opt/opennms-overlay/etc/featuresBoot.d/cortex.boot"
+          target = "/opt/opennms-overlay/etc/featuresBoot.d/plugin-cortex-tss.boot"
           source = "local/Plugins/cortex.boot"
           readonly = false
         }
@@ -123,6 +137,29 @@ job "network-monitoring-opennms-coreserver" {
 
       env {
         TZ = "America/Winnipeg"
+      }
+
+      template {
+        data = <<EOF
+${OpenNMS.Configs.HorizionConfig}
+EOF
+
+        destination = "local/HorizionConfig.yaml"
+
+        perms = "777"
+      }
+
+      template {
+        data = <<EOF
+confdir = "/etc/confd"
+backend = "file"
+file = [ "/opt/opennms-overlay/confd/horizon-config.yaml" ]
+log-level = "info"
+EOF
+
+        destination = "local/HorizionConfig.toml"
+
+        perms = "777"
       }
 
       #
@@ -177,7 +214,7 @@ EOF
       }
 
       template {
-        data = "opennms-plugins-cortex-tss wait-for-kar=opennms-cortex-tss-plugin"
+        data = "opennms-plugins-cortex-tss"
 
         destination = "local/Plugins/cortex.boot"
 
