@@ -92,7 +92,7 @@ job "network-monitoring-opennms-coreserver" {
 
         mount {
           type = "bind"
-          target = "/opt/opennms-overlay/etc/featuresBoot.d/plugin-cortex-tss.boot"
+          target = "/opt/opennms-overlay/etc/featuresBoot.d/cortex.boot"
           source = "local/Plugins/cortex.boot"
           readonly = false
         }
@@ -214,7 +214,9 @@ EOF
       }
 
       template {
-        data = "opennms-plugins-cortex-tss wait-for-kar=opennms-cortex-tss-plugin"
+        data = <<EOF
+opennms-plugins-cortex-tss wait-for-kar=opennms-cortex-tss-plugin
+EOF
 
         destination = "local/Plugins/cortex.boot"
 
