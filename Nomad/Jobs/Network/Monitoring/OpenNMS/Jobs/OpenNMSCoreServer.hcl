@@ -214,7 +214,7 @@ EOF
       }
 
       template {
-        data = "opennms-plugins-cortex-tss"
+        data = "opennms-plugins-cortex-tss wait-for-kar=opennms-cortex-tss-plugin"
 
         destination = "local/Plugins/cortex.boot"
 

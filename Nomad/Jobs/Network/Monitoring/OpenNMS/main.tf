@@ -51,7 +51,7 @@ locals {
     Image = {
       Repo = "registry.kristianjones.dev/cache/opennms"
 
-      Tag = "bleeding"
+      Tag = "29.0.3"
     }
 
     Configs = {
@@ -107,7 +107,7 @@ locals {
           File = file("${path.module}/Configs/OpenNMS/Deploy/Jaeger.properties")
         },
         TimeSeries = {
-          Path = "etc/opennms.properties.d/cortex.properties"
+          Path = "etc/opennms.properties.d/timeseries.properties"
 
           File = file("${path.module}/Configs/OpenNMS/Deploy/TimeSeries.properties")
         },
