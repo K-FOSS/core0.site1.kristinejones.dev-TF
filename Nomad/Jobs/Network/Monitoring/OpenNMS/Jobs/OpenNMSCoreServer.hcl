@@ -167,7 +167,7 @@ EOF
       #
 
       artifact {
-        source = "https://github.com/OpenNMS/opennms-cortex-tss-plugin/releases/download/v1.1.0-RC/opennms-cortex-tss-plugin.kar"
+        source = "https://github.com/OpenNMS/opennms-cortex-tss-plugin/releases/download/v1.0.0/opennms-cortex-tss-plugin.kar"
         destination = "local/Artifacts"
       }
 
