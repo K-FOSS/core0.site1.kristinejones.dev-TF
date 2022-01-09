@@ -115,11 +115,14 @@ locals {
           Path = "etc/opennms.properties.d/webui.properties"
 
           File = file("${path.module}/Configs/OpenNMS/Deploy/WebUI.properties")
-        }
-      })
+        },
+        DataSources = {
+          Path = "etc/opennms-datasources.xml",
 
-      HorizionConfig = templatefile("${path.module}/Configs/OpenNMS/ConfD/Horizion.yaml", {
-        Database = var.Database
+          File = templatefile("${path.module}/Configs/OpenNMS/Deploy/DataSources.xml", {
+            Database = var.Database
+          })
+        }
       })
     }
   }
