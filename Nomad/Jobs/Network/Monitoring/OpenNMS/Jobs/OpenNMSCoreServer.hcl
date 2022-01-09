@@ -75,7 +75,7 @@ job "network-monitoring-opennms-coreserver" {
         #
         mount {
           type = "bind"
-          target = "/opt/opennms/deploy/opennms-cortex-tss-plugin.kar"
+          target = "/opennms-deploy/opennms-cortex-tss-plugin.kar"
           source = "local/Artifacts/opennms-cortex-tss-plugin.kar"
           readonly = false
         }
