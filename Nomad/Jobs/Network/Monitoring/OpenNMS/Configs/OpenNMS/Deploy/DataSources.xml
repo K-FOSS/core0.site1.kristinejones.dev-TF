@@ -23,5 +23,5 @@
                     class-name="org.postgresql.Driver"
                     url="jdbc:postgresql://${Database.Hostname}:${Database.Port}/template1"
                     user-name="${Database.Username}"
-                    password="${Database.Password]"/>
+                    password="${Database.Password}"/>
 </datasource-configuration>
