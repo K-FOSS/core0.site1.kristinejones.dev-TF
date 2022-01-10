@@ -140,7 +140,7 @@ job "grafana" {
         #
         # TODO: Make this an array/map/object that is looped through and then creates the final comma seperated env var
         #  
-        GF_INSTALL_PLUGINS = "ae3e-plotly-panel,sbueringer-consul-datasource,cloudflare-app,grafana-clock-panel,speakyourcode-button-panel,thiagoarrais-matomotracking-panel,radensolutions-netxms-datasource,grafana-k6cloud-datasource,flaminggoat-maptrack3d-panel,grafana-sentry-datasource,gowee-traceroutemap-panel,grafana-worldmap-panel,novatec-sdg-panel,magnesium-wordcloud-panel,opennms-helm-app,grafana-opensearch-datasource,ntop-ntopng-datasource"
+        GF_INSTALL_PLUGINS = "https://github.com/OpenNMS/opennms-helm/releases/download/v7.3.0/opennms-helm-app-7.3.0.zip;ae3e-plotly-panel,cloudflare-app,grafana-clock-panel,speakyourcode-button-panel,thiagoarrais-matomotracking-panel,radensolutions-netxms-datasource,grafana-k6cloud-datasource,flaminggoat-maptrack3d-panel,grafana-sentry-datasource,gowee-traceroutemap-panel,grafana-worldmap-panel,novatec-sdg-panel,magnesium-wordcloud-panel,grafana-opensearch-datasource,ntop-ntopng-datasource"
       }
 
       template {
