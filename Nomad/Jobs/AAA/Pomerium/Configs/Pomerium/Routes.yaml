@@ -206,14 +206,6 @@
 # NetBox
 #
 
-- from: https://netbox.int.mylogin.space
-  to: http://http.netbox.service.kjdev:8080
-  allowed_idp_claims:
-    groups:
-      - Servers
-      - Network
-  pass_identity_headers: true
-
 - from: https://ipam.ipaddr.network
   to: http://http.netbox.service.kjdev:8080
   allowed_idp_claims:
@@ -272,6 +264,15 @@
   pass_identity_headers: true
   allow_websockets: true
   cors_allow_preflight: true
+
+- from: https://truecommand.int.mylogin.space
+  to: http://kjdev-truecommand.ix-kjdev-truecommand.svc.cluster.local:80
+  preserve_host_header: true
+  allowed_idp_claims:
+    groups:
+      - Server Admins
+  pass_identity_headers: true
+  allow_websockets: true
 
 #
 # Consul
