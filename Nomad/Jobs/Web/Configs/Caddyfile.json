@@ -1607,6 +1607,11 @@
                   "transport": {
                     "protocol": "http"
                   },
+                  "load_balancing": {
+                    "selection_policy": {
+                      "policy": "round_robin"
+                    }
+                  },
                   "upstreams": [
                     {
                       "dial": "infra2.dc1.dc1.kristianjones.dev:9000"
