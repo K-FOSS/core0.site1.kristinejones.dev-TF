@@ -1605,7 +1605,8 @@
                     }
                   },
                   "transport": {
-                    "protocol": "http"
+                    "protocol": "http",
+                    "dial_timeout": 600
                   },
                   "load_balancing": {
                     "selection_policy": {
@@ -1614,16 +1615,16 @@
                   },
                   "upstreams": [
                     {
-                      "dial": "infra2.dc1.dc1.kristianjones.dev:9000"
+                      "dial": "172.31.241.2:9000"
                     },
                     {
-                      "dial": "infra3.dc1.dc1.kristianjones.dev:9000"
+                      "dial": "10.1.2.21:9000"
                     },
                     {
-                      "dial": "node1.core0.dc1.kristianjones.dev:9000"
+                      "dial": "10.1.2.22:9000"
                     },
                     {
-                      "dial": "kjdev-minio.ix-kjdev-minio.svc.cluster.local:9000"
+                      "dial": "10.1.2.23:9000"
                     }
                   ]
                 }
