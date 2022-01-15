@@ -86,6 +86,11 @@ locals {
 
           File = file("${path.module}/Configs/OpenNMS/Deploy/Cortex.cfg")
         },
+        Telemetryd = {
+          Path = "etc/telemetryd-configuration.xml"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/Telemetryd.xml")
+        },
         ServiceConfig = {
           Path = "etc/service-configuration.xml"
 
