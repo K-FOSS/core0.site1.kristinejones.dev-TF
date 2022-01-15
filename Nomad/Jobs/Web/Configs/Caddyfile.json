@@ -1605,18 +1605,9 @@
                     }
                   },
                   "transport": {
-                    "protocol": "http",
-                    "dial_timeout": 600
-                  },
-                  "load_balancing": {
-                    "selection_policy": {
-                      "policy": "round_robin"
-                    }
+                    "protocol": "http"
                   },
                   "upstreams": [
-                    {
-                      "dial": "172.31.241.2:9000"
-                    },
                     {
                       "dial": "10.1.2.21:9000"
                     },
@@ -1624,7 +1615,7 @@
                       "dial": "10.1.2.22:9000"
                     },
                     {
-                      "dial": "10.1.2.23:9000"
+                      "dial": "172.31.241.2:9000"
                     }
                   ]
                 }
