@@ -753,6 +753,22 @@ module "eJabberD" {
   TLS = var.eJabberD.TLS
 }
 
+#
+# Kafka
+#
+
+module "Kafka" {
+  source = "./Jobs/Brokers/Kafka"
+}
+
+#
+# ZooKeeper
+#
+
+module "ZooKeeper" {
+  source = "./Jobs/Brokers/ZooKeeper"
+}
+
 ######################
 #    HomeAssistant   #
 ######################
