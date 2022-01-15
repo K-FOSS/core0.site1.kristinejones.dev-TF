@@ -178,8 +178,6 @@ module "PSQLBackups" {
   Database = var.Backups.PSQL.Database
 }
 
-
-
 ##################################
 #            Business            #
 ##################################
@@ -190,7 +188,7 @@ module "PSQLBackups" {
 # Website: https://www.openproject.org/       #
 # Docs: https://www.openproject.org/docs/     #
 #                                             #
-################################################
+###############################################
 
 
 module "OpenProject" {
@@ -348,6 +346,27 @@ module "Mattermost" {
 }
 
 ##############################
+#         Dashboards         #
+##############################
+
+################################################
+#        Grafana                               #
+#                                              #
+# Website: https://grafana.com/                #
+# Docs: https://grafana.com/docs/grafana/next/ #
+#                                              #
+################################################
+
+module "Grafana" {
+  source = "./Jobs/Dashboards/Grafana"
+
+  Database = var.Grafana.Database
+
+  TLS = var.Grafana.TLS
+}
+
+
+##############################
 #           Databases        #
 ##############################
 
@@ -386,54 +405,6 @@ module "Meshery" {
 }
 
 #
-# CSI
-#
-
-# resource "nomad_job" "Storage" {
-#   jobspec = templatefile("${path.module}/Jobs/Storage/Controller.hcl", {
-#     CSI_CONFIG = templatefile("${path.module}/Jobs/Storage/Configs/CSI.yaml", var.Storage)
-#   })
-# }
-
-# resource "nomad_job" "CSIStorage" {
-#   jobspec = templatefile("${path.module}/Jobs/Storage/Node.hcl", {
-#     CSI_CONFIG = templatefile("${path.module}/Jobs/Storage/Configs/CSI.yaml", var.Storage)
-#   })
-# }
-
-#
-# Bitwarden
-#
-
-module "Bitwarden" {
-  source = "./Jobs/Bitwarden"
-
-  Database = var.Bitwarden.Database
-
-  TLS = var.Bitwarden.TLS
-
-  SMTP = var.Bitwarden.SMTP
-}
-
-##############
-# Dashboards #
-##############
-
-#
-# Grafana
-#
-
-module "Grafana" {
-  source = "./Jobs/Grafana"
-
-  Database = var.Grafana.Database
-
-  TLS = var.Grafana.TLS
-}
-
-
-
-#
 # Caddy Web Ingress
 #
 
@@ -466,51 +437,6 @@ module "Web" {
     CA = var.Bitwarden.TLS.CA
   }
 }
-
-#
-# Grafana
-#
-
-# resource "nomad_job" "Grafana" {
-#   jobspec = templatefile("${path.module}/Jobs/Web/Web.hcl", {
-#     Consul = var.Ingress.Consul
-
-#     CONFIG = templatefile("${path.module}/Jobs/Grafana/Configs/Grafana.ini", { 
-#       Database = var.
-#     }),
-#   })
-# }
-
-#
-# Patroni
-#
-
-# resource "nomad_volume" "Patroni" {
-#   type                  = "csi"
-#   plugin_id             = "truenas"
-#   volume_id             = "patronidata-vol"
-#   name                  = "patronidata-vol"
-#   external_id           = "test-vol"
-
-#   capability {
-#     access_mode     = "multi-node-multi-writer"
-#     attachment_mode = "file-system"
-#   }
-
-#   deregister_on_destroy = true
-
-#   mount_options {
-#     fs_type = "nfs"
-#     mount_flags = ["nolock"]
-#   }
-
-#   context = {
-#     node_attach_driver = "nfs"
-#     provisioner_driver = "freenas-nfs"
-#     server             = "172.16.51.21"
-#     share              = "/mnt/Site1.NAS1.Pool1/CSI/vols/test-vol"
-#   }
-# }
 
 module "Patroni" {
   source = "./Jobs/Patroni"
@@ -814,7 +740,7 @@ module "Minio" {
 # eJabberD
 #
 module "eJabberD" {
-  source = "./Jobs/eJabberd"
+  source = "./Jobs/Brokers/eJabberd"
 
   Database = var.eJabberD.Database
 
@@ -907,6 +833,22 @@ module "GitLab" {
 # }
 
 
+####################################
+#             History              #
+####################################
+
+################################################
+#        Timeliner                             #
+#                                              #
+# Website: https://github.com/mholt/timeliner  #
+#                                              #
+################################################
+
+module "Timeliner" {
+  source = "./Jobs/History/Timeliner"
+
+  S3 = var.History.Timeliner.S3
+}
 
 
 #######################
@@ -939,13 +881,35 @@ module "Search" {
   OpenSearch = var.Search.OpenSearch
 }
 
-#
-# Security
-#
+##################################
+#            Security            #
+##################################
 
-#
-# Argus
-#
+###############################################
+#                  Argus                      #
+#                                             #
+# Website: https://qosient.com/argus/         #
+# Docs: https://openargus.org/documentation   #
+#                                             #
+###############################################
+
+##########################################################
+#                     Bitwarden/Vaultwarden              #
+#                                                        #
+# Website: https://github.com/dani-garcia/vaultwarden    #
+# Docs: https://github.com/dani-garcia/vaultwarden/wiki  #
+#                                                        #
+##########################################################
+
+module "Bitwarden" {
+  source = "./Jobs/Security/Bitwarden"
+
+  Database = var.Bitwarden.Database
+
+  TLS = var.Bitwarden.TLS
+
+  SMTP = var.Bitwarden.SMTP
+}
 
 #
 # IntelOwl

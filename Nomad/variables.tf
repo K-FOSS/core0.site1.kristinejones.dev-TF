@@ -1565,6 +1565,35 @@ variable "Education" {
   })
 }
 
+########################
+#        History       #
+########################
+
+variable "History" {
+  type = object({
+    Timeliner = object({
+      S3 = object({
+        Database = object({
+          Connection = object({
+            Hostname = string
+            Port = number
+
+            Endpoint = string
+          })
+
+          Credentials = object({
+            AccessKey = string
+            SecretKey = string
+          })
+
+
+          Bucket = string
+        })
+      })
+    })
+  })
+}
+
 #
 # Ingress
 #

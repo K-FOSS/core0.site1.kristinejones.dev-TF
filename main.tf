@@ -162,6 +162,26 @@ module "PSQLBackupsBucket" {
   Credentials = module.Vault.Minio
 }
 
+########################
+#       History        #
+########################
+
+#############
+# Timeliner #
+#############
+
+module "TimelinerDatabaseBucket" {
+  source = "./Minio"
+
+  Connection = {
+    Hostname = "http.minio.web.service.kjdev"
+    Port = 9080
+  }
+
+  Credentials = module.Vault.Minio
+}
+
+
 ###########
 # Metrics #
 ###########
@@ -1806,6 +1826,18 @@ module "Nomad" {
       }
 
       TLS = module.Vault.Education.Moodle.TLS
+    }
+  }
+
+  ###########
+  # History #
+  ###########
+
+  History = {
+    Timeliner = {
+      S3 = {
+        Database = module.TimelinerDatabaseBucket
+      }
     }
   }
 

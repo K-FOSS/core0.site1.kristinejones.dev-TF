@@ -57,8 +57,8 @@ terraform {
 # }
 
 resource "random_password" "Secret" {
-  length           = 50
-  special          = true
+  length = 50
+  special = true
 }
 
 resource "nomad_job" "Grafana" {

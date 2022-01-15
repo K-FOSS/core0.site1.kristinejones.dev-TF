@@ -1,0 +1,7 @@
+access-key-id: YOUR_ACCESS_KEY_ID
+secret-access-key: YOUR_SECRET_ACCESS_KEY
+
+dbs:
+  - path: /alloc/database.sqlite
+    replicas:
+      - url: s3://BUCKET/db
