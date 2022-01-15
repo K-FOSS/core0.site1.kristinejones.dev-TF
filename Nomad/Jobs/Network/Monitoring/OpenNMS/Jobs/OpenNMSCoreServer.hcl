@@ -23,6 +23,10 @@ job "network-monitoring-opennms-coreserver" {
       port "graphite" {
         to = 2003
       }
+
+      port "multi" {
+        to = 9999
+      }
     }
 
     service {
@@ -53,6 +57,16 @@ job "network-monitoring-opennms-coreserver" {
       address_mode = "alloc"
 
       tags = ["graphite.horizion"]
+    }
+
+    service {
+      name = "opennms"
+      port = "multi"
+
+      task = "opennms-core-server"
+      address_mode = "alloc"
+
+      tags = ["multi.horizion"]
     }
 
     task "opennms-core-server" {

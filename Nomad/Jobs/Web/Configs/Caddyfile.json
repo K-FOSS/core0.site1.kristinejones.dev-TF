@@ -1600,7 +1600,7 @@
                   "handler": "reverse_proxy",
                   "health_checks": {
                     "active": {
-                      "path": "/minio/health/cluster",
+                      "uri": "/minio/health/cluster",
                       "expect_status": 200
                     }
                   },
