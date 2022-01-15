@@ -361,17 +361,17 @@ resource "nomad_job" "StarLinkJob" {
 #
 # MikroTik Exporter
 # 
-resource "nomad_job" "MikroTikJob" {
-  jobspec = templatefile("${path.module}/Jobs/MikroTik.hcl", {
-    MikroTik = {
-      Config = templatefile("${path.module}/Configs/MikroTik/Config.yaml", {
-        Devices = var.MikroTik.Devices
-      })
+# resource "nomad_job" "MikroTikJob" {
+#   jobspec = templatefile("${path.module}/Jobs/MikroTik.hcl", {
+#     MikroTik = {
+#       Config = templatefile("${path.module}/Configs/MikroTik/Config.yaml", {
+#         Devices = var.MikroTik.Devices
+#       })
 
-      Version = "1.0.12-DEVEL"
-    }
-  })
-}
+#       Version = "1.0.12-DEVEL"
+#     }
+#   })
+# }
 
 #
 # PostgreSQL Exporter
