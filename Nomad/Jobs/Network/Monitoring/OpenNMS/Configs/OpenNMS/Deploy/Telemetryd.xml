@@ -67,7 +67,7 @@
     </queue>
 
     <!-- Netflow v9 listener & adapters -->
-    <listener name="Netflow-9-UDP-4729" class-name="org.opennms.netmgt.telemetry.listeners.UdpListener" enabled="false">
+    <listener name="Netflow-9-UDP-4729" class-name="org.opennms.netmgt.telemetry.listeners.UdpListener" enabled="true">
         <parameter key="port" value="4729"/>
 
         <parser name="Netflow-9-Parser" class-name="org.opennms.netmgt.telemetry.protocols.netflow.parser.Netflow9UdpParser" queue="Netflow-9" />
@@ -186,13 +186,13 @@
     </queue>
 
     <!-- Graphite listener and adapter -->
-    <listener name="Graphite-UDP-2003" class-name="org.opennms.netmgt.telemetry.listeners.UdpListener" enabled="false">
+    <listener name="Graphite-UDP-2003" class-name="org.opennms.netmgt.telemetry.listeners.UdpListener" enabled="true">
         <parameter key="port" value="2003"/>
         <parser name="Graphite-Parser" class-name="org.opennms.netmgt.telemetry.protocols.common.parser.ForwardParser" queue="Graphite" />
     </listener>
 
     <queue name="Graphite">
-        <adapter name="Graphite" class-name="org.opennms.netmgt.telemetry.protocols.graphite.adapter.GraphiteAdapter" enabled="false">
+        <adapter name="Graphite" class-name="org.opennms.netmgt.telemetry.protocols.graphite.adapter.GraphiteAdapter" enabled="true">
             <parameter key="script" value="/opt/opennms/etc/telemetryd-adapters/graphite-telemetry-interface.groovy"/>
              <package name="Graphite-Default">
                 <rrd step="300">

@@ -15,6 +15,14 @@ job "network-monitoring-opennms-coreserver" {
       port "http" {
         to = 8980
       }
+
+      port "netflow" {
+        to = 4729
+      }
+
+      port "graphite" {
+        to = 2003
+      }
     }
 
     service {
@@ -25,6 +33,26 @@ job "network-monitoring-opennms-coreserver" {
       address_mode = "alloc"
 
       tags = ["http.horizion"]
+    }
+
+    service {
+      name = "opennms"
+      port = "netflow"
+
+      task = "opennms-core-server"
+      address_mode = "alloc"
+
+      tags = ["netflow.horizion"]
+    }
+
+    service {
+      name = "opennms"
+      port = "graphite"
+
+      task = "opennms-core-server"
+      address_mode = "alloc"
+
+      tags = ["graphite.horizion"]
     }
 
     task "opennms-core-server" {
