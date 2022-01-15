@@ -740,7 +740,7 @@ module "Minio" {
 # eJabberD
 #
 module "eJabberD" {
-  source = "./Jobs/Brokers/eJabberd"
+  source = "./Jobs/Brokers/eJabberD"
 
   Database = var.eJabberD.Database
 
