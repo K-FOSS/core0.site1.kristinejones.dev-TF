@@ -18,6 +18,10 @@ job "network-monitoring-opennms-coreserver" {
 
       port "netflow" {
         to = 4729
+
+        static = 4729
+
+        host_network = "node"
       }
 
       port "graphite" {
