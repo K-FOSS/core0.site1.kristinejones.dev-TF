@@ -44,7 +44,7 @@ job "search-opensearch-dashboard" {
       }
 
       env {
-        OPENSEARCH_HOSTS = "[\"http://0.https.master.opensearch.service.kjdev:9200\",\"http://1.https.master.opensearch.service.kjdev:9200\",\"http://2.https.master.opensearch.service.kjdev:9200\"]"
+        OPENSEARCH_HOSTS = "[\"https://0.https.master.opensearch.service.kjdev:9200\",\"https://1.https.master.opensearch.service.kjdev:9200\",\"https://2.https.master.opensearch.service.kjdev:9200\"]"
       }
     }
   }
