@@ -66,6 +66,11 @@ locals {
       }
 
       Deploy = tomap({
+        DNS = {
+          Path = "etc/org.opennms.features.dnsresolver.netty.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/DNS.cfg")
+        },
         DataChoices = {
           Path = "etc/org.opennms.features.datachoices.cfg"
 
