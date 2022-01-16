@@ -3,7 +3,7 @@
       <range begin="66.165.222.97" end="66.165.222.128"/>
    </definition>
 
-   <definition write-community="kjdev" read-community="kjdev" location="Default">
+   <definition read-community="knet" location="Default">
       <range begin="10.251.40.105" end="10.251.40.105"/>
    </definition>
 </snmp-config>
