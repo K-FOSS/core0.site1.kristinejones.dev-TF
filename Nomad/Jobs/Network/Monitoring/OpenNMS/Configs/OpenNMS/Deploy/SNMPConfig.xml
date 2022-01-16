@@ -6,4 +6,11 @@
    <definition read-community="knet" location="Default">
       <range begin="10.251.40.105" end="10.251.40.105"/>
    </definition>
+
+	<profiles>
+		<profile version="v1" read-community="knet">
+			<label>knet</label>
+			<filter>IPADDR IPLIKE 10.251.40.*</filter>
+		</profile>
+	</profiles>
 </snmp-config>

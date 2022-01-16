@@ -81,6 +81,11 @@ locals {
 
           File = file("${path.module}/Configs/OpenNMS/Deploy/Users.xml")
         },
+        Discovery = {
+          Path = "etc/discovery-configuration.xml"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/Discovery.xml")
+        },
         PollerConfig = {
           Path = "etc/poller-configuration.xml"
 
