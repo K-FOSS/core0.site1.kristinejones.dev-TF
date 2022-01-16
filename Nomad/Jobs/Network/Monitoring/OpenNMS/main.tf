@@ -86,6 +86,11 @@ locals {
 
           File = file("${path.module}/Configs/OpenNMS/Deploy/PollerConfiguration.xml")
         },
+        NetFlow = {
+          Path = "etc/org.opennms.features.telemetry.listeners-udp-4729.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/NetFlow9.cfg")
+        },
         Cortex = {
           Path = "etc/org.opennms.plugins.tss.cortex.cfg"
 
@@ -101,11 +106,11 @@ locals {
 
           File = file("${path.module}/Configs/OpenNMS/Deploy/ElasticSearchConfig.cfg")
         },
-        Telemetryd = {
-          Path = "etc/telemetryd-configuration.xml"
+        # Telemetryd = {
+        #   Path = "etc/telemetryd-configuration.xml"
 
-          File = file("${path.module}/Configs/OpenNMS/Deploy/Telemetryd.xml")
-        },
+        #   File = file("${path.module}/Configs/OpenNMS/Deploy/Telemetryd.xml")
+        # },
         ServiceConfig = {
           Path = "etc/service-configuration.xml"
 
