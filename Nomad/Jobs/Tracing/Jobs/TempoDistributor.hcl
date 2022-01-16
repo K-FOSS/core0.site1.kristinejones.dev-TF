@@ -14,6 +14,8 @@ job "tempo-distributor" {
 
       port "http" {
         to = 8080
+
+        host_network = "node"
       }
 
       port "grpc" { 
@@ -44,7 +46,7 @@ job "tempo-distributor" {
       task = "tempo-distributor"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.distributor"]
+      tags = ["coredns.enabled", "http.distributor"]
     }
 
     service {
@@ -54,7 +56,7 @@ job "tempo-distributor" {
       task = "tempo-distributor"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.distributor"]
+      tags = ["coredns.enabled", "grpc.distributor", "_grpclb._tcp.grpc.distributor"]
     }
 
     service {

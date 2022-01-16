@@ -14,6 +14,8 @@ job "tempo-querier" {
 
       port "http" {
         to = 8080
+
+        host_network = "node"
       }
 
       port "grpc" { 
@@ -40,7 +42,7 @@ job "tempo-querier" {
       task = "tempo-querier"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.querier"]
+      tags = ["coredns.enabled", "http.querier"]
     }
 
     service {
@@ -50,7 +52,7 @@ job "tempo-querier" {
       task = "tempo-querier"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.querier"]
+      tags = ["coredns.enabled", "grpc.querier", "_grpclb._tcp.grpc.querier"]
     }
 
     service {

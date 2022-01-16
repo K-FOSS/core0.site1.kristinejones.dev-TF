@@ -14,6 +14,8 @@ job "tempo-ingester" {
 
       port "http" {
         to = 8080
+
+        host_network = "node"
       }
 
       port "grpc" { 
@@ -40,7 +42,7 @@ job "tempo-ingester" {
       task = "tempo-ingester"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.ingester"]
+      tags = ["coredns.enabled", "http.ingester"]
     }
 
     service {
@@ -50,7 +52,7 @@ job "tempo-ingester" {
       task = "tempo-ingester"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.ingester"]
+      tags = ["coredns.enabled", "grpc.ingester", "_grpclb._tcp.grpc.ingester"]
     }
 
     service {

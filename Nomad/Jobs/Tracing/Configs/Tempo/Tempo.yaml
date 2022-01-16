@@ -81,7 +81,7 @@ distributor:
       # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
       #
       consul:
-        host: ${Consul.Hostname}:${Consul.Port}
+        host: {{ env "NOMAD_IP_http" }}:${Consul.Port}
         acl_token: ${Consul.Token}
 
 querier:
@@ -120,7 +120,7 @@ ingester:
         # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
         #
         consul:
-          host: ${Consul.Hostname}:${Consul.Port}
+          host: {{ env "NOMAD_IP_http" }}:${Consul.Port}
           acl_token: ${Consul.Token}
       replication_factor: 2
 
@@ -154,7 +154,7 @@ compactor:
       # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
       #
       consul:
-        host: ${Consul.Hostname}:${Consul.Port}
+        host: {{ env "NOMAD_IP_http" }}:${Consul.Port}
         acl_token: ${Consul.Token}
 
 memberlist:

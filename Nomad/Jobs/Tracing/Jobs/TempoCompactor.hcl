@@ -14,6 +14,8 @@ job "tempo-compactor" {
 
       port "http" {
         to = 8080
+
+        host_network = "node"
       }
 
       port "grpc" { 
@@ -40,7 +42,7 @@ job "tempo-compactor" {
       task = "tempo-compactor"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.compactor"]
+      tags = ["coredns.enabled", "http.compactor"]
     }
 
     service {
@@ -50,7 +52,7 @@ job "tempo-compactor" {
       task = "tempo-compactor"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.compactor"]
+      tags = ["coredns.enabled", "grpc.compactor", "_grpclb._tcp.grpc.compactor"]
     }
 
     service {

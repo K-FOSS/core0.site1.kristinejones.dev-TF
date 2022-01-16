@@ -14,6 +14,8 @@ job "tempo-query-frontend" {
 
       port "http" {
         to = 8080
+
+        host_network = "node"
       }
 
       port "grpc" { 
@@ -40,7 +42,7 @@ job "tempo-query-frontend" {
       task = "tempo-query-frontend"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "http.query-frontend"]
+      tags = ["coredns.enabled", "http.query-frontend"]
     }
 
     service {
@@ -50,7 +52,7 @@ job "tempo-query-frontend" {
       task = "tempo-query-frontend"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "grpc.query-frontend"]
+      tags = ["coredns.enabled", "grpc.query-frontend", "_grpclb._tcp.grpc.query-frontend"]
     }
 
     service {
