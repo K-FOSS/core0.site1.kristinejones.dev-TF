@@ -91,6 +91,11 @@ locals {
 
           File = file("${path.module}/Configs/OpenNMS/Deploy/Kafka.properties")
         },
+        ElasticSearch = {
+          Path = "etc/org.opennms.features.flows.persistence.elastic.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/ElasticSearchConfig.cfg")
+        },
         Telemetryd = {
           Path = "etc/telemetryd-configuration.xml"
 

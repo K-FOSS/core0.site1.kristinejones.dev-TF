@@ -178,7 +178,16 @@ job "network-monitoring-opennms-coreserver" {
       }
 
       env {
+        #
+        # System
+        #
+        OPENNMS_INSTANCE_ID = "$${NOMAD_ALLOC_NAME}"
+        #
+        # Misc
+        #
         TZ = "America/Winnipeg"
+
+
       }
 
       template {
