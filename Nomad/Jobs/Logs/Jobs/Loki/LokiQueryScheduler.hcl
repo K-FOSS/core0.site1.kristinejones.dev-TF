@@ -17,6 +17,8 @@ job "loki-query-scheduler" {
 
       port "http" {
         to = 8080
+
+        host_network = "node"
       }
 
       port "grpc" { 

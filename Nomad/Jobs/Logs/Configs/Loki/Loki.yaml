@@ -189,7 +189,7 @@ ruler:
       # Docs: https://cortexmetrics.io/docs/configuration/configuration-file/#consul_config
       #
       consul:
-        host: ${Consul.Hostname}:${Consul.Port}
+        host: {{ env "NOMAD_IP_http" }}:${Consul.Port}
         acl_token: ${Consul.Token}
 #
 # Docs: https://grafana.com/docs/loki/latest/configuration/#ingester_client_config
@@ -244,7 +244,7 @@ ingester:
         #
         # The consul_config configures the consul client.
         consul:
-          host: ${Consul.Hostname}:${Consul.Port}
+          host: {{ env "NOMAD_IP_http" }}:${Consul.Port}
           acl_token: ${Consul.Token}
 
 #
@@ -450,7 +450,7 @@ common:
       #
       # Configuration for a Consul client. Only applies if store is "consul"
       consul:
-        host: ${Consul.Hostname}:${Consul.Port}
+        host: {{ env "NOMAD_IP_http" }}:${Consul.Port}
         acl_token: ${Consul.Token}
 
       multi:

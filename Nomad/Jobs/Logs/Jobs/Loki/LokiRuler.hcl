@@ -17,6 +17,8 @@ job "loki-ruler" {
 
       port "http" {
         to = 8080
+
+        host_network = "node"
       }
 
       port "grpc" { 
