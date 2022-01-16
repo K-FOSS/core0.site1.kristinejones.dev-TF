@@ -28,7 +28,7 @@ job "brokers-kafka-server" {
       config {
         image = "${Kafka.Image.Repo}:${Kafka.Image.Tag}"
 
-        memory_hard_limit = 256
+        memory_hard_limit = 1024
 
         logging {
           type = "loki"
@@ -56,8 +56,8 @@ job "brokers-kafka-server" {
       resources {
         cpu = 128
 
-        memory = 64
-        memory_max = 256
+        memory = 128
+        memory_max = 1024
       }
     }
   }
