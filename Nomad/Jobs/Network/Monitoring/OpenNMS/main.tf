@@ -86,6 +86,11 @@ locals {
 
           File = file("${path.module}/Configs/OpenNMS/Deploy/Cortex.cfg")
         },
+        Kafka = {
+          Path = "etc/opennms.properties.d/kafka.properties"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/Kafka.properties")
+        },
         Telemetryd = {
           Path = "etc/telemetryd-configuration.xml"
 
