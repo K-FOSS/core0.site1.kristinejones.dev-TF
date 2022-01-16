@@ -29,6 +29,15 @@ job "brokers-zookeeper-server" {
         image = "${ZooKeeper.Image.Repo}:${ZooKeeper.Image.Tag}"
 
         memory_hard_limit = 256
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=zookeeper,service=server"
+          }
+        }
       }
 
       env {

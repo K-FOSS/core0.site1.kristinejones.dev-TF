@@ -29,6 +29,15 @@ job "brokers-kafka-server" {
         image = "${Kafka.Image.Repo}:${Kafka.Image.Tag}"
 
         memory_hard_limit = 256
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=kafka,service=server"
+          }
+        }
       }
 
       env {
