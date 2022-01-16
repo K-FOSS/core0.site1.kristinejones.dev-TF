@@ -170,16 +170,16 @@ module "PSQLBackupsBucket" {
 # Timeliner #
 #############
 
-# module "TimelinerDatabaseBucket" {
-#   source = "./Minio"
+module "TimelinerDatabaseBucket" {
+  source = "./Minio"
 
-#   Connection = {
-#     Hostname = "http.minio.web.service.kjdev"
-#     Port = 9080
-#   }
+  Connection = {
+    Hostname = "http.minio.web.service.kjdev"
+    Port = 9080
+  }
 
-#   Credentials = module.Vault.Minio
-# }
+  Credentials = module.Vault.Minio
+}
 
 
 ###########
