@@ -86,6 +86,19 @@ job "network-monitoring-opennms-sentinel" {
         # OpenNMS Configuration
         #
         OPENNMS_HTTP_URL = "http://http.horizion.opennms.service.kjdev:8980/opennms"
+        OPENNMS_HTTP_USER = "admin"
+        OPENNMS_HTTP_PASS = "admin"
+
+        #
+        # Database
+        #
+        POSTGRES_HOST = "${OpenNMS.Database.Hostname}"
+        POSTGRES_PORT = "${OpenNMS.Database.Port}"
+
+        POSTGRES_DB = "${OpenNMS.Database.Database}"
+
+        POSTGRES_USER = "${OpenNMS.Database.Username}"
+        POSTGRES_PASSWORD = "${OpenNMS.Database.Password}"
 
         #
         # System

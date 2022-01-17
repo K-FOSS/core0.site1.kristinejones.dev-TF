@@ -54,6 +54,8 @@ locals {
       Tag = "bleeding"
     }
 
+    Database = var.Database
+
     Configs = {
       Auth = {
         HeaderAuth = file("${path.module}/Configs/OpenNMS/Auth/HeaderAuth.xml")
