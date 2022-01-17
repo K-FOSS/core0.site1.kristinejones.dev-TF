@@ -64,7 +64,7 @@
       }
     },
     "opennms": {
-      "bind": "0.0.0.0:9999",
+      "bind": "0.0.0.0:4729",
       "protocol": "udp",
       "backend_idle_timeout": "5s",
       "udp": {

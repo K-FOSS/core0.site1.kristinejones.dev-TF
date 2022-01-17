@@ -2,7 +2,7 @@ job "network-monitoring-opennms-minion" {
   datacenters = ["core0site1"]
 
   group "opennms-minion-server" {
-    count = 1
+    count = 3
 
     spread {
       attribute = "$${node.unique.id}"
@@ -17,7 +17,7 @@ job "network-monitoring-opennms-minion" {
       }
 
       port "flows" {
-        to = 9999
+        to = 4729
       }
     }
 
