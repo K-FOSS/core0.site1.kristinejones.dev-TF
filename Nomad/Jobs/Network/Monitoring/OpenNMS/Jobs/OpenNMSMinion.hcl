@@ -139,7 +139,7 @@ job "network-monitoring-opennms-minion" {
 
       template {
         data = <<EOF
-${OpenNMS.Configs.Minion.Config}
+${OpenNMS.Configs.MinionConfigs.Config}
 EOF
 
         destination = "local/Config.yaml"

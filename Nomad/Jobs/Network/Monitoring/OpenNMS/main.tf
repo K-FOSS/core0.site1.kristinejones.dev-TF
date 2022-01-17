@@ -57,7 +57,7 @@ locals {
     Database = var.Database
 
     Configs = {
-      Minion = {
+      MinionConfigs = {
         Config = file("${path.module}/Configs/OpenNMS/Minion/Config.yaml")
       }
       Auth = {
