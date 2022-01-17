@@ -65,7 +65,23 @@ locals {
         SpringContext = file("${path.module}/Configs/OpenNMS/Auth/applicationContext-spring-security.xml")
       }
 
-      Deploy = tomap({
+      Minion = tomap({
+        DNS = {
+          Path = "etc/org.opennms.features.dnsresolver.netty.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/DNS.cfg")
+        },
+      })
+
+      Sentinel = tomap({
+        DNS = {
+          Path = "etc/org.opennms.features.dnsresolver.netty.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/DNS.cfg")
+        },
+      })
+
+      Horizion = tomap({
         DNS = {
           Path = "etc/org.opennms.features.dnsresolver.netty.cfg"
 
@@ -90,6 +106,11 @@ locals {
           Path = "etc/poller-configuration.xml"
 
           File = file("${path.module}/Configs/OpenNMS/Deploy/PollerConfiguration.xml")
+        },
+        NetFlowListener = {
+          Path = "etc/org.opennms.features.telemetry.listeners-udp-4729.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Deploy/NetFlow9.cfg")
         },
         NetFlow = {
           Path = "etc/org.opennms.netmgt.telemetry.protocols.netflow.parser.Netflow9UdpParser.cfg"
@@ -165,8 +186,19 @@ locals {
 #
 # OpenNMS
 #
+
 resource "nomad_job" "OpenNMSHorizionJobFile" {
   jobspec = templatefile("${path.module}/Jobs/OpenNMSCoreServer.hcl", {
+    OpenNMS = local.OpenNMS
+  })
+}
+
+#
+# Sentinel
+# 
+
+resource "nomad_job" "OpenNMSSentinelJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/OpenNMSSentinel.hcl", {
     OpenNMS = local.OpenNMS
   })
 }

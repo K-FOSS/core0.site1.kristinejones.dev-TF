@@ -62,6 +62,16 @@
         "srv_lookup_server": "{{ env "NOMAD_IP_nodehttps" }}:8600",
         "srv_lookup_pattern": "http.minio.web.service.kjdev."
       }
+    },
+    "opennms": {
+      "bind": "0.0.0.0:9999",
+      "protocol": "tcp",
+      "discovery": {
+        "kind": "srv",
+        "interval": "10s",
+        "srv_lookup_server": "{{ env "NOMAD_IP_nodehttps" }}:8600",
+        "srv_lookup_pattern": "flows.minion.opennms.service.kjdev."
+      }
     }
   }
 }

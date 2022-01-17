@@ -15,22 +15,6 @@ job "network-monitoring-opennms-coreserver" {
       port "http" {
         to = 8980
       }
-
-      port "netflow" {
-        to = 4729
-
-        static = 4729
-
-        host_network = "node"
-      }
-
-      port "graphite" {
-        to = 2003
-      }
-
-      port "multi" {
-        to = 9999
-      }
     }
 
     service {
@@ -41,36 +25,6 @@ job "network-monitoring-opennms-coreserver" {
       address_mode = "alloc"
 
       tags = ["http.horizion"]
-    }
-
-    service {
-      name = "opennms"
-      port = "netflow"
-
-      task = "opennms-core-server"
-      address_mode = "alloc"
-
-      tags = ["netflow.horizion"]
-    }
-
-    service {
-      name = "opennms"
-      port = "graphite"
-
-      task = "opennms-core-server"
-      address_mode = "alloc"
-
-      tags = ["graphite.horizion"]
-    }
-
-    service {
-      name = "opennms"
-      port = "multi"
-
-      task = "opennms-core-server"
-      address_mode = "alloc"
-
-      tags = ["multi.horizion"]
     }
 
     task "opennms-core-server" {
@@ -106,7 +60,7 @@ job "network-monitoring-opennms-coreserver" {
           readonly = false
         }
 
-%{ for DeployFile in OpenNMS.Configs.Deploy ~}
+%{ for DeployFile in OpenNMS.Configs.Horizion ~}
         mount {
           type = "bind"
           target = "/opt/opennms-overlay/${DeployFile.Path}"
@@ -278,7 +232,7 @@ EOF
         perms = "777"
       }
 
-%{ for DeployFile in OpenNMS.Configs.Deploy ~}
+%{ for DeployFile in OpenNMS.Configs.Horizion ~}
       template {
         data = <<EOF
 ${DeployFile.File}

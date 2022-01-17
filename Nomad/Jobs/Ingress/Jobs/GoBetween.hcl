@@ -62,6 +62,14 @@ job "ingress-gobetween" {
         host_network = "https"
       }
 
+      port "flows" {
+        to = 9999
+        
+        static = 9999
+
+        host_network = "node"
+      }
+
       dns {
         servers = [
           "10.1.1.53",
@@ -78,7 +86,7 @@ job "ingress-gobetween" {
       task = "gobetween-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "api"]
+      tags = ["coredns.enabled", "api"]
     }
 
     service {
@@ -88,7 +96,7 @@ job "ingress-gobetween" {
       task = "gobetween-server"
       address_mode = "alloc"
 
-      tags = ["$${NOMAD_ALLOC_INDEX}", "coredns.enabled", "metrics"]
+      tags = ["coredns.enabled", "metrics"]
     }
 
     task "gobetween-server" {
