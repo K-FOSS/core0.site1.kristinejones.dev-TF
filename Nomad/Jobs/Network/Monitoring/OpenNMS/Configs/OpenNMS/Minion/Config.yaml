@@ -6,8 +6,6 @@ location: dc1
 ipc:
   kafka:
     boostrap.servers: 'http.kafka.service.kjdev:9092'
-    acks: 1
-    max.request.size: 5000000
 
 telemetry:
   flows:

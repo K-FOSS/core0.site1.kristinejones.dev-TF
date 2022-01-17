@@ -87,6 +87,13 @@ job "network-monitoring-opennms-minion" {
           readonly = false
         }
 
+        mount {
+          type = "bind"
+          target = "/opt/minion-etc-overlay/featuresBoot.d/disable-activemq.boot"
+          source = "local/Features/disable-activemq.boot"
+          readonly = false
+        }
+
 %{ for DeployFile in OpenNMS.Configs.Minion ~}
         mount {
           type = "bind"
@@ -143,6 +150,17 @@ ${OpenNMS.Configs.MinionConfigs.Config}
 EOF
 
         destination = "local/Config.yaml"
+
+        perms = "777"
+      }
+
+      template {
+        data = <<EOF
+!minion-jms
+!opennms-core-ipc-jms
+EOF
+
+        destination = "local/Features/disable-activemq.boot"
 
         perms = "777"
       }
