@@ -49,7 +49,13 @@ job "network-monitoring-opennms-minion" {
 
         args = ["-c"]
 
+        privileged = true
+
         memory_hard_limit = 2048
+
+        sysctl = {
+          "net.ipv4.ping_group_range" = "0 429496729"
+        }
 
         mount {
           type = "tmpfs"
@@ -113,10 +119,10 @@ job "network-monitoring-opennms-minion" {
         #
         # System
         #
-        MEM_TOTAL_MB = "2048"
+        #MEM_TOTAL_MB = "2048"
         JAVA_OPTS = "-Xms2048m -Xmx2048m -XX:+AlwaysPreTouch -XX:+UseG1GC -XX:+UseStringDeduplication"
 
-        MAX_FD = "65536"
+        #MAX_FD = "65536"
 
         #
         # Misc

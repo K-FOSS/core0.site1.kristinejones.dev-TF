@@ -35,6 +35,8 @@ job "network-monitoring-opennms-sentinel" {
 
         args = ["-c"]
 
+        privileged = true
+
         memory_hard_limit = 2048
 
         mount {
@@ -88,9 +90,9 @@ job "network-monitoring-opennms-sentinel" {
         #
         # System
         #
-        MAX_FD = "65536"
+        #MAX_FD = "65536"
 
-        MEM_TOTAL_MB = "2048"
+        #MEM_TOTAL_MB = "2048"
         #JAVA_OPTS = ""
 
         #
