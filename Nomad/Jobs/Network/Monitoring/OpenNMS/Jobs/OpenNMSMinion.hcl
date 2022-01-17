@@ -112,15 +112,15 @@ job "network-monitoring-opennms-minion" {
         # Minion Settings
         #
 
-        #MINION_ID = ""
+        MINION_ID = "$${NOMAD_ALLOC_NAME}"
         MINION_LOCATION = "dc1"
 
 
         #
         # System
         #
-        #MEM_TOTAL_MB = "2048"
-        #JAVA_OPTS = "-Xms2048m -Xmx2048m -XX:+AlwaysPreTouch -XX:+UseG1GC -XX:+UseStringDeduplication"
+        MEM_TOTAL_MB = "2048"
+        JAVA_OPTS = "-Xms2048m -Xmx2048m -XX:+AlwaysPreTouch -XX:+UseG1GC -XX:+UseStringDeduplication"
 
         #MAX_FD = "65536"
 
