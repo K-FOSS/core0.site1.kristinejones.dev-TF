@@ -63,9 +63,9 @@ job "ingress-gobetween" {
       }
 
       port "flows" {
-        to = 9999
+        to = 4729
         
-        static = 9999
+        static = 4729
 
         host_network = "node"
       }
