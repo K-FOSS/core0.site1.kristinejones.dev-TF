@@ -1,4 +1,4 @@
-job "network-monitoring-opennms-nephron" {
+job "network-monitoring-opennms-sentinel" {
   datacenters = ["core0site1"]
 
   group "opennms-sentinel-server" {
@@ -59,6 +59,15 @@ job "network-monitoring-opennms-nephron" {
           readonly = false
         }
 %{ endfor ~}
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=opennms,service=sentinel"
+          }
+        }
       }
 
       env {

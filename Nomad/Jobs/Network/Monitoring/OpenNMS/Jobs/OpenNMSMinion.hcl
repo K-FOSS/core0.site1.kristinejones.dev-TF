@@ -73,6 +73,15 @@ job "network-monitoring-opennms-minion" {
           readonly = false
         }
 %{ endfor ~}
+
+        logging {
+          type = "loki"
+          config {
+            loki-url = "http://http.distributor.loki.service.kjdev:8080/loki/api/v1/push"
+
+            loki-external-labels = "job=opennms,service=minion"
+          }
+        }
       }
 
       env {
