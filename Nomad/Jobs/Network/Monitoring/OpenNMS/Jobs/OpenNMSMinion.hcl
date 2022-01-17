@@ -94,6 +94,13 @@ job "network-monitoring-opennms-minion" {
           readonly = false
         }
 
+        mount {
+          type = "bind"
+          target = "/opt/minion-etc-overlay/featuresBoot.d/kafka.boot"
+          source = "local/Features/kafka.boot"
+          readonly = false
+        }
+
 %{ for DeployFile in OpenNMS.Configs.Minion ~}
         mount {
           type = "bind"
@@ -161,6 +168,16 @@ EOF
 EOF
 
         destination = "local/Features/disable-activemq.boot"
+
+        perms = "777"
+      }
+
+      template {
+        data = <<EOF
+opennms-core-ipc-kafka
+EOF
+
+        destination = "local/Features/kafka.boot"
 
         perms = "777"
       }
