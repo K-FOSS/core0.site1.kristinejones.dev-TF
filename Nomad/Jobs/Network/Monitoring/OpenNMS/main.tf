@@ -84,7 +84,7 @@ locals {
         KafkaIPC = {
           Path = "org.opennms.core.ipc.sink.kafka.cfg"
 
-          File = file("${path.module}/Configs/OpenNMS/Minion/KafkaIPC.cfg")
+          File = file("${path.module}/Configs/OpenNMS/Minion/KafkaSink.cfg")
         },
         KafkaSink = {
           Path = "org.opennms.core.ipc.rpc.kafka.cfg"
