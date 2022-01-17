@@ -83,11 +83,6 @@ locals {
 
           File = file("${path.module}/Configs/OpenNMS/Minion/SinglePort.cfg")
         },
-        Netflow9 = {
-          Path = "org.opennms.features.telemetry.listeners-udp-4729.cfg"
-
-          File = file("${path.module}/Configs/OpenNMS/Minion/Netflow9.cfg")
-        },
         KafkaIPC = {
           Path = "org.opennms.core.ipc.sink.kafka.cfg"
 
