@@ -1,7 +1,3 @@
-http-url: http://http.horizion.opennms.service.kjdev:8980/opennms
-id: '{{ env "NOMAD_ALLOC_NAME" }}'
-location: dc1
-
 ipc:
   kafka:
     boostrap.servers: 'http.kafka.service.kjdev:9092'

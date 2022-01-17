@@ -132,8 +132,6 @@ job "network-monitoring-opennms-minion" {
         #
         # Minion Settings
         #
-
-        MINION_ID = "$${NOMAD_ALLOC_NAME}"
         MINION_LOCATION = "dc1"
 
 
