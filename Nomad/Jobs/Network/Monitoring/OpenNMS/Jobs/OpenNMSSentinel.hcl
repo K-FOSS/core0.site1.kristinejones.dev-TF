@@ -33,7 +33,7 @@ job "network-monitoring-opennms-sentinel" {
       config {
         image = "${OpenNMS.Image.Repo}/sentinel:${OpenNMS.Image.Tag}"
 
-        args = ["-c"]
+        args = ["-c", "-f"]
 
         privileged = true
 

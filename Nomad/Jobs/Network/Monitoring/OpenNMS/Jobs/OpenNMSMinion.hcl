@@ -13,11 +13,15 @@ job "network-monitoring-opennms-minion" {
       mode = "cni/nomadcore1"
 
       port "http" {
-        to = 8980
+        to = 8080
       }
 
       port "flows" {
-        to = 4729
+        to = 9999
+      }
+
+      port "shell" {
+        to = 8201
       }
     }
 
@@ -40,6 +44,16 @@ job "network-monitoring-opennms-minion" {
 
       tags = ["flows.minion"]
     }
+
+    service {
+      name = "opennms"
+      port = "shell"
+
+      task = "opennms-minion-server"
+      address_mode = "alloc"
+
+      tags = ["shell.minion"]
+    }
     
     task "opennms-minion-server" {
       driver = "docker"
@@ -47,7 +61,7 @@ job "network-monitoring-opennms-minion" {
       config {
         image = "${OpenNMS.Image.Repo}/minion:${OpenNMS.Image.Tag}"
 
-        args = ["-c"]
+        args = ["-c", "-f"]
 
         privileged = true
 
@@ -68,15 +82,8 @@ job "network-monitoring-opennms-minion" {
 
         mount {
           type = "bind"
-          target = "/opt/minion-etc-overlay/featuresBoot.d/kafka.boot"
-          source = "local/Plugins/kafka.boot"
-          readonly = false
-        }
-
-        mount {
-          type = "bind"
-          target = "/opt/minion-etc-overlay/featuresBoot.d/jaeger.boot"
-          source = "local/Plugins/jaeger.boot"
+          target = "/opt/minion/minion-config.yaml"
+          source = "local/Config.yaml"
           readonly = false
         }
 
@@ -132,28 +139,10 @@ job "network-monitoring-opennms-minion" {
 
       template {
         data = <<EOF
-!minion-jms
-!opennms-core-ipc-sink-camel
-!opennms-core-ipc-rpc-jms
-opennms-core-ipc-sink-kafka
-opennms-core-ipc-rpc-kafka
+${OpenNMS.Configs.Minion.Config}
 EOF
 
-        destination = "local/Plugins/kafka.boot"
-
-        perms = "777"
-      }
-
-      template {
-        data = <<EOF
-!minion-jms
-!opennms-core-ipc-sink-camel
-!opennms-core-ipc-rpc-jms
-opennms-core-ipc-sink-kafka
-opennms-core-ipc-rpc-kafka
-EOF
-
-        destination = "local/Plugins/jaeger.boot"
+        destination = "local/Config.yaml"
 
         perms = "777"
       }

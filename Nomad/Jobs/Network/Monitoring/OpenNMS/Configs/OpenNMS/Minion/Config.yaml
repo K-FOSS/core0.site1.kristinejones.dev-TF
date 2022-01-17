@@ -1,0 +1,35 @@
+broker-url:
+http-url:
+id: '{{ env "NOMAD_ALLOC_NAME" }}'
+location: dc1
+
+ipc:
+  kafka:
+    boostrap.servers: 'http.kafka.service.kjdev:9092'
+    acks: 1
+    max.request.size: 5000000
+
+telemetry:
+  flows:
+    single-port-listener:
+      # Set to true to add single port listener config, omit or set to false to disable
+      enabled: true
+      # Parameters can be optionally provided
+      parameters:
+        # This translates to parameters.port=50000 in the generated config
+        port: 9999
+
+netmgt:
+  syslog:
+    syslog.listen.interface: '0.0.0.0'
+    syslog.listen.port: 1514
+
+system:
+  properties:
+    jaeger-agent-host: http.distributor.tempo.service.kjdev
+    org.opennms.snmp.snmp4j.allowSNMPv2InV1: true
+
+jetty:
+  web:
+    host: '0.0.0.0'
+    port: 8080
