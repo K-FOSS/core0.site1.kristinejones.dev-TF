@@ -57,6 +57,9 @@ locals {
     Database = var.Database
 
     Configs = {
+      Minion = {
+        Config = file("${path.module}/Configs/OpenNMS/Minion/Config.yaml")
+      }
       Auth = {
         HeaderAuth = file("${path.module}/Configs/OpenNMS/Auth/HeaderAuth.xml")
 
@@ -77,26 +80,6 @@ locals {
           Path = "org.opennms.features.dnsresolver.netty.cfg"
 
           File = file("${path.module}/Configs/OpenNMS/Deploy/DNS.cfg")
-        },
-        Netflow9 = {
-          Path = "org.opennms.features.telemetry.listeners-udp-4729.cfg"
-
-          File = file("${path.module}/Configs/OpenNMS/Minion/Netflow9.cfg")
-        },
-        KafkaIPC = {
-          Path = "org.opennms.core.ipc.sink.kafka.cfg"
-
-          File = file("${path.module}/Configs/OpenNMS/Minion/KafkaSink.cfg")
-        },
-        KafkaSink = {
-          Path = "org.opennms.core.ipc.rpc.kafka.cfg"
-
-          File = file("${path.module}/Configs/OpenNMS/Minion/KafkaRPCIPC.cfg")
-        },
-        OffheapSink = {
-          Path = "org.opennms.core.ipc.sink.offheap.cfg"
-
-          File = file("${path.module}/Configs/OpenNMS/Minion/OffheapSink.cfg")
         }
       })
 
