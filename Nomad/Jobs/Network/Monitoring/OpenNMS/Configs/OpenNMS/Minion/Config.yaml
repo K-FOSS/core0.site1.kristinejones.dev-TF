@@ -33,3 +33,17 @@ jetty:
   web:
     host: '0.0.0.0'
     port: 8080
+
+karaf:
+  shell:
+    ssh:
+      host: '0.0.0.0'
+      port: 8201
+  management:
+    rmi:
+      registry:
+        host: '127.0.0.1'
+        port: 1299
+      server:
+        host: '127.0.0.1'
+        port: 45444
