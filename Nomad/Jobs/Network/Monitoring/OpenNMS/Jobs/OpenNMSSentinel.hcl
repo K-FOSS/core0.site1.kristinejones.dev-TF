@@ -37,7 +37,7 @@ job "network-monitoring-opennms-sentinel" {
 
         privileged = true
 
-        memory_hard_limit = 2048
+        memory_hard_limit = 4096
 
         mount {
           type = "tmpfs"
@@ -169,8 +169,8 @@ EOF
       resources {
         cpu = 512
 
-        memory = 512
-        memory_max = 2048
+        memory = 2048
+        memory_max = 4096
       }
     }
   }
