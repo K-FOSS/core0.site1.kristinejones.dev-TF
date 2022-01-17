@@ -65,7 +65,11 @@
     },
     "opennms": {
       "bind": "0.0.0.0:9999",
-      "protocol": "tcp",
+      "protocol": "udp",
+      "backend_idle_timeout": "5s",
+      "udp": {
+        "max_requests": 32
+      },
       "discovery": {
         "kind": "srv",
         "interval": "10s",
