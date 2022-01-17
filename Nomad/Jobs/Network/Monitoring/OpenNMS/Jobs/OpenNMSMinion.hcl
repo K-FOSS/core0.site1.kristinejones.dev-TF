@@ -51,7 +51,7 @@ job "network-monitoring-opennms-minion" {
 
         privileged = true
 
-        memory_hard_limit = 2048
+        memory_hard_limit = 4096
 
         sysctl = {
           "net.ipv4.ping_group_range" = "0 429496729"
@@ -173,8 +173,8 @@ EOF
       resources {
         cpu = 512
 
-        memory = 512
-        memory_max = 2048
+        memory = 2048
+        memory_max = 4096
       }
     }
   }
