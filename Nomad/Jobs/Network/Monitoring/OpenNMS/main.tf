@@ -77,7 +77,7 @@ locals {
           File = file("${path.module}/Configs/OpenNMS/Deploy/DNS.cfg")
         },
         SinglePort = {
-          Path = "org.opennms.features.dnsresolver.netty.cfg"
+          Path = "/org.opennms.features.telemetry.listeners-udp-9999.cfg"
 
           File = file("${path.module}/Configs/OpenNMS/Minion/SinglePort.cfg")
         },
@@ -110,7 +110,7 @@ locals {
           File = file("${path.module}/Configs/OpenNMS/Sentinel/CustomSystemProperties.cfg")          
         },
         ElasticSearch = {
-          Path = "custom.system.properties"
+          Path = "org.opennms.features.flows.persistence.elastic.cfg"
 
           File = file("${path.module}/Configs/OpenNMS/Sentinel/ElasticSearch.cfg")          
         },
