@@ -50,14 +50,107 @@ job "network-monitoring-opennms-minion" {
         args = ["-s"]
 
         memory_hard_limit = 2048
+
+        mount {
+          type = "bind"
+          target = "/opt/minion-etc-overlay/featuresBoot.d/kafka.boot"
+          source = "local/Plugins/kafka.boot"
+          readonly = false
+        }
+
+        mount {
+          type = "bind"
+          target = "/opt/minion-etc-overlay/featuresBoot.d/jaeger.boot"
+          source = "local/Plugins/jaeger.boot"
+          readonly = false
+        }
+
+%{ for DeployFile in OpenNMS.Configs.Minion ~}
+        mount {
+          type = "bind"
+          target = "/opt/minion-etc-overlay/${DeployFile.Path}"
+          source = "local/deploy/${DeployFile.Path}"
+          readonly = false
+        }
+%{ endfor ~}
       }
 
       env {
         #
         # OpenNMS
         #
-        OPENNMS_HTTP_URL = ""
+        OPENNMS_HTTP_URL = "http://http.horizion.opennms.service.kjdev:8980/opennms"
 
+        OPENNMS_HTTP_USER = "admin"
+        OPENNMS_HTTP_PASS = "admin"
+
+        #
+        # Minion Settings
+        #
+
+        MINION_ID = ""
+        MINION_LOCATION = "dc1"
+
+
+        #
+        # System
+        #
+        MEM_TOTAL_MB = "2048"
+        JAVA_OPTS = "-Xms2048m -Xmx2048m -XX:+AlwaysPreTouch -XX:+UseG1GC -XX:+UseStringDeduplication"
+
+        MAX_FD = "65536"
+
+        #
+        # Misc
+        #
+        TZ = "America/Winnipeg"
+      }
+
+      template {
+        data = <<EOF
+!minion-jms
+!opennms-core-ipc-sink-camel
+!opennms-core-ipc-rpc-jms
+opennms-core-ipc-sink-kafka
+opennms-core-ipc-rpc-kafka
+EOF
+
+        destination = "local/Plugins/kafka.boot"
+
+        perms = "777"
+      }
+
+      template {
+        data = <<EOF
+!minion-jms
+!opennms-core-ipc-sink-camel
+!opennms-core-ipc-rpc-jms
+opennms-core-ipc-sink-kafka
+opennms-core-ipc-rpc-kafka
+EOF
+
+        destination = "local/Plugins/jaeger.boot"
+
+        perms = "777"
+      }
+
+%{ for DeployFile in OpenNMS.Configs.Minion ~}
+      template {
+        data = <<EOF
+${DeployFile.File}
+EOF
+
+        destination = "local/deploy/${DeployFile.Path}"
+
+        perms = "777"
+      }
+%{ endfor ~}
+
+      resources {
+        cpu = 512
+
+        memory = 512
+        memory_max = 2048
       }
     }
   }

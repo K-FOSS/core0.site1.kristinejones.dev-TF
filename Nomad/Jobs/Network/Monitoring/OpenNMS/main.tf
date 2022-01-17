@@ -66,16 +66,41 @@ locals {
       }
 
       Minion = tomap({
+        CustomSystemProperties = {
+          Path = "custom.system.properties"
+
+          File = file("${path.module}/Configs/OpenNMS/Minion/CustomSystemProperties.cfg")          
+        },
         DNS = {
-          Path = "etc/org.opennms.features.dnsresolver.netty.cfg"
+          Path = "org.opennms.features.dnsresolver.netty.cfg"
 
           File = file("${path.module}/Configs/OpenNMS/Deploy/DNS.cfg")
         },
+        SinglePort = {
+          Path = "org.opennms.features.dnsresolver.netty.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Minion/SinglePort.cfg")
+        },
+        KafkaIPC = {
+          Path = "org.opennms.core.ipc.sink.kafka.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Minion/KafkaIPC.cfg")
+        },
+        KafkaSink = {
+          Path = "org.opennms.core.ipc.rpc.kafka.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Minion/KafkaRPCIPC.cfg")
+        },
+        OffheapSink = {
+          Path = "org.opennms.core.ipc.sink.offheap.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Minion/OffheapSink.cfg")
+        }
       })
 
       Sentinel = tomap({
         DNS = {
-          Path = "etc/org.opennms.features.dnsresolver.netty.cfg"
+          Path = "org.opennms.features.dnsresolver.netty.cfg"
 
           File = file("${path.module}/Configs/OpenNMS/Deploy/DNS.cfg")
         },
@@ -199,6 +224,16 @@ resource "nomad_job" "OpenNMSHorizionJobFile" {
 
 resource "nomad_job" "OpenNMSSentinelJobFile" {
   jobspec = templatefile("${path.module}/Jobs/OpenNMSSentinel.hcl", {
+    OpenNMS = local.OpenNMS
+  })
+}
+
+#
+# Minion
+#
+
+resource "nomad_job" "OpenNMSMinionJobFile" {
+  jobspec = templatefile("${path.module}/Jobs/OpenNMSMinion.hcl", {
     OpenNMS = local.OpenNMS
   })
 }

@@ -13,7 +13,7 @@ job "network-monitoring-opennms-nephron" {
       mode = "cni/nomadcore1"
 
       port "http" {
-        to = 8980
+        to = 8181
       }
     }
 
@@ -36,9 +36,21 @@ job "network-monitoring-opennms-nephron" {
         args = ["-s"]
 
         memory_hard_limit = 2048
+
+%{ for DeployFile in OpenNMS.Configs.Sentinel ~}
+        mount {
+          type = "bind"
+          target = "/opt/sentinel-etc-overlay/${DeployFile.Path}"
+          source = "local/deploy/${DeployFile.Path}"
+          readonly = false
+        }
+%{ endfor ~}
       }
 
       env {
+        #
+        # OpenNMS Configuration
+        #
         OPENNMS_HTTP_URL = "http://http.horizion.opennms.service.kjdev:8980/opennms"
 
         #
@@ -50,10 +62,23 @@ job "network-monitoring-opennms-nephron" {
         #JAVA_OPTS = ""
 
         #
+        # Sentinel
         #
-        #
-        SENTINEL_LOCATION = "$${NOMAD_ALLOC_NAME}"
+        SENTINEL_LOCATION = "dc1"
+        SENTINEL_ID = "$${NOMAD_ALLOC_NAME}"
       }
+
+%{ for DeployFile in OpenNMS.Configs.Sentinel ~}
+      template {
+        data = <<EOF
+${DeployFile.File}
+EOF
+
+        destination = "local/deploy/${DeployFile.Path}"
+
+        perms = "777"
+      }
+%{ endfor ~}
 
       resources {
         cpu = 512

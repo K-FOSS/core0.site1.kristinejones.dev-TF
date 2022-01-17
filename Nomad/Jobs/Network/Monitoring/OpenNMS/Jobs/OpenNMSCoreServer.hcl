@@ -140,12 +140,15 @@ job "network-monitoring-opennms-coreserver" {
         # System
         #
         OPENNMS_INSTANCE_ID = "$${NOMAD_ALLOC_NAME}"
+        INSTANCE_ID = "$${NOMAD_ALLOC_NAME}"
+
+        MEM_TOTAL_MB = "8000"
+        #JAVA_OPTS = "-Xms$(MEM_TOTAL_MB)m -Xmx$(MEM_TOTAL_MB)m -XX:+AlwaysPreTouch -XX:+UseG1GC -XX:+UseStringDeduplication -Xlog:gc*,gc+phases=debug:file=/opt/opennms/logs/gc.log:time,pid,tags:filecount=10,filesize=10m -Dcom.sun.management.jmxremote.port=$(JMX_PORT) -Dcom.sun.management.jmxremote.rmi.port=$(JMX_PORT) -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=true"
+
         #
         # Misc
         #
         TZ = "America/Winnipeg"
-
-
       }
 
       template {
