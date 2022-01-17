@@ -112,8 +112,9 @@ job "network-monitoring-opennms-sentinel" {
         #
         #MAX_FD = "65536"
 
-        #MEM_TOTAL_MB = "2048"
-        #JAVA_OPTS = ""
+        MEM_TOTAL_MB = "2048"
+
+        JAVA_OPTS = "-Xms2048m -Xmx2048m -XX:+AlwaysPreTouch -XX:+UseG1GC -XX:+UseStringDeduplication -Dcom.datastax.driver.FORCE_NIO=true"
 
         #
         # Sentinel
