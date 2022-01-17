@@ -104,6 +104,36 @@ locals {
 
           File = file("${path.module}/Configs/OpenNMS/Deploy/DNS.cfg")
         },
+        CustomSystemProperties = {
+          Path = "custom.system.properties"
+
+          File = file("${path.module}/Configs/OpenNMS/Sentinel/CustomSystemProperties.cfg")          
+        },
+        ElasticSearch = {
+          Path = "custom.system.properties"
+
+          File = file("${path.module}/Configs/OpenNMS/Sentinel/ElasticSearch.cfg")          
+        },
+        Netflow9 = {
+          Path = "org.opennms.features.telemetry.adapters-netflow9.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Sentinel/Netflow9.cfg")          
+        },
+        Netflow5 = {
+          Path = "org.opennms.features.telemetry.adapters-netflow5.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Sentinel/Netflow5.cfg")          
+        },
+        SFlow = {
+          Path = "org.opennms.features.telemetry.adapters-sflow.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Sentinel/SFlow.cfg")          
+        },
+        IPFix = {
+          Path = "org.opennms.features.telemetry.adapters-ipfix.cfg"
+
+          File = file("${path.module}/Configs/OpenNMS/Sentinel/IPFix.cfg")          
+        },
       })
 
       Horizion = tomap({

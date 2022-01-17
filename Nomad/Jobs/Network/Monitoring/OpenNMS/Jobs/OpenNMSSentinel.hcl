@@ -37,6 +37,20 @@ job "network-monitoring-opennms-nephron" {
 
         memory_hard_limit = 2048
 
+        mount {
+          type = "bind"
+          target = "/opt/sentinel-etc-overlay/persistence.boot"
+          source = "local/Features/persistence.boot"
+          readonly = false
+        }
+
+        mount {
+          type = "bind"
+          target = "/opt/sentinel-etc-overlay/flows.boot"
+          source = "local/Features/flows.boot"
+          readonly = false
+        }
+
 %{ for DeployFile in OpenNMS.Configs.Sentinel ~}
         mount {
           type = "bind"
@@ -66,6 +80,27 @@ job "network-monitoring-opennms-nephron" {
         #
         SENTINEL_LOCATION = "dc1"
         SENTINEL_ID = "$${NOMAD_ALLOC_NAME}"
+      }
+
+      template {
+        data = <<EOF
+sentinel-persistence
+sentinel-jsonstore-postgres
+EOF
+
+        destination = "local/Features/persistence.boot"
+
+        perms = "777"
+      }
+
+      template {
+        data = <<EOF
+sentinel-flows
+EOF
+
+        destination = "local/Features/flows.boot"
+
+        perms = "777"
       }
 
 %{ for DeployFile in OpenNMS.Configs.Sentinel ~}
