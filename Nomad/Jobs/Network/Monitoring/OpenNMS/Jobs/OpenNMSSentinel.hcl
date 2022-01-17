@@ -50,15 +50,22 @@ job "network-monitoring-opennms-sentinel" {
 
         mount {
           type = "bind"
-          target = "/opt/sentinel-etc-overlay/persistence.boot"
+          target = "/opt/sentinel-etc-overlay/featuresBoot.d/persistence.boot"
           source = "local/Features/persistence.boot"
           readonly = false
         }
 
         mount {
           type = "bind"
-          target = "/opt/sentinel-etc-overlay/flows.boot"
+          target = "/opt/sentinel-etc-overlay/featuresBoot.d/flows.boot"
           source = "local/Features/flows.boot"
+          readonly = false
+        }
+
+        mount {
+          type = "bind"
+          target = "/opt/sentinel-etc-overlay/featuresBoot.d/kafka.boot"
+          source = "local/Features/kafka.boot"
           readonly = false
         }
 
@@ -119,6 +126,7 @@ job "network-monitoring-opennms-sentinel" {
         data = <<EOF
 sentinel-persistence
 sentinel-jsonstore-postgres
+sentinel-blobstore-noop
 EOF
 
         destination = "local/Features/persistence.boot"
@@ -132,6 +140,16 @@ sentinel-flows
 EOF
 
         destination = "local/Features/flows.boot"
+
+        perms = "777"
+      }
+
+      template {
+        data = <<EOF
+sentinel-kafka
+EOF
+
+        destination = "local/Features/kafka.boot"
 
         perms = "777"
       }
