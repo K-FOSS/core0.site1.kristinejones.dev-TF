@@ -33,9 +33,18 @@ job "network-monitoring-opennms-sentinel" {
       config {
         image = "${OpenNMS.Image.Repo}/sentinel:${OpenNMS.Image.Tag}"
 
-        args = ["-s"]
+        args = ["-c"]
 
         memory_hard_limit = 2048
+
+        mount {
+          type = "tmpfs"
+          target = "/opt/sentinel-etc-overlay"
+          readonly = false
+          tmpfs_options = {
+            size = 124000000
+          }
+        }
 
         mount {
           type = "bind"
